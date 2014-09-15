@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 6, 2014 5:51:12 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tl.sys.user.Bankcard" table="bankcard">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="userId" type="java.lang.Integer">
+            <column name="userID">
+            </column>
+        </property>
+        <property name="userName" type="string">
+            <column name="userName">
+            </column>
+        </property>
+        <property name="bankName" type="string">
+            <column name="bankName">
+            </column>
+        </property>
+        <property name="openingBank" type="string">
+            <column name="openingBank">
+            </column>
+        </property>
+        <property name="bankNum" type="string">
+            <column name="bankNum" length="50">
+            </column>
+        </property>
+        <property name="authCode" type="string">
+            <column name="authCode" length="50">
+            </column>
+        </property>
+        <property name="isBound" type="java.lang.Integer">
+            <column name="isBound">
+            </column>
+        </property>
+        <property name="createTime" type="timestamp">
+            <column name="createTime" length="19" not-null="true">
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

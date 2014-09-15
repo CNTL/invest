@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2014-9-9 23:05:48 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tl.invest.proj.Project" table="invest_project">
+        <id name="id" type="long">
+            <column name="proj_id" />
+            <generator class="assigned" />
+        </id>
+        <property name="created" type="timestamp">
+            <column name="proj_created" length="0" not-null="true" />
+        </property>
+        <property name="lastModified" type="timestamp">
+            <column name="proj_lastModified" length="0" not-null="true" />
+        </property>
+        <property name="deleted" type="short">
+            <column name="proj_deleted" not-null="true" />
+        </property>
+        <property name="approveStatus" type="short">
+            <column name="proj_approveStatus" not-null="true" />
+        </property>
+        <property name="approveUser" type="int">
+            <column name="proj_approveUser" not-null="true" />
+        </property>
+        <property name="approveTime" type="timestamp">
+            <column name="proj_approveTime" length="0" />
+        </property>
+        <property name="status" type="int">
+            <column name="proj_status" not-null="true" />
+        </property>
+        <property name="locktime" type="timestamp">
+            <column name="proj_locktime" length="0" />
+        </property>
+        <property name="pid" type="long">
+            <column name="proj_pid" not-null="true" />
+        </property>
+        <property name="name" type="string">
+            <column name="proj_name" not-null="true" />
+        </property>
+        <property name="userId" type="int">
+            <column name="proj_userID" not-null="true" />
+        </property>
+        <property name="type" type="int">
+            <column name="proj_type" not-null="true" />
+        </property>
+        <property name="timeType" type="int">
+            <column name="proj_timeType" not-null="true" />
+        </property>
+        <property name="countDay" type="int">
+            <column name="proj_countDay" not-null="true" />
+        </property>
+        <property name="beginDate" type="date">
+            <column name="proj_beginDate" length="0" />
+        </property>
+        <property name="endDate" type="date">
+            <column name="proj_endDate" length="0" />
+        </property>
+		<property name="imgUrl" type="string">
+			<column name="proj_imgURL" length="2014" />
+		</property>
+        <property name="videoUrl" type="string">
+            <column name="proj_videoURL" length="2048" />
+        </property>
+        <property name="summary" type="string">
+            <column name="proj_summary" length="2000" />
+        </property>
+		<property name="content" type="string">
+            <column name="proj_content" length="65535" />
+        </property>
+        <property name="amountGoal" type="big_decimal">
+            <column name="proj_amountGoal" precision="10" not-null="true" />
+        </property>
+        <property name="amountRaised" type="big_decimal">
+            <column name="proj_amountRaised" precision="10" not-null="true" />
+        </property>
+        <property name="amountPaid" type="big_decimal">
+            <column name="proj_amountPaid" precision="10" not-null="true" />
+        </property>
+        <property name="countLove" type="int">
+            <column name="proj_countLove" not-null="true" />
+        </property>
+		<property name="countView" type="int">
+            <column name="proj_countView" not-null="true" />
+        </property>
+		<property name="countSubject" type="int">
+            <column name="proj_countSubject" not-null="true" />
+        </property>
+		<property name="countSupport" type="int">
+            <column name="proj_countSupport" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

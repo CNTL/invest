@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	<!-- ========================= VIEW DEFINITIONS ========================= -->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"><value>org.springframework.web.servlet.view.JstlView</value></property>
+		<property name="prefix"><value>/</value></property>
+		<property name="suffix"><value>.jsp</value></property>
+	</bean>
+	<!--===ContextAware=-->
+	<bean id="ContextAware" class="com.tl.kernel.context.ContextAware" init-method="setToContext"/>
+	
+	<!-- 系统用户管理 -->
+	<bean id="SysuserManager" class="com.tl.sys.sysuser.SysuserManager"/>
+	<bean id="sys.sysuser" class="com.tl.sys.sysuser.SysuserController">
+		<property name="sysuserManager"><ref bean="SysuserManager"/></property>
+	</bean>
+	<bean id="sys.Login" class="com.tl.sys.sysuser.LoginController">
+		<property name="sysuserManager"><ref bean="SysuserManager"/></property>
+	</bean>
+	<bean id="sys.Logout" class="com.tl.sys.sysuser.LogoutController"></bean>
+	
+	<bean id="SysParamManager" class="com.tl.sys.param.SysParamManager"/>
+	
+	<bean id="sys.Param" class="com.tl.sys.param.SysParamController">
+		<property name="sysParamManager"><ref bean="SysParamManager"/></property>
+	</bean>
+	
+	<!-- 用户管理 -->
+	<bean id="UserManager" class="com.tl.sys.user.UserManager"/>
+	<bean id="user.User" class="com.tl.sys.user.UserController">
+		<property name="userManager"><ref bean="UserManager"/></property>
+		<property name="bankcardManager"><ref bean="BankcardManager"/></property>
+	</bean>
+	<bean id="user.Login" class="com.tl.sys.user.UserLoginController">
+		<property name="manager"><ref bean="UserManager"/></property>
+	</bean>
+	
+	<bean id="BankcardManager" class="com.tl.sys.user.BankcardManager"/>
+	<bean id="WorksManager" class="com.tl.sys.user.WorksManager"/>
+	 <!--============ 4. web =============== -->
+	<bean id="appUrl" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="order"><value>3</value></property>
+		<property name="mappings">
+			<props>
+				<!-- 系统用户管理 -->
+				<prop key="/admin/sysuser.do">sys.sysuser</prop>
+				<!-- 用户管理 -->
+				<prop key="/user/user.do">user.User</prop>
+				<prop key="/user/userlogin.do">user.Login</prop>
+				<!-- <prop key="/user/userlogout.do">user.Logout</prop> -->
+				<!-- 用户登录 -->
+				<prop key="/admin/syslogin.do">sys.Login</prop>
+				<!-- 用户登出-->
+				<prop key="/admin/syslogout.do">sys.Logout</prop>
+				<!-- 系统参数 -->
+				<prop key="/admin/sysParam.do">sys.Param</prop>
+
+			</props>
+		</property>
+	</bean>
+</beans>

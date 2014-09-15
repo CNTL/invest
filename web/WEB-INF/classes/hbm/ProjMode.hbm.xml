@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2014-9-9 23:05:48 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tl.invest.proj.ProjMode" table="invest_projmode">
+        <id name="id" type="long">
+            <column name="mode_id" />
+            <generator class="assigned" />
+        </id>
+        <property name="projId" type="long">
+            <column name="mode_projID" not-null="true" />
+        </property>
+        <property name="name" type="string">
+            <column name="mode_name" />
+        </property>
+        <property name="price" type="big_decimal">
+            <column name="mode_price" precision="10" not-null="true" />
+        </property>
+        <property name="countGoal" type="int">
+            <column name="mode_countGoal" not-null="true" />
+        </property>
+		<property name="imgURL" type="string">
+            <column name="mode_imgURL" length="512" />
+        </property>
+        <property name="returnContent" type="string">
+            <column name="mode_return" length="4000" />
+        </property>
+        <property name="returntime" type="string">
+            <column name="mode_returntime" />
+        </property>
+        <property name="freight" type="big_decimal">
+            <column name="mode_freight" precision="10" not-null="true"/>
+        </property>
+        <property name="deleted" type="int">
+            <column name="mode_deleted" not-null="true" />
+        </property>
+        <property name="status" type="int">
+            <column name="mode_status" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

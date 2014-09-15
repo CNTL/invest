@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2014-9-9 23:05:48 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tl.invest.proj.ProjSubject" table="invest_projsubject">
+        <id name="id" type="long">
+            <column name="subj_id" />
+            <generator class="assigned" />
+        </id>
+        <property name="tId" type="long">
+            <column name="subj_tid" not-null="true" />
+        </property>
+        <property name="pId" type="long">
+            <column name="subj_pid" not-null="true" />
+        </property>
+        <property name="projId" type="long">
+            <column name="subj_projID" not-null="true" />
+        </property>
+        <property name="created" type="timestamp">
+            <column name="subj_created" length="0" />
+        </property>
+        <property name="deleted" type="int">
+            <column name="subj_deleted" not-null="true" />
+        </property>
+        <property name="status" type="int">
+            <column name="subj_status" not-null="true" />
+        </property>
+        <property name="approveMsg" type="string">
+            <column name="subj_approveMsg" length="1000" />
+        </property>
+        <property name="userId" type="int">
+            <column name="subj_userid" not-null="true" />
+        </property>
+        <property name="title" type="string">
+            <column name="subj_title" length="255" />
+        </property>
+        <property name="content" type="string">
+            <column name="subj_content" length="65535" />
+        </property>
+        <property name="countComment" type="int">
+            <column name="subj_countComment" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

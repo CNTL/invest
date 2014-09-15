@@ -1,0 +1,1 @@
+<%@ include file="./BareIncludeTag.jsp"%>

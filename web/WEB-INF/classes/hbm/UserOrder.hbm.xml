@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2014-9-9 23:05:48 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tl.invest.proj.UserOrder" table="user_order">
+        <id name="id" type="long">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="pId" type="long">
+            <column name="pid" not-null="true" />
+        </property>
+        <property name="orderSN" type="string">
+            <column name="orderSN" />
+        </property>
+        <property name="paySN" type="string">
+            <column name="paySN" />
+        </property>
+        <property name="userId" type="int">
+            <column name="userID" not-null="true" />
+        </property>
+        <property name="orderType" type="int">
+            <column name="orderType" not-null="true" />
+        </property>
+        <property name="payMode" type="int">
+            <column name="payMode" not-null="true" />
+        </property>
+        <property name="payType" type="int">
+            <column name="payType" not-null="true" />
+        </property>
+        <property name="payOrg" type="int">
+            <column name="payOrg" not-null="true" />
+        </property>
+        <property name="amount" type="big_decimal">
+            <column name="amount" precision="10" not-null="true" />
+        </property>
+        <property name="status" type="int">
+            <column name="status" not-null="true" />
+        </property>
+        <property name="payTime" type="timestamp">
+            <column name="payTime" length="0" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

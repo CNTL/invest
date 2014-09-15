@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 7, 2014 4:50:29 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tl.sys.user.Userphoto" table="userphoto" catalog="movieinvest">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="userId" type="java.lang.Integer">
+            <column name="userID">
+            </column>
+        </property>
+        <property name="userName" type="string">
+            <column name="userName">
+            </column>
+        </property>
+        <property name="groupId" type="java.lang.Integer">
+            <column name="groupID">
+            </column>
+        </property>
+        <property name="groupName" type="string">
+            <column name="groupName">
+            </column>
+        </property>
+        <property name="photo" type="string">
+            <column name="photo" length="500">
+            </column>
+        </property>
+        <property name="note" type="string">
+            <column name="note" length="65535">
+            </column>
+        </property>
+        <property name="createTime" type="timestamp">
+            <column name="createTime" length="0" not-null="true">
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

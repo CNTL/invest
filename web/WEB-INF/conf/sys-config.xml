@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<sys-config>
+	<!--系统信息-->
+    <system>
+        <name>开发平台</name>
+	<version>1.0.0</version>
+    </system>
+	
+	<locale language="zh" country="CN"/>
+	<!--数据源信息-->
+	<database-config>
+		<central-db configFile="conf/hibernate.cfg.xml" />
+	</database-config>
+	<!--启动加载项-->
+	<loader-config>
+		<action invokeClass="com.tl.kernel.context.DAO" invokeMethod="init"/>
+		<!--
+		<action invokeClass="com.tl.kernel.config.SysDataCache" invokeMethod="init"/>
+		<action invokeClass="com.founder.e5.context.FactoryManager" invokeMethod="init"/>
+		<action invokeClass="com.founder.e5.context.CacheManager" invokeMethod="init"/>
+		<action invokeClass="com.founder.e5.scheduler.SchedulerLoader" invokeMethod="init" onlyWeb="true"/>
+		-->
+	</loader-config>
+</sys-config>

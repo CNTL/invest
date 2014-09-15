@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.tl.kernel.sys.dic.DictionaryType" table="sys_dictionarytype">
+        <id name="id" type="int">
+            <column name="dt_id" />
+            <generator class="assigned" />
+        </id>
+        <property name="name" type="string">
+            <column name="dt_name" />
+        </property>
+        <property name="code" type="string">
+            <column name="dt_code" />
+        </property>
+		
+		 <property name="isSys" type="int">
+            <column name="dt_sys" />
+        </property>
+		 <property name="order" type="int">
+            <column name="dt_order" />
+        </property>
+		 <property name="valid" type="int">
+            <column name="dt_valid" />
+        </property>
+		
+        <property name="memo" type="string">
+            <column name="dt_memo" />
+        </property>
+    </class>
+</hibernate-mapping>

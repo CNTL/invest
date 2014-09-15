@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2014-9-9 23:05:48 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tl.invest.proj.ProjSupport" table="invest_projsupport">
+        <id name="id" type="long">
+            <column name="sp_id" />
+            <generator class="assigned" />
+        </id>
+        <property name="projId" type="long">
+            <column name="sp_projID" not-null="true" />
+        </property>
+        <property name="modeId" type="long">
+            <column name="sp_modeID" not-null="true" />
+        </property>
+        <property name="amount" type="big_decimal">
+            <column name="sp_amount" precision="10" not-null="true" />
+        </property>
+        <property name="addressId" type="java.lang.Integer">
+            <column name="sp_addressID" />
+        </property>
+        <property name="message" type="string">
+            <column name="sp_message" length="4000" />
+        </property>
+        <property name="created" type="timestamp">
+            <column name="sp_created" length="0" not-null="true" />
+        </property>
+        <property name="deleted" type="int">
+            <column name="sp_deleted" not-null="true" />
+        </property>
+        <property name="status" type="int">
+            <column name="sp_status" not-null="true" />
+        </property>
+        <property name="orderId" type="java.lang.Long">
+            <column name="sp_orderid" />
+        </property>
+        <property name="paySN" type="string">
+            <column name="sp_paysn" />
+        </property>
+        <property name="payTime" type="timestamp">
+            <column name="sp_paytime" length="0" />
+        </property>
+    </class>
+</hibernate-mapping>

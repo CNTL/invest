@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 29, 2014 2:13:53 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tl.sys.user.User" table="user">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="code" type="string">
+            <column name="code">
+            </column>
+        </property>
+        <property name="password" type="string">
+            <column name="password">
+            </column>
+        </property>
+        <property name="name" type="string">
+            <column name="name">
+            </column>
+        </property>
+        <property name="typeId" type="java.lang.Integer">
+            <column name="type_id">
+            </column>
+        </property>
+        <property name="type" type="string">
+            <column name="type">
+            </column>
+        </property>
+        <property name="city" type="string">
+            <column name="city">
+            </column>
+        </property>
+        <property name="head" type="string">
+            <column name="head">
+            </column>
+        </property>
+        <property name="intro" type="string">
+            <column name="intro" length="65535">
+            </column>
+        </property>
+        <property name="wechat" type="string">
+            <column name="wechat">
+            </column>
+        </property>
+        <property name="microblog" type="string">
+            <column name="microblog">
+            </column>
+        </property>
+        <property name="nickName" type="string">
+            <column name="nickName">
+            </column>
+        </property>
+        <property name="job" type="string">
+            <column name="job">
+            </column>
+        </property>
+        <property name="email" type="string">
+            <column name="email">
+            </column>
+        </property>
+        <property name="phone" type="string">
+            <column name="phone">
+            </column>
+        </property>
+        <property name="identityCard" type="string">
+            <column name="identityCard">
+            </column>
+        </property>
+        <property name="organization" type="string">
+            <column name="organization">
+            </column>
+        </property>
+        <property name="businessLicense" type="string">
+            <column name="businessLicense">
+            </column>
+        </property>
+        <property name="isRealNameIdent" type="java.lang.Integer">
+            <column name="isRealNameIdent">
+            </column>
+        </property>
+        <property name="createTime" type="timestamp">
+            <column name="createTime" length="0" not-null="true">
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

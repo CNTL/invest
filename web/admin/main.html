@@ -1,0 +1,252 @@
+﻿<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+		<title>SmartAdmin v1.0 </title>
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<!-- Use the correct meta names below for your web application
+			 Ref: http://davidbcalhoun.com/2010/viewport-metatag 
+			 
+		<meta name="HandheldFriendly" content="True">
+		<meta name="MobileOptimized" content="320">-->
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<!-- Basic Styles -->
+		<link rel="stylesheet" type="text/css" media="screen" href="../js/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" media="screen" href="../css/font-awesome.min.css">
+
+		<!-- SmartAdmin Styles : Please note (smartadmin-production.css) was created using LESS variables -->
+        <link rel="stylesheet" type="text/css" media="screen" href="../css/smartadmin-production.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="../css/smartadmin-skins.css">
+
+		<!-- Demo purpose only: goes with demo.js, you can delete this css when designing your own WebApp -->
+        <link rel="stylesheet" type="text/css" media="screen" href="../css/skinset.css">
+
+		<!-- FAVICONS -->
+        <link rel="shortcut icon" href="../img/favicon/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="../img/favicon/favicon.ico" type="image/x-icon">
+
+	</head>
+	<body class="">
+		 
+		<!-- HEADER -->
+		<header id="header">
+			<div id="logo-group">
+				<!-- PLACE YOUR LOGO HERE -->
+				<span id="logo"> <img src="../img/logo.png" alt="SmartAdmin"> </span>
+				<!-- END LOGO PLACEHOLDER -->
+			</div>
+
+		 
+
+			<!-- pulled right: nav area -->
+			<div class="pull-right">
+
+				<!-- collapse menu button -->
+				<div id="hide-menu" class="btn-header pull-right">
+					<span> <a href="javascript:void(0);" title="自动隐藏导航"><i class="fa fa-reorder"></i></a> </span>
+				</div>
+				<!-- end collapse menu -->
+
+				<!-- logout button -->
+				<div id="logout" class="btn-header transparent pull-right">
+					<span> <a href="login.html" title="退出"><i class="fa fa-sign-out"></i></a> </span>
+				</div>
+				<!-- end logout button -->
+                 
+		 
+			</div>
+			<!-- end pulled right: nav area -->
+
+		</header>
+		<!-- END HEADER -->
+
+		<!-- Left panel : Navigation area -->
+		<!-- Note: This width of the aside area can be adjusted through LESS variables -->
+		<aside id="left-panel">
+
+			<!-- User info -->
+			<div class="login-info">
+				<span> <!-- User image size is adjusted inside CSS, it should stay as it --> 
+					
+					<a href="javascript:void(0);" id="show-shortcut">
+                        <img src="../img/avatars/sunny.png" alt="me" class="online" /> 
+						<span>
+							系统管理员
+						</span>
+						 
+					</a> 
+					
+				</span>
+			</div>
+			<!-- end user info -->
+
+			<!-- NAVIGATION : This navigation is also responsive
+
+			To make this navigation dynamic please make sure to link the node
+			(the reference to the nav > ul) after page load. Or the navigation
+			will not initialize.
+			-->
+			<nav>
+				<!-- NOTE: Notice the gaps after each icon usage <i></i>..
+				Please note that these links work a bit different than
+				traditional hre="" links. See documentation for details.
+				-->
+
+				<ul>
+					<li>
+						<a href="#" title="系统参数"><i class="fa fa-lg fa-fw fa-key "></i> <span class="menu-item-parent">系统参数</span></a>
+                        <ul>
+                            <li>
+                                <a href="userlist.html">系统参数设置</a>
+                            </li>
+                            <li>
+                                <a href="datatables.html">SEO参数设置</a>
+                            </li>
+                            <li>
+                                <a href="datatables.html">SEO参数设置</a>
+                            </li>
+                        </ul>
+					</li>
+                    <li>
+                        <a href="#"><i class="fa fa-lg fa-fw fa-user"></i> <span class="menu-item-parent">用户管理</span></a>
+                        <ul>
+                            <li>
+                                <a href="table.html">用户管理</a>
+                            </li>
+                            <li>
+                                <a href="datatables.html">Data Tables</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-lg fa-fw fa-group"></i> <span class="menu-item-parent">组织机构</span></a>
+                        <ul>
+                            <li>
+                                <a href="form-elements.html">组织机构管理</a>
+                            </li>
+                            <li>
+                                <a href="form-templates.html">角色管理</a>
+                            </li>
+                            <li>
+                                <a href="validation.html">权限管理</a>
+                            </li>
+                            
+                        </ul>
+                    </li>
+					
+                    <li>
+                        <a href="#"><i class="fa fa-lg fa-fw fa-thumbs-up "></i> <span class="menu-item-parent">众筹管理</span></a>
+                        <ul>
+                            <li>
+                                <a href="table.html">众筹类型</a>
+                            </li>
+                            <li>
+                                <a href="datatables.html">Data Tables</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#"><i class="fa fa-lg fa-fw fa-video-camera "></i> <span class="menu-item-parent">项目管理</span></a>
+                        <ul>
+                            <li>
+                                <a href="table.html">项目类型</a>
+                            </li>
+                            <li>
+                                <a href="datatables.html">Data Tables</a>
+                            </li>
+                        </ul>
+                    </li>
+				</ul>
+			</nav>
+			<span class="minifyme"> <i class="fa fa-arrow-circle-left hit"></i> </span>
+
+		</aside>
+		<!-- END NAVIGATION -->
+
+		<!-- MAIN PANEL -->
+		<div id="main" role="main">
+
+			<!-- RIBBON -->
+			<div id="ribbon">
+				<!-- breadcrumb -->
+				<ol class="breadcrumb">
+					<li>Home</li><li>Dashboard</li>
+				</ol>
+				<!-- end breadcrumb -->
+			</div>
+			<!-- END RIBBON -->
+
+			<!-- MAIN CONTENT -->
+			<div id="content">
+
+		 
+			</div>
+			<!-- END MAIN CONTENT -->
+
+		</div>
+		<!-- END MAIN PANEL -->
+
+		<!-- SHORTCUT AREA : With large tiles (activated via clicking user name tag)
+		Note: These tiles are completely responsive,
+		you can add as many as you like
+		-->
+		<div id="shortcut"> 
+			<ul>
+		 
+				<li>
+					<a href="javascript:void(0);" class="jarvismetro-tile big-cubes selected bg-color-pinkDark"> <span class="iconbox"> <i class="fa fa-user fa-4x"></i> <span>My Profile </span> </span> </a>
+				</li>
+			</ul>
+		</div>
+		<!-- END SHORTCUT AREA -->
+
+		<!--================================================== -->
+
+		<!-- PACE LOADER - turn this on if you want ajax loading to show (caution: uses lots of memory on iDevices)-->
+        <script data-pace-options='{ "restartOnRequestAfter": true }' src="../js/plugin/pace/pace.min.js"></script>
+
+ 
+        <script src="../js/jquery/jquery.min.js"></script>
+		 
+        <script src="../js/jquery/jquery-ui.min.js"></script>
+		<!-- JS TOUCH : include this plugin for mobile drag / drop touch events
+		<script src="js/plugin/jquery-touch/jquery.ui.touch-punch.min.js"></script> -->
+
+		<!-- BOOTSTRAP JS -->
+        <script src="../js/bootstrap/js/bootstrap.min.js"></script>
+
+        <!-- JARVIS WIDGETS -->
+        <script src="../js/plugin/smartwidgets/jarvis.widget.min.js"></script>
+
+
+ 
+		<!--[if IE 7]>
+
+		<h1>Your browser is out of date, please update your browser by going to www.microsoft.com/download</h1>
+
+		<![endif]-->
+
+		<!-- Demo purpose only -->
+        <script src="../js/skinset.js"></script>
+
+		<!-- MAIN APP JS FILE -->
+        <script src="../js/app.js"></script>
+
+		<script>
+			$(document).ready(function() {
+
+			});
+
+		</script>
+
+		
+	</body>
+
+</html>
