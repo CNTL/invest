@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.tl.kernel.sys.dic.Dictionary" table="sys_dictionary">
+        <id name="id" type="int">
+            <column name="dic_id" />
+            <generator class="assigned" />
+        </id>
+		<property name="type" type="int">
+            <column name="dic_typeid" />
+        </property>
+		<property name="pid" type="int">
+            <column name="dic_pid" />
+        </property>		
+        <property name="name" type="string">
+            <column name="dic_name" />
+        </property>
+        <property name="code" type="string">
+            <column name="dic_code" />
+        </property>
+		 <property name="cascadeId" type="string">
+            <column name="dic_CascadeID" />
+        </property>
+        <property name="cascadeName" type="string">
+            <column name="dic_CascadeName" />
+        </property>
+		<property name="level" type="int">
+            <column name="dic_level" />
+        </property>
+		<property name="childCount" type="int">
+            <column name="dic_childCount" />
+        </property>
+		<property name="value" type="string">
+            <column name="dic_value" />
+        </property>
+        <property name="text" type="string">
+            <column name="dic_text" />
+        </property>
+		<property name="order" type="int">
+            <column name="dic_order" />
+        </property>
+		 <property name="valid" type="int">
+            <column name="dic_valid" />
+        </property>		
+		 <property name="lastModified" type="timestamp">
+            <column name="dic_LastModified" />
+        </property>		
+        <property name="memo" type="string">
+            <column name="dic_memo" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.tl.invest.sys.mu.Menu" table="sys_menues">
+        <id name="id" type="int">
+            <column name="mu_id" />
+            <generator class="assigned" />
+        </id>
+		<property name="pid" type="int">
+            <column name="mu_pid"/>
+        </property>
+		<property name="name" type="string">
+            <column name="mu_name" />
+        </property>
+		<property name="tbId" type="int">
+            <column name="mu_tbId"/>
+        </property>		
+		<property name="url" type="string">
+            <column name="mu_url" />
+        </property>
+		<property name="rule" type="string">
+            <column name="mu_rule" />
+        </property>
+		<property name="list" type="string">
+            <column name="mu_list" />
+        </property>
+		<property name="query" type="string">
+            <column name="mu_query" />
+        </property>
+		<property name="cssPath" type="string">
+            <column name="mu_cssPath" />
+        </property>
+		<property name="jsPath" type="string">
+            <column name="mu_jsPath" />
+        </property>
+		<property name="order" type="int">
+            <column name="mu_order"/>
+        </property>
+		<property name="type" type="int">
+            <column name="mu_type"/>
+        </property>
+		<property name="position" type="int">
+            <column name="mu_position"/>
+        </property>
+	</class>
+</hibernate-mapping>

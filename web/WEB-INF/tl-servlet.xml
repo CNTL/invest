@@ -2,6 +2,20 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans>
-	<bean id="DicManager" class="com.tl.kernel.sys.dic.Factory" factory-method="buildDicManager"/>
-	<bean id="DicReader" class="com.tl.kernel.sys.dic.Factory" factory-method="buildDicReader"/>
+	<bean id="sys.Main" class="com.tl.invest.sys.SysMain">
+		<property name="viewName"><value>admin/SysMain</value></property>
+	</bean>
+	<bean id="DictionaryManager" class="com.tl.kernel.sys.dic.Factory" factory-method="buildDicManager"/>
+	<bean id="DictionaryReader" class="com.tl.kernel.sys.dic.Factory" factory-method="buildDicReader"/>
+	<bean id="MenuManager" class="com.tl.invest.sys.mu.Factory" factory-method="buildMenuManager"/>
+	<bean id="MenuReader" class="com.tl.invest.sys.mu.Factory" factory-method="buildMenuReader"/>
+	
+	<bean id="omsUrl" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="order"><value>0</value></property>
+		<property name="mappings">
+			<props>
+				<prop key="/admin/SysMain.do">sys.Main</prop>
+			</props>
+		</property>
+	</bean>
 </beans>

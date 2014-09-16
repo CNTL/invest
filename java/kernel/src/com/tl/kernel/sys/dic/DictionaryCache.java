@@ -30,10 +30,28 @@ public class DictionaryCache implements Cache {
 	
 	
 	
+	@SuppressWarnings({ "unchecked"})
 	@Override
 	public void refresh() throws Exception {
-		// TODO Auto-generated method stub
+		DictionaryManager dicManager = DictionaryHelper.getDictionaryManager();
 		
+		// 分类类型和扩展类型数组缓存
+		types = dicManager.getTypes();
+
+		// 清除分类和分类扩展取值原有得缓存
+		dicMap.clear();
+		int dicCount = 0;
+		for (int typeIndex = 0; types != null && typeIndex < types.length; typeIndex++)
+		{
+			Dictionary[] dics = dicManager.getDics(types[typeIndex].getId());
+			if(dics!=null && dics.length>0)
+				dicCount += dics.length;
+			// 更新分类缓存
+			dicMap.put(types[typeIndex], dics);		
+		}
+		
+		System.out.println("成功刷新字典表缓存，共获取到字典类型数量为: "+(dicMap==null ? "0" : String.valueOf(dicMap.size()))
+				+" 字典项数量为："+String.valueOf(dicCount));
 	}
 
 	@Override

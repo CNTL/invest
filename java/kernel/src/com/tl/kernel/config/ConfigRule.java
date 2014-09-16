@@ -36,8 +36,8 @@ public class ConfigRule extends RuleSetBase {
 		digester.addSetProperties("sys-config/cache-config/group");
 		digester.addSetNext("sys-config/cache-config/group", "addGroup", "com.tl.kernel.config.CacheGroup");
 		
-	    digester.addObjectCreate("sys-config/cache-config/group/action", "com.tl.kernel.config.Cache");
+	    digester.addObjectCreate("sys-config/cache-config/group/action", "com.tl.kernel.config.CacheInfo");
 		digester.addSetProperties("sys-config/cache-config/group/action");
-		digester.addSetNext("sys-config/cache-config/group/action", "addCache", "com.tl.kernel.config.Cache");
+		digester.addSetNext("sys-config/cache-config/group/action", "addCache", "com.tl.kernel.config.CacheInfo");
 	}
 }

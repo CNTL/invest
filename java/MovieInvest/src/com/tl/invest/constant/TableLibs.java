@@ -10,7 +10,8 @@ public enum TableLibs  {
 	TB_PROJMODE("invest_projmode"),
 	TB_PROJSUBJECT("invest_projsubject"),
 	TB_PROJSUPPORT("invest_projsupport"),
-	TB_USERORDER("user_order")
+	TB_USERORDER("user_order"),
+	TB_SYS_MENUES("sys_menues")
 	;
 	
 	private String tcode;

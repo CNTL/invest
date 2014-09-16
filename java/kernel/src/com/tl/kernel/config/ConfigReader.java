@@ -66,7 +66,6 @@ public class ConfigReader {
 	 */
     public void addInfo(StartClass info)
     {
-    	startClasses.clear();
     	startClasses.add(info);
     }
     public void addInfo(CentralDB info)
