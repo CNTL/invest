@@ -56,7 +56,7 @@ public class SysuserController extends BaseController {
 		sysuser.setUsername(ParamInitUtils.getString(request.getParameter("username")));
 		sysuser.setCode(ParamInitUtils.getString(request.getParameter("code")));
 		sysuser.setPwd(ParamInitUtils.getString(request.getParameter("pwd")));
-		sysuser.setCreateTime(DateUtils.getTimestamp());
+		sysuser.setCreatetime(DateUtils.getTimestamp());
 		return sysuser;
 	}
 	

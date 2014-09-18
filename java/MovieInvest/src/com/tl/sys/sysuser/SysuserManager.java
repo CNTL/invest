@@ -19,10 +19,10 @@ import com.tl.kernel.context.TBID;
 import com.tl.sys.org.EUID;
 
 /** 
- * @created 2014年8月24日 下午7:10:43 
- * @author  leijj
- * 类说明 ： 
+ * @author wang.yq
+ * @create 2014-9-18 19:13:09
  */
+ 
 @SuppressWarnings({"rawtypes", "unchecked", "unused", "deprecation"})
 public class SysuserManager {
 	/**
@@ -75,7 +75,7 @@ public class SysuserManager {
 	 * @param userCode    用户编码
 	 */
 	public Sysuser getSysuserByCode(String code) throws Exception{
-        List list = DAOHelper.find("select a from com.tl.sys.sysuser.Sysuser as a where a.code = :code", 
+        List list = DAOHelper.find("select a from com.tl.sys.sysuser.Sysuser as a where a.code = :code and  deleted=0", 
         		code, Hibernate.STRING);
         if(list.size() > 0)
             return decrypt(list.get(0));
@@ -111,7 +111,7 @@ public class SysuserManager {
         	for(int i = 0; i < list.size(); i++){
         		Sysuser sysuser = (Sysuser)list.get(i);
         		sysuser.setPwd(UserEncrypt.getInstance().decrypt(sysuser.getPwd()));
-        		sysuser.setCreateTimeStr(DateUtils.format(sysuser.getCreateTime(), "yyyy-MM-dd HH:mm:ss"));
+        		sysuser.setCreateTimeStr(DateUtils.format(sysuser.getCreatetime(), "yyyy-MM-dd HH:mm:ss"));
         		sysusers.add(sysuser);
         	}
         	 return sysusers;	
@@ -149,7 +149,7 @@ public class SysuserManager {
 		 
 		Object[] paramObjects = {code,UserEncrypt.getInstance().encrypt(pwd)};
 		try {
-			List list = DAOHelper.find("select a from com.tl.sys.sysuser.Sysuser as a where a.code=? and a.pwd=?",
+			List list = DAOHelper.find("select a from com.tl.sys.sysuser.Sysuser as a where a.code=? and a.pwd=? and deleted=0",
 					paramObjects);
 			if(!list.isEmpty()){
 				sysuser = (Sysuser)list.get(0);
@@ -166,15 +166,26 @@ public class SysuserManager {
 	 * @throws SQLException
 	 */
 	private Sysuser setSysuser(IResultSet rs) throws SQLException{
+		
 		Sysuser sysuser = new Sysuser();
 		sysuser.setId(rs.getInt("id"));
 		sysuser.setUsername(rs.getString("username"));
 		sysuser.setCode(rs.getString("code"));
 		sysuser.setPwd(rs.getString("pwd"));
+		sysuser.setEmail(rs.getString("email"));
+		sysuser.setMobile(rs.getString("mobile"));
+		sysuser.setGroupid(rs.getInt("groupid")); 
+		sysuser.setDeleted(rs.getInt("deleted"));
+		sysuser.setCreatetime(rs.getDate("deleted"));
 		sysuser.setCreateTimeStr(DateUtils.format(rs.getTimestamp("createTime"), "yyyy-MM-dd HH:mm:ss"));
 		return sysuser;
 	}
 	
+	
+	/** 解密用户密码
+	 * @param _user
+	 * @return
+	 */
 	private Sysuser decrypt(Object _user){
 		Sysuser user = (Sysuser)_user;
 		if(UserEncrypt.getInstance().isDecryptText(user.getPwd()))
