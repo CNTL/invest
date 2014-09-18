@@ -29,6 +29,45 @@
       <ul>
         
         <li>
+          <a href="#" id="group" title="用户分组">
+            <i class="fa fa-lg fa-fw fa-key "></i>
+            <span class="menu-item-parent">用户分组</span>
+          </a>
+          <ul>
+            <li>
+              <a id="group-name" href="sysParam.jsp?nav=user-name">分组名称</a>
+            </li>
+            <li>
+              <a id="group-perm" href="sysRun.jsp?nav=group-perm">用户权限</a>
+            </li>
+          </ul>
+        </li>
+        
+        <li>
+          <a href="#" id="user" title="系统用户">
+            <i class="fa fa-lg fa-fw fa-key "></i>
+            <span class="menu-item-parent">系统用户</span>
+          </a>
+          <ul>
+            <li>
+              <a id="user-manager" href="sysParam.jsp?nav=user-manager">用户管理</a>
+            </li>
+          </ul>
+        </li>
+        
+         <li>
+          <a href="#" id="module" title="功能管理">
+            <i class="fa fa-lg fa-fw fa-key "></i>
+            <span class="menu-item-parent">功能管理</span>
+          </a>
+          <ul>
+            <li>
+              <a id="module-manager" href="sysParam.jsp?nav=module-manager">用户管理</a>
+            </li>
+          </ul>
+        </li>
+        
+        <li>
           <a href="#" id="param" title="系统参数">
             <i class="fa fa-lg fa-fw fa-key "></i>
             <span class="menu-item-parent">系统参数</span>
@@ -37,74 +76,21 @@
             <li>
               <a id="param-sys" href="sysParam.jsp?nav=param-sys">系统参数设置</a>
             </li>
-            <li>
-              <a id="param-run" href="sysRun.jsp?nav=param-run">系统运维</a>
-            </li>
           </ul>
         </li>
         
         <li>
-          <a href="#" id="user" title="用户管理">
-            <i class="fa fa-lg fa-fw fa-user"></i>
-            <span class="menu-item-parent">用户管理</span>
+          <a href="#" id="cat" title="分类管理">
+            <i class="fa fa-lg fa-fw fa-key "></i>
+            <span class="menu-item-parent">分类管理</span>
           </a>
           <ul>
             <li>
-              <a id="user-sysuserlist" href="../admin/sysuserlist.jsp?nav=user-sysuserlist">系统用户管理</a>
-            </li>
-            <li>
-              <a id="user-userlist" href="../admin/userlist.jsp?nav=user-userlist">用户管理</a>
+              <a id="cat-manager" href="sysParam.jsp?nav=cat-manager">分类管理</a>
             </li>
           </ul>
         </li>
-        <li>
-          <a href="#">
-            <i class="fa fa-lg fa-fw fa-group"></i>
-            <span class="menu-item-parent">组织机构</span>
-          </a>
-          <ul>
-            <li>
-              <a href="form-elements.html">组织机构管理</a>
-            </li>
-            <li>
-              <a href="form-templates.html">角色管理</a>
-            </li>
-            <li>
-              <a href="validation.html">权限管理</a>
-            </li>
-
-          </ul>
-        </li>
-
-        <li>
-          <a href="#">
-            <i class="fa fa-lg fa-fw fa-thumbs-up "></i>
-            <span class="menu-item-parent">众筹管理</span>
-          </a>
-          <ul>
-            <li>
-              <a href="table.html">众筹类型</a>
-            </li>
-            <li>
-              <a href="datatables.html">Data Tables</a>
-            </li>
-          </ul>
-        </li>
-
-        <li>
-          <a href="#">
-            <i class="fa fa-lg fa-fw fa-video-camera "></i>
-            <span class="menu-item-parent">项目管理</span>
-          </a>
-          <ul>
-            <li>
-              <a href="table.html">项目类型</a>
-            </li>
-            <li>
-              <a href="datatables.html">Data Tables</a>
-            </li>
-          </ul>
-        </li>
+        
       </ul>
 		</nav>
 			<span class="minifyme"> <i class="fa fa-arrow-circle-left hit"></i> </span>
