@@ -49,6 +49,9 @@
 					                <th data-options="field:'username',width:100,align:'center'">用户名</th>
 					                <th data-options="field:'code',width:80,align:'center'">账号</th>
 					                <th data-options="field:'pwd',width:200,align:'center'">密码</th>
+					                <th data-options="field:'email',width:200,align:'center'">电子邮件</th>
+					                <th data-options="field:'mobile',width:200,align:'center'">手机</th>
+					                <th data-options="field:'groupid',width:200,align:'center'">组别ID</th>
 					                <th data-options="field:'createTimeStr',width:200,align:'center'">创建时间</th>
 					            </tr>
 					        </thead>
