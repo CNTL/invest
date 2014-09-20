@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONObject;
 
 import com.tl.common.StringUtils;
+import com.tl.invest.sys.user.SysUser;
 import com.tl.kernel.web.BaseController;
 import com.tl.kernel.web.SysSessionUser;
-import com.tl.sys.sysuser.Sysuser;
 import com.tl.sys.sysuser.SysuserManager;
 
 /**´´½¨µÇÂ¼session
@@ -40,7 +40,7 @@ public class LoginController extends BaseController
 	
 			String usercode = get(request, "usercode");
 			String password = get(request,"password");
-			Sysuser sysuser = sysuserManager.login(usercode,password);
+			SysUser sysuser = sysuserManager.login(usercode,password);
 			if(sysuser!=null){
 				JSONObject jsonArray = JSONObject.fromObject(sysuser);
 				output(jsonArray.toString(), response);

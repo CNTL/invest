@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Aug 24, 2014 9:27:56 PM by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-    <class name="com.tl.sys.sysuser.Sysuser" table="SYS_User">
+    <class name="com.tl.invest.sys.user.SysUser" table="SYS_User">
         <id name="id" type="int">
             <column name="id" />
             <generator class="assigned" />
@@ -17,8 +17,20 @@
         <property name="pwd" type="string">
             <column name="pwd" />
         </property>
-        <property name="createTime" type="timestamp">
-            <column name="createTime" length="0" not-null="true" />
+        <property name="mobile" type="string">
+            <column name="mobile" />
+        </property>
+         <property name="email" type="string">
+            <column name="email" />
+        </property>
+        <property name="deleted" type="int">
+            <column name="deleted" />
+        </property>
+        <property name="groupid" type="int">
+            <column name="groupid" />
+        </property>
+        <property name="createtime" type="timestamp">
+            <column name="createTime"/>
         </property>
     </class>
 </hibernate-mapping>

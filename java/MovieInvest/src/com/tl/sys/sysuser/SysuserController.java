@@ -13,6 +13,7 @@ import net.sf.json.JSONObject;
 
 import com.tl.common.DateUtils;
 import com.tl.common.ParamInitUtils;
+import com.tl.invest.sys.user.SysUser;
 import com.tl.kernel.web.BaseController;
 
 /** 
@@ -38,7 +39,7 @@ public class SysuserController extends BaseController {
 			String json = querySysusers(request, response);
 			output(json, response);
 		} else if("edit".equals(action)){
-			Sysuser sysuser = setSysuser(request);
+			SysUser sysuser = setSysuser(request);
 			sysuserManager.create(sysuser);
 			String viewName = "common/After";
 			model.put("callMode", "0");
@@ -50,8 +51,8 @@ public class SysuserController extends BaseController {
 			output("true", response);
 		}
 	}
-	private Sysuser setSysuser(HttpServletRequest request){
-		Sysuser sysuser = new Sysuser();
+	private SysUser setSysuser(HttpServletRequest request){
+		SysUser sysuser = new SysUser();
 		sysuser.setId(ParamInitUtils.getInt(request.getParameter("id")));
 		sysuser.setUsername(ParamInitUtils.getString(request.getParameter("username")));
 		sysuser.setCode(ParamInitUtils.getString(request.getParameter("code")));
@@ -62,7 +63,7 @@ public class SysuserController extends BaseController {
 	
 	public String querySysusers(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		DataTableParam param = DataTableUtil.getParam(request);
-		Sysuser sysuser = setSysuser(request);
+		SysUser sysuser = setSysuser(request);
 		List users = sysuserManager.querySysusersStr(param.getiDisplayStart(), param.getiDisplayLength(), sysuser);
 		int count = sysuserManager.getCount();
 		String json = tojson(users, count ,param.getsEcho());

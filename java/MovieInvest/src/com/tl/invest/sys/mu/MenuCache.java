@@ -3,9 +3,12 @@ package com.tl.invest.sys.mu;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.tl.common.log.Log;
 import com.tl.kernel.context.Cache;
+import com.tl.kernel.context.Context;
 
 public class MenuCache implements Cache{
+	Log log = Context.getLog("invest");
 	private Menu[] menus = null;
 	/**
 	 * 缓存类主要用在Reader实现类中<br>
@@ -25,7 +28,7 @@ public class MenuCache implements Cache{
 	public void refresh() throws Exception {
 		MenuManager mgr = MenuHelper.getMenuManager();
 		menus = mgr.getMenus();
-		System.out.println("成功刷新菜单缓存，共获取到菜单数量为: "+(menus==null ? "0" : String.valueOf(menus.length)));
+		log.info("缓存更新：成功获取"+(menus==null ? "0" : String.valueOf(menus.length))+"个系统菜单资源。");
 	}
 
 	@Override
@@ -50,7 +53,7 @@ public class MenuCache implements Cache{
 	public Menu[] getMenus(int position){
 		if(menus==null ||menus.length<=0) return null;
 		List<Menu> list = new ArrayList<Menu>();
-		for (Menu menu : list) {
+		for (Menu menu : menus) {
 			if(position == menu.getPosition()){
 				list.add(menu);
 			}
@@ -62,7 +65,7 @@ public class MenuCache implements Cache{
 	public Menu[] getSubMenus(int pid){
 		if(menus==null ||menus.length<=0) return null;
 		List<Menu> list = new ArrayList<Menu>();
-		for (Menu menu : list) {
+		for (Menu menu : menus) {
 			if(pid == menu.getPid()){
 				list.add(menu);
 			}

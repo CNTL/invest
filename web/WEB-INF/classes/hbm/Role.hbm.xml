@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.tl.invest.sys.user.Role" table="sys_role">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+		<property name="name" type="string">
+            <column name="name" />
+        </property>
+		<property name="created" type="timestamp">
+            <column name="created"/>
+        </property>
+        <property name="deleted" type="int">
+        	<column name="deleted"></column>
+        </property>
+		<property name="memo" type="string">
+            <column name="memo" />
+        </property>
+	</class>
+</hibernate-mapping>

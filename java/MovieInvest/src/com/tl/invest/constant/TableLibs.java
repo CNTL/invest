@@ -11,7 +11,11 @@ public enum TableLibs  {
 	TB_PROJSUBJECT("invest_projsubject"),
 	TB_PROJSUPPORT("invest_projsupport"),
 	TB_USERORDER("user_order"),
-	TB_SYS_MENUES("sys_menues")
+	TB_SYS_MENUES("sys_menues"),
+	TB_SYS_USER("sys_user"),
+	TB_SYS_ROLE("sys_role"),
+	TB_SYS_ROLEUSER("sys_roleuser"),
+	TB_SYS_PERMISSION("sys_permission")
 	;
 	
 	private String tcode;

@@ -3,9 +3,12 @@ package com.tl.kernel.sys.dic;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.tl.common.log.Log;
 import com.tl.kernel.context.Cache;
+import com.tl.kernel.context.Context;
 
 public class DictionaryCache implements Cache {
+	Log log = Context.getLog("tl");
 	private DictionaryType[] types = null;
 	
 	/**
@@ -49,9 +52,7 @@ public class DictionaryCache implements Cache {
 			// 更新分类缓存
 			dicMap.put(types[typeIndex], dics);		
 		}
-		
-		System.out.println("成功刷新字典表缓存，共获取到字典类型数量为: "+(dicMap==null ? "0" : String.valueOf(dicMap.size()))
-				+" 字典项数量为："+String.valueOf(dicCount));
+		log.info("缓存更新：成功获取"+(dicMap==null ? "0" : String.valueOf(dicMap.size()))+"字典类型；"+String.valueOf(dicCount)+"字典项");
 	}
 
 	@Override

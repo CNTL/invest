@@ -1,4 +1,4 @@
-package com.tl.sys.sysuser;
+package com.tl.invest.sys.user;
 
 import java.util.Date;
 import com.tl.common.DateUtils;
@@ -10,7 +10,7 @@ import com.tl.common.DateUtils;
  * @create 2014-9-18 19:13:09
  */
 @SuppressWarnings({"serial", "unused"})
-public class Sysuser implements java.io.Serializable {
+public class SysUser implements java.io.Serializable {
 
 	/** id*/
 	private int id;
@@ -40,25 +40,7 @@ public class Sysuser implements java.io.Serializable {
 	private Date createtime;
     
 	/** 创建时间*/
-	private String createTimeStr;
-	
-	public Sysuser() {
-	}
-
-	public Sysuser(int id, String username, String code, String pwd,String mobile,String email,Integer deleted 
-			,Integer groupid,Date createTime) {
-		this.id = id;
-		this.username = username;
-		this.code = code;
-		this.pwd = pwd;
-		this.mobile = mobile;
-		this.email = email;
-		this.deleted = deleted;
-		this.groupid = groupid;
-		this.createtime = createTime;
-		
-	}
-	
+	private String createTimeStr;	
 
 	/**
 	 * @return 获得 id。
@@ -164,19 +146,15 @@ public class Sysuser implements java.io.Serializable {
 	public void setGroupid(Integer groupid) {
 		this.groupid = groupid;
 	}
-	/**
-	 * @return 获得 创建时间。
-	 */
+	
 	public Date getCreatetime() {
 		return createtime;
 	}
 
-	/**
-	 * 设置 创建时间。
-	 */
 	public void setCreatetime(Date createtime) {
 		this.createtime = createtime;
 	}
+
 	/**
 	 * 设置 创建时间。
 	 */

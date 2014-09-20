@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.tl.invest.sys.user.RoleUser" table="sys_roleuser">
+    	<composite-id>
+			<key-property
+				column="roleID"
+				name="roleID"
+				type="integer"
+			 />
+			<key-property
+				column="userID"
+				name="userID"
+				type="integer"
+			 />
+		</composite-id>
+		<property name="roleName" type="string">
+            <column name="roleName" />
+        </property>
+		<property name="userCode" type="string">
+            <column name="userCode" />
+        </property>
+		<property name="userName" type="string">
+            <column name="userName" />
+        </property>
+		<property name="startDate" type="timestamp">
+            <column name="startDate"/>
+        </property>
+		<property name="endDate" type="timestamp">
+            <column name="endDate"/>
+        </property>
+	</class>
+</hibernate-mapping>

@@ -1,5 +1,7 @@
 package com.tl.invest.sys.mu;
 
+import com.tl.common.StringUtils;
+
 public class Menu implements java.io.Serializable {
 	private static final long serialVersionUID = 5999089950711034862L;
 	
@@ -16,6 +18,7 @@ public class Menu implements java.io.Serializable {
 	private int order;
 	private int type;
 	private int position;
+	private int isDef;
 	public int getId() {
 		return id;
 	}
@@ -41,7 +44,26 @@ public class Menu implements java.io.Serializable {
 		this.tbId = tbId;
 	}
 	public String getUrl() {
-		return url;
+		String url_p = url;
+		if(StringUtils.isNotEmpty(url_p)){
+			if(url_p.indexOf("?id=") == -1 && url_p.indexOf("&id=") == -1){
+				if(url_p.indexOf("?")>0){
+					url_p += "&";
+				}else {
+					url_p += "?";
+				}
+				url_p += "id="+String.valueOf(id);
+			}
+			if(url_p.indexOf("?nav=") == -1 && url_p.indexOf("&nav=") == -1){
+				if(url_p.indexOf("?")>0){
+					url_p += "&";
+				}else {
+					url_p += "?";
+				}
+				url_p += "nav=menu-"+String.valueOf(pid)+"-"+String.valueOf(id);
+			}
+		}
+		return url_p;
 	}
 	public void setUrl(String url) {
 		this.url = url;
@@ -93,5 +115,11 @@ public class Menu implements java.io.Serializable {
 	}
 	public void setPosition(int position) {
 		this.position = position;
+	}
+	public int getIsDef() {
+		return isDef;
+	}
+	public void setIsDef(int isDef) {
+		this.isDef = isDef;
 	}
 }

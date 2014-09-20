@@ -78,7 +78,7 @@ var Login = function () {
 	var doAuth = function(sysUser){
 		var keyUrl = "syslogin.do?UserID="+sysUser.id+"&UserName="+sysUser.username+"&UserCode="+sysUser.code+"&UserPassword="+sysUser.pwd;
 		$.get(keyUrl, function(data) {
-			window.location.replace("main.jsp");
+			window.location.replace("SysMain.do");
 		});
 		
 	}

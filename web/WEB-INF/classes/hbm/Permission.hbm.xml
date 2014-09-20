@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.tl.invest.sys.user.Permission" table="sys_permission">
+    	<composite-id>
+			<key-property
+				column="roleID"
+				name="roleID"
+				type="integer"
+			 />
+			<key-property
+				column="sourceType"
+				name="sourceType"
+				type="string"
+			 />
+		</composite-id>
+		<property name="sourceValues" type="string">
+            <column name="sourceValues" />
+        </property>
+	</class>
+</hibernate-mapping>

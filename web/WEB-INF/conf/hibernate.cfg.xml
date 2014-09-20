@@ -24,7 +24,10 @@
 		<mapping resource="hbm/Menu.hbm.xml"/>
 		<mapping resource="hbm/DictionaryType.hbm.xml"/>
 		<mapping resource="hbm/Dictionary.hbm.xml"/>
-		<mapping resource="hbm/Sysuser.hbm.xml"/>
+		<mapping resource="hbm/SysUser.hbm.xml"/>
+		<mapping resource="hbm/Role.hbm.xml"/>
+		<mapping resource="hbm/RoleUser.hbm.xml"/>
+		<mapping resource="hbm/Permission.hbm.xml"/>
 		<mapping resource="hbm/User.hbm.xml"/>
 		<mapping resource="hbm/Photogroup.hbm.xml"/>
 		<mapping resource="hbm/Userphoto.hbm.xml"/>

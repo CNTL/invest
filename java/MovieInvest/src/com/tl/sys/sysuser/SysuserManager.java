@@ -12,6 +12,7 @@ import com.sun.org.apache.bcel.internal.generic.NEW;
 import com.tl.common.DateUtils;
 import com.tl.common.UserEncrypt;
 import com.tl.db.IResultSet;
+import com.tl.invest.sys.user.SysUser;
 import com.tl.kernel.constant.SysTableLibs;
 import com.tl.kernel.context.DAO;
 import com.tl.kernel.context.DAOHelper;
@@ -30,7 +31,7 @@ public class SysuserManager {
 	 * 
 	 * @param user  要创建的用户对象
 	 */
-	public void create(Sysuser sysuser) throws Exception{
+	public void create(SysUser sysuser) throws Exception{
 	    if(sysuser.getCode() == null || sysuser.getCode().trim().equals(""))
 	        throw new Exception("Sysuser Code is Null.");
 	    if(sysuser.getUsername() == null || sysuser.getUsername().trim().equals(""))
@@ -74,8 +75,8 @@ public class SysuserManager {
 	 * 
 	 * @param userCode    用户编码
 	 */
-	public Sysuser getSysuserByCode(String code) throws Exception{
-        List list = DAOHelper.find("select a from com.tl.sys.sysuser.Sysuser as a where a.code = :code and  deleted=0", 
+	public SysUser getSysuserByCode(String code) throws Exception{
+        List list = DAOHelper.find("select a from com.tl.invest.sys.user.SysUser as a where a.code = :code and  deleted=0", 
         		code, Hibernate.STRING);
         if(list.size() > 0)
             return decrypt(list.get(0));
@@ -83,7 +84,7 @@ public class SysuserManager {
             return null;
 	}
 	public void delete(int id) throws Exception{
-		DAOHelper.delete("delete from com.tl.sys.sysuser.Sysuser as a where a.id = " + id);
+		DAOHelper.delete("delete from com.tl.invest.sys.user.SysUser as a where a.id = " + id);
 	}
 	/** 
 	* @author  leijj 
@@ -98,18 +99,18 @@ public class SysuserManager {
 	 * @see com.tl.sys.org.UserManager#getAll()
 	 */
 	public List getAll() throws Exception{
-		List list = DAOHelper.find("select a from com.tl.sys.sysuser.Sysuser as a");
+		List list = DAOHelper.find("select a from com.tl.invest.sys.user.SysUser as a");
         if(list.size() > 0)
             return list;
         else
             return null;
 	}
-	public List<Sysuser> querySysusersStr(int iDisplayStart, int iDisplayLength, Sysuser query) throws Exception{
-		List<Sysuser> sysusers = new ArrayList<Sysuser>();
+	public List<SysUser> querySysusersStr(int iDisplayStart, int iDisplayLength, SysUser query) throws Exception{
+		List<SysUser> sysusers = new ArrayList<SysUser>();
 		List list = querySysusers(iDisplayStart, iDisplayLength, query);
         if(list.size() > 0){
         	for(int i = 0; i < list.size(); i++){
-        		Sysuser sysuser = (Sysuser)list.get(i);
+        		SysUser sysuser = (SysUser)list.get(i);
         		sysuser.setPwd(UserEncrypt.getInstance().decrypt(sysuser.getPwd()));
         		sysuser.setCreateTimeStr(DateUtils.format(sysuser.getCreatetime(), "yyyy-MM-dd HH:mm:ss"));
         		sysusers.add(sysuser);
@@ -119,8 +120,8 @@ public class SysuserManager {
             return null;
         
 	}
-	public List<Sysuser> querySysusers(int iDisplayStart, int iDisplayLength, Sysuser query) throws Exception{
-		StringBuilder querySql = new StringBuilder("select a from com.tl.sys.sysuser.Sysuser as a");
+	public List<SysUser> querySysusers(int iDisplayStart, int iDisplayLength, SysUser query) throws Exception{
+		StringBuilder querySql = new StringBuilder("select a from com.tl.invest.sys.user.SysUser as a");
 		if(query.getUsername() != null && !"".equals(query.getUsername())
 				&& query.getCode() != null && !"".equals(query.getCode())){
 			querySql.append(" where a.username like '%" + query.getUsername())
@@ -144,15 +145,15 @@ public class SysuserManager {
 	/** 系统用户登录
 	 * @return Boolean
 	 */
-	public Sysuser login(String code,String pwd) {
-		Sysuser sysuser = null;
+	public SysUser login(String code,String pwd) {
+		SysUser sysuser = null;
 		 
 		Object[] paramObjects = {code,UserEncrypt.getInstance().encrypt(pwd)};
 		try {
-			List list = DAOHelper.find("select a from com.tl.sys.sysuser.Sysuser as a where a.code=? and a.pwd=? and deleted=0",
+			List list = DAOHelper.find("select a from com.tl.invest.sys.user.SysUser as a where a.code=? and a.pwd=? and deleted=0",
 					paramObjects);
 			if(!list.isEmpty()){
-				sysuser = (Sysuser)list.get(0);
+				sysuser = (SysUser)list.get(0);
 			}
 		} catch (Exception e) {
 			 
@@ -165,9 +166,9 @@ public class SysuserManager {
 	 * @return
 	 * @throws SQLException
 	 */
-	private Sysuser setSysuser(IResultSet rs) throws SQLException{
+	private SysUser setSysuser(IResultSet rs) throws SQLException{
 		
-		Sysuser sysuser = new Sysuser();
+		SysUser sysuser = new SysUser();
 		sysuser.setId(rs.getInt("id"));
 		sysuser.setUsername(rs.getString("username"));
 		sysuser.setCode(rs.getString("code"));
@@ -186,8 +187,8 @@ public class SysuserManager {
 	 * @param _user
 	 * @return
 	 */
-	private Sysuser decrypt(Object _user){
-		Sysuser user = (Sysuser)_user;
+	private SysUser decrypt(Object _user){
+		SysUser user = (SysUser)_user;
 		if(UserEncrypt.getInstance().isDecryptText(user.getPwd()))
 			user.setPwd(UserEncrypt.getInstance().decrypt(user.getPwd()));
 		return user;

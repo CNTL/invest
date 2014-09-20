@@ -1,3 +1,6 @@
+<%@ taglib uri="http://jakarta.apache.org/taglibs/i18n-1.0" prefix="i18n" %>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+<i18n:bundle baseName="i18n.invest" changeResponseLocale="false"/>
 <%@page pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -14,7 +17,7 @@
 	<!-- 头部 -->
 		 
 	<!-- 导航 -->
-    <%@include file="inc/nav.inc"%>
+    <%@include file="inc/sysnav.inc"%>
     <!-- 导航 -->
          
     <!-- MAIN PANEL -->
