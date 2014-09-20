@@ -29,7 +29,9 @@ public interface SysUserManager extends SysUserReader {
 	public void deleteRoleUserByRole(int roleID,Session s) throws Exception;
 	public void deleteRoleUserByUser(int userID) throws Exception;
 	public void deleteRoleUserByUser(int userID,Session s) throws Exception;
+	
 	public RoleUser[] getRoleUsers(Session s);
+	public RoleUser getRoleUser(int userID,int roleID,Session s);
 	
 	public void savePermission(Permission permission);
 	public void savePermission(Permission permission,Session s);

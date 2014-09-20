@@ -485,4 +485,23 @@ public class SysUserManagerImpl implements SysUserManager {
 		List list = s==null ? d.find(hql) : d.find(hql, s);		
 		return (RoleUser[]) list.toArray(new RoleUser[0]);	
 	}
+
+	@Override
+	public RoleUser getRoleUser(int userID, int roleID) {
+		return getRoleUser(userID, roleID,null);
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Override
+	public RoleUser getRoleUser(int userID, int roleID, Session s) {
+		RoleUser roleUser = null;
+		DAO d = new DAO();
+		String HQL = "select a from com.tl.invest.sys.user.RoleUser as a where a.roleID = :roleID and a.userID=:userID";
+		Object[] params = new Object[]{roleID,userID};
+		List roleUsers = s == null ? d.find(HQL,params) : d.find(HQL, params, s);
+		if(!roleUsers.isEmpty()){
+			roleUser = (RoleUser)roleUsers.get(0);
+		}
+		return roleUser;
+	}
 }

@@ -43,4 +43,20 @@ public class SysUserCache implements Cache {
 	public void reset() {
 		
 	}
+	
+	public SysUser[] getUsers(){
+		return users;
+	}
+	
+	public Role[] getRoles(){
+		return roles;
+	}
+	
+	public RoleUser[] getRoleUsers(){
+		return roleUsers;
+	}
+	
+	public Permission[] getPermissions(){
+		return permissions;
+	}
 }

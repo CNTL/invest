@@ -14,6 +14,7 @@ public interface SysUserReader {
 	public Role[] getValidRoles(int userID);
 	
 	public RoleUser[] getRoleUsers();
+	public RoleUser getRoleUser(int userID,int roleID);
 	
 	public Permission[] getPermissions();
 	public Permission getPermission(int roleID,String sourceType);
