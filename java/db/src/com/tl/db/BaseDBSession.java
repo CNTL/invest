@@ -43,7 +43,7 @@ import com.tl.db.util.DBUtils;
  */
 public class BaseDBSession implements DBSession {
 
-	protected static Log log = LogFactory.getLog("rengy");
+	protected static Log log = LogFactory.getLog("tl");
 
 	protected Connection conn;
 

@@ -26,7 +26,7 @@ public class Load extends HttpServlet{
 	}
 	
 	public void init(String cfgFile){
-		log.info("--------- rengy VERSION:" + Context.getVersion() + " ---------");
+		log.info("--------- CNTL VERSION:" + Context.getVersion() + " ---------");
 		log.info("[tl LoadServlet]");
 		 //调用ConfigReader读取所有配置信息
         ConfigReader reader = ConfigReader.getInstance();

@@ -32,7 +32,7 @@ import com.tl.kernel.context.DAO;
 import com.tl.kernel.init.Load;
 
 public class Tester {
-	private Log log = Context.getLog("rengy");
+	private Log log = Context.getLog("tl");
 
 	@Test
 	public void testXLSWrite(){

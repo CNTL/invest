@@ -29,7 +29,7 @@ import com.tl.common.PropertyUtils;
  *
  */
 public class ResourceMgr {
-	private static Log log = LogFactory.getLog( "rengy" );
+	private static Log log = LogFactory.getLog( "tl" );
 
 	// --------------------------------------------------------------------------
 

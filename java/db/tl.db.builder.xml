@@ -7,6 +7,7 @@
 	<property name="classes.dir" value="${basedir}/bin" />
 	
 	<property name="WEB.PATH" value="..\..\WEB" />
+	<property name="otherjarlib" value="..\..\..\..\javaLib" />
 	<property name="package.prefix" value="com/tl" />
 	<property name="jar.name" value="tl-db.jar" />
 
@@ -32,6 +33,9 @@
 					<exclude name="tl-db.jar" />
 					<exclude name="tl-kernel.jar" />
 					<exclude name="movieInvest.jar" />
+				</fileset>
+				<fileset dir="${otherjarlib}">
+					<include name="*.jar" />
 				</fileset>
 			</classpath>
 		</javac>

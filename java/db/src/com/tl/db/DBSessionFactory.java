@@ -19,7 +19,7 @@ import com.tl.db.util.DBUtils;
  */
 public class DBSessionFactory {
 
-	static Log log = LogFactory.getLog( "rengy" );
+	static Log log = LogFactory.getLog( "tl" );
 
 	/**
 	 * 数据库类型定义（数据库类型名--实现类）缓存

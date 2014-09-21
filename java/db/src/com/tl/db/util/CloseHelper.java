@@ -24,7 +24,7 @@ import com.tl.db.DBSession;
  */
 public class CloseHelper {
 
-	static Log log = LogFactory.getLog( "rengy" );
+	static Log log = LogFactory.getLog( "tl" );
 
 	// --------------------------------------------------------------------------
 

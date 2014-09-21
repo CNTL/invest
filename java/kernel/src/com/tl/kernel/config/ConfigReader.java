@@ -13,7 +13,7 @@ import com.tl.common.log.Log;
 import com.tl.kernel.context.Context;
 
 public class ConfigReader {
-	private static Log log = Context.getLog("rengy");
+	private static Log log = Context.getLog("tl");
 	
 	private SysInfo sysInfo = new SysInfo();
 	//系统启动时的自动加载项

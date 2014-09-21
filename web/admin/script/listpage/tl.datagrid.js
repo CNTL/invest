@@ -1,6 +1,40 @@
+var tldialog = {
+	openWin : null,
+	show : function(title, href, width, height, modal, minimizable, maximizable) {
+		openWin = top.$('<div id="myWinId" class="easyui-window" closed="true"></div>').appendTo(top.document.body);
+		openWin.window({
+			title: title,
+			width: width === undefined ? 600 : width,
+			height: height === undefined ? 400 : height,
+			content: '<iframe scrolling="yes" frameborder="0"  src="' + href + '" style="width:100%;height:99%;"></iframe>',
+			modal: modal === undefined ? true : modal,
+			minimizable: minimizable === undefined ? false : minimizable,
+			maximizable: maximizable === undefined ? false : maximizable,
+			shadow: false,
+			cache: false,
+			closed: false,
+			collapsible: false,
+			resizable: true,
+			loadingMessage: '正在加载数据，请稍等片刻......',
+			onClose : function(){ 
+				openWin.window("destroy"); 
+			} 
+		});
+	},
+	close : function(){
+		//top.$.messager.alert('debugger',"tldialog.close()");
+		openWin.window("close"); 
+		if(openWin != null) openWin = null;
+	},
+	closeRefresh:function(){
+		tldatagrid.reload();
+		tldialog.close();
+	}
+};
+
 var tldatagrid = {
 	id : "",
-	options : null,
+	options : null,	
 	allColumns : [],
 	defoptions : {
 		showHeader:true,
@@ -19,7 +53,8 @@ var tldatagrid = {
 		border:false,
 		fit:true,
 		fitColumns:false,
-		resizeHandle:'right'
+		resizeHandle:'right',
+		rule:""
 	},
 	//init方法只允许在初始化时执行一次
 	init : function(id,opts){
@@ -41,6 +76,10 @@ var tldatagrid = {
 			param.sumfields = JSON.stringify({fields:tldatagrid.getSumableFields()});
 			param.primarykey = tldatagrid.options.itemID;
 			param.tbview = tldatagrid.options.tbview;
+			param.rule = tldatagrid.options.rule;
+			param.showfooter = tldatagrid.options.showFooter ? "true" : "false";
+			
+			param.selectedID = tldatagrid.getSelectedIDs();;
 			if (!tldatagrid.options.url) {
 				return false;
 			}
@@ -71,12 +110,6 @@ var tldatagrid = {
 				handler:function(){
 					tldatagridExport.showMsg("<div style='text-align:center;'><h4><b>正在准备数据...</b></h4></div><div style='text-align:center;margin-top:20px;'><img src='../images/loadingbar.gif' border='0' alt='正在做导出数据的操作'/></div>");
 					
-					var docs = dg.datagrid("getSelections");
-					var docIds = "";
-					for(var i=0;i<docs.length;i++){
-						if(docIds!="") docIds+=",";
-						docIds += docs[i].SYS_DOCUMENTID;
-					}
 					var param = {};
 					param.queryconditions = "";//e5_queryform.getQuery();
 					param.searchfields = JSON.stringify(tldatagrid.options.searchFields);			
@@ -84,7 +117,9 @@ var tldatagrid = {
 					param.sumfields = JSON.stringify({fields:tldatagrid.getSumableFields()});
 					param.primarykey = tldatagrid.options.itemID;
 					param.tbview = tldatagrid.options.tbview;
-					param.selectedID = docIds;					
+					param.rule = tldatagrid.options.rule;
+					param.selectedID = tldatagrid.getSelectedIDs();
+					param.showfooter = tldatagrid.options.showFooter ? "true" : "false";
 					if (!tldatagrid.options.url) {
 						return false;
 					}
@@ -112,12 +147,26 @@ var tldatagrid = {
 	},
 	reload : function(){
 		var param = {};
-		param.queryconditions = e5_queryform.getQuery();
+		param.queryconditions = "";//e5_queryform.getQuery();
 		param.searchfields = JSON.stringify(tldatagrid.options.searchFields);			
 		param.selectfields = JSON.stringify({fields:tldatagrid.getSelectFields()});
 		param.sumfields = JSON.stringify({fields:tldatagrid.getSumableFields()});
 		param.primarykey = tldatagrid.options.itemID;
+		param.tbview = tldatagrid.options.tbview;
+		param.rule = tldatagrid.options.rule;
+		param.showfooter = tldatagrid.options.showFooter ? "true" : "false";
+		param.selectedID = tldatagrid.getSelectedIDs();
+		
 		$("#"+tldatagrid.id).datagrid("load",param);
+	},
+	getSelectedIDs : function(){
+		var docs = $("#"+tldatagrid.id).datagrid("getSelections");
+		var docIds = "";
+		for(var i=0;i<docs.length;i++){
+			if(docIds!="") docIds+=",";
+			docIds += docs[i][tldatagrid.options.itemID];
+		}
+		return docIds;
 	},
 	setDispalyFields : function(){
 		$.ajax({

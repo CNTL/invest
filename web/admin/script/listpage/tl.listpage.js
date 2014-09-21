@@ -26,7 +26,7 @@ $(function () {
 		}
 	};
 	easyloader.modules = $.extend({}, tlModules, easyloader.modules);
-	using(['bootstrap','jqvalidation_cn','jqvalidation','parser', 'layout', 'datagrid','tldatagrid','easyuicolor'], function () {
+	using(['bootstrap','jqvalidation_cn','jqvalidation','parser', 'layout','messager', 'datagrid','dialog','tldatagrid','easyuicolor'], function () {
 		//alert("Finish!");
 		$("#easyui-layout").layout();
 		tldatagrid.init("datagrid",options);
@@ -35,7 +35,7 @@ $(function () {
 		autoLayoutHeight();
 		$(window).resize(reDraw);
 		//$("#divQueryCust").resize(reDraw);
-		//initQueryForm();
+		//initQueryForm();		 
 	});
 });
 

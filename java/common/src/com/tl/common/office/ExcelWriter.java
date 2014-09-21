@@ -26,7 +26,7 @@ import com.tl.common.office.ExcelCellStyle.FontTypeOffset;
 import com.tl.common.office.ExcelCellStyle.VAlignStyle;
 
 public class ExcelWriter {
-	private Log log = LogFactory.getLog("rengy");
+	private Log log = LogFactory.getLog("tl");
 	SXSSFWorkbook workbook = null;
 	Sheet sheet = null;
 	

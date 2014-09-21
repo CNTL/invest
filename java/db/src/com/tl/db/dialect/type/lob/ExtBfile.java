@@ -27,7 +27,7 @@ import com.tl.db.util.CloseHelper;
  */
 public class ExtBfile implements IBfile {
 
-	protected static Log log = LogFactory.getLog( "rengy" );
+	protected static Log log = LogFactory.getLog( "tl" );
 
 	protected String directory;
 

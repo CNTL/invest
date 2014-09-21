@@ -20,7 +20,7 @@ import com.tl.common.log.LogFactory;
 
 public class Excel2003Reader {
 		
-	private Log log = LogFactory.getLog("rengy"); 
+	private Log log = LogFactory.getLog("tl"); 
 	
 	HSSFWorkbook workbook = null;
 	

@@ -15,7 +15,6 @@ import com.tl.common.ResourceMgr;
 import com.tl.common.StringUtils;
 import com.tl.db.DBSession;
 import com.tl.db.IResultSet;
-import com.tl.db.dialect.Dialect;
 import com.tl.kernel.context.Context;
 import com.tl.kernel.web.BaseController;
 
@@ -31,6 +30,8 @@ public class TbListController extends BaseController {
 		String queryconditions = get(request, "queryconditions","");
 		String primarykey = get(request, "primarykey","");
 		String tbView = get(request, "tbview","");
+		String rule = get(request, "rule","");
+		boolean showFooter = "true".equals(get(request, "showfooter", "false"))? true : false;
 		
 		String action = get(request, "action", "getdata");
 		if("getdata".equals(action)){
@@ -63,11 +64,11 @@ public class TbListController extends BaseController {
 				//QueryViewParser viewParser = (QueryViewParser)Context.getBean(QueryViewParser.class);
 				//视图查询条件
 				String viewWhere = "";//viewParser.getSQL(fields, queryconditions);
-				if(StringUtils.isNotEmpty(viewWhere)){
+				if(StringUtils.isNotEmpty(viewWhere) && StringUtils.isNotEmpty(rule)){
 					viewWhere += " and ";
 				}
-				viewWhere += " deleted=0 ";
-				jsondata = queryFromView(tbView,primarykey,selectFields,sumFields,order,sort,viewWhere,page,pageSize);
+				viewWhere += rule;
+				jsondata = queryFromView(tbView,primarykey,selectFields,sumFields,order,sort,viewWhere,page,pageSize,showFooter);
 			}
 			
 			output(jsondata, response);
@@ -77,7 +78,7 @@ public class TbListController extends BaseController {
 	
 	private String queryFromView(String tbView, String primarykey,
 			List<Pair> selectFields, List<Pair> sumFields, String order,
-			String sort, String whereSQL, int page, int pageSize) {
+			String sort, String whereSQL, int page, int pageSize,boolean showFooter) {
 		String selFieldsStr = "";
 		for (Pair field : selectFields) {
 			if(StringUtils.isNotEmpty(selFieldsStr)) selFieldsStr += ",";
@@ -91,7 +92,8 @@ public class TbListController extends BaseController {
 		sb.append("{\"total\":");
 		try{
 			dbSession = Context.getDBSession();
-			sql = dbSession.getDialect().getLimitString(sql, pageSize*(page-1), pageSize);			
+			sql = dbSession.getDialect().getLimitString(sql, pageSize*(page-1), pageSize);	
+			log.info(sql);
 			rs = dbSession.executeQuery(sql);
 			String countSql = "select count(0) from "+tbView+" where  "+whereSQL;
 			sb.append(getCount(countSql,dbSession)+",\"rows\":[");
@@ -115,17 +117,23 @@ public class TbListController extends BaseController {
 			}
 			
 			sb.append(sb1);
-			sb.append("],\"footer\":[{");
-			List<Pair> pairs = getSumView(sumFields,whereSQL ,dbSession,tbView);
-			if(pairs!=null){
-				StringBuffer sbFooter = new StringBuffer();
-				for (Pair pair : pairs) {
-					if(sbFooter.length()>0) sbFooter.append(",");
-					sbFooter.append("\""+pair.getKey()+"\":\""+pair.getStringValue()+"\"");
+			sb.append("]");
+			if(showFooter){
+				sb.append(",\"footer\":[{");
+				List<Pair> pairs = getSumView(sumFields,whereSQL ,dbSession,tbView);
+				if(pairs!=null){
+					StringBuffer sbFooter = new StringBuffer();
+					for (Pair pair : pairs) {
+						if(sbFooter.length()>0) sbFooter.append(",");
+						sbFooter.append("\""+pair.getKey()+"\":\""+pair.getStringValue()+"\"");
+					}
+					sb.append(sbFooter.toString());
 				}
-				sb.append(sbFooter.toString());
+				sb.append("}]");
+			}else{
+				sb.append(",\"footer\":[]");
 			}
-			sb.append("}]}");
+			sb.append("}");
 		}catch(Exception ex){
 			sb = new StringBuffer();
 			sb.append("{\"total\":");

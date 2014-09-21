@@ -65,7 +65,10 @@
 			</div>
 			
             <div class="form-actions">
-           		<button id="btnCancel" type="button" onclick="window.close();" class="btn blue pull-right">
+				<button id="btnCloseRefresh" type="button" onclick="window.parent.tldialog.closeRefresh();" class="btn blue pull-right">
+                   	<i>关闭并刷新</i>
+                </button>
+           		<button id="btnCancel" type="button" onclick="window.parent.tldialog.close();" class="btn blue pull-right">
                    	<i>关闭</i>
                 </button>
                 <button id="btnSave" type="submit" class="btn blue pull-right" onclick="submitCheck();">

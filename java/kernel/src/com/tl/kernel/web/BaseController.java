@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.Controller;
 
 import com.tl.common.ErrorMessage;
 import com.tl.common.log.Log;
+import com.tl.kernel.context.Context;
 
 /**
  * 封装了基本的Controller功能
@@ -66,7 +67,7 @@ import com.tl.common.log.Log;
 @SuppressWarnings({"rawtypes", "unchecked"})
 public abstract class BaseController implements Controller 
 {
-	protected Log log;	
+	protected Log log = Context.getLog("invest");	
 	protected String viewName; 		//Controller成功后的显示view名称
 	protected String resourceFile;	//资源文件名，在做系统记录时可能会用
 	

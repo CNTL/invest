@@ -47,26 +47,26 @@ public class Logger implements Log {
 	
 	/**
 	 * 生成本日志类别对应的trace类别<br>
-	 * 例如：本类别为“rengy.flow”，则对应的trace类别为“trace.flow”
+	 * 例如：本类别为“tl.flow”，则对应的trace类别为“trace.flow”
 	 * 
 	 * @return
 	 */
 	private String generateTraceCategory() {
-		if ( category.startsWith( "rengy." ) )
-			return category.replaceFirst( "rengy", "trace" );
+		if ( category.startsWith( "tl." ) )
+			return category.replaceFirst( "tl", "trace" );
 		else
 			return "trace." + category;
 	}
 
 	/**
 	 * 生成本日志类别对应的performance类别<br>
-	 * 例如：本类别为“rengy.flow”，则对应的performance类别为“performance.flow”
+	 * 例如：本类别为“tl.flow”，则对应的performance类别为“performance.flow”
 	 * 
 	 * @return
 	 */
 	private String generatePerformanceCategory() {
-		if ( category.startsWith( "rengy." ) )
-			return category.replaceFirst( "rengy", "performance" );
+		if ( category.startsWith( "tl." ) )
+			return category.replaceFirst( "tl", "performance" );
 		else
 			return "performance." + category;
 	}
