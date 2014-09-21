@@ -9,23 +9,14 @@ jQuery(document).ready(function () {
 				var password = checkpassword();
 				var pwdAgain = checkpassword_again();
 				if(password && pwdAgain){
-					from[0].submit();
+					//from[0].submit();
+					//userlogin.do?a=create
+					registerSubmit();
 				}
 			}
 		}
 	});
 	
-	//$("#code").removeAttr("readonly");
-	var value = "<%=valueArray %>";
-	if(value != null && value.length > 0){
-		var valueArray = value.split(",");
-		$("#id").val(valueArray[0]);
-		$("#name").val(valueArray[1]);
-		$("#code").val(valueArray[2]);
-		//$("#code").attr("readonly", 'true');
-		$("#password").val(valueArray[3]);
-    	}
-  // init background slide images
     $.backstretch([
      "../img/loginbg/1.jpg",
      "../img/loginbg/2.jpg",
@@ -37,7 +28,39 @@ jQuery(document).ready(function () {
     }
  );
 });
+function registerSubmit(){
+	//1.旧密码是否正确，须校验 2.新密码校验 3.密码加密 4.写入数据库
+	//2.新密码是否一致
+	//3.对密码进行加密,写入数据库
+	$.ajax({
+        type:"POST", //请求方式  
+        url:"userlogin.do?a=create", //请求路径  
+        cache: false,     
+        data:$('#form').serialize(),  //传参       
+        dataType: 'json',   //返回值类型  
+        success:function(json){
+        	alert(data);
+    		if(data != null && data == 'ok'){
+    			//重新登录
+    			var d = dialog({
+    				title: '消息',
+    				content: '修改成功，请重新登陆！',
+    				okValue: '确 定',
+    				ok: function () {
+    					location.href="userLogin.jsp";
+    				},
+    				cancelValue: '取消',
+    				cancel: function () {}
+    			});
 
+    			d.showModal();
+    		}else {
+    			alert("修改密码失败:" + data);
+    		}
+            window.location.reload();
+        }  
+    });
+}
 function checkpassword(){
 	var password_temp = $("#password").val();
 	 //密码限制6位以上

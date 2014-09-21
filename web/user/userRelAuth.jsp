@@ -1,84 +1,160 @@
 <%@page pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>实名认证</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <meta content="" name="description" />
-    <meta content="" name="author" />
-    
- 	<link type="text/css" rel="stylesheet" href="../js/plugin/jquery-validate/css/validationEngine.jquery.css"/>
-    <link rel="stylesheet" type="text/css" media="screen" href="../js/bootstrap/css/bootstrap.min.css">
-    <link href="../css/adminlogin.css" rel="stylesheet" type="text/css" />
-    <link href="../css/components.css" rel="stylesheet" type="text/css" />
-    
-    <!-- END THEME STYLES -->
-    <link rel="shortcut icon" href="../img/favicon/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="../img/favicon/favicon.ico" type="image/x-icon">
+<!doctype html>
+<html><head>
+<meta charset="utf-8">
+<title>影投网-中国最具影响力的影投平台</title>
+<meta name="keywords" content="影投 创业 项目 投资 支持">
+<meta name="description" content="在影投网发布项目，获得投资支持，实现你的创业梦想">
+<link rel="stylesheet" type="text/css" href="./css/userSetting.css">
+<link rel="stylesheet" type="text/css" href="css/userCenter.css">
+<script type="text/javascript" src="script/dc.js"></script>
+<script type="text/javascript" src="script/ag.js"></script>
+<script type="text/javascript" src="script/userSetting.js"></script>
+<script src="script/ncfpb.1.1.min.js"></script>
 </head>
-<!-- END HEAD -->
-
-<body class="login">
-    <!-- BEGIN LOGO -->
-    <div class="logo">
-        	实名认证
+<body>
+<form class="setting-form" name="modify" action="" wx-validator="" autocomplete="off" wx-validator-ajax="" wx-validator-error-class="error-text">
+	<div class="form-item clearfix">
+        <label for="name"><i style="color:red;">*</i>姓名：</label>
+        <input class="form-control validate[required]" type="text" autocomplete="off" id="name" name="name" />
     </div>
-    <!-- END LOGO -->
- 
-    <!-- BEGIN LOGIN -->
-    <div class="content">
-        <!-- BEGIN LOGIN FORM -->
-        <form id="form" name="form" method="post" action="user.do?a=relAuth">
-        	<div id="defDiv">
-	        	<div class="form-group">
-	                <label for="name"><i style="color:red;">*&nbsp;&nbsp;</i>卡号</label>
-	                <input class="form-control validate[required]" type="text" autocomplete="off" placeholder="请输入卡号" name="bankNums" />
-	            </div>
-	            <div class="form-group">
-	                <label for="code"><i style="color:red;">*&nbsp;&nbsp;</i>开户行</label>
-	                <input class="form-control validate[required]" type="text" autocomplete="off" placeholder="请输入开户行" name="openingBanks" />
-	            </div>
-	            <img id="img" src="../img/add.png" style="width:30px;height:30px;" onclick="addBankCard();"/>
-            </div>
-       
-	         <div class="form-actions">
-	        		<button id="btnCancel" type="button" onclick="window.close();" class="btn blue pull-right">
-	                	<i>关闭</i>
-	             </button>
-	             <button id="btnSave" type="submit" class="btn blue pull-right">
-	                	<i onclick="">保存</i>
-	             </button>
-	         </div>
-          </form>
-        <!-- END LOGIN FORM -->
-
-
+    <div class="form-item clearfix">
+        <label for="type"><i style="color:red;">*</i>注册类型：</label>
+        <div class="option-box">
+	        <select id="type" name="type" class="custform-select validate[maxSize[255],required]" wx-validator-error-value="选择注册类型">
+	        <option value="1">个人</option><option value="3">机构</option>  
+	        </select>
+        </div>
     </div>
-    <!-- END LOGIN -->
-    <!-- BEGIN COPYRIGHT -->
-    <!-- END COPYRIGHT -->
-    <script type="text/javascript" src="../js/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="../js/plugin/backstretch/jquery.backstretch.min.js"></script>
-    <script type="text/javascript" src="../js/plugin/jquery-validate/js/jquery.validationEngine.js"></script>
-	<script type="text/javascript" src="../js/plugin/jquery-validate/js/languages/jquery.validationEngine-zh_CN.js"></script>
- 	<script type="text/javascript" src="script/userRegister.js"></script>
- 
-    <script>
-        function addBankCard(){
-	        var defBankCard = "<div>" + $("#defDiv").html() + 
-	        	'<img id="img" src="../img/del.png" style="width:30px;height:30px;" onclick="delBankCard(this);"/>' +'</div>';
-        	$("#defDiv").after(defBankCard);
-        }
-        
-        function delBankCard(delDom){
-        	$(delDom).parent().remove();
-        }
-    </script>
-    <!-- END JAVASCRIPTS -->
+    <!-- 
+	<div class="form-item clearfix">
+		<label>性别：</label>
+		<div class="sex-box">
+			<input name="sex" value="1/" type="radio">
+			<span>男</span>
+			<input name="sex" value="0/" CHECKED="checked" type="radio">
+			<span>女</span>
+			<input name="sex" value="-1" type="radio">
+			<span>保密</span>
+		</div>
+	</div>
+ 	-->
+	<div class="form-item clearfix">
+		<label><i style="color:red;">*</i>所在地：</label>
+		<div class="option-box">
+			<select id="province" name="province" wx-validator-error-value="选择省份">
+				<option>选择省份</option>
+				<option value="安徽" rel="3">安徽</option>
+				<option value="澳门" rel="396">澳门</option>
+				<option value="北京" rel="52">北京</option>
+				<option value="福建" rel="4">福建</option>
+				<option value="甘肃" rel="5">甘肃</option>
+				<option value="广东" rel="6">广东</option>
+				<option value="广西" rel="7">广西</option>
+				<option value="贵州" rel="8">贵州</option>
+				<option value="海南" rel="9">海南</option>
+				<option value="河北" rel="10">河北</option>
+				<option value="黑龙江" rel="12">黑龙江</option>
+				<option value="河南" rel="11">河南</option>
+				<option value="湖北" rel="13">湖北</option>
+				<option value="湖南" rel="14">湖南</option>
+				<option value="江苏" rel="16">江苏</option>
+				<option value="江西" rel="17">江西</option>
+				<option value="吉林" rel="15">吉林</option>
+				<option value="辽宁" rel="18">辽宁</option>
+				<option value="内蒙古" rel="19">内蒙古</option>
+				<option value="宁夏" rel="20">宁夏</option>
+				<option value="青海" rel="21">青海</option>
+				<option value="山东" rel="22">山东</option>
+				<option value="上海" rel="321">上海</option>
+				<option value="山西" rel="23">山西</option>
+				<option value="陕西" rel="24">陕西</option>
+				<option value="四川" rel="26">四川</option>
+				<option value="台湾" rel="397">台湾</option>
+				<option value="天津" rel="343">天津</option>
+				<option value="香港" rel="395">香港</option>
+				<option value="西藏" rel="28">西藏</option>
+				<option value="新疆" rel="29">新疆</option>
+				<option value="云南" rel="30">云南</option>
+				<option value="浙江" rel="31">浙江</option>
+				<option value="重庆" rel="394">重庆</option>
+			</select>
+			<select id="city" name="city" wx-validator-error-value="请选择城市">
+				<option>请选择城市</option>
+			</select>
+	        <span id="wx-validator-province-error" class="error-text hidden">请选择省份</span>
+	        <span id="wx-validator-city-error" class="error-text hidden">请选择城市</span>
+		</div>
+	</div>
+	<div class="form-item clearfix">
+        <label for="type"><i style="color:red;">*</i>职业：</label>
+        <div class="option-box">
+	        <select id="job" name="job" class="custform-select validate[maxSize[255],required]" wx-validator-error-value="选择职业">
+		        <option value="1">导演</option>
+		        <option value="2">演员</option>
+		        <option value="3">摄影</option>
+		        <option value="4">后期</option>
+	        </select>
+        </div>
+    </div>
+	<div class="form-item clearfix">
+        <label for="name">手机：</label>
+        <input class="form-control validate[required]" type="text" autocomplete="off" id="phone" name="phone" />
+    </div>
+    <div class="form-item clearfix">
+        <label for="name">身份证：</label>
+        <input class="form-control validate[required]" type="text" autocomplete="off" id="identityCard" name="identityCard" />
+    </div>
+    <div class="form-item clearfix">
+        <label for="code"><i style="color:red;">*&nbsp;&nbsp;</i>银行卡开户行：</label>
+        <input class="form-control validate[required]" type="text" autocomplete="off" placeholder="请输入开户行" name="openingBanks" />
+    </div>
+    <div class="form-item clearfix">
+        <label for="name"><i style="color:red;">*&nbsp;&nbsp;</i>银行卡号：</label>
+        <input class="form-control validate[required]" type="text" autocomplete="off" placeholder="请输入卡号" name="bankNums" />
+    </div>
+    <div class="form-item clearfix">
+    	<label for="name"><i style="color:red;">*&nbsp;&nbsp;</i>企业组织机构证件照：</label>
+        <input name="organization"  id="organization" class="form-control validate[required]" type="text" autocomplete="off" placeholder="请输入卡号"/>
+        <!-- 
+        <div style="margin-top:10px;color: #555;line-height:150%;">请选择照片文件，文件需小于2.5MB</div>
+        <div style="margin-top:10px;">
+            <input type="file" class="" size="50" id="organization" name="organization" />
+            <input type="submit" value="上传" />
+            <iframe name='hidden_frame' id="hidden_frame" style='display: none'></iframe>
+        </div>
+         -->
+    </div>
+    <div class="form-item clearfix">
+    	<label for="name"><i style="color:red;">*&nbsp;&nbsp;</i>企业营业执照扫描件：</label>
+        <input name="businessLicense"  id="businessLicense" class="form-control validate[required]" type="text" autocomplete="off" placeholder="请输入卡号"/>
+        <!-- 
+        <div style="margin-top:10px;color: #555;line-height:150%;">请选择照片文件，文件需小于2.5MB</div>
+        <div style="margin-top:10px;">
+            <input type="file" class="" size="50" id="businessLicense" name="businessLicense" />
+            <input type="submit" value="上传" />
+            <iframe name='hidden_frame' id="hidden_frame" style='display: none'></iframe>
+        </div>
+         -->
+    </div>
+	<div class="setting-submit">
+		<a class="btn-base btn-red-h30 common-sprite" href="javascript:;" type="submit"><span class="common-sprite">保存</span></a>
+	</div>
+</form>
+<script type="text/javascript">
+	function modify(data){
+		if(data.status==1){
+			wx.alert("保存成功",function(){
+				location.reload();
+			});
+		}
+		if(data.status==0){
+			wx.alert(data.info);
+			
+		}
+	}
 
-</body>
-<!-- END BODY -->
-</html>
+</script>
+
+ 
+</body></html>

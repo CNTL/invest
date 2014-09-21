@@ -84,5 +84,9 @@
             <column name="createTime" length="0" not-null="true">
             </column>
         </property>
+        <property name="postAddr" type="string">
+            <column name="postAddr">
+            </column>
+        </property>
     </class>
 </hibernate-mapping>

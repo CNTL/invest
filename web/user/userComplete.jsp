@@ -1,191 +1,59 @@
 <%@page pageEncoding="UTF-8"%>
-<%@page import="com.tl.common.ParamInitUtils"%>
-<%
-	String valueArray = ParamInitUtils.getString(request.getParameter("valueArray"));
-	//valueArray = java.net.URLDecoder.decode(valueArray,"UTF-8"); 
-	if(valueArray != null && valueArray.length() > 0)
-		valueArray = new String(request.getParameter("valueArray").getBytes("ISO-8859-1"),"UTF-8"); 
-%>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>完善信息</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <meta content="" name="description" />
-    <meta content="" name="author" />
-    
- 	<link type="text/css" rel="stylesheet" href="../js/plugin/jquery-validate/css/validationEngine.jquery.css"/>
-    <link rel="stylesheet" type="text/css" media="screen" href="../js/bootstrap/css/bootstrap.min.css">
-    <link href="../css/adminlogin.css" rel="stylesheet" type="text/css" />
-    <link href="../css/components.css" rel="stylesheet" type="text/css" />
-    
-    <!-- END THEME STYLES -->
-    <link rel="shortcut icon" href="../img/favicon/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="../img/favicon/favicon.ico" type="image/x-icon">
+<!doctype html>
+<html><head>
+<meta charset="utf-8">
+<title>影投网-中国最具影响力的影投平台</title>
+<meta name="keywords" content="影投 创业 项目 投资 支持">
+<meta name="description" content="在影投网发布项目，获得投资支持，实现你的创业梦想">
+<link rel="stylesheet" type="text/css" href="./css/userSetting.css">
+<link rel="stylesheet" type="text/css" href="css/userCenter.css">
+<script type="text/javascript" src="script/dc.js"></script>
+<script type="text/javascript" src="script/ag.js"></script>
+<script type="text/javascript" src="script/userSetting.js"></script>
+<script src="script/ncfpb.1.1.min.js"></script>
 </head>
-<!-- END HEAD -->
-
-<body class="login">
-    <!-- BEGIN LOGO -->
-    <div class="logo">
-        	完善信息
+<body>
+<form class="setting-form" name="modify" action="" wx-validator="" autocomplete="off" wx-validator-ajax="" wx-validator-error-class="error-text">
+	<input name="user_id" value="328416" type="hidden">					
+	<div class="form-item clearfix">
+        <label class="red">登录账户：</label>
+        <p class="form-msg red"></p>
     </div>
-    <!-- END LOGO -->
- 
-    <!-- BEGIN LOGIN -->
-    <div class="content">
-        <!-- BEGIN LOGIN FORM -->
-        <form id="form" name="form" method="post" action="user.do?a=complete">
-        	<div style="display:none;">
-        		<input type="text" id="id" name="id" value="0"/>
-        	</div>
-        	<div class="form-group">
-                <label for="name"><i style="color:red;">*</i>姓名</label>
-                <input class="form-control validate[required]" type="text" autocomplete="off" placeholder="请输入姓名" id="name" name="name" />
-            </div>
-            <div class="form-group">
-                <label for="nickName">昵称</label>
-                <input class="form-control validate[required]" type="text" autocomplete="off" placeholder="请输入昵称" id="nickName" name="nickName" />
-            </div>
-            <div class="form-group">
-                <label for="phone">手机号</label>
-                <input class="form-control validate[required]" type="text" autocomplete="off" placeholder="请输手机号" id="phone" name="phone" />
-            </div>
-            <div class="form-group">
-                <label for="email">电子邮箱</label>
-                <input class="form-control validate[required]" type="text" autocomplete="off" placeholder="请输入邮箱" id="email" name="email" />
-            </div>
-            <div class="form-group">
-                <label for="city">地域</label>
-                <input class="form-control validate[required]" type="text" autocomplete="off" placeholder="请输入地域" id="city" name="city" />
-            </div>
-            <!-- 
-            <div class="form-group">
-                <label for="head">头像</label>
-                <input class="form-control validate[required]" type="file" autocomplete="off" placeholder="" id="head" name="head" />
-            </div>
-             -->
-            <div class="form-group">
-                <label for="intro">简介</label>
-                <input class="form-control validate[required]" type="text" autocomplete="off" placeholder="请输入简介" id="intro" name="intro" />
-            </div>
-            <div class="form-group">
-                <label for="wechat">微信</label>
-                <input class="form-control validate[required]" type="text" autocomplete="off" placeholder="请输入微信" id="wechat" name="wechat" />
-            </div>
-            <div class="form-group">
-                <label for="microblog">微博</label>
-                <input class="form-control validate[required]" type="text" autocomplete="off" placeholder="请输入微博" id="microblog" name="microblog" />
-            </div>
-            <div class="form-group">
-                <label for="job">职业</label>
-                <input class="form-control validate[required]" type="text" autocomplete="off" placeholder="请输入职业" id="job" name="job" />
-            </div>
+	<div class="form-item clearfix">
+        <label for="name"><i style="color:red;">*</i>邮箱</label>
+        <input class="form-control validate[required]" type="text" autocomplete="off" placeholder="请输入邮箱" id="email" name="email" />
+    </div>
+    <div class="form-item clearfix">
+        <label for="name">昵称</label>
+        <input class="form-control validate[required]" type="text" autocomplete="off" id="nickName" name="nickName" />
+    </div>
+    <div class="form-item clearfix">
+        <label for="name">邮寄地址</label>
+        <input class="form-control validate[required]" type="text" autocomplete="off" id="postAddr" name="postAddr" />
+    </div>
+	<div class="form-item clearfix">
+		<label>简介：</label>
+		<textarea id="intro" name="intro" placeholder="您的介绍可更有效的帮助支持者了解您和了解项目的背景"></textarea>
+	</div>
+	
+	<div class="setting-submit">
+		<a class="btn-base btn-red-h30 common-sprite" href="javascript:;" type="submit"><span class="common-sprite">保存</span></a>
+	</div>
+</form>
+<script type="text/javascript">
+	function modify(data){
+		if(data.status==1){
+			wx.alert("保存成功",function(){
+				location.reload();
+			});
+		}
+		if(data.status==0){
+			wx.alert(data.info);
 			
-            <div class="form-actions">
-           		<button id="btnCancel" type="button" onclick="window.close();" class="btn blue pull-right">
-                   	<i>关闭</i>
-                </button>
-                <button id="btnSave" type="submit" class="btn blue pull-right">
-                   	<i onclick="">保存</i>
-                </button>
-            </div>
+		}
+	}
 
-        </form>
-        <!-- END LOGIN FORM -->
+</script>
 
-
-    </div>
-    <!-- END LOGIN -->
-    <!-- BEGIN COPYRIGHT -->
-    <!-- END COPYRIGHT -->
-    <script type="text/javascript" src="../js/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="../js/plugin/backstretch/jquery.backstretch.min.js"></script>
-    <script type="text/javascript" src="../js/plugin/jquery-validate/js/jquery.validationEngine.js"></script>
-	<script type="text/javascript" src="../js/plugin/jquery-validate/js/languages/jquery.validationEngine-zh_CN.js"></script>
  
-    <script>
-        jQuery(document).ready(function () {
-        	$("#form").validationEngine({
-    			autoPositionUpdate:true,
-    			onValidationComplete:function(from,r){
-    				if (r){
-    					window.onbeforeunload = null;
-    					$("#btnSave").attr("disabled", true);
-    					$("#btnCancel").attr("btnCancel", true);
-    					var pwd = checkpassword();
-    					var pwdAgain = checkpassword_again();
-    					if(pwd && pwdAgain){
-    						from[0].submit();
-    					}
-    				}
-    			}
-    		});
-        	
-        	$("#code").removeAttr("readonly");
-        	var value = "<%=valueArray %>";
-        	if(value != null && value.length > 0){
-        		var valueArray = value.split(",");
-        		$("#id").val(valueArray[0]);
-        		$("#name").val(valueArray[1]);
-        		$("#code").val(valueArray[2]);
-        		$("#code").attr("readonly", 'true');
-        		$("#pwd").val(valueArray[3]);
-        	}
-      // init background slide images
-            $.backstretch([
-             "../img/loginbg/1.jpg",
-             "../img/loginbg/2.jpg",
-             "../img/loginbg/3.jpg",
-             "../img/loginbg/4.jpg"
-            ], {
-                fade: 1000,
-                duration: 8000
-            }
-         );
-        });
-        
-        function checkpassword(){
-			var password_temp = $("#pwd").val();
-			 //密码限制6位以上
-		    if(password_temp.length<6){
-		    	$("#tip").text("密码长度不能少于6位");
-		    	//document.getElementById('CUST_PASSWORD').placeholder='密码长度不能小于6位';
-		    	return false;
-		    } else if(password_temp.indexOf(" ")!=-1){
-				$("#tip").text("密码不能包含空格");
-				return false;
-			} else{
-				$("#tip").text("");
-				return true;
-			}
-		}
-		function checkpassword_again(){
-			var pwd = $("#pwd").val();
-			var passwordagain_temp = $("#pwdagain").val();
-			//密码限制6位以上
-			if(passwordagain_temp.length<6){
-				$("#tip_again").text("密码长度不能少于6位");
-				return false;
-		    } else if(passwordagain_temp.indexOf(" ")!=-1){
-				$("#tip_again").text("密码不能包含空格");
-				return false;
-			} else if (pwd != passwordagain_temp) {//加密验证fjc 1.首先判断两个密码是否一致 2.对密码进行加密
-            	$("#tip_again").text("两次输入的密码不一致");
-            	document.getElementById('pwdagain').value="";
-				document.getElementById('pwdagain').placeholder='密码不一致';
-				return false;
-			} else {
-				$("#tip_again").text("");
-				return true;
-			}
-		}
-    </script>
-    <!-- END JAVASCRIPTS -->
-
-</body>
-<!-- END BODY -->
-</html>
+</body></html>

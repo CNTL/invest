@@ -38,17 +38,17 @@
     <!-- BEGIN LOGIN -->
     <div class="content">
         <!-- BEGIN LOGIN FORM -->
-        <form id="form" name="form" method="post" action="userlogin.do?a=create">
+        <form id="form" name="form" method="post" action="">
         	<div style="display:none;">
         		<input type="text" id="id" name="id" value="0"/>
         	</div>
-        	<div class="form-group">
-                <label for="name"><i style="color:red;">*</i>姓名</label>
-                <input class="form-control validate[required]" type="text" autocomplete="off" placeholder="请输入姓名" id="name" name="name" />
+            <div class="form-group">
+                <label for="code"><i style="color:red;">*</i>登录账号</label>
+                <input class="form-control validate[required]" type="text" autocomplete="off" placeholder="请输入用户名" id="code" name="code" />
             </div>
             <div class="form-group">
-                <label for="code"><i style="color:red;">*</i>用户名</label>
-                <input class="form-control validate[required]" type="text" autocomplete="off" placeholder="请输入用户名" id="code" name="code" />
+                <label for="name"><i style="color:red;">*</i>邮箱</label>
+                <input class="form-control validate[required]" type="text" autocomplete="off" placeholder="请输入邮箱" id="email" name="email" />
             </div>
             <div class="form-group">
                 <label for="type"><i style="color:red;">*</i>注册类型</label>
@@ -59,12 +59,12 @@
             </div>
             <div class="form-group">
 				<label for="userpassword"><i style="color:red;">*</i>请输入密码</label>
-				<input type="password" class="form-control input-lg validate[required]" onchange="checkpassword()" value="" id="password" name="password" placeholder="请输入密码">
+				<input type="password" class="form-control validate[required]" onchange="checkpassword()" value="" id="password" name="password" placeholder="请输入密码">
 				<label id="tip" class="tip" style="color:red;" value=""></label>
 			</div>
 			<div class="form-group">
 				<label  for="passwordagain"><i style="color:red;">*</i>请再次输入密码</label>
-				<input type="password" class="form-control input-lg validate[required]" onchange="checkpassword_again()" value="" id="pwdagain" name="pwdagain" placeholder="请再次输入密码">
+				<input type="password" class="form-control validate[required]" onchange="checkpassword_again()" value="" id="pwdagain" name="pwdagain" placeholder="请再次输入密码">
 			    <label  id="tip_again" class="tip_again" style="color:red;" value=""></label>
 			</div>
 			

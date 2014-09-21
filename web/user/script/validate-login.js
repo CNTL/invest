@@ -62,10 +62,8 @@ var Login = function () {
 		 
 		var keyUrl = "userlogin.do?a=login&usercode="+$("#usercode").val()+"&password="+$("#password").val();
 		$.getJSON(keyUrl, function(data) {
-			
 			if(data!=null&&parseInt(data.id,10)>0){
 				doAuth(data);
-				
 			}
 			else{
 				 $('.alert-danger', $('.login-form')).find("span").text("用户名或密码错误。");
@@ -77,7 +75,7 @@ var Login = function () {
 	var doAuth = function(user){
 		var keyUrl = "userlogin.do?UserID="+user.id+"&UserName="+user.name+"&UserCode="+user.code+"&UserPassword="+user.password;
 		$.get(keyUrl, function(data) {
-			window.location.replace("userCenter.jsp");
+			window.location.replace("userSetting.jsp");
 		});
 		
 	},
