@@ -11,6 +11,7 @@ import com.tl.invest.sys.mu.MenuReader;
 import com.tl.kernel.context.Context;
 import com.tl.kernel.web.BaseController;
 import com.tl.kernel.web.SysSessionUser;
+import com.tl.kernel.web.WebUtil;
 
 public class SysMain extends BaseController {
 	
@@ -35,7 +36,7 @@ public class SysMain extends BaseController {
 				cssTags = getCssTags(menu);
 			}
 		}
-		
+		model.put("apphost", WebUtil.getRoot(request));
 		model.put("menus", menus);
 		model.put("JsTags", jsTags);
 		model.put("CssTags", cssTags);

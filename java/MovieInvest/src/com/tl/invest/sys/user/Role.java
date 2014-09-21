@@ -11,6 +11,7 @@ public class Role implements java.io.Serializable  {
 	private Date created;
 	private int deleted;
 	private String memo;
+	private int orderNo;
 	public int getId() {
 		return id;
 	}
@@ -40,5 +41,11 @@ public class Role implements java.io.Serializable  {
 	}
 	public void setMemo(String memo) {
 		this.memo = memo;
+	}
+	public int getOrderNo() {
+		return orderNo;
+	}
+	public void setOrderNo(int orderNo) {
+		this.orderNo = orderNo;
 	}
 }

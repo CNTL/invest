@@ -10,7 +10,6 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Iterator;
 
@@ -18,9 +17,6 @@ import javax.imageio.ImageIO;
 import javax.imageio.ImageReadParam;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
-
-import com.sun.image.codec.jpeg.JPEGCodec;
-import com.sun.image.codec.jpeg.JPEGImageEncoder;
 
 /**
  * @author Ren Yanfang
@@ -111,10 +107,14 @@ public class ImageHelper {
 		    BufferedImage tag = new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);
    
 		    tag.getGraphics().drawImage(src,0,0,width,height,null);        //绘制缩小后的图
-			FileOutputStream newimage=new FileOutputStream(newUrl);           //输出到文件流
-			JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(newimage); 
-			encoder.encode(tag);                                                //近JPEG编码
-			newimage.close();  
+			//FileOutputStream newimage=new FileOutputStream(newUrl);           //输出到文件流
+			//JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(newimage); 
+			//encoder.encode(tag);                                                //近JPEG编码
+			
+			String formatName = fileUrl.substring(fileUrl.lastIndexOf(".") + 1);
+			ImageIO.write(tag, /*"GIF"*/ formatName /* format desired */ , new File(newUrl) /* target */ );  
+			
+			//newimage.close();  
 			file.delete();
 		} catch (Exception e) {
 			e.printStackTrace();

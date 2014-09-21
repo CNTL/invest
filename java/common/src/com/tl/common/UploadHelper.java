@@ -8,7 +8,6 @@ package com.tl.common;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -20,9 +19,6 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-
-import com.sun.image.codec.jpeg.JPEGCodec;
-import com.sun.image.codec.jpeg.JPEGImageEncoder;
 
 /**
  * 文件上传辅助类
@@ -125,11 +121,12 @@ public class UploadHelper {
 	    	Image img = ImageIO.read(file);  
 	    	BufferedImage tag = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_RGB);  
 	    	tag.getGraphics().drawImage(img.getScaledInstance(img.getWidth(null), img.getHeight(null), Image.SCALE_SMOOTH), 0, 0, null);  
-	    	FileOutputStream out = new FileOutputStream(result);  
+	    	//FileOutputStream out = new FileOutputStream(result);  
 	    	// JPEGImageEncoder可适用于其他图片类型的转换  
-	    	JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);  
-	    	encoder.encode(tag);  
-	    	out.close(); 
+	    	//JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);  
+	    	//encoder.encode(tag);  
+	    	//out.close(); 	    	
+			ImageIO.write(tag, /*"GIF"*/ fileExt /* format desired */ , new File(result) /* target */ );
 		} else {  
 			file.canRead();  
 	        BufferedImage src = ImageIO.read(file);  

@@ -104,6 +104,10 @@ public class URLEntryFilter implements Filter {
 		 */
 		HttpSession session = request.getSession();
 		
+		if(session.getAttribute(SysSessionUser.sessionAdminName) != null
+				|| session.getAttribute(SysSessionUser.sessionName) != null)
+			return true;
+		
 		if (isAdminConsole(path)) {
 			if (session.getAttribute(SysSessionUser.sessionAdminName) == null) {
 				System.out.println("[-----非法请求路径, 重新定位到登录界面-----]" + path);

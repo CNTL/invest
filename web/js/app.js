@@ -1002,7 +1002,7 @@ function mainResize(name){
 	 
 	 return function(_, a, b) {
 		 
-		    if(gridResize!=null && $.isFunction(gridResize)){
+		    if(typeof(gridResize) != "undefined" && gridResize!=null && $.isFunction(gridResize)){
 		    	gridResize(a,b);
 		    }
 	 };

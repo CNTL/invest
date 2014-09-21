@@ -1,5 +1,5 @@
 var tldatagrid = {
-	id = "",
+	id : "",
 	options : null,
 	allColumns : [],
 	defoptions : {
@@ -30,16 +30,17 @@ var tldatagrid = {
 		}
 		
 		tldatagrid.options = $.extend({},tldatagrid.defoptions,opts);
-		tldatagrid.setDispalyFields();
-		//tldatagrid.initdatagrid(opts);
+		//tldatagrid.setDispalyFields();
+		tldatagrid.initdatagrid(opts);
 	},
 	setLoader : function(){
 		tldatagrid.options.loader = function(param,success,error){
-			param.queryconditions = e5_queryform.getQuery();
+			param.queryconditions = "";//e5_queryform.getQuery();
 			param.searchfields = JSON.stringify(tldatagrid.options.searchFields);			
 			param.selectfields = JSON.stringify({fields:tldatagrid.getSelectFields()});
 			param.sumfields = JSON.stringify({fields:tldatagrid.getSumableFields()});
 			param.primarykey = tldatagrid.options.itemID;
+			param.tbview = tldatagrid.options.tbview;
 			if (!tldatagrid.options.url) {
 				return false;
 			}
@@ -77,12 +78,13 @@ var tldatagrid = {
 						docIds += docs[i].SYS_DOCUMENTID;
 					}
 					var param = {};
-					param.queryconditions = e5_queryform.getQuery();
+					param.queryconditions = "";//e5_queryform.getQuery();
 					param.searchfields = JSON.stringify(tldatagrid.options.searchFields);			
 					param.selectfields = JSON.stringify({fields:tldatagrid.getSelectFields()});
 					param.sumfields = JSON.stringify({fields:tldatagrid.getSumableFields()});
 					param.primarykey = tldatagrid.options.itemID;
-					param.selectedID = docIds;
+					param.tbview = tldatagrid.options.tbview;
+					param.selectedID = docIds;					
 					if (!tldatagrid.options.url) {
 						return false;
 					}

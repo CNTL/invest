@@ -65,6 +65,7 @@ _16();
 }
 });
 }
+if(_13["js"]){
 if(/^http/i.test(_13["js"])){
 var url=_13["js"];
 }else{
@@ -76,6 +77,9 @@ if(_14=="loaded"&&_15=="loaded"){
 _16();
 }
 });
+}else{
+_16();
+}
 function _16(){
 _3[_11]="loaded";
 easyloader.onProgress(_11);
@@ -161,6 +165,7 @@ _4(_1f,_20);
 _4(easyloader.base+_1f,_20);
 }
 }else{
+_1= $.extend({}, easyloader.modules,_1);
 _17(_1f,_20);
 }
 }
