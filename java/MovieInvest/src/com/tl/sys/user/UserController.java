@@ -17,6 +17,7 @@ import com.tl.common.HeadImage;
 import com.tl.common.ImageHelper;
 import com.tl.common.ParamInitUtils;
 import com.tl.common.UploadHelper;
+import com.tl.common.UserEncrypt;
 import com.tl.kernel.context.Context;
 import com.tl.kernel.context.DAOHelper;
 import com.tl.kernel.web.BaseController;
@@ -57,6 +58,9 @@ public class UserController extends BaseController {
 			find(request, response);
 		} else if("create".equals(action)){//用户注册
 			String json = create(request, response);
+			output(json, response);
+		} else if("pwdEdit".equals(action)){//修改密码
+			String json = pwdEdit(request, response);
 			output(json, response);
 		} else if("complete".equals(action)){//完善个人信息（修改）
 			String json = complete(request, response);
@@ -117,6 +121,24 @@ public class UserController extends BaseController {
 		userManager.create(user);
 		return "ok";
 	}
+	/** 
+	* @author  leijj 
+	* 功能： 修改密码
+	* @param request
+	* @param response
+	* @return
+	* @throws Exception 
+	*/ 
+	private String pwdEdit(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		String password = get(request, "password");
+		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
+		String oldPassword = UserEncrypt.getInstance().decrypt(user.getPassword());
+		if(password.equals(oldPassword)) return "原密码不正确！";
+		
+		user.setPassword(password);
+		userManager.update(user);
+		return "ok";
+	}
 	
 	/** 
 	* @author  leijj 
@@ -133,16 +155,6 @@ public class UserController extends BaseController {
 		user.setPhone(ParamInitUtils.getString(request.getParameter("phone")));
 		user.setEmail(ParamInitUtils.getString(request.getParameter("email")));
 		user.setCity(ParamInitUtils.getString(request.getParameter("city")));
-		
-		//需上传头像
-		/*
-		MultipartHttpServletRequest mRequest = (MultipartHttpServletRequest) request;  
-		MultipartFile file = mRequest.getFile("head");
-		if(file.getSize()!=0){
-			String rltPath = AttachHelper.upload(mRequest, "upload/user", user.getName() + "_" + user.getCode());
-			user.setHead(rltPath);
-		}
-		*/
 		user.setIntro(ParamInitUtils.getString(request.getParameter("intro")));
 		user.setWechat(ParamInitUtils.getString(request.getParameter("wechat")));
 		user.setMicroblog(ParamInitUtils.getString(request.getParameter("microblog")));

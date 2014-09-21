@@ -30,6 +30,7 @@ public class User implements java.io.Serializable {
 	private Integer isRealNameIdent;
 	private Date createTime;
 	private String createTimeStr;
+	private String postAddr;
 
 	public User() {
 	}
@@ -235,4 +236,11 @@ public class User implements java.io.Serializable {
 		this.createTimeStr = createTimeStr;
 	}
 
+	public String getPostAddr() {
+		return postAddr;
+	}
+
+	public void setPostAddr(String postAddr) {
+		this.postAddr = postAddr;
+	}
 }
