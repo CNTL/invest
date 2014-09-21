@@ -133,7 +133,7 @@ public class UserController extends BaseController {
 		String password = get(request, "password");
 		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
 		String oldPassword = UserEncrypt.getInstance().decrypt(user.getPassword());
-		if(password.equals(oldPassword)) return "原密码不正确！";
+		if(!password.equals(oldPassword)) return "原密码不正确！";
 		
 		user.setPassword(password);
 		userManager.update(user);

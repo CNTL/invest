@@ -13,10 +13,11 @@ import com.tl.common.ResourceMgr;
 import com.tl.common.UserEncrypt;
 import com.tl.db.DBSession;
 import com.tl.db.IResultSet;
+import com.tl.kernel.constant.SysTableLibs;
 import com.tl.kernel.context.Context;
 import com.tl.kernel.context.DAO;
 import com.tl.kernel.context.DAOHelper;
-import com.tl.sys.org.EUID;
+import com.tl.kernel.context.TBID;
 
 
 
@@ -40,8 +41,6 @@ public class UserManager {
 	public void create(User user) throws Exception{
 	    if(user.getCode() == null || user.getCode().trim().equals(""))
 	        throw new Exception("User Code is Null.");
-	    if(user.getName() == null || user.getName().trim().equals(""))
-	        throw new Exception("User Name is Null.");
 	    if(user.getId() <= 0 && getUserByCode(user.getCode()) != null)
 	        throw new Exception("The Same User Code exist.");
 	     
@@ -55,7 +54,7 @@ public class UserManager {
 	    	//加密password,数据库中存储的是密文
             user.setPassword(UserEncrypt.getInstance().encrypt(user.getPassword()));
 	    	if(user.getId() <= 0){
-	    		int userID = (int)EUID.getID("UserID");
+	    		int userID = (int)TBID.getID(SysTableLibs.TB_USER.getTableCode());
 		        user.setId(userID);
 		        dao.save(user,s);
 	    	} else {

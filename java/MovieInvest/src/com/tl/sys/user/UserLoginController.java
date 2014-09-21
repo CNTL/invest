@@ -11,8 +11,8 @@ import net.sf.json.JSONObject;
 import com.tl.common.DateUtils;
 import com.tl.common.ParamInitUtils;
 import com.tl.common.StringUtils;
-import com.tl.kernel.context.TLException;
 import com.tl.kernel.context.Context;
+import com.tl.kernel.context.TLException;
 import com.tl.kernel.web.BaseController;
 import com.tl.kernel.web.SysSessionUser;
 
@@ -21,6 +21,7 @@ import com.tl.kernel.web.SysSessionUser;
  * @author wang.yq
  * @version 1.0
  */
+@SuppressWarnings({"rawtypes"})
 public class UserLoginController extends BaseController 
 {
 	private UserManager manager = null;
@@ -32,17 +33,16 @@ public class UserLoginController extends BaseController
 		this.manager = manager;
 	}
 
-	@SuppressWarnings("rawtypes")
 	protected void handle(HttpServletRequest request, HttpServletResponse response, Map model) 
 	throws Exception 
 	{
 		
 		String action = request.getParameter("a");
-		if(!StringUtils.isEmpty(action)&&action.equals("create")){
+		if(!StringUtils.isEmpty(action) && action.equals("create")){
 			
-			String json = create(request, response);
-			output(json, response);
-		} else if(!StringUtils.isEmpty(action)&&action.equals("login")){
+			String result = create(request, response);
+			output(result, response);
+		} else if(!StringUtils.isEmpty(action) && action.equals("login")){
 	
 			String usercode = get(request, "usercode");
 			String password = get(request,"password");
@@ -82,8 +82,8 @@ public class UserLoginController extends BaseController
 	*/ 
 	private String create(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		User user = new User();
-		user.setName(ParamInitUtils.getString(request.getParameter("name")));
 		user.setCode(ParamInitUtils.getString(request.getParameter("code")));
+		user.setEmail(ParamInitUtils.getString(request.getParameter("email")));
 		user.setType(ParamInitUtils.getString(request.getParameter("type")));
 		user.setTypeId(ParamInitUtils.getInt(request.getParameter("TypeId")));
 		user.setPassword(ParamInitUtils.getString(request.getParameter("password")));

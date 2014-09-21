@@ -3,8 +3,9 @@ package com.tl.sys.user;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import com.tl.kernel.constant.SysTableLibs;
 import com.tl.kernel.context.DAO;
-import com.tl.sys.org.EUID;
+import com.tl.kernel.context.TBID;
 
 /** 
  * @created 2014年9月6日 下午4:55:33 
@@ -26,7 +27,7 @@ public class BankcardManager {
 	    	s = dao.getSession();
             t = dao.beginTransaction(s);
 	    	if(bankcard.getId() <= 0){
-	    		int id = (int)EUID.getID("BankcardID");
+	    		int id = (int)TBID.getID(SysTableLibs.TB_BANKCARD.getTableCode());;
 	    		bankcard.setId(id);
 		        dao.save(bankcard,s);
 	    	} else {
