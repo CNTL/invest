@@ -1,12 +1,26 @@
 ﻿<%@include file="../include/IncludeTag.jsp"%>
 <%@page pageEncoding="UTF-8"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>上传头像</title>
+<link rel="stylesheet" type="text/css" href="../js/plugin/jquery-validate/css/validationEngine.jquery.css"/>
+<link rel="stylesheet" type="text/css" media="screen" href="../js/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="../js/jquery-easyui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="../js/jquery-easyui/themes/icon.css">
+<script type="text/javascript" src="../js/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../js/jquery-easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="../js/plugin/jquery-validate/js/jquery.validationEngine.js"></script>
+<script type="text/javascript" src="../js/plugin/jquery-validate/js/languages/jquery.validationEngine-zh_CN.js"></script>
 <script type="text/javascript" src="script/drag.js"></script>
-<script type="text/javascript" src="script/ImageCopper.js"></script>
+<script type="text/javascript">
+var basePath = "<%=basePath %>";
+</script>
 <style type="text/css">
 	body
 	{
@@ -28,47 +42,6 @@
 		color: #555;	
 	}
 </style>
-<script type="text/javascript">
-	//校验上传文件
-	function checkPic() {
-		var location = document.getElementById('headImg').value;
-		if (location == "") {
-			alert("请先选择图片文件");
-			return false;
-		}
-		var point = location.lastIndexOf(".");
-		var type = location.substr(point).toLowerCase() ;
-		if (type == ".jpg" || type == ".gif" || type == ".png" || type == ".jpeg" || type == ".bmp") {
-			img = document.createElement("img");
-			img.src = location;
-			if (img.fileSize > 1024000) {
-				alert("图片尺寸请不要大于100KB");
-				return false;
-			} else {
-				document.getElementById("nowDiv").style.display="none";
-				return true;
-			}
-		} else {
-			alert("只能上传jpg、jpeg、gif、png、bmp格式的图片");
-			return false;
-		}
-		document.getElementById("nowDiv").style.display="none";
-		return true;
-	}
-	//图片上传后的回调函数
-	function callback(url, width, height) {
-		document.getElementById('cut_img').width = width;
-		document.getElementById('cut_img').height = height;
-		document.getElementById('cut_img').src = url + "?" + Math.round(Math.random() * 10000);
-		document.getElementById('cut_url').value = url;
-		document.getElementById('hide').style.display = '';
-		imageinit();
-		gripinit();
-	}
-	function hide(){
-		document.getElementById('hide').style.display='none';
-	}
-</script>
 </head>
 <body>
     <form name="picForm" id="picForm" action="user.do?a=uploadImg" method="post" enctype="multipart/form-data" 
@@ -76,19 +49,21 @@
 		<div style="margin:10px;">
              <div>
                  <div style="margin-top:10px;color: #555;line-height:150%;">请选择照片文件，文件需小于2.5MB</div>
-                 <div style="margin-top:10px;">
-                     <input type="file" class="" size="50" id="headImg" name="headImg" />
-                     <input type="submit" value="上传" />
-                     <iframe name='hidden_frame' id="hidden_frame" style='display: none'></iframe>
-                 </div>
+                 <div>
+                 	<input type="file" id="headImg" name="headImg" class="form-control" />
+                 	<button id="btnSave" type="submit" class="btn blue">
+			           	<i onclick="">上传</i>
+			        </button>
+                 	<iframe name='hidden_frame' id="hidden_frame" style='display: none'></iframe>
+			    </div>
              </div>
              <div id="nowDiv" style="margin-top:20px;">
              	<div class="title"><b>当前头像</b></div>
-             	<div class="photocontainer"><img id="nowPhoto" style="width: 150px; height: 150px; margin: 0px" /></div>
+             	<div class="photocontainer"><img id="nowPhoto" style="width: 150px; height: 150px; margin: 0px" src="headImg/default.bmp"/></div>
              </div>
          </div>
      </form>
-     <form name="imgForm" id="imgForm" action="user.do?a=saveImg" method="post" onsubmit="return getcutpos();">
+     <form name="form" id="form" action="user.do?a=saveImg" method="post" onsubmit="return getcutpos();">
         <div id="hide" style="display: none;margin:10px;">
             <div id="cut_div" style="border: 2px solid #888888; width: 284px; height: 266px; overflow: hidden; position: relative; top: 0px; left: 0px; margin: 4px; cursor: pointer;">
                 <table
@@ -130,16 +105,13 @@
                 <input type="hidden" name="DocLibID" id="DocLibID" value="<c:out value="${docLibID}"/>" />
                 <input type="hidden" name="cut_pos" id="cut_pos" value="" />
                 <input type="hidden" name="cut_url" id="cut_url" value="" />
-                <input type="submit" class="button" name="submit" id="submit" value=" 保存头像 " />
+                <button id="submit" name="submit" type="submit" class="btn blue">
+		           	<i onclick="">保存头像</i>
+		        </button>
             </div>
         </div>
     </form>
-    <script type="text/javascript">
-		var headSrc="<c:out value="${headSrc}"/>";
-		if(headSrc!="")
-			document.getElementById('nowPhoto').src = headSrc;
-		else 
-			document.getElementById('nowPhoto').src = "headImg/default.bmp";
-	</script>
+    <script type="text/javascript" src="script/userHeadImg.js"></script>
+    <script type="text/javascript" src="script/ImageCopper.js"></script>
 </body>
 </html>

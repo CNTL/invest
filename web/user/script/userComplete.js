@@ -43,10 +43,10 @@ var complete = {
 	        success:function(data){
 	    		if(data != null && data == 'ok'){
 	    			$.messager.alert('消息','修改资料成功！');
-	    			//parent.location.href = 'userLogin.jsp';
 	    		} else {
 	    			$.messager.alert('修改失败',data);
 	    		}
+	    		$("#btnSave").attr("disabled", false);
 	        } ,
 			error:function (XMLHttpRequest, textStatus, errorThrown) {
 				   alert(errorThrown);

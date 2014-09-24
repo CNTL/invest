@@ -21,7 +21,6 @@ import com.tl.common.UserEncrypt;
 import com.tl.kernel.context.Context;
 import com.tl.kernel.context.DAOHelper;
 import com.tl.kernel.web.BaseController;
-import com.tl.kernel.web.SysSessionUser;
 import com.tl.sys.common.SessionHelper;
 import com.tl.sys.sysuser.DataTableParam;
 import com.tl.sys.sysuser.DataTableUtil;
@@ -86,9 +85,8 @@ public class UserController extends BaseController {
 		} else if ("uploadImg".equals(action)) {
 			uploadHeadImg(request, response, model);
 		} else if ("saveImg".equals(action)) {
-			saveHeadImg(request, response, model);
-		} else {
-			InitHeadImg(request, response, model);
+			String json = saveHeadImg(request);
+			output(json, response);
 		}
 	}
 	/** 
@@ -197,8 +195,6 @@ public class UserController extends BaseController {
 		user.setOrganization(ParamInitUtils.getString(request.getParameter("organization")));//企业组织机构证件照
 		user.setBusinessLicense(ParamInitUtils.getString(request.getParameter("businessLicense")));//企业营业执照扫描件
 		
-		
-		
 		String[] bankNums = request.getParameterValues("bankNums");
 		String[] openingBanks = request.getParameterValues("openingBanks");
 		if(bankNums != null && bankNums.length > 0){
@@ -253,27 +249,16 @@ public class UserController extends BaseController {
 		return json;
 	}   
 	
-	private void InitHeadImg(HttpServletRequest request,HttpServletResponse response, Map model) throws Exception {
-		SysSessionUser sessionUser = SessionHelper.getUser(request);
-		User user = userManager.getUserByCode(sessionUser.getUserCode());
-		
-		String headSrc = user.getHead();
-		model.put("id", user.getId());
-		model.put("headSrc", headSrc);	
-		model.put("@VIEWNAME@", "user/userHeadImg");
-	}
-	
 	//上传的文件
 	private void uploadHeadImg(HttpServletRequest request,HttpServletResponse response, Map model) throws Exception {
 		String newPrefix = SessionHelper.getUserCode(request) + DateUtils.getSysTime();
-		
 		String newPath = UploadHelper.rootPath(request) + "upload/user/headImg/" + DateUtils.getSysDate();
 		
 		File img = UploadHelper.upload(request, newPath, newPrefix);
 		
 		String fileName = img.getName();
 		String fileExt = fileName.substring(fileName.lastIndexOf(".")+1).toLowerCase();
-		String result =newPath + File.separator + fileName.substring(0,fileName.lastIndexOf("."))+".jpg";
+		String result = newPath + File.separator + fileName.substring(0,fileName.lastIndexOf("."))+".jpg";
 		BufferedImage image;
 		if(!(fileExt.equals("jpg")) && !(fileExt.equals("jpeg"))) {
 			UploadHelper.ImgConvert(img,fileExt,result);
@@ -289,7 +274,7 @@ public class UserController extends BaseController {
 		response.sendRedirect("uploadHeadOk.html?" + result + "," + width + "," + height);
 	}
 	
-	private void saveHeadImg(HttpServletRequest request,HttpServletResponse response, Map model) throws Exception {
+	private String saveHeadImg(HttpServletRequest request) throws Exception {
 		try {
 			int width=120;
 			//获取缩放和剪切参数
@@ -313,11 +298,10 @@ public class UserController extends BaseController {
 	        User user = userManager.getUserByID(SessionHelper.getUserID(request));
 	        user.setHead(destFile);
 	        userManager.update(user);
-	        destFile = destFile.replaceAll("\\\\", "/");
-	        model.put("headSrc", destFile);	
-			model.put("@VIEWNAME@", "user/userHeadImg");
+	        return "ok";
 		} catch (Exception e) {
 			e.printStackTrace();
+			return "上传头像失败:" + e.getMessage();
 		}
 	}
 	public String tojson(List list, int count, String sEcho)     {  

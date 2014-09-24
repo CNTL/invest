@@ -10,6 +10,13 @@ var userset = {
 		} else if(obj.id=='relAuth'){
 			url = "userRelAuth.jsp";
 		}
+		userset.setClass(obj);
 		$("#main").attr("src",url);
+	},
+	setClass : function (obj){
+		$(obj).parent().parent().find("li").each(function(){
+		    $(this).removeClass("select");
+		});
+		$(obj).parent().addClass("select");
 	}
 };

@@ -11,10 +11,7 @@
 <script type="text/javascript" src="../js/plugin/backstretch/jquery.backstretch.min.js"></script>
 <script type="text/javascript" src="../js/plugin/jquery-validate/js/jquery.validationEngine.js"></script>
 <script type="text/javascript" src="../js/plugin/jquery-validate/js/languages/jquery.validationEngine-zh_CN.js"></script>
-<script type="text/javascript" src="script/dc.js"></script>
-<script type="text/javascript" src="script/ag.js"></script>
 <script type="text/javascript" src="script/userSetting.js"></script>
-<script src="script/ncfpb.1.1.min.js"></script>
 </head>
 <body>
 <!--header static-->

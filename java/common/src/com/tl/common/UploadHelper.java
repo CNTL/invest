@@ -53,7 +53,7 @@ public class UploadHelper {
 		FileItem file = getFileItem(request);
 		
 		String fileName = file.getName();
-		String fn = fileName.substring(fileName.lastIndexOf(File.separator) + 1);
+		String fn = fileName.substring(fileName.lastIndexOf("."));
 		
 		return writeFile(file, path + File.separator + prefix + fn);
 	}

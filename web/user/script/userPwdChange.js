@@ -36,6 +36,7 @@ var pwdChange = {
 	    		} else {
 	    			$.messager.alert('修改密码失败',data);
 	    		}
+	    		$("#btnSave").attr("disabled", false);
 	        } ,
 			error:function (XMLHttpRequest, textStatus, errorThrown) {
 				   alert(errorThrown);
@@ -57,6 +58,9 @@ var pwdChange = {
 			$("#pwdagain").addClass("form-control validate[maxSize[255],required,funcCall[textNoSame]]");
 	    	document.getElementById('pwdagain').value="";
 	    	flag = false;
+		} else {
+			$("#pwdagain").addClass("form-control validate[maxSize[255],required]");
+			return true;
 		}
 		return flag;
 	},
