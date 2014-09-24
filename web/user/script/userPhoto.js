@@ -21,7 +21,6 @@
     /* 初始化tab标签 */
     function initTabs() {
         var tabs = $('#tabhead').children;
-        alert(tabs)
         for (var i = 0; i < tabs.length; i++) {
             domUtils.on(tabs[i], "click", function (e) {
                 var target = e.target || e.srcElement;

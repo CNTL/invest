@@ -56,6 +56,8 @@ public class UserController extends BaseController {
 			output(json, response);
 		} else if("find".equals(action)){//查找用户
 			find(request, response);
+		} else if("findLogin".equals(action)){//查找登录用户信息
+			findLogin(request, response);
 		} else if("create".equals(action)){//用户注册
 			String json = create(request, response);
 			output(json, response);
@@ -99,6 +101,22 @@ public class UserController extends BaseController {
 	*/ 
 	private void find(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		User user = userManager.getUserByCode(ParamInitUtils.getString(request.getParameter("code")));
+		JSONObject jsonArray = JSONObject.fromObject(user);  
+		output(jsonArray.toString(), response);
+	}
+	/** 
+	* @author  leijj 
+	* 功能： 查找登录用户信息
+	* @param request
+	* @param response
+	* @throws Exception 
+	*/ 
+	private void findLogin(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
+		List<Bankcard> bankcards = bankcardManager.getByUserId(user.getId());
+		if(bankcards != null && bankcards.size() > 0) 
+			user.setBankcards(bankcards);
+		
 		JSONObject jsonArray = JSONObject.fromObject(user);  
 		output(jsonArray.toString(), response);
 	}
@@ -150,23 +168,36 @@ public class UserController extends BaseController {
 	*/ 
 	private String complete(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
-		user.setName(ParamInitUtils.getString(request.getParameter("name")));
 		user.setNickName(ParamInitUtils.getString(request.getParameter("nickName")));
-		user.setPhone(ParamInitUtils.getString(request.getParameter("phone")));
 		user.setEmail(ParamInitUtils.getString(request.getParameter("email")));
-		user.setCity(ParamInitUtils.getString(request.getParameter("city")));
 		user.setIntro(ParamInitUtils.getString(request.getParameter("intro")));
-		user.setWechat(ParamInitUtils.getString(request.getParameter("wechat")));
-		user.setMicroblog(ParamInitUtils.getString(request.getParameter("microblog")));
-		user.setJob(ParamInitUtils.getString(request.getParameter("job")));
+		user.setPostAddr(ParamInitUtils.getString(request.getParameter("postAddr")));
 		
 		userManager.update(user);
 		return "ok";
 	}
 	
+	/** 
+	* @author  leijj 
+	* 功能： 实名认证
+	* @param request
+	* @param response
+	* @return
+	* @throws Exception 
+	*/ 
 	private String relAuth(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
-		user.setIdentityCard(ParamInitUtils.getString(request.getParameter("identityCard")));
+		user.setName(ParamInitUtils.getString(request.getParameter("name")));//姓名
+		user.setType(ParamInitUtils.getString(request.getParameter("type")));//注册类型
+		user.setTypeId(ParamInitUtils.getInt(request.getParameter("TypeId")));
+		user.setCity(ParamInitUtils.getString(request.getParameter("city")));//所在地
+		user.setJob(ParamInitUtils.getString(request.getParameter("job")));//职业
+		user.setPhone(ParamInitUtils.getString(request.getParameter("phone")));//手机号
+		user.setIdentityCard(ParamInitUtils.getString(request.getParameter("identityCard")));//身份证
+		user.setOrganization(ParamInitUtils.getString(request.getParameter("organization")));//企业组织机构证件照
+		user.setBusinessLicense(ParamInitUtils.getString(request.getParameter("businessLicense")));//企业营业执照扫描件
+		
+		
 		
 		String[] bankNums = request.getParameterValues("bankNums");
 		String[] openingBanks = request.getParameterValues("openingBanks");

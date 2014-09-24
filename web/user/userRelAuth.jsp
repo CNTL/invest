@@ -5,20 +5,24 @@
 <title>影投网-中国最具影响力的影投平台</title>
 <meta name="keywords" content="影投 创业 项目 投资 支持">
 <meta name="description" content="在影投网发布项目，获得投资支持，实现你的创业梦想">
-<link rel="stylesheet" type="text/css" href="./css/userSetting.css">
-<link rel="stylesheet" type="text/css" href="css/userCenter.css">
-<script type="text/javascript" src="script/dc.js"></script>
-<script type="text/javascript" src="script/ag.js"></script>
-<script type="text/javascript" src="script/userSetting.js"></script>
-<script src="script/ncfpb.1.1.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../js/plugin/jquery-validate/css/validationEngine.jquery.css"/>
+<link rel="stylesheet" type="text/css" media="screen" href="../js/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="../js/jquery-easyui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="../js/jquery-easyui/themes/icon.css">
+<link rel="stylesheet" type="text/css" href="css/userCommon.css">
+<script type="text/javascript" src="../js/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../js/jquery-easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="../js/plugin/jquery-validate/js/jquery.validationEngine.js"></script>
+<script type="text/javascript" src="../js/plugin/jquery-validate/js/languages/jquery.validationEngine-zh_CN.js"></script>
+<script type="text/javascript" src="script/userRelAuth.js"></script>
 </head>
 <body>
-<form class="setting-form" name="modify" action="" wx-validator="" autocomplete="off" wx-validator-ajax="" wx-validator-error-class="error-text">
-	<div class="form-item clearfix">
+<form class="setting-form" id="form" name="form" action="">
+	<div class="form-group form-item">
         <label for="name"><i style="color:red;">*</i>姓名：</label>
         <input class="form-control validate[required]" type="text" autocomplete="off" id="name" name="name" />
     </div>
-    <div class="form-item clearfix">
+    <div class="form-group form-item">
         <label for="type"><i style="color:red;">*</i>注册类型：</label>
         <div class="option-box">
 	        <select id="type" name="type" class="custform-select validate[maxSize[255],required]" wx-validator-error-value="选择注册类型">
@@ -27,7 +31,7 @@
         </div>
     </div>
     <!-- 
-	<div class="form-item clearfix">
+	<div class="form-group form-item">
 		<label>性别：</label>
 		<div class="sex-box">
 			<input name="sex" value="1/" type="radio">
@@ -39,8 +43,8 @@
 		</div>
 	</div>
  	-->
-	<div class="form-item clearfix">
-		<label><i style="color:red;">*</i>所在地：</label>
+	<div class="form-group form-item">
+		<label for="province"><i style="color:red;">*</i>所在地：</label>
 		<div class="option-box">
 			<select id="province" name="province" wx-validator-error-value="选择省份">
 				<option>选择省份</option>
@@ -86,8 +90,8 @@
 	        <span id="wx-validator-city-error" class="error-text hidden">请选择城市</span>
 		</div>
 	</div>
-	<div class="form-item clearfix">
-        <label for="type"><i style="color:red;">*</i>职业：</label>
+	<div class="form-group form-item">
+        <label for="job"><i style="color:red;">*</i>职业：</label>
         <div class="option-box">
 	        <select id="job" name="job" class="custform-select validate[maxSize[255],required]" wx-validator-error-value="选择职业">
 		        <option value="1">导演</option>
@@ -97,64 +101,35 @@
 	        </select>
         </div>
     </div>
-	<div class="form-item clearfix">
-        <label for="name">手机：</label>
-        <input class="form-control validate[required]" type="text" autocomplete="off" id="phone" name="phone" />
+	<div class="form-group form-item">
+        <label for="phone">手机：</label>
+        <input class="form-control validate[required,custom[mobilephone],required]" type="text" autocomplete="off" id="phone" name="phone" />
     </div>
-    <div class="form-item clearfix">
-        <label for="name">身份证：</label>
-        <input class="form-control validate[required]" type="text" autocomplete="off" id="identityCard" name="identityCard" />
+    <div class="form-group form-item">
+        <label for="identityCard">身份证：</label>
+        <input class="form-control validate[custom[shenfenzheng],required]" type="text" autocomplete="off" id="identityCard" name="identityCard" />
     </div>
-    <div class="form-item clearfix">
-        <label for="code"><i style="color:red;">*&nbsp;&nbsp;</i>银行卡开户行：</label>
-        <input class="form-control validate[required]" type="text" autocomplete="off" placeholder="请输入开户行" name="openingBanks" />
+    <div class="form-group form-item">
+        <label for="openingBanks"><i style="color:red;">*&nbsp;&nbsp;</i>银行卡开户行：</label>
+        <input class="form-control validate[required]" type="text" id="openingBanks" name="openingBanks" />
     </div>
-    <div class="form-item clearfix">
-        <label for="name"><i style="color:red;">*&nbsp;&nbsp;</i>银行卡号：</label>
-        <input class="form-control validate[required]" type="text" autocomplete="off" placeholder="请输入卡号" name="bankNums" />
+    <div class="form-group form-item">
+        <label for="bankNums"><i style="color:red;">*&nbsp;&nbsp;</i>银行卡号：</label>
+        <input class="form-control validate[required]" type="text" id="bankNums" name="bankNums" />
     </div>
-    <div class="form-item clearfix">
-    	<label for="name"><i style="color:red;">*&nbsp;&nbsp;</i>企业组织机构证件照：</label>
-        <input name="organization"  id="organization" class="form-control validate[required]" type="text" autocomplete="off" placeholder="请输入卡号"/>
-        <!-- 
-        <div style="margin-top:10px;color: #555;line-height:150%;">请选择照片文件，文件需小于2.5MB</div>
-        <div style="margin-top:10px;">
-            <input type="file" class="" size="50" id="organization" name="organization" />
-            <input type="submit" value="上传" />
-            <iframe name='hidden_frame' id="hidden_frame" style='display: none'></iframe>
-        </div>
-         -->
+    <div class="form-group form-item">
+    	<label for="organization"><i style="color:red;">*&nbsp;&nbsp;</i>企业组织机构证件照：</label>
+        <input name="organization" id="organization" width="300px" class="form-control validate[required]" type="file" />
     </div>
-    <div class="form-item clearfix">
-    	<label for="name"><i style="color:red;">*&nbsp;&nbsp;</i>企业营业执照扫描件：</label>
-        <input name="businessLicense"  id="businessLicense" class="form-control validate[required]" type="text" autocomplete="off" placeholder="请输入卡号"/>
-        <!-- 
-        <div style="margin-top:10px;color: #555;line-height:150%;">请选择照片文件，文件需小于2.5MB</div>
-        <div style="margin-top:10px;">
-            <input type="file" class="" size="50" id="businessLicense" name="businessLicense" />
-            <input type="submit" value="上传" />
-            <iframe name='hidden_frame' id="hidden_frame" style='display: none'></iframe>
-        </div>
-         -->
+    <div class="form-group form-item">
+    	<label for="businessLicense"><i style="color:red;">*&nbsp;&nbsp;</i>企业营业执照扫描件：</label>
+        <input name="businessLicense"  id="businessLicense" width="300px" class="form-control validate[required]" type="file" />
     </div>
-	<div class="setting-submit">
-		<a class="btn-base btn-red-h30 common-sprite" href="javascript:;" type="submit"><span class="common-sprite">保存</span></a>
-	</div>
+	<div style="width:200px" align="left" class="form-actions">
+        <button id="btnSave" type="submit" class="btn blue pull-right">
+           	<i onclick="">保存</i>
+        </button>
+    </div>
 </form>
-<script type="text/javascript">
-	function modify(data){
-		if(data.status==1){
-			wx.alert("保存成功",function(){
-				location.reload();
-			});
-		}
-		if(data.status==0){
-			wx.alert(data.info);
-			
-		}
-	}
-
-</script>
-
- 
-</body></html>
+</body>
+</html>

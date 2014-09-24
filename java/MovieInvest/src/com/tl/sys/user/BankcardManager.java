@@ -1,10 +1,14 @@
 package com.tl.sys.user;
 
+import java.util.List;
+
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.tl.kernel.constant.SysTableLibs;
 import com.tl.kernel.context.DAO;
+import com.tl.kernel.context.DAOHelper;
 import com.tl.kernel.context.TBID;
 
 /** 
@@ -12,6 +16,7 @@ import com.tl.kernel.context.TBID;
  * @author  leijj
  * 类说明 ： 
  */
+@SuppressWarnings({ "rawtypes", "unchecked", "deprecation" })
 public class BankcardManager {
 	/**
 	 * 添加用户
@@ -47,5 +52,19 @@ public class BankcardManager {
         {
         	dao.closeSession(s);
         }
+	}
+	
+	/**
+	 * 根据用户id获取认证银行卡
+	 * 
+	 * @param userId    用户id
+	 */
+	public List<Bankcard> getByUserId(int userId) throws Exception{
+        List list = DAOHelper.find("select a from com.tl.sys.user.Bankcard as a where a.userId = :userId", 
+        		userId, Hibernate.INTEGER);
+        if(list.size() > 0)
+            return list;
+        else
+            return null;
 	}
 }

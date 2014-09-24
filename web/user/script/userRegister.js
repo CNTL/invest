@@ -1,4 +1,4 @@
-jQuery(document).ready(function () {
+$(document).ready(function () {
 	$("#form").validationEngine({
 		autoPositionUpdate:true,
 		onValidationComplete:function(from,r){
