@@ -30,16 +30,25 @@
 		}
 		function doClose() {
 			var callMode = parseInt("<c:out value="${callMode}"/>");
-			var needRefresh = "<c:out value="${needRefresh}"/>";
+			var needRefresh = "<c:out value="${refresh}"/>";
+			var closedlg = "<c:out value="${closedlg}"/>";
+			var errors = "<c:out value="${errors}"/>";
+			var itemIDs = "<c:out value="${itemIDs}"/>";
 			/**
 			 * 若操作需要刷新，则调用刷新方法:
 			 * 在DocList.js和Statusbar.js中同样定义refreshPage方法
 			 * 则操作从工具栏启动和从文档列表右键菜单启动都可以正常返回刷新
 			 */
-			if (needRefresh)
-				closeWindow("OK", callMode);
-			else
-				closeWindow(null, callMode);
+			if(errors!=""){
+				top.$.messager.alert('提示消息',errors);
+			}else{
+				if (needRefresh)
+					window.parent.parent.tldialog.closeRefresh();
+					//closeWindow("OK", callMode);
+				else
+					window.parent.parent.tldialog.close();
+					//closeWindow(null, callMode);
+			}
 		}
 	</script>
 </HEAD>

@@ -1,8 +1,5 @@
-<%@ taglib uri="http://jakarta.apache.org/taglibs/i18n-1.0" prefix="i18n" %>
-<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
-<i18n:bundle baseName="i18n.invest" changeResponseLocale="false"/>
+<%@ include file="../include/Include.jsp"%>
 <%@page pageEncoding="UTF-8"%>
-<!DOCTYPE html>
 <html>
 <head>
 	<title>管理系统--电影众筹网</title>

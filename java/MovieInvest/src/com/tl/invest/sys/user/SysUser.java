@@ -9,8 +9,12 @@ import com.tl.common.DateUtils;
  * @author wang.yq
  * @create 2014-9-18 19:13:09
  */
-@SuppressWarnings({"serial", "unused"})
 public class SysUser implements java.io.Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1946218243428004580L;
 
 	/** id*/
 	private int id;
@@ -39,9 +43,6 @@ public class SysUser implements java.io.Serializable {
 	/** 创建时间*/
 	private Date createtime;
     
-	/** 创建时间*/
-	private String createTimeStr;	
-
 	/**
 	 * @return 获得 id。
 	 */
@@ -155,12 +156,6 @@ public class SysUser implements java.io.Serializable {
 		this.createtime = createtime;
 	}
 
-	/**
-	 * 设置 创建时间。
-	 */
-	public void setCreateTimeStr(String createTimeStr) {
-		this.createTimeStr = createTimeStr;
-	}
 	/**
 	 * 获取 创建时间。
 	 */

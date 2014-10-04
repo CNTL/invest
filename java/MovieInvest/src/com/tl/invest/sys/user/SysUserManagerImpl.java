@@ -71,6 +71,7 @@ public class SysUserManagerImpl implements SysUserManager {
 				d.update(role);
 			}else {
 				role.setId((int)TBID.getID(TableLibs.TB_SYS_ROLE.getTableCode()));
+				role.setOrderNo(role.getId());
 				d.save(role);
 			}
 		} catch (Exception e) {
@@ -333,7 +334,7 @@ public class SysUserManagerImpl implements SysUserManager {
 	public Role getRole(int roleID, Session s) {
 		Role role = null;
 		DAO d = new DAO();
-		String HQL = "select a from com.tl.invest.sys.user.Role as a where a.id = :id";
+		String HQL = "select a from com.tl.invest.sys.user.Role as a where a.id = ?";
 		Object[] params = new Object[]{roleID};
 		List roles = s == null ? d.find(HQL,params) : d.find(HQL, params, s);
 		if(!roles.isEmpty()){
@@ -352,7 +353,7 @@ public class SysUserManagerImpl implements SysUserManager {
 	public Role getRole(String roleName, Session s) {
 		Role role = null;
 		DAO d = new DAO();
-		String HQL = "select a from com.tl.invest.sys.user.Role as a where a.name = :name";
+		String HQL = "select a from com.tl.invest.sys.user.Role as a where a.name = ? ";
 		Object[] params = new Object[]{roleName};
 		List roles = s == null ? d.find(HQL,params) : d.find(HQL, params, s);
 		if(!roles.isEmpty()){
@@ -384,7 +385,7 @@ public class SysUserManagerImpl implements SysUserManager {
 	@Override
 	public Role[] getRoles(int userID, Session s) {
 		String hql = "from com.tl.invest.sys.user.Role as A  where A.id in("
-				+"select B.roleID from com.tl.invest.sys.user.RoleUser as B where B.userID = :userID "
+				+"select B.roleID from com.tl.invest.sys.user.RoleUser as B where B.userID = ? "
 				+ ") and A.deleted=0 order by A.id desc";
 		Object[] params = new Object[]{userID};
 		
@@ -402,7 +403,7 @@ public class SysUserManagerImpl implements SysUserManager {
 	@Override
 	public Role[] getValidRoles(int userID, Session s) {
 		String hql = "from com.tl.invest.sys.user.Role as A  where A.id in("
-				+"select B.roleID from com.tl.invest.sys.user.RoleUser as B where B.userID = :userID and B.startDate>=:startDate and B.endDate<=:endDate"
+				+"select B.roleID from com.tl.invest.sys.user.RoleUser as B where B.userID =? and B.startDate>=? and B.endDate<=?"
 				+ ") and A.deleted=0 order by A.id desc";
 		Timestamp  startDate= DateUtils.getTimestamp();
 		Timestamp  endDate= DateUtils.getTimestamp();
@@ -438,7 +439,7 @@ public class SysUserManagerImpl implements SysUserManager {
 	public Permission getPermission(int roleID, String sourceType, Session s) {
 		Permission permission = null;
 		DAO d = new DAO();
-		String HQL = "select a from com.tl.invest.sys.user.Permission as a where a.roleID = :roleID and a.sourceType=:sourceType";
+		String HQL = "select a from com.tl.invest.sys.user.Permission as a where a.roleID =? and a.sourceType=?";
 		Object[] params = new Object[]{roleID,sourceType};
 		List permissions = s == null ? d.find(HQL,params) : d.find(HQL, params, s);
 		if(!permissions.isEmpty()){

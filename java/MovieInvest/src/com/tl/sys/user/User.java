@@ -10,6 +10,7 @@ import java.util.List;
  */
 public class User implements java.io.Serializable {
 
+	private static final long serialVersionUID = 300302988599220144L;
 	private int id;
 	private String code;
 	private String password;
@@ -246,7 +247,6 @@ public class User implements java.io.Serializable {
 	public void setCreateTimeStr(String createTimeStr) {
 		this.createTimeStr = createTimeStr;
 	}
-
 	public String getPostAddr() {
 		return postAddr;
 	}

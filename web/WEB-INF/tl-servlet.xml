@@ -12,15 +12,21 @@
 	<bean id="sys.Main" class="com.tl.invest.sys.SysMain">
 		<property name="viewName"><value>admin/SysMain</value></property>
 	</bean>
-	<bean id="workspace.TbList" class="com.tl.invest.workspace.TbListController">
-	</bean>
+	<bean id="sys.UserFetcher" class="com.tl.invest.sys.user.web.SysUserFetcher" />
+	<bean id="sys.User" class="com.tl.invest.sys.user.web.SysUserController" />
+	<bean id="workspace.TbList" class="com.tl.invest.workspace.TbListController" />
+	<bean id="workspace.after" class="com.tl.invest.workspace.AfterProcess" />
 	
 	<bean id="omsUrl" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="order"><value>0</value></property>
 		<property name="mappings">
 			<props>
 				<prop key="/admin/SysMain.do">sys.Main</prop>
+				<prop key="/admin/org/UserFetcher.do">sys.UserFetcher</prop>
+				<prop key="/admin/org/User.do">sys.User</prop>
+				
 				<prop key="/workspace/tblist.do">workspace.TbList</prop>
+				<prop key="/workspace/After.do">workspace.after</prop>
 			</props>
 		</property>
 	</bean>

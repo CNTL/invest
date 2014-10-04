@@ -112,7 +112,6 @@ public class SysuserManager {
         	for(int i = 0; i < list.size(); i++){
         		SysUser sysuser = (SysUser)list.get(i);
         		sysuser.setPwd(UserEncrypt.getInstance().decrypt(sysuser.getPwd()));
-        		sysuser.setCreateTimeStr(DateUtils.format(sysuser.getCreatetime(), "yyyy-MM-dd HH:mm:ss"));
         		sysusers.add(sysuser);
         	}
         	 return sysusers;	
@@ -178,7 +177,6 @@ public class SysuserManager {
 		sysuser.setGroupid(rs.getInt("groupid")); 
 		sysuser.setDeleted(rs.getInt("deleted"));
 		sysuser.setCreatetime(rs.getDate("deleted"));
-		sysuser.setCreateTimeStr(DateUtils.format(rs.getTimestamp("createTime"), "yyyy-MM-dd HH:mm:ss"));
 		return sysuser;
 	}
 	
