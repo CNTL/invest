@@ -29,21 +29,19 @@
 		<%@include file="inc/ribbon.inc"%>
 		<!-- MAIN CONTENT -->
 		<div id="content">
-			<div id="easyui-layout">
-				<div region="center" border="false">	
-					<table id="datagrid"></table>		
-					<div id="toolbar">
-						<div id="main_search" style="padding:5px;">
-							<div id="searchBtnArea">
-								<div class="btn-group searchListGroup">
-									<div class="btn" id="searchList">
-										<i class="icon-search"></i>
-										<span class="more" id="toggleSearchAdvList"><i class="caret"></i></span>
-									</div>
+			<div region="center" border="false">	
+				<table id="datagrid"></table>		
+				<div id="toolbar">
+					<div id="main_search" style="padding:5px;">
+						<div id="searchBtnArea">
+							<div class="btn-group searchListGroup">
+								<div class="btn" id="searchList">
+									<i class="icon-search"></i>
+									<span class="more" id="toggleSearchAdvList"><i class="caret"></i></span>
 								</div>
 							</div>
-							<div id="divQueryCust" style="margin-right:40px;">
-							</div>
+						</div>
+						<div id="divQueryCust" style="margin-right:40px;">
 						</div>
 					</div>
 				</div>

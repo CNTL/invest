@@ -28,7 +28,7 @@ $(function () {
 	easyloader.modules = $.extend({}, tlModules, easyloader.modules);
 	using(['bootstrap','jqvalidation_cn','jqvalidation','parser', 'layout','messager', 'datagrid','dialog','tldatagrid','easyuicolor'], function () {
 		//alert("Finish!");
-		$("#easyui-layout").layout();
+		$("#content").layout();
 		tldatagrid.init("datagrid",options);
 		//$("#searchList").click(search);
 		//$("#toggleSearchAdvList").click(advanceSearch);
@@ -40,10 +40,15 @@ $(function () {
 });
 
 function autoLayoutHeight() {
-	if ($("#easyui-layout").height() == document.body.clientHeight - 160)
-		return;
-	$("#easyui-layout").height(document.body.clientHeight - 160);
-	$("#easyui-layout").layout("resize");
+	var winH = $(window).height();
+	
+	var main = $("#main");
+	var mainTop = main.offset().top;
+	var h = winH-mainTop>0 ? winH-mainTop : 0;
+	main.height(h);
+	$("#content").height(main.height()-$("#ribbon").height());
+	
+	$("#content").layout("resize");
 }
 
 function search() {

@@ -257,7 +257,7 @@ public class DictionaryManagerImpl implements DictionaryManager {
 		if(all==null || all.length<=0) return null;
 		List<DictionaryType> types = new ArrayList<DictionaryType>();
 		for (DictionaryType type : all) {
-			if(type.getIsSys()==sys || type.getValid()==1){
+			if(type.getIsSys()==sys && type.getValid()==1){
 				types.add(type);
 			}
 		}
