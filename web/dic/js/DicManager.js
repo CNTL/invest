@@ -20,7 +20,7 @@ $(function () {
 	};
 	easyloader.modules = $.extend({}, tlModules, easyloader.modules);
 	using(['bootstrap','parser', 'layout','tree','messager','datagrid', 'dialog','menu','tldatagrid','easyuicolor'], function () {
-		$("#content").layout();
+		$("#easyui-layout").layout();
 		$("#content-layout").layout();
 		$("#tree-menu").menu();
 		$("#dic-tree").tree({
@@ -134,9 +134,9 @@ function autoLayoutHeight() {
 	var mainTop = main.offset().top;
 	var h = winH-mainTop>0 ? winH-mainTop : 0;
 	main.height(h);
-	$("#content").height(main.height()-$("#ribbon").height());
+	$("#easyui-layout").height(main.height()-$("#ribbon").height()-10);
 	//$("#content-layout").height(main.height()-$("#ribbon").height()-5);
-	$("#content").layout("resize");
+	$("#easyui-layout").layout("resize");
 	//$("#content-layout").layout("resize");
 }
 function reDraw() {

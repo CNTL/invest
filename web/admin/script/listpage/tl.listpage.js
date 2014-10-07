@@ -28,7 +28,7 @@ $(function () {
 	easyloader.modules = $.extend({}, tlModules, easyloader.modules);
 	using(['bootstrap','jqvalidation_cn','jqvalidation','parser', 'layout','messager', 'datagrid','dialog','tldatagrid','easyuicolor'], function () {
 		//alert("Finish!");
-		$("#content").layout();
+		$("#easyui-layout").layout();
 		tldatagrid.init("datagrid",options);
 		//$("#searchList").click(search);
 		//$("#toggleSearchAdvList").click(advanceSearch);
@@ -46,9 +46,8 @@ function autoLayoutHeight() {
 	var mainTop = main.offset().top;
 	var h = winH-mainTop>0 ? winH-mainTop : 0;
 	main.height(h);
-	$("#content").height(main.height()-$("#ribbon").height());
-	
-	$("#content").layout("resize");
+	$("#easyui-layout").height(main.height()-$("#ribbon").height()-10);
+	$("#easyui-layout").layout("resize");
 }
 
 function search() {

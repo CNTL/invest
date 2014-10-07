@@ -6,7 +6,7 @@ var options = {
 	sortName:"dt_order",
 	rule:"dt_valid=1 and dt_sys=0",
 	showFooter:false,
-	toolbar: [{
+	/*toolbar: [{
 				iconCls: 'icon-add',
 				handler: function(){
 					tldialog.show("新增","./userEdit.jsp?valueArray=",680,460);
@@ -17,7 +17,7 @@ var options = {
 					var docIds = tldatagrid.getSelectedIDs();
 					tldialog.show("修改","./userEdit.jsp?valueArray="+docIds,680,460);
 				}
-			}],	
+			}],	*/
 	rowStyler : function(index,row){
 		//if (row.AI_Debt<=0) return 'background-color:green;color:#fff;';
 	},
