@@ -19,13 +19,11 @@ $(function () {
 		}
 	};
 	easyloader.modules = $.extend({}, tlModules, easyloader.modules);
-	using(['bootstrap','parser', 'layout','tree','messager','datagrid', 'dialog','tldatagrid','easyuicolor'], function () {
+	using(['bootstrap','parser', 'layout','tree','messager','datagrid', 'dialog','menu','tldatagrid','easyuicolor'], function () {
 		$("#content").layout();
 		$("#content-layout").layout();
-		$(window).resize(reDraw);
-		
-		showList(null);
-		$("#dic-tree").tree({    
+		$("#tree-menu").menu();
+		$("#dic-tree").tree({
 			url:'../dic/DicFetcherManager.do?action=tree&sys=0',
 			method:"POST",
 			onBeforeLoad:function(node,param){
@@ -36,12 +34,41 @@ $(function () {
 			},
 			onSelect : function(node){
 				showList(node);
+			},
+			onContextMenu : function(e,node){
+				e.preventDefault();
+				$('#dic-tree').tree('select', node.target);
+				initTreeMenuItem(node);
+				$("#tree-menu").menu('show', {
+					left: e.pageX,
+					top: e.pageY
+				});
 			}
 		});		
-		
+		showList(null);
 		autoLayoutHeight();
+		$(window).resize(reDraw);
 	});
 });
+
+function initTreeMenuItem(node){
+	//$("#tree-menu").menu('appendItem',{name:'new_type',text: '新建分类类型',iconCls: 'icon-add',onclick: function(){alert('提示：新菜单项！')}});
+	var showItems = $('.tree-menu-type');
+	var hideItems = $('.tree-menu-cat');
+	if(node == null || node.attributes.typeid == -1){
+		showItems = $('.tree-menu-type');
+		hideItems = $('.tree-menu-cat');
+	}else{
+		showItems = $('.tree-menu-cat');
+		hideItems = $('.tree-menu-type');
+	}
+	for(var i=0;i<showItems.length;i++){
+		$('#tree-menu').menu('showItem',showItems[i]);
+	}
+	for(var i=0;i<hideItems.length;i++){
+		$('#tree-menu').menu('hideItem',hideItems[i]);
+	}
+}
 
 function showList(node){
 	if(node == null || node.attributes.typeid == -1){
@@ -108,9 +135,9 @@ function autoLayoutHeight() {
 	var h = winH-mainTop>0 ? winH-mainTop : 0;
 	main.height(h);
 	$("#content").height(main.height()-$("#ribbon").height());
-	$("#content-layout").height(main.height()-$("#ribbon").height()-5);
+	//$("#content-layout").height(main.height()-$("#ribbon").height()-5);
 	$("#content").layout("resize");
-	$("#content-layout").layout("resize");
+	//$("#content-layout").layout("resize");
 }
 function reDraw() {
 	autoLayoutHeight();

@@ -17,17 +17,25 @@
 	<%@include file="../admin/inc/header.inc"%>
 	<%@include file="../admin/inc/sysnav.inc"%>
 	<div id="main" role="main">
-		<%@include file="../admin/inc/ribbon.inc"%>
-		<div id="content">
-			<!--<div data-options="region:'north',border:false" style="height:60px;background:#B3DFDA;padding:10px">north region</div>-->
+		<div id="content" data-options="fit:true">
+			<div data-options="region:'north',border:false" style="height:auto;padding:0px;">
+				<%@include file="../admin/inc/ribbon.inc"%>
+			</div>
 			<div data-options="region:'west',split:true,title:'分类管理'" style="width:248px;padding:10px;">
 				<ul id="dic-tree">
 				</ul>
+				<div id="tree-menu" class="easyui-menu" style="width:120px;">
+					<div class="tree-menu-type" data-options="iconCls:'icon-add'">新增分类类型</div>
+					<div class="tree-menu-type" class="menu-sep"></div>
+					<div class="tree-menu-cat" data-options="iconCls:'icon-add'">新增分类</div>
+					<div data-options="iconCls:'icon-edit'">修改</div>
+					<div data-options="iconCls:'icon-remove'">删除</div>
+				</div>
 			</div>
 			<!--<div data-options="region:'east',split:true,collapsed:true,title:'East'" style="width:100px;padding:10px;">east region</div>-->
 			<!--<div data-options="region:'south',border:false" style="height:50px;background:#A9FACD;padding:10px;">south region</div>-->
 			<div data-options="region:'center'">
-				<div id="content-layout">
+				<div id="content-layout" data-options="fit:true">
 					<div data-options="region:'center',title:'子分类'">
 						<table id="datagrid"></table>
 					</div>

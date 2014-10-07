@@ -16,19 +16,13 @@
 	</script>
 </head>
 <body class="">
-	<!-- 头部 -->
 	<%@include file="inc/header.inc"%>
-	<!-- 头部 -->
-		 
-	<!-- 导航 -->
     <%@include file="inc/sysnav.inc"%>
-    <!-- 导航 -->
-         
-    <!-- MAIN PANEL -->
 	<div id="main" role="main">
-		<%@include file="inc/ribbon.inc"%>
-		<!-- MAIN CONTENT -->
-		<div id="content">
+		<div id="content" data-options="fit:true">
+			<div data-options="region:'north',border:false" style="height:auto;padding:0px;">
+				<%@include file="../admin/inc/ribbon.inc"%>
+			</div>
 			<div region="center" border="false">	
 				<table id="datagrid"></table>		
 				<div id="toolbar">
@@ -47,17 +41,9 @@
 				</div>
 			</div>
         </div>
-		<!-- END MAIN CONTENT --> 
 	</div>
-	<!-- END MAIN PANEL -->
-
-	 <!-- script -->
     <%@include file="inc/script.inc"%>
-    <!-- script -->
-
-    <!-- footer -->
     <%@include file="inc/footer.inc"%>
-    <!-- footer -->
  	<script src="script/main.js"></script>
 </body>
 
