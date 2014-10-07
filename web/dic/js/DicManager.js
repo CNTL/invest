@@ -22,7 +22,7 @@ $(function () {
 	using(['bootstrap','parser', 'layout','tree','messager','datagrid', 'dialog','menu','tldatagrid','easyuicolor'], function () {
 		$("#easyui-layout").layout();
 		$("#content-layout").layout();
-		$("#tree-menu").menu();
+		$("#tree-menu").menu({onClick:treeMenuItemOnClick});
 		$("#dic-tree").tree({
 			url:'../dic/DicFetcherManager.do?action=tree&sys=0',
 			method:"POST",
@@ -50,7 +50,9 @@ $(function () {
 		$(window).resize(reDraw);
 	});
 });
-
+function treeMenuItemOnClick(item){
+	top.$.messager.alert('debugger',item.name);
+}
 function initTreeMenuItem(node){
 	//$("#tree-menu").menu('appendItem',{name:'new_type',text: '新建分类类型',iconCls: 'icon-add',onclick: function(){alert('提示：新菜单项！')}});
 	var showItems = $('.tree-menu-type');

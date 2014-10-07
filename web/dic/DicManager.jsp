@@ -24,12 +24,12 @@
 				<div data-options="region:'west',split:true,title:'分类管理'" style="width:248px;padding:10px;">
 					<ul id="dic-tree">
 					</ul>
-					<div id="tree-menu" class="easyui-menu" style="width:120px;">
-						<div class="tree-menu-type" data-options="iconCls:'icon-add'">新增分类类型</div>
+					<div id="tree-menu" class="easyui-menu" style="width:120px;display:none;">
+						<div class="tree-menu-type" data-options="name:'new-type',iconCls:'icon-add'">新增分类类型</div>
 						<!--<div class="tree-menu-type" class="menu-sep"></div>-->
-						<div class="tree-menu-cat" data-options="iconCls:'icon-add'">新增分类</div>
-						<div data-options="iconCls:'icon-edit'">修改</div>
-						<div data-options="iconCls:'icon-remove'">删除</div>
+						<div class="tree-menu-cat" data-options="name:'new-cat',iconCls:'icon-add'">新增分类</div>
+						<div class="tree-menu-cat" data-options="name:'edit',iconCls:'icon-edit'">修改</div>
+						<div class="tree-menu-cat" data-options="name:'remove',iconCls:'icon-remove'">删除</div>
 					</div>
 				</div>
 				<!--<div data-options="region:'east',split:true,collapsed:true,title:'East'" style="width:100px;padding:10px;">east region</div>-->
