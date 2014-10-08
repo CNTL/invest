@@ -260,6 +260,7 @@ public class UserController extends BaseController {
 		String fileExt = fileName.substring(fileName.lastIndexOf(".")+1).toLowerCase();
 		String result = newPath + File.separator + fileName.substring(0,fileName.lastIndexOf("."))+".jpg";
 		BufferedImage image;
+		
 		if(!(fileExt.equals("jpg")) && !(fileExt.equals("jpeg"))) {
 			UploadHelper.ImgConvert(img,fileExt,result);
 	        File f=new File(result);
@@ -268,6 +269,7 @@ public class UserController extends BaseController {
 		} else {
 			image = ImageIO.read(img);
 		}
+		
 		int width = image.getWidth();
 		int height = image.getHeight();
 		

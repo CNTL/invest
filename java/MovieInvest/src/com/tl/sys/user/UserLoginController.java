@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONObject;
 
+import com.qq.connect.oauth.Oauth;
 import com.tl.common.DateUtils;
 import com.tl.common.ParamInitUtils;
 import com.tl.common.StringUtils;
@@ -54,6 +55,8 @@ public class UserLoginController extends BaseController
 			else {
 				output("", response);
 			}
+		} else if(!StringUtils.isEmpty(action) && action.equals("qqlogin")){
+			response.sendRedirect(new Oauth().getAuthorizeURL(request));
 		}else{
 			 
 			response.setContentType("text/xml; charset=UTF-8");

@@ -9,6 +9,10 @@ var userset = {
 			url = "userHeadImg.jsp";
 		} else if(obj.id=='relAuth'){
 			url = "userRelAuth.jsp";
+		} else if(obj.id=='photo'){
+			url = "userPhoto.jsp";
+		} else if(obj.id=='video'){
+			url = "userVideo.jsp";
 		}
 		userset.setClass(obj);
 		$("#main").attr("src",url);

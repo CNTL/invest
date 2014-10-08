@@ -63,6 +63,7 @@ function checkPic() {
 	var point = location.lastIndexOf(".");
 	var type = location.substr(point).toLowerCase() ;
 	if (type == ".jpg" || type == ".gif" || type == ".png" || type == ".jpeg" || type == ".bmp") {
+	//if (type == ".jpg") {
 		img = document.createElement("img");
 		img.src = location;
 		if (img.fileSize > 1024000) {
@@ -74,6 +75,7 @@ function checkPic() {
 		}
 	} else {
 		alert("只能上传jpg、jpeg、gif、png、bmp格式的图片");
+		//alert("只能上传jpg格式的图片");
 		return false;
 	}
 	document.getElementById("nowDiv").style.display="none";
@@ -81,9 +83,11 @@ function checkPic() {
 }
 //图片上传后的回调函数
 function callback(url, width, height) {
+	alert(url)
 	document.getElementById('cut_img').width = width;
 	document.getElementById('cut_img').height = height;
 	document.getElementById('cut_img').src = url;
+	alert(document.getElementById('cut_img').src)
 	document.getElementById('cut_url').value = url;
 	document.getElementById('hide').style.display = '';
 	imageinit();

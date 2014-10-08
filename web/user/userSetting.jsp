@@ -83,6 +83,8 @@
 					<li><a id="pwsEdit" class="icons password ie6fixpic" onclick="userset.change(this);">密码修改</a></li>
 					<li><a id="headEdit" class="icons portrait ie6fixpic" onclick="userset.change(this);">头像修改</a></li>
 					<li><a id="relAuth" class="icons portrait ie6fixpic" onclick="userset.change(this);">实名认证</a></li>
+					<li><a id="photo" class="icons portrait ie6fixpic" onclick="userset.change(this);">个人图册</a></li>
+					<li><a id="video" class="icons portrait ie6fixpic" onclick="userset.change(this);">个人视频</a></li>
 				</ul>
 			</div>
 			<div class="setting-detail">
