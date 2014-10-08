@@ -21,12 +21,15 @@ $(function () {
 			js : prefixPath+"admin/script/listpage/tl.datagrid.js",
 			css : prefixPath+"js/jquery-easyui/themes/icon.css"
 		},
+		tldialog : {
+			js : prefixPath+"admin/script/listpage/tl.dialog.js"
+		},
 		easyuicolor : {
 			css : prefixPath+"js/jquery-easyui/themes/color.css"
 		}
 	};
 	easyloader.modules = $.extend({}, tlModules, easyloader.modules);
-	using(['bootstrap','jqvalidation_cn','jqvalidation','parser', 'layout','messager', 'datagrid','dialog','tldatagrid','easyuicolor'], function () {
+	using(['bootstrap','jqvalidation_cn','jqvalidation','parser', 'layout','messager', 'datagrid','dialog','tldatagrid','tldialog','easyuicolor'], function () {
 		//alert("Finish!");
 		$("#easyui-layout").layout();
 		tldatagrid.init("datagrid",options);

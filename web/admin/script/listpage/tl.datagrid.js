@@ -1,37 +1,3 @@
-var tldialog = {
-	openWin : null,
-	show : function(title, href, width, height, modal, minimizable, maximizable) {
-		openWin = top.$('<div id="myWinId" class="easyui-window" closed="true"></div>').appendTo(top.document.body);
-		openWin.window({
-			title: title,
-			width: width === undefined ? 600 : width,
-			height: height === undefined ? 400 : height,
-			content: '<iframe scrolling="yes" frameborder="0"  src="' + href + '" style="width:100%;height:99%;"></iframe>',
-			modal: modal === undefined ? true : modal,
-			minimizable: minimizable === undefined ? false : minimizable,
-			maximizable: maximizable === undefined ? false : maximizable,
-			shadow: false,
-			cache: false,
-			closed: false,
-			collapsible: false,
-			resizable: true,
-			loadingMessage: '正在加载数据，请稍等片刻......',
-			onClose : function(){ 
-				openWin.window("destroy"); 
-			} 
-		});
-	},
-	close : function(){
-		//top.$.messager.alert('debugger',"tldialog.close()");
-		openWin.window("close"); 
-		if(openWin != null) openWin = null;
-	},
-	closeRefresh:function(){
-		tldatagrid.reload();
-		tldialog.close();
-	}
-};
-
 var tldatagrid = {
 	id : "",
 	options : null,	

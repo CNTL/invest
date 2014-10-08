@@ -14,12 +14,15 @@ $(function () {
 			js : prefixPath+"admin/script/listpage/tl.datagrid.js",
 			css : prefixPath+"js/jquery-easyui/themes/icon.css"
 		},
+		tldialog : {
+			js : prefixPath+"admin/script/listpage/tl.dialog.js"
+		},
 		easyuicolor : {
 			css : prefixPath+"js/jquery-easyui/themes/color.css"
 		}
 	};
 	easyloader.modules = $.extend({}, tlModules, easyloader.modules);
-	using(['bootstrap','parser', 'layout','tree','messager','datagrid', 'dialog','menu','tldatagrid','easyuicolor'], function () {
+	using(['bootstrap','parser', 'layout','tree','messager','datagrid', 'dialog','menu','tldatagrid','tldialog','easyuicolor'], function () {
 		$("#easyui-layout").layout();
 		$("#content-layout").layout();
 		$("#tree-menu").menu({onClick:treeMenuItemOnClick});
@@ -51,7 +54,34 @@ $(function () {
 	});
 });
 function treeMenuItemOnClick(item){
-	top.$.messager.alert('debugger',item.name);
+	//top.$.messager.alert('debugger',item.name);
+	var node = $('#dic-tree').tree('getSelected');
+	if(node==null) return false;
+	var id = node.id,typeid = node.attributes.typeid;
+	var title,width=520,modal=true,minimizable=false,maximizable=false,
+		href= "../dic/" + (typeid == -1 ? "DicTypeEdit" : "DicEdit") +".jsp?typeid="+typeid+"&id="+id,
+		height=320;
+	var toolbars = [{text:'保存',iconCls:'icon-save',handler:function(){
+		tldialog.submit("../dic/DicTypeEdit.jsp");
+	}},{text:'关闭',iconCls:'icon-cancel',handler:function(){
+		tldialog.close();
+	}}];
+	if(item.name=="new-type"){
+		title="新增分类类型";
+	}else if(item.name=="new-cat"){
+		title="新增分类";
+		height=480;
+	}else if(item.name=="edit"){
+		title="修改";
+		height= typeid==0 ? 320 : 480;
+	}else if(item.name=="remove"){
+		toolbars[0].text = "确定";
+		title="删除";
+		href = "../dic/delete.jsp?typeid="+typeid+"&id="+id;
+		height = 180;
+		width = 360;
+	}
+	tldialog.show(title,href,width,height,modal,minimizable,maximizable,toolbars);
 }
 function initTreeMenuItem(node){
 	//$("#tree-menu").menu('appendItem',{name:'new_type',text: '新建分类类型',iconCls: 'icon-add',onclick: function(){alert('提示：新菜单项！')}});
