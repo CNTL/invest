@@ -67,7 +67,7 @@
                 <button id="login" type="submit" class="btn blue pull-right">
                    	 登录 <i class="m-icon-swapright m-icon-white"></i>
                 </button>
-                <a href="user/userlogin.do?a=qqlogin" title="请使用你的QQ账号登陆"><img alt="请使用你的QQ账号登陆" src="./img/qq.png"></a>
+                <a href="user/userlogin.do?a=qqlogin" title="请使用你的QQ账号登陆"><img alt="请使用你的QQ账号登陆" src="./user/img/qq.png"></a>
             </div>
 
         </form>
