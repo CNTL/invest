@@ -22,6 +22,9 @@
 	<bean id="workspace.DicFetcherManager" class="com.tl.invest.workspace.DicFetcher">
 		<property name="dicReader"><ref bean="DictionaryManager" /></property>
 	</bean>
+	<bean id="workspace.Dictionary" class="com.tl.workspace.dic.DictionaryController">
+		<property name="dicManager"><ref bean="DictionaryManager" /></property>
+	</bean>
 	
 	<bean id="omsUrl" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="order"><value>0</value></property>
@@ -30,6 +33,7 @@
 				<prop key="/admin/SysMain.do">sys.Main</prop>
 				<prop key="/dic/DicManager.do">sys.DicManager</prop>
 				<prop key="/dic/DicFetcherManager.do">workspace.DicFetcherManager</prop>
+				<prop key="/dic/Dictionary.do">workspace.Dictionary</prop>
 				<prop key="/admin/org/UserFetcher.do">sys.UserFetcher</prop>
 				<prop key="/admin/org/User.do">sys.User</prop>
 				

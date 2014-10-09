@@ -13,20 +13,22 @@
 	<script type="text/javascript" src="../js/tl/tl.form.js"></script>
 </head>
 <body>
-	<form id="tlform" class="easyui-form" method="post">
-		<input type="hidden" id="ItemID" name="ItemID" value="<c:out value="${id}"/>" />
-		<div>   
-			<label for="dt_name">名称:</label>   
-			<input class="easyui-textbox easyui-validatebox" type="text" id="dt_name" name="dt_name" data-options="required:true" />   
-		</div>
-		<div>   
-			<label for="dt_code">简码:</label>   
-			<input class="easyui-textbox" type="text" id="dt_code" name="dt_code"/>   
-		</div>
-		<div>   
-			<label for="dt_memo">简码:</label>   
-			<input class="easyui-textbox" type="text" id="dt_memo" name="dt_memo" data-options="multiline:true" style="height:120px;" />
-		</div>
-	</form>
+	<div id="main" style="width:100%;padding-top:20px;padding-left:20px;">
+		<form id="tlform" class="easyui-form" method="post">
+			<input type="hidden" id="ItemID" name="ItemID" value="<c:out value="${id}"/>" />
+			<div>   
+				<label for="dt_name">名称:</label>   
+				<input class="easyui-textbox easyui-validatebox" type="text" id="dt_name" name="dt_name" data-options="required:true" />   
+			</div>
+			<div>   
+				<label for="dt_code">简码:</label>   
+				<input class="easyui-textbox" type="text" id="dt_code" name="dt_code"/>   
+			</div>
+			<div>   
+				<label for="dt_memo">简码:</label>   
+				<input class="easyui-textbox" type="text" id="dt_memo" name="dt_memo" data-options="multiline:true" style="height:120px;" />
+			</div>
+		</form>
+	</div>
 </body>
 </html>

@@ -377,6 +377,26 @@ public class DictionaryManagerImpl implements DictionaryManager {
 			try{db.close();}catch(Exception e1){e1.printStackTrace();}
 		}
 	}
+	
+	@Override
+	public boolean exist(DictionaryType type) throws TLException{
+		String sql = "select dt_id from "+SysTableLibs.TB_SYS_DICTIONARYTYPE.getTableCode()+" where dt_id<>? and dt_valid=1 and (dt_name=? or dt_code=?)";
+		DBSession dbSession = Context.getDBSession();
+		IResultSet rs = null;
+		try {
+			sql = dbSession.getDialect().getLimitString(sql, 0, 1);	
+			rs = dbSession.executeQuery(sql, new Object[]{type.getId(),type.getName(),type.getCode()});
+			if (rs.next()) {
+				return true;
+			}
+		} catch (SQLException e) {
+			throw new TLException(e);
+		} finally {
+			ResourceMgr.closeQuietly(rs);
+			ResourceMgr.closeQuietly(dbSession);
+		}
+		return false;
+	}
 
 	@Override
 	public Dictionary[] getDicsByName(int typeID, String dicName)

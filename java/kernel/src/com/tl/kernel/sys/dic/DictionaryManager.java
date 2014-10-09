@@ -20,6 +20,15 @@ public interface DictionaryManager extends DictionaryReader{
 	 * @param id 类型ID
 	 */
 	public void deleteType(int id) throws TLException;
+	
+	/**
+	 * 验证类型是否存在
+	 * @param type
+	 * @param oldID
+	 * @return
+	 * @throws TLException
+	 */
+	public boolean exist(DictionaryType type) throws TLException;
 	/**
 	 * 按名字查找分类
 	 * 支持模糊查询

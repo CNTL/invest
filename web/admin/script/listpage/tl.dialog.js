@@ -24,9 +24,9 @@ var tldialog = {
 		tldialog.autoHeight();
 		top.$("#tl_dlg_win").resize(tldialog.autoHeight);
 	},
-	submit : function(url){
+	submit : function(url,successHandler){
 		var f = top.$("#tl_dlg_win_iframe");//.contents().find("#tlform");
-		f[0].contentWindow.tlform.submit(url);
+		f[0].contentWindow.tlform.submit(url,successHandler);
 	},
 	close : function(){
 		//top.$.messager.alert('debugger',"tldialog.close()");

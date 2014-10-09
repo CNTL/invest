@@ -33,6 +33,7 @@ public class DicFetcher extends BaseController {
 		
 		if ("tree".equalsIgnoreCase(action)) {
 			int rootID = getInt(request, "root", 0);
+			int loadroot = getInt(request, "loadroot", 1);
 			int id = getInt(request, "id",0);
 			int isSys = getInt(request, "sys",-9999);
 			DictionaryType[] dicTypes = null;			
@@ -90,7 +91,7 @@ public class DicFetcher extends BaseController {
 			
 			
 			StringBuffer result = new StringBuffer();
-			if(rootID == 0){
+			if(loadroot == 1){
 				result.append("{");
 				result.append("\"id\":0,");
 				result.append("\"text\":\"分类类型\",");

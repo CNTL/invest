@@ -32,7 +32,7 @@ $(function () {
 });
 
 var tlform = {
-	submit : function(url){
+	submit : function(url,successHandler){
 		top.$.messager.progress();
 		$("form#tlform").form('submit',{
 			url:url,
@@ -45,7 +45,14 @@ var tlform = {
 				return isValid;	// 返回false终止表单提交
 			},
 			success:function(data){
+				var data = eval('(' + data + ')');  
 				top.$.messager.progress('close');
+				if(!data.success){
+					top.$.messager.alert("提示",data.msg);
+				}else{
+					if(typeof(successHandler) == "function")
+						successHandler(data);
+				}
 			}
 		});
 	}

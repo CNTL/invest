@@ -42,7 +42,7 @@ public final class Base64Uploader {
 	}
 
 	private static byte[] decode(String content) {
-		return Base64.decodeBase64(content);
+		return null;//Base64.decodeBase64(content);
 	}
 
 	private static boolean validSize(byte[] data, long length) {

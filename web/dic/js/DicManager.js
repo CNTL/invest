@@ -33,6 +33,7 @@ $(function () {
 				if(node != null){
 					param.root = node.attributes.typeid<=0 ? node.id : node.attributes.typeid;
 					param.id = node.attributes.typeid<=0 ? 0 : node.id;
+					param.loadroot = 0;
 				}
 			},
 			onSelect : function(node){
@@ -60,9 +61,17 @@ function treeMenuItemOnClick(item){
 	var id = node.id,typeid = node.attributes.typeid;
 	var title,width=520,modal=true,minimizable=false,maximizable=false,
 		href= "../dic/" + (typeid == -1 ? "DicTypeEdit" : "DicEdit") +".jsp?typeid="+typeid+"&id="+id,
-		height=320;
+		height=320,
+		submitUrl="../dic/Dictionary.do?typeid="+typeid+"&pid="+id+"&action="+item.name;
 	var toolbars = [{text:'保存',iconCls:'icon-save',handler:function(){
-		tldialog.submit("../dic/DicTypeEdit.jsp");
+		tldialog.submit(submitUrl,function(data){
+			tldialog.closeRefresh();
+			var refreshTg = node.target;
+			if(item.name=="edit" || item.name=="remove"){
+				refreshTg = $('#dic-tree').tree('getParent');
+			}
+			$('#dic-tree').tree('reload',refreshTg);
+		});
 	}},{text:'关闭',iconCls:'icon-cancel',handler:function(){
 		tldialog.close();
 	}}];
@@ -81,6 +90,7 @@ function treeMenuItemOnClick(item){
 		height = 180;
 		width = 360;
 	}
+	
 	tldialog.show(title,href,width,height,modal,minimizable,maximizable,toolbars);
 }
 function initTreeMenuItem(node){
