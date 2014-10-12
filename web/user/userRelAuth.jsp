@@ -1,4 +1,8 @@
 <%@page pageEncoding="UTF-8"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 <!doctype html>
 <html><head>
 <meta charset="utf-8">
@@ -9,15 +13,21 @@
 <link rel="stylesheet" type="text/css" media="screen" href="../js/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="../js/jquery-easyui/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css" href="../js/jquery-easyui/themes/icon.css">
+<link rel="stylesheet" type="text/css" href="../js/plugin/AjaxFileUploaderV2.1/ajaxfileupload.css" />
 <link rel="stylesheet" type="text/css" href="css/userCommon.css">
 <script type="text/javascript" src="../js/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="../js/jquery-easyui/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="../js/plugin/jquery-validate/js/jquery.validationEngine.js"></script>
 <script type="text/javascript" src="../js/plugin/jquery-validate/js/languages/jquery.validationEngine-zh_CN.js"></script>
 <script type="text/javascript" src="script/userCommon.js"></script>
+<script type="text/javascript">
+var basePath = "<%=basePath %>";
+</script>
+<script type="text/javascript" src="../js/plugin/AjaxFileUploaderV2.1/ajaxfileupload.js" ></script>
 <script type="text/javascript" src="script/userRelAuth.js"></script>
 </head>
 <body>
+<div class="content">
 <form class="setting-form" id="form" name="form" action="">
 	<div class="form-group form-item">
         <label for="name"><i style="color:red;">*</i>姓名：</label>
@@ -31,24 +41,10 @@
 	        </select>
         </div>
     </div>
-    <!-- 
-	<div class="form-group form-item">
-		<label>性别：</label>
-		<div class="sex-box">
-			<input name="sex" value="1/" type="radio">
-			<span>男</span>
-			<input name="sex" value="0/" CHECKED="checked" type="radio">
-			<span>女</span>
-			<input name="sex" value="-1" type="radio">
-			<span>保密</span>
-		</div>
-	</div>
- 	-->
 	<div class="form-group form-item">
 		<label for="province"><i style="color:red;">*</i>所在地：</label>
 		<div class="option-box">
 			<select id="province" name="province" wx-validator-error-value="选择省份">
-				<option>选择省份</option>
 				<option value="安徽" rel="3">安徽</option>
 				<option value="澳门" rel="396">澳门</option>
 				<option value="北京" rel="52">北京</option>
@@ -120,17 +116,44 @@
     </div>
     <div class="form-group form-item">
     	<label for="organization"><i style="color:red;">*&nbsp;&nbsp;</i>企业组织机构证件照：</label>
-        <input name="organization" id="organization" width="300px" class="form-control validate[required]" type="file" />
+        <input name="organizationFile" id="organizationFile" width="300px" class="form-control" type="file" />
+        <input name="organization" id="organization" type="hidden" value="" />
+        <button id="organizationBtn" type="button" class="btn blue uploadbtn">
+           	<i onclick="">上传</i>
+        </button>
+        <div id="organizationWait" style="padding: 50px 0 0 0;display:none;">
+	        <div style="width: 103px;margin: 0 auto;"><img src="../js/plugin/AjaxFileUploaderV2.1/loading.gif"/></div>
+	        <br></br>
+	        <div style="width: 103px;margin: 0 auto;"><span>请稍等...</span></div>
+	        <br></br>
+	    </div>
+	    <div style="display:none;">
+	    	<img id="organizationImg" name="organizationImg" style="width:200px;height:200px;" alt="" src="">
+	    </div>
     </div>
     <div class="form-group form-item">
     	<label for="businessLicense"><i style="color:red;">*&nbsp;&nbsp;</i>企业营业执照扫描件：</label>
-        <input name="businessLicense"  id="businessLicense" width="300px" class="form-control validate[required]" type="file" />
+        <input name="businessLicenseFile"  id="businessLicenseFile" width="100px" class="form-control" type="file" />
+        <input name="businessLicense" id="businessLicense" type="hidden" value="" />
+        <button id="businessLicenseBtn" type="button" class="btn blue uploadbtn">
+           	<i onclick="">上传</i>
+        </button>
+        <div id="businessLicenseWait" style="padding: 50px 0 0 0;display:none;">
+	        <div style="width: 103px;margin: 0 auto;"><img src="../js/plugin/AjaxFileUploaderV2.1/loading.gif"/></div>
+	        <br></br>
+	        <div style="width: 103px;margin: 0 auto;"><span>请稍等...</span></div>
+	        <br></br>
+	    </div>
+	    <div style="display:none;">
+	    	<img id="businessLicenseImg" name="businessLicenseImg" style="width:200px;height:200px;" alt="" src="">
+	    </div>
     </div>
 	<div style="width:200px" align="left" class="form-actions">
-        <button id="btnSave" type="submit" class="btn blue pull-right">
+        <button id="btnSave" type="submit" class="mybtn blue pull-right">
            	<i onclick="">保存</i>
         </button>
     </div>
 </form>
+</div>
 </body>
 </html>

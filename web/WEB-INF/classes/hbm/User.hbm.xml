@@ -32,6 +32,10 @@
             <column name="city">
             </column>
         </property>
+        <property name="province" type="string">
+            <column name="province">
+            </column>
+        </property>
         <property name="head" type="string">
             <column name="head">
             </column>

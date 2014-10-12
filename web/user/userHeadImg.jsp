@@ -41,6 +41,8 @@ var basePath = "<%=basePath %>";
 	{
 		color: #555;	
 	}
+	.form-item input { width:90%;}
+	.uploadbtn{float:right;margin-top:-35px;}
 </style>
 </head>
 <body>
@@ -48,10 +50,10 @@ var basePath = "<%=basePath %>";
     	onsubmit="return checkPic();" target="hidden_frame">
 		<div style="margin:10px;">
              <div>
-                 <div style="margin-top:10px;color: #555;line-height:150%;">请选择照片文件，文件需小于2.5MB</div>
-                 <div>
+                 <div style="margin-top:10px;color: #555;line-height:150%;">请选择照片文件，支持jpg、jpeg、png、gif格式，大小不超过5M。建议尺寸：600 x 450px</div>
+                 <div class="form-group form-item">
                  	<input type="file" id="headImg" name="headImg" class="form-control" />
-                 	<button id="btnSave" type="submit" class="btn blue">
+                 	<button id="btnSave" type="submit" class="btn blue uploadbtn">
 			           	<i onclick="">上传</i>
 			        </button>
                  	<iframe name='hidden_frame' id="hidden_frame" style='display: none'></iframe>

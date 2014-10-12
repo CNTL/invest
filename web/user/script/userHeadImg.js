@@ -27,7 +27,7 @@ var headImg = {
 	    		}
 	        } ,
 			error:function (XMLHttpRequest, textStatus, errorThrown) {
-				   alert(errorThrown);
+				$.messager.alert('消息', errorThrown);
 			}
 	    });
 	},
@@ -40,14 +40,18 @@ var headImg = {
 	        dataType: 'text',   //返回值类型  
 	        success:function(data){
 	    		if(data != null && data == 'ok'){
-	    			$.messager.alert('消息','上传头像成功！');
+	    			$.messager.confirm('消息', '上传头像成功！', function(r){
+	    				if (r){
+	    					window.location.href=window.location.href; 
+	    				}
+	    			});
 	    		} else {
 	    			$.messager.alert('上传头像失败！',data);
 	    		}
 	    		$("#submit").attr("disabled", false);
 	        } ,
 			error:function (XMLHttpRequest, textStatus, errorThrown) {
-				   alert(errorThrown);
+				$.messager.alert('消息', errorThrown);
 			}
 	    });
 	}
@@ -57,7 +61,7 @@ var headImg = {
 function checkPic() {
 	var location = document.getElementById('headImg').value;
 	if (location == "") {
-		alert("请先选择图片文件");
+		$.messager.alert('消息', "请先选择图片文件");
 		return false;
 	}
 	var point = location.lastIndexOf(".");
@@ -67,14 +71,14 @@ function checkPic() {
 		img = document.createElement("img");
 		img.src = location;
 		if (img.fileSize > 1024000) {
-			alert("图片尺寸请不要大于100KB");
+			$.messager.alert('消息', "图片尺寸请不要大于100KB");
 			return false;
 		} else {
 			document.getElementById("nowDiv").style.display="none";
 			return true;
 		}
 	} else {
-		alert("只能上传jpg、jpeg、gif、png、bmp格式的图片");
+		$.messager.alert('消息', "只能上传jpg、jpeg、gif、png、bmp格式的图片");
 		//alert("只能上传jpg格式的图片");
 		return false;
 	}
@@ -83,11 +87,9 @@ function checkPic() {
 }
 //图片上传后的回调函数
 function callback(url, width, height) {
-	alert(url)
 	document.getElementById('cut_img').width = width;
 	document.getElementById('cut_img').height = height;
 	document.getElementById('cut_img').src = url;
-	alert(document.getElementById('cut_img').src)
 	document.getElementById('cut_url').value = url;
 	document.getElementById('hide').style.display = '';
 	imageinit();
