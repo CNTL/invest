@@ -17,14 +17,22 @@
     <meta content="" name="description" />
     <meta content="" name="author" />
     
- 	<link type="text/css" rel="stylesheet" href="../js/plugin/jquery-validate/css/validationEngine.jquery.css"/>
-    <link rel="stylesheet" type="text/css" media="screen" href="../js/bootstrap/css/bootstrap.min.css">
-    <link href="../css/adminlogin.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../js/plugin/jquery-validate/css/validationEngine.jquery.css"/>
+	<link rel="stylesheet" type="text/css" media="screen" href="../js/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="../js/jquery-easyui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../js/jquery-easyui/themes/icon.css">
+	<link href="../css/adminlogin.css" rel="stylesheet" type="text/css" />
     <link href="../css/components.css" rel="stylesheet" type="text/css" />
-    
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="../img/favicon/favicon.ico" type="image/x-icon">
     <link rel="icon" href="../img/favicon/favicon.ico" type="image/x-icon">
+    
+	<script type="text/javascript" src="../js/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/jquery-easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="../js/plugin/jquery-validate/js/jquery.validationEngine.js"></script>
+	<script type="text/javascript" src="../js/plugin/jquery-validate/js/languages/jquery.validationEngine-zh_CN.js"></script>
+    <script type="text/javascript" src="../js/plugin/backstretch/jquery.backstretch.min.js"></script>
+ 	<script type="text/javascript" src="script/userRegister.js"></script>
 </head>
 <!-- END HEAD -->
 
@@ -85,16 +93,6 @@
     <!-- END LOGIN -->
     <!-- BEGIN COPYRIGHT -->
     <!-- END COPYRIGHT -->
-    <script type="text/javascript" src="../js/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="../js/plugin/backstretch/jquery.backstretch.min.js"></script>
-    <script type="text/javascript" src="../js/plugin/jquery-validate/js/jquery.validationEngine.js"></script>
-	<script type="text/javascript" src="../js/plugin/jquery-validate/js/languages/jquery.validationEngine-zh_CN.js"></script>
- 	<script type="text/javascript" src="script/userRegister.js"></script>
- 
-    <script>
-        
-    </script>
-    <!-- END JAVASCRIPTS -->
 
 </body>
 <!-- END BODY -->

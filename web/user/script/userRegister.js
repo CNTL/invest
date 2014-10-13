@@ -37,27 +37,17 @@ function registerSubmit(){
         url:"userlogin.do?a=create", //请求路径  
         cache: false,     
         data:$('#form').serialize(),  //传参       
-        dataType: 'json',   //返回值类型  
-        success:function(json){
-        	alert(data);
+        dataType: 'text',   //返回值类型  
+        success:function(data){
     		if(data != null && data == 'ok'){
-    			//重新登录
-    			var d = dialog({
-    				title: '消息',
-    				content: '修改成功，请重新登陆！',
-    				okValue: '确 定',
-    				ok: function () {
-    					location.href="userLogin.jsp";
-    				},
-    				cancelValue: '取消',
-    				cancel: function () {}
+    			$.messager.confirm('消息', '注册成功，请登录?', function(r){
+    				if (r){
+    					parent.location.href = 'userLogin.jsp';
+    				}
     			});
-
-    			d.showModal();
     		}else {
-    			alert("修改密码失败:" + data);
+    			$.messager.alert('消息', "注册失败:" + data);
     		}
-            window.location.reload();
         }  
     });
 }

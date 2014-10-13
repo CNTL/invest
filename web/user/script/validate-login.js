@@ -80,7 +80,7 @@ var Login = function () {
 		
 	},
 	register = function(){
-		window.open("userRegister.jsp")
+		window.location.replace("userRegister.jsp");
 	};
     
     return {

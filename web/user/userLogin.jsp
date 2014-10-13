@@ -6,6 +6,7 @@
 <html>
 <head>
     <title>登录</title>
+    <meta property="qc:admins" content="3643423151251610146713066547447535275352477166230" />
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -66,6 +67,7 @@
                 <button id="login" type="submit" class="btn blue pull-right">
                    	 登录 <i class="m-icon-swapright m-icon-white"></i>
                 </button>
+                <a href="userlogin.do?a=qqlogin" title="请使用你的QQ账号登陆"><img alt="请使用你的QQ账号登陆" src="./img/qq.png"></a>
             </div>
 
         </form>
