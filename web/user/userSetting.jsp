@@ -59,7 +59,7 @@
               <li class="sup"><a class="ie6fixpic" href="">支持的项目</a></li>
               <li class="spo"><a class="ie6fixpic" href="">发起的项目</a></li>
 			  <li class="spo"><a class="ie6fixpic" href="">发起者后台</a></li>
-              <li class="msg"><a class="ie6fixpic" href="">消息中心<span class="msg-info">1</span></a></li>
+              <li class="msg"><a class="ie6fixpic" href="">消息中心<span class="msg-info"></span></a></li>
               <li class="set"><a class="ie6fixpic" href="">个人设置</a></li>
               <li class="exit bn"><a class="ie6fixpic" href="">退出</a></li>
           </ul>
