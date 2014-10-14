@@ -62,7 +62,7 @@
                 <label for="type"><i style="color:red;">*</i>注册类型</label>
                 <br>
                 <select style="width: 300px;" id="type" name="type" class="custform-select validate[maxSize[255],required]" url="app/Data.do?type=USERTYPE" oldValue="-" pair="true">
-                <option value="1">个人</option><option value="2">团体</option><option value="3">机构</option>  
+                <option value="1">个人</option><option value="3">机构</option>  
                 </select>
             </div>
             <div class="form-group">
