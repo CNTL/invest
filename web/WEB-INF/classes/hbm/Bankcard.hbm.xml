@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Sep 6, 2014 5:51:12 PM by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-    <class name="com.tl.sys.user.Bankcard" table="bankcard">
+    <class name="com.tl.invest.user.Bankcard" table="bankcard">
         <id name="id" type="int">
             <column name="id" />
             <generator class="assigned" />

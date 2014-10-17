@@ -1,4 +1,4 @@
-package com.tl.sys.user;
+package com.tl.invest.user.web;
 
 import java.io.PrintWriter;
 import java.util.Map;
@@ -12,6 +12,8 @@ import com.qq.connect.oauth.Oauth;
 import com.tl.common.DateUtils;
 import com.tl.common.ParamInitUtils;
 import com.tl.common.StringUtils;
+import com.tl.invest.user.User;
+import com.tl.invest.user.UserManager;
 import com.tl.kernel.context.Context;
 import com.tl.kernel.context.TLException;
 import com.tl.kernel.web.BaseController;

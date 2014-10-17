@@ -1,14 +1,10 @@
-package com.tl.sys.user;
+package com.tl.invest.user;
 
-import java.util.List;
-
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.tl.kernel.constant.SysTableLibs;
 import com.tl.kernel.context.DAO;
-import com.tl.kernel.context.DAOHelper;
 import com.tl.kernel.context.TBID;
 
 /** 
@@ -16,14 +12,13 @@ import com.tl.kernel.context.TBID;
  * @author  leijj
  * 类说明 ： 
  */
-@SuppressWarnings({ "rawtypes", "unchecked", "deprecation" })
-public class BankcardManager {
+public class WorksManager {
 	/**
 	 * 添加用户
 	 * 
 	 * @param user  要创建的用户对象
 	 */
-	public void save(Bankcard bankcard) throws Exception{
+	public void save(Works works) throws Exception{
 	    DAO dao = new DAO();
 	    Session s   = null;
 	    Transaction t = null;
@@ -31,12 +26,12 @@ public class BankcardManager {
         {
 	    	s = dao.getSession();
             t = dao.beginTransaction(s);
-	    	if(bankcard.getId() <= 0){
-	    		int id = (int)TBID.getID(SysTableLibs.TB_BANKCARD.getTableCode());;
-	    		bankcard.setId(id);
-		        dao.save(bankcard,s);
+	    	if(works.getId() <= 0){
+	    		int id = (int)TBID.getID(SysTableLibs.TB_WORKS.getTableCode());
+	    		works.setId(id);
+		        dao.save(works,s);
 	    	} else {
-	    		dao.update(bankcard,s);
+	    		dao.update(works,s);
 	    	}
 	    	t.commit();
         }
@@ -52,19 +47,5 @@ public class BankcardManager {
         {
         	dao.closeSession(s);
         }
-	}
-	
-	/**
-	 * 根据用户id获取认证银行卡
-	 * 
-	 * @param userId    用户id
-	 */
-	public List<Bankcard> getByUserId(int userId) throws Exception{
-        List list = DAOHelper.find("select a from com.tl.sys.user.Bankcard as a where a.userId = :userId", 
-        		userId, Hibernate.INTEGER);
-        if(list.size() > 0)
-            return list;
-        else
-            return null;
 	}
 }

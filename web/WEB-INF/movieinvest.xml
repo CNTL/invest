@@ -28,17 +28,22 @@
 	</bean>
 	
 	<!-- 用户管理 -->
-	<bean id="UserManager" class="com.tl.sys.user.UserManager"/>
-	<bean id="user.User" class="com.tl.sys.user.UserController">
+	<bean id="UserManager" class="com.tl.invest.user.UserManager"/>
+	<bean id="UserMsgManager" class="com.tl.invest.user.UserMsgManager"/>
+	<bean id="user.User" class="com.tl.invest.user.web.UserController">
 		<property name="userManager"><ref bean="UserManager"/></property>
 		<property name="bankcardManager"><ref bean="BankcardManager"/></property>
 	</bean>
-	<bean id="user.Login" class="com.tl.sys.user.UserLoginController">
+	<bean id="user.UserFetch" class="com.tl.invest.user.web.UserFetchController">
+	</bean>
+	<bean id="user.UserMsg" class="com.tl.invest.user.web.UserMsgController">
+	</bean>
+	<bean id="user.Login" class="com.tl.invest.user.web.UserLoginController">
 		<property name="manager"><ref bean="UserManager"/></property>
 	</bean>
 	
-	<bean id="BankcardManager" class="com.tl.sys.user.BankcardManager"/>
-	<bean id="WorksManager" class="com.tl.sys.user.WorksManager"/>
+	<bean id="BankcardManager" class="com.tl.invest.user.BankcardManager"/>
+	<bean id="WorksManager" class="com.tl.invest.user.WorksManager"/>
 	 <!--============ 4. web =============== -->
 	<bean id="appUrl" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="order"><value>3</value></property>
@@ -47,8 +52,11 @@
 				<!-- 系统用户管理 -->
 				<prop key="/admin/sysuser.do">sys.sysuser</prop>
 				<!-- 用户管理 -->
-				<prop key="/user/user.do">user.User</prop>
 				<prop key="/user/userlogin.do">user.Login</prop>
+				<prop key="/user/user.do">user.User</prop>
+				<prop key="/user/userFetch.do">user.UserFetch</prop>
+				<prop key="/user/userMsg.do">user.UserMsg</prop>
+				
 				<!-- <prop key="/user/userlogout.do">user.Logout</prop> -->
 				<!-- 用户登录 -->
 				<prop key="/admin/syslogin.do">sys.Login</prop>

@@ -1,4 +1,4 @@
-package com.tl.sys.user;
+package com.tl.invest.user;
 
 // Generated Aug 27, 2014 10:19:08 AM by Hibernate Tools 3.4.0.CR1
 

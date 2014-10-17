@@ -3,33 +3,33 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Sep 7, 2014 4:50:29 PM by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-    <class name="com.tl.invest.user.Userphoto" table="userphoto" catalog="movieinvest">
+    <class name="com.tl.invest.user.UserMsg" table="user_msg" catalog="movieinvest">
         <id name="id" type="int">
             <column name="id" />
             <generator class="assigned" />
         </id>
-        <property name="userId" type="java.lang.Integer">
-            <column name="userID">
+        <property name="msgFromID" type="int">
+            <column name="msg_fromID">
             </column>
         </property>
-        <property name="userName" type="string">
-            <column name="userName">
+        <property name="msgFrom" type="string">
+            <column name="msg_from">
             </column>
         </property>
-        <property name="groupId" type="java.lang.Integer">
-            <column name="groupID">
+        <property name="msgToID" type="int">
+            <column name="msg_toID">
             </column>
         </property>
-        <property name="groupName" type="string">
-            <column name="groupName">
+        <property name="msgTo" type="string">
+            <column name="msg_to">
             </column>
         </property>
-        <property name="photo" type="string">
-            <column name="photo" length="500">
+        <property name="msgContent" type="string">
+            <column name="msg_content">
             </column>
         </property>
-        <property name="note" type="string">
-            <column name="note" length="65535">
+        <property name="msgIsRead" type="java.lang.Integer">
+            <column name="msg_isRead">
             </column>
         </property>
         <property name="createTime" type="timestamp">

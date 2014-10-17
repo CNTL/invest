@@ -1,4 +1,4 @@
-package com.tl.sys.user;
+package com.tl.invest.user.web;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -26,6 +26,12 @@ import com.tl.common.ImageHelper;
 import com.tl.common.ParamInitUtils;
 import com.tl.common.UploadHelper;
 import com.tl.common.UserEncrypt;
+import com.tl.invest.user.Bankcard;
+import com.tl.invest.user.BankcardManager;
+import com.tl.invest.user.User;
+import com.tl.invest.user.UserManager;
+import com.tl.invest.user.Works;
+import com.tl.invest.user.WorksManager;
 import com.tl.kernel.context.Context;
 import com.tl.kernel.context.DAOHelper;
 import com.tl.kernel.web.BaseController;

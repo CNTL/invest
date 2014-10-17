@@ -1,4 +1,4 @@
-package com.tl.sys.user;
+package com.tl.invest.user;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,7 +83,7 @@ public class UserManager {
         try
         {
             DAO dao = new DAO();
-            List list = dao.find("select user from com.tl.sys.user.User as user order by user.id");
+            List list = dao.find("select user from com.tl.invest.user.User as user order by user.id");
     		return getUsers(list);
         }
         catch (Exception e)
@@ -97,7 +97,7 @@ public class UserManager {
 	 * @param userID    用户ID
 	 */
 	public User getUserByID(int userID) throws Exception{
-		List list = DAOHelper.find("select a from com.tl.sys.user.User as a where a.id = :id", 
+		List list = DAOHelper.find("select a from com.tl.invest.user.User as a where a.id = :id", 
         		new Integer(userID), Hibernate.INTEGER);
         if(list.size() > 0)
             return this.decrypt(list.get(0));
@@ -161,7 +161,7 @@ public class UserManager {
 	 * @param userID    用户ID
 	 */
 	public void delete(int userID) throws Exception{
-		DAOHelper.delete("delete from com.tl.sys.user.User as user where user.id = :id", 
+		DAOHelper.delete("delete from com.tl.invest.user.User as user where user.id = :id", 
         		   new Integer(userID), Hibernate.INTEGER);
 	}
 	public List<User> queryUsersStr(int iDisplayStart, int iDisplayLength, User query) throws Exception{
@@ -180,7 +180,7 @@ public class UserManager {
         
 	}
 	public List<User> queryUsers(int iDisplayStart, int iDisplayLength, User query) throws Exception{
-		StringBuilder querySql = new StringBuilder("select a from com.tl.sys.user.User as a");
+		StringBuilder querySql = new StringBuilder("select a from com.tl.invest.user.User as a");
 		if(query.getName() != null && !"".equals(query.getName())
 				&& query.getCode() != null && !"".equals(query.getCode())){
 			querySql.append(" where a.name like '%" + query.getName())
@@ -227,7 +227,7 @@ public class UserManager {
 	 * @param userCode    用户编码
 	 */
 	public User getUserByCode(String code) throws Exception{
-        List list = DAOHelper.find("select a from com.tl.sys.user.User as a where a.code = :code", 
+        List list = DAOHelper.find("select a from com.tl.invest.user.User as a where a.code = :code", 
         		code, Hibernate.STRING);
         if(list.size() > 0)
             return decrypt(list.get(0));
@@ -243,7 +243,7 @@ public class UserManager {
 		 
 		Object[] paramObjects = {code,UserEncrypt.getInstance().encrypt(pwd)};
 		try {
-			List list = DAOHelper.find("select a from com.tl.sys.user.User as a where a.code=? and a.password=?",
+			List list = DAOHelper.find("select a from com.tl.invest.user.User as a where a.code=? and a.password=?",
 					paramObjects);
 			if(!list.isEmpty()){
 				user = (User)list.get(0);
@@ -269,7 +269,7 @@ public class UserManager {
             if(userID != null)
                 for(int i = 0; i < userID.length; i++)
                 {
-                    User user = (User)dao.find("select user from com.tl.sys.user.User as user where user.id = :id", 
+                    User user = (User)dao.find("select user from com.tl.invest.user.User as user where user.id = :id", 
                     		new Integer(userID[i]), Hibernate.INTEGER, session).get(0);
                     dao.update(user, session);
                 }
@@ -294,7 +294,7 @@ public class UserManager {
 	 */
 	 public User [] getUsersByName(String userName) throws Exception
 	 {
-	        List list = DAOHelper.find("from com.tl.sys.user.User as user where user.name=:name or user.code=:code", 
+	        List list = DAOHelper.find("from com.tl.invest.user.User as user where user.name=:name or user.code=:code", 
 		    		new String[]{"userName", "userCode"},
 		    		new Object[] {userName, userName}, 
 		    		new Type[] {Hibernate.STRING, Hibernate.STRING});
@@ -308,7 +308,7 @@ public class UserManager {
 	 */
 	 public User[] getUsersIncludeName(String userName) throws Exception {
 		String wrapUserName = "%" + userName + "%";
-		List list = DAOHelper.find("from com.tl.sys.user.User as user where user.name like :name or user.code like :code",
+		List list = DAOHelper.find("from com.tl.invest.user.User as user where user.name like :name or user.code like :code",
 	    		new String[]{"wrapUserName", "wrapUserCode"},
 	    		new Object[] {wrapUserName, wrapUserName}, 
 	    		new Type[] {Hibernate.STRING, Hibernate.STRING});
