@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.tl.kernel.context.Context;
+import com.tl.kernel.sys.dic.Dictionary;
 import com.tl.kernel.sys.dic.DictionaryManager;
 import com.tl.kernel.sys.dic.DictionaryType;
 import com.tl.kernel.web.BaseController;
@@ -28,15 +29,65 @@ public class DictionaryController extends BaseController {
 		if("new-type".equals(action)){
 			saveDicType(request,response);
 		}else if("new-cat".equals(action)){
-			int typeid = getInt(request, "typeid", -999);
-			int pid = getInt(request, "pid",-999);
+			saveDic(request, response);
 		}else if("edit".equals(action)){
-			
+			int istype = getInt(request, "istype", 0);
+			if(istype == 1){
+				saveDicType(request, response);
+			}else {
+				saveDic(request, response);
+			}
 		}else if("remove".equals(action)){
 			
 		}
 	}
 	
+	private void saveDic(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		int id = getInt(request, "ItemID",0);
+		int pid = getInt(request, "ItemPID",0);
+		int typeid = getInt(request, "TypeID", 0);
+		if(typeid<=0){
+			outputJson("{\"success\":false,\"msg\":\"没有指定类型\"}", response);
+			return;
+		}
+		Dictionary dic = null;
+		if(id>0){
+			dic = dicManager.getDic(typeid, id);
+		}
+		if(dic == null){
+			dic = new Dictionary();
+		}
+		dic.setId(id);
+		dic.setType(typeid);
+		dic.setPid(pid);
+		dic.setName(get(request, "dic_name", ""));
+		dic.setCode(get(request, "dic_code", ""));
+		dic.setText(get(request, "dic_text", ""));
+		dic.setValue(get(request, "dic_value", ""));
+		dic.setMemo(get(request, "dic_memo", ""));
+		dic.setOrder(getInt(request, "dic_order", id));
+		dic.setValid(getInt(request, "dic_valid", 1));
+		if(dicManager.exist(dic)){
+			outputJson("{\"success\":false,\"msg\":\"名称或者简码已经存在\"}", response);
+			return;
+		}
+		try{
+			if(dic.getId()>0){
+				dicManager.updatedic(dic);
+			}else {
+				dicManager.createDic(dic);
+			}
+		}catch(Exception ex){
+			outputJson("{\"success\":false,\"msg\":\"保存失败:"+ex.getMessage()+"\"}", response);
+		}
+		if(dic.getId()<=0){
+			outputJson("{\"success\":false,\"msg\":\"保存失败\"}", response);
+		}else {
+			outputJson("{\"success\":true,\"msg\":\"保存成功\"}", response);
+		}
+	}
+
 	private void saveDicType(HttpServletRequest request,
 			HttpServletResponse response) throws Exception{		
 		int id = getInt(request, "ItemID", 0);
@@ -57,10 +108,14 @@ public class DictionaryController extends BaseController {
 			outputJson("{\"success\":false,\"msg\":\"名称或者简码已经存在\"}", response);
 			return;
 		}
-		if(dicType.getId()>0){
-			dicManager.updateType(dicType);
-		}else {
-			dicManager.createType(dicType);
+		try{
+			if(dicType.getId()>0){
+				dicManager.updateType(dicType);
+			}else {
+				dicManager.createType(dicType);
+			}
+		}catch(Exception ex){
+			outputJson("{\"success\":false,\"msg\":\"保存失败:"+ex.getMessage()+"\"}", response);
 		}
 		if(dicType.getId()<=0){
 			outputJson("{\"success\":false,\"msg\":\"保存失败\"}", response);

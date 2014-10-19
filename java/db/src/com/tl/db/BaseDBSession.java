@@ -650,7 +650,10 @@ public class BaseDBSession implements DBSession {
 		try {
 			fillStatement( pst, params, types );
 			result = pst.executeUpdate();
-		} finally {
+		}catch(Exception e){
+			log.error(e.getMessage(),e);
+			System.err.println(pst.toString());
+		}finally {
 			CloseHelper.closeQuietly( pst );
 		}
 		if ( log.isDebugEnabled() )

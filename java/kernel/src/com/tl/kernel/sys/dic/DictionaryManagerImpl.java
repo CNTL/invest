@@ -31,7 +31,7 @@ public class DictionaryManagerImpl implements DictionaryManager {
 			+ "(dic_typeid,dic_pid,dic_code,dic_name,dic_level,dic_order,dic_memo,dic_LastModified,dic_valid,dic_childCount,dic_value,dic_text,dic_id)"
 			+ "values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	private static String m_UpdateSQL = "update "+SysTableLibs.TB_SYS_DICTIONARY.getTableCode()
-			+"set dic_typeid=?,dic_pid=?, dic_code=?, dic_name=?, dic_level=?, dic_order=?, dic_memo=?, dic_LastModified=?, dic_valid=?, dic_childCount=? ,dic_value=? ,dic_text=? where dic_id=?";
+			+" set dic_typeid=?,dic_pid=?, dic_code=?, dic_name=?, dic_level=?, dic_order=?, dic_memo=?, dic_LastModified=?, dic_valid=?, dic_childCount=? ,dic_value=? ,dic_text=? where dic_id=?";
 	private static String m_SelectLikeSQL = "select * from "+SysTableLibs.TB_SYS_DICTIONARY.getTableCode()
 			+" where dic_typeid=? and dic_name like ? and dic_valid=1";
 	private static String m_SelectByCodeSQL = "select * from "+SysTableLibs.TB_SYS_DICTIONARY.getTableCode()
@@ -386,6 +386,26 @@ public class DictionaryManagerImpl implements DictionaryManager {
 		try {
 			sql = dbSession.getDialect().getLimitString(sql, 0, 1);	
 			rs = dbSession.executeQuery(sql, new Object[]{type.getId(),type.getName(),type.getCode()});
+			if (rs.next()) {
+				return true;
+			}
+		} catch (SQLException e) {
+			throw new TLException(e);
+		} finally {
+			ResourceMgr.closeQuietly(rs);
+			ResourceMgr.closeQuietly(dbSession);
+		}
+		return false;
+	}
+	
+	@Override
+	public boolean exist(Dictionary dic) throws TLException{
+		String sql = "select dic_id from "+SysTableLibs.TB_SYS_DICTIONARY.getTableCode()+" where dic_id<>? and dic_valid=1 and dic_typeid=? and dic_pid=? and (dic_name=? or dic_code=?)";
+		DBSession dbSession = Context.getDBSession();
+		IResultSet rs = null;
+		try {
+			sql = dbSession.getDialect().getLimitString(sql, 0, 1);	
+			rs = dbSession.executeQuery(sql, new Object[]{dic.getId(),dic.getType(),dic.getPid(),dic.getName(),dic.getCode()});
 			if (rs.next()) {
 				return true;
 			}

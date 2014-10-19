@@ -9,6 +9,7 @@ public class DictionaryType implements Serializable {
 	private String name;
 	private String code;
 	private int isSys;
+	private int maxLevel;
 	private int order;
 	private int valid;
 	private String memo;
@@ -35,6 +36,12 @@ public class DictionaryType implements Serializable {
 	}
 	public void setIsSys(int isSys) {
 		this.isSys = isSys;
+	}
+	public int getMaxLevel() {
+		return maxLevel;
+	}
+	public void setMaxLevel(int maxLevel) {
+		this.maxLevel = maxLevel;
 	}
 	public int getOrder() {
 		return order;

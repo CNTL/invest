@@ -27,12 +27,12 @@ $(function () {
 		$("#content-layout").layout();
 		$("#tree-menu").menu({onClick:treeMenuItemOnClick});
 		$("#dic-tree").tree({
-			url:'../dic/DicFetcherManager.do?action=tree&sys=0',
+			url:'../dic/DicFetcherManager.do?action=mtree&sys=0',
 			method:"POST",
 			onBeforeLoad:function(node,param){
 				if(node != null){
-					param.root = node.attributes.typeid<=0 ? node.id : node.attributes.typeid;
-					param.id = node.attributes.typeid<=0 ? 0 : node.id;
+					param.root = (node.attributes.typeid<0 || node.attributes.istype==1) ? node.id : node.attributes.typeid;
+					param.id = (node.attributes.typeid<0 || node.attributes.istype==1) ? 0 : node.id;
 					param.loadroot = 0;
 				}
 			},
@@ -58,39 +58,46 @@ function treeMenuItemOnClick(item){
 	//top.$.messager.alert('debugger',item.name);
 	var node = $('#dic-tree').tree('getSelected');
 	if(node==null) return false;
-	var id = node.id,typeid = node.attributes.typeid;
-	var title,width=520,modal=true,minimizable=false,maximizable=false,
-		href= "../dic/" + (typeid == -1 ? "DicTypeEdit" : "DicEdit") +".jsp?typeid="+typeid+"&id="+id,
-		height=320,
-		submitUrl="../dic/Dictionary.do?typeid="+typeid+"&pid="+id+"&action="+item.name;
+	var id = node.id,pid=node.attributes.pid,typeid = node.attributes.typeid,istype=node.attributes.istype;
+	var title,width=520,modal=true,minimizable=false,maximizable=false,action="",height=320,
+		submitUrl="../dic/Dictionary.do?action="+item.name+"&istype="+istype;
+	
 	var toolbars = [{text:'保存',iconCls:'icon-save',handler:function(){
 		tldialog.submit(submitUrl,function(data){
 			tldialog.closeRefresh();
-			var refreshTg = node.target;
+			var refreshNode = node;
 			if(item.name=="edit" || item.name=="remove"){
-				refreshTg = $('#dic-tree').tree('getParent');
+				refreshNode = $('#dic-tree').tree('getParent',node.target);
+			}else if(typeof(node.children)== "undefined" || node.children.length==0){
+				refreshNode = $('#dic-tree').tree('getParent',node.target);
 			}
-			$('#dic-tree').tree('reload',refreshTg);
+			$('#dic-tree').tree('reload',refreshNode.target);
 		});
 	}},{text:'关闭',iconCls:'icon-cancel',handler:function(){
 		tldialog.close();
 	}}];
 	if(item.name=="new-type"){
 		title="新增分类类型";
+		action = "typeadd";
 	}else if(item.name=="new-cat"){
+		pid = istype==1 ? 0 : pid;
+		id = istype==1 ? 0 : id;
 		title="新增分类";
+		action = "add";
 		height=480;
 	}else if(item.name=="edit"){
 		title="修改";
-		height= typeid==0 ? 320 : 480;
+		action = istype==1 ? "typeedit" : "edit";
+		height= istype==1 ? 320 : 480;
 	}else if(item.name=="remove"){
 		toolbars[0].text = "确定";
 		title="删除";
-		href = "../dic/delete.jsp?typeid="+typeid+"&id="+id;
+		action = "delete";
 		height = 180;
 		width = 360;
 	}
 	
+	var href= "../dic/DicFetcherManager.do?action="+action+"&typeid="+typeid+"&pid="+pid+"&id="+id
 	tldialog.show(title,href,width,height,modal,minimizable,maximizable,toolbars);
 }
 function initTreeMenuItem(node){
@@ -121,7 +128,7 @@ function showList(node){
 	else{
 		$('#content-layout').layout('add',{region: 'north',height:60,title:'分类类型信息'});
 		$('#content-layout').layout('panel','center').panel("setTitle","子分类");
-		if(node.attributes.typeid == 0){
+		if(node.attributes.istype == 1){
 			$('#content-layout').layout('panel','north').panel("setTitle","分类类型信息");
 			showDicList(node.id,0);
 		}else{

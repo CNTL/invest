@@ -29,6 +29,7 @@ public interface DictionaryManager extends DictionaryReader{
 	 * @throws TLException
 	 */
 	public boolean exist(DictionaryType type) throws TLException;
+	public boolean exist(Dictionary type) throws TLException;
 	/**
 	 * 按名字查找分类
 	 * 支持模糊查询

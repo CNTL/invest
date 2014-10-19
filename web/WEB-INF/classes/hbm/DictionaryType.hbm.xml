@@ -18,6 +18,9 @@
 		 <property name="isSys" type="int">
             <column name="dt_sys" />
         </property>
+		<property name="maxLevel" type="int">
+            <column name="dt_maxlevel" />
+        </property>
 		 <property name="order" type="int">
             <column name="dt_order" />
         </property>

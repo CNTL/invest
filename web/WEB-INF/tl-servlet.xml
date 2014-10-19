@@ -19,7 +19,7 @@
 	<bean id="sys.User" class="com.tl.invest.sys.user.web.SysUserController" />
 	<bean id="workspace.TbList" class="com.tl.invest.workspace.TbListController" />
 	<bean id="workspace.after" class="com.tl.invest.workspace.AfterProcess" />
-	<bean id="workspace.DicFetcherManager" class="com.tl.invest.workspace.DicFetcher">
+	<bean id="workspace.DictionaryFetcher" class="com.tl.workspace.dic.DictionaryFetcher">
 		<property name="dicReader"><ref bean="DictionaryManager" /></property>
 	</bean>
 	<bean id="workspace.Dictionary" class="com.tl.workspace.dic.DictionaryController">
@@ -32,7 +32,7 @@
 			<props>
 				<prop key="/admin/SysMain.do">sys.Main</prop>
 				<prop key="/dic/DicManager.do">sys.DicManager</prop>
-				<prop key="/dic/DicFetcherManager.do">workspace.DicFetcherManager</prop>
+				<prop key="/dic/DicFetcherManager.do">workspace.DictionaryFetcher</prop>
 				<prop key="/dic/Dictionary.do">workspace.Dictionary</prop>
 				<prop key="/admin/org/UserFetcher.do">sys.UserFetcher</prop>
 				<prop key="/admin/org/User.do">sys.User</prop>

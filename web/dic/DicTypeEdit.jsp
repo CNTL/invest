@@ -18,15 +18,15 @@
 			<input type="hidden" id="ItemID" name="ItemID" value="<c:out value="${id}"/>" />
 			<div>   
 				<label for="dt_name">名称:</label>   
-				<input class="easyui-textbox easyui-validatebox" type="text" id="dt_name" name="dt_name" data-options="required:true" />   
+				<input class="easyui-textbox easyui-validatebox" type="text" id="dt_name" name="dt_name" value="<c:out value="${dt_name}"/>" data-options="required:true" />   
 			</div>
 			<div>   
 				<label for="dt_code">简码:</label>   
-				<input class="easyui-textbox" type="text" id="dt_code" name="dt_code"/>   
+				<input class="easyui-textbox" type="text" id="dt_code" name="dt_code" value="<c:out value="${dt_code}"/>"/>   
 			</div>
 			<div>   
-				<label for="dt_memo">简码:</label>   
-				<input class="easyui-textbox" type="text" id="dt_memo" name="dt_memo" data-options="multiline:true" style="height:120px;" />
+				<label for="dt_memo">备注:</label>   
+				<input class="easyui-textbox" type="text" id="dt_memo" name="dt_memo" value="<c:out value="${dt_memo}"/>" data-options="multiline:true" style="height:120px;" />
 			</div>
 		</form>
 	</div>

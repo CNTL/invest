@@ -30,7 +30,7 @@
 		<mapping resource="hbm/Permission.hbm.xml"/>
 		<mapping resource="hbm/User.hbm.xml"/>
 		<mapping resource="hbm/Photogroup.hbm.xml"/>
-		<mapping resource="hbm/UserPhoto.hbm.xml"/>
+		<mapping resource="hbm/Userphoto.hbm.xml"/>
 		<mapping resource="hbm/UserMsg.hbm.xml"/>
 		<mapping resource="hbm/Works.hbm.xml"/>
 		<mapping resource="hbm/Bankcard.hbm.xml"/>
