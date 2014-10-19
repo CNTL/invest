@@ -92,7 +92,7 @@ function treeMenuItemOnClick(item){
 	}else if(item.name=="remove"){
 		toolbars[0].text = "确定";
 		title="删除";
-		action = "delete";
+		action = istype==1 ? "deltype" : "delete";
 		height = 180;
 		width = 360;
 	}

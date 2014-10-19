@@ -40,9 +40,40 @@ public class DictionaryFetcher extends BaseController {
 			model.put("@VIEWNAME@", "dic/DicEdit");
 		}else if ("edit".equals(action)) {
 			editDic(request,model);
+		}else if ("deltype".equals(action)) {
+			deltype(request,model);
+		}else if ("delete".equals(action)) {
+			delete(request,model);
 		}else if("mtree".equals(action)){
 			outManageDicTree(request,response);
 		}
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	private void deltype(HttpServletRequest request, Map model) throws TLException {
+		int id = getInt(request, "id", 0);
+		
+		if(dicReader == null) dicReader = (DictionaryReader)Context.getBean(DictionaryReader.class);
+		DictionaryType dicType = dicReader.getType(id);
+		
+		model.put("istype", 1);
+		model.put("id", dicType==null ? 0 : dicType.getId());
+		model.put("typeid", 0);
+		model.put("@VIEWNAME@", "dic/delete");
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	private void delete(HttpServletRequest request, Map model) throws TLException {
+		int id = getInt(request, "id", 0);
+		int typeId = getInt(request, "typeid", 0);
+		
+		if(dicReader == null) dicReader = (DictionaryReader)Context.getBean(DictionaryReader.class);
+		Dictionary dic = dicReader.getDic(typeId, id);
+		
+		model.put("istype", 0);
+		model.put("id", dic==null ? 0 : dic.getId());
+		model.put("typeid", typeId);
+		model.put("@VIEWNAME@", "dic/delete");
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })

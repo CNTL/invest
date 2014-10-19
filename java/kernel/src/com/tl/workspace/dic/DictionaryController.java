@@ -38,7 +38,38 @@ public class DictionaryController extends BaseController {
 				saveDic(request, response);
 			}
 		}else if("remove".equals(action)){
-			
+			delete(request,response);
+		}
+	}
+	
+	private void delete(HttpServletRequest request,
+			HttpServletResponse response) throws Exception{
+		int id = getInt(request, "ItemID",0);
+		int isType = getInt(request, "IsType", 0);
+		int typeID = getInt(request, "TypeID", 0);
+		if(id<=0){
+			outputJson("{\"success\":false,\"msg\":\"请选择要删除的记录\"}", response);
+			return;
+		}
+		try {
+			if(isType == 1){
+				DictionaryType dicType = dicManager.getType(id);
+				if(dicType == null){
+					outputJson("{\"success\":false,\"msg\":\"要删除的分类类型不存在\"}", response);
+					return;
+				}
+				dicManager.deleteType(id);
+			}else {
+				Dictionary dic = dicManager.getDic(typeID, id);
+				if(dic == null){
+					outputJson("{\"success\":false,\"msg\":\"要删除的分类不存在\"}", response);
+					return;
+				}
+				dicManager.deleteDic(typeID, id);
+			}
+			outputJson("{\"success\":true,\"msg\":\"操作成功\"}", response);
+		} catch (Exception e) {
+			outputJson("{\"success\":false,\"msg\":\"操作失败:"+e.getMessage()+"\"}", response);
 		}
 	}
 	
