@@ -1,9 +1,12 @@
 package com.tl.invest.user.web;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import net.sf.json.JSONArray;
 
 import com.tl.common.DateUtils;
 import com.tl.common.ParamInitUtils;
@@ -47,7 +50,8 @@ public class UserMsgController  extends BaseController {
 	*/ 
 	private void getMyMsgs(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
-		String json = userMsgManager.getMyMsgs(user);
+		List<Map<String, String>> result = userMsgManager.getMyMsgs(user);
+		String json = JSONArray.fromObject(result).toString();
 		output(json, response);
 	}
 	/** 
@@ -60,7 +64,8 @@ public class UserMsgController  extends BaseController {
 	private void getTalkList(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
 		int msg_toID = ParamInitUtils.getInt(request.getParameter("msg_toID"));
-		String json = userMsgManager.getTalkList(user, msg_toID);
+		List<Map<String, String>> result = userMsgManager.getTalkList(user, msg_toID);
+		String json = JSONArray.fromObject(result).toString();
 		output(json, response);
 	}
 	/** 
@@ -96,6 +101,7 @@ public class UserMsgController  extends BaseController {
 	* @throws Exception 
 	*/ 
 	private void sendMsg(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		
 		SysSessionUser user = SessionHelper.getUser(request);
 		UserMsg userMsg = new UserMsg();
 		userMsg.setMsgFromID(user.getUserID());

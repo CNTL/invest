@@ -315,8 +315,13 @@ public class UserController extends BaseController {
 			headImage.setSubPath(destFile);
 	        ImageHelper.cut(headImage);
 	        //User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
+	        String rootPath = request.getSession().getServletContext().getRealPath("/");
+			//String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/";
+			
 	        User user = userManager.getUserByID(SessionHelper.getUserID(request));
-	        user.setHead(destFile);
+	        String head = destFile.substring(rootPath.length());
+	        head = head.replace("\\", "/");
+	        user.setHead(head);
 	        userManager.update(user);
 	        return "ok";
 		} catch (Exception e) {

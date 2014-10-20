@@ -56,17 +56,17 @@ var msg = {
 		}
 	},
 	getMyMsgs : function(){
+		var msg_toID = $("#msg_toID").val();
 		$.ajax({
 	        type:"GET", //请求方式  
-	        url:"../user/userMsg.do?a=getTalkList", //请求路径  
+	        url:"../user/userMsg.do?a=getTalkList&msg_toID=" + msg_toID, //请求路径  
 	        cache: false,
 	        dataType: 'JSON',   //返回值类型  
-	        success:function(data){
-	        	if(!data||typeof Object.prototype.toString.call(data) == "[object Array]"||!data.length)return;
-				var l = data.length;
-				var j;		
+	        success:function(result){
+	        	if(!result||typeof Object.prototype.toString.call(result) == "[object Array]"||!result.length)return;
+				var l = result.length;
 				for (var j = 0; j < l; j++) {
-					var userMsg = data[j];
+					var userMsg = result[j];
 					msg.setMsgs(userMsg);
 				}
 	        } ,
@@ -85,10 +85,9 @@ var msg = {
 		$("#msgDiv .msgTo").attr("href", "/home/id-" + userMsg.msg_toID);
 		$("#msgDiv .gray").html(userMsg.createTime);
 		$("#msgDiv .msg-cnt").html(userMsg.msg_content);
-		$("#msgDiv .Js-reply").attr("href", "javascript:msg.replyMsg(" + 
-				userMsg.msg_toID + "," + userMsg.msg_to + ")");
-		$("#msgDiv .delMsg").attr("onclick", "msg.delMsg(" + userMsg.id + ")")
-		$("#clearfix").append($("#msgDiv").html());
+		$("#msgDiv .Js-reply").attr("onclick", "msg.replyMsg(" + userMsg.msg_toID + ",'" + userMsg.msg_to + "')");
+		$("#msgDiv .delMsg").attr("onclick", "msg.delMsg(" + userMsg.id + ")");
+		$(".clearfix").append($("#msgDiv ul").html());
 	},
 	delMsg : function(id){
 		$.ajax({
@@ -113,8 +112,8 @@ var msg = {
 	    });
 	},
 	replyMsg : function(msg_toID, msg_to){
-		$("#msgTo").val(msg_to);
 		$("#msgTo_ID").val(msg_toID);
+		$("#msgTo").val(msg_to);
 		msg.openMsg();
 	}
 }

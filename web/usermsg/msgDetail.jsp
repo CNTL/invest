@@ -1,4 +1,9 @@
 <%@page pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+<%
+String rootPath = request.getScheme() + "://" + request.getServerName() + 
+	":" + request.getServerPort() + request.getContextPath() + "/";
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,6 +22,9 @@
 <script type="text/javascript" src="../js/jquery-easyui/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="../js/plugin/jquery-validate/js/languages/jquery.validationEngine-zh_CN.js"></script>
 <script type="text/javascript" src="../js/plugin/jquery-autocomplete/jquery.autocomplete.min.js"></script>
+<script type="text/javascript">
+var rootPath = "<%=rootPath %>";
+</script>
 <script type="text/javascript" src="../common/autocomplete.js"></script>
 <script type="text/javascript" src="script/msgDetail.js"></script>
 </head>
@@ -27,31 +35,15 @@
 </div>
 <div class="message-box">
 	<!--message static-->
-	<div class="message-item clearfix">
-		<div class="hd clearfix">
-			<h3 class="fl">与 <span class="red">雷娟娟 </span>的对话</h3>
-			<a class="btn-base btn-gray-h20 common-sprite fr" href="/message">
+	<div class="message-item">
+		<div class="hd">
+			<h3 class="fl">与 <span class="red">${param.msg_to}</span>的对话</h3>
+			<a class="btn-base btn-gray-h20 common-sprite fr" href="msgSend.jsp">
 				<span class="common-sprite">返回</span>
 			</a>
 		</div>
 		<div class="bd">
 			<ul class="clearfix">
-				<li class="talk-list">
-					<div class="talk-face">
-						<a href="/home/id-339712" target="_blank">
-						<img src="http://zcstatic.wangxingroup.com/img/defaultavatar/noavatar_middle.gif">
-						</a>
-					</div>
-					<div class="msg-box">
-						<div class="user-name"><a href="/home/id-339712" target="_blank">leijj </a>
-						<span class="gray">2014-10-16 11:39:32</span></div>
-						<div class="msg-cnt">你qq多少</div>
-						<div class="talk-handle tr">
-							<a class="Js-reply" href="javascript:;" data-id="328416|雷娟娟">回复</a>
-							<a onclick="del_message(328416,267451)">删除</a>
-						</div>
-					</div>
-				</li>
 			</ul>
 			<div class="page tr"></div>
 		</div>
@@ -59,7 +51,7 @@
 	<!--message end-->
 </div>
 <div id="msgDiv" style="display:none">
-	<ul class="clearfix">
+	<ul>
 		<li class="talk-list">
 			<div class="talk-face">
 				<a class="userHead" href="/home/id-339712" target="_blank">
@@ -68,13 +60,13 @@
 			</div>
 			<div class="msg-box">
 				<div class="user-name">
-					<a class="msgTo" href="/home/id-339712" target="_blank">leijj </a>
-					<span class="gray">2014-10-16 11:39:32</span>
+					<a class="msgTo" href="/home/id-339712" target="_blank"> </a>
+					<span class="gray"></span>
 				</div>
-				<div class="msg-cnt">你qq多少</div>
+				<div class="msg-cnt"></div>
 				<div class="talk-handle tr">
-					<a class="Js-reply" href="javascript:;" data-id="328416|雷娟娟">回复</a>
-					<a class="delMsg" onclick="del_message(328416,267451)">删除</a>
+					<a class="Js-reply">回复</a>
+					<a class="delMsg">删除</a>
 				</div>
 			</div>
 		</li>

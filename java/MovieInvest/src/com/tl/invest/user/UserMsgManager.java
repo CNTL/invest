@@ -1,5 +1,10 @@
 package com.tl.invest.user;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -53,15 +58,14 @@ public class UserMsgManager {
         	dao.closeSession(s);
         }
 	}
-	public String getMyMsgs(User user){
-		StringBuilder result = new StringBuilder();
-		result.append("[");
-		int i = 0;
+	public List<Map<String, String>> getMyMsgs(User user){
+		List<Map<String, String>> result = new ArrayList<Map<String, String>>();
+		//StringBuilder result = new StringBuilder();
 		int maxCount = 10;
 		
 		String sql = "SELECT msg_toID,msg_to,MAX(createTime) as createTime, MAX(id) as id, "
 				+ "MAX(msg_content) as msg_content,COUNT(1) as msgNum "
-				+ "FROM user_msg WHERE msg_fromID = ? GROUP BY msg_toID,msg_to ";
+				+ "FROM user_msg WHERE msg_fromID = ? GROUP BY msg_toID,msg_to ORDER BY createTime DESC";
 		
 		DBSession conn = null;
 		IResultSet rs = null;
@@ -72,15 +76,15 @@ public class UserMsgManager {
 	    	
 	    	rs = conn.executeQuery(sql, new Object[]{user.getId()});
 			while (rs.next()) {
-				if (i++ > 0) result.append(",");
-				result.append("{msg_toID:\"").append(rs.getInt("msg_toID"))
-					.append("\",msg_to:\"").append(rs.getString("msg_to"))
-					.append("\",createTime:\"").append(rs.getInt("createTime"))
-					.append("\",msg_content:\"").append(rs.getString("msg_content"))
-					.append("\",userHead:\"").append(user.getHead())
-					.append("\",id:\"").append(rs.getInt("id"))
-					.append("\",msgNum:\"").append(rs.getInt("msgNum"))
-					.append("\"}");
+				Map<String, String> oneResult = new HashMap<String, String>();
+				oneResult.put("msg_toID", rs.getString("msg_toID"));
+				oneResult.put("msg_to", rs.getString("msg_to"));
+				oneResult.put("createTime", rs.getString("createTime"));
+				oneResult.put("msg_content", rs.getString("msg_content"));
+				oneResult.put("userHead", user.getHead());
+				oneResult.put("id", rs.getString("id"));
+				oneResult.put("msgNum", rs.getString("msgNum"));
+				result.add(oneResult);
 			}
 		} catch (Exception e) {
 			log.error(e);
@@ -88,13 +92,10 @@ public class UserMsgManager {
 			ResourceMgr.closeQuietly(rs);
 			ResourceMgr.closeQuietly(conn);
 		}
-		result.append("]");
-		return result.toString();
+		return result;
 	}
-	public String getTalkList(User user, int msg_toID){
-		StringBuilder result = new StringBuilder();
-		result.append("[");
-		int i = 0;
+	public List<Map<String, String>> getTalkList(User user, int msg_toID){
+		List<Map<String, String>> result = new ArrayList<Map<String, String>>();
 		int maxCount = 10;
 		
 		String sql = "SELECT * FROM user_msg WHERE msg_fromID = ? AND msg_toID = ?";
@@ -108,20 +109,20 @@ public class UserMsgManager {
 	    	
 	    	rs = conn.executeQuery(sql, new Object[]{user.getId(), msg_toID});
 			while (rs.next()) {
-				if (i++ > 0) result.append(",");
+				Map<String, String> oneResult = new HashMap<String, String>();
 				int isRead = rs.getInt("msg_isRead");
 				String isReadStr = "·ñ";
 				if(isRead == 1) isReadStr = "ÊÇ";
-				result.append("{id:\"").append(rs.getInt("id"))
-					.append("\",msg_fromID:\"").append(rs.getInt("msg_fromID"))
-					.append("\",msg_from:\"").append(rs.getString("msg_from"))
-					.append("\",msg_toID:\"").append(rs.getInt("msg_toID"))
-					.append("\",msg_to:\"").append(rs.getString("msg_to"))
-					.append("\",msg_content:\"").append(rs.getString("msg_content"))
-					.append("\",msg_isRead:\"").append(isReadStr)
-					.append("\",createTime:\"").append(rs.getString("createTime"))
-					.append("\",userHead:\"").append(user.getHead())
-					.append("\"}");
+				oneResult.put("id", rs.getString("id"));
+				oneResult.put("msg_fromID", rs.getString("msg_fromID"));
+				oneResult.put("msg_from", rs.getString("msg_from"));
+				oneResult.put("msg_toID", rs.getString("msg_toID"));
+				oneResult.put("msg_to", rs.getString("msg_to"));
+				oneResult.put("createTime", rs.getString("createTime"));
+				oneResult.put("msg_content", rs.getString("msg_content"));
+				oneResult.put("msg_isRead", isReadStr);
+				oneResult.put("userHead", user.getHead());
+				result.add(oneResult);
 			}
 		} catch (Exception e) {
 			log.error(e);
@@ -129,8 +130,7 @@ public class UserMsgManager {
 			ResourceMgr.closeQuietly(rs);
 			ResourceMgr.closeQuietly(conn);
 		}
-		result.append("]");
-		return result.toString();
+		return result;
 	}
 	/** 
 	* @author  leijj 

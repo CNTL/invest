@@ -40,7 +40,7 @@ var rootPath = "<%=rootPath %>";
 				<div class="form-group form-item">
 			        <label style="width:60px; float:left; margin-top:5px;">收件人：</label>
 			        <input type="text" id="msgTo" name="msgTo" value="" class="validate[maxSize[255],required] ac_input" url="../user/userFetch.do?a=find" pair="true" auto-complete="true" autocomplete="off"/>
-			        <input type="text" id="msgTo_ID" name="msgTo_ID" value="" />
+			        <input type="hidden" id="msgTo_ID" name="msgTo_ID" value="" />
 			    </div>
 			    <div class="form-group form-item">
 					<textarea  id="msgContent" name="msgContent" class="form-control validate[required]" style="width:400px;height:100px;" placeholder="消息内容"></textarea>
@@ -74,14 +74,14 @@ var rootPath = "<%=rootPath %>";
             </div>
             <div class="msg-box">
                	<div class="user-name">
-               		<a class="msgTo" href="/home/id-356405" target="_blank">黎明11</a>
-               		<span class="gray">2014-10-13 22:58:47</span>
+               		<a class="msgTo" href="/home/id-356405" target="_blank"></a>
+               		<span class="gray"></span>
                	</div>
-               	<div class="msg-cnt">您好</div>
+               	<div class="msg-cnt"></div>
                	<div class="talk-handle tr">
-	                <a class="msgNum" href="/msgDetail.jsp">共2条对话</a>
-	                <a class="Js-reply" href="javascript:;" data-id="356405|黎明11">回复</a>
-	                <a class="delMsg" onclick="del_message()">删除</a>
+	                <a class="msgNum" href="/msgDetail.jsp"></a>
+	                <a class="Js-reply">回复</a>
+	                <a class="delMsg">删除</a>
               	</div>
            	</div>
         </li>
