@@ -1,4 +1,4 @@
-package com.tl.workspace.dic;
+package com.tl.kernel.workspace;
 
 import java.util.ArrayList;
 import java.util.List;

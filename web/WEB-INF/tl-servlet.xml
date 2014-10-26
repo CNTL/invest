@@ -2,8 +2,10 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans>	
-	<bean id="DictionaryManager" class="com.tl.kernel.sys.dic.Factory" factory-method="buildDicManager"/>
 	<bean id="DictionaryReader" class="com.tl.kernel.sys.dic.Factory" factory-method="buildDicReader"/>
+	<bean id="DictionaryManager" class="com.tl.kernel.sys.dic.Factory" factory-method="buildDicManager"/>
+	<bean id="ParameterReader" class="com.tl.kernel.sys.param.Factory" factory-method="buildParamReader"/>
+	<bean id="ParameterManager" class="com.tl.kernel.sys.param.Factory" factory-method="buildParamManager"/>
 	<bean id="MenuManager" class="com.tl.invest.sys.mu.Factory" factory-method="buildMenuManager"/>
 	<bean id="MenuReader" class="com.tl.invest.sys.mu.Factory" factory-method="buildMenuReader"/>
 	<bean id="SysUserManager" class="com.tl.invest.sys.user.Factory" factory-method="buildUserManager"/>
@@ -15,15 +17,21 @@
 	<bean id="sys.DicManager" class="com.tl.invest.sys.SysMain">
 		<property name="viewName"><value>dic/DicManager</value></property>
 	</bean>
+	<bean id="sys.ParamManager" class="com.tl.invest.sys.SysMain">
+		<property name="viewName"><value>admin/sysparam/ParamManager</value></property>
+	</bean>
 	<bean id="sys.UserFetcher" class="com.tl.invest.sys.user.web.SysUserFetcher" />
 	<bean id="sys.User" class="com.tl.invest.sys.user.web.SysUserController" />
 	<bean id="workspace.TbList" class="com.tl.invest.workspace.TbListController" />
 	<bean id="workspace.after" class="com.tl.invest.workspace.AfterProcess" />
-	<bean id="workspace.DictionaryFetcher" class="com.tl.workspace.dic.DictionaryFetcher">
+	<bean id="workspace.DictionaryFetcher" class="com.tl.kernel.workspace.DictionaryFetcher">
 		<property name="dicReader"><ref bean="DictionaryManager" /></property>
 	</bean>
-	<bean id="workspace.Dictionary" class="com.tl.workspace.dic.DictionaryController">
+	<bean id="workspace.Dictionary" class="com.tl.kernel.workspace.DictionaryController">
 		<property name="dicManager"><ref bean="DictionaryManager" /></property>
+	</bean>
+	
+	<bean id="workspace.ParamFetcherManager" class="com.tl.kernel.workspace.ParameterFetcher">
 	</bean>
 	
 	<bean id="omsUrl" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
@@ -31,6 +39,9 @@
 		<property name="mappings">
 			<props>
 				<prop key="/admin/SysMain.do">sys.Main</prop>
+				<prop key="/admin/ParamManager.do">sys.ParamManager</prop>
+				<prop key="/admin/ParamFetcherManager.do">workspace.ParamFetcherManager</prop>
+				
 				<prop key="/dic/DicManager.do">sys.DicManager</prop>
 				<prop key="/dic/DicFetcherManager.do">workspace.DictionaryFetcher</prop>
 				<prop key="/dic/Dictionary.do">workspace.Dictionary</prop>
