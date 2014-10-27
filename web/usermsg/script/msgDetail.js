@@ -71,7 +71,7 @@ var msg = {
 				}
 	        } ,
 			error:function (XMLHttpRequest, textStatus, errorThrown) {
-				$.messager.alert('删除失败！',errorThrown);
+				$.messager.alert('获取消息失败！',errorThrown);
 			}
 	    });
 	},
@@ -79,10 +79,11 @@ var msg = {
 		/**
 		 * 根据接收用户组装消息列表 
 		 **/
-		$("#msgDiv .userHead").attr("href", "/home/id-" + userMsg.msg_toID);
+		$("#msgDiv .userHead").attr("href", "/home/id-" + userMsg.msg_fromID);
 		$("#msgDiv .userHead img").attr("src", rootPath + userMsg.userHead);
 		
-		$("#msgDiv .msgTo").attr("href", "/home/id-" + userMsg.msg_toID);
+		$("#msgDiv .msgFrom").attr("href", "/home/id-" + userMsg.msg_fromID);
+		$("#msgDiv .msgFrom").html(userMsg.msg_to);
 		$("#msgDiv .gray").html(userMsg.createTime);
 		$("#msgDiv .msg-cnt").html(userMsg.msg_content);
 		$("#msgDiv .Js-reply").attr("onclick", "msg.replyMsg(" + userMsg.msg_toID + ",'" + userMsg.msg_to + "')");
@@ -94,7 +95,7 @@ var msg = {
 	        type:"GET", //请求方式  
 	        url:"../user/userMsg.do?a=delMsg&id=" + id, //请求路径  
 	        cache: false,
-	        dataType: 'JSON',   //返回值类型  
+	        dataType: 'TEXT',   //返回值类型  
 	        success:function(data){
 	        	if(data != null && data == 'ok'){
 	    			$.messager.confirm('消息', '删除成功！', function(r){
@@ -112,8 +113,8 @@ var msg = {
 	    });
 	},
 	replyMsg : function(msg_toID, msg_to){
-		$("#msgTo_ID").val(msg_toID);
 		$("#msgTo").val(msg_to);
+		$("#msgTo_ID").val(msg_toID);
 		msg.openMsg();
 	}
 }

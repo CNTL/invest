@@ -63,18 +63,22 @@ public class UserMsgManager {
 		//StringBuilder result = new StringBuilder();
 		int maxCount = 10;
 		
-		String sql = "SELECT msg_toID,msg_to,MAX(createTime) as createTime, MAX(id) as id, "
+		/*		
+				"SELECT msg_toID,msg_to,MAX(createTime) as createTime, MAX(id) as id, "
 				+ "MAX(msg_content) as msg_content,COUNT(1) as msgNum "
-				+ "FROM user_msg WHERE msg_fromID = ? GROUP BY msg_toID,msg_to ORDER BY createTime DESC";
-		
+				+ "FROM user_msg WHERE msg_fromID = ? or msg_toID = ? GROUP BY msg_toID,msg_to ORDER BY createTime DESC";
+		*/
+		String sql = "SELECT msg_toID,msg_to,MAX(createTime) as createTime, MAX(id) as id, MAX(msg_content) as msg_content FROM user_msg "
+		+ "WHERE msg_fromID = ? or msg_toID = ? GROUP BY msg_toID,msg_to ORDER BY createTime DESC";
 		DBSession conn = null;
 		IResultSet rs = null;
+		IResultSet numRs = null;
 		try {
 	    	conn = Context.getDBSession();
 	    	//按数据库类型获得不同的查询个数限制语句
 	    	sql = conn.getDialect().getLimitString(sql, 0, maxCount);
 	    	
-	    	rs = conn.executeQuery(sql, new Object[]{user.getId()});
+	    	rs = conn.executeQuery(sql, new Object[]{user.getId(), user.getId()});
 			while (rs.next()) {
 				Map<String, String> oneResult = new HashMap<String, String>();
 				oneResult.put("msg_toID", rs.getString("msg_toID"));
@@ -83,12 +87,18 @@ public class UserMsgManager {
 				oneResult.put("msg_content", rs.getString("msg_content"));
 				oneResult.put("userHead", user.getHead());
 				oneResult.put("id", rs.getString("id"));
-				oneResult.put("msgNum", rs.getString("msgNum"));
+				String countSql = "SELECT COUNT(1) AS msgNum FROM user_msg "
+						+ "WHERE (msg_fromID = ? and msg_toID = ?) or (msg_toID = ? and msg_fromID = ?)";
+				numRs = conn.executeQuery(countSql, new Object[]{user.getId(), rs.getString("msg_toID"), user.getId(), rs.getString("msg_toID")});
+				while (numRs.next()) {
+					oneResult.put("msgNum", numRs.getString("msgNum"));
+				}
 				result.add(oneResult);
 			}
 		} catch (Exception e) {
 			log.error(e);
 		} finally {
+			ResourceMgr.closeQuietly(numRs);
 			ResourceMgr.closeQuietly(rs);
 			ResourceMgr.closeQuietly(conn);
 		}
@@ -98,7 +108,7 @@ public class UserMsgManager {
 		List<Map<String, String>> result = new ArrayList<Map<String, String>>();
 		int maxCount = 10;
 		
-		String sql = "SELECT * FROM user_msg WHERE msg_fromID = ? AND msg_toID = ?";
+		String sql = "SELECT * FROM user_msg WHERE (msg_fromID = ? and msg_toID = ?) or (msg_toID = ? and msg_fromID = ?)";
 		
 		DBSession conn = null;
 		IResultSet rs = null;
@@ -107,7 +117,7 @@ public class UserMsgManager {
 	    	//按数据库类型获得不同的查询个数限制语句
 	    	sql = conn.getDialect().getLimitString(sql, 0, maxCount);
 	    	
-	    	rs = conn.executeQuery(sql, new Object[]{user.getId(), msg_toID});
+	    	rs = conn.executeQuery(sql, new Object[]{user.getId(), msg_toID, user.getId(), msg_toID});
 			while (rs.next()) {
 				Map<String, String> oneResult = new HashMap<String, String>();
 				int isRead = rs.getInt("msg_isRead");
@@ -150,8 +160,8 @@ public class UserMsgManager {
 	* @throws Exception 
 	*/ 
 	public void deleteByTo(int userID, int msg_toID) throws Exception{
-		DAOHelper.delete("delete from com.tl.invest.user.UserMsg as userMsg where userMsg.msg_fromID = :msg_fromID and userMsg.msg_toID = :msg_toID", 
-				 new String[]{"msg_fromID", "msg_toID"}, new Object[]{userID, msg_toID}, 
+		DAOHelper.delete("delete from com.tl.invest.user.UserMsg as userMsg where userMsg.msgFromID = :msgFromID and userMsg.msgToID = :msgToID", 
+				 new String[]{"msgFromID", "msgToID"}, new Object[]{userID, msg_toID}, 
 				 new Type[]{Hibernate.INTEGER, Hibernate.INTEGER});
 	}
 }

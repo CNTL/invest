@@ -30,12 +30,13 @@ var msg = {
 		var msgTo_ID = $('#msgTo_ID').val();
 		var msgTo = $('#msgTo').val();
 		var msgContent = $('#msgContent').val();
-		var params = "&msgTo_ID=" + msgTo_ID + "&msgTo=" + encodeURI(msgTo) + "&msgContent=" + encodeURI(msgContent); 
-		alert(params)
+		var params = "&msgTo_ID=" + msgTo_ID + "&msgTo=" + encodeURIComponent(msgTo) + "&msgContent=" + encodeURIComponent(msgContent); 
+		//alert(params)
 		$.ajax({
 	        type:"POST", //请求方式  
-	        url:"../user/userMsg.do?a=sendMsg" + params, //请求路径  
+	        url:"../user/userMsg.do?a=sendMsg", //请求路径  
 	        cache: false,
+	        data:$('#form').serialize(),  //传参 
 	        dataType: 'text',   //返回值类型  
 	        success:function(data){
 	    		if(data != null && data == 'ok'){
@@ -122,7 +123,6 @@ var msg = {
 	    });
 	},
 	replyMsg : function(msg_toID,msg_to){
-		alert(msg_toID);
 		$("#msgTo").val(msg_to);
 		$("#msgTo_ID").val(msg_toID);
 		msg.openMsg();

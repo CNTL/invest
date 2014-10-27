@@ -29,6 +29,26 @@ var rootPath = "<%=rootPath %>";
 <script type="text/javascript" src="script/msgDetail.js"></script>
 </head>
 <body>
+<div id="w" class="easyui-window" data-options="title:'发送私信',iconCls:'icon-save'" style="width:500px;height:300px;">
+	<div class="easyui-layout" data-options="fit:true">
+		<div data-options="region:'center',border:false" style="padding:10px;background:#fff;border:1px solid #ccc;">
+			<form class="setting-form" id="form" name="form" action="">
+				<div class="form-group form-item">
+			        <label style="width:60px; float:left; margin-top:5px;">收件人：</label>
+			        <input type="text" id="msgTo" name="msgTo" value="" class="validate[maxSize[255],required] ac_input" url="../user/userFetch.do?a=find" pair="true" auto-complete="true" autocomplete="off"/>
+			        <input type="hidden" id="msgTo_ID" name="msgTo_ID" value="" />
+			    </div>
+			    <div class="form-group form-item">
+					<textarea  id="msgContent" name="msgContent" class="form-control validate[required]" style="width:400px;height:100px;" placeholder="消息内容"></textarea>
+				</div>
+			</form>
+		</div>
+		<div data-options="region:'south',border:false" style="text-align:right;padding:5px 0;">
+			<a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" href="javascript:void(0)" onclick="msg.sendMsg();">发送</a>
+			<a class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" href="javascript:void(0)" onclick="msg.closeMsg()">取消</a>
+		</div>
+	</div>
+</div>
 <div style="display:none">
 	<input type="text" id="msg_toID" name="msg_toID" value="${param.msg_toID}"/>
 	<input type="text" id="msg_to" name="msg_to" value="${param.msg_to}"/>
@@ -60,7 +80,7 @@ var rootPath = "<%=rootPath %>";
 			</div>
 			<div class="msg-box">
 				<div class="user-name">
-					<a class="msgTo" href="/home/id-339712" target="_blank"> </a>
+					<a class="msgFrom" href="/home/id-339712" target="_blank"> </a>
 					<span class="gray"></span>
 				</div>
 				<div class="msg-cnt"></div>
