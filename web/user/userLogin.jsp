@@ -67,7 +67,16 @@
                 <button id="login" type="submit" class="btn blue pull-right">
                    	 登录 <i class="m-icon-swapright m-icon-white"></i>
                 </button>
+                <!-- 
+                <span id="qqLoginBtn"></span>
+				<script type="text/javascript">
+				    QC.Login({
+				       btnId:"qqLoginBtn"    //插入按钮的节点id
+				});
+				</script>
+				 -->
                 <a href="userlogin.do?a=qqlogin" title="请使用你的QQ账号登陆"><img alt="请使用你的QQ账号登陆" src="./img/qq.png"></a>
+                <div id="wb_connect_btn" ></div>
             </div>
 
         </form>
@@ -87,23 +96,22 @@
     <script src="../js/plugin/jquery-validate/jquery.validate.min.js" type="text/javascript"></script>
     <script src="../js/plugin/backstretch/jquery.backstretch.min.js" type="text/javascript"></script>
 	<script src="script/validate-login.js" type="text/javascript"></script>
-	 
+	<!-- <script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101154766" data-redirecturi="http://leijuan1014.oicp.net/qc_callback.html" charset="utf-8"></script> -->
+	<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=3062596557&debug=true" type="text/javascript" charset="utf-8"></script>
     <script>
         jQuery(document).ready(function () {
-        	
         	Login.init();
-        	
      		// init background slide images
             $.backstretch([
-             "../img/loginbg/1.jpg",
-             "../img/loginbg/2.jpg",
-             "../img/loginbg/3.jpg",
-             "../img/loginbg/4.jpg"
-            ], {
-                fade: 1000,
-                duration: 8000
-            }
-         );
+	             "../img/loginbg/1.jpg",
+	             "../img/loginbg/2.jpg",
+	             "../img/loginbg/3.jpg",
+	             "../img/loginbg/4.jpg"
+	            ], {
+	                fade: 1000,
+	                duration: 8000
+	            }
+	         );
         });
     </script>
     <!-- END JAVASCRIPTS -->

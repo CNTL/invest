@@ -32,6 +32,7 @@
 		<mapping resource="hbm/Photogroup.hbm.xml"/>
 		<mapping resource="hbm/Userphoto.hbm.xml"/>
 		<mapping resource="hbm/UserMsg.hbm.xml"/>
+		<mapping resource="hbm/UserResume.hbm.xml"/>
 		<mapping resource="hbm/Works.hbm.xml"/>
 		<mapping resource="hbm/Bankcard.hbm.xml"/>
 		<mapping resource="hbm/SysParam.hbm.xml"/>

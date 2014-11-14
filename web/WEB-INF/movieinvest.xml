@@ -30,6 +30,7 @@
 	<!-- 用户管理 -->
 	<bean id="UserManager" class="com.tl.invest.user.UserManager"/>
 	<bean id="UserMsgManager" class="com.tl.invest.user.UserMsgManager"/>
+	<bean id="UserResumeManager" class="com.tl.invest.user.UserResumeManager"/>
 	<bean id="user.User" class="com.tl.invest.user.web.UserController">
 		<property name="userManager"><ref bean="UserManager"/></property>
 		<property name="bankcardManager"><ref bean="BankcardManager"/></property>
@@ -38,10 +39,14 @@
 	</bean>
 	<bean id="user.UserMsg" class="com.tl.invest.user.web.UserMsgController">
 	</bean>
+	<bean id="user.UserResume" class="com.tl.invest.user.web.UserResumeController">
+	</bean>
 	<bean id="user.Login" class="com.tl.invest.user.web.UserLoginController">
 		<property name="manager"><ref bean="UserManager"/></property>
 	</bean>
-	
+	<bean id="user.afterlogin" class="com.tl.invest.user.web.UserAfterLoginController">
+		<property name="manager"><ref bean="UserManager"/></property>
+	</bean>
 	<bean id="BankcardManager" class="com.tl.invest.user.BankcardManager"/>
 	<bean id="WorksManager" class="com.tl.invest.user.WorksManager"/>
 	 <!--============ 4. web =============== -->
@@ -56,7 +61,8 @@
 				<prop key="/user/user.do">user.User</prop>
 				<prop key="/user/userFetch.do">user.UserFetch</prop>
 				<prop key="/user/userMsg.do">user.UserMsg</prop>
-				
+				<prop key="/user/userResume.do">user.UserResume</prop>
+				<prop key="/user/afterlogin.do">user.afterlogin</prop>
 				<!-- <prop key="/user/userlogout.do">user.Logout</prop> -->
 				<!-- 用户登录 -->
 				<prop key="/admin/syslogin.do">sys.Login</prop>
@@ -64,6 +70,7 @@
 				<prop key="/admin/syslogout.do">sys.Logout</prop>
 				<!-- 系统参数 -->
 				<prop key="/admin/sysParam.do">sys.Param</prop>
+				
 
 			</props>
 		</property>

@@ -13,6 +13,8 @@ var userset = {
 			url = "userPhoto.jsp";
 		} else if(obj.id=='video'){
 			url = "userVideo.jsp";
+		} else if(obj.id=='resume'){
+			url = "userResume.jsp";
 		}
 		userset.setClass(obj);
 		$("#main").attr("src",url);

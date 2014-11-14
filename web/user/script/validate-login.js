@@ -82,6 +82,34 @@ var Login = function () {
 	register = function(){
 		window.location.replace("userRegister.jsp");
 	};
+	
+	var weiboInit = function(){//微博登录初始化
+		WB2.anyWhere(function(W){
+            W.widget.connectButton({
+                id: "wb_connect_btn",	
+                type:"3,2",
+                callback : {
+                    login:function(o){	//登录后的回调函数
+                        // alert("login: " + o.screen_name)
+                        weiboAfterLogin(o.screen_name);
+                    },	
+                    logout:function(){	//退出后的回调函数
+        				//alert('logout');
+                    }
+                }
+            });
+        });
+	},
+	weiboAfterLogin = function(weibo){
+		var keyUrl = "afterlogin.do?a=weiboAfterLogin&weibo=" + weibo;
+		$.get(keyUrl, function(data) {
+			if(data != null && data == "true"){//已关联了用户信息,直接跳转至首页
+				window.location.replace("userSetting.jsp");
+			} else {//否则跳转至关联界面
+				window.location.replace("userWeiboRelate.jsp");
+			}
+		});
+	};
     
     return {
         //main function to initiate the module

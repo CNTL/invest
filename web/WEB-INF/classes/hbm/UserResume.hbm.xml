@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 7, 2014 4:50:29 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tl.invest.user.UserResume" table="user_resume" catalog="movieinvest">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="userId" type="java.lang.Integer">
+            <column name="userID">
+            </column>
+        </property>
+        <property name="userName" type="string">
+            <column name="userName">
+            </column>
+        </property>
+         <property name="name" type="string">
+            <column name="name">
+            </column>
+        </property>
+        <property name="content" type="string">
+            <column name="content">
+            </column>
+        </property>
+        <property name="affix" type="string">
+            <column name="affix" length="65535">
+            </column>
+        </property>
+        <property name="modifyTime" type="timestamp">
+            <column name="modifyTime" length="0" not-null="true">
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>
