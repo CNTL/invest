@@ -286,7 +286,6 @@ public class UserManager {
         }
 	}
 	
-//	王朝阳增加，实现用户查询 2006-3-8
 	/*
 	 * 根据用户名获取对应的用户
 	 * 
@@ -302,7 +301,6 @@ public class UserManager {
     		return getUsers(list);
 	 }
 
-	// 王朝阳增加，实现机构角色 2006-3-8
 	/*
 	 * 根据机构名中的某些词获取对应的角色
 	 */
@@ -333,5 +331,45 @@ public class UserManager {
         
 		return users;
 	}
-
+	/** 
+	* @author  leijj 
+	* 功能： 根据qq openID获取用户信息
+	* @param openID
+	* @return 
+	*/ 
+	public User getUserByQQ(String openID) {
+		User user = null;
+		 
+		Object[] paramObjects = {openID};
+		try {
+			List list = DAOHelper.find("select a from com.tl.invest.user.User as a where a.openID=?",
+					paramObjects);
+			if(!list.isEmpty()){
+				user = (User)list.get(0);
+			}
+		} catch (Exception e) {
+			 
+		}
+		return user;
+	}
+	/** 
+	* @author  leijj 
+	* 功能： 根据微博昵称获取用户信息
+	* @param weibo
+	* @return 
+	*/ 
+	public User getUserByWeibo(String weibo) {
+		User user = null;
+		Object[] paramObjects = {weibo};
+		try {
+			List list = DAOHelper.find("select a from com.tl.invest.user.User as a where a.weibo=?",
+					paramObjects);
+			if(!list.isEmpty()){
+				user = (User)list.get(0);
+			}
+		} catch (Exception e) {
+			 
+		}
+		return user;
+	}
 }

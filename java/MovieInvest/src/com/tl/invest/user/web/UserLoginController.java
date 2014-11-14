@@ -59,12 +59,10 @@ public class UserLoginController extends BaseController
 			}
 		} else if(!StringUtils.isEmpty(action) && action.equals("qqlogin")){
 			response.sendRedirect(new Oauth().getAuthorizeURL(request));
-		}else{
-			 
+		} else {
 			response.setContentType("text/xml; charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			try {
-				
 				int nID = getInt(request, "UserID");
 				if (nID > 0) { 
 					putSession(request, nID, false);
