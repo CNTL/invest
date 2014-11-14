@@ -6,6 +6,7 @@ public enum SysTableLibs {
 	TB_SYS_DICTIONARYTYPE("SYS_DictionaryType"),
 	TB_USER("user"),
 	TB_USERMSG("user_msg"),
+	TB_USERRESUME("user_resume"),
 	TB_BANKCARD("bankcard"),
 	TB_PHOTOGROUP("photogroup"),
 	TB_USERPHOTO("userphoto"),
