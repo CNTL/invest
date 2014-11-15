@@ -1,16 +1,31 @@
 package com.tl.invest.proj.service;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import net.sf.json.JSONObject;
 
 import org.hibernate.Session;
 
 import com.tl.common.DateUtils;
+import com.tl.common.ResourceMgr;
 import com.tl.common.log.Log;
+import com.tl.db.DBSession;
+import com.tl.db.IResultSet;
 import com.tl.invest.constant.TableLibs;
+import com.tl.invest.proj.ProjMode;
+import com.tl.invest.proj.ProjModeFields;
 import com.tl.invest.proj.Project;
+import com.tl.invest.proj.ProjectFields;
 import com.tl.kernel.context.Context;
 import com.tl.kernel.context.DAO;
 import com.tl.kernel.context.TBID;
+import com.tl.kernel.context.TLException;
+import com.tl.kernel.web.SysSessionUser;
+import com.tl.sys.common.SessionHelper;
 
 public class ProjectService {
 	Log log = Context.getLog("invest");
@@ -64,6 +79,48 @@ public class ProjectService {
 		}
 	}
 	
+	public void save(ProjMode mode){
+		DAO d = new DAO();
+	    try {
+			if(mode.getId()>0){
+				d.update(mode);
+			}else {
+				mode.setId(TBID.getID(TableLibs.TB_PROJECT.getTableCode()));
+				d.save(mode);
+			}
+		} catch (Exception e) {
+			log.error(e.getMessage(),e);
+		}
+	}
+	
+	public void save(ProjMode mode,Session session){
+		DAO d = new DAO();		
+	    try {
+			if(mode.getId()>0){
+				d.update(mode,session);
+			}else {
+				mode.setId(TBID.getID(TableLibs.TB_PROJMODE.getTableCode()));
+				d.save(mode,session);
+			}
+		} catch (Exception e) {
+			log.error(e.getMessage(),e);
+		}
+	}
+	
+	public void deleteMode(long id,Session s) throws TLException{
+		ProjMode mode = s == null ? getProjectMode(id) : getMode(id, s);
+		if(mode == null){
+			log.error("id="+id+"的项目不存在");
+			return;
+		}
+		mode.setDeleted((short) 1);
+		if(s == null){
+			save(mode);
+		}else {
+			save(mode, s);
+		}
+	}
+	
 	@SuppressWarnings("rawtypes")
 	public Project get(long id){
 		Project proj = null;
@@ -84,5 +141,153 @@ public class ProjectService {
 			proj = (Project)projs.get(0);
 		}
 		return proj;
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public ProjMode getMode(long modeId,Session s) throws TLException{
+		ProjMode mode = null;
+		DAO d = new DAO();
+		List modes = d.find("select a from com.tl.invest.proj.ProjMode as a where a.id = :id", new Object[]{modeId}, s);
+		if(!modes.isEmpty()){
+			mode = (ProjMode)modes.get(0);
+		}
+		return mode;
+	}
+	
+	public ProjMode getProjectMode(long modeId) throws TLException{
+		return getProjectMode(modeId, null);
+	}
+	
+	public ProjMode getProjectMode(long modeId,DBSession db) throws TLException{
+		ProjMode mode = null;
+		String sql = "select * from "+TableLibs.TB_PROJMODE.getTableCode()
+				+" where mode_id=?";
+		IResultSet rs = null;
+		boolean dbIsCreated = false;
+		if(db==null){
+			dbIsCreated = true;
+			db= Context.getDBSession();
+		}
+		try {
+			rs = db.executeQuery(sql, new Object[]{modeId});
+			if (rs.next()) {
+				mode = readProjModeRS(rs);
+			}
+		} catch (SQLException e) {
+			throw new TLException(e);
+		} finally {
+			ResourceMgr.closeQuietly(rs);
+			if(dbIsCreated){
+				ResourceMgr.closeQuietly(db);
+			}
+		}
+		return mode;
+	}
+	
+	public ProjMode[] getProjectModes(long projectId) throws TLException{
+		return getProjectModes(projectId, null);
+	}
+	public ProjMode[] getProjectModes(long projectId,DBSession db) throws TLException{
+		List<ProjMode> list = new ArrayList<ProjMode>();
+		String hql = "select * from "+TableLibs.TB_PROJMODE.getTableCode()
+				+" where mode_projID=? and mode_deleted=0 ";
+		IResultSet rs = null;
+		boolean dbIsCreated = false;
+		if(db==null){
+			dbIsCreated = true;
+			db= Context.getDBSession();
+		}
+		try {
+			rs = db.executeQuery(hql, new Object[]{projectId});
+			while (rs.next()) {
+				list.add(readProjModeRS(rs));
+			}
+		} catch (SQLException e) {
+			throw new TLException(e);
+		} finally {
+			ResourceMgr.closeQuietly(rs);
+			if(dbIsCreated){
+				ResourceMgr.closeQuietly(db);
+			}
+		}
+		if (list.size() == 0) return null;
+		
+		return (ProjMode[]) list.toArray(new ProjMode[0]);
+	}
+	
+	private ProjMode readProjModeRS(IResultSet rs) throws TLException{
+		try {
+			ProjMode mode = new ProjMode();
+			mode.setProjId(rs.getLong("mode_projID"));
+			mode.setId(rs.getLong("mode_id"));
+			mode.setName(rs.getString("mode_name"));
+			mode.setPrice(rs.getBigDecimal("mode_price"));
+			mode.setCountGoal(rs.getInt("mode_countGoal"));
+			mode.setImgURL(rs.getString("mode_imgURL"));
+			mode.setReturnContent(rs.getString("mode_return"));
+			mode.setReturntime(rs.getString("mode_returntime"));
+			mode.setFreight(rs.getBigDecimal("mode_freight"));
+			mode.setDeleted(rs.getInt("mode_deleted"));
+			mode.setStatus(rs.getInt("mode_status"));
+			
+			return mode;
+		} catch (Exception e) {
+			throw new TLException(e);
+		}
+	}
+	
+	public void initProject(Project proj,HttpServletRequest request){
+		SysSessionUser user = SessionHelper.getUser(request);
+		proj.setId(0);
+		proj.setUserId(user.getUserID());
+		proj.setCreated(DateUtils.getTimestamp());
+		proj.setLastModified(DateUtils.getTimestamp());
+		proj.setDeleted((short)0);
+		proj.setApproveStatus((short)0);
+		proj.setApproveUser(0);
+		proj.setStatus(0);
+		proj.setPid(0);
+		proj.setCountLove(0);
+		proj.setCountSubject(0);
+		proj.setCountSupport(0);
+		proj.setCountView(0);
+	}
+	
+	public void fillProjectValues(Project project,JSONObject obj) throws TLException{
+		if(project==null) return;
+		ProjectFields[] fields = ProjectFields.values();
+		for (ProjectFields field : fields) {
+			String code = field.fieldCode();
+			String value = null;
+			try {
+				if(obj.containsKey(code)){
+					value = obj.getString(code);
+					field.setValue(project, value);
+				}
+			} catch (Exception e) {
+				throw new TLException(e.getMessage());
+			}
+		}
+	}
+	
+	public void initProjMode(ProjMode mode,HttpServletRequest request){
+		
+	}
+	
+	public void fillProjModeValues(ProjMode mode,JSONObject obj) throws TLException{
+		if(mode==null) return;
+		ProjModeFields[] fields = ProjModeFields.values();
+		for (ProjModeFields field : fields) {
+			String code = field.fieldCode();
+			String value = null;
+			try {
+				if(obj.containsKey(code)){
+					value = obj.getString(code);
+					field.setValue(mode, value);
+				}
+			} catch (Exception e) {
+				throw new TLException(e.getMessage());
+			}
+		}
 	}
 }

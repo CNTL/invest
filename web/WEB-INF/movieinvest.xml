@@ -49,6 +49,15 @@
 	</bean>
 	<bean id="BankcardManager" class="com.tl.invest.user.BankcardManager"/>
 	<bean id="WorksManager" class="com.tl.invest.user.WorksManager"/>
+	
+	<!--项目-->
+	<bean id="project.Service" class="com.tl.invest.proj.service.ProjectService" />
+	<bean id="project.Submit" class="com.tl.invest.proj.service.ProjectSubmitController">
+		<property name="service"><ref bean="project.Service" /></property>
+	</bean>
+	<bean id="project.Project" class="com.tl.invest.proj.service.ProjectController">
+		<property name="service"><ref bean="project.Service" /></property>
+	</bean>
 	 <!--============ 4. web =============== -->
 	<bean id="appUrl" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="order"><value>3</value></property>
@@ -71,7 +80,9 @@
 				<!-- 系统参数 -->
 				<prop key="/admin/sysParam.do">sys.Param</prop>
 				
-
+				<!--项目-->
+				<prop key="/project/Submit.do">project.Submit</prop>
+				<prop key="/project/Project.do">project.Project</prop>
 			</props>
 		</property>
 	</bean>
