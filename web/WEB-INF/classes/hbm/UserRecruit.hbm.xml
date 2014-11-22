@@ -1,0 +1,137 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 17, 2014 3:11:25 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tl.invest.user.recruit.UserRecruit" table="user_recruit" catalog="movieinvest">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="userId" type="java.lang.Integer">
+            <column name="userID">
+                <comment>&#211;&#195;&#187;&#167;ID</comment>
+            </column>
+        </property>
+        <property name="userName" type="string">
+            <column name="userName">
+                <comment>&#211;&#195;&#187;&#167;&#195;&#251;&#179;&#198;</comment>
+            </column>
+        </property>
+        <property name="jobName" type="string">
+            <column name="jobName" length="500">
+                <comment>&#214;&#176;&#206;&#187;&#195;&#251;&#179;&#198;</comment>
+            </column>
+        </property>
+        <property name="jobPictrue" type="string">
+            <column name="jobPictrue">
+                <comment>&#213;&#208;&#198;&#184;&#205;&#188;&#198;&#172;</comment>
+            </column>
+        </property>
+        <property name="jobCateId" type="java.lang.Integer">
+            <column name="jobCateID">
+                <comment>&#214;&#176;&#206;&#187;&#183;&#214;&#192;&#224;ID</comment>
+            </column>
+        </property>
+        <property name="jobCate" type="string">
+            <column name="jobCate">
+                <comment>&#214;&#176;&#206;&#187;&#183;&#214;&#192;&#224;</comment>
+            </column>
+        </property>
+        <property name="company" type="string">
+            <column name="company" length="500">
+                <comment>&#185;&#171;&#203;&#190;&#195;&#251;&#179;&#198;</comment>
+            </column>
+        </property>
+        <property name="linkman" type="string">
+            <column name="linkman">
+                <comment>&#193;&#170;&#207;&#181;&#200;&#203;</comment>
+            </column>
+        </property>
+        <property name="linkPhone" type="string">
+            <column name="linkPhone">
+                <comment>&#193;&#170;&#207;&#181;&#181;&#231;&#187;&#176;</comment>
+            </column>
+        </property>
+        <property name="linkEmail" type="string">
+            <column name="linkEmail">
+                <comment>&#193;&#170;&#207;&#181;&#211;&#202;&#207;&#228;</comment>
+            </column>
+        </property>
+        <property name="province" type="string">
+            <column name="province">
+                <comment>&#202;&#161;</comment>
+            </column>
+        </property>
+        <property name="city" type="string">
+            <column name="city">
+                <comment>&#202;&#208;</comment>
+            </column>
+        </property>
+        <property name="area" type="string">
+            <column name="area">
+                <comment>&#199;&#248;</comment>
+            </column>
+        </property>
+        <property name="salary" type="string">
+            <column name="salary" length="500">
+                <comment>&#208;&#189;&#215;&#202;&#180;&#253;&#211;&#246;</comment>
+            </column>
+        </property>
+        <property name="content" type="string">
+            <column name="content" length="65535">
+                <comment>&#213;&#208;&#198;&#184;&#196;&#218;&#200;&#221;</comment>
+            </column>
+        </property>
+        <property name="address" type="string">
+            <column name="address" length="500">
+                <comment>&#185;&#164;&#215;&#247;&#181;&#216;&#214;&#183;</comment>
+            </column>
+        </property>
+        <property name="working" type="string">
+            <column name="working" length="500">
+                <comment>&#190;&#173;&#209;&#233;&#210;&#170;&#199;&#243;</comment>
+            </column>
+        </property>
+        <property name="eduReq" type="string">
+            <column name="eduReq" length="500">
+                <comment>&#209;&#167;&#192;&#250;&#210;&#170;&#199;&#243;</comment>
+            </column>
+        </property>
+        <property name="isFulltime" type="java.lang.Integer">
+            <column name="isFulltime">
+                <comment>0=&#200;&#171;&#214;&#176;,1=&#188;&#230;&#214;&#176;</comment>
+            </column>
+        </property>
+        <property name="jobAttract" type="string">
+            <column name="jobAttract" length="500">
+                <comment>&#214;&#176;&#206;&#187;&#211;&#213;&#187;&#243;</comment>
+            </column>
+        </property>
+        <property name="jobIntro" type="string">
+            <column name="jobIntro" length="65535">
+                <comment>&#214;&#176;&#206;&#187;&#195;&#232;&#202;&#246;</comment>
+            </column>
+        </property>
+        <property name="createtime" type="timestamp">
+            <column name="createtime" length="19">
+                <comment>&#180;&#180;&#189;&#168;&#202;&#177;&#188;&#228;</comment>
+            </column>
+        </property>
+        <property name="pubTime" type="timestamp">
+            <column name="pubTime" length="19">
+                <comment>&#183;&#162;&#178;&#188;&#202;&#177;&#188;&#228;</comment>
+            </column>
+        </property>
+        <property name="isPub" type="java.lang.Integer">
+            <column name="isPub">
+                <comment>&#202;&#199;&#183;&#241;&#183;&#162;&#178;&#188; 0=&#206;&#180;&#183;&#162;&#178;&#188;1=&#210;&#209;&#183;&#162;&#178;&#188;</comment>
+            </column>
+        </property>
+        <property name="resumeNum" type="java.lang.Integer">
+            <column name="resumeNum">
+                <comment>&#188;&#242;&#192;&#250;&#205;&#182;&#181;&#221;&#202;&#253;&#193;&#191;</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

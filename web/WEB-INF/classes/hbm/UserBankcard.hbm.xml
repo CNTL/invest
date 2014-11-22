@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 17, 2014 3:11:25 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tl.invest.user.bankcard.UserBankcard" table="user_bankcard" catalog="movieinvest">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="userId" type="java.lang.Integer">
+            <column name="userID">
+                <comment>&#211;&#195;&#187;&#167;ID</comment>
+            </column>
+        </property>
+        <property name="userName" type="string">
+            <column name="userName">
+                <comment>&#211;&#195;&#187;&#167;&#195;&#251;&#179;&#198;</comment>
+            </column>
+        </property>
+        <property name="bankName" type="string">
+            <column name="bankName">
+                <comment>&#203;&#249;&#202;&#244;&#210;&#248;&#208;&#208;</comment>
+            </column>
+        </property>
+        <property name="openingBank" type="string">
+            <column name="openingBank">
+                <comment>
+                &#210;&#248;&#208;&#208;&#191;&#168;&#191;&#170;&#187;&#167;&#208;&#208;&#163;&#186;&#202;&#181;&#195;&#251;&#200;&#207;&#214;&#164;&#202;&#177;&#208;&#232;&#210;&#170;&#204;&#238;&#208;&#180;</comment>
+            </column>
+        </property>
+        <property name="bankNum" type="string">
+            <column name="bankNum" length="50">
+                <comment>
+                &#210;&#248;&#208;&#208;&#191;&#168;&#186;&#197;&#163;&#186;&#202;&#181;&#195;&#251;&#200;&#207;&#214;&#164;&#202;&#177;&#208;&#232;&#210;&#170;&#204;&#238;&#208;&#180;</comment>
+            </column>
+        </property>
+        <property name="authCode" type="string">
+            <column name="authCode" length="50">
+                <comment>
+                &#210;&#248;&#208;&#208;&#191;&#168;&#209;&#233;&#214;&#164;&#194;&#235;&#163;&#186;&#176;&#243;&#182;&#168;&#210;&#248;&#208;&#208;&#191;&#168;&#202;&#177;&#163;&#172;&#205;&#248;&#213;&#190;&#205;&#249;&#210;&#248;&#208;&#208;&#191;&#168;&#180;&#242;&#188;&#184;&#183;&#214;&#199;&#174;&#163;&#172;&#191;&#205;&#187;&#167;&#202;&#213;&#181;&#189;&#186;&#243;&#163;&#172;&#189;&#171;&#188;&#184;&#183;&#214;&#199;&#174;&#202;&#253;&#215;&#214;&#215;&#246;&#206;&#170;&#209;&#233;&#214;&#164;&#194;&#235;&#163;&#172;&#189;&#248;&#208;&#208;&#176;&#243;&#182;&#168;&#210;&#248;&#208;&#208;&#191;&#168;&#161;&#163;</comment>
+            </column>
+        </property>
+        <property name="isBound" type="java.lang.Integer">
+            <column name="isBound">
+                <comment>
+                &#202;&#199;&#183;&#241;&#176;&#243;&#182;&#168;&#163;&#186;1=&#176;&#243;&#182;&#168;&#179;&#201;&#185;&#166;,0=&#206;&#170;&#206;&#180;&#176;&#243;&#182;&#168;</comment>
+            </column>
+        </property>
+        <property name="createTime" type="timestamp">
+            <column name="createTime" length="19" not-null="true">
+                <comment>&#180;&#180;&#189;&#168;&#202;&#177;&#188;&#228;</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

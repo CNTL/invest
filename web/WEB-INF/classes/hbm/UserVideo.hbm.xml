@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Nov 17, 2014 3:11:25 PM by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-    <class name="com.tl.invest.user.photo.UserPhoto" table="user_photo" catalog="movieinvest">
+    <class name="com.tl.invest.user.video.UserVideo" table="user_video" catalog="movieinvest">
         <id name="id" type="int">
             <column name="id" />
             <generator class="assigned" />
@@ -18,24 +18,24 @@
                 <comment>&#211;&#195;&#187;&#167;&#195;&#251;&#179;&#198;</comment>
             </column>
         </property>
-        <property name="groupId" type="java.lang.Integer">
-            <column name="groupID">
-                <comment>&#205;&#188;&#178;&#225;&#215;&#233;ID</comment>
-            </column>
-        </property>
-        <property name="groupName" type="string">
-            <column name="groupName">
-                <comment>&#205;&#188;&#178;&#225;&#215;&#233;&#195;&#251;&#179;&#198;</comment>
+        <property name="name" type="string">
+            <column name="name">
+                <comment>&#202;&#211;&#198;&#181;&#195;&#251;&#179;&#198;</comment>
             </column>
         </property>
         <property name="photo" type="string">
             <column name="photo" length="500">
-                <comment>&#205;&#188;&#198;&#172;</comment>
+                <comment>&#202;&#211;&#198;&#181;&#202;&#215;&#205;&#188;</comment>
+            </column>
+        </property>
+        <property name="video" type="string">
+            <column name="video">
+                <comment>&#202;&#211;&#198;&#181;&#181;&#216;&#214;&#183;</comment>
             </column>
         </property>
         <property name="intro" type="string">
             <column name="intro" length="65535">
-                <comment>&#207;&#234;&#202;&#246;</comment>
+                <comment>&#202;&#211;&#198;&#181;&#203;&#181;&#195;&#247;</comment>
             </column>
         </property>
         <property name="createTime" type="timestamp">

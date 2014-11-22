@@ -1,4 +1,10 @@
 <%@page pageEncoding="UTF-8"%>
+<%
+String basePath = request.getScheme() + 
+	"://" + request.getServerName() + 
+	":" + request.getServerPort() + 
+	request.getContextPath() + "/";
+%>
 <div class="header">
   <div class="wrap clearfix" pbid="header">
     <div class="img-logo">
@@ -9,11 +15,10 @@
     <!--menu start-->
     <div class="menu">
       <ul class="clearfix">
-          <li><a href="/index">首页 </a></li>
-          <li><a href="/browse">浏览项目 </a></li>
-          <li><a href="/open">开放平台 </a></li>
-          <li><a href="/partake">新手帮助 </a></li>
-          <li><a href="/project">发起项目 </a></li>
+          <li><a href="../user/userSetting.jsp">首页 </a></li>
+          <li><a href="/project">项目 </a></li>
+          <li><a href="../user/recruit/recruitList.jsp">影聘 </a></li>
+          <li><a href="/peoper">影人 </a></li>
       </ul>
     </div>
     <!--menu end-->
@@ -43,9 +48,9 @@
               <li class="sup"><a class="ie6fixpic" href="">支持的项目</a></li>
               <li class="spo"><a class="ie6fixpic" href="">发起的项目</a></li>
 			  <li class="spo"><a class="ie6fixpic" href="">发起者后台</a></li>
-              <li class="msg"><a class="ie6fixpic" href="../usermsg/msgSetting.jsp">消息中心<span class="msg-info"></span></a></li>
-              <li class="set"><a class="ie6fixpic" href="../user/userSetting.jsp">个人设置</a></li>
-              <li class="exit bn"><a class="ie6fixpic" href="">退出</a></li>
+              <li class="msg"><a class="ie6fixpic" href="<%=basePath %>user/msg/msgSetting.jsp">消息中心<span class="msg-info"></span></a></li>
+              <li class="set"><a class="ie6fixpic" href="<%=basePath %>user/userSetting.jsp">个人设置</a></li>
+              <li class="exit bn"><a class="ie6fixpic" href="<%=basePath %>user/logout.do">退出</a></li>
           </ul>
         </ul>
       </div>

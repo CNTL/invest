@@ -28,19 +28,24 @@
 		<mapping resource="hbm/Role.hbm.xml"/>
 		<mapping resource="hbm/RoleUser.hbm.xml"/>
 		<mapping resource="hbm/Permission.hbm.xml"/>
-		<mapping resource="hbm/User.hbm.xml"/>
-		<mapping resource="hbm/Photogroup.hbm.xml"/>
-		<mapping resource="hbm/Userphoto.hbm.xml"/>
-		<mapping resource="hbm/UserMsg.hbm.xml"/>
-		<mapping resource="hbm/UserResume.hbm.xml"/>
-		<mapping resource="hbm/Works.hbm.xml"/>
-		<mapping resource="hbm/Bankcard.hbm.xml"/>
 		<mapping resource="hbm/SysParam.hbm.xml"/>
 		
 		<mapping resource="hbm/Project.hbm.xml"/>
 		<mapping resource="hbm/ProjMode.hbm.xml"/>
 		<mapping resource="hbm/ProjSupport.hbm.xml"/>
-		
 		<mapping resource="hbm/UserOrder.hbm.xml"/>
+		
+		<mapping resource="hbm/User.hbm.xml"/>
+		<mapping resource="hbm/UserBankcard.hbm.xml"/>
+		<mapping resource="hbm/UserMsg.hbm.xml"/>
+		<mapping resource="hbm/UserPhoto.hbm.xml"/>
+		<mapping resource="hbm/UserPhotogroup.hbm.xml"/>
+		<mapping resource="hbm/UserRecruit.hbm.xml"/>
+		<mapping resource="hbm/UserRecruitresume.hbm.xml"/>
+		<mapping resource="hbm/UserRecruitstore.hbm.xml"/>
+		<mapping resource="hbm/UserResume.hbm.xml"/>
+		<mapping resource="hbm/UserVideo.hbm.xml"/>
+		<mapping resource="hbm/UserVideogroup.hbm.xml"/>
+		<mapping resource="hbm/UserWorks.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>

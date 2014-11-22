@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Nov 17, 2014 3:11:25 PM by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-    <class name="com.tl.invest.user.photo.UserPhoto" table="user_photo" catalog="movieinvest">
+    <class name="com.tl.invest.user.works.UserWorks" table="user_works" catalog="movieinvest">
         <id name="id" type="int">
             <column name="id" />
             <generator class="assigned" />
@@ -18,29 +18,25 @@
                 <comment>&#211;&#195;&#187;&#167;&#195;&#251;&#179;&#198;</comment>
             </column>
         </property>
-        <property name="groupId" type="java.lang.Integer">
-            <column name="groupID">
-                <comment>&#205;&#188;&#178;&#225;&#215;&#233;ID</comment>
+        <property name="name" type="string">
+            <column name="name">
+                <comment>&#215;&#247;&#198;&#183;&#195;&#251;&#179;&#198;</comment>
             </column>
         </property>
-        <property name="groupName" type="string">
-            <column name="groupName">
-                <comment>&#205;&#188;&#178;&#225;&#215;&#233;&#195;&#251;&#179;&#198;</comment>
-            </column>
-        </property>
-        <property name="photo" type="string">
-            <column name="photo" length="500">
-                <comment>&#205;&#188;&#198;&#172;</comment>
-            </column>
-        </property>
-        <property name="intro" type="string">
-            <column name="intro" length="65535">
-                <comment>&#207;&#234;&#202;&#246;</comment>
+        <property name="content" type="string">
+            <column name="content" length="65535">
+                <comment>
+                &#215;&#247;&#198;&#183;&#163;&#186;&#191;&#201;&#210;&#212;&#182;&#224;&#184;&#246;&#215;&#247;&#198;&#183;(&#206;&#196;&#215;&#214;&#161;&#162;&#205;&#188;&#198;&#172;&#161;&#162;&#202;&#211;&#198;&#181;)</comment>
             </column>
         </property>
         <property name="createTime" type="timestamp">
             <column name="createTime" length="19" not-null="true">
                 <comment>&#180;&#180;&#189;&#168;&#202;&#177;&#188;&#228;</comment>
+            </column>
+        </property>
+        <property name="worksTime" type="timestamp">
+            <column name="worksTime" length="19" not-null="true">
+                <comment>&#215;&#247;&#198;&#183;&#202;&#177;&#188;&#228;</comment>
             </column>
         </property>
     </class>

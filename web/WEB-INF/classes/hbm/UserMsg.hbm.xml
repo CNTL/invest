@@ -1,40 +1,33 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Sep 7, 2014 4:50:29 PM by Hibernate Tools 3.4.0.CR1 -->
+<!-- Generated Nov 17, 2014 3:11:25 PM by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-    <class name="com.tl.invest.user.UserMsg" table="user_msg" catalog="movieinvest">
+    <class name="com.tl.invest.user.msg.UserMsg" table="user_msg" catalog="movieinvest">
         <id name="id" type="int">
             <column name="id" />
             <generator class="assigned" />
         </id>
-        <property name="msgFromID" type="int">
-            <column name="msg_fromID">
-            </column>
+        <property name="msgFromId" type="java.lang.Integer">
+            <column name="msg_fromID" />
         </property>
         <property name="msgFrom" type="string">
-            <column name="msg_from">
-            </column>
+            <column name="msg_from" />
         </property>
-        <property name="msgToID" type="int">
-            <column name="msg_toID">
-            </column>
+        <property name="msgToId" type="java.lang.Integer">
+            <column name="msg_toID" />
         </property>
         <property name="msgTo" type="string">
-            <column name="msg_to">
-            </column>
+            <column name="msg_to" />
         </property>
         <property name="msgContent" type="string">
-            <column name="msg_content">
-            </column>
+            <column name="msg_content" length="65535" />
         </property>
         <property name="msgIsRead" type="java.lang.Integer">
-            <column name="msg_isRead">
-            </column>
+            <column name="msg_isRead" />
         </property>
         <property name="createTime" type="timestamp">
-            <column name="createTime" length="0" not-null="true">
-            </column>
+            <column name="createTime" length="19" />
         </property>
     </class>
 </hibernate-mapping>

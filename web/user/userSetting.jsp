@@ -21,7 +21,7 @@
 	<div class="setting wrap">
 		<div class="setting-title clearfix">
 		<h3>个人设置</h3>
-		<a href="">返回个人中心</a>
+		<a href="userSetting.jsp">返回个人中心</a>
 		</div>
 		<div class="setting-content clearfix">
 			<div class="setting-menu">
@@ -36,7 +36,7 @@
 				</ul>
 			</div>
 			<div class="setting-detail">
-				<iframe id="main" style="width:100%;height:600px;border:0px;" src="userComplete.jsp"></iframe>  
+				<iframe id="main" style="width:100%;height:600px;border:0px;" src="user/userComplete.jsp"></iframe>  
 			</div>
 		</div>
 	</div>

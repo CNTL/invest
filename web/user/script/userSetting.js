@@ -2,19 +2,19 @@ var userset = {
 	change : function(obj) {
 		var url;
 		if(obj.id=='infoEdit'){
-			url = "userComplete.jsp";
+			url = "user/userComplete.jsp";
 		}else if(obj.id=='pwsEdit'){
-			url = "userPwdChange.jsp";
+			url = "user/userPwdChange.jsp";
 		}else if(obj.id=='headEdit'){
-			url = "userHeadImg.jsp";
+			url = "user/userHeadImg.jsp";
 		} else if(obj.id=='relAuth'){
-			url = "userRelAuth.jsp";
+			url = "user/userRelAuth.jsp";
 		} else if(obj.id=='photo'){
-			url = "userPhoto.jsp";
+			url = "photo/userPhoto.jsp";
 		} else if(obj.id=='video'){
-			url = "userVideo.jsp";
+			url = "video/userVideoList.jsp";
 		} else if(obj.id=='resume'){
-			url = "userResume.jsp";
+			url = "resume/userResume.jsp";
 		}
 		userset.setClass(obj);
 		$("#main").attr("src",url);

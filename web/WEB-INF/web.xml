@@ -21,7 +21,7 @@
 		<init-param>
 			<!-- if file contains part below, it will not do session check.-->
 			<param-name>session-not-checked</param-name>
-			<param-value>login.jsp,index.jsp,userLogin.jsp,userRegister.jsp,userlogin.do,syslogin.do</param-value>
+			<param-value>login.jsp,index.jsp,userLogin.jsp,userlogin.do,syslogin.do,userout/</param-value>
 		</init-param>
 		<init-param>
 			<!-- extensions of the files not-allow-browser-cache -->
