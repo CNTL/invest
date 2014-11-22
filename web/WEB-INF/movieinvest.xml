@@ -28,28 +28,27 @@
 	</bean>
 	
 	<!-- 用户管理 -->
-	<bean id="UserManager" class="com.tl.invest.user.UserManager"/>
-	<bean id="UserMsgManager" class="com.tl.invest.user.UserMsgManager"/>
-	<bean id="UserResumeManager" class="com.tl.invest.user.UserResumeManager"/>
-	<bean id="user.User" class="com.tl.invest.user.web.UserController">
+	<bean id="UserManager" class="com.tl.invest.user.user.UserManager"/>
+	<bean id="UserMsgManager" class="com.tl.invest.user.msg.UserMsgManager"/>
+	<bean id="UserResumeManager" class="com.tl.invest.user.resume.UserResumeManager"/>
+	<bean id="BankcardManager" class="com.tl.invest.user.bankcard.BankcardManager"/>
+	<bean id="WorksManager" class="com.tl.invest.user.works.WorksManager"/>
+	<bean id="RecruitManager" class="com.tl.invest.user.recruit.RecruitManager"/>
+	<bean id="UserVideoManager" class="com.tl.invest.user.video.UserVideoManager"/>
+	
+	<bean id="user.User" class="com.tl.invest.user.user.UserController">
 		<property name="userManager"><ref bean="UserManager"/></property>
 		<property name="bankcardManager"><ref bean="BankcardManager"/></property>
 	</bean>
-	<bean id="user.UserFetch" class="com.tl.invest.user.web.UserFetchController">
+	<bean id="user.UserFetch" class="com.tl.invest.user.user.UserFetchController">
 	</bean>
-	<bean id="user.UserMsg" class="com.tl.invest.user.web.UserMsgController">
-	</bean>
-	<bean id="user.UserResume" class="com.tl.invest.user.web.UserResumeController">
-	</bean>
-	<bean id="user.Login" class="com.tl.invest.user.web.UserLoginController">
+	<bean id="user.Login" class="com.tl.invest.user.user.UserLoginController">
 		<property name="manager"><ref bean="UserManager"/></property>
 	</bean>
-	<bean id="user.afterlogin" class="com.tl.invest.user.web.UserAfterLoginController">
+	<bean id="user.afterlogin" class="com.tl.invest.user.user.UserAfterLoginController">
 		<property name="manager"><ref bean="UserManager"/></property>
 	</bean>
-	<bean id="BankcardManager" class="com.tl.invest.user.BankcardManager"/>
-	<bean id="WorksManager" class="com.tl.invest.user.WorksManager"/>
-	
+	<bean id="user.Logout" class="com.tl.invest.user.user.UserLogoutController">
 	<!--项目-->
 	<bean id="project.Service" class="com.tl.invest.proj.service.ProjectService" />
 	<bean id="project.Submit" class="com.tl.invest.proj.service.ProjectSubmitController">
@@ -57,22 +56,22 @@
 	</bean>
 	<bean id="project.Project" class="com.tl.invest.proj.service.ProjectController">
 		<property name="service"><ref bean="project.Service" /></property>
+	</bean>	</bean>
+	<bean id="user.UserMsg" class="com.tl.invest.user.msg.UserMsgController">
 	</bean>
-	 <!--============ 4. web =============== -->
+	<bean id="user.Recruit" class="com.tl.invest.user.recruit.RecruitController">
+	</bean>
+	<bean id="user.UserResume" class="com.tl.invest.user.resume.UserResumeController">
+	</bean>
+	<bean id="user.UserVideo" class="com.tl.invest.user.video.UserVideoController">
+	</bean>
+	<!--============ 4. web =============== -->
 	<bean id="appUrl" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="order"><value>3</value></property>
 		<property name="mappings">
 			<props>
 				<!-- 系统用户管理 -->
 				<prop key="/admin/sysuser.do">sys.sysuser</prop>
-				<!-- 用户管理 -->
-				<prop key="/user/userlogin.do">user.Login</prop>
-				<prop key="/user/user.do">user.User</prop>
-				<prop key="/user/userFetch.do">user.UserFetch</prop>
-				<prop key="/user/userMsg.do">user.UserMsg</prop>
-				<prop key="/user/userResume.do">user.UserResume</prop>
-				<prop key="/user/afterlogin.do">user.afterlogin</prop>
-				<!-- <prop key="/user/userlogout.do">user.Logout</prop> -->
 				<!-- 用户登录 -->
 				<prop key="/admin/syslogin.do">sys.Login</prop>
 				<!-- 用户登出-->
@@ -80,6 +79,20 @@
 				<!-- 系统参数 -->
 				<prop key="/admin/sysParam.do">sys.Param</prop>
 				
+				<!-- 用户管理 -->
+				<prop key="/user/userlogin.do">user.Login</prop>
+				<prop key="/user/user.do">user.User</prop>
+				<prop key="/user/userFetch.do">user.UserFetch</prop>
+				<prop key="/user/afterlogin.do">user.afterlogin</prop>
+				<prop key="/user/logout.do">user.Logout</prop>
+				<prop key="/user/msg.do">user.UserMsg</prop>
+				<prop key="/user/resume.do">user.UserResume</prop>
+				<!-- 招聘管理 -->
+				<prop key="/user/recruit.do">user.Recruit</prop>
+				<!-- 我的视频 -->
+				<prop key="/user/video.do">user.UserVideo</prop>
+
+
 				<!--项目-->
 				<prop key="/project/Submit.do">project.Submit</prop>
 				<prop key="/project/Project.do">project.Project</prop>
