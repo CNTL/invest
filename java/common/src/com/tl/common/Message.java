@@ -1,8 +1,8 @@
 package com.tl.common;
 /** 
- * @author  leijj 
- * @version 创建时间：2014年8月22日 下午8:50:07 
- * 类说明 ： 翻页实体类
+ * @created 2014年11月14日 下午10:46:59 
+ * @author  leijj
+ * 类说明 ： 
  */
 import java.util.List;
 @SuppressWarnings("rawtypes")
@@ -11,6 +11,7 @@ public class Message {
 	private int curPage;
 	private int pageCount;
 	private int length;
+	private String userName;
 	private List messages;
 	public int getTotal() {
 		return total;
@@ -41,5 +42,11 @@ public class Message {
 	}
 	public void setMessages(List messages) {
 		this.messages = messages;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 }
