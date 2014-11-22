@@ -48,7 +48,7 @@
 	<bean id="user.afterlogin" class="com.tl.invest.user.user.UserAfterLoginController">
 		<property name="manager"><ref bean="UserManager"/></property>
 	</bean>
-	<bean id="user.Logout" class="com.tl.invest.user.user.UserLogoutController">
+	<bean id="user.Logout" class="com.tl.invest.user.user.UserLogoutController"></bean>
 	<!--项目-->
 	<bean id="project.Service" class="com.tl.invest.proj.service.ProjectService" />
 	<bean id="project.Submit" class="com.tl.invest.proj.service.ProjectSubmitController">
@@ -56,7 +56,7 @@
 	</bean>
 	<bean id="project.Project" class="com.tl.invest.proj.service.ProjectController">
 		<property name="service"><ref bean="project.Service" /></property>
-	</bean>	</bean>
+	</bean>
 	<bean id="user.UserMsg" class="com.tl.invest.user.msg.UserMsgController">
 	</bean>
 	<bean id="user.Recruit" class="com.tl.invest.user.recruit.RecruitController">
