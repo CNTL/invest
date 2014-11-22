@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.tl.common.WebUtil;
+
 /**
 	<filter>
 		<filter-name>URLEntryFilter</filter-name>

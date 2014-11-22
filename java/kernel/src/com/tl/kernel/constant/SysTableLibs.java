@@ -5,12 +5,18 @@ public enum SysTableLibs {
 	TB_SYS_DICTIONARY("SYS_Dictionary"),
 	TB_SYS_DICTIONARYTYPE("SYS_DictionaryType"),
 	TB_USER("user"),
+	TB_BANKCARD("user_bankcard"),
 	TB_USERMSG("user_msg"),
+	TB_USERORDER("user_order"),
+	TB_USERPHOTO("user_photo"),
+	TB_PHOTOGROUP("user_photogroup"),
+	TB_USERRECRUIT("user_recruit"),
+	TB_USERRECRUITRESUME("user_recruitresume"),
+	TB_USERRECRUITSTORE("user_recruitstore"),
 	TB_USERRESUME("user_resume"),
-	TB_BANKCARD("bankcard"),
-	TB_PHOTOGROUP("photogroup"),
-	TB_USERPHOTO("userphoto"),
-	TB_WORKS("works")
+	TB_USERVIDEO("user_video"),
+	TB_USERVIDEOGROUP("user_videogroup"),
+	TB_USERWORKS("user_works")
 	;
 	
 	private String tcode;
