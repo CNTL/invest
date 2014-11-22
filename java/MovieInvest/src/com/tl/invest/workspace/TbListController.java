@@ -17,10 +17,9 @@ import com.tl.db.DBSession;
 import com.tl.db.IResultSet;
 import com.tl.kernel.context.Context;
 import com.tl.kernel.web.BaseController;
-
+@SuppressWarnings({ "rawtypes", "unused" })
 public class TbListController extends BaseController {
 
-	@SuppressWarnings("rawtypes")
 	@Override
 	protected void handle(HttpServletRequest request,
 			HttpServletResponse response, Map model) throws Exception {

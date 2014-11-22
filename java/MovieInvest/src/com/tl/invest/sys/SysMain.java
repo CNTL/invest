@@ -6,12 +6,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.tl.common.StringUtils;
+import com.tl.common.WebUtil;
 import com.tl.invest.sys.mu.Menu;
 import com.tl.invest.sys.mu.MenuReader;
 import com.tl.kernel.context.Context;
 import com.tl.kernel.web.BaseController;
 import com.tl.kernel.web.SysSessionUser;
-import com.tl.kernel.web.WebUtil;
 
 public class SysMain extends BaseController {
 	
