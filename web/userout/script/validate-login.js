@@ -105,10 +105,7 @@ var Login = function () {
 	
 	var doAuth = function(user){
 		var params = {
-			"UserID": user.id, 
-			"UserName": encodeSpecialCode(user.name), 
-			"UserCode": encodeSpecialCode(user.code), 
-			"UserPassword": encodeSpecialCode(user.password)
+			"UserID": user.id
 		};
 
 		$.ajax({
@@ -117,12 +114,19 @@ var Login = function () {
 			data: $.param(params),
 			dataType: "json",
 			success : function(data) {
-				window.location.replace("../user/userSetting.jsp");
+				var type = data.type;
+				if(type != null){
+					if(type == 0){//个人用户登录后
+						window.location.replace("../user/userSetting.jsp");
+					} else if(type == 1){//机构用户登录后
+						window.location.replace("../user/orgSetting.jsp");
+					}
+				}
 			}
 		});
 	},
 	register = function(){
-		window.location.replace("./noSession/userRegister.jsp");
+		window.location.replace("../userout/userRegister.jsp");
 	};
 	
 	var weiboInit = function(){//微博登录初始化

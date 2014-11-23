@@ -1,6 +1,6 @@
-ï»¿body, input, select, textarea {
+body, input, select, textarea {
     color: #666;
-    font-family: "Microsoft YaHei", "å¾®è½¯é›…é»‘", helvetica, arial, verdana, tahoma, sans-serif;
+    font-family: "Microsoft YaHei", "Î¢ÈíÑÅºÚ", helvetica, arial, verdana, tahoma, sans-serif;
 }
 
 a {
@@ -139,6 +139,7 @@ a {
     height: 90px;
     color: #999;
     border-top: 3px #138CB7 solid;
+    border-bottom: 1px #138CB7 solid;
 }
 
     .header a {
@@ -1830,8 +1831,8 @@ a {
 /*job_add style start*/
 .job_add {
     position: relative;
-    width: 960px;
-    margin: 20px auto 200px;
+    width: 95%;
+    margin: 20px auto;
 }
 
     .job_add a.add {
