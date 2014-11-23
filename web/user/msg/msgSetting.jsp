@@ -1,22 +1,20 @@
 <%@page pageEncoding="UTF-8"%>
 <!doctype html>
-<html><head>
+<html>
+<head>
+<title>合众映画</title>
 <meta charset="utf-8">
-<title>影投网-中国最具影响力的影投平台</title>
-<meta name="keywords" content="影投 创业 项目 投资 支持">
-<meta name="description" content="在影投网发布项目，获得投资支持，实现你的创业梦想">
-<link rel="stylesheet" type="text/css" href="../css/userSetting.css">
+<meta name="keywords" content="合众映画" />
+<meta name="description" content="合众映画" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" type="text/css" href="../css/userCenter.css">
 <script type="text/javascript" src="../../js/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="../../js/plugin/backstretch/jquery.backstretch.min.js"></script>
 <script type="text/javascript" src="../../js/plugin/jquery-validate/js/jquery.validationEngine.js"></script>
 <script type="text/javascript" src="../../js/plugin/jquery-validate/js/languages/jquery.validationEngine-zh_CN.js"></script>
-<script type="text/javascript" src="../../common/head.js"></script>
-<script type="text/javascript" src="script/msgSend.js"></script>
 </head>
 <body>
-<!--header static-->
-<%@ include file="../../common/head.inc"%>
+<%@ include file="../common/userHead.inc"%>
 <div class="main clearfix">
 	<div class="setting wrap">
 		<div class="setting-title clearfix">
@@ -35,5 +33,7 @@
 		</div>
 	</div>
 </div>
+<script type="text/javascript" src="../script/userSetting.js"></script>
+<script type="text/javascript" src="script/msgSend.js"></script>
 </body>
 </html>

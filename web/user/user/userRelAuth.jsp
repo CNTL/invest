@@ -4,22 +4,25 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <!doctype html>
-<html><head>
+<html>
+<head>
+<title>合众映画</title>
 <meta charset="utf-8">
-<title>影投网-中国最具影响力的影投平台</title>
-<meta name="keywords" content="影投 创业 项目 投资 支持">
-<meta name="description" content="在影投网发布项目，获得投资支持，实现你的创业梦想">
+<meta name="keywords" content="合众映画" />
+<meta name="description" content="合众映画" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" type="text/css" href="../../js/plugin/jquery-validate/css/validationEngine.jquery.css"/>
-<link rel="stylesheet" type="text/css" media="screen" href="../../js/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="../../js/jquery-easyui/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css" href="../../js/jquery-easyui/themes/icon.css">
 <link rel="stylesheet" type="text/css" href="../../js/plugin/AjaxFileUploaderV2.1/ajaxfileupload.css" />
+<link rel="stylesheet" type="text/css" href="../../static/css/reset.css" />
+<link rel="stylesheet" type="text/css" href="../../static/css/index.css" />
 <link rel="stylesheet" type="text/css" href="../css/userCommon.css">
 <script type="text/javascript" src="../../js/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="../../js/jquery-easyui/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="../../js/plugin/jquery-validate/js/jquery.validationEngine.js"></script>
 <script type="text/javascript" src="../../js/plugin/jquery-validate/js/languages/jquery.validationEngine-zh_CN.js"></script>
-<script type="text/javascript" src="../script/userCommon.js"></script>
+<script type="text/javascript" src="../../userout/script/userCommon.js"></script>
 <script type="text/javascript">
 var basePath = "<%=basePath %>";
 </script>
@@ -27,24 +30,16 @@ var basePath = "<%=basePath %>";
 <script type="text/javascript" src="script/userRelAuth.js"></script>
 </head>
 <body>
-<div class="content">
-<form class="setting-form" id="form" name="form" action="">
-	<div class="form-group form-item">
-        <label for="name"><i style="color:red;">*</i>姓名：</label>
-        <input class="form-control validate[required]" type="text" autocomplete="off" id="name" name="name" />
-    </div>
-    <div class="form-group form-item">
-        <label for="type"><i style="color:red;">*</i>注册类型：</label>
-        <div class="option-box">
-	        <select id="type" name="type" class="custform-select validate[maxSize[255],required]" wx-validator-error-value="选择注册类型">
-	        <option value="1">个人</option><option value="3">机构</option>  
-	        </select>
-        </div>
-    </div>
-	<div class="form-group form-item">
-		<label for="province"><i style="color:red;">*</i>所在地：</label>
-		<div class="option-box">
-			<select id="province" name="province" wx-validator-error-value="选择省份">
+<div class="job_add">
+	<form class="setting-form" id="form" name="form" action="">
+		<div class="input">
+	        <label for="name">姓名：</label>
+	        <input class="form-control validate[required]" type="text" id="name" name="name" />
+	    </div>
+		<div class="input">
+			<label for="perProvince">工作所在地：</label>
+			<select id="perProvince" name="perProvince">
+				<option>请选择省份</option>
 				<option value="安徽" rel="3">安徽</option>
 				<option value="澳门" rel="396">澳门</option>
 				<option value="北京" rel="52">北京</option>
@@ -80,80 +75,39 @@ var basePath = "<%=basePath %>";
 				<option value="浙江" rel="31">浙江</option>
 				<option value="重庆" rel="394">重庆</option>
 			</select>
-			<select id="city" name="city" wx-validator-error-value="请选择城市">
+			<select id="perCity" name="perCity">
 				<option>请选择城市</option>
 			</select>
-	        <span id="wx-validator-province-error" class="error-text hidden">请选择省份</span>
-	        <span id="wx-validator-city-error" class="error-text hidden">请选择城市</span>
 		</div>
-	</div>
-	<div class="form-group form-item">
-        <label for="job"><i style="color:red;">*</i>职业：</label>
-        <div class="option-box">
-	        <select id="job" name="job" class="custform-select validate[maxSize[255],required]" wx-validator-error-value="选择职业">
+		<div class="input">
+	        <label for="perJob">职业：</label>
+	        <select id="perJob" name="perJob" class="custform-select validate[maxSize[255],required]" wx-validator-error-value="选择职业">
 		        <option value="1">导演</option>
 		        <option value="2">演员</option>
 		        <option value="3">摄影</option>
 		        <option value="4">后期</option>
 	        </select>
-        </div>
-    </div>
-	<div class="form-group form-item">
-        <label for="phone">手机：</label>
-        <input class="form-control validate[required,custom[mobilephone],required]" type="text" autocomplete="off" id="phone" name="phone" />
-    </div>
-    <div class="form-group form-item">
-        <label for="identityCard">身份证：</label>
-        <input class="form-control validate[custom[shenfenzheng],required]" type="text" autocomplete="off" id="identityCard" name="identityCard" />
-    </div>
-    <div class="form-group form-item">
-        <label for="openingBanks"><i style="color:red;">*&nbsp;&nbsp;</i>银行卡开户行：</label>
-        <input class="form-control validate[required]" type="text" id="openingBanks" name="openingBanks" />
-    </div>
-    <div class="form-group form-item">
-        <label for="bankNums"><i style="color:red;">*&nbsp;&nbsp;</i>银行卡号：</label>
-        <input class="form-control validate[required]" type="text" id="bankNums" name="bankNums" />
-    </div>
-    <div class="form-group form-item">
-    	<label for="organization"><i style="color:red;">*&nbsp;&nbsp;</i>企业组织机构证件照：</label>
-        <input name="organizationFile" id="organizationFile" width="300px" class="form-control" type="file" />
-        <input name="organization" id="organization" type="hidden" value="" />
-        <button id="organizationBtn" type="button" class="btn blue uploadbtn">
-           	<i onclick="">上传</i>
-        </button>
-        <div id="organizationWait" style="padding: 50px 0 0 0;display:none;">
-	        <div style="width: 103px;margin: 0 auto;"><img src="../../js/plugin/AjaxFileUploaderV2.1/loading.gif"/></div>
-	        <br></br>
-	        <div style="width: 103px;margin: 0 auto;"><span>请稍等...</span></div>
-	        <br></br>
 	    </div>
-	    <div style="display:none;">
-	    	<img id="organizationImg" name="organizationImg" style="width:200px;height:200px;" alt="" src="">
+		<div class="input">
+	        <label for="perPhone">手机：</label>
+	        <input class="form-control validate[required,custom[mobilephone],required]" type="text" id="perPhone" name="perPhone" />
 	    </div>
-    </div>
-    <div class="form-group form-item">
-    	<label for="businessLicense"><i style="color:red;">*&nbsp;&nbsp;</i>企业营业执照扫描件：</label>
-        <input name="businessLicenseFile"  id="businessLicenseFile" width="100px" class="form-control" type="file" />
-        <input name="businessLicense" id="businessLicense" type="hidden" value="" />
-        <button id="businessLicenseBtn" type="button" class="btn blue uploadbtn">
-           	<i onclick="">上传</i>
-        </button>
-        <div id="businessLicenseWait" style="padding: 50px 0 0 0;display:none;">
-	        <div style="width: 103px;margin: 0 auto;"><img src="../../js/plugin/AjaxFileUploaderV2.1/loading.gif"/></div>
-	        <br></br>
-	        <div style="width: 103px;margin: 0 auto;"><span>请稍等...</span></div>
-	        <br></br>
+	    <div class="input">
+	        <label for="identityCard">身份证：</label>
+	        <input class="form-control validate[custom[shenfenzheng],required]" type="text" id="identityCard" name="identityCard" />
 	    </div>
-	    <div style="display:none;">
-	    	<img id="businessLicenseImg" name="businessLicenseImg" style="width:200px;height:200px;" alt="" src="">
+	    <div class="input">
+	        <label for="bankNums">银行卡号：</label>
+	        <input class="form-control validate[required]" type="text" id="bankNums" name="bankNums" />
 	    </div>
-    </div>
-	<div style="width:200px" align="left" class="form-actions">
-        <button id="btnSave" type="submit" class="mybtn blue pull-right">
-           	<i onclick="">保存</i>
-        </button>
-    </div>
-</form>
+	    <div class="input">
+	        <label for="openingBanks">开户行：</label>
+	        <input class="form-control validate[required]" type="text" id="openingBanks" name="openingBanks" />
+	    </div>
+	    <div class="btn">
+	    	<input type="submit" id="btnSave" value="提交信息">
+	    </div>
+	</form>
 </div>
 </body>
 </html>

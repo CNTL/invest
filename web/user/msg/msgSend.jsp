@@ -69,7 +69,7 @@ var rootPath = "<%=rootPath %>";
 		<li class="talk-list">
 			<div class="talk-face">
 				<a class="userHead" href="/home/id-356405" target="_blank">
-					<img src="http://zcstatic.wangxingroup.com/img/defaultavatar/noavatar_middle.gif">
+					<img src="">
 				</a>
             </div>
             <div class="msg-box">

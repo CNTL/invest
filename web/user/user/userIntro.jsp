@@ -9,58 +9,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>完善信息</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <meta content="" name="description" />
-    <meta content="" name="author" />
-    
+    <title>合众映画</title>
+	<meta charset="utf-8">
+	<meta name="keywords" content="合众映画" />
+	<meta name="description" content="合众映画" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
  	<link type="text/css" rel="stylesheet" href="../../js/plugin/jquery-validate/css/validationEngine.jquery.css"/>
-    <link rel="stylesheet" type="text/css" media="screen" href="../../js/bootstrap/css/bootstrap.min.css">
     <link href="../../css/adminlogin.css" rel="stylesheet" type="text/css" />
     <link href="../../css/components.css" rel="stylesheet" type="text/css" />
-    
-    <!-- END THEME STYLES -->
-    <link rel="shortcut icon" href="../../img/favicon/favicon.ico" type="image/x-icon">
     <link rel="icon" href="../../img/favicon/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="../../static/css/reset.css" />
+	<link rel="stylesheet" type="text/css" href="../../static/css/index.css" />
 </head>
-<!-- END HEAD -->
-
 <body class="login">
-    <!-- BEGIN LOGO -->
-    <div class="logo">
-        	完善信息
-    </div>
-    <!-- END LOGO -->
- 
-    <!-- BEGIN LOGIN -->
-    <div class="content">
-        <!-- BEGIN LOGIN FORM -->
+    <div class="job_add">
         <form id="form" name="form" method="post" action="user.do?a=complete">
-            <div class="form-group">
+            <div class="input">
                 <label for="intro">简介</label>
-                <textarea style="width: 200px; height: 50px;" id="intro" name="intro" class="custform-textarea validate[required,maxSize[4000]]">
+                <textarea style="width: 200px; height: 50px;" id="intro" name="intro" placeholder="简介" class="custform-textarea validate[required,maxSize[4000]]">
                 </textarea>
             </div>
-            <div class="form-actions">
-           		<button id="btnCancel" type="button" onclick="window.close();" class="btn blue pull-right">
-                   	<i>关闭</i>
-                </button>
-                <button id="btnSave" type="submit" class="btn blue pull-right">
-                   	<i onclick="">保存</i>
-                </button>
-            </div>
-
+            <div class="btn">
+		    	<input type="submit" id="btnSave" value="提交信息">
+		    </div>
         </form>
-        <!-- END LOGIN FORM -->
-
-
     </div>
-    <!-- END LOGIN -->
-    <!-- BEGIN COPYRIGHT -->
-    <!-- END COPYRIGHT -->
     <script type="text/javascript" src="../../js/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="../../js/plugin/backstretch/jquery.backstretch.min.js"></script>
     <script type="text/javascript" src="../../js/plugin/jquery-validate/js/jquery.validationEngine.js"></script>

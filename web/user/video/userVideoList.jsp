@@ -11,11 +11,9 @@
 <meta name="format-detection" content="telephone=no">
 <title>我的视频</title>
 <meta name="keywords" content="">
-<link rel="stylesheet" type="text/css" href="../css/userSetting.css">
 <link rel="stylesheet" type="text/css" href="../css/userCenter.css">
 <link rel="stylesheet" type="text/css" href="../../css/list.css">
 <script type="text/javascript" src="../../js/jquery/jquery.min.js"></script>
-<script type="text/javascript" src="../../common/head.js"></script>
 <script src="../../js/pageTurning.js"></script>
 <script src = "./script/userVideoList.js"></script>
 </head>

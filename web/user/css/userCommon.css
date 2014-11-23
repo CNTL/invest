@@ -3,10 +3,11 @@
 	color:#FFFFFF;
 	font-family:"Î¢ÈíÑÅºÚ";
 	font-size:18px;
-	width:145px;
-	height:35px;
+	width:142px;
+	height:30px;
 }
 .uploadbtn{float:right;margin-top:-35px;}
+.login_box{min-height:150px; background:#eafffd; padding:40px; overflow:hidden;}
 .form-item label { 
 	width:160px; 
 	float:left; 

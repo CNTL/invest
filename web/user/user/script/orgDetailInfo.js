@@ -1,24 +1,21 @@
 $(document).ready(function () {
 	//初始化
-	relAuth.init();
-	$("#organizationBtn").click(function() {
-		relAuth.ajaxFileUpload("organization");
-    });
-	$("#businessLicenseBtn").click(function() {
-		relAuth.ajaxFileUpload("orgBusinessLicense");
-    });
+	detail.init();
 	$("#form").validationEngine({
 		autoPositionUpdate:true,
 		onValidationComplete:function(from,r){
 			if (r){
 				window.onbeforeunload = null;
 				$("#btnSave").attr("disabled", true);
-				relAuth.submit();
+				detail.submit();
 			}
 		}
 	});
 });
-var relAuth = {
+var detail = {
+	mapInit : function(){
+		var map = new BMap.Map("allmap");
+	},
 	init : function(){
 		$.ajax({
 	        type:"GET", //请求方式  
@@ -27,17 +24,12 @@ var relAuth = {
 	        dataType: 'JSON',   //返回值类型  
 	        success:function(data){
 	    		if(data != null){
-	    			$("#name").val(data.name);
-	    			$("#perProvince").val(data.perProvince);//下拉框
-	    			load_city(data.perCity);
-	    			$("#perJob").val(data.perJob);//下拉框
-	    			$("#perPhone").val(data.perPhone);
-	    			$("#identityCard").val(data.identityCard);
-	    			var bankcards = eval(data.bankcards);
-	    			if(bankcards != null && bankcards.length > 0){
-	    				$("#openingBanks").val(bankcards[0].openingBank);//银行卡开户行
-		    			$("#bankNums").val(bankcards[0].bankNum);//银行卡号
-	    			}
+	    			$("#orgFullname").val(data.orgFullname);
+	    			$("#orgAddress").val(data.orgAddress);
+	    			$("#orgNature").val(data.orgNature);
+	    			$("#orgTrade").val(data.orgTrade);
+	    			$("#orgScale").val(data.orgScale);
+	    			$("#orgHomePage").val(data.orgHomePage);
 	    		}
 	        } ,
 			error:function (XMLHttpRequest, textStatus, errorThrown) {
@@ -48,20 +40,36 @@ var relAuth = {
 	submit : function(){
 		$.ajax({
 	        type:"POST", //请求方式  
-	        url:"../../user/user.do?a=userRelAuth", //请求路径  
+	        url:"../../user/user.do?a=orgDetailInfo", //请求路径  
 	        cache: false,
 	        data:$('#form').serialize(),  //传参 
 	        dataType: 'text',   //返回值类型  
 	        success:function(data){
 	    		if(data != null && data == 'ok'){
-	    			$.messager.alert('消息','认证资料提交成功！');
+	    			$.messager.alert('消息','修改资料成功！');
 	    		} else {
-	    			$.messager.alert('认证资料提交失败！',data);
+	    			$.messager.alert('修改失败',data);
 	    		}
+	    		$("#btnSave").attr("disabled", false);
 	        } ,
 			error:function (XMLHttpRequest, textStatus, errorThrown) {
 				   alert(errorThrown);
 			}
 	    });
 	}
+}
+var mapDialog;
+function getMap(){
+    e5.dialog.close("mapDialog");
+    mapDialog = e5.dialog("", {
+        title : "查找位置",
+        id : "mapDialog",
+        width : 1000,
+        height : 700,
+        resizable : true,
+        showClose : true,
+        ishide : true 
+    });
+    mapDialog.DOM.content.append($("#msgMap"));
+    mapDialog.show();
 }

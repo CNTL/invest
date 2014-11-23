@@ -7,12 +7,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>合众映画</title>
+<meta charset="utf-8">
+<meta name="keywords" content="合众映画" />
+<meta name="description" content="合众映画" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>上传头像</title>
 <link rel="stylesheet" type="text/css" href="../../js/plugin/jquery-validate/css/validationEngine.jquery.css"/>
-<link rel="stylesheet" type="text/css" media="screen" href="../../js/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="../../js/jquery-easyui/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css" href="../../js/jquery-easyui/themes/icon.css">
+<link rel="stylesheet" type="text/css" href="../../static/css/reset.css" />
+<link rel="stylesheet" type="text/css" href="../../static/css/index.css" />
 <script type="text/javascript" src="../../js/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="../../js/jquery-easyui/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="../../js/plugin/jquery-validate/js/jquery.validationEngine.js"></script>
@@ -22,38 +27,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 var basePath = "<%=basePath %>";
 </script>
 <style type="text/css">
-	body
-	{
-		font-size:12px;
-		font-family:微软雅黑, 宋体;
+	.uploadbtn{
+		width: 50px;
+        height: 40px;
+        line-height: 15px;
+        border: 0;
+        background-color: #4AC4EF;
+        color: #fff;
+        font-size: 14px;
+        cursor: pointer;
 	}
-	.title
-	{
-	    border-bottom:solid 1px #ccc;	
-	}
-	.photocontainer
-	{
-		margin-top:10px;
-		background:url("../../image/bg_120.gif") no-repeat left top;   
-		padding:7px 12px 12px 7px;                                        
-	}  
-	.uploadtooltip
-	{
-		color: #555;	
-	}
-	.form-item input { width:90%;}
-	.uploadbtn{float:right;margin-top:-35px;}
 </style>
 </head>
 <body>
+<div class="job_add">
     <form name="picForm" id="picForm" action="../../user/user.do?a=uploadImg" method="post" enctype="multipart/form-data" 
     	onsubmit="return checkPic();" target="hidden_frame">
 		<div style="margin:10px;">
              <div>
                  <div style="margin-top:10px;color: #555;line-height:150%;">请选择照片文件，支持jpg、jpeg、png、gif格式，大小不超过5M。建议尺寸：600 x 450px</div>
-                 <div class="form-group form-item">
+                 <div class="input">
                  	<input type="file" id="headImg" name="headImg" class="form-control" />
-                 	<button id="btnSave" type="submit" class="btn blue uploadbtn">
+                 	<button id="btnSave" type="submit" class="uploadbtn">
 			           	<i onclick="">上传</i>
 			        </button>
                  	<iframe name='hidden_frame' id="hidden_frame" style='display: none'></iframe>
@@ -100,20 +95,18 @@ var basePath = "<%=basePath %>";
                     </td>
                 </tr>
             </table>
-            <img id="img_grip" src="../../img/head/grip.gif" 
-                style="position: absolute; z-index: 100; left: -1000px; top: -1000px; cursor: pointer;"/>
-            <div style="padding-top: 15px; padding-left: 5px;">
+            <img id="img_grip" src="../../img/head/grip.gif" style="position: absolute; z-index: 100; left: -1000px; top: -1000px; cursor: pointer;"/>
+            <div class="btn">
             	<input type="hidden" name="MemberID" id="MemberID" value="<c:out value="${memberID}"/>" />
                 <input type="hidden" name="DocLibID" id="DocLibID" value="<c:out value="${docLibID}"/>" />
                 <input type="hidden" name="cut_pos" id="cut_pos" value="" />
                 <input type="hidden" name="cut_url" id="cut_url" value="" />
-                <button id="submit" name="submit" type="submit" class="btn blue">
-		           	<i onclick="">保存头像</i>
-		        </button>
-            </div>
+		    	<input type="submit" id="submit" value="保存头像">
+		    </div>
         </div>
     </form>
-    <script type="text/javascript" src="script/userHeadImg.js"></script>
-    <script type="text/javascript" src="script/ImageCopper.js"></script>
+</div>
+<script type="text/javascript" src="script/userHeadImg.js"></script>
+<script type="text/javascript" src="script/ImageCopper.js"></script>
 </body>
 </html>

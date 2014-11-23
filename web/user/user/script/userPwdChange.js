@@ -31,7 +31,7 @@ var pwdChange = {
 	    		if(data != null && data == 'ok'){
 	    			$.messager.confirm('消息', '修改密码成功，请重新登录?', function(r){
 	    				if (r){
-	    					parent.location.href = '../userLogin.jsp';
+	    					parent.location.href = '../../userout/userLogin.jsp';
 	    				}
 	    			});
 	    		} else {

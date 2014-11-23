@@ -15,12 +15,12 @@
 </head>
 <body>
 <!--header static-->
-<%@ include file="./common/userHead.inc"%>
+<%@ include file="./common/orgHead.inc"%>
 <div class="main clearfix">
 	<div class="setting wrap">
 		<div class="setting-title clearfix">
-		<h3>个人设置</h3>
-		<a href="userSetting.jsp">返回个人中心</a>
+		<h3>机构设置</h3>
+		<a href="orgSetting.jsp">返回机构中心</a>
 		</div>
 		<div class="setting-content clearfix">
 			<div class="setting-menu">
@@ -28,20 +28,19 @@
 					<li class="select"><a id="infoEdit" class="icons info ie6fixpic" onclick="userset.change(this);">基本资料</a></li>
 					<li><a id="pwsEdit" class="icons password ie6fixpic" onclick="userset.change(this);">修改密码</a></li>
 					<li><a id="headEdit" class="icons portrait ie6fixpic" onclick="userset.change(this);">头像管理</a></li>
-					<li><a id="relAuth" class="icons portrait ie6fixpic" onclick="userset.change(this);">实名认证</a></li>
-					<li><a id="infoDetail" class="icons info ie6fixpic" onclick="userset.change(this);">详细资料</a></li>
+					<li><a id="relAuth" class="icons portrait ie6fixpic" onclick="userset.change(this);">机构认证</a></li>
+					<li><a id="detail" class="icons info ie6fixpic" onclick="userset.change(this);">详细资料</a></li>
 					<li><a id="photo" class="icons portrait ie6fixpic" onclick="userset.change(this);">个人图册</a></li>
 					<li><a id="video" class="icons portrait ie6fixpic" onclick="userset.change(this);">个人视频</a></li>
-					<li><a id="resume" class="icons portrait ie6fixpic" onclick="userset.change(this);">个人简历</a></li>
 				</ul>
 			</div>
 			<div class="setting-detail">
-				<iframe id="main" style="width:100%;height:600px;border:0px;" src="user/userBasicInfo.jsp"></iframe>  
+				<iframe id="main" style="width:100%;height:600px;border:0px;" src="user/orgBasicInfo.jsp"></iframe>  
 			</div>
 		</div>
 	</div>
 </div>
 <%@ include file="./common/footing.inc"%>
-<script type="text/javascript" src="script/userSetting.js"></script>
+<script type="text/javascript" src="script/orgSetting.js"></script>
 </body>
 </html>

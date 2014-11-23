@@ -2,13 +2,15 @@ var userset = {
 	change : function(obj) {
 		var url;
 		if(obj.id=='infoEdit'){
-			url = rootPath + "user/user/userBasicInfo.jsp";
+			url = rootPath + "user/user/orgBasicInfo.jsp";
 		} else if(obj.id=='pwsEdit'){
 			url = rootPath + "user/user/userPwdChange.jsp";
 		} else if(obj.id=='headEdit'){
 			url = rootPath + "user/user/userHeadImg.jsp";
 		} else if(obj.id=='relAuth'){
-			url = rootPath + "user/user/userRelAuth.jsp";
+			url = rootPath + "user/user/orgRelAuth.jsp";
+		} else if(obj.id=='detail'){
+			url = rootPath + "user/user/orgDetailInfo.jsp";
 		} else if(obj.id=='photo'){
 			url = rootPath + "user/photo/userPhoto.jsp";
 		} else if(obj.id=='video'){

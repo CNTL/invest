@@ -12,26 +12,32 @@
 <link rel="stylesheet" type="text/css" href="../../js/jquery-easyui/themes/icon.css">
 <link rel="stylesheet" type="text/css" href="../../static/css/reset.css" />
 <link rel="stylesheet" type="text/css" href="../../static/css/index.css" />
+<link rel="stylesheet" type="text/css" href="../css/userCommon.css">
 <script type="text/javascript" src="../../js/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="../../js/jquery-easyui/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="../../js/plugin/jquery-validate/js/jquery.validationEngine.js"></script>
 <script type="text/javascript" src="../../js/plugin/jquery-validate/js/languages/jquery.validationEngine-zh_CN.js"></script>
-<script type="text/javascript" src="script/userPwdChange.js"></script>
+<script type="text/javascript" src="script/orgBasicInfo.js"></script>
 </head>
 <body>
 <div class="job_add">
-	<form id="form" name="form" method="post" action="">
+	<form class="setting-form" id="form" name="form" action="">
 		<div class="input">
-			<label for="code">原始密码：</label>
-			<input type="password" class="form-control validate[maxSize[255],required]" onchange="pwdChange.checkOldpassword()" value="" id="old_pwd" name="old_pwd" placeholder="原始密码"/>
-		</div>
+	        <label for="nickName">登录账户：</label>
+	        <input type="text" id="code" name="code" value="" disabled="true"/>
+	        <br>
+	    </div>
+	    <div class="input">
+	        <label for="nickName">机构简称：</label>
+	        <input class="form-control validate[maxSize[255]]" type="text" id="orgShortname" name="orgShortname" placeholder="机构简称"/>
+	    </div>
+	    <div class="input">
+	        <label for="postAddr">机构全称：</label>
+	        <input class="form-control validate[maxSize[255]]" type="text" id="orgFullname" name="orgFullname" placeholder="机构全称"/>
+	    </div>
 		<div class="input">
-			<label for="userpassword">新密码：</label>
-			<input type="password" class="form-control validate[maxSize[255],required]" onchange="pwdChange.checkpassword()" value="" id="password" name="password" placeholder="新密码"/>
-		</div>
-		<div class="input">
-			<label  for="passwordagain">确认密码：</label>
-			<input type="password" class="form-control validate[maxSize[255],required]" onchange="pwdChange.checkpassword_again()" value="" id="pwdagain" name="pwdagain" placeholder="确认密码"/>
+			<label>机构简介：</label>
+			<textarea  id="intro" name="intro" style="width:400px;height:100px;" placeholder="机构简介"></textarea>
 		</div>
 		<div class="btn">
         	<input type="submit" id="btnSave" value="提交信息">
