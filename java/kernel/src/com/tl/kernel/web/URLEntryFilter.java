@@ -119,7 +119,7 @@ public class URLEntryFilter implements Filter {
 		} else {
 			if (session.getAttribute(SysSessionUser.sessionName) == null) {
 				System.out.println("[-----Illegal path, redirect to login-----]" + path);
-				response.sendRedirect(WebUtil.getRoot(request) + "user/userLogin.jsp");
+				response.sendRedirect(WebUtil.getRoot(request) + "userout/userLogin.jsp");
 				return false;
 			}
 		}
