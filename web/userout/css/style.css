@@ -43,7 +43,7 @@ dl,dd{margin:0;}em{ font-style:normal;}ul.reset{margin:0;padding:0;list-style:no
 #form input#email{width:296px;font-size:16px; color:#777; border:none;}
 #form input#password{width:296px;font-size:16px; color:#777; border:none;}
 #form input#pwdagain{width:296px;font-size:16px; color:#777; border:none;}
-#form input#validate{width:100px;font-size:16px; color:#777; border:none;}
+#form input#myVal{width:100px;font-size:16px; color:#777; border:none;}
 #form input:focus{border:2px solid #fff;-webkit-box-shadow: 0px 0px 4px #b5f0e7;-moz-box-shadow: 0px 0px 4px #b5f0e7;box-shadow: 0px 0px 4px #b5f0e7;}
 #form .fr{color:#777; margin-right:45px;}
 #form .fr:hover{color:#019875;}
@@ -64,10 +64,3 @@ dl,dd{margin:0;}em{ font-style:normal;}ul.reset{margin:0;padding:0;list-style:no
 .qqsina div{font-size: 14px;display: inline-block;*zoom:1;*display:inline;position: absolute;left: 30px;top: 38px;}
 .qqsina a{position:absolute;background: url(./img/qqsina.png)  no-repeat;display: inline-block;width: 46px; height: 46px;*zoom:1;*display:inline;}
 .qqsina a.icon_wb{left: 225px; top:23px;}
-
-
-.user_registerRadio{/* margin-top:8px; */margin-bottom:0px;}
-.user_registerRadio li{width:177px;height:38px;line-height:38px;border:2px solid #fafafa}
-.user_registerRadio li:hover{border:2px solid #91cebe;}
-.user_registerRadio li.current{border:2px solid #91cebe;}
-.user_registerRadio li em{ background:url(./img/user_choose.png) no-repeat;width:17px;height:18px;}

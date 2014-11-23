@@ -46,17 +46,14 @@ String basePath = request.getScheme() + "://" + request.getServerName() +
 
 <body class="login">
 	<div class="login_wrapper">
-    	<input type="hidden" id="resubmitToken" value="">		
 		<div class="login_box">
 			<form id="form" action="" method="post">
 	      		<ul class="register_radio clearfix">
 		            <li class="current">
-		            	个人
-		              	<input type="radio" value="0" name="type" checked> 
+		            	个人<input type="radio" value="0" name="type" checked> 
 		            </li>
 		            <li class="">
-		           	           机构
-		              	<input type="radio" value="1" name="type"> 
+		           	           机构<input type="radio" value="1" name="type"> 
 		            </li>
 		        </ul>
 	            <input type="text" class="form-control validate[maxSize[255],required]" id="code" name="code" placeholder="请输入用户名"/>
