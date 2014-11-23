@@ -62,18 +62,19 @@ public class UserController extends BaseController {
 			find(request, response);
 		} else if("findLogin".equals(action)){//查找登录用户信息
 			findLogin(request, response);
-		} else if("create".equals(action)){//用户注册
-			String json = create(request, response);
-			output(json, response);
 		} else if("pwdEdit".equals(action)){//修改密码
 			String json = pwdEdit(request, response);
 			output(json, response);
-		} else if("complete".equals(action)){//完善个人信息（修改）
-			String json = complete(request, response);
-			output(json, response);
-		} else if("relAuth".equals(action)){//实名认证（增加银行卡信息）
-			String json = relAuth(request, response);
-			output(json, response);
+		} else if("orgBasicInfo".equals(action)){//机构基本信息
+			orgBasicInfo(request, response);
+		} else if("orgDetailInfo".equals(action)){//机构详细信息
+			orgDetailInfo(request, response);
+		} else if("orgRelAuth".equals(action)){//机构认证
+			orgRelAuth(request, response);
+		} else if("userBasicInfo".equals(action)){//用户基本信息
+			userBasicInfo(request, response);
+		} else if("userRelAuth".equals(action)){//个人认证
+			userRelAuth(request, response);
 		} else if("picBook".equals(action)){//个人图册上传
 			User sysuser = setUser(request);
 			userManager.create(sysuser);
@@ -128,25 +129,6 @@ public class UserController extends BaseController {
 	}
 	/** 
 	* @author  leijj 
-	* 功能： 用户注册
-	* @param request
-	* @param response
-	* @return
-	* @throws Exception 
-	*/ 
-	private String create(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		User user = new User();
-		user.setName(ParamInitUtils.getString(request.getParameter("name")));
-		user.setCode(ParamInitUtils.getString(request.getParameter("code")));
-		//user.setType(ParamInitUtils.getString(request.getParameter("type")));
-		user.setType(ParamInitUtils.getInt(request.getParameter("TypeId")));
-		user.setPassword(ParamInitUtils.getString(request.getParameter("password")));
-		user.setCreateTime(DateUtils.getTimestamp());
-		userManager.create(user);
-		return "ok";
-	}
-	/** 
-	* @author  leijj 
 	* 功能： 修改密码
 	* @param request
 	* @param response
@@ -163,26 +145,87 @@ public class UserController extends BaseController {
 		userManager.update(user);
 		return "ok";
 	}
-	
 	/** 
 	* @author  leijj 
-	* 功能： 完善个人资料 
+	* 功能： 机构基本信息
 	* @param request
 	* @param response
-	* @return
 	* @throws Exception 
 	*/ 
-	private String complete(HttpServletRequest request, HttpServletResponse response) throws Exception{
+	private void orgBasicInfo(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
-		user.setPerNickName(ParamInitUtils.getString(request.getParameter("nickName")));
-		user.setEmail(ParamInitUtils.getString(request.getParameter("email")));
+		user.setOrgShortname(ParamInitUtils.getString(request.getParameter("orgShortname")));
+		user.setOrgFullname(ParamInitUtils.getString(request.getParameter("orgFullname")));
 		user.setIntro(ParamInitUtils.getString(request.getParameter("intro")));
-		user.setPerPostAddr(ParamInitUtils.getString(request.getParameter("postAddr")));
-		
 		userManager.update(user);
-		return "ok";
+		output("ok", response);
 	}
-	
+	/** 
+	* @author  leijj 
+	* 功能： 机构详细信息
+	* @param request
+	* @param response
+	* @throws Exception 
+	*/ 
+	private void orgDetailInfo(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
+		user.setOrgFullname(ParamInitUtils.getString(request.getParameter("orgFullname")));
+		user.setOrgAddress(ParamInitUtils.getString(request.getParameter("orgAddress")));
+		user.setOrgNature(ParamInitUtils.getString(request.getParameter("orgNature")));
+		user.setOrgTrade(ParamInitUtils.getString(request.getParameter("orgTrade")));
+		user.setOrgScale(ParamInitUtils.getString(request.getParameter("orgScale")));
+		user.setOrgHomePage(ParamInitUtils.getString(request.getParameter("orgHomePage")));
+		userManager.update(user);
+		output("ok", response);
+	}
+	/** 
+	* @author  leijj 
+	* 功能： 机构认证
+	* @param request
+	* @param response
+	* @throws Exception 
+	*/ 
+	private void orgRelAuth(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
+		user.setOrgFullname(ParamInitUtils.getString(request.getParameter("orgFullname")));
+		user.setName(ParamInitUtils.getString(request.getParameter("name")));
+		user.setIdentityCard(ParamInitUtils.getString(request.getParameter("identityCard")));
+		user.setOrganization(ParamInitUtils.getString(request.getParameter("organization")));
+		user.setOrgBusinessLicense(ParamInitUtils.getString(request.getParameter("orgBusinessLicense")));
+		String[] bankNums = request.getParameterValues("bankNums");
+		String[] openingBanks = request.getParameterValues("openingBanks");
+		if(bankNums != null && bankNums.length > 0){
+			for(int i = 0; i < bankNums.length ; i++){
+				//保存银行卡信息
+				UserBankcard bankcard = new UserBankcard();
+				bankcard.setBankName(openingBanks[i]);
+				bankcard.setOpeningBank(openingBanks[i]);
+				bankcard.setBankNum(bankNums[i]);
+				bankcard.setUserId(user.getId());
+				bankcard.setUserName(user.getName());
+				bankcard.setCreateTime(DateUtils.getTimestamp());
+				bankcardManager.save(bankcard);
+			}
+		}
+		userManager.update(user);
+		output("ok", response);
+	}
+	/** 
+	* @author  leijj 
+	* 功能： 用户基本信息
+	* @param request
+	* @param response
+	* @throws Exception 
+	*/ 
+	private void userBasicInfo(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
+		user.setPerNickName(ParamInitUtils.getString(request.getParameter("perNickName")));
+		user.setPerPostAddr(ParamInitUtils.getString(request.getParameter("perPostAddr")));
+		user.setPerPostCode(ParamInitUtils.getString(request.getParameter("perPostCode")));
+		user.setIntro(ParamInitUtils.getString(request.getParameter("intro")));
+		userManager.update(user);
+		output("ok", response);
+	}
 	/** 
 	* @author  leijj 
 	* 功能： 实名认证
@@ -191,18 +234,14 @@ public class UserController extends BaseController {
 	* @return
 	* @throws Exception 
 	*/ 
-	private String relAuth(HttpServletRequest request, HttpServletResponse response) throws Exception{
+	private void userRelAuth(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
 		user.setName(ParamInitUtils.getString(request.getParameter("name")));//姓名
-//		user.setType(ParamInitUtils.getString(request.getParameter("type")));//注册类型
-		user.setType(ParamInitUtils.getInt(request.getParameter("TypeId")));
-		user.setPerProvince(ParamInitUtils.getString(request.getParameter("province")));//所在地
-		user.setPerCity(ParamInitUtils.getString(request.getParameter("city")));//所在地
-		user.setPerJob(ParamInitUtils.getString(request.getParameter("job")));//职业
-		user.setPerPhone(ParamInitUtils.getString(request.getParameter("phone")));//手机号
+		user.setPerProvince(ParamInitUtils.getString(request.getParameter("perProvince")));//省份
+		user.setPerCity(ParamInitUtils.getString(request.getParameter("perCity")));//城市
+		user.setPerJob(ParamInitUtils.getString(request.getParameter("perJob")));//职业
+		user.setPerPhone(ParamInitUtils.getString(request.getParameter("perPhone")));//手机号
 		user.setIdentityCard(ParamInitUtils.getString(request.getParameter("identityCard")));//身份证
-		user.setOrganization(ParamInitUtils.getString(request.getParameter("organization")));//企业组织机构证件照
-		user.setOrgBusinessLicense(ParamInitUtils.getString(request.getParameter("businessLicense")));//企业营业执照扫描件
 		
 		String[] bankNums = request.getParameterValues("bankNums");
 		String[] openingBanks = request.getParameterValues("openingBanks");
@@ -221,7 +260,6 @@ public class UserController extends BaseController {
 		}
 		//openingBank//开户行
 		userManager.update(user);
-		return "ok";
 	}
 	
 	private String works(HttpServletRequest request, HttpServletResponse response) throws Exception{

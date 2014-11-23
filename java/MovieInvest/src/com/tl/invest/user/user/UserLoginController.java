@@ -18,7 +18,6 @@ import com.tl.invest.user.email.EMailSenderHelper;
 import com.tl.invest.user.email.EmailSender;
 import com.tl.invest.user.email.SimpleMailSender;
 import com.tl.kernel.context.Context;
-import com.tl.kernel.context.TLException;
 import com.tl.kernel.web.BaseController;
 import com.tl.kernel.web.SysSessionUser;
 
@@ -39,10 +38,7 @@ public class UserLoginController extends BaseController
 		this.manager = manager;
 	}
 
-	public void handle(HttpServletRequest request, HttpServletResponse response, Map model) 
-	throws Exception 
-	{
-		
+	public void handle(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception{
 		String action = request.getParameter("a");
 		if("create".equals(action)){//ÓÃ»§×¢²á
 			String result = create(request, response);
@@ -65,7 +61,7 @@ public class UserLoginController extends BaseController
 			try {
 				int nID = getInt(request, "UserID");
 				if (nID > 0) { 
-					putSession(request, nID, false);
+					putSession(request, response, nID, false);
 				} 
 				out.flush();
 				out.close();
@@ -73,7 +69,6 @@ public class UserLoginController extends BaseController
 				log.error("login has error!",e);
 			}
 		}
-		
 	}
 	/** 
 	* @author  leijj 
@@ -88,7 +83,7 @@ public class UserLoginController extends BaseController
 		user.setCode(ParamInitUtils.getString(request.getParameter("code")));
 		user.setEmail(ParamInitUtils.getString(request.getParameter("email")));
 		//user.setType(ParamInitUtils.getString(request.getParameter("type")));
-		user.setType(ParamInitUtils.getInt(request.getParameter("TypeId")));
+		user.setType(ParamInitUtils.getInt(request.getParameter("type")));
 		user.setPassword(ParamInitUtils.getString(request.getParameter("password")));
 		user.setCreateTime(DateUtils.getTimestamp());
 		UserManager userManager = (UserManager) Context.getBean(UserManager.class);
@@ -153,19 +148,26 @@ public class UserLoginController extends BaseController
 	 * @param loginID
 	 * @param isAdmin
 	 * @return
-	 * @throws TLException
+	 * @throws Exception 
 	 */
-	protected SysSessionUser putSession(HttpServletRequest request, int loginID, boolean isAdmin) throws TLException {
-		SysSessionUser user = new SysSessionUser();
-		user.setAdmin(isAdmin);
-		user.setUserName(get(request,"UserName"));
-		user.setUserCode(get(request,"UserCode"));
-		user.setUserID(getInt(request, "UserID"));
-		user.setUserPassword(get(request,"UserPassword"));
-		
-		user.setIp(request.getRemoteAddr());
-		user.setHostName(request.getRemoteHost()); 
-		request.getSession().setAttribute(SysSessionUser.sessionName, user);
+	protected User putSession(HttpServletRequest request,
+			HttpServletResponse response, int loginID, boolean isAdmin) throws Exception {
+		User user = manager.getUserByID(loginID);
+		if(user != null){
+			JSONObject jsonArray = JSONObject.fromObject(user);
+			output(jsonArray.toString(), response);
+		} else {
+			output("", response);
+		}
+		SysSessionUser sysUser = new SysSessionUser();
+		sysUser.setAdmin(isAdmin);
+		sysUser.setUserName(user.getName());
+		sysUser.setUserCode(user.getCode());
+		sysUser.setUserID(user.getId());
+		//sysUser.setUserPassword(user.getPassword());
+		sysUser.setIp(request.getRemoteAddr());
+		sysUser.setHostName(request.getRemoteHost());
+		request.getSession().setAttribute(SysSessionUser.sessionName, sysUser);
 		return user;
 	}
 	
