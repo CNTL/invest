@@ -89,5 +89,14 @@
 		<property name="countSupport" type="int">
             <column name="proj_countSupport" not-null="true" />
         </property>
+        <property name="province" type="int">
+            <column name="proj_province" not-null="false" />
+        </property>
+        <property name="city" type="int">
+            <column name="proj_city" not-null="false" />
+        </property>
+        <property name="county" type="int">
+            <column name="proj_county" not-null="false" />
+        </property>
     </class>
 </hibernate-mapping>

@@ -39,6 +39,10 @@ public class Project implements java.io.Serializable {
 	private int countView;
 	private int countSubject;
 	private int countSupport;
+	
+	private int province;
+	private int city;
+	private int county;
 
 	public Project() {
 	}
@@ -265,5 +269,29 @@ public class Project implements java.io.Serializable {
 
 	public void setCountSupport(int countSupport) {
 		this.countSupport = countSupport;
+	}
+
+	public int getProvince() {
+		return province;
+	}
+
+	public void setProvince(int province) {
+		this.province = province;
+	}
+
+	public int getCity() {
+		return city;
+	}
+
+	public void setCity(int city) {
+		this.city = city;
+	}
+
+	public int getCounty() {
+		return county;
+	}
+
+	public void setCounty(int county) {
+		this.county = county;
 	}
 }

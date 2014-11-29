@@ -7,7 +7,8 @@ import com.tl.kernel.sys.dic.DictionaryType;
 
 public enum DicTypes {
 	DIC_SYS_PARAM("系统参数"),
-	DIC_INVEST_TYPE("众筹类型");
+	DIC_INVEST_TYPE("众筹类型"),
+	DIC_AREA("地域");
 	
 	private String typeName;
 	

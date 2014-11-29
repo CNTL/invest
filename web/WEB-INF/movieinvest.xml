@@ -57,10 +57,13 @@
 	<bean id="project.Project" class="com.tl.invest.proj.service.ProjectController">
 		<property name="service"><ref bean="project.Service" /></property>
 	</bean>
+	<bean id="project.ProjectFetcher" class="com.tl.invest.proj.service.ProjectFetcher">
+		<property name="service"><ref bean="project.Service" /></property>
+	</bean>
 	<bean id="project.Main" class="com.tl.invest.proj.service.ProjectMainController">
 		<property name="viewName"><value>proj/List</value></property>
 	</bean>
-	<bean id="project.Publish" class="com.tl.invest.proj.service.ProjectMainController">
+	<bean id="project.Publish" class="com.tl.invest.proj.service.ProjectPublishController">
 		<property name="viewName"><value>proj/Add</value></property>
 	</bean>
 	
@@ -105,6 +108,7 @@
 				<!--项目-->
 				<prop key="/project/Submit.do">project.Submit</prop>
 				<prop key="/project/Project.do">project.Project</prop>
+				<prop key="/project/ProjectFetcher.do">project.ProjectFetcher</prop>
 				<prop key="/project/List.do">project.Main</prop>
 				<prop key="/project/Publish.do">project.Publish</prop>
 			</props>

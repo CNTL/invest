@@ -67,8 +67,16 @@ public class Entry extends BaseController {
 		model.put("pMenus", pMenus);
 		
 		setMetaData(model);
+		
+		setOtherData(model);
 	}
 	
+	@SuppressWarnings("rawtypes")
+	protected void setOtherData(Map model) {
+		//继承实现		
+	}
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	protected void setMetaData(Map model) {
 		model.put("title", "合众映画");
 		model.put("keywords", "合众映画");

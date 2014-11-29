@@ -1,0 +1,24 @@
+.job_add .select {
+	height: 40px;
+	margin-bottom: 15px;
+}
+
+.job_add .select li {
+	float: left;
+	width: 98px;
+	height: 38px;
+	line-height: 38px;
+	font-size: 18px;
+	text-align: center;
+	color: #ccc;
+	border: 1px #E1E1E1 solid;
+	background-color: #fff;
+	margin-right: 10px;
+	cursor: pointer;
+}
+
+.job_add .select li.current {
+	color: #fff;
+	border: 1px #4AC4EF solid;
+	background: #4AC4EF url(../../static/image/s4.png) no-repeat bottom right;
+}
