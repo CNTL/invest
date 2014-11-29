@@ -11,6 +11,7 @@ public class ProjectMainController extends Entry {
 		return "项目";
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	protected void setMetaData(Map model) {
 		model.put("title", "合众映画--项目");

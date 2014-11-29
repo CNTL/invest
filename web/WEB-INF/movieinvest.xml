@@ -75,7 +75,9 @@
 	</bean>
 	<bean id="user.UserVideo" class="com.tl.invest.user.video.UserVideoController">
 	</bean>
-	
+	<!--上传处理-->
+	<bean id="workspace.Upload" class="com.tl.invest.workspace.UploadController">
+	</bean>
 	
 	<!--============ 4. web =============== -->
 	<bean id="appUrl" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
@@ -111,6 +113,8 @@
 				<prop key="/project/ProjectFetcher.do">project.ProjectFetcher</prop>
 				<prop key="/project/List.do">project.Main</prop>
 				<prop key="/project/Publish.do">project.Publish</prop>
+								
+				<prop key="/Upload.do">workspace.Upload</prop>
 			</props>
 		</property>
 	</bean>

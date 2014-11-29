@@ -22,3 +22,12 @@
 	border: 1px #4AC4EF solid;
 	background: #4AC4EF url(../../static/image/s4.png) no-repeat bottom right;
 }
+
+div.uploadify,div.uploadify-queue{
+	float:left;
+}
+
+div.uploadify-queue{
+	margin-left:20px;
+	width:360px;
+}

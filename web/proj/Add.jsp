@@ -11,9 +11,12 @@
     <link rel="stylesheet" type="text/css" href="../static/css/reset.css" />
     <link rel="stylesheet" type="text/css" href="../static/css/index.css" />
 	 <link rel="stylesheet" type="text/css" href="../proj/css/project.css" />
+	 <link rel="stylesheet" type="text/css" href="../js/plugin/uploadify-3.2.1/uploadify.css"/>
     <script type="text/javascript" src="../static/js/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="../static/js/common.js"></script>
+	<script type="text/javascript" src="../js/utils.js"></script>
 	<script type="text/javascript" src="../static/ckeditor/ckeditor.js"></script>
+	<script type="text/javascript" src="../js/plugin/uploadify-3.2.1/jquery.uploadify.js"></script>
 	<script type="text/javascript" src="../proj/script/datas.js"></script>
 	<script type="text/javascript" src="../proj/script/project.js"></script>
 </head>
@@ -71,13 +74,21 @@
 				<input type="text" id="proj_countDay" style="width:210px;" name="proj_countDay" value="" />
 				<span style="margin-left:10px;font-size:18px;">天</span>
             </div>
-            <div class="input">
-                <label>封面图片：</label>
-                <select name="scale">
-                    <option value="0">请选择</option>
-                    <option value="1">选项一</option>
-                </select>
-            </div>
+           <div class="input">
+				<table style="width:100%;">
+					<tr>
+						<td valign="top" style="width:90px;">
+							<label>封面图片：</label>
+						</td>
+						<td>
+							<input type="file" name="uploadify" id="uploadify" />
+							<input type="hidden" id="queueItemCount" name="queueItemCount" value="0" />
+							<input type="hidden" id="proj_imgURL" name="proj_imgURL" value="" />
+							<input type="hidden" id="uploadErrorMsg" name="uploadErrorMsg" value="" />
+						</td>
+					</tr>
+				</table>
+           </div>
 			<div class="input">
 				<label>视频地址：</label>
 				<input type="text" id="proj_videoURL" name="proj_videoURL" style="width:848px;" value="" />
@@ -97,7 +108,7 @@
                 <div class="clear"></div>
             </div>
             <div class="btn">
-                <input type="submit" name="submit" value="提交信息" />
+                <input type="button" id="btnSave" name="btnSave" value="提交信息" />
             </div>
         </form>
     </div>
