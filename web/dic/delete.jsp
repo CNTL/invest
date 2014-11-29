@@ -1,6 +1,6 @@
 <%@ include file="../../include/Include.jsp"%>
 <%@page pageEncoding="UTF-8"%>
-<%@page import="com.tl.kernel.web.WebUtil"%>
+<%@page import="com.tl.common.WebUtil"%>
 <html>
 <head>
 	<title>删除</title>
