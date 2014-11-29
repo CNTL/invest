@@ -1,12 +1,11 @@
-body, input, select, textarea {
+ï»¿body, input, select, textarea {
     color: #666;
-    font-family: "Microsoft YaHei", "Î¢ÈíÑÅºÚ", helvetica, arial, verdana, tahoma, sans-serif;
+    font-family: "Microsoft YaHei", "å¾®è½¯é›…é»‘", helvetica, arial, verdana, tahoma, sans-serif;
 }
 
 a {
     color: #666;
 }
-
 
 .scroll {
     width: 100%;
@@ -37,6 +36,17 @@ a {
         z-index: 1000;
     }
 
+.people_scroll {
+    width: 1002px;
+    height: 410px;
+    position: relative;
+    overflow: hidden;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    -o-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
 
 .swiper {
     width: 100%;
@@ -139,7 +149,6 @@ a {
     height: 90px;
     color: #999;
     border-top: 3px #138CB7 solid;
-    border-bottom: 1px #138CB7 solid;
 }
 
     .header a {
@@ -1191,7 +1200,31 @@ a {
     width: 100%;
 }
 
+    .project_list .left {
+        display: block;
+        background: url(../image/left2.png) no-repeat left top;
+        position: absolute;
+        left: -30px;
+        top: 50%;
+        margin-top: -25px;
+        width: 18px;
+        height: 50px;
+        z-index: 1000;
+    }
+
+    .project_list .right {
+        background: url(../image/right2.png) no-repeat left bottom;
+        position: absolute;
+        right: -30px;
+        top: 50%;
+        margin-top: -25px;
+        width: 18px;
+        height: 50px;
+        z-index: 1000;
+    }
+
     .project_list .block1 {
+        position: relative;
         width: 1002px;
         margin: 0 auto;
     }
@@ -1315,7 +1348,7 @@ a {
                 height: 100px;
                 background-color: #F7F7F7;
                 margin-bottom: 10px;
-                background: url(../image/p.png) no-repeat  200px 20px;
+                background: url(../image/p.png) no-repeat 200px 20px;
             }
 
                 .project_view .main .content .progress li {
@@ -1403,8 +1436,59 @@ a {
             .project_view .main .comm h2 {
                 font-size: 18px;
                 color: #555;
-                margin-bottom: 10px;
             }
+
+            .project_view .main .comm .item {
+                position: relative;
+                border-bottom: 1px #E5E5E5 dashed;
+                padding: 20px 0 20px 0;
+            }
+
+                .project_view .main .comm .item .btn {
+                    position: absolute;
+                    right: 0px;
+                    bottom: 10px;
+                    color: #FFA1AC;
+                }
+
+                .project_view .main .comm .item .username {
+                    height: 50px;
+                    line-height: 50px;
+                    padding-left: 40px;
+                }
+
+                    .project_view .main .comm .item .username img {
+                        float: left;
+                        margin-right: 10px;
+                    }
+
+                    .project_view .main .comm .item .username span {
+                        display: inline-block;
+                        width: 50px;
+                        height: 20px;
+                        text-align: center;
+                        line-height: 20px;
+                        font-size: 12px;
+                        color: #fff;
+                        margin-right: 10px;
+                        background: url(../image/s31.png) no-repeat;
+                    }
+
+                .project_view .main .comm .item .time {
+                    float: left;
+                    width: 60px;
+                    height: 83px;
+                    padding-right: 10px;
+                    line-height: 30px;
+                    background: url(../image/s41.png) no-repeat right;
+                }
+
+                .project_view .main .comm .item .desc {
+                    float: right;
+                    width: 528px;
+                    line-height: 26px;
+                    padding: 20px 0 0 20px;
+                }
 
         .project_view .main .content .item {
             float: left;
@@ -1831,8 +1915,8 @@ a {
 /*job_add style start*/
 .job_add {
     position: relative;
-    width: 95%;
-    margin: 20px auto;
+    width: 960px;
+    margin: 20px auto 200px;
 }
 
     .job_add a.add {
@@ -2084,19 +2168,11 @@ a {
 
             .job_list .main .search .type {
                 float: left;
-                width: 100px;
+                width: 80px;
                 height: 46px;
+                padding: 0 10px;
                 border: 2px #FFB124 solid;
             }
-
-                .job_list .main .search .type select {
-                    width: 80px;
-                    height: 30px;
-                    margin: 8px 0 0 10px;
-                    border: 0;
-                    font-size: 18px;
-                    color: #666;
-                }
 
             .job_list .main .search .key {
                 float: left;
@@ -2116,13 +2192,13 @@ a {
                     padding: 0 10px;
                 }
 
-            .job_list .main .search .btn {
+            .job_list .main .search .submit {
                 float: left;
                 width: 100px;
                 height: 50px;
             }
 
-                .job_list .main .search .btn input {
+                .job_list .main .search .submit input {
                     width: 100px;
                     height: 50px;
                     border: 0;
@@ -2268,3 +2344,43 @@ a {
         background-color: #0F6B8C;
     }
 /*footer style end*/
+
+
+DIV.selectbox-wrapper {
+    MARGIN-TOP: -3px;
+    WIDTH: 70px;
+    POSITION: absolute;
+    BACKGROUND-COLOR: #fff;
+    TEXT-ALIGN: left;
+    border: 2px #FFC04D solid;
+    BACKGROUND-COLOR: #fff;
+}
+
+    DIV.selectbox-wrapper UL LI.selected {
+        color: #555;
+        BACKGROUND-COLOR: #FFF1D7;
+    }
+
+    DIV.selectbox-wrapper UL LI.current {
+        color: #555;
+        BACKGROUND-COLOR: #FFF1D7;
+    }
+
+    DIV.selectbox-wrapper UL LI {
+        CURSOR: pointer;
+        LINE-HEIGHT: 20px;
+        padding: 3px;
+        margin-bottom: 5px;
+        text-align: center;
+    }
+
+.selectbox {
+    border: none;
+    DISPLAY: block;
+    width: 80px;
+    height: 46px;
+    cursor: pointer;
+    color: #666;
+    font-size: 16px;
+    background: url(../image/s42.png) no-repeat right;
+}

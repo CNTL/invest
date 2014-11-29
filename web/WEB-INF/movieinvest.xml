@@ -57,6 +57,13 @@
 	<bean id="project.Project" class="com.tl.invest.proj.service.ProjectController">
 		<property name="service"><ref bean="project.Service" /></property>
 	</bean>
+	<bean id="project.Main" class="com.tl.invest.proj.service.ProjectMainController">
+		<property name="viewName"><value>proj/List</value></property>
+	</bean>
+	<bean id="project.Publish" class="com.tl.invest.proj.service.ProjectMainController">
+		<property name="viewName"><value>proj/Add</value></property>
+	</bean>
+	
 	<bean id="user.UserMsg" class="com.tl.invest.user.msg.UserMsgController">
 	</bean>
 	<bean id="user.Recruit" class="com.tl.invest.user.recruit.RecruitController">
@@ -65,6 +72,8 @@
 	</bean>
 	<bean id="user.UserVideo" class="com.tl.invest.user.video.UserVideoController">
 	</bean>
+	
+	
 	<!--============ 4. web =============== -->
 	<bean id="appUrl" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="order"><value>3</value></property>
@@ -96,6 +105,8 @@
 				<!--项目-->
 				<prop key="/project/Submit.do">project.Submit</prop>
 				<prop key="/project/Project.do">project.Project</prop>
+				<prop key="/project/List.do">project.Main</prop>
+				<prop key="/project/Publish.do">project.Publish</prop>
 			</props>
 		</property>
 	</bean>

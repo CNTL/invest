@@ -19,6 +19,9 @@
 		<property name="url" type="string">
             <column name="mu_url" />
         </property>
+		<property name="className" type="string">
+            <column name="mu_className" />
+        </property>
 		<property name="rule" type="string">
             <column name="mu_rule" />
         </property>

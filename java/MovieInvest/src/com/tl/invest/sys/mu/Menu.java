@@ -15,10 +15,26 @@ public class Menu implements java.io.Serializable {
 	private String query;
 	private String cssPath;
 	private String jsPath;
+	private String className;
 	private int order;
 	private int type;
 	private int position;
 	private int isDef;
+	
+	public Menu(){
+		super();
+	}
+	
+	public Menu(int id,String name,String url,String className,int type,int isDef){
+		this.id = id;
+		this.pid = 0;
+		this.name = name;
+		this.className = className;
+		this.url = url;
+		this.isDef = isDef;
+		this.type = type;
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -37,6 +53,12 @@ public class Menu implements java.io.Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
+	public String getClassName() {
+		return className;
+	}
+	public void setClassName(String className) {
+		this.className = className;
+	}	
 	public int getTbId() {
 		return tbId;
 	}
@@ -44,6 +66,7 @@ public class Menu implements java.io.Serializable {
 		this.tbId = tbId;
 	}
 	public String getUrl() {
+		if(this.type == -999) return url;
 		String url_p = url;
 		if(StringUtils.isNotEmpty(url_p)){
 			if(url_p.indexOf("?id=") == -1 && url_p.indexOf("&id=") == -1){
@@ -65,6 +88,7 @@ public class Menu implements java.io.Serializable {
 		}
 		return url_p;
 	}
+	
 	public void setUrl(String url) {
 		this.url = url;
 	}
