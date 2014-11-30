@@ -17,11 +17,62 @@ var proj_form = {
 		//proj_form._setOptions("proj_type",proj_datas.getProjTypes(),proj_form.DEFAULT_PAIR);
 		proj_form._setOptions("proj_province",proj_datas.getProvinces(),proj_form.DEFAULT_PAIR);
 		
-		proj_form.initUploadify();
+		proj_form.initUploadify("uploadify","queueItemCount","proj_imgURL","uploadErrorMsg",false,proj_form._save);
+		$("#btnNext").bind("click",proj_form["next"]);
+		$("#btnPre").bind("click",proj_form["pre"]);
 		$("#btnSave").bind("click",proj_form["save"]);
+		$("#proj_newmode").bind("click",proj_form["addMode"]);
+	},
+	_getModeHTML : function(){
+		var html = "<div class=\"job_add proj_mode\" style=\"margin-bottom:20px;width:460px;\">";
+		html += "<input type=\"hidden\" id=\"modeID\" value=\"\" />";
+		html += "<div class=\"input\"><label>支持金额：</label><input type=\"text\" id=\"mode_price\" name=\"mode_price\" style=\"width:136px;margin-right:28px;\" value=\"\" />";
+		html += "<label>回报限额：</label><input type=\"text\" id=\"mode_countGoal\" name=\"mode_countGoal\" style=\"width:136px;\" value=\"\" /></div>";
+		html += "<div class=\"input\"><table style=\"width:100%\"><tr><td valign=\"top\"><label>回报内容：</label></td><td><div class=\"text\"><textarea name=\"mode_return\" id=\"mode_return\" style=\"width:380px;height:80px;\"></textarea></div></td></tr></table></div>";
+		html += "<div class=\"input\"><table style=\"width:100%;\"><tr><td valign=\"top\" style=\"width:90px;\"><label>封面图片：</label></td>";
+		html += "	<td><input type=\"file\" class=\"uploadify\" name=\"mode_uploadify\" id=\"mode_uploadify\" />";
+		html += "		<input type=\"hidden\" id=\"mode_queueItemCount\" name=\"mode_queueItemCount\" value=\"0\" />";
+		html += "		<input type=\"hidden\" id=\"mode_imgURL\" name=\"mode_imgURL\" value=\"\" />";
+		html += "		<input type=\"hidden\" id=\"mode_uploadErrorMsg\" name=\"mode_uploadErrorMsg\" value=\"\" />";
+		html += "	</td></tr><tr id=\"mode_image_tr\" style=\"display:none;\"><td><a href=\"javascript:void();\" onclick=\"proj_form.delModeImage();\">删除</a></td><td><img id=\"mode_image\" src=\"\" style=\"border:0px;width:380px;height:80px;\"/></td></tr></table></div>";
+		html += "<div class=\"input\"><label>运费：</label><input type=\"text\" id=\"mode_freight\" name=\"mode_freight\" value=\"\" /></div>";
+		html += "<div class=\"input\"><label>回报时间：</label><input type=\"text\" id=\"回报时间\" name=\"回报时间\" value=\"\" /></div>";
+		html += "<div class=\"btn\"><input type=\"button\" id=\"btnModeOK\" name=\"btnModeOK\" onclick=\"proj_form.updateMode()\" value=\"确定\" style=\"width:100px;\" /><input type=\"button\" id=\"btnModeCannel\" name=\"btnModeCannel\" value=\"取消\" style=\"width:100px;margin-left:50px;\" onclick=\"tl_msg.close();\" /></div>";
+		html += "</div>";
+		
+		return html;
+	},
+	updateMode : function(){
+		var modeID = $(".proj_mode #modeID").val();
+		var imgURL = $(".proj_mode #mode_imgURL").val();
+		
+	},
+	delModeImage : function(){
+		$(".proj_mode #mode_imgURL").val("");
+		$("#mode_image_tr").css("display","none");
+		$("#mode_image").attr("src","");
+	},
+	addMode : function(){
+		tl_msg.dialog("新增",proj_form._getModeHTML(),648,560);
+		proj_form.initUploadify("mode_uploadify","mode_queueItemCount","mode_imgURL","mode_uploadErrorMsg",true,proj_form.modeImageUploaded);
+	},
+	modeImageUploaded : function(){
+		var imgURL = $(".proj_mode #mode_imgURL").val();
+		$("#mode_image_tr").css("display","");
+		$("#mode_image").attr("src",webroot+imgURL);
+	},
+	next : function(){
+		$("#proj_step1").hide();
+		$("#proj_step2").show();
+		$("html,body").animate({scrollTop:$("#proj_step2").offset().top-20},0);
+	},
+	pre : function(){
+		$("#proj_step1").show();
+		$("#proj_step2").hide();
+		$("html,body").animate({scrollTop:$("#proj_step1").offset().top-20},0);
 	},
 	_save : function(){
-		alert("调用了_save()");
+		tl_msg.show("debugger","调用了_save()");
 	},
 	save : function(){
 		$("#proj_imgURL").val("");
@@ -77,11 +128,11 @@ var proj_form = {
 			$("#proj_countDay").val(selValue*30).css("font-size","18px").css("text-align","center");
 		}
 	},
-	initUploadify : function(){
+	initUploadify : function(el,countCtrl,imgCtrl,errorCtrl,auto,successInvok){
 		var sessionid= getCookie("JSESSIONID");
-		$("#uploadify").uploadify({
+		$("#"+el).uploadify({
 			scriptAccess:'always',
-			auto:false,
+			auto:auto,
 			height: 36,
 			swf: '../js/plugin/uploadify-3.2.1/uploadify.swf',
 			uploader: '../Upload.do?jsessionid=' + sessionid,
@@ -94,7 +145,7 @@ var proj_form = {
 			removeCompleted: true,
 			multi :false,//设置为true时可以上传多个文件。
 			queueSizeLimit :2,//当允许多文件生成时，设置选择文件的个数，默认值：999 。
-			onUploadStart: function(file) {//上传开始时触发（每个文件触发一次）
+			'onUploadStart': function(file) {//上传开始时触发（每个文件触发一次）
 				//动态更新设备额值 
 				//deviceName  = device.val();
 				//向后台传值 
@@ -105,7 +156,7 @@ var proj_form = {
 				//	"ATT_TOPIC":$("#topic").val(),
 					"folder":"upload/project"
 				};
-				$("#uploadify").uploadify("settings", "formData", formdata);  
+				$("#"+el).uploadify("settings", "formData", formdata);  
 			} ,
 			onUploadSuccess : function(file,data,response) {//上传完成时触发（每个文件触发一次）
 				if(data==""){
@@ -113,24 +164,23 @@ var proj_form = {
 					var d=data.replace("\n", ' ');
 					var result = eval('('+data+')');
 					if(result.success){
-						$("#proj_imgURL").val(result.path);
+						$("#"+imgCtrl).val(result.path);
 					}else{
-						$("#uploadErrorMsg").val(result.msg);
+						$("#"+errorCtrl).val(result.msg);
 					}
 				}
-				$("#queueItemCount").val("0");
-				alert($("#proj_imgURL").val()+"\n"+$("#uploadErrorMsg").val());
-				proj_form._save();
+				$("#"+countCtrl).val("0");
+				if(typeof(successInvok) == "function") successInvok();
 			}, 
 			onSelect : function(file) {//当每个文件添加至队列后触发 
 			}, 
 			onDialogClose : function(queueData) {
 				var queueItemCount = queueData.queueLength;
 				if(queueItemCount >1){
-				   $('#uploadify').uploadify('cancel');//删除第一个
+				   $('#'+el).uploadify('cancel');//删除第一个
 				   queueItemCount = queueItemCount -1;
 				}
-				$("#queueItemCount").val(queueItemCount);
+				$("#"+countCtrl).val(queueItemCount);
 			},
 			onDialogOpen : function() {
 			},

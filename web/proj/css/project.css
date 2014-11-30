@@ -1,3 +1,6 @@
+.job_add h2{
+	margin-bottom:0px;
+}
 .job_add .select {
 	height: 40px;
 	margin-bottom: 15px;
@@ -21,6 +24,76 @@
 	color: #fff;
 	border: 1px #4AC4EF solid;
 	background: #4AC4EF url(../../static/image/s4.png) no-repeat bottom right;
+}
+.project_list{
+	position: relative;
+	width: 960px;
+	margin: 20px auto 200px;
+}
+.project_list h2{
+	float : left;
+	font-size: 20px;
+	color: #ffb124;
+}
+.project_list .proj_info{
+	float:right;
+}
+.project_list .block1{
+	width:960px;
+	margin-top:8px;
+	border-top:3px #FFA1AC solid;
+	/*border-left: 1px #E5E5E5 solid;
+	border-right:1px #E5E5E5 solid;
+	border-bottom:1px #E5E5E5 solid;*/
+	padding-top:10px;
+}
+.project_list .btn {
+	padding-left: 80px;
+}
+
+.project_list .btn input {
+	width: 200px;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	color: #fff;
+	border: 0;
+	font-size: 20px;
+	background-color: #FFB124;
+	cursor: pointer;
+}
+
+.box{
+	width:220px;
+}
+.box .box_main{
+	background: url(../../static/image/box_bg_220.png) repeat-y;
+}
+.box .pic {
+	width: 212px;
+	height: 60px;
+}
+.box .project .status{
+	height:20px;
+}
+
+.box .tool a.delete{
+float: left;
+display: block;
+height: 35px;
+line-height: 35px;
+color: #BEBEBE;
+padding-left: 20px;
+margin-left: 10px;
+background: url(../../img/delete.png) no-repeat left;
+}
+.box .tool a.edit{
+float: right;
+display: block;
+width: 15px;
+height: 15px;
+margin: 10px 10px 0 0;
+background: url(../../img/edit.png) no-repeat;
 }
 
 div.uploadify,div.uploadify-queue{

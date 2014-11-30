@@ -65,6 +65,7 @@ public class Entry extends BaseController {
 		
 		model.put("menus", menus);
 		model.put("pMenus", pMenus);
+		model.put("rootPath", rootPath);
 		
 		setMetaData(model);
 		

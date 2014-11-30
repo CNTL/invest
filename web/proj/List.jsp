@@ -3,15 +3,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title><c:out value="${title}"/></title>
-	<meta name="keywords" content="<c:out value="${keywords}"/>" />
-    <meta name="description" content="<c:out value="${description}"/>" />
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" type="text/css" href="../static/css/reset.css" />
-    <link rel="stylesheet" type="text/css" href="../static/css/index.css" />
-    <script type="text/javascript" src="../static/js/jquery-1.11.1.min.js"></script>
-    <script type="text/javascript" src="../static/js/common.js"></script>
+    <%@include file="../inc/meta.inc"%>
 </head>
 <body>
 	<%@include file="../inc/header.inc"%>
