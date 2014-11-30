@@ -2,7 +2,7 @@ package com.tl.invest.user.user;
 
 // Generated Nov 17, 2014 3:11:25 PM by Hibernate Tools 3.4.0.CR1
 
-import java.util.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 import com.tl.invest.user.bankcard.UserBankcard;
@@ -23,21 +23,22 @@ public class User {
 	private String intro;
 	private String background;
 	private Integer isRealNameIdent;
-	private Date createTime;
+	private Timestamp createTime;
 	private String qqOpenId;
 	private String xlWeiboCode;
 	private String perNickName;
 	private String perPostAddr;
 	private String perPostCode;
-	private String perProvince;
-	private String perCity;
+	private String province;
+	private String city;
 	private String perJob;
 	private String perPhone;
 	private String orgShortname;
 	private String orgFullname;
 	private String organization;
 	private String orgBusinessLicense;
-	private String orgAddress;
+	private String location;
+	private String coordinate;
 	private String orgNature;
 	private String orgTrade;
 	private String orgScale;
@@ -53,11 +54,11 @@ public class User {
 	public User(int id, Integer type, String code, String email,
 			String password, String name, String identityCard, String head,
 			String intro, String background, Integer isRealNameIdent,
-			Date createTime, String qqOpenId, String xlWeiboCode,
+			Timestamp createTime, String qqOpenId, String xlWeiboCode,
 			String perNickName, String perPostAddr, String perPostCode,
-			String perProvince, String perCity, String perJob, String perPhone,
+			String province, String city, String perJob, String perPhone,
 			String orgShortname, String orgFullname, String organization,
-			String orgBusinessLicense, String orgAddress, String orgNature,
+			String orgBusinessLicense, String location, String orgNature,
 			String orgTrade, String orgScale, String orgHomePage) {
 		this.id = id;
 		this.type = type;
@@ -76,15 +77,15 @@ public class User {
 		this.perNickName = perNickName;
 		this.perPostAddr = perPostAddr;
 		this.perPostCode = perPostCode;
-		this.perProvince = perProvince;
-		this.perCity = perCity;
+		this.province = province;
+		this.city = city;
 		this.perJob = perJob;
 		this.perPhone = perPhone;
 		this.orgShortname = orgShortname;
 		this.orgFullname = orgFullname;
 		this.organization = organization;
 		this.orgBusinessLicense = orgBusinessLicense;
-		this.orgAddress = orgAddress;
+		this.location = location;
 		this.orgNature = orgNature;
 		this.orgTrade = orgTrade;
 		this.orgScale = orgScale;
@@ -179,11 +180,11 @@ public class User {
 		this.isRealNameIdent = isRealNameIdent;
 	}
 
-	public Date getCreateTime() {
+	public Timestamp getCreateTime() {
 		return this.createTime;
 	}
 
-	public void setCreateTime(Date createTime) {
+	public void setCreateTime(Timestamp createTime) {
 		this.createTime = createTime;
 	}
 
@@ -227,20 +228,20 @@ public class User {
 		this.perPostCode = perPostCode;
 	}
 
-	public String getPerProvince() {
-		return this.perProvince;
+	public String getProvince() {
+		return this.province;
 	}
 
-	public void setPerProvince(String perProvince) {
-		this.perProvince = perProvince;
+	public void setProvince(String province) {
+		this.province = province;
 	}
 
-	public String getPerCity() {
-		return this.perCity;
+	public String getCity() {
+		return this.city;
 	}
 
-	public void setPerCity(String perCity) {
-		this.perCity = perCity;
+	public void setCity(String city) {
+		this.city = city;
 	}
 
 	public String getPerJob() {
@@ -291,12 +292,20 @@ public class User {
 		this.orgBusinessLicense = orgBusinessLicense;
 	}
 
-	public String getOrgAddress() {
-		return this.orgAddress;
+	public String getLocation() {
+		return location;
 	}
 
-	public void setOrgAddress(String orgAddress) {
-		this.orgAddress = orgAddress;
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public String getCoordinate() {
+		return coordinate;
+	}
+
+	public void setCoordinate(String coordinate) {
+		this.coordinate = coordinate;
 	}
 
 	public String getOrgNature() {

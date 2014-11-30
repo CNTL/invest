@@ -182,7 +182,9 @@ public abstract class BaseController implements Controller
 	 */
 	protected final int getInt(HttpServletRequest request, String key)
 	{
-		return Integer.parseInt(get(request, key));
+		String value = get(request, key);
+		if(value == null || value.length() == 0) value = "0";
+		return Integer.parseInt(value);
 	}
 	/**
 	 * 工具方法：从request中取一个对象值

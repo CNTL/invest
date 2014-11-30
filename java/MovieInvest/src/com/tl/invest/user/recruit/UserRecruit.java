@@ -32,10 +32,11 @@ public class UserRecruit {
 	private String jobAttract;
 	private String jobIntro;
 	private Date createtime;
-	private Date pubTime;
+	private String time;
+	//private Date pubTime;
 	private Integer isPub;
 	private Integer resumeNum;
-
+	private String days;
 	public UserRecruit() {
 	}
 
@@ -73,7 +74,7 @@ public class UserRecruit {
 		this.jobAttract = jobAttract;
 		this.jobIntro = jobIntro;
 		this.createtime = createtime;
-		this.pubTime = pubTime;
+		//this.pubTime = pubTime;
 		this.isPub = isPub;
 		this.resumeNum = resumeNum;
 	}
@@ -261,7 +262,7 @@ public class UserRecruit {
 	public void setCreatetime(Date createtime) {
 		this.createtime = createtime;
 	}
-
+/*
 	public Date getPubTime() {
 		return this.pubTime;
 	}
@@ -269,9 +270,18 @@ public class UserRecruit {
 	public void setPubTime(Date pubTime) {
 		this.pubTime = pubTime;
 	}
-
+*/
+	
 	public Integer getIsPub() {
 		return this.isPub;
+	}
+
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
 	}
 
 	public void setIsPub(Integer isPub) {
@@ -286,4 +296,11 @@ public class UserRecruit {
 		this.resumeNum = resumeNum;
 	}
 
+	public String getDays() {
+		return days;
+	}
+
+	public void setDays(String days) {
+		this.days = days;
+	}
 }

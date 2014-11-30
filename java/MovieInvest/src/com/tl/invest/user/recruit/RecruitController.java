@@ -1,9 +1,13 @@
 package com.tl.invest.user.recruit;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import net.sf.json.JSONArray;
 
 import com.tl.common.DateUtils;
 import com.tl.common.Message;
@@ -26,11 +30,23 @@ public class RecruitController extends BaseController {
 		String action = request.getParameter("a");
 		if("list".equals(action)){//获取用户列表
 			list(request, response, model);
+		} else if("queryNew".equals(action)){//获取最新9条招聘信息
+			queryNew(request, response);
+		} else if("queryHot".equals(action)){//获取最热9条招聘信息
+			queryHot(request, response);
 		} else if("save".equals(action)){//获取用户列表
 			String json = save(request, response);
 			output(json, response);
 		} else if("detail".equals(action)){//获取用户列表
-			detail(request, response, model);
+			int id = ParamInitUtils.getInt(request.getParameter("id"));
+			model.put("id", id);
+			model.put("mainType", ParamInitUtils.getInt(request.getParameter("mainType")));
+			model.put("@VIEWNAME@", "/recruit/Detail.do?1=1");
+		} else if("edit".equals(action)){//获取用户列表
+			int id = ParamInitUtils.getInt(request.getParameter("id"));
+			model.put("id", id);
+			model.put("mainType", ParamInitUtils.getInt(request.getParameter("mainType")));
+			model.put("@VIEWNAME@", "/recruit/Edit.do?1=1");
 		}
 	}
 	/** 
@@ -49,6 +65,52 @@ public class RecruitController extends BaseController {
 		model.put("msg", message);
 		model.put("@VIEWNAME@", WebUtil.getRoot(request) + "user/recruit/recruitList");
 	}
+	
+	/** 
+	* @author  leijj 
+	* 功能： 查询最新招聘信息
+	* @param request
+	* @param response
+	* @param model
+	* @throws Exception 
+	*/ 
+	private void queryNew(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		String typeFlag = get(request, "typeFlag");//是否是职位管理（view-浏览所有招聘信息，edit-管理我的职位信息）
+		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
+		int start = getInt(request, "start");
+		List<UserRecruit> recruitList = setUser(recruitManager.queryRecruits(start, 9, typeFlag, user.getId()));
+		JSONArray jsonArray = JSONArray.fromObject(recruitList);  
+		output(jsonArray.toString(), response);
+	}
+	/** 
+	* @author  leijj 
+	* 功能： 查询最热招聘信息
+	* @param request
+	* @param response
+	* @param model
+	* @throws Exception 
+	*/ 
+	private void queryHot(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		String typeFlag = get(request, "typeFlag");//是否是职位管理（view-浏览所有招聘信息，edit-管理我的职位信息）
+		int start = getInt(request, "start");
+		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
+		List<UserRecruit> recruitList = setUser(recruitManager.queryHot(start, 9, typeFlag, user.getId()));
+		JSONArray jsonArray = JSONArray.fromObject(recruitList);  
+		output(jsonArray.toString(), response);
+	}
+	private List<UserRecruit> setUser(List<UserRecruit> recruitList) throws Exception{
+		if(recruitList == null || recruitList.size() == 0) return null;
+		
+		List<UserRecruit> newList = new ArrayList<UserRecruit>();
+		for(UserRecruit recruit : recruitList){
+			User user = userManager.getUserByID(recruit.getUserId());
+			recruit.setCompany(user.getOrgFullname());
+			recruit.setCity(user.getCity());
+			recruit.setTime(DateUtils.format(recruit.getCreatetime(), "yyyy-MM-dd hh:mm:ss"));
+			newList.add(recruit);
+		}
+		return newList;
+	}
 	/** 
 	* @author  leijj 
 	* 功能： 保存招聘信息
@@ -59,39 +121,37 @@ public class RecruitController extends BaseController {
 	*/ 
 	private String save(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
+		/*
+		user.setOrgFullname(ParamInitUtils.getString(request.getParameter("orgFullname")));
+		user.setLocation(ParamInitUtils.getString(request.getParameter("location")));
+		user.setCoordinate(ParamInitUtils.getString(request.getParameter("coordinate")));
+		user.setOrgNature(ParamInitUtils.getString(request.getParameter("orgNature")));
+		user.setOrgTrade(ParamInitUtils.getString(request.getParameter("orgTrade")));
+		user.setOrgScale(ParamInitUtils.getString(request.getParameter("orgScale")));
+		user.setOrgHomePage(ParamInitUtils.getString(request.getParameter("orgHomePage")));
+		userManager.update(user);
+		*/
+		
 		UserRecruit recruit = new UserRecruit();
 		recruit.setUserId(user.getId());
 		recruit.setUserName(user.getName());
+		//jobName jobPictrue salary working eduReq isFulltime jobAttract
 		recruit.setJobName(ParamInitUtils.getString(request.getParameter("jobName")));
-		recruit.setProvince(ParamInitUtils.getString(request.getParameter("province")));
-		recruit.setCity(ParamInitUtils.getString(request.getParameter("city")));
-		recruit.setArea(ParamInitUtils.getString(request.getParameter("area")));
-		//recruit.setCompanyNature(ParamInitUtils.getString(request.getParameter("companyNature")));
-		//recruit.setJobTrade(ParamInitUtils.getString(request.getParameter("jobTrade")));
-		//recruit.setScale(ParamInitUtils.getString(request.getParameter("scale")));
+		recruit.setJobPictrue(ParamInitUtils.getString(request.getParameter("jobPictrue")));
+		recruit.setSalary(ParamInitUtils.getString(request.getParameter("salary")));
+		recruit.setDays(ParamInitUtils.getString(request.getParameter("days")));
+		recruit.setWorking(ParamInitUtils.getString(request.getParameter("working")));
+		recruit.setEduReq(ParamInitUtils.getString(request.getParameter("eduReq")));
+		recruit.setIsFulltime(ParamInitUtils.getInt(request.getParameter("isFulltime")));
+		recruit.setJobAttract(ParamInitUtils.getString(request.getParameter("jobAttract")));
 		recruit.setContent(ParamInitUtils.getString(request.getParameter("content")));
-		recruit.setCompany(ParamInitUtils.getString(request.getParameter("company")));
 		recruit.setLinkman(ParamInitUtils.getString(request.getParameter("linkman")));
 		recruit.setLinkPhone(ParamInitUtils.getString(request.getParameter("linkPhone")));
 		recruit.setLinkEmail(ParamInitUtils.getString(request.getParameter("linkEmail")));
 		recruit.setCreatetime(DateUtils.getTimestamp());
-		recruit.setPubTime(DateUtils.getTimestamp());
+		//recruit.setPubTime(DateUtils.getTimestamp());
 		recruitManager.save(recruit);
 		return "ok";
-	}
-	/** 
-	* @author  leijj 
-	* 功能： 获取招聘信息列表
-	* @param request
-	* @param response
-	* @param model
-	* @throws Exception 
-	*/ 
-	private void detail(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception{
-		int id = ParamInitUtils.getInt(request.getParameter("id"));
-		UserRecruit recruit = recruitManager.getRecruitByID(id);
-		model.put("recruit", recruit);
-		model.put("@VIEWNAME@", WebUtil.getRoot(request) + "user/recruit/recruitDetail");//跳转至Coupon.jsp页面
 	}
 	private UserManager userManager = (UserManager)Context.getBean(UserManager.class);
 	private RecruitManager recruitManager = (RecruitManager)Context.getBean(RecruitManager.class);

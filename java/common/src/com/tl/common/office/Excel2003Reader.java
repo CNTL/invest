@@ -1,7 +1,6 @@
 package com.tl.common.office;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.Date;
@@ -13,7 +12,6 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
-import com.tl.common.office.Excel2003Reader;
 import com.tl.common.DateUtils;
 import com.tl.common.log.Log;
 import com.tl.common.log.LogFactory;

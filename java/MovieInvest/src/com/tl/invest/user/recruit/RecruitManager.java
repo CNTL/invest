@@ -53,7 +53,7 @@ public class RecruitManager {
 			
 			message.setPageCount(pageCount);
 			int start = (curPage - 1) * length;
-			List<UserRecruit> msgList = queryRecruits(start, length);
+			List<UserRecruit> msgList = queryRecruits(start, length, null, null);
 			message.setMessages(msgList);
 		}
 		return message;
@@ -82,8 +82,11 @@ public class RecruitManager {
 		}
 		return count;
 	}
-	public List<UserRecruit> queryRecruits(int start, int length) throws Exception{
+	public List<UserRecruit> queryRecruits(int start, int length, String typeFlag, Integer userId) throws Exception{
 		StringBuilder querySql = new StringBuilder("select a from com.tl.invest.user.recruit.UserRecruit as a");
+		if("edit".equals(typeFlag)){//管理我的简历，则增加当前用户查询条件
+			querySql.append(" where a.userId=").append(userId);
+		}
 		querySql.append(" order by createTime desc");
 		List list = DAOHelper.find(querySql.toString() , start, length);
         if(list.size() > 0)
@@ -92,7 +95,19 @@ public class RecruitManager {
             return null;
         
 	}
-	
+	public List<UserRecruit> queryHot(int start, int length, String typeFlag, Integer userId) throws Exception{
+		StringBuilder querySql = new StringBuilder("select a from com.tl.invest.user.recruit.UserRecruit as a");
+		if("edit".equals(typeFlag)){//管理我的简历，则增加当前用户查询条件
+			querySql.append(" where a.userId=").append(userId);
+		}
+		querySql.append(" order by resumeNum desc");
+		List list = DAOHelper.find(querySql.toString() , start, length);
+        if(list.size() > 0)
+            return list;
+        else
+            return null;
+        
+	}
 	public void save(UserRecruit recruit) throws Exception{
 	     
 	    DAO dao = new DAO();

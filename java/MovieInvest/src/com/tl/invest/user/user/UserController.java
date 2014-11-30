@@ -170,7 +170,10 @@ public class UserController extends BaseController {
 	private void orgDetailInfo(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
 		user.setOrgFullname(ParamInitUtils.getString(request.getParameter("orgFullname")));
-		user.setOrgAddress(ParamInitUtils.getString(request.getParameter("orgAddress")));
+		user.setProvince(ParamInitUtils.getString(request.getParameter("province")));//省份
+		user.setCity(ParamInitUtils.getString(request.getParameter("city")));//城市
+		user.setLocation(ParamInitUtils.getString(request.getParameter("location")));
+		user.setCoordinate(ParamInitUtils.getString(request.getParameter("coordinate")));
 		user.setOrgNature(ParamInitUtils.getString(request.getParameter("orgNature")));
 		user.setOrgTrade(ParamInitUtils.getString(request.getParameter("orgTrade")));
 		user.setOrgScale(ParamInitUtils.getString(request.getParameter("orgScale")));
@@ -237,8 +240,8 @@ public class UserController extends BaseController {
 	private void userRelAuth(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
 		user.setName(ParamInitUtils.getString(request.getParameter("name")));//姓名
-		user.setPerProvince(ParamInitUtils.getString(request.getParameter("perProvince")));//省份
-		user.setPerCity(ParamInitUtils.getString(request.getParameter("perCity")));//城市
+		user.setProvince(ParamInitUtils.getString(request.getParameter("province")));//省份
+		user.setCity(ParamInitUtils.getString(request.getParameter("city")));//城市
 		user.setPerJob(ParamInitUtils.getString(request.getParameter("perJob")));//职业
 		user.setPerPhone(ParamInitUtils.getString(request.getParameter("perPhone")));//手机号
 		user.setIdentityCard(ParamInitUtils.getString(request.getParameter("identityCard")));//身份证
@@ -260,6 +263,7 @@ public class UserController extends BaseController {
 		}
 		//openingBank//开户行
 		userManager.update(user);
+		output("ok", response);
 	}
 	
 	private String works(HttpServletRequest request, HttpServletResponse response) throws Exception{
