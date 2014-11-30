@@ -24,14 +24,14 @@ var pwdChange = {
 
 		$.ajax({
 			type: "POST",
-			url: "../../user/user.do?a=pwdEdit",
+			url: "../user/user.do?a=pwdEdit",
 			data: $.param(params),
 			dataType: "text",
 			success:function(data){
 	    		if(data != null && data == 'ok'){
 	    			$.messager.confirm('消息', '修改密码成功，请重新登录?', function(r){
 	    				if (r){
-	    					parent.location.href = '../../userout/userLogin.jsp';
+	    					parent.location.href = '../userout/userLogin.jsp';
 	    				}
 	    			});
 	    		} else {

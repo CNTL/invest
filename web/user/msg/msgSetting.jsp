@@ -7,8 +7,14 @@
 <meta name="keywords" content="合众映画" />
 <meta name="description" content="合众映画" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon" />
 <link rel="stylesheet" type="text/css" href="../css/userCenter.css">
+<link rel="stylesheet" type="text/css" href="../../static/css/reset.css" />
+<link rel="stylesheet" type="text/css" href="../../static/css/index.css" />
+
 <script type="text/javascript" src="../../js/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../static/js/common.js"></script>
+<script type="text/javascript" src="../../user/common/head.js"></script>
 <script type="text/javascript" src="../../js/plugin/backstretch/jquery.backstretch.min.js"></script>
 <script type="text/javascript" src="../../js/plugin/jquery-validate/js/jquery.validationEngine.js"></script>
 <script type="text/javascript" src="../../js/plugin/jquery-validate/js/languages/jquery.validationEngine-zh_CN.js"></script>

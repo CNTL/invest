@@ -17,11 +17,12 @@ var jobEdit = {
 		//实例化编辑器
 	    //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
 	    UE.getEditor('content', { initialFrameHeight: 300 });
+	    $("#mapSearch").attr("onclick","getMap();");
 	},
 	submit : function(){
 		$.ajax({
 	        type:"POST", //请求方式  
-	        url:"../../user/recruit.do?a=save", //请求路径  
+	        url:"../user/recruit.do?a=save", //请求路径  
 	        cache: false,
 	        data:$('#form').serialize(),  //传参 
 	        dataType: 'text',   //返回值类型  
@@ -38,4 +39,7 @@ var jobEdit = {
 			}
 	    });
 	}
+}
+function getMap(){
+	window.open("../common/MsgMap.jsp");
 }

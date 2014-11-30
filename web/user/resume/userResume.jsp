@@ -1,10 +1,13 @@
 <%@page pageEncoding="UTF-8"%>
 <!doctype html>
-<html><head>
+<html>
+<head>
+<title>合众映画</title>
 <meta charset="utf-8">
-<title>影投网-中国最具影响力的影投平台</title>
-<meta name="keywords" content="影投 创业 项目 投资 支持">
-<meta name="description" content="在影投网发布项目，获得投资支持，实现你的创业梦想">
+<meta name="keywords" content="合众映画" />
+<meta name="description" content="合众映画" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon" />
 <link rel="stylesheet" type="text/css" href="../../js/plugin/jquery-validate/css/validationEngine.jquery.css"/>
 <link rel="stylesheet" type="text/css" media="screen" href="../../js/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="../../js/jquery-easyui/themes/default/easyui.css">

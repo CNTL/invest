@@ -7,10 +7,12 @@ String rootPath = request.getScheme() + "://" + request.getServerName() +
 <!DOCTYPE html>
 <html>
 <head>
+<title>合众映画</title>
 <meta charset="utf-8">
-<title>众筹网-中国最具影响力的众筹平台</title>
-<meta name="keywords" content="众筹 创业 项目 投资 支持">
-<meta name="description" content="在众筹网发布项目，获得投资支持，实现你的创业梦想">
+<meta name="keywords" content="合众映画" />
+<meta name="description" content="合众映画" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon" />
 <link rel="stylesheet" type="text/css" href="../../js/plugin/jquery-validate/css/validationEngine.jquery.css"/>
 <link type="text/css" rel="stylesheet" href="../../js/plugin/jquery-autocomplete/jquery.autocomplete.css"/>
 <link rel="stylesheet" type="text/css" media="screen" href="../../js/bootstrap/css/bootstrap.min.css">

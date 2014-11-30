@@ -16,7 +16,7 @@ var complete = {
 	init : function(){
 		$.ajax({
 	        type:"GET", //请求方式  
-	        url:"../../user/user.do?a=findLogin", //请求路径  
+	        url:"../user/user.do?a=findLogin", //请求路径  
 	        cache: false,
 	        dataType: 'JSON',   //返回值类型  
 	        success:function(data){
@@ -36,7 +36,7 @@ var complete = {
 	submit : function(){
 		$.ajax({
 	        type:"POST", //请求方式  
-	        url:"../../user/user.do?a=userBasicInfo", //请求路径  
+	        url:"../user/user.do?a=userBasicInfo", //请求路径  
 	        cache: false,
 	        data:$('#form').serialize(),  //传参 
 	        dataType: 'text',   //返回值类型  

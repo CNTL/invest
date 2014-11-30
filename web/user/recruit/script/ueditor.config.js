@@ -20,7 +20,7 @@
      * window.UEDITOR_HOME_URL = "/xxxx/xxxx/";
      */
     //var URL = window.UEDITOR_HOME_URL || getUEBasePath();
-    var URL = rootURL+"ueditor/";
+    var URL = rootPath+"ueditor/";
     var uploadURL = "upload/ueditor/";
     /**
      * 配置项主体。注意，此处所有涉及到路径的配置别遗漏URL变量。

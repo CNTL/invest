@@ -14,6 +14,7 @@
 	<meta name="keywords" content="合众映画" />
 	<meta name="description" content="合众映画" />
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon" />
  	<link type="text/css" rel="stylesheet" href="../../js/plugin/jquery-validate/css/validationEngine.jquery.css"/>
     <link href="../../css/adminlogin.css" rel="stylesheet" type="text/css" />
     <link href="../../css/components.css" rel="stylesheet" type="text/css" />

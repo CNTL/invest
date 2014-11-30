@@ -22,7 +22,7 @@ var relAuth = {
 	init : function(){
 		$.ajax({
 	        type:"GET", //请求方式  
-	        url:"../../user/user.do?a=findLogin", //请求路径  
+	        url:"../user/user.do?a=findLogin", //请求路径  
 	        cache: false,
 	        dataType: 'JSON',   //返回值类型  
 	        success:function(data){
@@ -31,13 +31,13 @@ var relAuth = {
 	    			$("#name").val(data.name);
 	    			$("#identityCard").val(data.identityCard);
 	    			if(data.organization != null && data.organization.length > 0){
-	    				var srcUrl = relAuth.imgPath(data.organization);
+	    				var srcUrl = data.organization;
 	    				$("#organization").val(srcUrl);
 	    				$("#organizationImg").attr("src", basePath + srcUrl);
 	    				$("#organizationImg").parent().show();
 	    			}
 	    			if(data.orgBusinessLicense != null && data.orgBusinessLicense.length > 0) {
-	    				var srcUrl = relAuth.imgPath(data.orgBusinessLicense);
+	    				var srcUrl = data.orgBusinessLicense;
 	    				$("#orgBusinessLicense").val(srcUrl);
 	    				$("#orgBusinessLicenseImg").attr("src", basePath + srcUrl);
 	    				$("#orgBusinessLicenseImg").parent().show();
@@ -73,7 +73,7 @@ var relAuth = {
 		if(flag == true){
 			$.ajax({
 		        type:"POST", //请求方式  
-		        url:"../../user/user.do?a=orgRelAuth", //请求路径  
+		        url:"../user/user.do?a=orgRelAuth", //请求路径  
 		        cache: false,
 		        data:$('#form').serialize(),  //传参 
 		        dataType: 'text',   //返回值类型  
@@ -102,7 +102,7 @@ var relAuth = {
 	        });
 	        var elementIds=[id]; //flag为id、name属性名
 	        $.ajaxFileUpload({
-	            url: '../../user/user.do?a=uploadAtt&field=' + id, 
+	            url: '../user/user.do?a=uploadAtt&field=' + id, 
 	            type: 'post',
 	            secureuri: false, //一般设置为false
 	            fileElementId: id + "File", // 上传文件的id、name属性名
@@ -110,7 +110,7 @@ var relAuth = {
 	            elementIds: elementIds, //传递参数到服务器
 	            success: function(data, status){
 	            	if(data != null && data.length > 0){
-	            		var srcUrl = imgPath(data);
+	            		var srcUrl = relAuth.imgPath(data);
 	                	if(srcUrl.length > 0){
 	                		$("#" + id).val(srcUrl);
 	                		$("#" + id + "Img").attr("src", basePath + srcUrl);
@@ -141,7 +141,6 @@ var relAuth = {
     //校验上传文件
     checkPic : function(id) {
     	var location = document.getElementById(id + "File").value;
-    	alert(id)
     	if (location == "") {
     		$.messager.alert('消息', "请先选择图片文件");
     		return false;

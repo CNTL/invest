@@ -22,18 +22,23 @@ var relAuth = {
 	init : function(){
 		$.ajax({
 	        type:"GET", //请求方式  
-	        url:"../../user/user.do?a=findLogin", //请求路径  
+	        url:"../user/user.do?a=findLogin", //请求路径  
 	        cache: false,
 	        dataType: 'JSON',   //返回值类型  
 	        success:function(data){
 	    		if(data != null){
 	    			$("#name").val(data.name);
-	    			$("#perProvince").val(data.perProvince);//下拉框
-	    			load_city(data.perCity);
+	    			$("#province").val(data.province);//下拉框
+	    			if(data.city != null && data.city.length > 0){
+	    				load_city(data.city);
+	    			}
 	    			$("#perJob").val(data.perJob);//下拉框
 	    			$("#perPhone").val(data.perPhone);
 	    			$("#identityCard").val(data.identityCard);
-	    			var bankcards = eval(data.bankcards);
+	    			var bankcards = null;
+	    			if(data.bankcards != null && data.bankcards.length > 0)
+	    				bankcards = eval(data.bankcards);
+	    			
 	    			if(bankcards != null && bankcards.length > 0){
 	    				$("#openingBanks").val(bankcards[0].openingBank);//银行卡开户行
 		    			$("#bankNums").val(bankcards[0].bankNum);//银行卡号
@@ -48,7 +53,7 @@ var relAuth = {
 	submit : function(){
 		$.ajax({
 	        type:"POST", //请求方式  
-	        url:"../../user/user.do?a=userRelAuth", //请求路径  
+	        url:"../user/user.do?a=userRelAuth", //请求路径  
 	        cache: false,
 	        data:$('#form').serialize(),  //传参 
 	        dataType: 'text',   //返回值类型  

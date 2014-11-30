@@ -13,19 +13,18 @@ $(document).ready(function () {
 	});
 });
 var detail = {
-	mapInit : function(){
-		var map = new BMap.Map("allmap");
-	},
 	init : function(){
+		$("#mapSearch").attr("onclick","getMap();");
 		$.ajax({
 	        type:"GET", //请求方式  
-	        url:"../../user/user.do?a=findLogin", //请求路径  
+	        url:"../user/user.do?a=findLogin", //请求路径  
 	        cache: false,
 	        dataType: 'JSON',   //返回值类型  
 	        success:function(data){
 	    		if(data != null){
 	    			$("#orgFullname").val(data.orgFullname);
-	    			$("#orgAddress").val(data.orgAddress);
+	    			$("#location").val(data.location);
+	    			$("#coordinate").val(data.coordinate);
 	    			$("#orgNature").val(data.orgNature);
 	    			$("#orgTrade").val(data.orgTrade);
 	    			$("#orgScale").val(data.orgScale);
@@ -40,7 +39,7 @@ var detail = {
 	submit : function(){
 		$.ajax({
 	        type:"POST", //请求方式  
-	        url:"../../user/user.do?a=orgDetailInfo", //请求路径  
+	        url:"../user/user.do?a=orgDetailInfo", //请求路径  
 	        cache: false,
 	        data:$('#form').serialize(),  //传参 
 	        dataType: 'text',   //返回值类型  
@@ -58,18 +57,6 @@ var detail = {
 	    });
 	}
 }
-var mapDialog;
 function getMap(){
-    e5.dialog.close("mapDialog");
-    mapDialog = e5.dialog("", {
-        title : "查找位置",
-        id : "mapDialog",
-        width : 1000,
-        height : 700,
-        resizable : true,
-        showClose : true,
-        ishide : true 
-    });
-    mapDialog.DOM.content.append($("#msgMap"));
-    mapDialog.show();
+	window.open("../user/common/MsgMap.jsp");
 }
