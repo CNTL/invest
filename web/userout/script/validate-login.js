@@ -117,9 +117,9 @@ var Login = function () {
 				var type = data.type;
 				if(type != null){
 					if(type == 0){//个人用户登录后
-						window.location.replace("../user/userSetting.jsp");
+						window.location.replace("../user/BasicInfo.do?infoType=1");
 					} else if(type == 1){//机构用户登录后
-						window.location.replace("../user/orgSetting.jsp");
+						window.location.replace("../org/BasicInfo.do?infoType=1");
 					}
 				}
 			}

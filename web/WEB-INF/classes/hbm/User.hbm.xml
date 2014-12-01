@@ -3,159 +3,129 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Nov 17, 2014 3:11:25 PM by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-    <class name="com.tl.invest.user.user.User" table="user" catalog="movieinvest">
+    <class name="com.tl.invest.user.user.User" table="user">
         <id name="id" type="int">
             <column name="id" />
             <generator class="assigned" />
         </id>
         <property name="type" type="java.lang.Integer">
             <column name="type">
-                <comment>&#215;&#162;&#178;&#225;&#192;&#224;&#208;&#205;&#163;&#186;0-&#184;&#246;&#200;&#203;&#161;&#162;2-&#187;&#250;&#185;&#185;</comment>
             </column>
         </property>
         <property name="code" type="string">
             <column name="code">
-                <comment>&#181;&#199;&#194;&#188;&#213;&#203;&#186;&#197;</comment>
             </column>
         </property>
         <property name="email" type="string">
             <column name="email">
-                <comment>&#211;&#202;&#207;&#228;&#163;&#186;&#206;&#170;&#193;&#203;&#213;&#210;&#187;&#216;&#195;&#220;&#194;&#235;&#202;&#185;&#211;&#195;</comment>
             </column>
         </property>
         <property name="password" type="string">
             <column name="password">
-                <comment>&#195;&#220;&#194;&#235;</comment>
             </column>
         </property>
         <property name="name" type="string">
             <column name="name">
-                <comment>
-                &#208;&#213;&#195;&#251;&#163;&#168;&#183;&#168;&#200;&#203;&#180;&#250;&#177;&#237;&#163;&#169;&#163;&#186;&#202;&#181;&#195;&#251;&#200;&#207;&#214;&#164;&#202;&#177;&#177;&#216;&#208;&#235;</comment>
             </column>
         </property>
         <property name="identityCard" type="string">
             <column name="identityCard">
-                <comment>
-                &#201;&#237;&#183;&#221;&#214;&#164;&#163;&#168;&#183;&#168;&#200;&#203;&#180;&#250;&#177;&#237;&#163;&#169;-&#202;&#181;&#195;&#251;&#200;&#207;&#214;&#164;&#202;&#177;&#208;&#232;&#210;&#170;&#204;&#238;&#208;&#180;</comment>
             </column>
         </property>
         <property name="head" type="string">
             <column name="head">
-                <comment>&#205;&#183;&#207;&#241;</comment>
             </column>
         </property>
         <property name="intro" type="string">
             <column name="intro" length="65535">
-                <comment>&#188;&#242;&#189;&#233;&#163;&#186;&#184;&#246;&#200;&#203;&#189;&#233;&#201;&#220;&#161;&#162;&#187;&#250;&#185;&#185;&#189;&#233;&#201;&#220;</comment>
             </column>
         </property>
         <property name="background" type="string">
             <column name="background" length="4000">
-                <comment>&#177;&#179;&#190;&#176;</comment>
             </column>
         </property>
         <property name="isRealNameIdent" type="java.lang.Integer">
             <column name="isRealNameIdent">
-                <comment>
-                &#202;&#199;&#183;&#241;&#210;&#209;&#190;&#173;&#202;&#181;&#195;&#251;&#200;&#207;&#214;&#164;&#163;&#186;0=&#206;&#180;&#200;&#207;&#214;&#164;,1=&#200;&#207;&#214;&#164;</comment>
             </column>
         </property>
-        <property name="createTime" type="timestamp">
+        <property name="createTime" type="java.sql.Timestamp">
             <column name="createTime" length="19">
-                <comment>&#180;&#180;&#189;&#168;&#202;&#177;&#188;&#228;</comment>
             </column>
         </property>
         <property name="qqOpenId" type="string">
             <column name="qqOpenID">
-                <comment>Qq&#181;&#199;&#194;&#188;OpenID</comment>
             </column>
         </property>
         <property name="xlWeiboCode" type="string">
             <column name="xlWeiboCode">
-                <comment>&#208;&#194;&#192;&#203;&#206;&#162;&#178;&#169;&#181;&#199;&#194;&#188;&#234;&#199;&#179;&#198;</comment>
             </column>
         </property>
         <property name="perNickName" type="string">
             <column name="perNickName">
-                <comment>&#234;&#199;&#179;&#198;</comment>
             </column>
         </property>
         <property name="perPostAddr" type="string">
             <column name="perPostAddr">
-                <comment>&#211;&#202;&#188;&#196;&#181;&#216;&#214;&#183;</comment>
             </column>
         </property>
         <property name="perPostCode" type="string">
             <column name="perPostCode">
-                <comment>&#211;&#202;&#188;&#196;&#211;&#202;&#177;&#224;</comment>
             </column>
         </property>
-        <property name="perProvince" type="string">
-            <column name="perProvince">
-                <comment>&#185;&#164;&#215;&#247;&#203;&#249;&#212;&#218;&#181;&#216;&#163;&#186;&#202;&#161;</comment>
+        <property name="province" type="string">
+            <column name="province">
             </column>
         </property>
-        <property name="perCity" type="string">
-            <column name="perCity">
-                <comment>&#185;&#164;&#215;&#247;&#203;&#249;&#212;&#218;&#181;&#216;&#163;&#186;&#202;&#208;</comment>
+        <property name="city" type="string">
+            <column name="city">
             </column>
         </property>
         <property name="perJob" type="string">
             <column name="perJob">
-                <comment>&#214;&#176;&#210;&#181;</comment>
             </column>
         </property>
         <property name="perPhone" type="string">
             <column name="perPhone">
-                <comment>&#202;&#214;&#187;&#250;&#163;&#186;&#202;&#181;&#195;&#251;&#200;&#207;&#214;&#164;&#202;&#177;&#208;&#232;&#210;&#170;&#204;&#238;&#208;&#180;</comment>
             </column>
         </property>
         <property name="orgShortname" type="string">
             <column name="orgShortname">
-                <comment>&#187;&#250;&#185;&#185;&#188;&#242;&#179;&#198;</comment>
             </column>
         </property>
         <property name="orgFullname" type="string">
             <column name="orgFullname">
-                <comment>&#187;&#250;&#185;&#185;&#200;&#171;&#179;&#198;</comment>
             </column>
         </property>
         <property name="organization" type="string">
             <column name="organization">
-                <comment>
-                &#198;&#243;&#210;&#181;&#215;&#233;&#214;&#175;&#187;&#250;&#185;&#185;&#214;&#164;&#188;&#254;&#213;&#213;&#163;&#186;&#198;&#243;&#210;&#181;&#202;&#181;&#195;&#251;&#200;&#207;&#214;&#164;&#202;&#177;&#208;&#232;&#210;&#170;&#204;&#238;&#208;&#180;</comment>
             </column>
         </property>
         <property name="orgBusinessLicense" type="string">
             <column name="orgBusinessLicense">
-                <comment>
-                &#198;&#243;&#210;&#181;&#211;&#170;&#210;&#181;&#214;&#180;&#213;&#213;&#201;&#168;&#195;&#232;&#188;&#254;&#163;&#186;&#198;&#243;&#210;&#181;&#202;&#181;&#195;&#251;&#200;&#207;&#214;&#164;&#202;&#177;&#208;&#232;&#210;&#170;&#204;&#238;&#208;&#180;</comment>
             </column>
         </property>
-        <property name="orgAddress" type="string">
-            <column name="orgAddress">
-                <comment>&#185;&#171;&#203;&#190;&#181;&#216;&#181;&#227;</comment>
+        <property name="location" type="string">
+            <column name="location">
+            </column>
+        </property>
+        <property name="coordinate" type="string">
+            <column name="coordinate">
             </column>
         </property>
         <property name="orgNature" type="string">
             <column name="orgNature">
-                <comment>&#185;&#171;&#203;&#190;&#208;&#212;&#214;&#202;</comment>
             </column>
         </property>
         <property name="orgTrade" type="string">
             <column name="orgTrade">
-                <comment>&#185;&#171;&#203;&#190;&#208;&#208;&#210;&#181;</comment>
             </column>
         </property>
         <property name="orgScale" type="string">
             <column name="orgScale">
-                <comment>&#185;&#171;&#203;&#190;&#185;&#230;&#196;&#163;</comment>
             </column>
         </property>
         <property name="orgHomePage" type="string">
             <column name="orgHomePage">
-                <comment>&#185;&#171;&#203;&#190;&#214;&#247;&#210;&#179;</comment>
             </column>
         </property>
     </class>

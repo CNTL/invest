@@ -67,6 +67,61 @@
 		<property name="viewName"><value>proj/Add</value></property>
 	</bean>
 	
+	<!-- 个人用户页面 -->
+	<bean id="user.BasicInfo" class="com.tl.invest.user.user.UserMainController">
+		<property name="viewName"><value>user/user/userBasicInfo</value></property>
+	</bean>
+	<bean id="user.HeadImg" class="com.tl.invest.user.user.UserMainController">
+		<property name="viewName"><value>user/user/userHeadImg</value></property>
+	</bean>
+	<bean id="user.Intro" class="com.tl.invest.user.user.UserMainController">
+		<property name="viewName"><value>user/user/userIntro</value></property>
+	</bean>
+	<bean id="user.PwdChange" class="com.tl.invest.user.user.UserMainController">
+		<property name="viewName"><value>user/user/userPwdChange</value></property>
+	</bean>
+	<bean id="user.RelAuth" class="com.tl.invest.user.user.UserMainController">
+		<property name="viewName"><value>user/user/userRelAuth</value></property>
+	</bean>
+	<bean id="user.Photo" class="com.tl.invest.user.user.UserMainController">
+		<property name="viewName"><value>user/photo/userPhoto</value></property>
+	</bean>
+	<bean id="user.Video" class="com.tl.invest.user.user.UserMainController">
+		<property name="viewName"><value>user/video/userVideoList</value></property>
+	</bean>
+	<!-- 机构用户页面 -->
+	<bean id="org.BasicInfo" class="com.tl.invest.user.user.OrgMainController">
+		<property name="viewName"><value>user/user/orgBasicInfo</value></property>
+	</bean>
+	<bean id="org.HeadImg" class="com.tl.invest.user.user.OrgMainController">
+		<property name="viewName"><value>user/user/userHeadImg</value></property>
+	</bean>
+	<bean id="org.PwdChange" class="com.tl.invest.user.user.OrgMainController">
+		<property name="viewName"><value>user/user/userPwdChange</value></property>
+	</bean>
+	<bean id="org.DetailInfo" class="com.tl.invest.user.user.OrgMainController">
+		<property name="viewName"><value>user/user/orgDetailInfo</value></property>
+	</bean>
+	<bean id="org.RelAuth" class="com.tl.invest.user.user.OrgMainController">
+		<property name="viewName"><value>user/user/orgRelAuth</value></property>
+	</bean>
+	<bean id="org.Photo" class="com.tl.invest.user.user.OrgMainController">
+		<property name="viewName"><value>user/photo/userPhoto</value></property>
+	</bean>
+	<bean id="org.Video" class="com.tl.invest.user.user.OrgMainController">
+		<property name="viewName"><value>user/video/userVideoList</value></property>
+	</bean>
+	<!-- 招聘列表、细览、修改 -->
+	<bean id="recruit.List" class="com.tl.invest.user.user.OrgMainController">
+		<property name="viewName"><value>user/recruit/recruitList</value></property>
+	</bean>
+	<bean id="recruit.Detail" class="com.tl.invest.user.recruit.RecruitMainController">
+		<property name="viewName"><value>user/recruit/recruitDetail</value></property>
+	</bean>
+	<bean id="recruit.Edit" class="com.tl.invest.user.recruit.RecruitMainController">
+		<property name="viewName"><value>user/recruit/recruitEdit</value></property>
+	</bean>
+	
 	<bean id="user.UserMsg" class="com.tl.invest.user.msg.UserMsgController">
 	</bean>
 	<bean id="user.Recruit" class="com.tl.invest.user.recruit.RecruitController">
@@ -94,6 +149,23 @@
 				<prop key="/admin/sysParam.do">sys.Param</prop>
 				
 				<!-- 用户管理 -->
+				<prop key="/user/BasicInfo.do">user.BasicInfo</prop>
+				<prop key="/user/HeadImg.do">user.HeadImg</prop>
+				<prop key="/user/Intro.do">user.Intro</prop>
+				<prop key="/user/PwdChange.do">user.PwdChange</prop>
+				<prop key="/user/RelAuth.do">user.RelAuth</prop>
+				<prop key="/user/Photo.do">user.Photo</prop>
+				<prop key="/user/Video.do">user.Video</prop>
+				
+				<prop key="/org/BasicInfo.do">org.BasicInfo</prop>
+				<prop key="/org/HeadImg.do">org.HeadImg</prop>
+				<prop key="/org/PwdChange.do">org.PwdChange</prop>
+				<prop key="/org/DetailInfo.do">org.DetailInfo</prop>
+				<prop key="/org/RelAuth.do">org.RelAuth</prop>
+				<prop key="/org/Photo.do">org.Photo</prop>
+				<prop key="/org/Vidorgo">org.Video</prop>
+				
+				
 				<prop key="/user/userlogin.do">user.Login</prop>
 				<prop key="/user/user.do">user.User</prop>
 				<prop key="/user/userFetch.do">user.UserFetch</prop>
@@ -102,6 +174,9 @@
 				<prop key="/user/msg.do">user.UserMsg</prop>
 				<prop key="/user/resume.do">user.UserResume</prop>
 				<!-- 招聘管理 -->
+				<prop key="/recruit/List.do">recruit.List</prop>
+				<prop key="/recruit/Detail.do">recruit.Detail</prop>
+				<prop key="/recruit/Edit.do">recruit.Edit</prop>
 				<prop key="/user/recruit.do">user.Recruit</prop>
 				<!-- 我的视频 -->
 				<prop key="/user/video.do">user.UserVideo</prop>

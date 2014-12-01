@@ -31,4 +31,4 @@ $(function () {
     $('#k').focus(function() {
         $(this).val('');
     });
-})
+});

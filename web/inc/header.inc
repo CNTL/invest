@@ -1,4 +1,5 @@
-﻿<div class="header">
+﻿<%@page pageEncoding="UTF-8"%>
+<div class="header">
 	<div class="logo">
 		<a href="javascript:void(0);" title="合众映画"></a>
 	</div>
