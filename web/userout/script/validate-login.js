@@ -5,20 +5,10 @@ $(document).ready(function () {
 		onValidationComplete:function(from,r){
 			if (r){
 				window.onbeforeunload = null;
-				$("#login").attr("disabled", true);
 				Login.doAction();
 			}
 		}
 	});
-    $.backstretch([
-	     "../img/loginbg/1.jpg",
-	     "../img/loginbg/2.jpg",
-	     "../img/loginbg/3.jpg",
-	     "../img/loginbg/4.jpg"
-    ], {
-        fade: 1000,
-        duration: 8000
-    });
 });
 var Login = function () {
 
@@ -77,31 +67,32 @@ var Login = function () {
                 return false;
             }
         });
-	}
+	};
 
 	var doAction = function (){
 		var params = {
 			"usercode": encodeSpecialCode($("#usercode").val()), 
 			"password": encodeSpecialCode($("#password").val())
 		};
-
 		$.ajax({
 			type: "POST",
 			url: "../user/userlogin.do?a=login",
 			data: $.param(params),
 			dataType: "json",
 			success : function(data) {
-				if(data!=null&&parseInt(data.id,10)>0){
-					setCookie("login$UserCode",document.getElementById("usercode").value);
+				if(data != null && data != '' && parseInt(data.id,10)>0){
+					setCookie("loginInvest$UserCode","");
+					if($("#auto").attr("checked")=="checked"){
+						setCookie("loginInvest$UserCode",document.getElementById("usercode").value);
+					}
 					doAuth(data);
 				}
 				else{
-					 $('.alert-danger', $('#form')).find("span").text("用户名或密码错误。");
-					 $('.alert-danger', $('#form')).show();
+					$.messager.alert('消息','用户名或密码错误！'); 
 				}
 			}
 		});
-	}
+	};
 	
 	var doAuth = function(user){
 		var params = {
@@ -151,20 +142,10 @@ var Login = function () {
 		$.get(keyUrl, function(data) {
 		});
 	};
-	/*var validate = function(){
-		var usercode = $("#usercode").val();
-		if(usercode == null || usercode.length <= 0){
-			$("#usercode").addClass("form-control validate[maxSize[255],funcCall[userCodeVal]]");
-		}
-		var password = $("#password").val();
-		if(password == null || password.length <= 0){
-			$("#password").addClass("form-control validate[maxSize[255],funcCall[passwordVal]]");
-		}
-	}*/
     return {
         //main function to initiate the module
         init: function () {
-        	$("#usercode").val(getCookie("login$UserCode"));
+        	$("#usercode").val(getCookie("loginInvest$UserCode"));
             handleLogin();
             //weiboInit();
             $("#register").click(register);
@@ -172,9 +153,3 @@ var Login = function () {
     };
 
 }();
-function userCodeVal(){
-	return '请输入登录用户名！';
-}
-function passwordVal(){
-	return '请输入登录密码！';
-}

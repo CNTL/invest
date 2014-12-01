@@ -1,20 +1,15 @@
+<%@ include file="../../include/Include.jsp"%>
 <%@page pageEncoding="UTF-8"%>
-<%
-String basePath = request.getScheme() + "://" + request.getServerName() + 
-	":" + request.getServerPort() + request.getContextPath() + "/";
-%>
-<!DOCTYPE html>
+<!doctype html>
 <html>
 <head>
-    <title>用户注册</title>
-    <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="../js/plugin/jquery-validate/css/validationEngine.jquery.css"/>
-    <link rel="stylesheet" type="text/css" href="../js/jquery-easyui/themes/default/easyui.css">
-    <link rel="stylesheet" type="text/css" href="./css/style.css">
-  	 <script type="text/javascript">
-		var rootURL = "<%=basePath %>";
-	</script>
-  	<script type="text/javascript" src="../js/jquery/jquery.min.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>合众映画</title>
+    <meta name="keywords" content="合众映画" />
+    <meta name="description" content="合众映画" />
+    <%@include file="../user/inc/csslink.inc"%>
+    <!-- script -->
+	<script type="text/javascript" src="../js/jquery/jquery.min.js"></script>
 	<script type="text/javascript" src="../js/bootstrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="../js/jquery-easyui/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="../js/plugin/jquery-validate/jquery.validate.min.js"></script>
@@ -22,60 +17,78 @@ String basePath = request.getScheme() + "://" + request.getServerName() +
 	<script type="text/javascript" src="../js/plugin/jquery-validate/js/languages/jquery.validationEngine-zh_CN.js"></script>
     <script type="text/javascript" src="../js/plugin/backstretch/jquery.backstretch.min.js"></script>
 	<script type="text/javascript" src="../js/utils.js"></script>
-	<!-- <script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101154766" data-redirecturi="http://leijuan1014.oicp.net/qc_callback.html" charset="utf-8"></script> -->
-	<!-- <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=3062596557&debug=true" type="text/javascript" charset="utf-8"></script> -->
- 	<style type="text/css">
-  	.registor_now{color:#019875;background:url(./img/registor_now.png) right center no-repeat; padding-right:24px; float:left; height:30px;line-height:30px;}
-	.registor_now:hover{color:#019875; text-decoration:underline;}
-  	.icon_wb{width:54px; height:54px; float:left; background:url(./img/wbqq.png) left top no-repeat; margin:0 30px 0 10px;}
-	.icon_qq{width:54px; height:54px; float:left; background:url(./img/wbqq.png) right top no-repeat;}
-	.qqsina{height: 85px;background: #f2fffc; border-bottom-left-radius: 3px;border-bottom-right-radius: 3px;border-top: 1px dotted #e2ebe9;padding: 0 30px;padding-top: 25px;position: relative;}
-	.qqsina div{font-size: 14px;display: inline-block;*zoom:1;*display:inline;position: absolute;left: 30px;top: 38px;}
-	.qqsina a{position:absolute;background: url(./img/qqsina.png)  no-repeat;display: inline-block;width: 46px; height: 46px;*zoom:1;*display:inline;}
-	.qqsina a.icon_wb{left: 225px; top:23px;}
-	.register_radio{list-style:none; margin:0 0 20px 0; padding:0;}
-	.register_radio li{width:148px; height:42px; font-size:18px; color:#555; text-align:center; line-height:42px;float:left; background:#fff; margin:15px 11px 0 0; border:2px solid #fafafa; cursor:pointer; position:relative;}
-	.register_radio li:hover{border:2px solid #93b7bb;}
-	.register_radio li.current{border:2px solid #93b7bb;}
-	.register_radio li em{ background:url(./img/s_choose.png) no-repeat; width:31px; height:32px; position:absolute; right:-1px; top:-1px;}
-	.register_radio li input[type="radio"]{cursor:pointer;position:absolute;left:-2px;top:-2px;margin:0;width:152px;height:46px;filter:alpha(Opacity=0);-moz-opacity:0;opacity: 0; }
-	.register_radio input[type="radio"]{display:block;}
-  	</style>
+	<script type="text/javascript">
+	var rootURL = "<%=com.tl.common.WebUtil.getRoot(request) %>";
+	</script>
+	<!-- script -->
 </head>
-<!-- END HEAD -->
 
-<body class="login">
-	<div class="login_wrapper">
-		<div class="login_box">
-			<form id="form" action="" method="post">
-	      		<ul class="register_radio clearfix">
-		            <li class="current">
-		            	个人<input type="radio" value="0" name="type" checked> 
-		            </li>
-		            <li class="">
-		           	           机构<input type="radio" value="1" name="type"> 
-		            </li>
-		        </ul>
-	            <input type="text" class="form-control validate[maxSize[255],required]" id="code" name="code" placeholder="请输入用户名"/>
-                <input type="text" class="form-control validate[maxSize[255],required]" id="email" name="email" placeholder="请输入邮箱"/>
-				<input type="password" class="form-control validate[maxSize[255],required]" onchange="checkpassword();" value="" id="password" name="password" placeholder="请输入密码">
-				<input type="password" class="form-control validate[maxSize[255],required]" onchange="checkpassword_again();" value="" id="pwdagain" name="pwdagain" placeholder="请再次输入密码">
-	            <input type="text" class="form-control validate[maxSize[255],required]" onchange="checkMyVal();" id="myVal" name="myVal"  placeholder="请输入校验码"/>
-	            <img id="validateCode" src=""></img><a onclick="changeValPic();">换一张</a>
-	            <input type="hidden" id="curVal" name="curVal" value=""/>
-	            <br><br>
-	            <input type="submit" id="login" value="注 &nbsp; &nbsp; 册">
-	         </form>
-	         <div class="login_right">
-	         	<div>已有合众映画帐号</div>
-	         	<a href="./userLogin.jsp" class="registor_now">直接登录</a>
-	            <div class="login_others">使用以下帐号直接登录:</div>
-			    <a id="wb_connect_btn" href="" target="_blank" class="icon_wb" title="使用新浪微博帐号登录"></a>
-			    <a href="../user/userlogin.do?a=qqlogin" target="_blank" class="icon_qq" title="使用腾讯QQ帐号登录"></a>
-	         </div>
-	    </div>
+<body>
+    <div class="header">
+        <div class="logo">
+            <a href="index.html" title="合众映画"></a>
+        </div>
+        <div class="mini_search">
+            <input type="text" id="k" name="k" class="text" value="搜索影片名称" />
+            <input type="button" class="btn" value="" />
+        </div>
+        <div class="mini_login">
+            <a href="login.html">登录</a>
+            <span>|</span>
+            <a href="register.html">注册</a>
+        </div>
     </div>
-    <div class="login_box_btm"></div>
-    <script type="text/javascript" src="script/userRegister.js"></script>
+
+    <div class="shadow"></div>
+    
+    <div class="register">
+        <div class="form">
+            <form id="form" action="" method="post">
+                <input type="hidden" name="type" id="type" value="0" />
+                <h2>用户注册</h2>
+                <div class="select">
+                    <ul id="roleSelect">
+                    	 <li data="0" class="current">个人</li>
+                        <li data="1">机构</li>
+                    </ul>
+                </div>
+                <div class="input">
+                	<input type="text" class="form-control validate[maxSize[255],required]" id="code" name="code" placeholder="请输入用户名"/>
+                </div>
+                <div class="input">
+                	<input type="text" class="form-control validate[maxSize[255],required]" id="email" name="email" placeholder="请输入邮箱"/>
+				</div>
+                <div class="input">
+					<input type="password" class="form-control validate[maxSize[255],required]" onchange="checkpassword();" value="" id="password" name="password" placeholder="请输入密码"/>
+				</div>
+                <div class="input">
+					<input type="password" class="form-control validate[maxSize[255],required]" onchange="checkpassword_again();" value="" id="pwdagain" name="pwdagain" placeholder="请再次输入密码"/>
+	            </div>
+                <div class="input" style="margin-bottom: 25px;">
+                	<input type="text" style=" width: 100px;margin-right: 15px;" class="form-control validate[maxSize[255],required]" onchange="checkMyVal();" id="myVal" name="myVal"  placeholder="请输入校验码"/>
+		            <img id="validateCode" src="" style="vertical-align: middle; margin-right: 20px;"></img><a id="changeCode" style="cursor:pointer;" onclick="changeValPic();">换一张</a>
+		            <input type="hidden" id="curVal" name="curVal" style="color: #fe6249;text-decoration: underline;cursor: pointer;" value=""/>
+	            </div>
+                <div class="btn">
+                    <input type="submit" id="login" name="login" value="提交申请" />
+                </div>
+            </form>
+        </div>
+        <!-- 
+        <div class="other">
+            <div class="info">已有合众映画帐号<a href="userLogin.jsp">直接登录</a><br />
+            也可以使用以下账号直接登录：</div>
+            <div class="third">
+			    <a href="../user/userlogin.do?a=qqlogin" target="_blank" class="icon_qq" title="使用腾讯QQ帐号登录"></a>
+                <a id="wb_connect_btn" href="#"><img src="../static/image/sina2.png" /></a> 
+                <a href="../user/userlogin.do?a=qqlogin"><img src="../static/image/qq.png" /></a>
+            </div>
+        </div>
+         -->
+    </div>
+	<!-- footer -->
+	<%@include file="../inc/footer.inc"%> 
+	<!-- footer -->
+	<script type="text/javascript" src="script/userRegister.js"></script>
 </body>
 </html>

@@ -1,57 +1,55 @@
+<%@ include file="../../include/Include.jsp"%>
 <%@page pageEncoding="UTF-8"%>
 <!doctype html>
-<html lang="en">
- <head>
-  <meta charset="UTF-8">
-  <title>登录</title>
-  	<link rel="stylesheet" type="text/css" href="../js/plugin/jquery-validate/css/validationEngine.jquery.css"/>
-  	<link rel="stylesheet" type="text/css" href="./css/style.css">
-  	<script type="text/javascript" src="../js/jquery/jquery.min.js"></script>
-	<script type="text/javascript" src="../js/bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../js/plugin/jquery-validate/jquery.validate.min.js"></script>
-    <script type="text/javascript" src="../js/plugin/jquery-validate/js/jquery.validationEngine.js"></script>
-	<script type="text/javascript" src="../js/plugin/jquery-validate/js/languages/jquery.validationEngine-zh_CN.js"></script>
-    <script type="text/javascript" src="../js/plugin/backstretch/jquery.backstretch.min.js"></script>
-	<script type="text/javascript" src="../js/utils.js"></script>
-	<script type="text/javascript" src="script/validate-login.js"></script>
-	<!-- <script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101154766" data-redirecturi="http://leijuan1014.oicp.net/qc_callback.html" charset="utf-8"></script> -->
-	<!-- <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=3062596557&debug=true" type="text/javascript" charset="utf-8"></script> -->
-	<style type="text/css">
-  	.registor_now{color:#019875;background:url(./img/registor_now.png) right center no-repeat; padding-right:24px; float:left; height:30px;line-height:30px;}
-	.registor_now:hover{color:#019875; text-decoration:underline;}
-  	.icon_wb{width:54px; height:54px; float:left; background:url(./img/wbqq.png) left top no-repeat; margin:0 30px 0 10px;}
-	.icon_qq{width:54px; height:54px; float:left; background:url(./img/wbqq.png) right top no-repeat;}
-	.qqsina{height: 85px;background: #f2fffc; border-bottom-left-radius: 3px;border-bottom-right-radius: 3px;border-top: 1px dotted #e2ebe9;padding: 0 30px;padding-top: 25px;position: relative;}
-	.qqsina div{font-size: 14px;display: inline-block;*zoom:1;*display:inline;position: absolute;left: 30px;top: 38px;}
-	.qqsina a{position:absolute;background: url(./img/qqsina.png)  no-repeat;display: inline-block;width: 46px; height: 46px;*zoom:1;*display:inline;}
-	.qqsina a.icon_wb{left: 225px; top:23px;}
-  	</style>
- </head>
- <body >
- 	<div class="login_wrapper">
-    	<input type="hidden" id="resubmitToken" value="">		
-		 <div class="login_box">
-        	<form id="form" action="" method="post">
-				<input class="inputStyle form-control validate[maxSize[255],required]" type="text" id="usercode" name="usercode" value="" tabindex="1" placeholder="请输入登录名">
-			  	<input class="form-control validate[maxSize[255],required]" type="password" id="password" name="password" tabindex="2" placeholder="请输入密码">
-			    <span class="error" style="display:none;" id="beError"></span>
-			    <label class="fl" for="remember"><input type="checkbox" id="remember" value="" checked="checked" name="autoLogin"> 记住我</label>
-			    <a href="./findPwdStep1.jsp" class="fr" target="_blank">忘记密码？</a>
-			    <input type="submit" id="login" value="登 &nbsp; &nbsp; 录">
-			    <input type="hidden" id="callback" name="callback" value="">
-                <input type="hidden" id="authType" name="authType" value="">
-                <input type="hidden" id="signature" name="signature" value="">
-                <input type="hidden" id="timestamp" name="timestamp" value="">
-			</form>
-			<div class="login_right">
-				<div>还没有合众映画帐号？</div>
-				<a href="userRegister.jsp" class="registor_now">立即注册</a>
-			    <div class="login_others">使用以下帐号直接登录:</div>
-			    <a id="wb_connect_btn" href="" target="_blank" class="icon_wb" title="使用新浪微博帐号登录"></a>
-			    <a href="../user/userlogin.do?a=qqlogin" target="_blank" class="icon_qq" title="使用腾讯QQ帐号登录"></a>
-			</div>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>合众映画</title>
+    <meta name="keywords" content="合众映画" />
+    <meta name="description" content="合众映画" />
+    <%@include file="../user/inc/csslink.inc"%>
+</head>
+
+<body>
+    <div class="shadow"></div>
+
+    <div class="login">
+        <div class="form">
+            <form id="form" action="" method="post">
+                <h2>用户登录</h2>
+                <div class="input">
+                    <input type="text" class="form-control validate[maxSize[255],required]" id="usercode" name="usercode" value="" placeholder="登录账号"/>
+                </div>
+                <div class="input">
+                    <input type="password" class="form-control validate[maxSize[255],required]" id="password" name="password" value="" placeholder="登录密码"/>
+                </div>
+                <div class="info">
+                    <input type="checkbox" id="auto" name="auto" checked="checked" /> 记住我
+                    <a href="findPwdStep1.jsp" class="forget">忘记密码？</a>
+                </div>
+                <div class="btn">
+                    <input type="submit" id="login" name="login" value="登录" />
+                </div>
+            </form>
         </div>
-        <div class="login_box_btm"></div>
+        <div class="other">
+            <div class="info">还没有账号？<a href="userRegister.jsp">立即注册</a><br />
+            也可以使用以下账号直接登录：</div>
+            <div class="third">
+			    <a href="../user/userlogin.do?a=qqlogin" target="_blank" class="icon_qq" title="使用腾讯QQ帐号登录"></a>
+                <a id="wb_connect_btn" href="#"><img src="../static/image/sina2.png" /></a> 
+                <a href="../user/userlogin.do?a=qqlogin"><img src="../static/image/qq.png" /></a>
+            </div>
+        </div>
     </div>
- </body>
+	<!-- footer -->
+	<%@include file="../inc/footer.inc"%>
+	<!-- footer -->
+	<!-- script -->
+	<%@include file="./inc/script.inc"%>
+	<!-- script -->
+	    
+    <script type="text/javascript" src="../js/utils.js"></script>
+	<script type="text/javascript" src="script/validate-login.js"></script>
+</body>
 </html>

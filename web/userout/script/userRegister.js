@@ -1,12 +1,3 @@
-function init(){
-	changeValPic();
-	$("input[name='type']").change(function() {     //id 为season行内radio值变化函数  
-		$(".register_radio li").attr("class", "");
-	    if(this.checked){
-	    	$(this).parent().attr("class", "current");
-	    }
-	});
-}
 function registerSubmit(){
 	//1.旧密码是否正确，须校验 2.新密码校验 3.密码加密 4.写入数据库
 	//2.新密码是否一致
@@ -87,7 +78,7 @@ function changeValPic(){
         dataType: 'text',   //返回值类型  
         success:function(data){
         	$("#curVal").val(data);
-        	$("#validateCode").attr("src", rootURL + "userout/img/validate.png");
+        	setTimeout('$("#validateCode").attr("src", rootURL + "userout/img/validate.png");',1000);//延时3秒 
         } ,
 		error:function (XMLHttpRequest, textStatus, errorThrown) {
 			alert(errorThrown);
@@ -107,12 +98,17 @@ function checkMyVal(){
 	}
 }
 $(document).ready(function () {
+	changeValPic();
+	$('#roleSelect>li').click(function () {
+        $('#roleSelect>li').removeClass('current');
+        $(this).addClass('current');
+        $('#role').val($(this).attr('data'));
+    });
 	$("#form").validationEngine({
 		autoPositionUpdate:true,
 		onValidationComplete:function(from,r){
 			if (r){
 				window.onbeforeunload = null;
-				$("#login").attr("disabled", true);
 				var password = checkpassword();
 				var pwdAgain = checkpassword_again();
 				var checkVal = checkMyVal();
@@ -122,14 +118,4 @@ $(document).ready(function () {
 			}
 		}
 	});
-	$.backstretch([
-	     "../img/loginbg/1.jpg",
-	     "../img/loginbg/2.jpg",
-	     "../img/loginbg/3.jpg",
-	     "../img/loginbg/4.jpg"
-	], {
-	    fade: 1000,
-	    duration: 8000
-	});
-    init();
 });
