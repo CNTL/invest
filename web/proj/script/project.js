@@ -1,4 +1,6 @@
 var proj_form = {
+	proj_mode_temp_id:0,
+	proj_modes : [],
 	eventList : [
 		{id:"proj_province",evt:"change", fn:"changeProvince"}, 
 		{id:"proj_city",evt:"change", fn:"changeCity"}, 
@@ -23,38 +25,119 @@ var proj_form = {
 		$("#btnSave").bind("click",proj_form["save"]);
 		$("#proj_newmode").bind("click",proj_form["addMode"]);
 	},
-	_getModeHTML : function(){
+	_getModeHTML : function(id){
+		var mode = {"id":id,"projID":"","imgURL":"","name":"","price":"","countGoal":"",
+					"returnContent":"","freight":"","returntime":"","deleted":"0","status":"1"};
+		for(var i=0;i<proj_form.proj_modes.length;i++){
+			if(proj_form.proj_modes[i].id == id){
+				mode = proj_form.proj_modes[i];
+				if(mode.imgURL=="img/gift.png"){
+					mode.imgURL="";
+				}
+			}
+		}
+		var mode_image_tr_display = "";
+		if(mode.imgURL=="") mode_image_tr_display = "style=\"display:none;\"";
 		var html = "<div class=\"job_add proj_mode\" style=\"margin-bottom:20px;width:460px;\">";
-		html += "<input type=\"hidden\" id=\"modeID\" value=\"\" />";
-		html += "<div class=\"input\"><label>支持金额：</label><input type=\"text\" id=\"mode_price\" name=\"mode_price\" style=\"width:136px;margin-right:28px;\" value=\"\" />";
-		html += "<label>回报限额：</label><input type=\"text\" id=\"mode_countGoal\" name=\"mode_countGoal\" style=\"width:136px;\" value=\"\" /></div>";
-		html += "<div class=\"input\"><table style=\"width:100%\"><tr><td valign=\"top\"><label>回报内容：</label></td><td><div class=\"text\"><textarea name=\"mode_return\" id=\"mode_return\" style=\"width:380px;height:80px;\"></textarea></div></td></tr></table></div>";
+		html += "<input type=\"hidden\" id=\"mode_id\" value=\""+mode.id+"\" />";
+		html += "<input type=\"hidden\" id=\"mode_projID\" value=\""+mode.projID+"\" />";
+		html += "<input type=\"hidden\" id=\"mode_name\" value=\""+mode.name+"\" />";
+		html += "<input type=\"hidden\" id=\"mode_deleted\" value=\""+mode.deleted+"\" />";
+		html += "<input type=\"hidden\" id=\"mode_status\" value=\""+mode.status+"\" />";
+		html += "<div class=\"input\"><label>支持金额：</label><input type=\"text\" id=\"mode_price\" name=\"mode_price\" style=\"width:136px;margin-right:28px;\" value=\""+mode.price+"\" />";
+		html += "<label>回报限额：</label><input type=\"text\" id=\"mode_countGoal\" name=\"mode_countGoal\" style=\"width:136px;\" value=\""+mode.countGoal+"\" /></div>";
+		html += "<div class=\"input\"><table style=\"width:100%\"><tr><td valign=\"top\"><label>回报内容：</label></td><td><div class=\"text\"><textarea name=\"mode_return\" id=\"mode_return\" style=\"width:380px;height:80px;\">"+mode.returnContent+"</textarea></div></td></tr></table></div>";
 		html += "<div class=\"input\"><table style=\"width:100%;\"><tr><td valign=\"top\" style=\"width:90px;\"><label>封面图片：</label></td>";
 		html += "	<td><input type=\"file\" class=\"uploadify\" name=\"mode_uploadify\" id=\"mode_uploadify\" />";
 		html += "		<input type=\"hidden\" id=\"mode_queueItemCount\" name=\"mode_queueItemCount\" value=\"0\" />";
-		html += "		<input type=\"hidden\" id=\"mode_imgURL\" name=\"mode_imgURL\" value=\"\" />";
+		html += "		<input type=\"hidden\" id=\"mode_imgURL\" name=\"mode_imgURL\" value=\""+mode.imgURL+"\" />";
 		html += "		<input type=\"hidden\" id=\"mode_uploadErrorMsg\" name=\"mode_uploadErrorMsg\" value=\"\" />";
-		html += "	</td></tr><tr id=\"mode_image_tr\" style=\"display:none;\"><td><a href=\"javascript:void();\" onclick=\"proj_form.delModeImage();\">删除</a></td><td><img id=\"mode_image\" src=\"\" style=\"border:0px;width:380px;height:80px;\"/></td></tr></table></div>";
-		html += "<div class=\"input\"><label>运费：</label><input type=\"text\" id=\"mode_freight\" name=\"mode_freight\" value=\"\" /></div>";
-		html += "<div class=\"input\"><label>回报时间：</label><input type=\"text\" id=\"回报时间\" name=\"回报时间\" value=\"\" /></div>";
+		html += "	</td></tr><tr id=\"mode_image_tr\" "+mode_image_tr_display+"><td><a href=\"javascript:void();\" onclick=\"proj_form.delModeImage();\">删除</a></td><td><img id=\"mode_image\" src=\""+webroot+mode.imgURL+"\" style=\"border:0px;width:380px;height:80px;\"/></td></tr></table></div>";
+		html += "<div class=\"input\"><label>运费：</label><input type=\"text\" id=\"mode_freight\" name=\"mode_freight\" value=\""+mode.freight+"\" /></div>";
+		html += "<div class=\"input\"><label>回报时间：</label><input type=\"text\" id=\"mode_returntime\" name=\"mode_returntime\" value=\""+mode.returntime+"\" /></div>";
 		html += "<div class=\"btn\"><input type=\"button\" id=\"btnModeOK\" name=\"btnModeOK\" onclick=\"proj_form.updateMode()\" value=\"确定\" style=\"width:100px;\" /><input type=\"button\" id=\"btnModeCannel\" name=\"btnModeCannel\" value=\"取消\" style=\"width:100px;margin-left:50px;\" onclick=\"tl_msg.close();\" /></div>";
 		html += "</div>";
 		
 		return html;
 	},
 	updateMode : function(){
-		var modeID = $(".proj_mode #modeID").val();
-		var imgURL = $(".proj_mode #mode_imgURL").val();
-		
+		var modeID = $(".proj_mode #mode_id").val();
+		var modeProjID = $(".proj_mode #mode_projID").val();
+		var modeImgURL = $(".proj_mode #mode_imgURL").val();
+		if(modeImgURL=="") modeImgURL = "img/gift.png";
+		if(!modeID || modeID=="" || modeID=="0"){
+			proj_form.proj_mode_temp_id = proj_form.proj_mode_temp_id+1;
+			modeID = "TEMP_"+proj_form.proj_mode_temp_id;
+		}
+				
+		var mode = {"id":modeID,"projID":modeProjID,"imgURL":modeImgURL,
+					"name":$(".proj_mode #mode_name").val(),"price":$(".proj_mode #mode_price").val(),
+					"countGoal":$(".proj_mode #mode_countGoal").val(),"returnContent":$(".proj_mode #mode_return").val(),
+					"freight":$(".proj_mode #mode_freight").val(),"returntime":$(".proj_mode #mode_returntime").val(),
+					"deleted":$(".proj_mode #mode_deleted").val(),"status":$(".proj_mode #mode_status").val()};
+		var mode_exist = false;
+		for(var i=0;i<proj_form.proj_modes.length;i++){
+			if(proj_form.proj_modes[i].id == mode.id){
+				mode_exist = true;
+				proj_form.proj_modes[i].projID = mode.projID;
+				proj_form.proj_modes[i].name = mode.name;
+				proj_form.proj_modes[i].imgURL = mode.imgURL;
+				proj_form.proj_modes[i].price = mode.price;
+				proj_form.proj_modes[i].countGoal = mode.countGoal;
+				proj_form.proj_modes[i].returnContent = mode.returnContent;
+				proj_form.proj_modes[i].freight = mode.freight;
+				proj_form.proj_modes[i].returntime = mode.returntime;
+				proj_form.proj_modes[i].deleted = mode.deleted;
+				proj_form.proj_modes[i].status = mode.status;
+			}
+		}
+		if(!mode_exist) proj_form.proj_modes.push(mode);
+		var box_id = "box_"+mode.id;
+		var header = "<div class=\"box\" id=\""+box_id+"\">";
+		var html = "<div class=\"box_top\"></div><div class=\"box_main project\"><div>";
+		html += "<div class=\"title\"><span style=\"float:left;\">金额：<a href=\"javascript:void();\">"+mode.price+"</a></span>";
+		html += "<span style=\"float:right;\">限额：<a href=\"javascript:void();\">"+mode.countGoal+"</a></span></div>";
+		html += "<div class=\"pic\"><a href=\"javascript:void();\"><img src=\""+webroot+mode.imgURL+"\" /></a></div>";
+		html += "<div class=\"desc\" title=\""+mode.returnContent+"\">"+proj_form._replaceAll(mode.returnContent,"\n","<br />")+"</div>";
+		html += "<div class=\"status\">回报运费：<span>"+mode.freight+"<span></div>";
+		html += "<div class=\"status\">回报时间：<span>"+mode.returntime+"<span></div>";
+		html += "</div><div class=\"tool\"><a href=\"javascript:void();\" onclick=\"proj_form.delMode('"+mode.id+"')\" class=\"delete\"></a>";
+		html += "<a href=\"javascript:void();\" onclick=\"proj_form.editMode('"+mode.id+"')\" class=\"edit\"></a></div>";
+		html += "</div><div class=\"box_bottom\"></div>";
+		var end = "</div>";
+		if(mode_exist && $(".project_list .block1 .box#"+box_id).length==1){
+			$(".project_list .block1 .box#"+box_id).empty();
+			$(".project_list .block1 .box#"+box_id).html(html);
+		}else{
+			$(".project_list .block1 .box#box_new").before(header+html+end);
+		}
+		tl_msg.close();
+	},
+	addMode : function(){
+		tl_msg.dialog("新增",proj_form._getModeHTML(""),680,600);
+		proj_form.initUploadify("mode_uploadify","mode_queueItemCount","mode_imgURL","mode_uploadErrorMsg",true,proj_form.modeImageUploaded);
+	},
+	editMode : function(id){
+		tl_msg.dialog("修改",proj_form._getModeHTML(id),680,600);
+		proj_form.initUploadify("mode_uploadify","mode_queueItemCount","mode_imgURL","mode_uploadErrorMsg",true,proj_form.modeImageUploaded);
+	},
+	delMode : function(id){
+		var index = -1;
+		for(var i=0;i<proj_form.proj_modes.length;i++){
+			if(proj_form.proj_modes[i].id == id){
+				index = i;
+			}
+		}
+		if(index>-1){
+			var box_id = "box_"+id;
+			proj_form.proj_modes.splice(index,1);
+			$(".project_list .block1 .box#"+box_id).remove();
+		}
 	},
 	delModeImage : function(){
 		$(".proj_mode #mode_imgURL").val("");
 		$("#mode_image_tr").css("display","none");
 		$("#mode_image").attr("src","");
-	},
-	addMode : function(){
-		tl_msg.dialog("新增",proj_form._getModeHTML(),648,560);
-		proj_form.initUploadify("mode_uploadify","mode_queueItemCount","mode_imgURL","mode_uploadErrorMsg",true,proj_form.modeImageUploaded);
 	},
 	modeImageUploaded : function(){
 		var imgURL = $(".proj_mode #mode_imgURL").val();
@@ -284,6 +367,9 @@ var proj_form = {
 		}
 		
 		return src;
+	},
+	_replaceAll : function(str, sptr, sptr1){
+		return str.replace(new RegExp(sptr,'gm'),sptr1)
 	}
 }
 

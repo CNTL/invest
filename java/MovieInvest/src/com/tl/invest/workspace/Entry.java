@@ -100,11 +100,21 @@ public class Entry extends BaseController {
 			class4 = "current";
 			break;
 		default:
+			String curMenu = getCurrentMenu();
+			if("首页".equals(curMenu)){
+				class1 = "current";
+			}else if("项目".equals(curMenu)){
+				class2 = "current";
+			}else if("影聘".equals(curMenu)){
+				class3 = "current";
+			}else if("影人".equals(curMenu)){
+				class4 = "current";
+			}
 			break;
 		}
 		List<Menu> list = new ArrayList<Menu>();
 		list.add(new Menu(1, "首页","/index.html?mainType=1",class1, -999,0));
-		list.add(new Menu(2, "项目","/project/List.do?mainType=2",class2, -999,0));
+		list.add(new Menu(2, "项目","/project/List.do",class2, -999,0));
 		list.add(new Menu(3, "影聘","/recruit/List.do?recruitType=view&mainType=3",class3, -999,0));
 		list.add(new Menu(4, "影人","/org/BasicInfo.do?infoType=1&mainType=4",class4, -999,0));
 		

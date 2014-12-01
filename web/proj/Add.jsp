@@ -121,131 +121,17 @@
 			</div>
 		</div>
 		<div class="block1">
-			<div class="box">
+			<div class="box" id="box_new">
                 <div class="box_top"></div>
                 <div class="box_main project">
-                    <div>
-                        <div class="title">
-								<span style="float:left;">金额：<a href="javascript:void();">10000.00</a></span>
-								<span style="float:right;">限额：<a href="javascript:void();">30</a></span>
-                        </div>
-							<div class="pic">
-								<a href="javascript:void();"><img src="../img/gift.png" /></a>
-							</div>
-                        <div class="desc">
-                            关注中国留守儿童生存状态,中国留守儿童5800万生存状态。需关注改编自徐皓峰的原著小说，小说从20年代到抗战前，讲述小道士何安下16岁修道下山的成长和习武经历，呈现太极与道、佛、儒等诸家的联系。徐皓峰是如今小有盛名的武侠小说家，也是《一代宗师》的编剧之一。
-                        </div>
-                        <div class="status">
-                            回报运费：<span>免费<span>
-                        </div>
-							<div class="status">
-                            回报时间：<span>项目成功结束后30天内<span>
-                        </div>
-                    </div>
-                    <div class="tool">
-                        <a href="#" class="delete"></a>
-                        <a href="#" class="edit"></a>
-                    </div>
-                </div>
-                <div class="box_bottom"></div>
-            </div>
-			<div class="box">
-                <div class="box_top"></div>
-                <div class="box_main project">
-                    <div>
-                        <div class="title">
-								<span style="float:left;">金额：<a href="javascript:void();">10000.00</a></span>
-								<span style="float:right;">限额：<a href="javascript:void();">30</a></span>
-                        </div>
-							<div class="pic">
-								<a href="javascript:void();"><img src="../img/gift.png" /></a>
-							</div>
-                        <div class="desc">
-                            关注中国留守儿童生存状态,中国留守儿童5800万生存状态。需关注改编自徐皓峰的原著小说，小说从20年代到抗战前，讲述小道士何安下16岁修道下山的成长和习武经历，呈现太极与道、佛、儒等诸家的联系。徐皓峰是如今小有盛名的武侠小说家，也是《一代宗师》的编剧之一。
-                        </div>
-                        <div class="status">
-                            回报运费：<span>免费<span>
-                        </div>
-							<div class="status">
-                            回报时间：<span>项目成功结束后30天内<span>
-                        </div>
-                    </div>
-                    <div class="tool">
-                        <a href="#" class="delete"></a>
-                        <a href="#" class="edit"></a>
-                    </div>
-                </div>
-                <div class="box_bottom"></div>
-            </div>
-			<div class="box">
-                <div class="box_top"></div>
-                <div class="box_main project">
-                    <div>
-                        <div class="title">
-								<span style="float:left;">金额：<a href="javascript:void();">10000.00</a></span>
-								<span style="float:right;">限额：<a href="javascript:void();">30</a></span>
-                        </div>
-							<div class="pic">
-								<a href="javascript:void();"><img src="../img/gift.png" /></a>
-							</div>
-                        <div class="desc">
-                            关注中国留守儿童生存状态,中国留守儿童5800万生存状态。需关注改编自徐皓峰的原著小说，小说从20年代到抗战前，讲述小道士何安下16岁修道下山的成长和习武经历，呈现太极与道、佛、儒等诸家的联系。徐皓峰是如今小有盛名的武侠小说家，也是《一代宗师》的编剧之一。
-                        </div>
-                        <div class="status">
-                            回报运费：<span>免费<span>
-                        </div>
-							<div class="status">
-                            回报时间：<span>项目成功结束后30天内<span>
-                        </div>
-                    </div>
-                    <div class="tool">
-                        <a href="#" class="delete"></a>
-                        <a href="#" class="edit"></a>
-                    </div>
-                </div>
-                <div class="box_bottom"></div>
-            </div>
-			<div class="box">
-                <div class="box_top"></div>
-                <div class="box_main project">
-                    <div>
-                        <div class="title">
-								<span style="float:left;">金额：<a href="javascript:void();">10000.00</a></span>
-								<span style="float:right;">限额：<a href="javascript:void();">30</a></span>
-                        </div>
-							<div class="pic">
-								<a href="javascript:void();"><img src="../img/gift.png" /></a>
-							</div>
-                        <div class="desc">
-                            关注中国留守儿童生存状态,中国留守儿童5800万生存状态。需关注改编自徐皓峰的原著小说，小说从20年代到抗战前，讲述小道士何安下16岁修道下山的成长和习武经历，呈现太极与道、佛、儒等诸家的联系。徐皓峰是如今小有盛名的武侠小说家，也是《一代宗师》的编剧之一。
-                        </div>
-                        <div class="status">
-                            回报运费：<span>免费<span>
-                        </div>
-							<div class="status">
-                            回报时间：<span>项目成功结束后30天内<span>
-                        </div>
-                    </div>
-                    <div class="tool">
-                        <a href="#" class="delete"></a>
-                        <a href="#" class="edit"></a>
-                    </div>
-                </div>
-                <div class="box_bottom"></div>
-            </div>
-			<div class="box">
-                <div class="box_top"></div>
-                <div class="box_main project">
-                    <div style="height:188px;text-align:center;padding-top:38px;">
+                    <div style="height:238px;text-align:center;padding-top:38px;">
 							<a href="javascript:void();" id="proj_newmode">
-								<img style="border:0px;" src="../img/add_gift.png" />
+								<img style="border:0px;" title="增加回报" src="../img/add_gift.png" />
+								<br >
+								<span style="font-size:18px;">增加回报</span>
 							</a>
                     </div>
                     <div class="tool">
-						<!--
-                        <a href="#" class="delete"></a>
-                        <a href="#" class="edit"></a>
-						-->
                     </div>
                 </div>
                 <div class="box_bottom"></div>
