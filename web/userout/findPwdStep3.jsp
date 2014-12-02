@@ -1,61 +1,48 @@
-
-<!DOCTYPE HTML>
+<%@ include file="../../include/Include.jsp"%>
+<%@page pageEncoding="UTF-8"%>
+<!doctype html>
 <html>
 <head>
-<!-- <script id="allmobilize" charset="utf-8" src="http://www.lagou.com/js/third/allmobilize.min.js"></script> -->
-<script id="allmobilize" charset="utf-8" src="http://a.yunshipei.com/ef48a3377914af6ef846830fcae2a8e6/allmobilize.min.js"></script>
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-<link rel="alternate" media="handheld" href="#" />
-<!-- end 云适配 -->
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<title>找回密码-拉勾网-最专业的互联网招聘平台</title>
-<meta property="qc:admins" content="23635710066417756375" />
-<meta content="拉勾网是最权威的互联网行业招聘网站,提供全国真实的互联网招聘信息,工资不面议当面谈,找工作,招聘网,寻人才就来拉勾网,互联网行业找工作首先拉勾网" name="description">
-<meta content="互联网招聘,找工作,招聘网,人才网" name="keywords">
-
-<meta name="baidu-site-verification" content="QIQ6KC1oZ6" />
-
-<!-- <div class="web_root"  style="display:none">http://www.lagou.com</div> -->
-<script type="text/javascript">
-var ctx = "http://www.lagou.com";
-var rctx = "http://hr.lagou.com";
-</script><link rel="Shortcut Icon" href="http://www.lagou.com/images/favicon.ico">
-<link rel="stylesheet" type="text/css" href="http://www.lagou.com/css/style.css?v=1.5.5.6_1022"/>
-
-<script src="http://www.lagou.com/js/libs/jquery.1.10.1.min.js?v=1.5.5.6_1022" type="text/javascript"></script>
-
-<script type="text/javascript" src="http://www.lagou.com/js/libs/jquery.lib.min.js?v=1.5.5.6_1022"></script>
-<script type="text/javascript" src="http://www.lagou.com/js/core.min.js?v=1.5.5.6_1022"></script>
-<script type="text/javascript" src="http://www.lagou.com/js/libs/analytics.js?v=1.5.5.6_1022"></script>
-<script type="text/javascript" src="http://www.lagou.com/js/libs/tongji.js?v=1.5.5.6_1022"></script>
-<script type="text/javascript" src="http://www.lagou.com/js/additional-methods.js?v=1.5.5.6_1022"></script>
-<script type="text/javascript">
-var youdao_conv_id = 271546; 
-</script> 
-<script type="text/javascript" src="http://conv.youdao.com/pub/conv.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>合众映画</title>
+    <meta name="keywords" content="合众映画" />
+    <meta name="description" content="合众映画" />
+    <%@include file="../user/inc/csslink.inc"%>
 </head>
 
-<body id="login_bg">
-	<div class="login_wrapper">
+<body>
+	<div class="shadow"></div>
+	<div class="login">
     	<input type="hidden" id="resubmitToken" value="" />
-        <div class="find_psw">
-        	<img src="../img/psw_step3.png" width="369" height="56" alt="找回密码第三步" />
-            <div class="c9 email_address">
+        <div class="form" style="margin-left:200px;">
+        	<img src="./img/psw_step3.png" width="369" height="56" alt="找回密码第三步" />
+            <div class="input">
             	<span>邮件地址：<a>${user.email == null ? "" : user.email }</a></span>
             </div>
             <form id="pswForm">
-            	<input type="password" name="new_password" id="new_password" tabindex="1" placeholder="请输入新密码" />
-              	<input type="password" name="confirm_password" id="confirm_password" tabindex="2" placeholder="请再次输入新密码" />
+            	<div class="input" style="margin-left:40px;">
+            		<input type="password" name="new_password" id="new_password" tabindex="1" placeholder="请输入新密码" />
+            	</div>
+             	<div class="input" style="margin-left:40px;">
+              		<input type="password" name="confirm_password" id="confirm_password" tabindex="2" placeholder="请再次输入新密码" />
+              	</div>
                 <span id="beError" class="error" style="display:none;"></span>
                 <input type="hidden" name="userId" value='${user.id == null ? "0" : user.id }' />
                 <input type="hidden" name="oldpwd" value='${user.password == null ? "0" : user.password }' />
-                <input type="submit" id="submitLogin" value="确 &nbsp; &nbsp; 定" />
-                <span id="tip" class="dn">密码重置成功！</span>
+                <div class="btn" style="margin-left:90px;">
+                 	<input type="submit" id="submitLogin" value="确 &nbsp; &nbsp; 定" />
+                </div>
             </form>
         </div>
     </div>
     
+    <!-- footer -->
+	<%@include file="../inc/footer.inc"%>
+	<!-- footer -->
+	<!-- script -->
+	<%@include file="./inc/script.inc"%>
+	<!-- script -->
+    <script type="text/javascript" src="../js/utils.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
     	//验证表单

@@ -1,32 +1,41 @@
+<%@ include file="../../include/Include.jsp"%>
 <%@page pageEncoding="UTF-8"%>
-<!DOCTYPE HTML>
+<!doctype html>
 <html>
 <head>
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<title>找回密码-合众映画</title>
-
-<script type="text/javascript" src="../js/jquery/jquery.min.js"></script>
-<script type="text/javascript" src="../js/jquery-easyui/jquery.easyui.min.js"></script>
-<script type="text/javascript" src="../js/plugin/jquery-validate/js/jquery.validationEngine.js"></script>
-<script type="text/javascript" src="../js/plugin/jquery-validate/js/languages/jquery.validationEngine-zh_CN.js"></script>
-<script src="../js/utils.js" type="text/javascript"></script>
-<script type="text/javascript" src="script/findPwd.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>合众映画</title>
+    <meta name="keywords" content="合众映画" />
+    <meta name="description" content="合众映画" />
+    <%@include file="../user/inc/csslink.inc"%>
 </head>
-
-<body id="login_bg">
-	<div class="login_wrapper">
+<body>
+	<div class="shadow"></div>
+	<div class="login">
     	<input type="hidden" id="resubmitToken" value="" />
-     	<div class="find_psw">
-        	<img src="../img/psw_step1.png" width="369" height="56" alt="找回密码第一步" />
+     	<div class="form" style="margin-left:200px;">
+        	<img src="./img/psw_step1.png" width="369" height="56" alt="找回密码第一步" />
+        	<br><br>
             <form id="form" name="form" action="../user/user.do?a=findPwd" method="post">
-           		<input type="text" name="email" id="email" class="form-control validate[maxSize[255],custom[email],required]" tabindex="1" value="" placeholder="请输入注册时使用的邮箱地址" />
-                <input type="submit" id="submitLogin" value="找回密码" />
+           		<div class="input" style="margin-left:40px;">
+	           		<input type="text" name="email" id="email" class="form-control validate[maxSize[255],custom[email],required]" tabindex="1" value="" placeholder="请输入注册时使用的邮箱地址" />
+                </div>
+                <br>
+                <div class="btn" style="margin-left:90px;">
+                 	<input type="submit" id="submitLogin" value="找回密码" />
+                </div>
             </form>
         </div>
     </div>
     
+    <!-- footer -->
+	<%@include file="../inc/footer.inc"%>
+	<!-- footer -->
+	<!-- script -->
+	<%@include file="./inc/script.inc"%>
+	<!-- script -->
+    <script type="text/javascript" src="../js/utils.js"></script>
+	<script type="text/javascript" src="script/findPwd.js"></script>
 <script type="text/javascript">
 $(document).ready(function () {
 	//初始化

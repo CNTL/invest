@@ -8,19 +8,6 @@
     <meta name="keywords" content="合众映画" />
     <meta name="description" content="合众映画" />
     <%@include file="../user/inc/csslink.inc"%>
-    <!-- script -->
-	<script type="text/javascript" src="../js/jquery/jquery.min.js"></script>
-	<script type="text/javascript" src="../js/bootstrap/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="../js/jquery-easyui/jquery.easyui.min.js"></script>
-    <script type="text/javascript" src="../js/plugin/jquery-validate/jquery.validate.min.js"></script>
-    <script type="text/javascript" src="../js/plugin/jquery-validate/js/jquery.validationEngine.js"></script>
-	<script type="text/javascript" src="../js/plugin/jquery-validate/js/languages/jquery.validationEngine-zh_CN.js"></script>
-    <script type="text/javascript" src="../js/plugin/backstretch/jquery.backstretch.min.js"></script>
-	<script type="text/javascript" src="../js/utils.js"></script>
-	<script type="text/javascript">
-	var rootURL = "<%=com.tl.common.WebUtil.getRoot(request) %>";
-	</script>
-	<!-- script -->
 </head>
 
 <body>
@@ -87,8 +74,15 @@
          -->
     </div>
 	<!-- footer -->
-	<%@include file="../inc/footer.inc"%> 
+	<%@include file="../inc/footer.inc"%>
 	<!-- footer -->
+	<!-- script -->
+	<%@include file="./inc/script.inc"%>
+	<script type="text/javascript">
+	var rootURL = "<%=com.tl.common.WebUtil.getRoot(request) %>";
+	</script>
+	<!-- script -->  
+    <script type="text/javascript" src="../js/utils.js"></script>
 	<script type="text/javascript" src="script/userRegister.js"></script>
 </body>
 </html>
