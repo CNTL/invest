@@ -14,16 +14,24 @@ var proj_form = {
 			$("#" + h.id).bind(h.evt, proj_form[h.fn]);
 		}
 		
+		var c_img_t = 40;//$("#proj_step1").offset().top+
+		var c_img_l = 560;//$("#proj_step1").offset().left + 
+		$("#proj_coverIMG_div").css("top",c_img_t+"px").css("left",c_img_l+"px").css("display","");
+		
 		proj_form.changeCountDaySel();
 		proj_form.initProjTypes();
 		//proj_form._setOptions("proj_type",proj_datas.getProjTypes(),proj_form.DEFAULT_PAIR);
 		proj_form._setOptions("proj_province",proj_datas.getProvinces(),proj_form.DEFAULT_PAIR);
 		
-		proj_form.initUploadify("uploadify","queueItemCount","proj_imgURL","uploadErrorMsg",false,proj_form._save);
+		proj_form.initUploadify("uploadify","queueItemCount","proj_imgURL","uploadErrorMsg",true,proj_form.imgUploaded);
 		$("#btnNext").bind("click",proj_form["next"]);
 		$("#btnPre").bind("click",proj_form["pre"]);
 		$("#btnSave").bind("click",proj_form["save"]);
 		$("#proj_newmode").bind("click",proj_form["addMode"]);
+		
+		$("#form1").validationEngine({
+			autoPositionUpdate:false
+		});
 	},
 	_getModeHTML : function(id){
 		var mode = {"id":id,"projID":"","imgURL":"","name":"","price":"","countGoal":"",
@@ -38,29 +46,32 @@ var proj_form = {
 		}
 		var mode_image_tr_display = "";
 		if(mode.imgURL=="") mode_image_tr_display = "style=\"display:none;\"";
-		var html = "<div class=\"job_add proj_mode\" style=\"margin-bottom:20px;width:460px;\">";
+		var html = "<form id=\"form2\" action=\"\" method=\"post\">";
+		html += "<div class=\"job_add proj_mode\" style=\"margin-bottom:20px;width:460px;\">";
 		html += "<input type=\"hidden\" id=\"mode_id\" value=\""+mode.id+"\" />";
 		html += "<input type=\"hidden\" id=\"mode_projID\" value=\""+mode.projID+"\" />";
 		html += "<input type=\"hidden\" id=\"mode_name\" value=\""+mode.name+"\" />";
 		html += "<input type=\"hidden\" id=\"mode_deleted\" value=\""+mode.deleted+"\" />";
 		html += "<input type=\"hidden\" id=\"mode_status\" value=\""+mode.status+"\" />";
-		html += "<div class=\"input\"><label>支持金额：</label><input type=\"text\" id=\"mode_price\" name=\"mode_price\" style=\"width:136px;margin-right:28px;\" value=\""+mode.price+"\" />";
-		html += "<label>回报限额：</label><input type=\"text\" id=\"mode_countGoal\" name=\"mode_countGoal\" style=\"width:136px;\" value=\""+mode.countGoal+"\" /></div>";
-		html += "<div class=\"input\"><table style=\"width:100%\"><tr><td valign=\"top\"><label>回报内容：</label></td><td><div class=\"text\"><textarea name=\"mode_return\" id=\"mode_return\" style=\"width:380px;height:80px;\">"+mode.returnContent+"</textarea></div></td></tr></table></div>";
+		html += "<div class=\"input\"><label>支持金额：</label><input type=\"text\" id=\"mode_price\" name=\"mode_price\" class=\"validate[required,custom[number]]\" style=\"width:136px;margin-right:28px;\" value=\""+mode.price+"\" />";
+		html += "<label>回报限额：</label><input type=\"text\" id=\"mode_countGoal\" name=\"mode_countGoal\" class=\"validate[required,custom[number]]\" style=\"width:136px;\" value=\""+mode.countGoal+"\" /></div>";
+		html += "<div class=\"input\"><table style=\"width:100%\"><tr><td valign=\"top\"><label>回报内容：</label></td><td><div class=\"text\"><textarea name=\"mode_return\" id=\"mode_return\" class=\"validate[required]\" style=\"width:380px;height:80px;\">"+mode.returnContent+"</textarea></div></td></tr></table></div>";
 		html += "<div class=\"input\"><table style=\"width:100%;\"><tr><td valign=\"top\" style=\"width:90px;\"><label>封面图片：</label></td>";
 		html += "	<td><input type=\"file\" class=\"uploadify\" name=\"mode_uploadify\" id=\"mode_uploadify\" />";
 		html += "		<input type=\"hidden\" id=\"mode_queueItemCount\" name=\"mode_queueItemCount\" value=\"0\" />";
 		html += "		<input type=\"hidden\" id=\"mode_imgURL\" name=\"mode_imgURL\" value=\""+mode.imgURL+"\" />";
 		html += "		<input type=\"hidden\" id=\"mode_uploadErrorMsg\" name=\"mode_uploadErrorMsg\" value=\"\" />";
 		html += "	</td></tr><tr id=\"mode_image_tr\" "+mode_image_tr_display+"><td><a href=\"javascript:void();\" onclick=\"proj_form.delModeImage();\">删除</a></td><td><img id=\"mode_image\" src=\""+webroot+mode.imgURL+"\" style=\"border:0px;width:380px;height:80px;\"/></td></tr></table></div>";
-		html += "<div class=\"input\"><label>运费：</label><input type=\"text\" id=\"mode_freight\" name=\"mode_freight\" value=\""+mode.freight+"\" /></div>";
-		html += "<div class=\"input\"><label>回报时间：</label><input type=\"text\" id=\"mode_returntime\" name=\"mode_returntime\" value=\""+mode.returntime+"\" /></div>";
+		html += "<div class=\"input\"><label>运费：</label><input type=\"text\" id=\"mode_freight\" name=\"mode_freight\" class=\"validate[required]\" value=\""+mode.freight+"\" /></div>";
+		html += "<div class=\"input\"><label>回报时间：</label><input type=\"text\" id=\"mode_returntime\" name=\"mode_returntime\" class=\"validate[required]\" value=\""+mode.returntime+"\" /></div>";
 		html += "<div class=\"btn\"><input type=\"button\" id=\"btnModeOK\" name=\"btnModeOK\" onclick=\"proj_form.updateMode()\" value=\"确定\" style=\"width:100px;\" /><input type=\"button\" id=\"btnModeCannel\" name=\"btnModeCannel\" value=\"取消\" style=\"width:100px;margin-left:50px;\" onclick=\"tl_msg.close();\" /></div>";
 		html += "</div>";
+		html += "</form>";
 		
 		return html;
 	},
 	updateMode : function(){
+		if(!proj_form._validStep2()) return;
 		var modeID = $(".proj_mode #mode_id").val();
 		var modeProjID = $(".proj_mode #mode_projID").val();
 		var modeImgURL = $(".proj_mode #mode_imgURL").val();
@@ -116,10 +127,22 @@ var proj_form = {
 	addMode : function(){
 		tl_msg.dialog("新增",proj_form._getModeHTML(""),680,600);
 		proj_form.initUploadify("mode_uploadify","mode_queueItemCount","mode_imgURL","mode_uploadErrorMsg",true,proj_form.modeImageUploaded);
+		$("#form2").validationEngine("attach",{
+			autoPositionUpdate:false,//是否自动调整提示层的位置
+			scroll:false,//屏幕自动滚动到第一个验证不通过的位置
+			focusFirstField:false,//验证未通过时，是否给第一个不通过的控件获取焦点
+			promptPosition:"topRight" //验证提示信息的位置，可设置为："topRight", "bottomLeft", "centerRight", "bottomRight" 
+		});
 	},
 	editMode : function(id){
 		tl_msg.dialog("修改",proj_form._getModeHTML(id),680,600);
 		proj_form.initUploadify("mode_uploadify","mode_queueItemCount","mode_imgURL","mode_uploadErrorMsg",true,proj_form.modeImageUploaded);
+		$("#form2").validationEngine("attach",{
+			autoPositionUpdate:false,//是否自动调整提示层的位置
+			scroll:false,//屏幕自动滚动到第一个验证不通过的位置
+			focusFirstField:false,//验证未通过时，是否给第一个不通过的控件获取焦点
+			promptPosition:"topRight" //验证提示信息的位置，可设置为："topRight", "bottomLeft", "centerRight", "bottomRight" 
+		});
 	},
 	delMode : function(id){
 		var index = -1;
@@ -145,6 +168,7 @@ var proj_form = {
 		$("#mode_image").attr("src",webroot+imgURL);
 	},
 	next : function(){
+		if(!proj_form._validStep1()) return;
 		$("#proj_step1").hide();
 		$("#proj_step2").show();
 		$("html,body").animate({scrollTop:$("#proj_step2").offset().top-20},0);
@@ -154,8 +178,42 @@ var proj_form = {
 		$("#proj_step2").hide();
 		$("html,body").animate({scrollTop:$("#proj_step1").offset().top-20},0);
 	},
+	_formData : function(){
+		var form = {};
+		form["proj_type"] = $("#proj_type").val();
+		form["proj_name"] = $("#proj_name").val();
+		form["proj_province"] = $("#proj_province").val();
+		form["proj_city"] = $("#proj_city").val();
+		form["proj_county"] = $("#proj_county").val();
+		form["proj_amountGoal"] = $("#proj_amountGoal").val();
+		form["proj_timeType"] = $("#proj_timeType").val();
+		form["proj_countDay_sel"] = $("#proj_countDay_sel").val();
+		form["proj_countDay"] = $("#proj_countDay").val();
+		form["proj_imgURL"] = $("#proj_imgURL").val();
+		form["proj_videoURL"] = $("#proj_videoURL").val();
+		form["proj_summary"] = $("#proj_summary").val();
+		form["proj_content"] = CKEDITOR.instances.proj_content.getData();
+		form["proj_modes"] = proj_form.proj_modes;
+		return form;
+	},
+	_validStep1 : function() {
+		if (!$("#form1").validationEngine("validate")){
+			//验证提示
+			$("#form1").validationEngine("updatePromptsPosition");
+			return false;
+		}
+		return true;
+	},
+	_validStep2 : function() {
+		if (!$("#form2").validationEngine("validate")){
+			//验证提示
+			$("#form2").validationEngine({scroll:false});
+			return false;
+		}
+		return true;
+	},
 	_save : function(){
-		tl_msg.show("debugger","调用了_save()");
+		tl_msg.show("debugger",proj_form._formData());
 	},
 	save : function(){
 		$("#proj_imgURL").val("");
@@ -210,6 +268,19 @@ var proj_form = {
 		}else{
 			$("#proj_countDay").val(selValue*30).css("font-size","18px").css("text-align","center");
 		}
+	},
+	imgUploaded : function(){
+		$("#proj_coverIMG_div").empty();
+		if($("#proj_imgURL").val()!=""){
+			$("#proj_coverIMG_div").html("<img src=\""+webroot+$("#proj_imgURL").val()+"\" border=\"0\" style=\"width:400px;height:276px;\" />");
+			$("#proj_coverIMG_div").append("<div style=\"width:100%;margin-top:10px;text-align:center;\"><a href=\"javascript:void();\" style=\"background: url(../img/delete.png) no-repeat left;padding-left: 20px;\" onclick=\"proj_form.delCoverImg();\">删除</a></div>");
+		}
+	},
+	delCoverImg : function(){
+		$("#proj_coverIMG_div").empty();
+		$("#queueItemCount").val("0");
+		$("#proj_imgURL").val("");
+		$("#uploadErrorMsg").val("");
 	},
 	initUploadify : function(el,countCtrl,imgCtrl,errorCtrl,auto,successInvok){
 		var sessionid= getCookie("JSESSIONID");

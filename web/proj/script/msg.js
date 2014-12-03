@@ -62,6 +62,10 @@ var tl_msg = {
 		$("#proj_msg_div_msg").css("display", "none");
 		var parent_div = document.getElementById("proj_msg_parent_div");
 		parent_div.style.display = 'none';
+		
+		if($(".formError").length>0){
+			$(".formError").click();
+		}
 	},
 	sc : function(){
 		var t = (document.documentElement.scrollTop + document.body.scrollTop + (document.documentElement.clientHeight - document.getElementById("proj_msg_div_msg").offsetHeight) / 2);

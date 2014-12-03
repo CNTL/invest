@@ -4,10 +4,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <%@include file="../inc/meta.inc"%>
+	<link rel="stylesheet" type="text/css" href="../js/plugin/jquery-validate/css/validationEngine.jquery.css"/>
 	<link rel="stylesheet" type="text/css" href="../proj/css/project.css" />
 	<link rel="stylesheet" type="text/css" href="../js/plugin/uploadify-3.2.1/uploadify.css"/>
 	<script type="text/javascript" src="../static/ckeditor/ckeditor.js"></script>
 	<script type="text/javascript" src="../js/plugin/uploadify-3.2.1/jquery.uploadify.js"></script>
+	<script type="text/javascript" src="../js/plugin/jquery-validate/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="../js/plugin/jquery-validate/js/jquery.validationEngine.js"></script>
+	<script type="text/javascript" src="../js/plugin/jquery-validate/js/languages/jquery.validationEngine-zh_CN.js"></script>
 	<script type="text/javascript" src="../proj/script/datas.js"></script>
 	<script type="text/javascript" src="../proj/script/project.js"></script>
 	<script type="text/javascript" src="../proj/script/msg.js"></script>
@@ -23,6 +27,9 @@
 	<div id="proj_step1" class="job_add" style="margin-bottom:200px;">
 	   <h2>发起项目--基本信息</h2>
 	   <div style="width:100%;margin-top:8px;border-top:3px #FFA1AC solid;margin-bottom:8px;"></div>
+	   <div id="proj_coverIMG_div" style="display:none;position: absolute; z-index: 122; width: 400px; height: 320px;overflow:hidden;background:#fff;border:1px solid #C7C7C7;">
+		</div>
+		<form id="form1" action="" method="post">
 		<div class="select">
 			<input type="hidden" name="proj_type" id="proj_type" value="0" />
 			<ul id="proj_type_select" style="margin-left: 80px;">
@@ -31,41 +38,41 @@
 			</ul>
 		</div>
 	   <div class="input">
-			<label>项目名称：</label><input type="text" id="proj_name" name="proj_name" value="" />
+			<label>项目名称：</label><input type="text" id="proj_name" name="proj_name" value="" class="validate[maxSize[255],required]"/>
 	   </div>
 	   <div class="input">
 			<label>地域：</label>
-			<select id="proj_province" name="proj_province">
+			<select id="proj_province" name="proj_province" class="validate[required]">
 				<option value="">省份</option>
 				<option value="1">选项一</option>
 			</select>
-			<select id="proj_city" name="proj_city">
+			<select id="proj_city" name="proj_city" class="validate[required]">
 				<option value="">城市</option>
 				<option value="1">选项一</option>
 			</select>
-			<select id="proj_county" name="proj_county">
+			<select id="proj_county" name="proj_county" class="validate[required]">
 				<option value="">地区</option>
 				<option value="1">选项一</option>
 			</select>
 		</div>
 		<div class="input">
 			<label>众筹金额：</label>
-			<input type="text" id="proj_amountGoal" name="proj_amountGoal" value="" />
+			<input type="text" id="proj_amountGoal" name="proj_amountGoal" value="" class="validate[required,custom[number]]" />
 		</div>
 		<div class="input">
 			<label>众筹期限：</label>
-			<select id="proj_timeType" name="proj_timeType" style="display:none;">
+			<select id="proj_timeType" name="proj_timeType" style="display:none;" class="validate[required]">
 				<option value="1" selected="selected">天</option>
 				<option value="2">日期</option>
 			</select>
-		   <select id="proj_countDay_sel" name="proj_countDay_sel">
+		   <select id="proj_countDay_sel" name="proj_countDay_sel" class="validate[required]">
 				<option value="1" selected="selected">一个月</option>
 				<option value="1.5">一个半月</option>
 				<option value="2">两半月</option>
 				<option value="3">三半月</option>
 				<option value="0">其他</option>
 		   </select>
-			<input type="text" id="proj_countDay" style="width:210px;" name="proj_countDay" value="" />
+			<input type="text" id="proj_countDay" style="width:210px;" name="proj_countDay" value="" class="validate[required,custom[number]]" />
 			<span style="margin-left:10px;font-size:18px;">天</span>
 		</div>
 	   <div class="input">
@@ -112,6 +119,7 @@
 		<div class="btn">
 			<input type="button" id="btnNext" name="btnNext" value="下一步" />
 		</div>
+		</form>
 	</div>
 	<div id="proj_step2" class="project_list" style="display:none; margin-bottom:200px;">
 		<div style="height: 20px;">
