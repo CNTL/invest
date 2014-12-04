@@ -1,5 +1,6 @@
 package com.tl.invest.proj;
 
+import com.tl.common.StringUtils;
 import com.tl.invest.common.MoneyHelper;
 import com.tl.kernel.DataType;
 
@@ -7,6 +8,7 @@ public enum ProjModeFields {
 	projID("mode_projID","所属项目ID",DataType.LONG) {
 		@Override
 		public void setValue(ProjMode mode, String value) {
+			if(StringUtils.isEmpty(value)) value = "0";
 			mode.setProjId(Long.parseLong(value));
 		}
 	},
@@ -19,14 +21,34 @@ public enum ProjModeFields {
 	price("mode_price","价格",DataType.FLOAT) {
 		@Override
 		public void setValue(ProjMode mode, String value) {
+			if(StringUtils.isEmpty(value)) value = "0";
 			mode.setPrice(MoneyHelper.toMoney(value));
 		}
 	},
 	countGoal("mode_countGoal","目标数",DataType.INTEGER) {
 		@Override
 		public void setValue(ProjMode mode, String value) {
+			if(StringUtils.isEmpty(value)) value = "0";
 			mode.setCountGoal(Integer.parseInt(value));
 		}
+	},
+	countSupport("mode_countSupport","支持数",DataType.INTEGER){
+
+		@Override
+		public void setValue(ProjMode mode, String value) {
+			if(StringUtils.isEmpty(value)) value = "0";
+			mode.setCountSupport(Integer.parseInt(value));
+		}
+		
+	},
+	order("mode_order","排序码",DataType.INTEGER){
+
+		@Override
+		public void setValue(ProjMode mode, String value) {
+			if(StringUtils.isEmpty(value)) value = "0";
+			mode.setOrder(Integer.parseInt(value));
+		}
+		
 	},
 	imgURL("mode_imgURL","图片地址",DataType.VARCHAR) {
 		@Override
@@ -49,18 +71,21 @@ public enum ProjModeFields {
 	freight("mode_freight","邮费",DataType.FLOAT) {
 		@Override
 		public void setValue(ProjMode mode, String value) {
+			if(StringUtils.isEmpty(value)) value = "0";
 			mode.setFreight(MoneyHelper.toMoney(value));
 		}
 	},
 	deleted("mode_deleted","是否删除",DataType.INTEGER) {
 		@Override
 		public void setValue(ProjMode mode, String value) {
+			if(StringUtils.isEmpty(value)) value = "0";
 			mode.setDeleted(Integer.parseInt(value));
 		}
 	},
 	status("mode_status","状态",DataType.INTEGER) {
 		@Override
 		public void setValue(ProjMode mode, String value) {
+			if(StringUtils.isEmpty(value)) value = "0";
 			mode.setStatus(Integer.parseInt(value));
 		}
 	}

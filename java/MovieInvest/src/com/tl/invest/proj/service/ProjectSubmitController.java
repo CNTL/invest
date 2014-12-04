@@ -13,13 +13,10 @@ import org.hibernate.Transaction;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
-import com.tl.common.ResourceMgr;
-import com.tl.db.DBSession;
 import com.tl.invest.common.BackResult;
 import com.tl.invest.proj.DataMode;
 import com.tl.invest.proj.ProjMode;
 import com.tl.invest.proj.Project;
-import com.tl.kernel.context.Context;
 import com.tl.kernel.context.DAO;
 import com.tl.kernel.context.TLException;
 import com.tl.kernel.web.BaseController;
@@ -52,25 +49,15 @@ public class ProjectSubmitController extends BaseController {
         	return;
 		}
 		DataMode modes = null;
-		DBSession conn = null;
-		try {
-			conn = Context.getDBSession();
-	    	conn.beginTransaction();
-			
-			JSONObject modesObj = _jsonObj(params, "modes");
-			modes = assembleProjModes(modesObj,request,conn);
-			
-			conn.commitTransaction();
-		} catch (Exception e) {
-			ResourceMgr.rollbackQuietly(conn);
-			output(JSONObject.fromObject(new BackResult(false,e.getLocalizedMessage())).toString(), response);
-			return;
-		}
+		
 		Session s = null;
 		try {
 			DAO d = new DAO();
 			s = d.getSession();
 			Transaction t = s.beginTransaction();
+			
+			JSONArray modesObj = _jsonArray(params, "modes");
+			modes = assembleProjModes(project,modesObj,request,s);			
 			
 			service.save(project, s);
 			if(project.getId()>0){
@@ -94,6 +81,7 @@ public class ProjectSubmitController extends BaseController {
 		List<ProjMode> list = modes.getNewList();
 		if(list!=null && list.size()>0){
 			for (ProjMode mode : list) {
+				mode.setProjId(project.getId());
 				service.save(mode, s);
 			}
 		}
@@ -101,6 +89,7 @@ public class ProjectSubmitController extends BaseController {
 		list = modes.getEditList();
 		if(list!=null && list.size()>0){
 			for (ProjMode mode : list) {
+				mode.setProjId(project.getId());
 				service.save(mode, s);
 			}
 		}
@@ -130,55 +119,78 @@ public class ProjectSubmitController extends BaseController {
 		return project;
 	}
 	
-	private DataMode assembleProjModes(JSONObject modesObj,
-			HttpServletRequest request,DBSession conn) throws TLException {
+	private DataMode assembleProjModes(Project proj,JSONArray modeObjs,
+			HttpServletRequest request,Session s) throws TLException {
 		DataMode modes = new DataMode();
-		
-		JSONArray array = _jsonArray(modesObj, "deleteList");
-		if (array != null && array.size() > 0) {
-			long[] list = new long[array.size()];
-			for (int i = 0; i < array.size(); i++) {
-				list[i] = array.getLong(i);
-			}
-			modes.setDeleteList(list);
+		ProjMode[] projModes = null;
+		if(proj.getId()>0){
+			projModes = service.getProjectModes(proj.getId(), s);
 		}
 		
-		//ÐÂÔö
-        JSONArray formListObj = _jsonArray(modesObj, "formList");
-        if (formListObj != null && formListObj.size() > 0) {
+        if (modeObjs != null && modeObjs.size() > 0) {
             List<ProjMode> formList = new ArrayList<ProjMode>();
-        	for (int i = 0; i < formListObj.size(); i++) {
-        		JSONObject formObj = formListObj.getJSONObject(i);
-        		ProjMode mode = assembleProjMode(formObj, request, conn);
+        	for (int i = 0; i < modeObjs.size(); i++) {
+        		JSONObject formObj = modeObjs.getJSONObject(i);
+        		ProjMode mode = assembleProjMode(formObj, request, s);
+        		mode.setProjId(proj.getId());
+        		mode.setOrder(i);
         		formList.add(mode);
 			}
-        	modes.setNewList(formList);
+        	
+        	if(projModes != null){
+        		List<ProjMode> addList = new ArrayList<ProjMode>();
+            	List<ProjMode> editList = new ArrayList<ProjMode>();
+            	List<ProjMode> delList = new ArrayList<ProjMode>();
+        		for (ProjMode projMode : formList) {
+					boolean exist = false;
+					for (ProjMode pm : projModes) {
+						if(pm.getId() == projMode.getId()){
+							exist = true;
+							editList.add(projMode);
+							break;
+						}
+					}
+					if(!exist){
+						addList.add(projMode);
+					}
+				}
+        		for (ProjMode pm : projModes) {
+        			boolean exist = false;
+        			for (ProjMode projMode : formList) {
+        				if(pm.getId() == projMode.getId()){
+        					exist = true;
+        					break;
+        				}
+        			}
+        			if(!exist){
+        				delList.add(pm);
+        			}
+        		}
+        		long[] delIDs = new long[delList.size()];
+        		for (int i=0;i<delIDs.length;i++) {
+					delIDs[i] = delList.get(i).getId();
+				}
+        		modes.setDeleteList(delIDs);
+        		modes.setNewList(addList);
+        		modes.setEditList(editList);
+        	}else {
+        		modes.setNewList(formList);
+			}
+        	
         }
 
-        //ÐÞ¸Ä
-        formListObj = _jsonArray(modesObj, "editList");
-        if (formListObj != null && formListObj.size() > 0) {
-            List<ProjMode> formList = new ArrayList<ProjMode>();
-        	for (int i = 0; i < formListObj.size(); i++) {
-        		JSONObject formObj = formListObj.getJSONObject(i);
-        		ProjMode mode = assembleProjMode(formObj, request, conn);
-        		formList.add(mode);
-			}
-        	modes.setEditList(formList);
-        }
-		
 		return modes;
 	}
 
 	private ProjMode assembleProjMode(JSONObject formObj,
-			HttpServletRequest request,DBSession conn) throws TLException {
+			HttpServletRequest request,Session s) throws TLException {
 		ProjMode mode = null;
 		String docID = formObj.getString("mode_id");
 		 if (docID.startsWith("TEMP_")) {
 			 mode = new ProjMode();
 			 service.initProjMode(mode, request);
 		 }else {
-			mode = service.getProjectMode(Long.parseLong(docID),conn);
+			mode = service.getProjectMode(Long.parseLong(docID),s);
 		}
 		service.fillProjModeValues(mode, formObj);
 		

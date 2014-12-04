@@ -43,6 +43,8 @@ public class Project implements java.io.Serializable {
 	private int province;
 	private int city;
 	private int county;
+	
+	private int order;
 
 	public Project() {
 	}
@@ -293,5 +295,13 @@ public class Project implements java.io.Serializable {
 
 	public void setCounty(int county) {
 		this.county = county;
+	}
+
+	public int getOrder() {
+		return order;
+	}
+
+	public void setOrder(int order) {
+		this.order = order;
 	}
 }

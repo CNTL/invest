@@ -38,5 +38,11 @@
         <property name="status" type="int">
             <column name="mode_status" not-null="true" />
         </property>
+        <property name="order" type="int">
+            <column name="mode_order" not-null="true" />
+        </property>
+        <property name="countSupport" type="int">
+            <column name="mode_countSupport" not-null="true" />
+        </property>
     </class>
 </hibernate-mapping>

@@ -1,6 +1,5 @@
 package com.tl.invest.proj.service;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,10 +10,9 @@ import net.sf.json.JSONObject;
 import org.hibernate.Session;
 
 import com.tl.common.DateUtils;
-import com.tl.common.ResourceMgr;
 import com.tl.common.log.Log;
-import com.tl.db.DBSession;
 import com.tl.db.IResultSet;
+import com.tl.invest.common.MoneyHelper;
 import com.tl.invest.constant.TableLibs;
 import com.tl.invest.proj.ProjMode;
 import com.tl.invest.proj.ProjModeFields;
@@ -158,28 +156,18 @@ public class ProjectService {
 		return getProjectMode(modeId, null);
 	}
 	
-	public ProjMode getProjectMode(long modeId,DBSession db) throws TLException{
+	@SuppressWarnings("rawtypes")
+	public ProjMode getProjectMode(long modeId,Session s) throws TLException{
 		ProjMode mode = null;
 		String sql = "select * from "+TableLibs.TB_PROJMODE.getTableCode()
 				+" where mode_id=?";
-		IResultSet rs = null;
-		boolean dbIsCreated = false;
-		if(db==null){
-			dbIsCreated = true;
-			db= Context.getDBSession();
+		DAO d = new DAO();
+		if(s == null){
+			s = d.getSession();
 		}
-		try {
-			rs = db.executeQuery(sql, new Object[]{modeId});
-			if (rs.next()) {
-				mode = readProjModeRS(rs);
-			}
-		} catch (SQLException e) {
-			throw new TLException(e);
-		} finally {
-			ResourceMgr.closeQuietly(rs);
-			if(dbIsCreated){
-				ResourceMgr.closeQuietly(db);
-			}
+		List modes = d.find(sql, new Object[]{modeId}, s);
+		if(!modes.isEmpty()){
+			mode = (ProjMode)modes.get(0);
 		}
 		return mode;
 	}
@@ -187,27 +175,19 @@ public class ProjectService {
 	public ProjMode[] getProjectModes(long projectId) throws TLException{
 		return getProjectModes(projectId, null);
 	}
-	public ProjMode[] getProjectModes(long projectId,DBSession db) throws TLException{
+	@SuppressWarnings("rawtypes")
+	public ProjMode[] getProjectModes(long projectId,Session s) throws TLException{
 		List<ProjMode> list = new ArrayList<ProjMode>();
 		String hql = "select * from "+TableLibs.TB_PROJMODE.getTableCode()
 				+" where mode_projID=? and mode_deleted=0 ";
-		IResultSet rs = null;
-		boolean dbIsCreated = false;
-		if(db==null){
-			dbIsCreated = true;
-			db= Context.getDBSession();
+		DAO d = new DAO();
+		if(s == null){
+			s = d.getSession();
 		}
-		try {
-			rs = db.executeQuery(hql, new Object[]{projectId});
-			while (rs.next()) {
-				list.add(readProjModeRS(rs));
-			}
-		} catch (SQLException e) {
-			throw new TLException(e);
-		} finally {
-			ResourceMgr.closeQuietly(rs);
-			if(dbIsCreated){
-				ResourceMgr.closeQuietly(db);
+		List modes = d.find(hql, new Object[]{projectId}, s);
+		if(!modes.isEmpty()){
+			for(int i=0;i<modes.size();i++){
+				list.add((ProjMode)modes.get(i));
 			}
 		}
 		if (list.size() == 0) return null;
@@ -215,6 +195,7 @@ public class ProjectService {
 		return (ProjMode[]) list.toArray(new ProjMode[0]);
 	}
 	
+	@SuppressWarnings("unused")
 	private ProjMode readProjModeRS(IResultSet rs) throws TLException{
 		try {
 			ProjMode mode = new ProjMode();
@@ -251,6 +232,10 @@ public class ProjectService {
 		proj.setCountSubject(0);
 		proj.setCountSupport(0);
 		proj.setCountView(0);
+		proj.setAmountPaid(MoneyHelper.ZERO);
+		proj.setAmountGoal(MoneyHelper.ZERO);
+		proj.setAmountRaised(MoneyHelper.ZERO);
+		proj.setOrder(0);
 	}
 	
 	public void fillProjectValues(Project project,JSONObject obj) throws TLException{
@@ -271,7 +256,8 @@ public class ProjectService {
 	}
 	
 	public void initProjMode(ProjMode mode,HttpServletRequest request){
-		
+		mode.setOrder(0);
+		mode.setCountSupport(0);
 	}
 	
 	public void fillProjModeValues(ProjMode mode,JSONObject obj) throws TLException{

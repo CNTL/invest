@@ -98,5 +98,8 @@
         <property name="county" type="int">
             <column name="proj_county" not-null="false" />
         </property>
+        <property name="order" type="int">
+            <column name="proj_order" not-null="true" />
+        </property>
     </class>
 </hibernate-mapping>

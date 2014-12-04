@@ -20,6 +20,7 @@ public class ProjMode implements java.io.Serializable {
 	 * 目标数量
 	 */
 	private int countGoal;
+	private int countSupport;
 	/*
 	 * 回报
 	 */
@@ -37,6 +38,7 @@ public class ProjMode implements java.io.Serializable {
 	 * 1=众筹中;2=名额已满;0=暂停
 	 */
 	private int status;
+	private int order;
 
 	public ProjMode() {
 	}
@@ -130,4 +132,21 @@ public class ProjMode implements java.io.Serializable {
 	public void setStatus(int status) {
 		this.status = status;
 	}
+
+	public int getCountSupport() {
+		return countSupport;
+	}
+
+	public void setCountSupport(int countSupport) {
+		this.countSupport = countSupport;
+	}
+
+	public int getOrder() {
+		return order;
+	}
+
+	public void setOrder(int order) {
+		this.order = order;
+	}
+	
 }

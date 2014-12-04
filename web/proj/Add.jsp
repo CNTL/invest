@@ -7,6 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="../js/plugin/jquery-validate/css/validationEngine.jquery.css"/>
 	<link rel="stylesheet" type="text/css" href="../proj/css/project.css" />
 	<link rel="stylesheet" type="text/css" href="../js/plugin/uploadify-3.2.1/uploadify.css"/>
+	<script type="text/javascript" src="../js/json/json2.js"></script>
 	<script type="text/javascript" src="../static/ckeditor/ckeditor.js"></script>
 	<script type="text/javascript" src="../js/plugin/uploadify-3.2.1/jquery.uploadify.js"></script>
 	<script type="text/javascript" src="../js/plugin/jquery-validate/jquery.validate.min.js"></script>
@@ -30,6 +31,8 @@
 	   <div id="proj_coverIMG_div" style="display:none;position: absolute; z-index: 122; width: 400px; height: 320px;overflow:hidden;background:#fff;border:1px solid #C7C7C7;">
 		</div>
 		<form id="form1" action="" method="post">
+		<input type="hidden" id="proj_id" name="proj_id" value="0" />
+		<input type="hidden" id="proj_order" name="proj_order" value="0" />
 		<div class="select">
 			<input type="hidden" name="proj_type" id="proj_type" value="0" />
 			<ul id="proj_type_select" style="margin-left: 80px;">

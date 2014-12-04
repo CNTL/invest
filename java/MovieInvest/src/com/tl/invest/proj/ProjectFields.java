@@ -28,12 +28,14 @@ public enum ProjectFields {
 	approveStatus("proj_approveStatus","审批状态",DataType.INTEGER) {
 		@Override
 		public void setValue(Project project, String value) {
+			if(StringUtils.isEmpty(value)) value = "0";
 			project.setApproveStatus(Short.parseShort(value));
 		}
 	},
 	approveUser("proj_approveUser","审批人",DataType.INTEGER) {
 		@Override
 		public void setValue(Project project, String value) {
+			if(StringUtils.isEmpty(value)) value = "0";
 			project.setApproveUser(Integer.parseInt(value));
 		}
 	},
@@ -46,6 +48,7 @@ public enum ProjectFields {
 	status("proj_status","状态",DataType.INTEGER) {
 		@Override
 		public void setValue(Project project, String value) {
+			if(StringUtils.isEmpty(value)) value = "0";
 			project.setStatus(Integer.parseInt(value));
 		}
 	},
@@ -58,6 +61,7 @@ public enum ProjectFields {
 	pid("proj_pid","父ID",DataType.LONG) {
 		@Override
 		public void setValue(Project project, String value) {
+			if(StringUtils.isEmpty(value)) value = "0";
 			project.setPid(Long.parseLong(value));
 		}
 	},
@@ -70,24 +74,28 @@ public enum ProjectFields {
 	userID("proj_userID","创建人ID",DataType.INTEGER) {
 		@Override
 		public void setValue(Project project, String value) {
+			if(StringUtils.isEmpty(value)) value = "0";
 			project.setUserId(Integer.parseInt(value));
 		}
 	},
 	type("proj_type","项目类型",DataType.INTEGER) {
 		@Override
 		public void setValue(Project project, String value) {
+			if(StringUtils.isEmpty(value)) value = "0";
 			project.setType(Integer.parseInt(value));
 		}
 	},
 	timeType("proj_timeType","时间类型",DataType.INTEGER) {
 		@Override
 		public void setValue(Project project, String value) {
+			if(StringUtils.isEmpty(value)) value = "0";
 			project.setTimeType(Integer.parseInt(value));
 		}
 	},
 	countDay("proj_countDay","天数",DataType.INTEGER) {
 		@Override
 		public void setValue(Project project, String value) {
+			if(StringUtils.isEmpty(value)) value = "0";
 			project.setCountDay(Integer.parseInt(value));
 		}
 	},
@@ -132,18 +140,21 @@ public enum ProjectFields {
 	amountGoal("proj_amountGoal","目标金额",DataType.FLOAT) {
 		@Override
 		public void setValue(Project project, String value) {
+			if(StringUtils.isEmpty(value)) value = "0";
 			project.setAmountGoal(MoneyHelper.toMoney(value));
 		}
 	},
 	amountRaised("proj_amountRaised","已筹集金额",DataType.FLOAT) {
 		@Override
 		public void setValue(Project project, String value) {
+			if(StringUtils.isEmpty(value)) value = "0";
 			project.setAmountRaised(MoneyHelper.toMoney(value));
 		}
 	},
 	amountPaid("proj_amountPaid","已支付金额",DataType.FLOAT) {
 		@Override
 		public void setValue(Project project, String value) {
+			if(StringUtils.isEmpty(value)) value = "0";
 			project.setAmountPaid(MoneyHelper.toMoney(value));
 		}
 	},
@@ -151,25 +162,61 @@ public enum ProjectFields {
 	countLove("proj_countLove","分享人数",DataType.INTEGER) {
 		@Override
 		public void setValue(Project project, String value) {
+			if(StringUtils.isEmpty(value)) value = "0";
 			project.setCountLove(Integer.parseInt(value));
 		}
 	},
 	countView("proj_countView","查看人数",DataType.INTEGER) {
 		@Override
 		public void setValue(Project project, String value) {
+			if(StringUtils.isEmpty(value)) value = "0";
 			project.setCountView(Integer.parseInt(value));
 		}
 	},
 	countSubject("proj_countSubject","话题数",DataType.INTEGER) {
 		@Override
 		public void setValue(Project project, String value) {
+			if(StringUtils.isEmpty(value)) value = "0";
 			project.setCountSubject(Integer.parseInt(value));
 		}
 	},
 	countSupport("proj_countSupport","支持人数",DataType.INTEGER) {
 		@Override
 		public void setValue(Project project, String value) {
+			if(StringUtils.isEmpty(value)) value = "0";
 			project.setCountSupport(Integer.parseInt(value));
+		}
+	}
+	,
+	province("proj_province","省",DataType.INTEGER) {
+		@Override
+		public void setValue(Project project, String value) {
+			if(StringUtils.isEmpty(value)) value = "0";
+			project.setProvince(Integer.parseInt(value));
+		}
+	}
+	,
+	city("proj_city","市",DataType.INTEGER) {
+		@Override
+		public void setValue(Project project, String value) {
+			if(StringUtils.isEmpty(value)) value = "0";
+			project.setCity(Integer.parseInt(value));
+		}
+	}
+	,
+	county("proj_county","县",DataType.INTEGER) {
+		@Override
+		public void setValue(Project project, String value) {
+			if(StringUtils.isEmpty(value)) value = "0";
+			project.setCounty(Integer.parseInt(value));
+		}
+	}
+	,
+	order("proj_order","排序码",DataType.INTEGER) {
+		@Override
+		public void setValue(Project project, String value) {
+			if(StringUtils.isEmpty(value)) value = "0";
+			project.setOrder(Integer.parseInt(value));
 		}
 	}
 	;
