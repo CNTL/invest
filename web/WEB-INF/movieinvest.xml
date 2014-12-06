@@ -54,14 +54,26 @@
 	<bean id="project.Submit" class="com.tl.invest.proj.service.ProjectSubmitController">
 		<property name="service"><ref bean="project.Service" /></property>
 	</bean>
-	<bean id="project.Project" class="com.tl.invest.proj.service.ProjectController">
-		<property name="service"><ref bean="project.Service" /></property>
-	</bean>
 	<bean id="project.ProjectFetcher" class="com.tl.invest.proj.service.ProjectFetcher">
 		<property name="service"><ref bean="project.Service" /></property>
 	</bean>
 	<bean id="project.Main" class="com.tl.invest.proj.service.ProjectMainController">
+		<property name="service"><ref bean="project.Service" /></property>
+		<property name="userMgr"><ref bean="UserManager"/></property>
+		<property name="dicReader"><ref bean="DictionaryReader"/></property>
 		<property name="viewName"><value>proj/List</value></property>
+	</bean>
+	<bean id="project.Project" class="com.tl.invest.proj.service.ProjectController">
+		<property name="service"><ref bean="project.Service" /></property>
+		<property name="userMgr"><ref bean="UserManager"/></property>
+		<property name="dicReader"><ref bean="DictionaryReader"/></property>
+		<property name="viewName"><value>proj/Detail</value></property>
+	</bean>
+	<bean id="project.Support" class="com.tl.invest.proj.service.SupportController">
+		<property name="service"><ref bean="project.Service" /></property>
+		<property name="userMgr"><ref bean="UserManager"/></property>
+		<property name="dicReader"><ref bean="DictionaryReader"/></property>
+		<property name="viewName"><value>proj/Support</value></property>
 	</bean>
 	<bean id="project.Publish" class="com.tl.invest.proj.service.ProjectPublishController">
 		<property name="viewName"><value>proj/Add</value></property>
@@ -185,6 +197,7 @@
 				<!--项目-->
 				<prop key="/project/Submit.do">project.Submit</prop>
 				<prop key="/project/Project.do">project.Project</prop>
+				<prop key="/project/Support.do">project.Support</prop>
 				<prop key="/project/ProjectFetcher.do">project.ProjectFetcher</prop>
 				<prop key="/project/List.do">project.Main</prop>
 				<prop key="/project/Publish.do">project.Publish</prop>

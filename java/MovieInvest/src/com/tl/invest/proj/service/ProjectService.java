@@ -1,6 +1,9 @@
 package com.tl.invest.proj.service;
 
+import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,13 +13,18 @@ import net.sf.json.JSONObject;
 import org.hibernate.Session;
 
 import com.tl.common.DateUtils;
+import com.tl.common.ResourceMgr;
 import com.tl.common.log.Log;
+import com.tl.db.DBSession;
 import com.tl.db.IResultSet;
 import com.tl.invest.common.MoneyHelper;
 import com.tl.invest.constant.TableLibs;
 import com.tl.invest.proj.ProjMode;
 import com.tl.invest.proj.ProjModeFields;
+import com.tl.invest.proj.ProjSupport;
+import com.tl.invest.proj.ProjSupportExt;
 import com.tl.invest.proj.Project;
+import com.tl.invest.proj.ProjectExt;
 import com.tl.invest.proj.ProjectFields;
 import com.tl.kernel.context.Context;
 import com.tl.kernel.context.DAO;
@@ -123,7 +131,7 @@ public class ProjectService {
 	public Project get(long id){
 		Project proj = null;
 		DAO d = new DAO();
-		List projs = d.find("select a from com.tl.invest.proj.Project as a where a.id = :id", new Object[]{id});
+		List projs = d.find("select a from com.tl.invest.proj.Project as a where a.id = ?", new Object[]{id});
 		if(!projs.isEmpty()){
 			proj = (Project)projs.get(0);
 		}		
@@ -134,7 +142,7 @@ public class ProjectService {
 	public Project get(long id,Session s){
 		Project proj = null;
 		DAO d = new DAO();
-		List projs = d.find("select a from com.tl.invest.proj.Project as a where a.id = :id", new Object[]{id}, s);
+		List projs = d.find("select a from com.tl.invest.proj.Project as a where a.id = ?", new Object[]{id}, s);
 		if(!projs.isEmpty()){
 			proj = (Project)projs.get(0);
 		}
@@ -145,7 +153,7 @@ public class ProjectService {
 	public ProjMode getMode(long modeId,Session s) throws TLException{
 		ProjMode mode = null;
 		DAO d = new DAO();
-		List modes = d.find("select a from com.tl.invest.proj.ProjMode as a where a.id = :id", new Object[]{modeId}, s);
+		List modes = d.find("select a from com.tl.invest.proj.ProjMode as a where a.id = ?", new Object[]{modeId}, s);
 		if(!modes.isEmpty()){
 			mode = (ProjMode)modes.get(0);
 		}
@@ -159,8 +167,7 @@ public class ProjectService {
 	@SuppressWarnings("rawtypes")
 	public ProjMode getProjectMode(long modeId,Session s) throws TLException{
 		ProjMode mode = null;
-		String sql = "select * from "+TableLibs.TB_PROJMODE.getTableCode()
-				+" where mode_id=?";
+		String sql = "select a from com.tl.invest.proj.ProjMode as a where a.id=?";
 		DAO d = new DAO();
 		if(s == null){
 			s = d.getSession();
@@ -178,8 +185,7 @@ public class ProjectService {
 	@SuppressWarnings("rawtypes")
 	public ProjMode[] getProjectModes(long projectId,Session s) throws TLException{
 		List<ProjMode> list = new ArrayList<ProjMode>();
-		String hql = "select * from "+TableLibs.TB_PROJMODE.getTableCode()
-				+" where mode_projID=? and mode_deleted=0 ";
+		String hql = "select a from com.tl.invest.proj.ProjMode as a where a.projId=? and a.deleted=0 order by a.order,a.id";
 		DAO d = new DAO();
 		if(s == null){
 			s = d.getSession();
@@ -195,6 +201,153 @@ public class ProjectService {
 		return (ProjMode[]) list.toArray(new ProjMode[0]);
 	}
 	
+	private int getSqlCount(String sql,Object[] params,DBSession db) throws TLException{
+		int count =0;
+		boolean dbIsCreated = false;
+		if(db==null){
+			dbIsCreated = true;
+			db= Context.getDBSession();
+		}
+		IResultSet rs = null;
+		try{
+			//dbSession = Context.getDBSession();
+			rs = db.executeQuery(sql,params);
+			if(rs.next())
+				count = rs.getInt(1);
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}finally{
+			ResourceMgr.closeQuietly(rs);
+			if(dbIsCreated){
+				ResourceMgr.closeQuietly(db);
+			}
+		}
+		return count;
+	}
+	
+	public int getProjectExtsCount(int type,DBSession db) throws TLException{
+		String sql = "select count(0) from invest_project left JOIN sys_dictionary on sys_dictionary.dic_id=invest_project.proj_type";
+		sql += " left JOIN `user` on `user`.id=invest_project.proj_userID";
+		sql += " where invest_project.proj_type=?";
+		Object[] params = new Object[]{type};
+		return getSqlCount(sql,params,db);
+	}
+	
+	public ProjectExt[] getProjectExts(int type,int pageSize,int page,DBSession db) throws TLException{
+		List<ProjectExt> list = new ArrayList<ProjectExt>();
+		String sql = "select invest_project.*,sys_dictionary.dic_name typeName,`user`.`name` userName from invest_project left JOIN sys_dictionary on sys_dictionary.dic_id=invest_project.proj_type";
+			sql += " left JOIN `user` on `user`.id=invest_project.proj_userID";
+			sql += " where invest_project.proj_type=? order by proj_order,proj_id desc";
+		Object[] params = new Object[]{type};
+		IResultSet rs = null;
+		boolean dbIsCreated = false;
+		if(db==null){
+			dbIsCreated = true;
+			db= Context.getDBSession();
+		}
+		try {
+			sql = db.getDialect().getLimitString(sql, pageSize*(page-1), pageSize);
+			rs = db.executeQuery(sql, params);
+			while (rs.next()) {
+				list.add(readProjectExtRS(rs));
+			}
+		} catch (SQLException e) {
+			throw new TLException(e);
+		} finally {
+			ResourceMgr.closeQuietly(rs);
+			if(dbIsCreated){
+				ResourceMgr.closeQuietly(db);
+			}
+		}
+		if (list.size() == 0) return null;
+		
+		return (ProjectExt[]) list.toArray(new ProjectExt[0]);
+	}
+	
+	public int getProjectSupportCount(long projectId,DBSession db) throws TLException{
+		String sql = "select count(0) from "+TableLibs.TB_PROJSUPPORT.getTableCode()
+				+" left JOIN `user` ON `user`.id="+TableLibs.TB_PROJSUPPORT.getTableCode()+".sp_userID where sp_projID=? and sp_deleted=0";
+		Object[] params = new Object[]{projectId};
+		return getSqlCount(sql,params,db);
+	}
+	
+	public ProjSupportExt[] getProjectSupports(long projectId,int pageSize,int page,DBSession db) throws TLException{
+		List<ProjSupportExt> list = new ArrayList<ProjSupportExt>();
+		String hql = "select "+TableLibs.TB_PROJSUPPORT.getTableCode()+".*,`user`.`name` userName,`user`.head userHead,`user`.`code` userCode from "+TableLibs.TB_PROJSUPPORT.getTableCode()
+				+" left JOIN `user` ON `user`.id="+TableLibs.TB_PROJSUPPORT.getTableCode()+".sp_userID where sp_projID=? and sp_deleted=0 order by sp_id desc";
+		IResultSet rs = null;
+		boolean dbIsCreated = false;
+		if(db==null){
+			dbIsCreated = true;
+			db= Context.getDBSession();
+		}
+		try {
+			hql = db.getDialect().getLimitString(hql, pageSize*(page-1), pageSize);
+			rs = db.executeQuery(hql, new Object[]{projectId});
+			while (rs.next()) {
+				list.add(readProjSupportExtRS(rs));
+			}
+		} catch (SQLException e) {
+			throw new TLException(e);
+		} finally {
+			ResourceMgr.closeQuietly(rs);
+			if(dbIsCreated){
+				ResourceMgr.closeQuietly(db);
+			}
+		}
+		if (list.size() == 0) return null;
+		
+		return (ProjSupportExt[]) list.toArray(new ProjSupportExt[0]);
+	}
+	
+	private ProjSupportExt readProjSupportExtRS(IResultSet rs) throws TLException {
+		try {
+			ProjSupportExt support = new ProjSupportExt();
+			support.setId(rs.getLong("sp_id"));
+			support.setProjId(rs.getLong("sp_projID"));
+			support.setModeId(rs.getLong("sp_modeID"));
+			support.setUserId(rs.getInt("sp_userID"));
+			support.setAmount(rs.getBigDecimal("sp_amount"));
+			support.setAddressId(rs.getInt("sp_addressID"));
+			support.setMessage(rs.getString("sp_message"));
+			support.setCreated(rs.getDate("sp_created"));
+			support.setDeleted(rs.getInt("sp_deleted"));
+			support.setStatus(rs.getInt("sp_status"));
+			support.setOrderId(rs.getLong("sp_orderid"));
+			support.setPaySN(rs.getString("sp_paysn"));
+			support.setPayTime(rs.getTimestamp("sp_paytime"));
+			support.setUserHead(rs.getString("userHead"));
+			support.setUserName(rs.getString("userName"));
+			
+			return support;
+		} catch (Exception e) {
+			throw new TLException(e);
+		}
+	}
+
+	private ProjSupport readProjSupportRS(IResultSet rs) throws TLException {
+		try {
+			ProjSupport support = new ProjSupport();
+			support.setId(rs.getLong("sp_id"));
+			support.setProjId(rs.getLong("sp_projID"));
+			support.setModeId(rs.getLong("sp_modeID"));
+			support.setUserId(rs.getInt("sp_userID"));
+			support.setAmount(rs.getBigDecimal("sp_amount"));
+			support.setAddressId(rs.getInt("sp_addressID"));
+			support.setMessage(rs.getString("sp_message"));
+			support.setCreated(rs.getDate("sp_created"));
+			support.setDeleted(rs.getInt("sp_deleted"));
+			support.setStatus(rs.getInt("sp_status"));
+			support.setOrderId(rs.getLong("sp_orderid"));
+			support.setPaySN(rs.getString("sp_paysn"));
+			support.setPayTime(rs.getTimestamp("sp_paytime"));
+			
+			return support;
+		} catch (Exception e) {
+			throw new TLException(e);
+		}
+	}
+
 	@SuppressWarnings("unused")
 	private ProjMode readProjModeRS(IResultSet rs) throws TLException{
 		try {
@@ -212,6 +365,82 @@ public class ProjectService {
 			mode.setStatus(rs.getInt("mode_status"));
 			
 			return mode;
+		} catch (Exception e) {
+			throw new TLException(e);
+		}
+	}
+	
+	private ProjectExt readProjectExtRS(IResultSet rs) throws TLException{
+		try {
+			ProjectExt proj = new ProjectExt();
+			proj.setId(rs.getLong("proj_id"));
+			proj.setCreated(rs.getTimestamp("proj_created"));
+			proj.setLastModified(rs.getTimestamp("proj_lastModified"));
+			proj.setDeleted(rs.getShort("proj_deleted"));
+			proj.setApproveStatus(rs.getShort("proj_approveStatus"));
+			proj.setApproveUser(rs.getInt("proj_approveUser"));
+			proj.setApproveTime(rs.getTimestamp("proj_approveTime"));
+			proj.setStatus(rs.getInt("proj_status"));
+			proj.setLocktime(rs.getTimestamp("proj_locktime"));
+			proj.setPid(rs.getLong("proj_pid"));
+			proj.setName(rs.getString("proj_name"));
+			proj.setUserId(rs.getInt("proj_userID"));
+			proj.setType(rs.getInt("proj_type"));
+			proj.setTimeType(rs.getInt("proj_timeType"));
+			proj.setCountDay(rs.getInt("proj_countDay"));
+			proj.setBeginDate(rs.getDate("proj_beginDate"));
+			proj.setEndDate(rs.getDate("proj_endDate"));
+			proj.setImgUrl(rs.getString("proj_imgURL"));
+			proj.setVideoUrl(rs.getString("proj_videoURL"));
+			proj.setSummary(rs.getString("proj_summary"));
+			proj.setContent(rs.getString("proj_content"));
+			proj.setAmountGoal(rs.getBigDecimal("proj_amountGoal"));
+			proj.setAmountRaised(rs.getBigDecimal("proj_amountRaised"));
+			proj.setAmountPaid(rs.getBigDecimal("proj_amountPaid"));
+			proj.setCountLove(rs.getInt("proj_countLove"));
+			proj.setCountView(rs.getInt("proj_countView"));
+			proj.setCountSubject(rs.getInt("proj_countSubject"));
+			proj.setCountSupport(rs.getInt("proj_countSupport"));
+			proj.setProvince(rs.getInt("proj_province"));
+			proj.setCity(rs.getInt("proj_city"));
+			proj.setCounty(rs.getInt("proj_county"));
+			proj.setOrder(rs.getInt("proj_order"));
+			proj.setUserName(rs.getString("userName"));
+			proj.setTypeName(rs.getString("typeName"));
+			
+			if(proj.getTypeName().indexOf("微电影")>=0){
+				proj.setTypeNickName("短片");
+			}else if(proj.getTypeName().indexOf("长片")>=0){
+				proj.setTypeNickName("长片");
+			}else if(proj.getTypeName().indexOf("活动")>=0){
+				proj.setTypeNickName("活动");
+			}
+			
+			//完成百分比
+			BigDecimal per = MoneyHelper.ZERO;
+			if(proj.getAmountGoal().compareTo(MoneyHelper.ZERO)<=0){
+				per = MoneyHelper.toMoney("100");
+			}
+			else {
+				per = proj.getAmountRaised().divide(proj.getAmountGoal()).multiply(MoneyHelper.toMoney("100"));
+			}
+			per = MoneyHelper.getBigDecimal(per, 0);
+			//剩余时间
+			String surplus = "--";
+			Date endDate = proj.getEndDate();
+			if(endDate != null){
+				long l=endDate.getTime() - DateUtils.getDate().getTime();
+				if(l<=0){
+					surplus = "0天";
+				}else {
+					surplus = String.valueOf(l/(24*60*60*1000))+"天";
+				}
+			}
+			
+			proj.setSurplus(surplus);
+			proj.setFinishPer(per);
+			
+			return proj;
 		} catch (Exception e) {
 			throw new TLException(e);
 		}

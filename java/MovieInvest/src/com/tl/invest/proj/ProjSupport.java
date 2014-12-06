@@ -15,6 +15,7 @@ public class ProjSupport implements java.io.Serializable {
 	private long id;
 	private long projId;
 	private long modeId;
+	private int userId;
 	private BigDecimal amount;
 	private Integer addressId;
 	private String message;
@@ -53,6 +54,14 @@ public class ProjSupport implements java.io.Serializable {
 
 	public void setModeId(long modeId) {
 		this.modeId = modeId;
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 	public BigDecimal getAmount() {

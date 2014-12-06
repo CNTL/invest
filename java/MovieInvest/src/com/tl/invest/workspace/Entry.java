@@ -67,13 +67,15 @@ public class Entry extends BaseController {
 		model.put("pMenus", pMenus);
 		model.put("iMenus", iMenus);
 		model.put("rootPath", rootPath);
-		setMetaData(model);
 		
-		setOtherData(model);
+		setOtherData(request,response,model);
+		
+		setMetaData(model);
 	}
 	
 	@SuppressWarnings("rawtypes")
-	protected void setOtherData(Map model) {
+	protected void setOtherData(HttpServletRequest request,
+			HttpServletResponse response,Map model) throws Exception {
 		//ºÃ≥– µœ÷		
 	}
 

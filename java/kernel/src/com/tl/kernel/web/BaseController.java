@@ -228,6 +228,21 @@ public abstract class BaseController implements Controller
 	}
 	
 	/**
+	 * 工具方法：从request中取一个long值。若无法取到，则用缺省值返回
+	 * @param request
+	 * @param key
+	 * @param defaultValue
+	 * @return
+	 */
+	protected long getLong(HttpServletRequest request, String key, long defaultValue) {
+		try {
+			return Long.parseLong((String)request.getParameter(key));
+		} catch (Exception e) {
+			return defaultValue;
+		}
+	}
+	
+	/**
 	 * 工具方法：从session中取一个整数值
 	 * @param request
 	 * @param key
