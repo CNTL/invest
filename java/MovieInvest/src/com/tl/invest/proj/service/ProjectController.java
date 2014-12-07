@@ -68,7 +68,7 @@ public class ProjectController extends ProjectMainController{
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	protected void setMetaData(Map model) {
+	protected void setMetaData(HttpServletRequest request,Map model) {
 		model.put("title", (proj!=null?proj.getName():"") + "合众映画");
 		model.put("keywords", "合众映画");
 		model.put("description", proj!=null?proj.getSummary():"合众映画");

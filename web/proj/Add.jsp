@@ -31,7 +31,7 @@
 	   <div id="proj_coverIMG_div" style="display:none;position: absolute; z-index: 122; width: 400px; height: 320px;overflow:hidden;background:#fff;border:1px solid #C7C7C7;">
 		</div>
 		<form id="form1" action="" method="post">
-		<input type="hidden" id="proj_id" name="proj_id" value="0" />
+		<input type="hidden" id="proj_id" name="proj_id" value="<c:out value="${proj_id}"/>" />
 		<input type="hidden" id="proj_order" name="proj_order" value="0" />
 		<div class="select">
 			<input type="hidden" name="proj_type" id="proj_type" value="0" />
@@ -107,7 +107,7 @@
 		<div class="input">
 			<label>项目内容：</label>
 			<div class="text">
-				<textarea name="proj_content" id="proj_content"></textarea>
+				<textarea name="proj_content" id="proj_content"><c:out escapeXml="false" value="${proj.content}"/></textarea>
 			</div>
 			<div class="clear"></div>
 		</div>

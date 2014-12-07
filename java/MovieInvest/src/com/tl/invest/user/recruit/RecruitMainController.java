@@ -28,7 +28,7 @@ public class RecruitMainController extends Entry {
 	}
 	
 	@Override
-	protected void setMetaData(Map model) {
+	protected void setMetaData(HttpServletRequest request,Map model) {
 		model.put("title", "合众映画--项目");
 		model.put("keywords", "合众映画");
 		model.put("description", "合众映画");

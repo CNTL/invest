@@ -38,4 +38,30 @@ public class SessionHelper {
 
 		return sysUser.getUserID();
 	}
+	
+	
+	public static SysSessionUser getSysUser(HttpServletRequest request)
+	{
+		SysSessionUser sysUser = (SysSessionUser)request.getSession().getAttribute(SysSessionUser.sessionAdminName);
+
+		return sysUser;
+	}
+	
+	public static String getSysUserCode(HttpServletRequest request)
+	{
+		SysSessionUser sysUser = getSysUser(request);
+		
+		if(sysUser == null) return "";
+
+		return sysUser.getUserCode();
+	}
+	
+	public static int getSysUserID(HttpServletRequest request)
+	{
+		SysSessionUser sysUser = getSysUser(request);
+		
+		if(sysUser == null) return 0;
+
+		return sysUser.getUserID();
+	}
 }

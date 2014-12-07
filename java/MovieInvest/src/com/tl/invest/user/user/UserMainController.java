@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.tl.invest.sys.mu.Menu;
 import com.tl.invest.workspace.Entry;
 
@@ -20,7 +22,7 @@ public class UserMainController extends Entry {
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	protected void setMetaData(Map model) {
+	protected void setMetaData(HttpServletRequest request,Map model) {
 		model.put("title", "合众映画--项目");
 		model.put("keywords", "合众映画");
 		model.put("description", "合众映画");
