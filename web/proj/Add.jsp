@@ -15,7 +15,7 @@
 	<script type="text/javascript" src="../js/plugin/jquery-validate/js/languages/jquery.validationEngine-zh_CN.js"></script>
 	<script type="text/javascript" src="../proj/script/datas.js"></script>
 	<script type="text/javascript" src="../proj/script/project.js"></script>
-	<script type="text/javascript" src="../proj/script/msg.js"></script>
+	<script type="text/javascript" src="../js/layer/layer.min.js"></script>
 	<script type="text/javascript">
 		var webroot = "<c:out value="${rootPath}"/>";
 	</script>

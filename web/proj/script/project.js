@@ -102,7 +102,11 @@ var proj_form = {
 	freeCheckClick : function(){
 		var ckID = $(this).attr("id");
 		var id = proj_form._replaceAll(ckID,"_free_chk","");
-		proj_form._setReadonly(id).val("0");
+		if($(this).is(":checked")){
+			proj_form._setReadonly(id).val("0");
+		}else{
+			proj_form._removeReadonly(id).val("");
+		}
 	},
 	_getModeHTML : function(id){
 		var mode = {"mode_id":id,"mode_projID":"","mode_imgURL":"","mode_name":"","mode_price":"","mode_countGoal":"",
@@ -118,7 +122,7 @@ var proj_form = {
 		var mode_image_tr_display = "";
 		if(mode.mode_imgURL=="") mode_image_tr_display = "style=\"display:none;\"";
 		var html = "<form id=\"form2\" action=\"\" method=\"post\">";
-		html += "<div class=\"job_add proj_mode\" style=\"margin-bottom:20px;width:460px;\">";
+		html += "<div class=\"job_add proj_mode\" style=\"margin-bottom:20px;margin-left:50px;width:460px;\">";
 		html += "<input type=\"hidden\" id=\"mode_id\" value=\""+mode.mode_id+"\" />";
 		html += "<input type=\"hidden\" id=\"mode_projID\" value=\""+mode.mode_projID+"\" />";
 		html += "<input type=\"hidden\" id=\"mode_name\" value=\""+mode.mode_name+"\" />";
@@ -135,14 +139,14 @@ var proj_form = {
 		html += "	</td></tr><tr id=\"mode_image_tr\" "+mode_image_tr_display+"><td><a href=\"javascript:void();\" onclick=\"proj_form.delModeImage();\">删除</a></td><td><img id=\"mode_image\" src=\""+webroot+mode.mode_imgURL+"\" style=\"border:0px;width:380px;height:80px;\"/></td></tr></table></div>";
 		html += "<div class=\"input\"><label>运费：</label><input type=\"text\" id=\"mode_freight\" name=\"mode_freight\" class=\"validate[required,custom[number]]\" style=\"width:300px;margin-right:10px;\" value=\""+mode.mode_freight+"\" /><label for=\"mode_freight_free_chk\" style=\"display: inline-flex;width: 50px;text-align: left;height: 18px;line-height: 18px;margin-bottom: 0px;font-weight: normal;\"><input type=\"checkbox\" id=\"mode_freight_free_chk\" style=\"width: 18px;height: 18px;line-height: 18px;padding: 0px;margin: 0px;\" />免费</label></div>";
 		html += "<div class=\"input\"><label>回报时间：</label><input type=\"text\" id=\"mode_returntime\" name=\"mode_returntime\" class=\"validate[required]\" value=\""+mode.mode_returntime+"\" /></div>";
-		html += "<div class=\"btn\"><input type=\"button\" id=\"btnModeOK\" name=\"btnModeOK\" onclick=\"proj_form.updateMode()\" value=\"确定\" style=\"width:100px;\" /><input type=\"button\" id=\"btnModeCannel\" name=\"btnModeCannel\" value=\"取消\" style=\"width:100px;margin-left:50px;\" onclick=\"tl_msg.close();\" /></div>";
+		html += "<div class=\"btn\"><input type=\"button\" id=\"btnModeOK\" name=\"btnModeOK\" value=\"确定\" style=\"width:100px;\" /><input type=\"button\" id=\"btnModeCannel\" name=\"btnModeCannel\" value=\"取消\" style=\"width:100px;margin-left:50px;\"/></div>";
 		html += "</div>";
 		html += "</form>";
 		
 		return html;
 	},
 	updateMode : function(){
-		if(!proj_form._validStep2()) return;
+		if(!proj_form._validStep2()) return false;
 		var modeID = $(".proj_mode #mode_id").val();
 		var modeProjID = $(".proj_mode #mode_projID").val();
 		var modeImgURL = $(".proj_mode #mode_imgURL").val();
@@ -158,7 +162,6 @@ var proj_form = {
 					"mode_freight":$(".proj_mode #mode_freight").val(),"mode_returntime":$(".proj_mode #mode_returntime").val(),
 					"mode_deleted":$(".proj_mode #mode_deleted").val(),"mode_status":$(".proj_mode #mode_status").val()};
 		proj_form.updateModeList(mode);
-		tl_msg.close();
 	},
 	updateModeList : function(mode){
 		var mode_exist = false;
@@ -198,8 +201,35 @@ var proj_form = {
 			$(".project_list .block1 .box#box_new").before(header+html+end);
 		}
 	},
-	addMode : function(){
-		tl_msg.dialog("新增",proj_form._getModeHTML(""),680,600);
+	openModeDlg : function(title,html){
+		var pagei = $.layer({
+			type: 1,   //0-4的选择,
+			title: title,
+			maxmin: false,
+			border: [10, 0.2, '#000'],
+			closeBtn: [1, true],
+			shadeClose: false,
+			fix: true,
+			zIndex : 1000,
+			area: ['600px', '600px'],
+			page: {
+				html: html //此处放了防止html被解析，用了\转义，实际使用时可去掉
+			}
+		});
+		$("#btnModeCannel").click(function(){
+			if($(".formError").length>0){
+				$(".formError").click();
+			}
+			layer.close(pagei);
+		});
+		$("#btnModeOK").click(function(){
+			if(!proj_form._validStep2()) return;
+			proj_form.updateMode()
+			if($(".formError").length>0){
+				$(".formError").click();
+			}
+			layer.close(pagei);
+		});
 		proj_form.initUploadify("mode_uploadify","mode_queueItemCount","mode_imgURL","mode_uploadErrorMsg",true,proj_form.modeImageUploaded);
 		$("#form2").validationEngine("attach",{
 			autoPositionUpdate:false,//是否自动调整提示层的位置
@@ -208,20 +238,16 @@ var proj_form = {
 			promptPosition:"topRight" //验证提示信息的位置，可设置为："topRight", "bottomLeft", "centerRight", "bottomRight" 
 		});
 	},
+	addMode : function(){
+		proj_form.openModeDlg("新增", proj_form._getModeHTML(""));
+	},
 	editMode : function(id){
-		tl_msg.dialog("修改",proj_form._getModeHTML(id),680,600);
-		proj_form.initUploadify("mode_uploadify","mode_queueItemCount","mode_imgURL","mode_uploadErrorMsg",true,proj_form.modeImageUploaded);
-		$("#form2").validationEngine("attach",{
-			autoPositionUpdate:false,//是否自动调整提示层的位置
-			scroll:false,//屏幕自动滚动到第一个验证不通过的位置
-			focusFirstField:false,//验证未通过时，是否给第一个不通过的控件获取焦点
-			promptPosition:"topRight" //验证提示信息的位置，可设置为："topRight", "bottomLeft", "centerRight", "bottomRight" 
-		});
+		proj_form.openModeDlg("修改", proj_form._getModeHTML(id));
 	},
 	delMode : function(id){
 		var index = -1;
 		for(var i=0;i<proj_form.proj_modes.length;i++){
-			if(proj_form.proj_modes[i].id == id){
+			if(proj_form.proj_modes[i].mode_id == id){
 				index = i;
 			}
 		}
@@ -248,6 +274,13 @@ var proj_form = {
 		$("html,body").animate({scrollTop:$("#proj_step2").offset().top-20},0);
 		var typeName = $('#proj_type_select li.current').text();
 		$("#proj_info").html("["+typeName+"] "+$("#proj_name").val()+" | 众筹金额："+$("#proj_amountGoal").val()+" | 众筹期限："+$("#proj_countDay").val()+"天");
+		
+		layer.tips('点击可以新增支持模式...', $("a#proj_newmode"), {
+			style: ['background-color:#78BA32; color:#fff', '#78BA32'],
+			maxWidth:185,
+			time: 5,
+			closeBtn:[0, true]
+		});
 	},
 	pre : function(){
 		$("#proj_step1").show();

@@ -18,8 +18,24 @@ public class SupportProj extends ProjectExt {
 	 * 0=未付款;1=已付款;2=已发货;3=已确认收货;4=交易关闭
 	 */
 	private int supportStatus;
+	private int isPaid;
+	private long orderId;	
 	private String paySN;
 	private Date payTime;
+	
+	private String returnContent;
+	private String returnTime;
+	private BigDecimal freight;
+	private BigDecimal price;
+	
+	private String addressee;
+	private String addrProvinceName;
+	private String addrCityName;
+	private String addrCountyName;
+	private String addrMPhoneNo;
+	private String addrTelpPoneNo;
+	private String addrDetail;
+	private String addrZipCode;
 
 	public long getProjId() {
 		return projId;
@@ -116,4 +132,117 @@ public class SupportProj extends ProjectExt {
 	public void setSupportStatus(int supportStatus) {
 		this.supportStatus = supportStatus;
 	}
+
+	public int getIsPaid() {
+		return isPaid;
+	}
+
+	public void setIsPaid(int isPaid) {
+		this.isPaid = isPaid;
+	}
+
+	public long getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(long orderId) {
+		this.orderId = orderId;
+	}
+
+	public String getReturnContent() {
+		return returnContent;
+	}
+
+	public void setReturnContent(String returnContent) {
+		this.returnContent = returnContent;
+	}
+
+	public String getReturnTime() {
+		return returnTime;
+	}
+
+	public void setReturnTime(String returnTime) {
+		this.returnTime = returnTime;
+	}
+
+	public BigDecimal getFreight() {
+		return freight;
+	}
+
+	public void setFreight(BigDecimal freight) {
+		this.freight = freight;
+	}
+
+	public BigDecimal getPrice() {
+		return price;
+	}
+
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
+
+	public String getAddressee() {
+		return addressee;
+	}
+
+	public void setAddressee(String addressee) {
+		this.addressee = addressee;
+	}
+
+	public String getAddrProvinceName() {
+		return addrProvinceName;
+	}
+
+	public void setAddrProvinceName(String addrProvinceName) {
+		this.addrProvinceName = addrProvinceName;
+	}
+
+	public String getAddrCityName() {
+		return addrCityName;
+	}
+
+	public void setAddrCityName(String addrCityName) {
+		this.addrCityName = addrCityName;
+	}
+
+	public String getAddrCountyName() {
+		return addrCountyName;
+	}
+
+	public void setAddrCountyName(String addrCountyName) {
+		this.addrCountyName = addrCountyName;
+	}
+
+	public String getAddrMPhoneNo() {
+		return addrMPhoneNo;
+	}
+
+	public void setAddrMPhoneNo(String addrMPhoneNo) {
+		this.addrMPhoneNo = addrMPhoneNo;
+	}
+
+	public String getAddrTelpPoneNo() {
+		return addrTelpPoneNo;
+	}
+
+	public void setAddrTelpPoneNo(String addrTelpPoneNo) {
+		this.addrTelpPoneNo = addrTelpPoneNo;
+	}
+
+	public String getAddrDetail() {
+		return addrDetail;
+	}
+
+	public void setAddrDetail(String addrDetail) {
+		this.addrDetail = addrDetail;
+	}
+
+	public String getAddrZipCode() {
+		return addrZipCode;
+	}
+
+	public void setAddrZipCode(String addrZipCode) {
+		this.addrZipCode = addrZipCode;
+	}
+
 }

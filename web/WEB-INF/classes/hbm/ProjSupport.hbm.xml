@@ -35,6 +35,9 @@
         <property name="status" type="int">
             <column name="sp_status" not-null="true" />
         </property>
+        <property name="isPaid" type="int">
+            <column name="sp_ispaid" />
+        </property>
         <property name="orderId" type="java.lang.Long">
             <column name="sp_orderid" />
         </property>

@@ -25,6 +25,7 @@ public class ProjSupport implements java.io.Serializable {
 	 * 0=未付款;1=已付款;2=已发货;3=已确认收货;4=交易关闭
 	 */
 	private int status;
+	private int isPaid;
 	private Long orderId;
 	private String paySN;
 	private Date payTime;
@@ -134,5 +135,13 @@ public class ProjSupport implements java.io.Serializable {
 
 	public void setPayTime(Date payTime) {
 		this.payTime = payTime;
+	}
+
+	public int getIsPaid() {
+		return isPaid;
+	}
+
+	public void setIsPaid(int isPaid) {
+		this.isPaid = isPaid;
 	}
 }

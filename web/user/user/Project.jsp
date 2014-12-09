@@ -4,12 +4,43 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <%@include file="../../inc/meta.inc"%>
+	<script type="text/javascript" src="../js/layer/layer.min.js"></script>
 	<script type="text/javascript">
 		var webroot = "<c:out value="${rootPath}"/>";
 		$(function(){
 			var menu = "<c:out value="${menu}"/>";
 			var menuid = "menu_"+menu;
-			$("#"+menuid).addClass("current");
+			$("#"+menuid+" a").addClass("current");
+			
+			$(".returncontent").on("mouseover",function(){
+				layer.tips($(this).attr("data"), this,
+					{style: ['background-color:#78BA32; color:#fff', '#78BA32'],
+					maxWidth:250,
+					guide:0,
+					time: 0,
+					closeBtn:false
+					}
+				)
+			}).on("mouseout",function(){
+				layer.closeTips()
+			});
+			
+			$(".address").on("mouseover",function(){
+				var html = "<span style=\"margin-right:8px;\">收件人:</span>"+$(this).attr("user")+"<br />";
+				html += "<span style=\"margin-right:8px;\">联系电话:</span>"+$(this).attr("phone")+"<br />";
+				html += "<span style=\"margin-right:8px;\">地址:</span>"+$(this).attr("address")+"<br />";
+				html += "<span style=\"margin-right:8px;\">邮编:</span>"+$(this).attr("zipcode");
+				layer.tips(html, this,
+					{style: ['background-color:#78BA32; color:#fff', '#78BA32'],
+					maxWidth:250,
+					guide:0,
+					time: 0,
+					closeBtn:false
+					}
+				)
+			}).on("mouseout",function(){
+				layer.closeTips()
+			});
 			
 			$(".moneyFormat").each(function(i,n){
 				var value = $(this).text();
@@ -157,24 +188,24 @@
             </div>
             <div class="clear"></div>
             <ul class="nav">
-                <li><a href="#">主页</a></li>
-				 <li><a href="#" class="current">项目</a></li>
-                <li><a href="#">个人资料</a></li>
-                <li><a href="#">相册</a></li>
-                <li><a href="#">视频</a></li>
+                <li id="menu_1"><a href="Project.do?m=1">发起的项目</a></li>
+				 <li id="menu_2"><a href="Project.do?m=2">支持的项目</a></li>
+                <!--<li><a href="#">喜欢的项目</a></li>-->
             </ul>
 		</div>
     </div>
 			
 	<div class="people_profile">
+		<!--
 		<div class="sider">
 			<ul>
 				<li id="menu_1"><a href="Project.do?m=1">发起的项目</a></li>
 				<li id="menu_2"><a href="Project.do?m=2">支持的项目</a></li>
-				<!--<li><a href="Project.do?m=3">喜欢的项目</a></li>-->
+				<li><a href="Project.do?m=3">喜欢的项目</a></li>
 			</ul>
 		</div>
-		<div class="content">
+		-->
+		<div class="content" style="float:left;width:100%;">
 			<c:choose>
 			<c:when test="${menu==1}">
 			<table class="tb-void">
@@ -263,6 +294,7 @@
 				<tbody id="tb-<c:out value="${proj.id}"/>">
 					<tr class="tr-th">
 						<td colspan="6">
+							<span class="tcol1">订单编号：<c:out value="${proj.isPaid}"/></span>
 							<span class="tcol1"><a href="../project/Project.do?id=<c:out value="${proj.id}"/>" target="_blank"><c:out value="${proj.name}"/></a></span>
 							<span class="tcol2"><c:out value="${proj.userName}"/></span>
 							<span class="tcol3"></span>
@@ -295,18 +327,21 @@
 						<td>
 							<span class="ftx-03">
 								<c:choose>
-									<c:when test="${proj.deleted==1}">已删除</c:when>
-									<c:when test="${proj.status==0}">未开始</c:when>
-									<c:when test="${proj.status==1}">众筹中</c:when>
-									<c:when test="${proj.status==2}">众筹结束</c:when>
-									<c:when test="${proj.status==3}">锁定</c:when>
+									<c:when test="${proj.isPaid==1}">已支付</c:when>
+									<c:when test="${proj.isPaid==0}">
+										<a target="_blank" style="color: #ED5E58;" href="../order/Pay.do?id=<c:out value="${proj.isPaid}"/>">
+											未支付<br />请前往支付
+										</a>
+									</c:when>
 									<c:otherwise>未知</c:otherwise>
 								</c:choose>
 							</span>
 						</td>
 						<td>
-							<!--<a href="javascript:void();">修改</a>|
-							<a href="javascript:void();">删除</a>-->
+							<a class="returncontent" data="<c:out value="${proj.returnContent}"/>" href="javascript:void();">回报内容</a><br />
+							<a class="address" user="<c:out value="${proj.addressee}"/>" phone="<c:out value="${proj.addrMPhoneNo}"/>"
+								address="<c:out value="${proj.addrProvinceName}"/><c:out value="${proj.addrCityName}"/><c:out value="${proj.addrCountyName}"/><c:out value="${proj.addrDetail}"/>"
+								zipcode="<c:out value="${proj.addrZipCode}"/>" href="javascript:void();">送货地址</a>
 						</td>
 					</tr>
 				</tbody>
