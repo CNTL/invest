@@ -14,6 +14,7 @@ public enum TableLibs  {
 	TB_SYS_DICTIONARYTYPE("SYS_DictionaryType"),
 	
 	TB_USER("user"),
+	TB_USERADDRESS("user_address"),
 	TB_BANKCARD("user_bankcard"),
 	TB_USERMSG("user_msg"),
 	TB_USERORDER("user_order"),

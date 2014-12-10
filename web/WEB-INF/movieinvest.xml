@@ -132,6 +132,15 @@
 	<bean id="org.Video" class="com.tl.invest.user.user.OrgMainController">
 		<property name="viewName"><value>user/video/userVideoList</value></property>
 	</bean>
+	
+	<bean id="address.Manager" class="com.tl.invest.user.AddressManager"></bean>
+	<bean id="address.Submit" class="com.tl.invest.user.AddressSubmitController">
+		<property name="addrMgr"><ref bean="address.Manager" /></property>
+	</bean>
+	<bean id="org.Address" class="com.tl.invest.user.AddressMainController">
+		<property name="addrMgr"><ref bean="address.Manager" /></property>
+		<property name="viewName"><value>user/user/Address</value></property>
+	</bean>
 	<!-- 招聘列表、细览、修改 -->
 	<bean id="recruit.List" class="com.tl.invest.user.user.OrgMainController">
 		<property name="viewName"><value>user/recruit/recruitList</value></property>
@@ -197,7 +206,8 @@
 				<prop key="/org/RelAuth.do">org.RelAuth</prop>
 				<prop key="/org/Photo.do">org.Photo</prop>
 				<prop key="/org/Vidorgo">org.Video</prop>
-				
+				<prop key="/org/Address.do">org.Address</prop>
+				<prop key="/org/AddressSubmit.do">address.Submit</prop>
 				
 				<prop key="/user/userlogin.do">user.Login</prop>
 				<prop key="/user/user.do">user.User</prop>

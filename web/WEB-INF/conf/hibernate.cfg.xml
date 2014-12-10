@@ -36,6 +36,7 @@
 		<mapping resource="hbm/UserOrder.hbm.xml"/>
 		
 		<mapping resource="hbm/User.hbm.xml"/>
+		<mapping resource="hbm/UserAddress.hbm.xml"/>
 		<mapping resource="hbm/UserBankcard.hbm.xml"/>
 		<mapping resource="hbm/UserMsg.hbm.xml"/>
 		<mapping resource="hbm/UserPhoto.hbm.xml"/>

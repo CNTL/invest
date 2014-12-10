@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2014-9-9 23:05:48 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+	<class name="com.tl.invest.user.Address" table="user_address">
+		<id name="id" type="long">
+            <column name="addr_id" />
+            <generator class="assigned" />
+        </id>
+        <property name="userId" type="int">
+            <column name="addr_userId" not-null="true" />
+        </property>
+        <property name="recipients" type="string">
+            <column name="addr_userName" />
+        </property>
+        <property name="mphoneNo" type="string">
+            <column name="addr_mphoneNo" />
+        </property>
+        <property name="telphoneNo" type="string">
+            <column name="addr_telphoneNo" />
+        </property>
+        <property name="provinceId" type="int">
+            <column name="addr_province" />
+        </property>
+        <property name="province" type="string">
+            <column name="addr_provinceName" />
+        </property>
+        <property name="cityId" type="int">
+            <column name="addr_city" />
+        </property>
+        <property name="city" type="string">
+            <column name="addr_cityName" />
+        </property>
+        <property name="countyId" type="int">
+            <column name="addr_county" />
+        </property>
+        <property name="county" type="string">
+            <column name="addr_countyName" />
+        </property>
+        <property name="detail" type="string">
+            <column name="addr_detail" />
+        </property>
+        <property name="zipcode" type="string">
+            <column name="addr_zipcode" />
+        </property>
+        <property name="type" type="int">
+            <column name="addr_type" />
+        </property>
+        <property name="created" type="timestamp">
+            <column name="addr_created" length="0" not-null="true" />
+        </property>
+        <property name="deleted" type="int">
+            <column name="addr_deleted" />
+        </property>
+        <property name="order" type="int">
+            <column name="addr_order" />
+        </property>
+	</class>
+</hibernate-mapping>

@@ -133,7 +133,7 @@ public class Entry extends BaseController {
 	}
 	
 	protected Menu[] getInfoMenus(int infoType) {
-		String class1 = "", class2 = "", class3 = "", class4 = "", class5 = "", class6 = "", class7 = "";
+		String class1 = "", class2 = "", class3 = "", class4 = "", class5 = "", class6 = "", class7 = "",class8="";
 		switch (infoType) {
 		case 1:
 			class1 = "select";
@@ -156,6 +156,9 @@ public class Entry extends BaseController {
 		case 7:
 			class7 = "select";
 			break;
+		case 8:
+			class8 = "select";
+			break;
 		default:
 			break;
 		}
@@ -167,6 +170,7 @@ public class Entry extends BaseController {
 		list.add(new Menu(5, "详细资料", "/org/DetailInfo.do?infoType=5", class5,-999,0));
 		list.add(new Menu(6, "个人图册", "/org/Photo.do?infoType=6", class6,-999,0));
 		list.add(new Menu(7, "个人视频", "/org/Video.do?infoType=7", class7,-999,0));
+		list.add(new Menu(8, "收件地址", "/org/Address.do?infoType=8", class8,-999,0));
 		return (Menu[]) list.toArray(new Menu[0]);
 	}
 }
