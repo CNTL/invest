@@ -14,4 +14,14 @@ $(function(){
 			}
 		}
 	});
+	
+	$(".supportBtn").on("click",function(){
+		var modeid = $(this).attr("modeid");
+		var userId = $(this).attr("userid");
+		if(userId <= 0){
+			window.location.href = "../login.jsp";
+		}else{
+			window.location.href = "../project/Pay.do?id="+modeid;
+		}
+	});
 });

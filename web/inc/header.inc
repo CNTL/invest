@@ -14,20 +14,20 @@
 		<input type="text" id="k" name="k" class="text" value="搜索影片名称" />
 		<input type="button" class="btn" value="" />
 	</div>
-	<c:if test="${userID==0}" >
+	<c:if test="${loginUser.id==0}" >
 	<div class="mini_login">
-		<a href="login.html">登录</a>
+		<a href="<c:out value="${rootPath}"/>login.jsp">登录</a>
 		<span>|</span>
-		<a href="register.html">注册</a>
+		<a href="<c:out value="${rootPath}"/>register.jsp">注册</a>
 	</div>
 	</c:if>
-	<c:if test="${userID>0}">
+	<c:if test="${loginUser.id>0}">
 	<div class="mini_member">
         <div class="avatar">
-            <a href="#"><img src="<c:out value="${userAvatar}"/>" /></a>
+            <a href="#"><img src="<c:out value="${loginUser.head}"/>" /></a>
         </div>
         <div class="username">
-            <a href="#"><c:out value="${userName}"/></a>
+            <a href="#"><c:out value="${loginUser.name}"/></a>
         </div>
         <div class="menu">
             <ul>

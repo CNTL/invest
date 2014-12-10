@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.tl.common.StringUtils;
 import com.tl.common.WebUtil;
 import com.tl.invest.sys.mu.Menu;
 import com.tl.invest.user.user.User;
@@ -54,31 +55,16 @@ public class Entry extends BaseController {
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void setUserInfo(HttpServletRequest request,Map model) throws Exception{
-		int userID = 0;
-		int userType = 0;
-		String userName = "";
-		String userCode = "";
-		String userIntro = "";
-		String avatar = "";
 		UserManager userManager = (UserManager)Context.getBean(UserManager.class);
 		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
 		if(user!=null){
-			userID = user.getId();
-			userCode = user.getCode();
-			userName = user.getName();
-			userType = user.getType();
-			avatar = user.getHead();
-			userIntro = user.getIntro();
-			
+			user.setName(StringUtils.isEmpty(user.getName())?user.getCode():user.getName());
+			user.setHead(WebUtil.getRoot(request)+(StringUtils.isEmpty(user.getHead())?"static/image/temp/avatar1.png":user.getHead()));
+		}else {
+			user = new User(0);
 		}
+		model.put("loginUser", user);
 		model.put("id", getInt(request, "id"));//页面传过来的数据id
-		model.put("userID", userID);
-		model.put("userName",(userName == null ? userCode : userName));
-		model.put("userCode", userCode);
-		model.put("userType", userType);
-		model.put("userIntro", userIntro);
-		//model.put("userAvatar", StringUtils.isEmpty(avatar)?WebUtil.getRoot(request)+"static/image/temp/avatar1.png":(WebUtil.getRoot(request).concat(avatar)));
-		model.put("userAvatar", WebUtil.getRoot(request)+"static/image/temp/avatar1.png");
 	}
 	
 	@SuppressWarnings("rawtypes")
@@ -123,7 +109,7 @@ public class Entry extends BaseController {
 			break;
 		}
 		List<Menu> list = new ArrayList<Menu>();
-		list.add(new Menu(1, "首页","/index.html?mainType=1",class1, -999,0));
+		list.add(new Menu(1, "首页","/",class1, -999,0));
 		list.add(new Menu(2, "项目","/project/List.do",class2, -999,0));
 		list.add(new Menu(3, "影聘","/recruit/List.do?recruitType=view&mainType=3",class3, -999,0));
 		list.add(new Menu(4, "影人","/org/BasicInfo.do?infoType=1&mainType=4",class4, -999,0));

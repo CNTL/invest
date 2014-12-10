@@ -11,6 +11,8 @@
 </head>
 <body>
 	<%@include file="../inc/header.inc"%>
+	<div class="shadow">
+    </div>
 	<div class="project_view">
         <div class="main">
             <div class="content">
@@ -94,7 +96,7 @@
                 </div>
                 <div class="content">
                     <c:out value="${mode.returnContent}"/>
-                    <span>
+                    <span class="supportBtn" modeid="<c:out value="${mode.id}"/>" userid="<c:out value="${loginUser.id}"/>">
 						<c:choose>
 							<c:when test="${mode.price<=0}">无私支持</c:when>
 							<c:otherwise>支持￥<label class="moneyFormat"><c:out value="${mode.price}"/></label></c:otherwise>

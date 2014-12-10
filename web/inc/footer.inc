@@ -28,7 +28,7 @@
 			<ul class="last">
 				<li><h2>关注我们</h2></li>
 				<li class="ewm">
-					<img src="../static/image/ewm.png" />
+					<img src="<c:out value="${rootPath}"/>static/image/ewm.png" />
 					<span>扫描二维码<br />关注更多</span>
 				</li>
 				<li class="share">
