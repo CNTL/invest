@@ -339,9 +339,8 @@
 						</td>
 						<td>
 							<a class="returncontent" data="<c:out value="${proj.returnContent}"/>" href="javascript:void();">回报内容</a><br />
-							<a class="address" user="<c:out value="${proj.addressee}"/>" phone="<c:out value="${proj.addrMPhoneNo}"/>"
-								address="<c:out value="${proj.addrProvinceName}"/><c:out value="${proj.addrCityName}"/><c:out value="${proj.addrCountyName}"/><c:out value="${proj.addrDetail}"/>"
-								zipcode="<c:out value="${proj.addrZipCode}"/>" href="javascript:void();">送货地址</a>
+							<a class="address" user="<c:out value="${proj.recipients}"/>" phone="<c:out value="${proj.telphone}"/>"
+								address="<c:out value="${proj.address}"/>" zipcode="<c:out value="${proj.zipcode}"/>" href="javascript:void();">送货地址</a>
 						</td>
 					</tr>
 				</tbody>

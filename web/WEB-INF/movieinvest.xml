@@ -87,6 +87,13 @@
 		<property name="dicReader"><ref bean="DictionaryReader"/></property>
 		<property name="viewName"><value>proj/Add</value></property>
 	</bean>
+	<bean id="project.Pay" class="com.tl.invest.proj.service.ProjectPayController">
+		<property name="service"><ref bean="project.Service" /></property>
+		<property name="userMgr"><ref bean="UserManager"/></property>
+		<property name="dicReader"><ref bean="DictionaryReader"/></property>
+		<property name="addrMgr"><ref bean="address.Manager" /></property>
+		<property name="viewName"><value>proj/Pay</value></property>
+	</bean>
 	
 	<!-- 个人用户页面 -->
 	<bean id="user.BasicInfo" class="com.tl.invest.user.user.UserMainController">
@@ -233,6 +240,7 @@
 				<prop key="/project/ProjectFetcher.do">project.ProjectFetcher</prop>
 				<prop key="/project/List.do">project.Main</prop>
 				<prop key="/project/Publish.do">project.Publish</prop>
+				<prop key="/project/Pay.do">project.Pay</prop>
 				<prop key="/admin/Project.do">admin.Project</prop>
 				<prop key="/admin/ProjectFetcher.do">project.ProjectFetcher</prop>
 								

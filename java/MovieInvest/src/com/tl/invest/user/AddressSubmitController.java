@@ -36,6 +36,7 @@ public class AddressSubmitController extends BaseController {
 			long id = getLong(request, "id", 0);
 			Address address = addrMgr.get(id);
 			address.setDeleted(1);
+			addrMgr.save(address);
 			BackResult result = new BackResult(address.getId(),true);
 	    	output(JSONObject.fromObject(result).toString(), response);
 		}
@@ -57,6 +58,7 @@ public class AddressSubmitController extends BaseController {
 		address.setZipcode(get(request, "addr_zipcode", ""));
 		address.setType(getInt(request, "addr_type", 0));
 		address.setCreated(DateUtils.getTimestamp());
+		address.setLastused(DateUtils.getTimestamp());
 		address.setOrder(getInt(request, "addr_order", 0));
 		address.setDeleted(getInt(request, "addr_deleted", 0));
 	}

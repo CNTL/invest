@@ -50,6 +50,9 @@
         <property name="created" type="timestamp">
             <column name="addr_created" length="0" not-null="true" />
         </property>
+		<property name="lastused" type="timestamp">
+            <column name="addr_lastused" length="0" not-null="true" />
+        </property>
         <property name="deleted" type="int">
             <column name="addr_deleted" />
         </property>

@@ -6,7 +6,6 @@ $(document).ready(function () {
 function getAddressInfo(id){
 	var address = null;
 	var dataUrl = "../org/AddressSubmit.do?action=get&id="+id;
-	var timestamp = new Date().getTime();
 	$.ajax({url: dataUrl, async:false, dataType:"json",
 		success: function(datas) {
 			address = datas;
@@ -86,10 +85,30 @@ function _save(){
 }
 
 function addAddress(){
+	if($("table.tb-void tr.tr-address").length>=20){
+		layer.alert("您最多只能添加 20 个收货地址",9);
+		return false;
+	}
 	openAddressFormDlg("新增", getAddressFormHtml("",$("#login_user_id").val()));
 }
 function editAddress(id,userId){
 	openAddressFormDlg("修改", getAddressFormHtml(id,userId));
+}
+function delAddress(id){
+	var i = layer.confirm("确定要删除该收件地址吗？",function(){
+		var dataUrl = "../org/AddressSubmit.do?action=del&id="+id;
+		$.ajax({url: dataUrl, async:false, dataType:"json",
+			success: function(datas) {
+				if(datas.success){
+					//layer.alert("操作成功", 9, function(){});
+					window.location.reload();
+				}else{
+					layer.close(i);
+					layer.alert("操作失败", 9);
+				}
+			}
+		});
+	})
 }
 
 function openAddressFormDlg (title,html){

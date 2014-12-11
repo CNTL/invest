@@ -71,14 +71,14 @@
 						</tr>
 					</thead>
 					<c:forEach var="address" items="${addresses}">
-					<tr class="tr-td">
+					<tr class="tr-td tr-address">
 						<td><c:out value="${address.recipients}"/></td>
 						<td><c:out value="${address.mphoneNo}"/></td>
 						<td><c:out value="${address.province}"/><c:out value="${address.city}"/><c:out value="${address.county}"/><c:out value="${address.detail}"/></td>
 						<td><c:out value="${address.zipcode}"/></td>
 						<td>
 							<a href="javascript:void(0);" onclick="editAddress(<c:out value="${address.id}"/>,<c:out value="${loginUser.id}"/>);">修改</a> | 
-							
+							<a href="javascript:void(0);" onclick="delAddress(<c:out value="${address.id}"/>);">删除</a>
 						</td>
 					</tr>
 					</c:forEach>

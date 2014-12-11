@@ -82,7 +82,7 @@ public class AddressManager {
 	@SuppressWarnings("rawtypes")
 	public Address[] getAddresses(int userId,Session s) throws TLException{
 		List<Address> list = new ArrayList<Address>();
-		String hql = "select a from com.tl.invest.user.Address as a where a.userId=? and a.deleted=0 order by a.type desc,a.order,a.id";
+		String hql = "select a from com.tl.invest.user.Address as a where a.userId=? and a.deleted=0 order by a.type desc,a.order,a.lastused desc";
 		DAO d = new DAO();
 		if(s == null){
 			s = d.getSession();

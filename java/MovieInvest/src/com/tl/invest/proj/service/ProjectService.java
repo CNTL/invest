@@ -305,10 +305,9 @@ public class ProjectService {
 	}
 	
 	public SupportProj[] getProjectExtsSupported(int userID,int pageSize,int page,DBSession db) throws TLException{
-		String sql = "select invest_project.*,invest_projsupport.*,invest_projmode.*,user_address.*,`user`.`name` userName,`user`.`code` userCode,sys_dictionary.dic_name typeName";
+		String sql = "select invest_project.*,invest_projsupport.*,invest_projmode.*,`user`.`name` userName,`user`.`code` userCode,sys_dictionary.dic_name typeName";
 			sql +=" from invest_projsupport left join invest_project on invest_projsupport.sp_projID=invest_project.proj_id";
 			sql +=" left join invest_projmode on invest_projsupport.sp_modeID=invest_projmode.mode_id";
-			sql +=" left join user_address on invest_projsupport.sp_addressID=user_address.addr_id";
 		sql += " left join `user` on `user`.id=invest_project.proj_userID left join sys_dictionary on sys_dictionary.dic_id=invest_project.proj_type";
 		sql += " where invest_projsupport.sp_userID=? order by sp_created desc";
 		Object[] params = new Object[]{userID};
@@ -512,6 +511,10 @@ public class ProjectService {
 			proj.setSupportUserId(rs.getInt("sp_userID"));
 			proj.setAmountSupport(rs.getBigDecimal("sp_amount"));
 			proj.setAddressId(rs.getInt("sp_addressID"));
+			proj.setRecipients(rs.getString("sp_recipients"));
+			proj.setTelphone(rs.getString("sp_telphone"));
+			proj.setAddress(rs.getString("sp_address"));
+			proj.setZipcode(rs.getString("sp_zipcode"));
 			proj.setMessage(rs.getString("sp_message"));
 			proj.setSupportCreated(rs.getTimestamp("sp_created"));
 			proj.setSupportDeleted(rs.getInt("sp_deleted"));
@@ -524,14 +527,6 @@ public class ProjectService {
 			proj.setReturnTime(rs.getString("mode_returntime"));
 			proj.setFreight(rs.getBigDecimal("mode_freight"));
 			proj.setPrice(rs.getBigDecimal("mode_price"));
-			proj.setAddressee(rs.getString("addr_userName"));
-			proj.setAddrProvinceName(rs.getString("addr_provinceName"));
-			proj.setAddrCityName(rs.getString("addr_cityName"));
-			proj.setAddrCountyName(rs.getString("addr_countyName"));
-			proj.setAddrDetail(rs.getString("addr_detail"));
-			proj.setAddrMPhoneNo(rs.getString("addr_mphoneNo"));
-			proj.setAddrTelpPoneNo(rs.getString("addr_telphoneNo"));
-			proj.setAddrZipCode(rs.getString("addr_zipcode"));
 			return proj;
 		} catch (Exception e) {
 			throw new TLException(e);

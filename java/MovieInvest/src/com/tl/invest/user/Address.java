@@ -22,6 +22,7 @@ public class Address implements java.io.Serializable{
 	private String zipcode;
 	private int type;
 	private Date created;
+	private Date lastused;
 	private int order;
 	private int deleted;
 	public long getId() {
@@ -113,6 +114,12 @@ public class Address implements java.io.Serializable{
 	}
 	public void setCreated(Date created) {
 		this.created = created;
+	}
+	public Date getLastused() {
+		return lastused;
+	}
+	public void setLastused(Date lastused) {
+		this.lastused = lastused;
 	}
 	public int getOrder() {
 		return order;

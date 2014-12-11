@@ -1,0 +1,72 @@
+ol, ul, li {list-style: none;}
+.main {padding-top: 20px;padding-bottom:30px;min-height: 100%;}
+.clearfix {display: block;}
+.clearfix:after {content: ".";display: block;height: 0;clear: both;visibility: hidden;}
+.wrap-1024 {width: 1024px;margin: 0 auto;}
+.pay-tit {width: 100%;height: 36px;border-bottom: 2px solid #e4e4e4;}
+.pay-tit h3 {font-size: 18px;font-weight: bold;line-height: 36px;color: #333;display: block;-webkit-margin-before: 1em;-webkit-margin-after: 1em;-webkit-margin-start: 0px;-webkit-margin-end: 0px;}
+.pay-con {width: 100%;font-size: 14px;color: #333;}
+.padd20 {padding: 20px 0 35px;}
+table {border-collapse: collapse;border-spacing: 0;display: table;border-color: gray;}
+colgroup {display: table-column-group;}
+col {display: table-column;}
+tbody {display: table-row-group;vertical-align: middle;border-color: inherit;}
+tr {display: table-row;vertical-align: inherit;border-color: inherit;}
+.dadatable tr {height: 30px;padding-left: 20px;}
+input[type="checkbox"], input[type="radio"] {padding: 0;box-sizing: border-box;vertical-align: -2px;margin: 0px 3px 0px 0px;cursor: pointer;}
+.ads-set {color: #333;padding-left: 0px;font-size: 14px;width: 1024px;}
+.ads-set span.street {padding: 0 5px;}
+.ads-set span.gray {font-size: 14px;}
+.gray {color: #999;}
+.edit {text-align: right;padding-right: 10px;}
+.Js-addr-modify, .Js-addr-del {padding: 0 7px;}
+.green {color: #55acef;}
+.mar-t10 {margin-top: 10px;}
+.pay-tit {width: 100%;height: 36px;border-bottom: 2px solid #e4e4e4;}
+.supdtl {margin-bottom: 35px;}
+.supdtl span {display: inline-block;vertical-align: top;}
+.supdtl-head {height: 40px;color: #999;}
+.supdtl-head span {line-height: 50px;}
+.supdtl-head .pos1 {width: 370px;}
+.supdtl-head .pos2 {width: 370px;}
+.supdtl-head .pos3 {width: 99px;}
+.supdtl-head .pos4 {width: 62px;}
+.supdtl-cont {background: #f5fbff;border: 1px solid #b1d0ff;border-top: 2px solid #b1d0ff;}
+.supdtl-cont span {font-weight: 600;padding: 10px 0;color: #333;}
+.supdtl-cont-top {padding: 0 0 0 20px;}
+.supdtl-cont .pos1 {width: 350px;}
+.supdtl-cont .pos1 span {overflow: hidden;padding: 0;width: 220px;}
+.supdtl-cont .pos2 {width: 360px;padding-right: 10px;}
+.supdtl-cont .pos2 .morecon {height: 45px;overflow: hidden;padding: 0;}
+.supdtl-cont .pos2 .more {display: block;padding: 0;color: #55acef;padding: 0;cursor: pointer;text-decoration: underline;}
+.supdtl-cont .pos3 {width: 120px;color: red;padding-right:50px;text-align: center;}
+.supdtl-cont .pos4 {width: 45px;padding-right: 15px;text-align: center;}
+.supdtl-cont .pos5 {width: 98px;padding-right: 0px;}
+.supdtl-cont-bot {padding: 0 20px;height: 60px;line-height: 60px;border-top: 1px solid #b1d0ff;}
+.supdtl-cont-bot textarea {vertical-align: middle;width: 853px;height: 35px;margin-left: 10px;border: 1px solid #e4e4e4;}
+textarea {overflow: auto;resize: none;margin:0px;padding:0px;font-size:100%;}
+.hst {font-size: 18px;font-weight: bold;line-height: 36px;color: #333;}
+.pay-wrap {border: 1px solid #e4e4e4;padding:0px 20px;}
+.pay-head {border-bottom: 1px solid #e4e4e4;}
+.pay-head li {margin-right: 5px;cursor: default;color: #fff;width: 124px;height: 40px;
+				background: url("../../img/pay-bg.png") 0 -42px no-repeat;
+				float: left;line-height: 40px;text-align: center;cursor: pointer;font-size: 14px;}
+.pay-head .lan {background-position: 0 0;}
+.pay-con {width: 100%;font-size: 14px;color: #333;}
+.pay-row {padding: 20px 0;}
+.cashier-cach ul li.select, .cashier-cash ul li.select {position: relative;}
+.pay-row ul li.select label, .pay-row ul li.select span {border: 3px solid #fd729d;}
+.alipay span {background: url("../../img/alipay.jpg") repeat scroll 0 0;
+	display: inline-block;height: 40px;text-align: left;vertical-align: middle;width: 160px;cursor: pointer;}
+.cashier-cach ul li.select::after, .cashier-cash ul li.select::after {
+	content: url(../../img/arr_con.png);width: 25px;height: 23px;position: absolute;top: 1px;left: 135px;}
+.cashier-cash {overflow: hidden;}
+.pay-submit {text-align: right;padding:0;margin-top: 23px;}
+.pay-submit div {font-size: 16px;font-weight: 700;margin-bottom: 10px;}
+.pay-submit div span {color: #fd729d;font-size: 24px;}
+.btn-effect-blue {transition: all 0.8s ease;}
+.btn-sub {color: #fff;font-size: 18px;display: inline-block;height: 50px;line-height: 50px;text-align: center;}
+.pay-submit .w217 {background: #fd729d;}
+.w217 {width: 217px;}
+.pay-submit input {cursor: pointer;}
+.job_add .input label {width:120px;height:auto;}

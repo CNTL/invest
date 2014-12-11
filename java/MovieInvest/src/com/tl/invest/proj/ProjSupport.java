@@ -18,6 +18,10 @@ public class ProjSupport implements java.io.Serializable {
 	private int userId;
 	private BigDecimal amount;
 	private Integer addressId;
+	private String recipients;
+	private String telphone;
+	private String address;
+	private String zipcode;
 	private String message;
 	private Date created;
 	private int deleted;
@@ -143,5 +147,37 @@ public class ProjSupport implements java.io.Serializable {
 
 	public void setIsPaid(int isPaid) {
 		this.isPaid = isPaid;
+	}
+
+	public String getRecipients() {
+		return recipients;
+	}
+
+	public void setRecipients(String recipients) {
+		this.recipients = recipients;
+	}
+
+	public String getTelphone() {
+		return telphone;
+	}
+
+	public void setTelphone(String telphone) {
+		this.telphone = telphone;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getZipcode() {
+		return zipcode;
+	}
+
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
 	}
 }
