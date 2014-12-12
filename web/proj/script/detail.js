@@ -15,6 +15,30 @@ $(function(){
 		}
 	});
 	
+	$(".support div.returncontent").each(function(i,n){
+		$(this).html($(this).html().replace(/[\r\n]/g,"<br />"));
+		//处理图片
+		var modeid = $(this).attr("modeid");
+		var imgs = $(this).attr("imgs");
+		var imgArry = imgs.split(";");
+		var html = "";
+		for(var i in imgArry){
+			if(imgArry[i]!=""){
+				html += "<a href=\"javascript:;\" onclick=\"showModePhotosPage("+modeid+","+i+");\"><img style=\"width:80px;height:58px;margin-left:5px;\" src=\""+webroot+imgArry[i]+"\" /></a>";
+			}
+		}
+		if(html != ""){
+			html = "<div id=\"support_imgs_"+modeid+"\" style=\"width:100%;height:60px;margin-top:5px;margin-bottom:5px;\">"+html+"</div>";
+			$(this).after(html);
+			//layer.photosPage({
+			//	parent: '#support_imgs_'+modeid,
+			//	title: '直接获取页面元素包含的所有图片'
+			//	//id: 112 //相册id，可选
+			//	//start: 0
+			//});
+		}
+	});
+	
 	$(".supportBtn").on("click",function(){
 		var modeid = $(this).attr("modeid");
 		var userId = $(this).attr("userid");
@@ -25,3 +49,15 @@ $(function(){
 		}
 	});
 });
+
+function showModePhotosPage(modeid,start){
+	layer.photos({
+		html: $("#returncontent_"+modeid).html(),//自定义的html，显示在层右侧
+		tab: function(obj){}, //图片切换操作的回调，obj返回了图片pid和name
+		page: { //直接获取页面指定区域的图片，他与上述异步不可共存，只能择用其一。
+			parent: '#support_imgs_'+modeid,  //图片的父元素选择器，如'#imsbox',
+			start: start, //初始显示的图片序号，默认0
+			title: '' //相册标题
+		}
+	});
+}

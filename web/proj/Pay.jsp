@@ -64,7 +64,7 @@
 										</c:if>
 										</label>
 									</td>
-									<td class="edit" style="display: none;"><a id="Js-addr-modify" data-id="<c:out value="${address.id}"/>" class="green Js-addr-modify" href="javascript:;">修改</a></td>
+									<td class="edit" style="display: none;"><a data-id="<c:out value="${address.id}"/>" class="green Js-addr-modify" href="javascript:;">修改</a></td>
 								</tr>
 								</c:forEach>
 							</tbody>
@@ -87,14 +87,14 @@
 				<div class="supdtl-cont">
 					<div class="supdtl-cont-top">
 						<span class="pos1">
-						<a href="../project/Project.do?id=<c:out value="${proj.id}"/>" target="_blank">
+							<a href="../project/Project.do?id=<c:out value="${proj.id}"/>" target="_blank">
 							<c:choose>
 								<c:when test="${proj.imgUrl==''}"><img alt="<c:out value="${proj.name}"/>" src="../static/image/temp/pic2.png" /></c:when>
 								<c:otherwise><img style="max-width:120px;max-height:80px;" alt="<c:out value="${proj.name}"/>" src="../<c:out value="${proj.imgUrl}"/>" /></c:otherwise>
 							</c:choose>
-						</a><span><a href="../project/Project.do?id=<c:out value="${proj.id}"/>" target="_blank"><c:out value="${proj.name}"/></a></span></span>
+							</a><span><a href="../project/Project.do?id=<c:out value="${proj.id}"/>" target="_blank"><c:out value="${proj.name}"/></a></span></span>
 						<span class="pos2"><span class="morecon"><c:out value="${mode.returnContent}"/><!--<br>
-						（图为示意，仅供参考）--></span><!--<span class="more">显示全部</span>--></span>
+						（图为示意，仅供参考）--></span><span class="more" style="text-align:center;">显示全部</span></span>
 						<span class="pos3">￥<c:out value="${mode.price}"/></span>
 						<span class="pos4">
 							<c:choose>

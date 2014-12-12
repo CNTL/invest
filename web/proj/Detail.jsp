@@ -4,6 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <%@include file="../inc/meta.inc"%>
+	<script type="text/javascript" src="../js/layer/layer.min.js"></script>
+	<script type="text/javascript" src="../js/layer/extend/layer.ext.js"></script>
 	<script type="text/javascript" src="../proj/script/detail.js"></script>
 	<script type="text/javascript">
 		var webroot = "<c:out value="${rootPath}"/>";
@@ -95,14 +97,13 @@
                     <div class="count">已有 <span class="red"><c:out value="${mode.countSupport}"/></span> 位支持者/限额 <span class="red"><c:out value="${mode.countGoal}"/></span> 位</div>
                 </div>
                 <div class="content">
-                    <c:out value="${mode.returnContent}"/>
-                    <span class="supportBtn" modeid="<c:out value="${mode.id}"/>" userid="<c:out value="${loginUser.id}"/>">
+					<div id="returncontent_<c:out value="${mode.id}"/>" class="returncontent" modeid="<c:out value="${mode.id}"/>" imgs="<c:out value="${mode.imgURL}"/>"><c:out value="${mode.returnContent}"/></div>
+					<span class="supportBtn" modeid="<c:out value="${mode.id}"/>" userid="<c:out value="${loginUser.id}"/>">
 						<c:choose>
 							<c:when test="${mode.price<=0}">无私支持</c:when>
 							<c:otherwise>支持￥<label class="moneyFormat"><c:out value="${mode.price}"/></label></c:otherwise>
 						</c:choose>
-					  </span>
-                </div>
+				  </span></div>
             </div>
 			</c:forEach>
         </div>

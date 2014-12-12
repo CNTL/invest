@@ -18,6 +18,14 @@
 		.desc p{text-indent:2em;}
 		.desc p img{max-width:608px;}
 	</style>
+	<script type="text/javascript">
+		$(function(){
+			$("td.returncontent").each(function(i,n){
+				$(this).html($(this).html().replace(/[\r\n]/g,"<br />").replace(/\ +/g,"").replace(/[ ]/g,""));
+			});
+			$("#proj_summary").html($("#proj_summary").html().replace(/[\r\n]/g,"<br />").replace(/\ +/g,"").replace(/[ ]/g,""));
+		});
+	</script>
 </head>
 <body>
 	<form id="tlform" class="easyui-form" method="post">
@@ -99,9 +107,7 @@
 								<br />
 								限额 <span class="red"><c:out value="${mode.countGoal}"/></span> 位
 							</td>
-							<td style="width:320px;">
-								 <c:out value="${mode.returnContent}"/>
-							</td>
+							<td class="returncontent" style="width:320px;"><c:out value="${mode.returnContent}"/></td>
 							<td>
 								<c:choose>
 									<c:when test="${mode.freight<=0}">免运费</c:when>
@@ -117,7 +123,7 @@
 			</tr>
 			<tr>
 				<td class="title">简介</td>
-				<td colspan="3"><c:out value="${proj.summary}"/></td>
+				<td id="proj_summary" colspan="3"><c:out value="${proj.summary}"/></td>
 			</tr>
 			<tr>
 				<td class="title" valign="top">详细信息</td>

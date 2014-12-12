@@ -65,7 +65,7 @@ public class UploadController extends BaseController {
 					//long size = file.getSize();
 					Date dNow = new Date();
 					SimpleDateFormat format = new SimpleDateFormat("yyyy");// 保存目录名称
-					SimpleDateFormat format1 = new SimpleDateFormat("MM-DD");// 保存目录名称
+					SimpleDateFormat format1 = new SimpleDateFormat("MM-dd");// 保存目录名称
 					SimpleDateFormat format3 = new SimpleDateFormat("HHmmssss");// 文件名称
 					StringBuilder sb = new StringBuilder();
 					sb.append(StringUtils.isEmpty(folder)?"":(folder+File.separator));
