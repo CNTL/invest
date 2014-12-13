@@ -192,7 +192,13 @@
          </div>
          <div class="clear"></div>
          <div class="more">
-             <a href="#">查看更多</a>
+         	<a href="#">查看更多</a>
+         	<input type="hidden" id="queryType" name="queryType" value="queryNew" />
+            <input type="hidden" id="total" name="total" value="" />
+			<input type="hidden" id="curPage" name="curPage" value="" />
+			<input type="hidden" id="pageCount" name="pageCount" value="" />
+			<input type="hidden" id="length" name="length" value="" />
+			<input type="hidden" id="userName" name="userName" value="" />
          </div>
      </div>
     <div class="clear"></div>

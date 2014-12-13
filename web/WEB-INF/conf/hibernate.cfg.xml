@@ -43,7 +43,6 @@
 		<mapping resource="hbm/UserPhotogroup.hbm.xml"/>
 		<mapping resource="hbm/UserRecruit.hbm.xml"/>
 		<mapping resource="hbm/UserRecruitresume.hbm.xml"/>
-		<mapping resource="hbm/UserRecruitstore.hbm.xml"/>
 		<mapping resource="hbm/UserResume.hbm.xml"/>
 		<mapping resource="hbm/UserVideo.hbm.xml"/>
 		<mapping resource="hbm/UserVideogroup.hbm.xml"/>

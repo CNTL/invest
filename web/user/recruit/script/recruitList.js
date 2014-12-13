@@ -18,36 +18,23 @@ var jobList = {
 	init : function(){
 		$("#type").selectbox();
 		//$(".add").click("jobList.addRecruit");
-		jobList.queryNew();
+		jobList.queryNew(0);
 	},
-	addRecruit : function(){
-		$.ajax({
-	        type:"GET", //请求方式  
-	        url:"../user/user.do?a=findLogin", //请求路径  
-	        cache: false,
-	        dataType: 'JSON',   //返回值类型  
-	        success:function(data){
-	        	alert(data.orgFullname);
-	    		if(data != null && data.orgFullname != null && data.orgFullname != ''){
-	    			window.location.href = "../recruit/Edit.do";
-	    		} else {
-	    			$.messager.confirm('消息', '请先完善资料！', function(r){
-	    				if (r){
-	    					window.location.href = "../recruit/Detail.do";
-	    				}
-	    			});
-	    		}
-	        } ,
-			error:function (XMLHttpRequest, textStatus, errorThrown) {
-				   alert("error="+errorThrown);
-			}
-	    });
+	queryNew : function(curPage){
+		jobList.query("../user/recruit.do?a=queryNew&curPage=" + curPage + "&typeFlag=" + typeFlag);
 	},
-	queryNew : function(){
-		jobList.query("../user/recruit.do?a=queryNew&typeFlag=" + typeFlag);
+	queryHot : function(curPage){
+		jobList.query("../user/recruit.do?a=queryHot&curPage=" + curPage + "&typeFlag=" + typeFlag);
 	},
-	queryHot : function(){
-		jobList.query("../user/recruit.do?a=queryHot&typeFlag=" + typeFlag);
+	queryMore : function(){
+		var queryType = $("#queryType").val();
+		var curPage = $("#curPage").val();
+		curPage = parseInt(curPage, 10) + 1;
+		if(queryType=='queryNew'){
+			jobList.queryNew(curPage);
+		} else if(queryType=='queryHot'){
+			jobList.queryHot(curPage);
+		}
 	},
 	query : function(url){
 		$.ajax({
@@ -55,9 +42,17 @@ var jobList = {
 	        url: url, //请求路径  
 	        cache: false,
 	        dataType: 'JSON',   //返回值类型  
-	        success:function(data){
-	    		if(data != null){
-	    			jobList.assemble(data);
+	        success:function(result){
+	    		if(result != null){
+	    			$("#total").val(result.total);
+		        	$("#curPage").val(parseInt(result.curPage, 10));
+		        	$("#pageCount").val(result.pageCount);
+		        	$("#length").val(result.length);
+		        	$("#userName").val(result.userName);
+		        	var messages = result.messages;
+		    		if(!messages||typeof Object.prototype.toString.call(messages) == "[object Array]"||!messages.length)return;
+					
+	    			jobList.assemble(messages);
 	    		}
 	        } ,
 			error:function (XMLHttpRequest, textStatus, errorThrown) {
@@ -83,7 +78,7 @@ var jobList = {
     		var resumeNum = item.resumeNum;
     		i++;
     		var html = '';
-    		if(parseInt(i)%3 == 0){//一行三个招聘信息
+    		if(parseInt(i,10)%3 == 0){//一行三个招聘信息
     			html += '<div class="box box_last">';
     		} else{
     			html += '<div class="box">';
@@ -127,12 +122,36 @@ var jobList = {
     		main.append(html);
     	});
 	},
+	addRecruit : function(){
+		$.ajax({
+	        type:"GET", //请求方式  
+	        url:"../user/user.do?a=findLogin", //请求路径  
+	        cache: false,
+	        dataType: 'JSON',   //返回值类型  
+	        success:function(data){
+	    		if(data != null && data.orgFullname != null && data.orgFullname != ''){
+	    			window.location.href = "../recruit/Edit.do";
+	    		} else {
+	    			$.messager.confirm('消息', '请先完善资料！', function(r){
+	    				if (r){
+	    					window.location.href = "../org/DetailInfo.do";
+	    				}
+	    			});
+	    		}
+	        } ,
+			error:function (XMLHttpRequest, textStatus, errorThrown) {
+				   alert("error="+errorThrown);
+			}
+	    });
+	},
 	change : function(obj) {
 		$("#main").html("");
 		if(obj.id=='queryNew'){
-			jobList.queryNew();
+			$("#queryType").val('queryNew');
+			jobList.queryNew(0);
 		} else if(obj.id=='queryHot'){
-			jobList.queryHot();
+			$("#queryHot").val('queryHot');
+			jobList.queryHot(0);
 		}
 		jobList.setClass(obj);
 	},

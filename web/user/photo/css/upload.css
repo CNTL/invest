@@ -1,0 +1,33 @@
+.table{
+	/*table-layout: fixed;*/
+	width:100%;
+	/**width:auto;*/
+	border: 1px solid #e8e8e8;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+.table caption,.caption{
+	padding:6px;
+	font-size:13px;
+	font-weight:bold;
+	text-align:center;
+	background:#4B4B4B;
+	background-image: linear-gradient(bottom, #565656 0%, #434343 100%);
+	background-image: -o-linear-gradient(bottom, #565656 0%, #434343 100%);
+	background-image: -moz-linear-gradient(bottom, #565656 0%, #434343 100%);
+	background-image: -webkit-linear-gradient(bottom, #565656 0%, #434343 100%);
+	background-image: -ms-linear-gradient(bottom, #565656 0%, #434343 100%);
+
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0, #565656),
+		color-stop(1, #434343)
+	);
+	color:#FFF;
+	line-height:18px;
+	border: 1px solid #e8e8e8;
+	border-bottom:1px solid #FFF;
+}

@@ -10,27 +10,26 @@
         </id>
         <property name="userId" type="java.lang.Integer">
             <column name="userID">
-                <comment>&#211;&#195;&#187;&#167;id</comment>
             </column>
         </property>
         <property name="userName" type="string">
             <column name="userName">
-                <comment>&#211;&#195;&#187;&#167;&#195;&#251;</comment>
             </column>
         </property>
         <property name="recruitId" type="java.lang.Integer">
             <column name="recruitID">
-                <comment>&#214;&#176;&#206;&#187;id</comment>
             </column>
         </property>
         <property name="resumeId" type="java.lang.Integer">
             <column name="resumeID">
-                <comment>&#188;&#242;&#192;&#250;id</comment>
+            </column>
+        </property>
+        <property name="isPostResume" type="java.lang.Integer">
+            <column name="isPostResume">
             </column>
         </property>
         <property name="createtime" type="timestamp">
             <column name="createtime" length="19">
-                <comment>&#180;&#180;&#189;&#168;&#202;&#177;&#188;&#228;</comment>
             </column>
         </property>
     </class>

@@ -1,49 +1,66 @@
 $(document).ready(function () {
+	/*$("#affixBtn").click(function() {
+		resume.ajaxFileUpload("affix");
+    });*/
+	resume.init();
 	//初始化
 	$("#form").validationEngine({
 		autoPositionUpdate:true,
 		onValidationComplete:function(from,r){
 			if (r){
 				window.onbeforeunload = null;
-				$("#submit").attr("disabled", true);
+				$("#btnSave").attr("disabled", true);
 				resume.submit();
 			}
 		}
 	});
 });
 var resume = {
+	init : function(){
+		var id = $("#id").val();
+		if(id == null && id.length == 0) return;
+		$.ajax({
+	        type:"GET", //请求方式  
+	        url:"../user/resume.do?a=curResume&id=" + id, //请求路径  
+	        cache: false,
+	        dataType: 'JSON',   //返回值类型  
+	        success:function(data){
+	    		if(data != null && data.length == 1){
+	    			$("#name").val(data[0].name);
+	    			$("#content").val(data[0].content);
+	    			$("#affix").val(data[0].affix);
+	    		}
+	        } ,
+			error:function (XMLHttpRequest, textStatus, errorThrown) {
+				   alert(errorThrown);
+			}
+	    });
+	},
 	submit : function(){
 		$.ajax({
 	        type:"POST", //请求方式  
-	        url:"../../user/resume.do?a=saveResume", //请求路径  
+	        url:"../user/resume.do?a=saveResume", //请求路径  
 	        cache: false,
 	        data:$('#form').serialize(),  //传参 
 	        dataType: 'text',   //返回值类型  
 	        success:function(data){
 	    		if(data != null && data == 'ok'){
-	    			$.messager.confirm('消息', '上传附件成功！', function(r){
+	    			$.messager.confirm('消息', '保存简历成功！', function(r){
 	    				if (r){
-	    					window.location.href=window.location.href; 
+	    					window.location.href= "../resume/myresume.do?infoType=1"; 
 	    				}
 	    			});
 	    		} else {
-	    			$.messager.alert('上传附件失败！',data);
+	    			$.messager.alert('保存简历失败！',data);
 	    		}
-	    		$("#submit").attr("disabled", false);
+	    		$("#btnSave").attr("disabled", false);
 	        } ,
 			error:function (XMLHttpRequest, textStatus, errorThrown) {
 				$.messager.alert('消息', errorThrown);
 			}
 	    });
 	},
-	ajaxFileUpload : function() {
-		// 开始上传文件时显示一个图片
-        $("#" + id + "Wait").ajaxStart(function() {
-            $(this).show();
-        // 文件上传完成将图片隐藏起来
-        }).ajaxComplete(function() {
-            $(this).hide();
-        });
+	ajaxFileUpload : function(id) {
         var elementIds=[id]; //flag为id、name属性名
         $.ajaxFileUpload({
             url: '../../user/resume.do?a=uploadAtt&field=' + id, 
@@ -75,67 +92,7 @@ var resume = {
             	$.messager.alert('消息！', e);
             }
         });
-    },
-	getMyMsgs : function(){
-		$.ajax({
-	        type:"GET", //请求方式  
-	        url:"../../user/resume.do?a=getMyMsgs", //请求路径  
-	        cache: false,
-	        dataType: 'json',   //返回值类型  
-	        success:function(result){
-	        	if(!result||typeof Object.prototype.toString.call(result) == "[object Array]"||!result.length)return;
-				var l = result.length;
-				for (var j = 0; j < l; j++) {
-					var userResume = result[j];
-					msg.setMsgs(userResume);
-				}
-	        } ,
-			error:function (XMLHttpRequest, textStatus, errorThrown) {
-				$.messager.alert('初始化失败！',errorThrown);
-			}
-	    });
-	},
-	setMsgs : function(userResume){
-		/**
-		 * 根据接收用户组装消息列表 
-		 **/
-		$("#msgDiv .userHead").attr("href", "/home/id-" + userResume.msg_toID);
-		$("#msgDiv .userHead img").attr("src", rootPath + userResume.userHead);
-		
-		$("#msgDiv .msgTo").attr("href", "/home/id-" + userResume.msg_toID);
-		$("#msgDiv .msgTo").html(userResume.msg_to);
-		$("#msgDiv .gray").html(userResume.createTime);
-		$("#msgDiv .msg-cnt").html(userResume.msg_content);
-		$("#msgDiv .msgNum").attr("href", "msgDetail.jsp?msg_toID=" + userResume.msg_toID +
-				"&msg_to=" + userResume.msg_to);
-		$("#msgDiv .msgNum").html("共" + userResume.msgNum + "条对话");
-		
-		$("#msgDiv .Js-reply").attr("onclick", "msg.replyMsg(" + userResume.msg_toID + ",'" + userResume.msg_to + "')");
-		$("#msgDiv .delMsg").attr("onclick", "msg.delMsg(" + userResume.msg_toID + ")");
-		$(".clearfix").append($("#msgDiv ul").html());
-	},
-	delMsg : function(id){
-		$.ajax({
-	        type:"GET", //请求方式  
-	        url:"../../user/resume.do?a=delResume&id=" + id, //请求路径  
-	        cache: false,
-	        dataType: 'TEXT',   //返回值类型  
-	        success:function(data){
-	        	if(data != null && data == 'ok'){
-	    			$.messager.confirm('消息', '删除成功！', function(r){
-	    				if (r){
-	    					window.location.href=window.location.href; 
-	    				}
-	    			});
-	    		} else {
-	    			$.messager.alert('删除失败！',data);
-	    		}
-	        } ,
-			error:function (XMLHttpRequest, textStatus, errorThrown) {
-				$.messager.alert('删除失败！',errorThrown);
-			}
-	    });
-	}
+    }
 }
 
 //校验上传文件

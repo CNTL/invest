@@ -27,7 +27,7 @@ var msg = {
 	sendMsg : function(){
 		$.ajax({
 	        type:"POST", //请求方式  
-	        url:"../../user/msg.do?a=sendMsg", //请求路径  
+	        url:"../user/msg.do?a=sendMsg", //请求路径  
 	        cache: false,
 	        data:$('#form').serialize(),  //传参 
 	        dataType: 'text',   //返回值类型  
@@ -59,7 +59,7 @@ var msg = {
 		var msg_toID = $("#msg_toID").val();
 		$.ajax({
 	        type:"GET", //请求方式  
-	        url:"../../user/msg.do?a=getTalkList&msg_toID=" + msg_toID, //请求路径  
+	        url:"../user/msg.do?a=getTalkList&msg_toID=" + msg_toID, //请求路径  
 	        cache: false,
 	        dataType: 'JSON',   //返回值类型  
 	        success:function(result){
@@ -88,12 +88,12 @@ var msg = {
 		$("#msgDiv .msg-cnt").html(userMsg.msg_content);
 		$("#msgDiv .Js-reply").attr("onclick", "msg.replyMsg(" + userMsg.msg_toID + ",'" + userMsg.msg_to + "')");
 		$("#msgDiv .delMsg").attr("onclick", "msg.delMsg(" + userMsg.id + ")");
-		$(".clearfix").append($("#msgDiv ul").html());
+		$("#msgList").append($("#msgDiv ul").html());
 	},
 	delMsg : function(id){
 		$.ajax({
 	        type:"GET", //请求方式  
-	        url:"../../user/msg.do?a=delMsg&id=" + id, //请求路径  
+	        url:"../user/msg.do?a=delMsg&id=" + id, //请求路径  
 	        cache: false,
 	        dataType: 'TEXT',   //返回值类型  
 	        success:function(data){

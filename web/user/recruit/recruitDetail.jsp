@@ -38,7 +38,7 @@
             <div class="tip">
                 你还没有简历呢，你可以完善在线简历，也可上传附件简历直接投递
             </div>
-            <a href="#" class="submit">投递简历</a>
+            <a href="#" class="submit" onclick="collectResume();">投递简历</a>
         </div>
         <div class="sider">
             <div class="desc">
@@ -103,6 +103,24 @@
         </div>
         <div class="clear"></div>
     </div>
+    <div id="w" class="easyui-window" data-options="title:'发送简历',iconCls:'icon-save'" style="width:200px;height:200px;display:none;">
+	<div class="easyui-layout" data-options="fit:true">
+		<div class="job_add">
+			<form class="setting-form" id="form" name="form" action="">
+				<input type="hidden" id="recruitID" name="recruitID" value="${recruit.id}"/>
+				<div class="input">
+			        <label for="resumeID">选择简历：</label>
+			        <select id="resumeID" name="resumeID" class="custform-select validate[maxSize[255],required]" style="width:400px">
+			        </select>
+			    </div>
+			</form>
+		</div>
+		<div data-options="region:'south',border:false" style="text-align:right;padding:5px 0;">
+			<a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" href="javascript:void(0)" onclick="resume.post();">发送</a>
+			<a class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" href="javascript:void(0)" onclick="resume.closeMsg()">取消</a>
+		</div>
+	</div>
+</div>
 	<!-- script -->
 	<%@include file="../inc/script.inc"%>
 	<!-- script -->
@@ -111,35 +129,6 @@
 	<%@include file="../../inc/footer.inc"%>
 	<!-- footer -->
 	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=6eea93095ae93db2c77be9ac910ff311"></script>
+	<script type="text/javascript" src="./script/recruitDetail.js"></script>
 </body>
-<script>
-var map = new BMap.Map("allmap");
-$(document).ready(function(){
-	var location = '${user.location}';
-	if(location != null && location != ""){
-		var myGeo = new BMap.Geocoder();
-		myGeo.getPoint(location, function(point){
-			if (point) {
-				setMyPoint(point.lng,point.lat);
-			}
-		});
-	} else {
-		var myCity = new BMap.LocalCity();
-		myCity.get(myFun);
-	}
-});
-function setMyPoint(lng,lat){
-	var point = new BMap.Point(lng,lat);
-	map.centerAndZoom(point,15);
-	map.enableScrollWheelZoom(); 
-	
-	var marker = new BMap.Marker(point);
-	map.addOverlay(marker);
-}
-//根据ip设置地图中心
-function myFun(result){
-   var cityName = result.name;
-   map.centerAndZoom(cityName,12);  
-}
-</script>
 </html>

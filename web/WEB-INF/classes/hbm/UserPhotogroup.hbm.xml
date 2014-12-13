@@ -26,5 +26,13 @@
         <property name="groupIntro" type="string">
             <column name="groupIntro" length="4000" />
         </property>
+        <property name="groupPhoto" type="string">
+            <column name="groupPhoto">
+            </column>
+        </property>
+        <property name="createTime" type="timestamp">
+            <column name="createTime" length="19" not-null="true">
+            </column>
+        </property>
     </class>
 </hibernate-mapping>

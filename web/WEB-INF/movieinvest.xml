@@ -35,7 +35,7 @@
 	<bean id="WorksManager" class="com.tl.invest.user.works.WorksManager"/>
 	<bean id="RecruitManager" class="com.tl.invest.user.recruit.RecruitManager"/>
 	<bean id="UserVideoManager" class="com.tl.invest.user.video.UserVideoManager"/>
-	
+	<bean id="PhotoManager" class="com.tl.invest.user.photo.PhotoManager"/>
 	<bean id="user.User" class="com.tl.invest.user.user.UserController">
 		<property name="userManager"><ref bean="UserManager"/></property>
 		<property name="bankcardManager"><ref bean="BankcardManager"/></property>
@@ -111,11 +111,20 @@
 	<bean id="user.RelAuth" class="com.tl.invest.user.user.UserMainController">
 		<property name="viewName"><value>user/user/userRelAuth</value></property>
 	</bean>
-	<bean id="user.Photo" class="com.tl.invest.user.user.UserMainController">
-		<property name="viewName"><value>user/photo/userPhoto</value></property>
+	<bean id="user.PhotoGroupMa" class="com.tl.invest.user.user.UserMainController">
+		<property name="viewName"><value>user/photo/photoGroupList</value></property>
 	</bean>
-	<bean id="user.Video" class="com.tl.invest.user.user.UserMainController">
+	<bean id="user.PhotoMa" class="com.tl.invest.user.user.UserMainController">
+		<property name="viewName"><value>user/photo/photoList</value></property>
+	</bean>
+	<bean id="user.VideoMa" class="com.tl.invest.user.user.UserMainController">
 		<property name="viewName"><value>user/video/userVideoList</value></property>
+	</bean>
+	<bean id="user.MsgMa" class="com.tl.invest.user.msg.MsgMainController">
+		<property name="viewName"><value>user/msg/msgSend</value></property>
+	</bean>
+	<bean id="user.MsgDetailMa" class="com.tl.invest.user.msg.MsgDetailMainController">
+		<property name="viewName"><value>user/msg/msgDetail</value></property>
 	</bean>
 	<!-- 机构用户页面 -->
 	<bean id="org.BasicInfo" class="com.tl.invest.user.user.OrgMainController">
@@ -133,11 +142,14 @@
 	<bean id="org.RelAuth" class="com.tl.invest.user.user.OrgMainController">
 		<property name="viewName"><value>user/user/orgRelAuth</value></property>
 	</bean>
-	<bean id="org.Photo" class="com.tl.invest.user.user.OrgMainController">
+	<bean id="org.PhotoMa" class="com.tl.invest.user.user.OrgMainController">
 		<property name="viewName"><value>user/photo/userPhoto</value></property>
 	</bean>
-	<bean id="org.Video" class="com.tl.invest.user.user.OrgMainController">
+	<bean id="org.VideoMa" class="com.tl.invest.user.user.OrgMainController">
 		<property name="viewName"><value>user/video/userVideoList</value></property>
+	</bean>
+	<bean id="org.MsgMa" class="com.tl.invest.user.user.OrgMainController">
+		<property name="viewName"><value>user/msg/msgSetting</value></property>
 	</bean>
 	
 	<bean id="address.Manager" class="com.tl.invest.user.AddressManager"></bean>
@@ -158,6 +170,19 @@
 	<bean id="recruit.Edit" class="com.tl.invest.user.recruit.RecruitMainController">
 		<property name="viewName"><value>user/recruit/recruitEdit</value></property>
 	</bean>
+	<!-- 简历管理 -->
+	<bean id="resume.myresume" class="com.tl.invest.user.resume.ResumeMainController">
+		<property name="viewName"><value>user/resume/resumeList</value></property>
+	</bean>
+	<bean id="resume.myrecruit" class="com.tl.invest.user.resume.ResumeMainController">
+		<property name="viewName"><value>user/resume/myRecruit</value></property>
+	</bean>
+	<bean id="resume.recruitresume" class="com.tl.invest.user.resume.ResumeMainController">
+		<property name="viewName"><value>user/resume/recruitResume</value></property>
+	</bean>
+	<bean id="resume.resumeEdit" class="com.tl.invest.user.resume.ResumeMainController">
+		<property name="viewName"><value>user/resume/resumeEdit</value></property>
+	</bean>		
 	
 	<bean id="user.UserMsg" class="com.tl.invest.user.msg.UserMsgController">
 	</bean>
@@ -166,6 +191,8 @@
 	<bean id="user.UserResume" class="com.tl.invest.user.resume.UserResumeController">
 	</bean>
 	<bean id="user.UserVideo" class="com.tl.invest.user.video.UserVideoController">
+	</bean>
+	<bean id="user.Photo" class="com.tl.invest.user.photo.PhotoController">
 	</bean>
 	<bean id="user.Project" class="com.tl.invest.proj.service.UserProjectController">
 		<property name="service"><ref bean="project.Service" /></property>
@@ -203,19 +230,26 @@
 				<prop key="/user/Intro.do">user.Intro</prop>
 				<prop key="/user/PwdChange.do">user.PwdChange</prop>
 				<prop key="/user/RelAuth.do">user.RelAuth</prop>
-				<prop key="/user/Photo.do">user.Photo</prop>
-				<prop key="/user/Video.do">user.Video</prop>
+				<prop key="/user/PhotoGroupMa.do">user.PhotoGroupMa</prop>
+				<prop key="/user/PhotoMa.do">user.PhotoMa</prop>
+				<!-- <prop key="/user/VideoGroup.do">user.VideoGroup</prop> -->
+				<prop key="/user/VideoMa.do">user.VideoMa</prop>
+				<prop key="/user/MsgMa.do">user.MsgMa</prop>
+				<prop key="/user/MsgDetailMa.do">user.MsgDetailMa</prop>
 				
+				<!-- 机构用户 -->
 				<prop key="/org/BasicInfo.do">org.BasicInfo</prop>
 				<prop key="/org/HeadImg.do">org.HeadImg</prop>
 				<prop key="/org/PwdChange.do">org.PwdChange</prop>
 				<prop key="/org/DetailInfo.do">org.DetailInfo</prop>
 				<prop key="/org/RelAuth.do">org.RelAuth</prop>
-				<prop key="/org/Photo.do">org.Photo</prop>
-				<prop key="/org/Vidorgo">org.Video</prop>
+				<prop key="/org/PhotoMa.do">org.PhotoMa</prop>
+				<prop key="/org/VideoMa.do">org.VideoMa</prop>
 				<prop key="/org/Address.do">org.Address</prop>
 				<prop key="/org/AddressSubmit.do">address.Submit</prop>
+				<prop key="/org/MsgMa.do">org.MsgMa</prop>
 				
+				<!-- 用户相关 -->
 				<prop key="/user/userlogin.do">user.Login</prop>
 				<prop key="/user/user.do">user.User</prop>
 				<prop key="/user/userFetch.do">user.UserFetch</prop>
@@ -228,6 +262,13 @@
 				<prop key="/recruit/Detail.do">recruit.Detail</prop>
 				<prop key="/recruit/Edit.do">recruit.Edit</prop>
 				<prop key="/user/recruit.do">user.Recruit</prop>
+				<!-- 简历管理 -->
+				<prop key="/resume/myresume.do">resume.myresume</prop>
+				<prop key="/resume/myrecruit.do">resume.myrecruit</prop>
+				<prop key="/resume/recruitresume.do">resume.recruitresume</prop>
+				<prop key="/resume/resumeEdit.do">resume.resumeEdit</prop>
+				<!-- 我的相册 -->
+				<prop key="/user/photo.do">user.Photo</prop>
 				<!-- 我的视频 -->
 				<prop key="/user/video.do">user.UserVideo</prop>
 				<!--我的项目-->

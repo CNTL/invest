@@ -1,14 +1,5 @@
 $(document).ready(function () {
 	Login.init();
-	$("#form").validationEngine({
-		autoPositionUpdate:true,
-		onValidationComplete:function(from,r){
-			if (r){
-				window.onbeforeunload = null;
-				Login.doAction();
-			}
-		}
-	});
 });
 var Login = function () {
 
@@ -149,6 +140,15 @@ var Login = function () {
             handleLogin();
             //weiboInit();
             $("#register").click(register);
+            $("#form").validationEngine({
+        		autoPositionUpdate:true,
+        		onValidationComplete:function(from,r){
+        			if (r){
+        				window.onbeforeunload = null;
+        				doAction();
+        			}
+        		}
+        	});
         }
     };
 

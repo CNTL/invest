@@ -1,5 +1,5 @@
 $(document).ready(function () {
-	autoCompleteInit();
+	//autoCompleteInit();
 	msg.init();
 	$("#form").validationEngine({
 		autoPositionUpdate:true,
@@ -34,7 +34,7 @@ var msg = {
 		//alert(params)
 		$.ajax({
 	        type:"POST", //请求方式  
-	        url:"../../user/msg.do?a=sendMsg", //请求路径  
+	        url:"../user/msg.do?a=sendMsg", //请求路径  
 	        cache: false,
 	        data:$('#form').serialize(),  //传参 
 	        dataType: 'text',   //返回值类型  
@@ -65,7 +65,7 @@ var msg = {
 	getMyMsgs : function(){
 		$.ajax({
 	        type:"GET", //请求方式  
-	        url:"../../user/msg.do?a=getMyMsgs", //请求路径  
+	        url:"../user/msg.do?a=getMyMsgs", //请求路径  
 	        cache: false,
 	        dataType: 'json',   //返回值类型  
 	        success:function(result){
@@ -92,18 +92,17 @@ var msg = {
 		$("#msgDiv .msgTo").html(userMsg.msg_to);
 		$("#msgDiv .gray").html(userMsg.createTime);
 		$("#msgDiv .msg-cnt").html(userMsg.msg_content);
-		$("#msgDiv .msgNum").attr("href", "msgDetail.jsp?msg_toID=" + userMsg.msg_toID +
-				"&msg_to=" + userMsg.msg_to);
+		$("#msgDiv .msgNum").attr("href", "../user/MsgDetailMa.do?infoType=1&msg_toID=" + userMsg.msg_toID);
 		$("#msgDiv .msgNum").html("共" + userMsg.msgNum + "条对话");
 		
 		$("#msgDiv .Js-reply").attr("onclick", "msg.replyMsg(" + userMsg.msg_toID + ",'" + userMsg.msg_to + "')");
 		$("#msgDiv .delMsg").attr("onclick", "msg.delMsg(" + userMsg.msg_toID + ")");
-		$(".clearfix").append($("#msgDiv ul").html());
+		$("#msgList").append($("#msgDiv ul").html());
 	},
 	delMsg : function(msg_toID){
 		$.ajax({
 	        type:"GET", //请求方式  
-	        url:"../../user/msg.do?a=delMsgs&msg_toID=" + msg_toID, //请求路径  
+	        url:"../user/msg.do?a=delMsgs&msg_toID=" + msg_toID, //请求路径  
 	        cache: false,
 	        dataType: 'TEXT',   //返回值类型  
 	        success:function(data){
@@ -126,13 +125,5 @@ var msg = {
 		$("#msgTo").val(msg_to);
 		$("#msgTo_ID").val(msg_toID);
 		msg.openMsg();
-	},
-	change : function(obj) {
-		var url;
-		if(obj.id=='msgSend'){
-			url = "msgSend.jsp";
-		}
-		userset.setClass(obj);
-		$("#main").attr("src",url);
 	}
 }

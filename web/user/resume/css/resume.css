@@ -1,0 +1,24 @@
+.people_globaltop {
+    height: 50px;
+    border-top: 1px #E1E1E1 solid;
+    border-bottom: 1px #E1E1E1 solid;
+    background-color: #F8F8F8;
+}
+
+.people_globaltop .wrap {
+    position: relative;
+    width: 1002px;
+    margin: 0 auto;
+    height: 50px;
+}
+.btn input {
+    width: 200px;
+    height: 40px;
+    line-height: 40px;
+    border: 0;
+    background-color: #01BF99;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+    margin-left: 200px;
+}

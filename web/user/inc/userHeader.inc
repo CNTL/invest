@@ -1,11 +1,11 @@
 <%@page pageEncoding="UTF-8"%>
 <div class="setting-title clearfix">
 
-	<c:if test="${userType==0}">
+	<c:if test="${loginUser.type==0}">
 		<h3>个人设置</h3>
 		<a href="../user/BasicInfo.do">返回个人中心</a>
 	</c:if>
-	<c:if test="${userType==1}">
+	<c:if test="${loginUser.type==1}">
 		<h3>机构设置</h3>
 		<a href="../org/BasicInfo.do">返回机构中心</a>
 	</c:if>
