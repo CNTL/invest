@@ -14,6 +14,7 @@ public class UserRecruitresume {
 	private String userName;
 	private Integer recruitId;
 	private Integer resumeId;
+	private Integer isPostResume;
 	private Date createtime;
 
 	public UserRecruitresume() {
@@ -71,6 +72,14 @@ public class UserRecruitresume {
 
 	public void setResumeId(Integer resumeId) {
 		this.resumeId = resumeId;
+	}
+
+	public Integer getIsPostResume() {
+		return isPostResume;
+	}
+
+	public void setIsPostResume(Integer isPostResume) {
+		this.isPostResume = isPostResume;
 	}
 
 	public Date getCreatetime() {

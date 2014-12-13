@@ -12,7 +12,6 @@ import net.sf.json.JSONArray;
 import com.tl.common.DateUtils;
 import com.tl.common.Message;
 import com.tl.common.ParamInitUtils;
-import com.tl.common.WebUtil;
 import com.tl.invest.user.user.User;
 import com.tl.invest.user.user.UserManager;
 import com.tl.kernel.context.Context;
@@ -29,7 +28,7 @@ public class RecruitController extends BaseController {
 	protected void handle(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception {
 		String action = request.getParameter("a");
 		if("list".equals(action)){//获取用户列表
-			list(request, response, model);
+			//list(request, response, model);
 		} else if("queryNew".equals(action)){//获取最新9条招聘信息
 			queryNew(request, response);
 		} else if("queryHot".equals(action)){//获取最热9条招聘信息
@@ -57,7 +56,7 @@ public class RecruitController extends BaseController {
 	* @param model
 	* @throws Exception 
 	*/ 
-	private void list(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception{
+	/*private void list(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception{
 		int curPage = ParamInitUtils.getInt(request.getParameter("curPage"));
 		int length = ParamInitUtils.getInt(request.getParameter("length"));
 		Message message = recruitManager.getMessageList(curPage, length);
@@ -65,7 +64,7 @@ public class RecruitController extends BaseController {
 		model.put("msg", message);
 		model.put("@VIEWNAME@", WebUtil.getRoot(request) + "user/recruit/recruitList");
 	}
-	
+	*/
 	/** 
 	* @author  leijj 
 	* 功能： 查询最新招聘信息
@@ -78,8 +77,8 @@ public class RecruitController extends BaseController {
 		String typeFlag = get(request, "typeFlag");//是否是职位管理（view-浏览所有招聘信息，edit-管理我的职位信息）
 		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
 		int start = getInt(request, "start");
-		List<UserRecruit> recruitList = setUser(recruitManager.queryRecruits(start, 9, typeFlag, user.getId()));
-		JSONArray jsonArray = JSONArray.fromObject(recruitList);  
+		Message msg = setUser(recruitManager.queryRecruits(start, 9, typeFlag, user.getId()));
+		JSONArray jsonArray = JSONArray.fromObject(msg);  
 		output(jsonArray.toString(), response);
 	}
 	/** 
@@ -94,11 +93,14 @@ public class RecruitController extends BaseController {
 		String typeFlag = get(request, "typeFlag");//是否是职位管理（view-浏览所有招聘信息，edit-管理我的职位信息）
 		int start = getInt(request, "start");
 		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
-		List<UserRecruit> recruitList = setUser(recruitManager.queryHot(start, 9, typeFlag, user.getId()));
-		JSONArray jsonArray = JSONArray.fromObject(recruitList);  
+		Message msg = setUser(recruitManager.queryHot(start, 9, typeFlag, user.getId()));
+		JSONArray jsonArray = JSONArray.fromObject(msg);  
 		output(jsonArray.toString(), response);
 	}
-	private List<UserRecruit> setUser(List<UserRecruit> recruitList) throws Exception{
+	
+	private Message setUser(Message msg) throws Exception{
+		if(msg == null) return null;
+		List<UserRecruit> recruitList = msg.getMessages();
 		if(recruitList == null || recruitList.size() == 0) return null;
 		
 		List<UserRecruit> newList = new ArrayList<UserRecruit>();
@@ -109,7 +111,8 @@ public class RecruitController extends BaseController {
 			recruit.setTime(DateUtils.format(recruit.getCreatetime(), "yyyy-MM-dd hh:mm:ss"));
 			newList.add(recruit);
 		}
-		return newList;
+		msg.setMessages(newList);
+		return msg;
 	}
 	/** 
 	* @author  leijj 

@@ -1,5 +1,7 @@
 package com.tl.invest.user.photo;
 
+import java.util.Date;
+
 // Generated Nov 17, 2014 3:11:25 PM by Hibernate Tools 3.4.0.CR1
 
 /**
@@ -12,7 +14,8 @@ public class UserPhotogroup {
 	private String userName;
 	private String groupName;
 	private String groupIntro;
-
+	private String groupPhoto;
+	private Date createTime;
 	public UserPhotogroup() {
 	}
 
@@ -69,4 +72,19 @@ public class UserPhotogroup {
 		this.groupIntro = groupIntro;
 	}
 
+	public String getGroupPhoto() {
+		return groupPhoto;
+	}
+
+	public void setGroupPhoto(String groupPhoto) {
+		this.groupPhoto = groupPhoto;
+	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
 }

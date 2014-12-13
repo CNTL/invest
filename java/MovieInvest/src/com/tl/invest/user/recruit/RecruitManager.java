@@ -21,7 +21,7 @@ import com.tl.kernel.context.TBID;
  * @author  leijj
  * 类说明 ： 
  */
-@SuppressWarnings({ "rawtypes", "unchecked", "deprecation"})
+@SuppressWarnings({ "rawtypes", "deprecation"})
 public class RecruitManager {
 	/**
 	 * 根据菜单id获取已发布的消息列表
@@ -32,7 +32,7 @@ public class RecruitManager {
 	 * @return
 	 * @throws Exception
 	 */
-	public Message getMessageList(int curPage, int length) throws Exception{
+	/*public Message getMessageList(int curPage, int length) throws Exception{
 		if(curPage == 0) curPage = 1;//下标是0时是第一页
 		
 		Message message = new Message();
@@ -57,7 +57,7 @@ public class RecruitManager {
 			message.setMessages(msgList);
 		}
 		return message;
-	}
+	}*/
 	/** 
 	* @author  leijj 
 	* 功能： 获取招聘信息条数
@@ -82,28 +82,44 @@ public class RecruitManager {
 		}
 		return count;
 	}
-	public List<UserRecruit> queryRecruits(int start, int length, String typeFlag, Integer userId) throws Exception{
+	public Message queryRecruits(int start, int length, String typeFlag, Integer userId) throws Exception{
 		StringBuilder querySql = new StringBuilder("select a from com.tl.invest.user.recruit.UserRecruit as a");
-		if("edit".equals(typeFlag)){//管理我的简历，则增加当前用户查询条件
+		if("edit".equals(typeFlag)){//管理我的职位，则增加当前用户查询条件
 			querySql.append(" where a.userId=").append(userId);
 		}
 		querySql.append(" order by createTime desc");
 		List list = DAOHelper.find(querySql.toString() , start, length);
-        if(list.size() > 0)
-            return list;
+        if(list.size() > 0){
+        	Message message = new Message();
+        	//int pageCount = (total/length == 0 ? total/length : (total/length + 1));
+			message.setCurPage(start + 1);
+			message.setLength(length);
+			message.setMessages(list);
+			//message.setPageCount(pageCount);
+			//message.setTotal(total);
+            return message;
+        }
         else
             return null;
         
 	}
-	public List<UserRecruit> queryHot(int start, int length, String typeFlag, Integer userId) throws Exception{
+	public Message queryHot(int start, int length, String typeFlag, Integer userId) throws Exception{
 		StringBuilder querySql = new StringBuilder("select a from com.tl.invest.user.recruit.UserRecruit as a");
 		if("edit".equals(typeFlag)){//管理我的简历，则增加当前用户查询条件
 			querySql.append(" where a.userId=").append(userId);
 		}
 		querySql.append(" order by resumeNum desc");
 		List list = DAOHelper.find(querySql.toString() , start, length);
-        if(list.size() > 0)
-            return list;
+		if(list.size() > 0){
+        	Message message = new Message();
+        	//int pageCount = (total/length == 0 ? total/length : (total/length + 1));
+			message.setCurPage(start + 1);
+			message.setLength(length);
+			message.setMessages(list);
+			//message.setPageCount(pageCount);
+			//message.setTotal(total);
+            return message;
+        }
         else
             return null;
         
