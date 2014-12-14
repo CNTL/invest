@@ -78,7 +78,7 @@ var photoGroup = {
 	    		if(data != null && data.length > 0){
 	    			$.messager.confirm('消息', '创建相册成功！', function(r){
 	    				if (r){
-	    					window.location.href="../user/PhotoMa.do?infoType=6&groupID=" + data; 
+	    					window.location.href="../user/PhotoGroupMa.do?infoType=6&groupID=" + data; 
 	    				}
 	    			});
 	    		} else {

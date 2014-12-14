@@ -124,8 +124,11 @@
 	<bean id="user.PhotoMa" class="com.tl.invest.user.user.UserMainController">
 		<property name="viewName"><value>user/photo/photoList</value></property>
 	</bean>
+	<bean id="user.VideoGroupMa" class="com.tl.invest.user.user.UserMainController">
+		<property name="viewName"><value>user/video/videoGroupList</value></property>
+	</bean>
 	<bean id="user.VideoMa" class="com.tl.invest.user.user.UserMainController">
-		<property name="viewName"><value>user/video/userVideoList</value></property>
+		<property name="viewName"><value>user/video/videoList</value></property>
 	</bean>
 	<bean id="user.MsgMa" class="com.tl.invest.user.msg.MsgMainController">
 		<property name="viewName"><value>user/msg/msgSend</value></property>
@@ -228,7 +231,7 @@
 				<prop key="/user/RelAuth.do">user.RelAuth</prop>
 				<prop key="/user/PhotoGroupMa.do">user.PhotoGroupMa</prop>
 				<prop key="/user/PhotoMa.do">user.PhotoMa</prop>
-				<!-- <prop key="/user/VideoGroup.do">user.VideoGroup</prop> -->
+				<prop key="/user/VideoGroupMa.do">user.VideoGroupMa</prop>
 				<prop key="/user/VideoMa.do">user.VideoMa</prop>
 				<prop key="/user/MsgMa.do">user.MsgMa</prop>
 				<prop key="/user/MsgDetailMa.do">user.MsgDetailMa</prop>

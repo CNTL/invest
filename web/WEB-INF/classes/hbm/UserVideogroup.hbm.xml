@@ -10,21 +10,26 @@
         </id>
         <property name="userId" type="java.lang.Integer">
             <column name="userID">
-                <comment>&#211;&#195;&#187;&#167;ID</comment>
             </column>
         </property>
         <property name="userName" type="string">
             <column name="userName">
-                <comment>&#211;&#195;&#187;&#167;&#195;&#251;&#179;&#198;</comment>
             </column>
         </property>
-        <property name="videoName" type="string">
-            <column name="videoName">
-                <comment>&#215;&#233;&#205;&#188;&#195;&#251;&#179;&#198;</comment>
+        <property name="groupName" type="string">
+            <column name="groupName">
             </column>
         </property>
-        <property name="videoIntro" type="string">
-            <column name="videoIntro" length="4000" />
+        <property name="groupIntro" type="string">
+            <column name="groupIntro" length="4000" />
+        </property>
+        <property name="groupPhoto" type="string">
+            <column name="groupPhoto">
+            </column>
+        </property>
+        <property name="createTime" type="timestamp">
+            <column name="createTime" length="19" not-null="true">
+            </column>
         </property>
     </class>
 </hibernate-mapping>

@@ -10,37 +10,34 @@
         </id>
         <property name="userId" type="java.lang.Integer">
             <column name="userID">
-                <comment>&#211;&#195;&#187;&#167;ID</comment>
             </column>
         </property>
         <property name="userName" type="string">
             <column name="userName">
-                <comment>&#211;&#195;&#187;&#167;&#195;&#251;&#179;&#198;</comment>
+            </column>
+        </property>
+        <property name="groupId" type="java.lang.Integer">
+            <column name="groupID">
             </column>
         </property>
         <property name="name" type="string">
             <column name="name">
-                <comment>&#202;&#211;&#198;&#181;&#195;&#251;&#179;&#198;</comment>
             </column>
         </property>
         <property name="photo" type="string">
             <column name="photo" length="500">
-                <comment>&#202;&#211;&#198;&#181;&#202;&#215;&#205;&#188;</comment>
             </column>
         </property>
         <property name="video" type="string">
             <column name="video">
-                <comment>&#202;&#211;&#198;&#181;&#181;&#216;&#214;&#183;</comment>
             </column>
         </property>
         <property name="intro" type="string">
             <column name="intro" length="65535">
-                <comment>&#202;&#211;&#198;&#181;&#203;&#181;&#195;&#247;</comment>
             </column>
         </property>
         <property name="createTime" type="timestamp">
             <column name="createTime" length="19" not-null="true">
-                <comment>&#180;&#180;&#189;&#168;&#202;&#177;&#188;&#228;</comment>
             </column>
         </property>
     </class>
