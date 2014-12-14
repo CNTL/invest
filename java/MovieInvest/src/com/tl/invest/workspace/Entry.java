@@ -15,10 +15,9 @@ import com.tl.invest.user.user.UserManager;
 import com.tl.kernel.context.Context;
 import com.tl.kernel.web.BaseController;
 import com.tl.sys.common.SessionHelper;
-
+@SuppressWarnings({ "unchecked", "rawtypes", "unused"})
 public class Entry extends BaseController {
 		
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	protected void handle(HttpServletRequest request,
 			HttpServletResponse response, Map model) throws Exception {
@@ -30,7 +29,7 @@ public class Entry extends BaseController {
 		
 		Menu[] menus = getMainMenus(getInt(request, "mainType"));
 		Menu[] pMenus = getPersonMenus(request);
-		Menu[] iMenus = getInfoMenus(getInt(request, "infoType"));
+		Menu[] iMenus = getInfoMenus(request, getInt(request, "infoType"));
 		for (Menu menu : menus) {
 			//重新设置菜单的URL为完整的URL
 			menu.setUrl(rootPath+(menu.getUrl().startsWith("/")?menu.getUrl().substring(1):menu.getUrl()));
@@ -53,9 +52,7 @@ public class Entry extends BaseController {
 		setMetaData(request,model);
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void setUserInfo(HttpServletRequest request,Map model) throws Exception{
-		UserManager userManager = (UserManager)Context.getBean(UserManager.class);
 		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
 		if(user!=null){
 			user.setName(StringUtils.isEmpty(user.getName())?user.getCode():user.getName());
@@ -67,13 +64,11 @@ public class Entry extends BaseController {
 		model.put("id", getInt(request, "id"));//页面传过来的数据id
 	}
 	
-	@SuppressWarnings("rawtypes")
 	protected void setOtherData(HttpServletRequest request,
 			HttpServletResponse response,Map model) throws Exception {
 		//继承实现		
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	protected void setMetaData(HttpServletRequest request,Map model) {
 		model.put("title", "合众映画");
 		model.put("keywords", "合众映画");
@@ -110,7 +105,7 @@ public class Entry extends BaseController {
 		}
 		List<Menu> list = new ArrayList<Menu>();
 		list.add(new Menu(1, "首页","/",class1, -999,0));
-		list.add(new Menu(2, "项目","/project/List.do",class2, -999,0));
+		list.add(new Menu(2, "项目","/project/List.do?mainType=2",class2, -999,0));
 		list.add(new Menu(3, "影聘","/recruit/List.do?recruitType=view&mainType=3",class3, -999,0));
 		list.add(new Menu(4, "影人","/org/BasicInfo.do?infoType=1&mainType=4",class4, -999,0));
 		
@@ -128,7 +123,7 @@ public class Entry extends BaseController {
 	* @return 
 	*/ 
 	protected Menu[] getPersonMenus(HttpServletRequest request) {
-		int type = 0;
+		int type = -1;
 		try {
 			User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
 			if(user != null) type = user.getType();
@@ -160,7 +155,7 @@ public class Entry extends BaseController {
 	* @param infoType
 	* @return 
 	*/ 
-	protected Menu[] getInfoMenus(int infoType) {
+	protected Menu[] getInfoMenus(HttpServletRequest request, int infoType) {
 		return new Menu[0];
 	}
 	private UserManager userManager = (UserManager)Context.getBean(UserManager.class);

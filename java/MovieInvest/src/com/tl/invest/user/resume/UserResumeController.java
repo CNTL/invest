@@ -79,7 +79,7 @@ public class UserResumeController extends BaseController {
 		output("ok", response);
 	}
 	private String upload(HttpServletRequest request){
-		return UserHelper.saveAffix(request, "upload/user/relAuth/");
+		return UserHelper.saveAffix(request, "upload/user/resume/");
 	}
 	
 	/** 

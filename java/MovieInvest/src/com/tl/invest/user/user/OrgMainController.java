@@ -28,7 +28,7 @@ public class OrgMainController extends Entry {
 		model.put("description", "∫œ÷⁄”≥ª≠");
 	}
 
-	protected Menu[] getInfoMenus(int infoType) {
+	protected Menu[] getInfoMenus(HttpServletRequest request, int infoType) {
 		String class1 = "", class2 = "", class3 = "", class4 = "", class5 = "", class6 = "", class7 = "",class8="";
 		switch (infoType) {
 		case 1:

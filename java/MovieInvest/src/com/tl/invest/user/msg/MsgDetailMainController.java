@@ -45,7 +45,7 @@ public class MsgDetailMainController extends Entry {
 		model.put("description", "∫œ÷⁄”≥ª≠");
 	}
 	@Override
-	protected Menu[] getInfoMenus(int infoType) {
+	protected Menu[] getInfoMenus(HttpServletRequest request, int infoType) {
 		String class1 = "";
 		switch (infoType) {
 		case 1:

@@ -26,7 +26,7 @@ public class UserLogoutController extends BaseController
 		
 		// 清除Session对象
 		removeSession(request);
-		response.sendRedirect(WebUtil.getRoot(request) + "userout/userLogin.jsp");
+		response.sendRedirect(WebUtil.getRoot(request));
 	}
 	/**
 	 * 清除Session对象
