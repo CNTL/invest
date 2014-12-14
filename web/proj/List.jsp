@@ -4,9 +4,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <%@include file="../inc/meta.inc"%>
+    <script type="text/javascript" src="../js/utils.js"></script>
 	<script type="text/javascript">
 		var webroot = "<c:out value="${rootPath}"/>";
 		$(function(){
+			setCookie("loginCurrentUrl", window.location.href);
+			setCookie("loginCurrentMenu", "2");
 			var type = <c:out value="${type}"/>;
 			if(type > 0){
 				$(".proj_type_").hide();

@@ -1,7 +1,7 @@
 $(document).ready(function () {
-	/*$("#affixBtn").click(function() {
+	$("#affixBtn").click(function() {
 		resume.ajaxFileUpload("affix");
-    });*/
+    });
 	resume.init();
 	//初始化
 	$("#form").validationEngine({
@@ -63,13 +63,14 @@ var resume = {
 	ajaxFileUpload : function(id) {
         var elementIds=[id]; //flag为id、name属性名
         $.ajaxFileUpload({
-            url: '../../user/resume.do?a=uploadAtt&field=' + id, 
+            url: '../user/resume.do?a=uploadAtt&field=' + id, 
             type: 'post',
             secureuri: false, //一般设置为false
             fileElementId: id + "File", // 上传文件的id、name属性名
             dataType: 'text', //返回值类型，一般设置为json、application/json
             elementIds: elementIds, //传递参数到服务器
             success: function(data, status){
+            	alert(data);
             	if(data != null && data.length > 0){
             		var isStart = (data.indexOf('<pre>') == 0);
                 	var isEnd = (data.indexOf('</pre>') == data.length - 6);

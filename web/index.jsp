@@ -5,9 +5,12 @@
 <head>
     <%@include file="./inc/meta.inc"%>
 	<script type="text/javascript" src="static/js/idangerous.swiper.min.js"></script>
+	<script type="text/javascript" src="js/utils.js"></script>
 	<script type="text/javascript">
 		var webroot = "<c:out value="${rootPath}"/>";
 		$(function () {
+			setCookie("loginCurrentUrl", window.location.href);
+			setCookie("loginCurrentMenu", "1");
             var mySwiper = new Swiper('.swiper', {
                 pagination: '.pagination',
                 loop: true,

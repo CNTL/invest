@@ -36,7 +36,7 @@
 				                 <div style="margin-top:10px;color: #555;line-height:150%;">请选择照片文件，支持jpg、jpeg、png、gif格式，大小不超过5M。建议尺寸：600 x 450px</div>
 				                 <div class="input">
 				                 	<input type="file" id="headImg" name="headImg" class="form-control" />
-							        <input type="button" style="width:50px" id="btnSave" value="上传">
+							        <input type="submit" style="width:50px" id="btnSave" value="上传">
 				                 	<iframe name='hidden_frame' id="hidden_frame" style='display: none'></iframe>
 							    </div>
 				             </div>

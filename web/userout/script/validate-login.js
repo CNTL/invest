@@ -98,11 +98,14 @@ var Login = function () {
 			success : function(data) {
 				var type = data.type;
 				if(type != null){
+					window.location.replace(getCookie("loginCurrentUrl"));
+					/*
 					if(type == 0){//个人用户登录后
 						window.location.replace("../user/BasicInfo.do?infoType=1");
 					} else if(type == 1){//机构用户登录后
 						window.location.replace("../org/BasicInfo.do?infoType=1");
 					}
+					*/
 				}
 			}
 		});

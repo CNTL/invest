@@ -1,3 +1,3 @@
 <%
-	response.sendRedirect("./userout/userLogin.jsp");
+	response.sendRedirect("./user/loginMain.do");
 %>

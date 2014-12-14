@@ -13,10 +13,10 @@
 	height:120px;width:120px;
 }
 #photos .ls{
-	background:url(framels.jpg) no-repeat center;	/* 水平图片的背景 */
+	background:url(../user/photo/img/framels.jpg) no-repeat center;	/* 水平图片的背景 */
 }
 #photos .pt{
-	background:url(framept.jpg) no-repeat center;	/* 竖直图片的背景 */
+	background:url(../user/photo/img/framept.jpg) no-repeat center;	/* 竖直图片的背景 */
 }
 #photos .ls img{											/* 水平图片 */
 	margin:0px;
@@ -35,10 +35,10 @@
 	padding:11px 36px 14px 34px;	/* 将超链接区域扩大到整个背景块 */
 }
 #photos .ls a:hover{						/* 鼠标经过时修改背景图片 */
-	background:url(framels_hover.jpg) no-repeat center;
+	background:url(../user/photo/img/framels_hover.jpg) no-repeat center;
 }
 #photos .pt a:hover{
-	background:url(framept_hover.jpg) no-repeat center;
+	background:url(../user/photo/img/framept_hover.jpg) no-repeat center;
 }
 
 #showPhoto{

@@ -64,11 +64,14 @@ var photo = {
     	$.each(result, function(i,item){
     		var myimg = new Image();
     		myimg.src = $("#photos a img").get(i).src;
+    		$("#photos div:has(a):eq("+i+")").addClass("pt");
     		//根据图片的比例（水平或者竖直），添加不同的样式
+    		/*
     		if(myimg.width > myimg.height)
     			$("#photos div:has(a):eq("+i+")").addClass("ls");
     		else
     			$("#photos div:has(a):eq("+i+")").addClass("pt");
+    		*/
     	});
     	$("#bgblack").css("opacity",0.9);	//显示大图的方块背景设置为透明
     	
