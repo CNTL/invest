@@ -1,14 +1,16 @@
 package com.tl.invest.user.video;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
 import com.tl.common.DateUtils;
-import com.tl.common.Message;
 import com.tl.common.ParamInitUtils;
-import com.tl.common.WebUtil;
 import com.tl.invest.user.user.User;
 import com.tl.invest.user.user.UserHelper;
 import com.tl.invest.user.user.UserManager;
@@ -21,69 +23,121 @@ import com.tl.sys.common.SessionHelper;
  * @author  leijj
  * 类说明 ： 视频控制类
  */
-@SuppressWarnings({"rawtypes", "unchecked"})
+@SuppressWarnings({"rawtypes"})
 public class UserVideoController extends BaseController {
 	protected void handle(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception {
 		String action = request.getParameter("a");
-		if("list".equals(action)){//获取列表
-			list(request, response, model);
-		} else if("save".equals(action)){//保存视频
-			String json = save(request, response);
+		if("getVideoGroups".equals(action)){//获取用户列表
+			getVideoGroups(request, response);
+		} else if("getGroupInfo".equals(action)){//获取视频组图信息
+			getGroupInfo(request, response, model);
+		} else if("saveVideoGroup".equals(action)){//保存图册
+			saveVideoGroup(request, response);
+		} else if("delVideoGroup".equals(action)){//删除图册
+			userVideoManager.delVideoGroup(ParamInitUtils.getInt(request.getParameter("id")));
+			output("ok", response);
+		} else if("getVideos".equals(action)){//获取用户列表
+			getVideos(request, response);
+		} else if("getVideoInfo".equals(action)){//获取视频信息
+			getVideoInfo(request, response, model);
+		} else if("saveVideo".equals(action)){//保存视频
+			saveVideo(request, response);
+		} else if("delVideo".equals(action)){//删除图册
+			userVideoManager.delVideo(ParamInitUtils.getInt(request.getParameter("id")));
+			output("ok", response);
+		} else if ("uploadAtt".equals(action)) {
+			String json = UserHelper.saveAffix(request, "upload/user/video/");;
 			output(json, response);
-		} else if("detail".equals(action)){//视频细览
-			detail(request, response, model);
 		}
+	}
+	private void getVideoGroups(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
+		List<UserVideogroup> videogroups = userVideoManager.getVideoGroups(user.getId());
+		JSONArray jsonArray = JSONArray.fromObject(videogroups);  
+		output(jsonArray.toString(), response);
 	}
 	/** 
 	* @author  leijj 
-	* 功能： 获取招聘信息列表
+	* 功能： 
 	* @param request
 	* @param response
 	* @param model
 	* @throws Exception 
 	*/ 
-	private void list(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception{
-		int curPage = ParamInitUtils.getInt(request.getParameter("curPage"));
-		int length = ParamInitUtils.getInt(request.getParameter("length"));
-		Message message = userVideoManager.getMessageList(curPage, length);
-		model.put("length", length);
-		model.put("msg", message);
-		model.put("@VIEWNAME@", WebUtil.getRoot(request) + "user/video/userVideoList");//跳转至Coupon.jsp页面
+	private void getGroupInfo(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception{
+		int id = ParamInitUtils.getInt(request.getParameter("id"));
+		UserVideogroup videogroup = userVideoManager.getGroupInfo(id);
+		JSONObject json = JSONObject.fromObject(videogroup);
+		output(json.toString(), response);
 	}
 	/** 
 	* @author  leijj 
-	* 功能： 保存招聘信息
+	* 功能： 保存图册信息
 	* @param request
 	* @param response
-	* @return
+	* @param model
 	* @throws Exception 
 	*/ 
-	private String save(HttpServletRequest request, HttpServletResponse response) throws Exception{
+	private void saveVideoGroup(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
-		String savePath = UserHelper.saveAffix(request, "upload/user/video/");
+		UserVideogroup videogroup = new UserVideogroup();
+		videogroup.setUserId(user.getId());
+		videogroup.setUserName(user.getName());
+		videogroup.setGroupName(ParamInitUtils.getString(request.getParameter("groupName")));
+		videogroup.setGroupIntro(ParamInitUtils.getString(request.getParameter("groupIntro")));
+		videogroup.setGroupPhoto(ParamInitUtils.getString(request.getParameter("groupPhoto")));
+		videogroup.setCreateTime(DateUtils.getTimestamp());
+		int id = userVideoManager.saveVideoGroup(videogroup);
+		output(String.valueOf(id), response);
+	}
+	/** 
+	* @author  leijj 
+	* 功能： 根据相册id获取相册照片
+	* @param request
+	* @param response
+	* @throws Exception 
+	*/ 
+	private void getVideos(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		int groupID = getInt(request, "groupID");
+		List<UserVideo> videos = userVideoManager.getVideos(groupID);
+		JSONArray jsonArray = JSONArray.fromObject(videos);  
+		output(jsonArray.toString(), response);
+	}
+	/** 
+	* @author  leijj 
+	* 功能： 
+	* @param request
+	* @param response
+	* @param model
+	* @throws Exception 
+	*/ 
+	private void getVideoInfo(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception{
+		int id = ParamInitUtils.getInt(request.getParameter("id"));
+		UserVideogroup videogroup = userVideoManager.getGroupInfo(id);
+		JSONObject json = JSONObject.fromObject(videogroup);
+		output(json.toString(), response);
+	}
+	/** 
+	* @author  leijj 
+	* 功能： 保存图册信息
+	* @param request
+	* @param response
+	* @param model
+	* @throws Exception 
+	*/ 
+	private void saveVideo(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
 		UserVideo userVideo = new UserVideo();
 		userVideo.setUserId(user.getId());
 		userVideo.setUserName(user.getName());
-		userVideo.setPhoto(savePath);
-		userVideo.setVideo(ParamInitUtils.getString(request.getParameter("video")));
+		userVideo.setGroupId(getInt(request, "groupID"));
+		userVideo.setName(ParamInitUtils.getString(request.getParameter("videoName")));
+		userVideo.setPhoto(ParamInitUtils.getString(request.getParameter("photo")));
+		userVideo.setVideo(ParamInitUtils.getString(request.getParameter("videoUrl")));
 		userVideo.setIntro(ParamInitUtils.getString(request.getParameter("intro")));
 		userVideo.setCreateTime(DateUtils.getTimestamp());
-		userVideoManager.save(userVideo);
-		return "ok";
-	}
-	/** 
-	* @author  leijj 
-	* 功能： 获取招聘信息列表
-	* @param request
-	* @param response
-	* @param model
-	* @throws Exception 
-	*/ 
-	private void detail(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception{
-		int id = ParamInitUtils.getInt(request.getParameter("id"));
-		UserVideo userVideo = userVideoManager.getUserVideoByID(id);
-		model.put("userVideo", userVideo);
-		model.put("@VIEWNAME@", WebUtil.getRoot(request) + "user/video/userVideoDetail");//跳转至Coupon.jsp页面
+		userVideoManager.saveVideo(userVideo);
+		output(String.valueOf(userVideo.getGroupId()), response);
 	}
 	private UserManager userManager = (UserManager)Context.getBean(UserManager.class);
 	private UserVideoManager userVideoManager = (UserVideoManager)Context.getBean(UserVideoManager.class);

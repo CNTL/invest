@@ -46,9 +46,9 @@ public class PhotoController extends BaseController {
 			getPhotos(request, response);
 		} else if("getPhotoGroups".equals(action)){//获取用户列表
 			getPhotoGroups(request, response);
-		} else if("savePhotoGroup".equals(action)){//获取最新9条招聘信息
+		} else if("savePhotoGroup".equals(action)){//保存相册信息
 			savePhotoGroup(request, response);
-		} else if("uploadPhoto".equals(action)){//获取最新9条招聘信息
+		} else if("uploadPhoto".equals(action)){//上传相册头图
 			uploadPhoto(request, response);
 		} 
 		

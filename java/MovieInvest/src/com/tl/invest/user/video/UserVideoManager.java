@@ -23,6 +23,129 @@ import com.tl.kernel.context.TBID;
  */
 @SuppressWarnings({ "rawtypes", "unchecked", "deprecation"})
 public class UserVideoManager {
+	public List<UserVideogroup> getVideoGroups(int userID) throws Exception{
+		StringBuilder querySql = new StringBuilder("select a from com.tl.invest.user.video.UserVideogroup as a");
+		querySql.append(" where a.userId=" + userID);
+		querySql.append(" order by a.createTime desc");
+		//List list = DAOHelper.find(querySql.toString() , start, length);
+		List<UserVideogroup> list = DAOHelper.find(querySql.toString());
+        return list;
+	}
+	
+	public UserVideogroup getGroupInfo(int id) throws Exception{
+		List list = DAOHelper.find("select a from com.tl.invest.user.video.UserVideogroup as a where a.id = :id", 
+        		new Integer(id), Hibernate.INTEGER);
+        return (UserVideogroup) list.get(0);
+	}
+	
+	/** 
+	* @author  leijj 
+	* 功能： 创建视频图册
+	* @param photogroup
+	* @throws Exception 
+	*/ 
+	public int saveVideoGroup(UserVideogroup videogroup) throws Exception{
+		int id = 0;
+	    DAO dao = new DAO();
+	    Session s   = null;
+	    Transaction t = null;
+	    try
+        {
+	    	s = dao.getSession();
+            t = dao.beginTransaction(s);
+	    	if(videogroup.getId() <= 0){
+	    		id = (int)TBID.getID(SysTableLibs.TB_USERVIDEOGROUP.getTableCode());
+	    		videogroup.setId(id);
+		        dao.save(videogroup,s);
+	    	} else {
+	    		dao.update(videogroup,s);
+	    		id = videogroup.getId();
+	    	}
+	    	t.commit();
+        }
+        catch (Exception e)
+        {
+        	if(t != null ) t.rollback();
+        	
+        	if(e instanceof Exception ) throw (Exception)e;
+        	
+            throw new Exception("update UserPhotogroup error.", e);
+        }
+        finally
+        {
+        	dao.closeSession(s);
+        }
+	    return id;
+	}
+	/** 
+	* @author  leijj 
+	* 功能： 删除图册
+	* @param id
+	* @throws Exception 
+	*/ 
+	public void delVideoGroup(int id) throws Exception{
+		DAOHelper.delete("delete from com.tl.invest.user.video.UserVideogroup as a where a.id = :id", 
+        		   new Integer(id), Hibernate.INTEGER);
+	}
+	
+
+	public List<UserVideo> getVideos(int groupID) throws Exception{
+		StringBuilder querySql = new StringBuilder("select a from com.tl.invest.user.video.UserVideo as a");
+		querySql.append(" where a.groupId=" + groupID);
+		querySql.append(" order by a.createTime desc");
+		//List list = DAOHelper.find(querySql.toString() , start, length);
+		List<UserVideo> list = DAOHelper.find(querySql.toString());
+        return list;
+	}
+	public UserVideogroup getVideoInfo(int id) throws Exception{
+		List list = DAOHelper.find("select a from com.tl.invest.user.video.UserVideo as a where a.id = :id", 
+        		new Integer(id), Hibernate.INTEGER);
+        return (UserVideogroup) list.get(0);
+	}
+	public int saveVideo(UserVideo userVideo) throws Exception{
+		int id = 0;
+	    DAO dao = new DAO();
+	    Session s   = null;
+	    Transaction t = null;
+	    try
+        {
+	    	s = dao.getSession();
+            t = dao.beginTransaction(s);
+	    	if(userVideo.getId() <= 0){
+	    		id = (int)TBID.getID(SysTableLibs.TB_USERVIDEO.getTableCode());
+	    		userVideo.setId(id);
+		        dao.save(userVideo,s);
+	    	} else {
+	    		dao.update(userVideo,s);
+	    		id = userVideo.getId();
+	    	}
+	    	t.commit();
+        }
+        catch (Exception e)
+        {
+        	if(t != null ) t.rollback();
+        	
+        	if(e instanceof Exception ) throw (Exception)e;
+        	
+            throw new Exception("update user error.", e);
+        }
+        finally
+        {
+        	dao.closeSession(s);
+        }
+	    return id;
+	}
+	
+	/** 
+	* @author  leijj 
+	* 功能： 删除图册
+	* @param id
+	* @throws Exception 
+	*/ 
+	public void delVideo(int id) throws Exception{
+		DAOHelper.delete("delete from com.tl.invest.user.video.UserVideo as a where a.id = :id", 
+        		   new Integer(id), Hibernate.INTEGER);
+	}
 	/**
 	 * 根据菜单id获取已发布的消息列表
 	 * @param curPage
@@ -56,6 +179,7 @@ public class UserVideoManager {
 		}
 		return message;
 	}
+	
 	/** 
 	* @author  leijj 
 	* 功能： 获取条数
@@ -89,51 +213,5 @@ public class UserVideoManager {
         else
             return null;
         
-	}
-	
-	public void save(UserVideo userVideo) throws Exception{
-	     
-	    DAO dao = new DAO();
-	    Session s   = null;
-	    Transaction t = null;
-	    try
-        {
-	    	s = dao.getSession();
-            t = dao.beginTransaction(s);
-	    	if(userVideo.getId() <= 0){
-	    		int userID = (int)TBID.getID(SysTableLibs.TB_USERVIDEO.getTableCode());
-	    		userVideo.setId(userID);
-		        dao.save(userVideo,s);
-	    	} else {
-	    		dao.update(userVideo,s);
-	    	}
-	    	t.commit();
-        }
-        catch (Exception e)
-        {
-        	if(t != null ) t.rollback();
-        	
-        	if(e instanceof Exception ) throw (Exception)e;
-        	
-            throw new Exception("update user error.", e);
-        }
-        finally
-        {
-        	dao.closeSession(s);
-        }
-	}
-	
-	/**
-	 * 根据ID获取影聘信息
-	 * 
-	 * @param ID
-	 */
-	public UserVideo getUserVideoByID(int id) throws Exception{
-		List list = DAOHelper.find("select a from com.tl.invest.user.video.UserVideo as a where a.id = :id", 
-        		new Integer(id), Hibernate.INTEGER);
-        if(list.size() > 0)
-            return (UserVideo) list.get(0);
-        else
-            return null;
 	}
 }

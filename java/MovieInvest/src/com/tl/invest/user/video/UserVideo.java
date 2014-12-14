@@ -12,6 +12,7 @@ public class UserVideo {
 	private int id;
 	private Integer userId;
 	private String userName;
+	private Integer groupId;
 	private String name;
 	private String photo;
 	private String video;
@@ -60,6 +61,14 @@ public class UserVideo {
 
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+
+	public Integer getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(Integer groupId) {
+		this.groupId = groupId;
 	}
 
 	public String getName() {

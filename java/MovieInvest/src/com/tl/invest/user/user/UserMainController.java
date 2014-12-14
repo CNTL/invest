@@ -82,7 +82,7 @@ public class UserMainController extends Entry {
 			list.add(new Menu(4, "实名认证", "/user/RelAuth.do?infoType=4", class4,-999,0));
 			/*list.add(new Menu(41, "详细资料", "/user/DetailInfo.do?infoType=5", class5,-999,0));*/
 			list.add(new Menu(5, "个人图册", "/user/PhotoGroupMa.do?infoType=6", class6,-999,0));
-			list.add(new Menu(6, "个人视频", "/user/VideoMa.do?infoType=7", class7,-999,0));
+			list.add(new Menu(6, "个人视频", "/user/VideoGroupMa.do?infoType=7", class7,-999,0));
 			list.add(new Menu(7, "收件地址", "/user/Address.do?infoType=8", class8,-999,0));
 		} else if(type == 1){//机构用户登录后
 			list.add(new Menu(1, "基本资料", "/org/BasicInfo.do?infoType=1", class1, -999,0));
@@ -91,7 +91,7 @@ public class UserMainController extends Entry {
 			list.add(new Menu(4, "机构认证", "/org/RelAuth.do?infoType=4", class4,-999,0));
 			list.add(new Menu(5, "详细资料", "/org/DetailInfo.do?infoType=5", class5,-999,0));
 			list.add(new Menu(6, "个人图册", "/user/PhotoGroupMa.do?infoType=6", class6,-999,0));
-			list.add(new Menu(7, "个人视频", "/user/VideoMa.do?infoType=7", class7,-999,0));
+			list.add(new Menu(7, "个人视频", "/user/VideoGroupMa.do?infoType=7", class7,-999,0));
 			list.add(new Menu(8, "收件地址", "/org/Address.do?infoType=8", class8,-999,0));
 		}
 		
