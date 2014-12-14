@@ -3,29 +3,15 @@
 <!doctype html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>合众映画</title>
-    <meta name="keywords" content="合众映画" />
-    <meta name="description" content="合众映画" />
+<title><c:out value="${title}"/></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="<c:out value="${keywords}"/>" />
+<meta name="description" content="<c:out value="${description}"/>" />
     <%@include file="../user/inc/csslink.inc"%>
 </head>
 
 <body>
-    <div class="header">
-        <div class="logo">
-            <a href="index.html" title="合众映画"></a>
-        </div>
-        <div class="mini_search">
-            <input type="text" id="k" name="k" class="text" value="搜索影片名称" />
-            <input type="button" class="btn" value="" />
-        </div>
-        <div class="mini_login">
-            <a href="login.html">登录</a>
-            <span>|</span>
-            <a href="register.html">注册</a>
-        </div>
-    </div>
-
+	<%@include file="../inc/header.inc"%>
     <div class="shadow"></div>
     
     <div class="register">
@@ -83,6 +69,6 @@
 	</script>
 	<!-- script -->  
     <script type="text/javascript" src="../js/utils.js"></script>
-	<script type="text/javascript" src="script/userRegister.js"></script>
+	<script type="text/javascript" src="../userout/script/userRegister.js"></script>
 </body>
 </html>

@@ -98,7 +98,11 @@ var Login = function () {
 			success : function(data) {
 				var type = data.type;
 				if(type != null){
-					window.location.replace(getCookie("loginCurrentUrl"));
+					var loginCurrentUrl = getCookie("loginCurrentUrl");
+					if(loginCurrentUrl == null || loginCurrentUrl ==''){
+						loginCurrentUrl = rootPath;
+					}
+					window.location.replace(loginCurrentUrl);
 					/*
 					if(type == 0){//个人用户登录后
 						window.location.replace("../user/BasicInfo.do?infoType=1");
@@ -111,7 +115,7 @@ var Login = function () {
 		});
 	},
 	register = function(){
-		window.location.replace("../userout/userRegister.jsp");
+		window.location.replace("../user/registerMain.do");
 	};
 	
 	var weiboInit = function(){//微博登录初始化

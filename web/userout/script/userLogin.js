@@ -3,5 +3,5 @@ $(document).ready(function () {
 });
 
 function register(){
-	window.open("userRegister.jsp")
+	window.open("../user/registerMain.do")
 }

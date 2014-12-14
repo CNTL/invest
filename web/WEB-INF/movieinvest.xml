@@ -53,7 +53,9 @@
 	<bean id="user.LoginMain" class="com.tl.invest.user.user.UserLoginMainController">
 		<property name="viewName"><value>userout/userLogin</value></property>
 	</bean>
-	
+	<bean id="user.RegisterMain" class="com.tl.invest.user.user.UserRegisterMainController">
+		<property name="viewName"><value>userout/userRegister</value></property>
+	</bean>
 	<!--项目-->
 	<bean id="project.Service" class="com.tl.invest.proj.service.ProjectService" />
 	<bean id="project.Submit" class="com.tl.invest.proj.service.ProjectSubmitController">
@@ -246,6 +248,7 @@
 				<prop key="/user/afterlogin.do">user.afterlogin</prop>
 				<prop key="/user/logout.do">user.Logout</prop>
 				<prop key="/user/loginMain.do">user.LoginMain</prop>
+				<prop key="/user/registerMain.do">user.RegisterMain</prop>
 				<prop key="/user/msg.do">user.UserMsg</prop>
 				<prop key="/user/resume.do">user.UserResume</prop>
 				<!-- 招聘管理 -->

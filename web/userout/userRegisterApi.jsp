@@ -22,7 +22,7 @@
         <div class="login-wrap">
 		    <a href="userLogin.jsp">登录</a>
 		    <em>|</em>
-		    <a href="userRegister.jsp">注册</a>
+		    <a href="../user/registerMain.do">注册</a>
 	    </div>
                 
     </div>

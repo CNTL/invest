@@ -33,7 +33,7 @@
             </form>
         </div>
         <div class="other">
-            <div class="info">还没有账号？<a href="userRegister.jsp">立即注册</a><br />
+            <div class="info">还没有账号？<a href="../user/registerMain.do">立即注册</a><br />
             也可以使用以下账号直接登录：</div>
             <div class="third">
 			    <a href="../user/userlogin.do?a=qqlogin" target="_blank" class="icon_qq" title="使用腾讯QQ帐号登录"></a>
@@ -48,7 +48,9 @@
 	<!-- script -->
 	<%@include file="./inc/script.inc"%>
 	<!-- script -->
-	    
+	<script type="text/javascript">
+	var rootPath = "<%=com.tl.common.WebUtil.getRoot(request) %>";
+	</script>    
     <script type="text/javascript" src="../js/utils.js"></script>
 	<script type="text/javascript" src="../userout/script/validate-login.js"></script>
 </body>
