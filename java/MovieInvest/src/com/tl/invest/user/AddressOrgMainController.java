@@ -5,10 +5,10 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.tl.invest.user.user.OrgMainController;
+import com.tl.invest.user.user.UserMainController;
 import com.tl.sys.common.SessionHelper;
 
-public class AddressOrgMainController extends OrgMainController {
+public class AddressOrgMainController extends UserMainController {
 	AddressManager addrMgr = null;
 	
 	public void setAddrMgr(AddressManager addrMgr) {
