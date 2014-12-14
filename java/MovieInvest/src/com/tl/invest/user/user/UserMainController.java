@@ -36,7 +36,7 @@ public class UserMainController extends Entry {
 	}
 	@Override
 	protected Menu[] getInfoMenus(int infoType) {
-		String class1 = "", class2 = "", class3 = "", class4 = "", class5 = "", class6 = "", class7 = "",class8="";
+		String class1 = "", class2 = "", class3 = "", class4 = "", class5 = "", class6 = "", class7 = "";
 		switch (infoType) {
 		case 1:
 			class1 = "select";
@@ -59,9 +59,6 @@ public class UserMainController extends Entry {
 		case 7:
 			class7 = "select";
 			break;
-		case 8:
-			class8 = "select";
-			break;
 		default:
 			break;
 		}
@@ -73,7 +70,6 @@ public class UserMainController extends Entry {
 		/*list.add(new Menu(41, "详细资料", "/user/DetailInfo.do?infoType=5", class5,-999,0));*/
 		list.add(new Menu(5, "个人图册", "/user/PhotoGroupMa.do?infoType=6", class6,-999,0));
 		list.add(new Menu(6, "个人视频", "/user/VideoMa.do?infoType=7", class7,-999,0));
-		list.add(new Menu(7, "收件地址", "/user/Address.do?infoType=8", class8,-999,0));
 		return (Menu[]) list.toArray(new Menu[0]);
 	}
 }
