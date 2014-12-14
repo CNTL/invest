@@ -156,7 +156,11 @@
 	<bean id="address.Submit" class="com.tl.invest.user.AddressSubmitController">
 		<property name="addrMgr"><ref bean="address.Manager" /></property>
 	</bean>
-	<bean id="org.Address" class="com.tl.invest.user.AddressMainController">
+	<bean id="user.Address" class="com.tl.invest.user.AddressUserMainController">
+		<property name="addrMgr"><ref bean="address.Manager" /></property>
+		<property name="viewName"><value>user/user/Address</value></property>
+	</bean>
+	<bean id="org.Address" class="com.tl.invest.user.AddressOrgMainController">
 		<property name="addrMgr"><ref bean="address.Manager" /></property>
 		<property name="viewName"><value>user/user/Address</value></property>
 	</bean>
@@ -246,6 +250,7 @@
 				<prop key="/org/PhotoMa.do">org.PhotoMa</prop>
 				<prop key="/org/VideoMa.do">org.VideoMa</prop>
 				<prop key="/org/Address.do">org.Address</prop>
+				<prop key="/user/Address.do">user.Address</prop>
 				<prop key="/org/AddressSubmit.do">address.Submit</prop>
 				<prop key="/org/MsgMa.do">org.MsgMa</prop>
 				
