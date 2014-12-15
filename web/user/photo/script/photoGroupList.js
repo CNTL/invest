@@ -12,9 +12,12 @@ $(document).ready(function () {
 });
 var photoGroup = {
 	init : function(){
+		$("#groupPhotoBtn").click(function() {
+			var path = 'upload/user/video';
+			fileUpload.ajaxFileUpload("groupPhoto", '../user/video.do?a=uploadAtt&savePath' + path + '&field=', path);
+	    });
 		$("#createGroup").click(photoGroup.openMsg);
 		photoGroup.closeMsg();
-		$("#btnSend").click(photoGroup.openMsg);
 		photoGroup.initGroup();
 	},
 	initGroup : function(){
@@ -39,11 +42,11 @@ var photoGroup = {
     		if(photo == null || photo.length == 0)
     			photo = "../user/photo/img/framels_hover.jpg";
     		//添加图片的缩略图
-    		$("#photos").append($("<div><a href='#'><img onclick='photoGroup.clickThumb("+id+")' name='photoList' id='" + id + "' src='"+photo+"'></a></div>"));
+    		$("#photos").append($("<div><a href='#'><img onclick='photoGroup.clickThumb("+id+")' name='photoList' id='" + id + "' src='"+rootPath+photo+"'></a></div>"));
     		
     	});
-    	$("#photos div:has(a)").addClass("thumb");
-    	
+    	$("#photos div:has(a)").addClass("thumb pt");
+    	/*
     	$.each(result, function(i,item){
     		var myimg = new Image();
     		myimg.src = $("#photos a img").get(i).src;
@@ -53,6 +56,7 @@ var photoGroup = {
     		else
     			$("#photos div:has(a):eq("+i+")").addClass("pt");
     	});
+    	*/
 	},
 	clickThumb : function(id){
 		window.location.href="../user/PhotoMa.do?infoType=6&groupID=" + id; 
@@ -63,8 +67,8 @@ var photoGroup = {
 	closeMsg : function(){
 		$("#groupName").val("");
 		$("#groupIntro").val("");
-		$("#groupHead").val("");
-		$("#groupHeadF").val("");
+		$("#groupPhoto").val("");
+		$("#groupPhotoF").val("");
 		$('#w').window('close');
 	},
 	savePhotoGroup : function(){

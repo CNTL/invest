@@ -24,7 +24,7 @@
 	<c:if test="${loginUser.id>0}">
 	<div class="mini_member">
         <div class="avatar">
-            <a href="#"><img src="<c:out value="${loginUser.head}"/>" /></a>
+            <a href="#"><img style="width:60px;height:60px;" src="<c:out value="${loginUser.head}"/>" /></a>
         </div>
         <div class="username">
             <a href="#"><c:out value="${loginUser.name}"/></a>

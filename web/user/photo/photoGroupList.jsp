@@ -24,9 +24,9 @@
 		</div>
 	</div>
 </div>
-<div id="w" class="easyui-window" data-options="title:'新增图册',iconCls:'icon-save'" style="width:500px;height:300px;">
+<div id="w" class="easyui-window" data-options="title:'新增图册',iconCls:'icon-save'" style="width:700px;height:500px;">
 	<div class="easyui-layout" data-options="fit:true">
-		<div data-options="region:'center',border:false" style="padding:10px;background:#fff;border:1px solid #ccc;">
+		<div id="editDiv" class="job_add">
 			<form class="setting-form" id="form" name="form" action="">
 				<div class="input">
 			        <label for="name">相册名称：</label>
@@ -39,25 +39,23 @@
 					<textarea  id="groupIntro" name="groupIntro" class="form-control validate[maxSize[4000]]" style="width:400px;height:100px;" placeholder=""></textarea>
 				</div>
 			    <div class="input">
-		            <label for="groupHead">相册头图：</label>
-		            <input type="file" id="groupHeadF" name="groupHeadF" class="form-control" />
-		            <input type="hidden" id="groupHead" name="groupHead" class="form-control" />
-		            <input type="button" style="width:50px" id="groupHeadBtn" value="上传">
-		            <div id="groupHeadBak" style="height:100px;width:100px;"></div>
+		            <label for="groupPhoto">相册头图：</label>
+		            <input type="file" id="groupPhotoFile" name="groupPhotoFile" class="form-control" />
+		            <input type="hidden" id="groupPhoto" name="groupPhoto" class="form-control" />
+		            <input type="button" style="width:50px" id="groupPhotoBtn" value="上传">
+		            <div id="groupPhotoBak" style="height:100px;width:100px;margin-left:200px;">
+		            	<img id="groupPhotoImg" style="height:100px;width:100px;"/>
+		            </div>
 			    </div>
-			    <!-- 
 			    <div class="btn">
-		        	<input type="submit" id="btnSave" value="提交信息">
-		        </div>
-		         -->
+			    	<input style="width:100px; margin-left: 100px;" id="btnOK" name="btnOK" value="提交" type="button" onclick="photoGroup.savePhotoGroup();"/>
+			    	<input style="width:100px; margin-left: 150px;" id="btnCancel" name="btnCancel" value="取消" type="button" onclick="photoGroup.closeMsg();"/>
+			    </div>
 			</form>
-		</div>
-		<div data-options="region:'south',border:false" style="text-align:right;padding:5px 0;">
-			<a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" href="javascript:void(0)" onclick="photoGroup.savePhotoGroup();">保存</a>
-			<a class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" href="javascript:void(0)" onclick="photoGroup.closeMsg()">取消</a>
 		</div>
 	</div>
 </div>
+
 <!-- script -->
 <%@include file="../inc/script.inc"%>
 <!-- script -->
@@ -65,6 +63,11 @@
 <!-- footer -->
 <%@include file="../../inc/footer.inc"%>
 <!-- footer -->
+<script type="text/javascript">
+var rootPath = "<%=com.tl.common.WebUtil.getRoot(request) %>";
+</script>
+<script type="text/javascript" src="../js/plugin/AjaxFileUploaderV2.1/ajaxfileupload.js" ></script>
+<script type="text/javascript" src="../user/photo/script/fileUpload.js"></script>
 <script type="text/javascript" src="../user/photo/script/photoGroupList.js"></script>
 </body>
 </html>

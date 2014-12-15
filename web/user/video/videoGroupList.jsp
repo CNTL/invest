@@ -26,31 +26,35 @@
 		</div>
 	</div>
 </div>
-<div id="editDiv" style="display:none;">
-	<div class="job_add">
-		<form class="setting-form" id="form" name="form" action="">
-			<div class="input">
-		        <label for="name">视频组名称：</label>
-		        <input type="hidden" id="id" name="id" value="<c:out value="${id}"/>"/>
-		        <input type="text" id="groupName" name="groupName" class="form-control validate[maxSize[255],required]" value=""/>
-		        <br>
-		    </div>
-		    <div class="input">
-				<label for="content">视频组描述：</label>
-				<textarea  id="groupIntro" name="groupIntro" class="form-control validate[maxSize[4000]]" style="width:400px;height:100px;" placeholder=""></textarea>
-			</div>
-		    <div class="input">
-	            <label for="groupHead">视频组图片：</label>
-	            <input type="file" id="groupPhotoF" name="groupPhotoF" class="form-control" />
-	            <input type="hidden" id="groupPhoto" name="groupPhoto" class="form-control" />
-	            <input type="button" style="width:50px" id="groupPhotoBtn" value="上传">
-	            <div id="groupPhotoBak" style="height:20px;width:20px;"></div>
-		    </div>
-		    <div class="btn">
-		    	<input style="width:100px; margin-left: 100px;" id="btnOK" name="btnOK" value="提交" type="button" onclick="videoGroup.btnOK();"/>
-		    	<input style="width:100px; margin-left: 150px;" id="btnCancel" name="btnCancel" value="取消" type="button" onclick="videoGroup.btnCancel();"/>
-		    </div>
-		</form>
+<div id="w" class="easyui-window" data-options="title:'新增图册',iconCls:'icon-save'" style="width:700px;height:500px;">
+	<div class="easyui-layout" data-options="fit:true">
+		<div id="editDiv" class="job_add">
+			<form class="setting-form" id="form" name="form" action="">
+				<div class="input">
+			        <label for="name">视频组名称：</label>
+			        <input type="hidden" id="id" name="id" value="<c:out value="${id}"/>"/>
+			        <input type="text" id="groupName" name="groupName" class="form-control validate[maxSize[255],required]" value=""/>
+			        <br>
+			    </div>
+			    <div class="input">
+					<label for="content">视频组描述：</label>
+					<textarea  id="groupIntro" name="groupIntro" class="form-control validate[maxSize[4000]]" style="width:400px;height:100px;" placeholder=""></textarea>
+				</div>
+			    <div class="input">
+		            <label for="groupPhoto">视频组图片：</label>
+		            <input type="file" id="groupPhotoFile" name="groupPhotoFile" value=""/>
+		            <input type="hidden" id="groupPhoto" name="groupPhoto" value="11"/>
+		            <input type="button" style="width:50px" id="groupPhotoBtn" value="上传">
+		            <div id="groupPhotoBak" style="height:100px;width:100px;margin-left:200px;">
+		            	<img id="groupPhotoImg" style="height:100px;width:100px;"/>
+		            </div>
+			    </div>
+			    <div class="btn">
+			    	<input style="width:100px; margin-left: 100px;" id="btnOK" name="btnOK" value="提交" type="button" onclick="videoGroup.saveVideoGroup();"/>
+			    	<input style="width:100px; margin-left: 150px;" id="btnCancel" name="btnCancel" value="取消" type="button" onclick="videoGroup.closeMsg();"/>
+			    </div>
+			</form>
+		</div>
 	</div>
 </div>
 <!-- script -->
@@ -60,7 +64,11 @@
 <!-- footer -->
 <%@include file="../../inc/footer.inc"%>
 <!-- footer -->
-<script type="text/javascript" src="../js/layer/layer.min.js"></script>
+<script type="text/javascript">
+var rootPath = "<%=com.tl.common.WebUtil.getRoot(request) %>";
+</script>
+<script type="text/javascript" src="../user/photo/script/fileUpload.js"></script>
+<script type="text/javascript" src="../js/plugin/AjaxFileUploaderV2.1/ajaxfileupload.js" ></script>
 <script type="text/javascript" src="../user/video/script/videoGroupList.js"></script>
 </body>
 </html>

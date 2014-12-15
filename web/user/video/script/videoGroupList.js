@@ -4,8 +4,23 @@ $(document).ready(function () {
 var pagei = null;
 var videoGroup = {
 	init : function(){
-		$("#createGroup").click(videoGroup.addGroup);
+		$("#groupPhotoBtn").click(function() {
+			var path = 'upload/user/photo';
+			fileUpload.ajaxFileUpload("groupPhoto", '../user/video.do?a=uploadAtt&savePath' + path + '&field=', path);
+	    });
+		$("#createGroup").click(videoGroup.openMsg);
+		videoGroup.closeMsg();
 		videoGroup.initGroup();
+	},
+	openMsg : function(){
+		$('#w').window('open');
+	},
+	closeMsg : function(){
+		$("#groupName").val("");
+		$("#groupIntro").val("");
+		$("#groupPhoto").val("");
+		$("#groupPhotoF").val("");
+		$('#w').window('close');
 	},
 	initGroup : function(){
 		$.ajax({
@@ -29,11 +44,11 @@ var videoGroup = {
     		if(photo == null || photo.length == 0)
     			photo = "../user/photo/img/framels_hover.jpg";
     		//添加图片的缩略图
-    		$("#photos").append($("<div><a href='#'><img onclick='videoGroup.clickThumb("+id+")' name='photoList' id='" + id + "' src='"+photo+"'></a></div>"));
+    		$("#photos").append($("<div><a href='#'><img onclick='videoGroup.clickThumb("+id+")' name='photoList' id='" + id + "' src='"+rootPath+photo+"'></a></div>"));
     		
     	});
-    	$("#photos div:has(a)").addClass("thumb");
-    	
+    	$("#photos div:has(a)").addClass("thumb pt");
+    	/*
     	$.each(result, function(i,item){
     		var myimg = new Image();
     		myimg.src = $("#photos a img").get(i).src;
@@ -43,6 +58,7 @@ var videoGroup = {
     		else
     			$("#photos div:has(a):eq("+i+")").addClass("pt");
     	});
+    	*/
 	},
 	clickThumb : function(id){
 		window.location.href="../user/VideoMa.do?infoType=7&groupID=" + id; 
@@ -71,7 +87,7 @@ var videoGroup = {
 			}
 	    });
 	},
-	delvideoGroup : function(id){
+	delVideoGroup : function(id){
 		$.ajax({
 	        type:"GET", //请求方式  
 	        url:"../user/video.do?a=delVideoGroup&id=" + id, //请求路径  
@@ -92,20 +108,6 @@ var videoGroup = {
 				$.messager.alert('删除视频组失败！',errorThrown);
 			}
 	    });
-	},
-	addGroup : function(){
-		videoGroup.openGroupFormDlg("新增", videoGroup.getGroupFormHtml(""));
-	},
-	editGroup : function(id,userId){
-		videoGroup.openGroupFormDlg("修改", videoGroup.getGroupFormHtml(id));
-	},
-	getGroupFormHtml : function(id){
-		if(typeof(id)=="undefined" || !id) id = 0;
-		if(id>0){
-			videoGroup.getGroupInfo(id);
-		}
-		var html = $("#editDiv").html();
-		return html;
 	},
 	getGroupInfo : function(id){
 		var group = null;
