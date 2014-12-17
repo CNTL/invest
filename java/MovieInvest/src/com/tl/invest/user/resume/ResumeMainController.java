@@ -36,8 +36,8 @@ public class ResumeMainController extends Entry {
 		model.put("keywords", "合众映画");
 		model.put("description", "合众映画");
 	}
-	
-	protected Menu[] getInfoMenus(int infoType) {
+	@Override
+	protected Menu[] getInfoMenus(HttpServletRequest request, int infoType) {
 		String class1 = "", class2 = "", class3 = "";
 		switch (infoType) {
 		case 1:

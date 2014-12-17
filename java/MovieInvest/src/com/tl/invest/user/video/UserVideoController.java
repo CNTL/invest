@@ -12,7 +12,6 @@ import net.sf.json.JSONObject;
 import com.tl.common.DateUtils;
 import com.tl.common.ParamInitUtils;
 import com.tl.invest.user.user.User;
-import com.tl.invest.user.user.UserHelper;
 import com.tl.invest.user.user.UserManager;
 import com.tl.kernel.context.Context;
 import com.tl.kernel.web.BaseController;
@@ -45,9 +44,6 @@ public class UserVideoController extends BaseController {
 		} else if("delVideo".equals(action)){//É¾³ýÍ¼²á
 			userVideoManager.delVideo(ParamInitUtils.getInt(request.getParameter("id")));
 			output("ok", response);
-		} else if ("uploadAtt".equals(action)) {
-			String json = UserHelper.saveAffix(request, "upload/user/video/");;
-			output(json, response);
 		}
 	}
 	private void getVideoGroups(HttpServletRequest request, HttpServletResponse response) throws Exception{
