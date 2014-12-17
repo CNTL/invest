@@ -100,13 +100,53 @@ var myVideo = {
 	},
 	editVideo : function(id,userId){
 		myVideo.openVideoFormDlg("修改", myVideo.getVideoFormHtml(id));
-	},
-	getVideoFormHtml : function(id){
 		if(typeof(id)=="undefined" || !id) id = 0;
 		if(id>0){
 			myVideo.getVideoInfo(id);
 		}
-		var html = $("#editDiv").html();
+	},
+	getVideoFormHtml : function(id){
+		var html = '<div class="job_add">' +
+						'<form class="setting-form" id="form" name="form" action="">' +
+						'<div class="input">' +
+					        '<label for="name">视频名称：</label>' +
+					        '<input type="hidden" id="id" name="id" value=""/>' +
+					        '<input type="hidden" id="groupID" name="groupID" value=""/>' +
+					        '<input type="text" id="videoName" name="videoName" class="form-control validate[maxSize[255],required]" value=""/>' +
+					    '</div>' +
+					    '<div class="input">' +
+							'<table style="width:100%;">' +
+								'<tr>' +
+									'<td valign="top" style="width:90px;">' +
+										'<label>相册头图：</label>' +
+									'</td>' +
+									'<td>' +
+										'<input type="file" name="uploadify" id="uploadify" />' +
+										'<input type="hidden" id="queueItemCount" name="queueItemCount" value="0" />' +
+										'<input type="hidden" id="photo" name="photo" value="" />' +
+										'<input type="hidden" id="uploadErrorMsg" name="uploadErrorMsg" value="" />' +
+									'</td>' +
+								'</tr>' +
+							'</table>' +
+					   '</div>' +
+					   '<div id="coverIMG_div" style="display:none;position: absolute; z-index: 122; width:150px;height:150px;overflow:hidden;background:#fff;border:1px solid #C7C7C7;">' +
+						'</div>' +
+						'<div style="margin-top:100px;">' +
+						    '<div class="input">' +
+						        '<label for="video">视频地址：</label>' +
+						        '<input type="text" id="videoUrl" name="videoUrl" class="form-control validate[maxSize[255],required]" value=""/>' +
+						    '</div>' +
+						    '<div class="input">' +
+								'<label for="intro">视频描述：</label>' +
+								'<textarea  id="intro" name="intro" class="form-control validate[maxSize[4000]]" style="width:400px;height:100px;" placeholder=""></textarea>' +
+							'</div>' +
+						    '<div class="btn">' +
+						    	'<input style="width:100px; margin-left: 100px;" id="btnOK" name="btnOK" value="提交" type="button" onclick="myVideo.btnOK();"/>' +
+						    	'<input style="width:100px; margin-left: 150px;" id="btnCancel" name="btnCancel" value="取消" type="button" onclick="myVideo.btnCancel();"/>' +
+						    '</div>' +
+					    '</div>' +
+					'</form>' +
+				'</div>';
 		return html;
 	},
 	getVideoInfo : function(id){
@@ -137,11 +177,12 @@ var myVideo = {
 			shadeClose: false,
 			fix: true,
 			zIndex : 1000,
-			area: ['800px', '450px'],
+			area: ['800px', '500px'],
 			page: {
 				html: html //此处放了防止html被解析，用了\转义，实际使用时可去掉
 			}
 		});
+		myVideo.initUploadify("uploadify","queueItemCount","photo","uploadErrorMsg",true,myVideo.imgUploaded);
 		//$("#btnCancel").click(video.btnCancel);
 		//$("#btnOK").click(video.btnOK);
 		$("#form").validationEngine("attach",{
@@ -168,5 +209,146 @@ var myVideo = {
 			return false;
 		}
 		return true;
-	}
+	},
+	imgUploaded : function(){
+		var c_img_t = 50;
+		var c_img_l = 300;
+		$("#coverIMG_div").css("top",c_img_t+"px").css("left",c_img_l+"px").css("display","");
+		$("#coverIMG_div").empty();
+		if($("#photo").val()!=""){
+			$("#coverIMG_div").html("<img src=\""+rootPath+$("#photo").val()+"\" border=\"0\" style=\"width:150px;height:100px;\" />");
+			$("#coverIMG_div").append("<div style=\"width:100%;margin-top:10px;text-align:center;\"><a href=\"javascript:void();\" style=\"background: url(../img/delete.png) no-repeat left;padding-left: 20px;\" onclick=\"myVideo.delCoverImg();\">删除</a></div>");
+		}
+	},
+	delCoverImg : function(){
+		$("#coverIMG_div").css("display","none");
+		$("#coverIMG_div").empty();
+		$("#queueItemCount").val("0");
+		$("#photo").val("");
+		$("#uploadErrorMsg").val("");
+	},
+	initUploadify : function(el,countCtrl,imgCtrl,errorCtrl,auto,successInvok){
+		var sessionid= "";//getCookie("JSESSIONID");
+		$("#"+el).uploadify({
+			scriptAccess:'always',
+			auto:auto,
+			height: 36,
+			swf: '../js/plugin/uploadify-3.2.1/uploadify.swf',
+			uploader: '../Upload.do?jsessionid=' + sessionid,
+			width: 90,
+			cancelImg: '../js/plugin/uploadify-3.2.1/uploadify-cancel.png',
+			buttonText: '选择图片',
+			'fileTypeDesc': '选择图片',
+			'fileTypeExts': '*.jpg;*.png;*.bmp' ,
+			fileSizeLimit: 0,
+			removeCompleted: true,
+			multi :false,//设置为true时可以上传多个文件。
+			queueSizeLimit :2,//当允许多文件生成时，设置选择文件的个数，默认值：999 。
+			'onUploadStart': function(file) {//上传开始时触发（每个文件触发一次）
+				//动态更新设备额值 
+				//deviceName  = device.val();
+				//向后台传值 
+				var formdata = {
+				//	"deviceName":device.val(),
+				//	"DocID":currentDocIDs,
+				//	"DocLibID":currentDocLibIDs,
+				//	"ATT_TOPIC":$("#topic").val(),
+					"folder":"upload/user/photo"
+				};
+				$("#"+el).uploadify("settings", "formData", formdata);  
+			} ,
+			onUploadSuccess : function(file,data,response) {//上传完成时触发（每个文件触发一次）
+				if(data==""){
+				}else{
+					var d=data.replace("\n", ' ');
+					var result = eval('('+data+')');
+					if(result.success){
+						$("#"+imgCtrl).val(result.path);
+					}else{
+						$("#"+errorCtrl).val(result.msg);
+					}
+				}
+				$("#"+countCtrl).val("0");
+				if(typeof(successInvok) == "function") successInvok();
+			}, 
+			onSelect : function(file) {//当每个文件添加至队列后触发 
+			}, 
+			onDialogClose : function(queueData) {
+				var queueItemCount = queueData.queueLength;
+				if(queueItemCount >1){
+				   $('#'+el).uploadify('cancel');//删除第一个
+				   queueItemCount = queueItemCount -1;
+				}
+				$("#"+countCtrl).val(queueItemCount);
+				$(".uploadify-queue").css("display","none");
+			},
+			onDialogOpen : function() {
+			},
+			onClearQueue : function(queueItemCount) {
+			} ,
+			onSelectError : myVideo.uploadify_onSelectError,
+			onUploadError : myVideo.uploadify_onUploadError
+		});
+	},
+	uploadify_onSelectError : function(file, errorCode, errorMsg) {
+        var msgText = "上传失败\n";
+        switch (errorCode) {
+            case SWFUpload.QUEUE_ERROR.QUEUE_LIMIT_EXCEEDED:
+                //this.queueData.errorMsg = "每次最多上传 " + this.settings.queueSizeLimit + "个文件";
+                msgText += "每次最多上传 " + this.settings.queueSizeLimit + "个文件";
+                break;
+            case SWFUpload.QUEUE_ERROR.FILE_EXCEEDS_SIZE_LIMIT:
+                msgText += "文件大小超过限制( " + this.settings.fileSizeLimit + " )";
+                break;
+            case SWFUpload.QUEUE_ERROR.ZERO_BYTE_FILE:
+                msgText += "文件大小为0";
+                break;
+            case SWFUpload.QUEUE_ERROR.INVALID_FILETYPE:
+                msgText += "文件格式不正确，仅限 " + this.settings.fileTypeExts;
+                break;
+            default:
+                msgText += "错误代码：" + errorCode + "\n" + errorMsg;
+        }
+        alert(msgText);
+		return false;
+    },
+	uploadify_onUploadError : function(file, errorCode, errorMsg, errorString) {
+        // 手工取消不弹出提示
+        if (errorCode == SWFUpload.UPLOAD_ERROR.FILE_CANCELLED
+                || errorCode == SWFUpload.UPLOAD_ERROR.UPLOAD_STOPPED) {
+            return;
+        }
+        var msgText = "上传失败\n";
+        switch (errorCode) {
+            case SWFUpload.UPLOAD_ERROR.HTTP_ERROR:
+                msgText += "HTTP 错误\n" + errorMsg;
+                break;
+            case SWFUpload.UPLOAD_ERROR.MISSING_UPLOAD_URL:
+                msgText += "上传文件丢失，请重新上传";
+                break;
+            case SWFUpload.UPLOAD_ERROR.IO_ERROR:
+                msgText += "IO错误";
+                break;
+            case SWFUpload.UPLOAD_ERROR.SECURITY_ERROR:
+                msgText += "安全性错误\n" + errorMsg;
+                break;
+            case SWFUpload.UPLOAD_ERROR.UPLOAD_LIMIT_EXCEEDED:
+                msgText += "每次最多上传 " + this.settings.uploadLimit + "个";
+                break;
+            case SWFUpload.UPLOAD_ERROR.UPLOAD_FAILED:
+                msgText += errorMsg;
+                break;
+            case SWFUpload.UPLOAD_ERROR.SPECIFIED_FILE_ID_NOT_FOUND:
+                msgText += "找不到指定文件，请重新操作";
+                break;
+            case SWFUpload.UPLOAD_ERROR.FILE_VALIDATION_FAILED:
+                msgText += "参数错误";
+                break;
+            default:
+                msgText += "文件:" + file.name + "\n错误码:" + errorCode + "\n"
+                        + errorMsg + "\n" + errorString;
+        }
+        alert(msgText);
+		return false;;
+    }
 }

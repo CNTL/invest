@@ -8,6 +8,7 @@
 <meta name="keywords" content="<c:out value="${keywords}"/>" />
 <meta name="description" content="<c:out value="${description}"/>" />
 <%@include file="../inc/csslink.inc"%>
+<link rel="stylesheet" type="text/css" href="../js/plugin/uploadify-3.2.1/uploadify.css"/>
 <link href="../user/photo/css/photo.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
@@ -19,6 +20,7 @@
 			<div class="setting-detail">
 				<div class="btn">
 					<input type="button" id="createVideo" name="createVideo" class="add" value="添加视频"/>
+					<input type="hidden" id="groupID" name="groupID" value="<c:out value="${groupID}"/>"/>
 				</div>
 				<div id="photos">
 				</div>
@@ -26,7 +28,7 @@
 		</div>
 	</div>
 </div>
-<div id="editDiv" style="display:none;">
+<%-- <div id="editDiv" style="display:none;">
 	<div class="job_add">
 		<form class="setting-form" id="form" name="form" action="">
 			<div class="input">
@@ -36,12 +38,22 @@
 		        <input type="text" id="videoName" name="videoName" class="form-control validate[maxSize[255],required]" value=""/>
 		    </div>
 		    <div class="input">
-	            <label for="photo">视频图片：</label>
-	            <input type="file" id="photoF" name="photoF" class="form-control" />
-	            <input type="hidden" id="photo" name="photo" class="form-control" />
-	            <input type="button" style="width:50px" id="photoBtn" value="上传">
-	            <div id="photoBak" style="height:20px;width:20px;"></div>
-		    </div>
+				<table style="width:100%;">
+					<tr>
+						<td valign="top" style="width:90px;">
+							<label>相册头图：</label>
+						</td>
+						<td>
+							<input type="file" name="uploadify" id="uploadify" />
+							<input type="hidden" id="queueItemCount" name="queueItemCount" value="0" />
+							<input type="hidden" id="photo" name="photo" value="" />
+							<input type="hidden" id="uploadErrorMsg" name="uploadErrorMsg" value="" />
+						</td>
+					</tr>
+				</table>
+		   </div>
+		   <div id="coverIMG_div" style="display:none;position: absolute; z-index: 122; width:150px;height:150px;overflow:hidden;background:#fff;border:1px solid #C7C7C7;">
+			</div>
 		    <div class="input">
 		        <label for="video">视频地址：</label>
 		        <input type="text" id="videoUrl" name="videoUrl" class="form-control validate[maxSize[255],required]" value=""/>
@@ -57,7 +69,7 @@
 		    </div>
 		</form>
 	</div>
-</div>
+</div> --%>
 <!-- script -->
 <%@include file="../inc/script.inc"%>
 <!-- script -->
@@ -65,7 +77,11 @@
 <!-- footer -->
 <%@include file="../../inc/footer.inc"%>
 <!-- footer -->
+<script type="text/javascript">
+var rootPath = "<%=com.tl.common.WebUtil.getRoot(request) %>";
+</script>
 <script type="text/javascript" src="../js/layer/layer.min.js"></script>
+<script type="text/javascript" src="../js/plugin/uploadify-3.2.1/jquery.uploadify.js"></script>
 <script type="text/javascript" src="../user/video/script/videoList.js"></script>
 </body>
 </html>

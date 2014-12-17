@@ -202,7 +202,6 @@
 	<!--上传处理-->
 	<bean id="workspace.Upload" class="com.tl.invest.workspace.UploadController">
 	</bean>
-	
 	<!--系统首页-->
 	<bean id="invest.Main" class="com.tl.invest.workspace.Main">
 		<property name="viewName"><value>index</value></property>
@@ -270,7 +269,6 @@
 				<prop key="/user/video.do">user.UserVideo</prop>
 				<!--我的项目-->
 				<prop key="/user/Project.do">user.Project</prop>
-
 				<!--项目-->
 				<prop key="/project/Submit.do">project.Submit</prop>
 				<prop key="/project/Project.do">project.Project</prop>

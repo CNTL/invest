@@ -24,6 +24,21 @@
 	        <input class="form-control validate[maxSize[255],required]" type="file" id="jobPictrue" name="jobPictrue" value="${recruit.jobPictrue}" placeholder="招聘图片"/>
 	    </div>
 	    <div class="input">
+			<table style="width:100%;">
+				<tr>
+					<td valign="top" style="width:90px;">
+						<label>封面图片：</label>
+					</td>
+					<td>
+						<input type="file" name="uploadify" id="uploadify" />
+						<input type="hidden" id="queueItemCount" name="queueItemCount" value="0" />
+						<input type="hidden" id="proj_imgURL" name="proj_imgURL" value="" />
+						<input type="hidden" id="uploadErrorMsg" name="uploadErrorMsg" value="" />
+					</td>
+				</tr>
+			</table>
+	   </div>
+	    <div class="input">
 	        <label for="salary">薪资待遇：</label>
 	        <input class="form-control validate[maxSize[255]]" type="text" id="salary" name="salary" value="${recruit.salary}" placeholder="薪资待遇"/>
 	    </div>
@@ -100,6 +115,7 @@ var rootPath = "<%=com.tl.common.WebUtil.getRoot(request) %>";
 <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
 <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
 <script type="text/javascript" charset="utf-8" src="../ueditor/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript" src="../js/plugin/uploadify-3.2.1/jquery.uploadify.js"></script>
 <script type="text/javascript" src="../user/recruit/script/recruitEdit.js"></script>
 </body>
 </html>

@@ -31,10 +31,29 @@ String basePath = request.getScheme() +  "://" + request.getServerName() +
 	        <label >视频名称：</label>
 	        <input type="text" id="name" name="name" value="" class="validate[maxSize[255],required] ac_input"/>
 	    </div>
+	    <!-- 
 	    <div class="form-group form-item">
 	        <label >上传图片：</label>
 	        <input type="file" id="photo" name="photo" value="" class="validate[maxSize[255],required] ac_input"/>
 	    </div>
+	     -->
+	    <div class="input">
+			<table style="width:100%;">
+				<tr>
+					<td valign="top" style="width:90px;">
+						<label>相册头图：</label>
+					</td>
+					<td>
+						<input type="file" name="uploadify" id="uploadify" />
+						<input type="hidden" id="queueItemCount" name="queueItemCount" value="0" />
+						<input type="hidden" id="groupPhoto" name="groupPhoto" value="" />
+						<input type="hidden" id="uploadErrorMsg" name="uploadErrorMsg" value="" />
+					</td>
+				</tr>
+			</table>
+	   </div>
+	   <div id="coverIMG_div" style="display:none;position: absolute; z-index: 122; width:150px;height:150px;overflow:hidden;background:#fff;border:1px solid #C7C7C7;">
+		</div>
 	    <div class="form-group form-item">
 	        <label >视频地址：</label>
 	        <input type="text" id="video" name="video" value="" class="validate[maxSize[255],required] ac_input"/>
