@@ -677,7 +677,7 @@ public class Utils {
 			path = path.replaceAll("/", "\\\\");
 		else
 			path = path.replaceAll("\\\\", "/");
-
+		if(!IS_WINDOWS_PLATFORM) path = "/"+path;
 		return path;
 	}
 }
