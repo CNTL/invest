@@ -8,6 +8,7 @@
 <meta name="keywords" content="<c:out value="${keywords}"/>" />
 <meta name="description" content="<c:out value="${description}"/>" />
 <%@include file="../inc/csslink.inc"%>
+<link rel="stylesheet" type="text/css" href="../js/plugin/uploadify-3.2.1/uploadify.css"/>
 </head>
 <body>
 <%@include file="../../inc/header.inc"%>
@@ -20,24 +21,22 @@
 	        <input class="form-control validate[maxSize[255],required]" type="text" id="jobName" name="jobName" value="${recruit.jobName}" placeholder="招聘主题"/>
 	    </div>
 	    <div class="input">
-	        <label for="jobName">招聘图片：</label>
-	        <input class="form-control validate[maxSize[255],required]" type="file" id="jobPictrue" name="jobPictrue" value="${recruit.jobPictrue}" placeholder="招聘图片"/>
-	    </div>
-	    <div class="input">
 			<table style="width:100%;">
 				<tr>
 					<td valign="top" style="width:90px;">
-						<label>封面图片：</label>
+						<label>招聘图片：</label>
 					</td>
 					<td>
 						<input type="file" name="uploadify" id="uploadify" />
 						<input type="hidden" id="queueItemCount" name="queueItemCount" value="0" />
-						<input type="hidden" id="proj_imgURL" name="proj_imgURL" value="" />
+						<input type="hidden" id="jobPictrue" name="jobPictrue" value="" />
 						<input type="hidden" id="uploadErrorMsg" name="uploadErrorMsg" value="" />
 					</td>
 				</tr>
 			</table>
 	   </div>
+	   <div id="coverIMG_div" style="display:none;position: absolute; z-index: 122; width:150px;height:150px;overflow:hidden;background:#fff;border:1px solid #C7C7C7;">
+		</div>
 	    <div class="input">
 	        <label for="salary">薪资待遇：</label>
 	        <input class="form-control validate[maxSize[255]]" type="text" id="salary" name="salary" value="${recruit.salary}" placeholder="薪资待遇"/>
@@ -74,6 +73,7 @@
 	        <label for="jobAttract">职位诱惑：</label>
 	        <input class="form-control validate[maxSize[255],required]" type="text" id="jobAttract" name="jobAttract" value="${recruit.jobAttract}" placeholder="职位诱惑"/>
 	    </div>
+		<!-- 
 		<div class="input">
 			<label for="content">招聘内容:</label>
 		    <script type="text/plain" id="content" name="content" style="margin-left:100px; width:700px;height:100px;">
@@ -83,6 +83,15 @@
 
 			</script>
 		</div>
+		 -->
+		<div class="input">
+             <label>招聘内容：</label>
+             <div class="text">
+                 <textarea id="contentTxt" name="contentTxt" class="form-control validate[maxSize[4000]]"><c:out escapeXml="false" value="${recruit.content}"/></textarea>
+                 <input type="hidden" id="content" name="content" value=""/>
+             </div>
+             <div class="clear"></div>
+        </div>
 	    <div class="input">
 	        <label for="linkman">联系人：</label>
 	        <input class="form-control validate[maxSize[255],required]" type="text" id="linkman" name="linkman" value="${recruit.linkman}" placeholder="联系人"/>
@@ -116,6 +125,7 @@ var rootPath = "<%=com.tl.common.WebUtil.getRoot(request) %>";
 <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
 <script type="text/javascript" charset="utf-8" src="../ueditor/lang/zh-cn/zh-cn.js"></script>
 <script type="text/javascript" src="../js/plugin/uploadify-3.2.1/jquery.uploadify.js"></script>
+<script type="text/javascript" src="../static/ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="../user/recruit/script/recruitEdit.js"></script>
 </body>
 </html>

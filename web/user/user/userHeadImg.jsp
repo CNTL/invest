@@ -8,6 +8,7 @@
 <meta name="keywords" content="<c:out value="${keywords}"/>" />
 <meta name="description" content="<c:out value="${description}"/>" />
 <%@include file="../inc/csslink.inc"%>
+<link rel="stylesheet" type="text/css" href="../js/plugin/uploadify-3.2.1/uploadify.css"/>
 <style type="text/css">
 	.uploadbtn{
 		width: 50px;
@@ -35,10 +36,27 @@
 				             <div>
 				                 <div style="margin-top:10px;color: #555;line-height:150%;">请选择照片文件，支持jpg、jpeg、png、gif格式，大小不超过5M。建议尺寸：600 x 450px</div>
 				                 <div class="input">
+									<table style="width:100%;">
+										<tr>
+											<td valign="top" style="width:90px;">
+												<label>上传头像：</label>
+											</td>
+											<td>
+												<input type="file" name="uploadify" id="uploadify" />
+												<input type="hidden" id="queueItemCount" name="queueItemCount" value="0" />
+												<input type="hidden" id="headImg" name="headImg" value="" />
+												<input type="hidden" id="uploadErrorMsg" name="uploadErrorMsg" value="" />
+											</td>
+										</tr>
+									</table>
+							   	</div>
+							   	<div id="coverIMG_div" style="display:none;position: absolute; z-index: 122; width:150px;height:150px;overflow:hidden;background:#fff;border:1px solid #C7C7C7;">
+								</div>
+				                 <!-- <div class="input">
 				                 	<input type="file" id="headImg" name="headImg" class="form-control" />
 							        <input type="submit" style="width:50px" id="btnSave" value="上传">
 				                 	<iframe name='hidden_frame' id="hidden_frame" style='display: none'></iframe>
-							    </div>
+							    </div> -->
 				             </div>
 				             <div id="nowDiv" style="margin-top:20px;">
 				             	<div class="title"><b>当前头像</b></div>
@@ -107,7 +125,8 @@
 <script type="text/javascript">
 var basePath = "<%=com.tl.common.WebUtil.getRoot(request) %>";
 </script>
-<script type="text/javascript" src="../user/user/script/userHeadImg.js"></script>
+<script type="text/javascript" src="../js/plugin/uploadify-3.2.1/jquery.uploadify.js"></script>
 <script type="text/javascript" src="../user/user/script/ImageCopper.js"></script>
+<script type="text/javascript" src="../user/user/script/userHeadImg.js"></script>
 </body>
 </html>

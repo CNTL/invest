@@ -212,6 +212,7 @@
 <!-- footer -->    
 <script>
 	var typeFlag = "<%=request.getParameter("recruitType") %>";
+	var rootPath = "<%=com.tl.common.WebUtil.getRoot(request) %>";
  </script>
 <script type="text/javascript" src="../static/js/jquery-migrate-1.1.1.js"></script>
 <script type="text/javascript" src="../static/js/jQselect.js"></script>

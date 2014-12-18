@@ -9,6 +9,7 @@
 <meta name="description" content="<c:out value="${description}"/>" />
 <!-- <link rel="stylesheet" type="text/css" href="../js/plugin/AjaxFileUploaderV2.1/ajaxfileupload.css" /> -->
 <%@include file="../inc/csslink.inc"%>
+<link rel="stylesheet" type="text/css" href="../js/plugin/uploadify-3.2.1/uploadify.css"/>
 <link rel="stylesheet" type="text/css" href="../user/resume/css/resume.css">
 </head>
 <body>
@@ -31,17 +32,40 @@
 	        <input type="text" id="name" name="name" class="form-control validate[maxSize[255]]" value=""/>
 	        <br>
 	    </div>
-	    <div class="input">
-			<label for="content">简历内容：</label>
-			<textarea  id="content" name="content" class="form-control validate[maxSize[4000]]" style="width:400px;height:100px;" placeholder=""></textarea>
-		</div>
-	    <div class="input">
+		<div class="input">
+             <label>简历内容：</label>
+             <div class="text">
+                 <textarea id="contentTxt" name="contentTxt" class="form-control validate[maxSize[4000]]"></textarea>
+                 <input type="hidden" id="content" name="content" value=""/>
+             </div>
+             <div class="clear"></div>
+        </div>
+	    <!-- <div class="input">
             <label for="affix">简历附件：</label>
-            <input type="file" id="affixF" name="affixF" class="form-control" />
+            <input type="file" id="affixFile" name="affixFile" class="form-control" />
             <input type="hidden" id="affix" name="affix" class="form-control" />
             <input type="button" style="width:50px" id="affixBtn" value="上传">
-            <!-- <iframe name='hidden_frame' id="hidden_frame" style='display: none'></iframe> -->
+            <div id="affixBak" style="height:100px;width:100px;margin-left:200px;">
+            	<a id="affixImg" style="height:100px;width:100px;">简历</a>
+            </div>
+	    </div> -->
+	    <div class="input">
+			<table style="width:100%;">
+				<tr>
+					<td valign="top" style="width:90px;">
+						<label>简历附件：</label>
+					</td>
+					<td>
+						<input type="file" name="uploadify" id="uploadify" />
+						<input type="hidden" id="queueItemCount" name="queueItemCount" value="0" />
+						<input type="hidden" id="affix" name="affix" value="" />
+						<input type="hidden" id="uploadErrorMsg" name="uploadErrorMsg" value="" />
+					</td>
+				</tr>
+			</table>
 	    </div>
+	    <div id="coverIMG_div" style="display:none;position: absolute; z-index: 122; width:300px;height:50px;overflow:hidden;background:#fff;border:0px solid #C7C7C7;">
+		</div>
 	    <div class="btn">
         	<input type="submit" id="btnSave" value="提交信息">
         </div>
@@ -55,7 +79,11 @@
 <!-- footer -->
 <%@include file="../../inc/footer.inc"%>
 <!-- footer -->
-<script type="text/javascript" src="../js/plugin/AjaxFileUploaderV2.1/ajaxfileupload.js" ></script>
+<script type="text/javascript">
+var rootPath = "<%=com.tl.common.WebUtil.getRoot(request) %>";
+</script>
+<script type="text/javascript" src="../js/plugin/uploadify-3.2.1/jquery.uploadify.js"></script>
+<script type="text/javascript" src="../static/ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="../user/resume/script/userResume.js"></script>
 </body>
 </html>
