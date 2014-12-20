@@ -267,7 +267,6 @@ var relAuth = {
 	            dataType: 'text', //返回值类型，一般设置为json、application/json
 	            elementIds: elementIds, //传递参数到服务器
 	            success: function(data, status){
-	            	alert(data);
 	            	if(data != null && data.length > 0){
 	            		var srcUrl = relAuth.imgPath(data);
 	                	if(srcUrl.length > 0){

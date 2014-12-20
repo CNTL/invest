@@ -18,7 +18,7 @@ var jobList = {
 	init : function(){
 		$("#type").selectbox();
 		//$(".add").click("jobList.addRecruit");
-		jobList.queryNew(0);
+		//jobList.queryNew(0);
 	},
 	queryNew : function(curPage){
 		jobList.query("../user/recruit.do?a=queryNew&curPage=" + curPage + "&typeFlag=" + typeFlag);
@@ -39,7 +39,7 @@ var jobList = {
 	query : function(url){
 		$.ajax({
 	        type:"GET", //请求方式  
-	        url: url, //请求路径  
+	        url: "../user/recruit.do?a=queryNew", //请求路径  
 	        cache: false,
 	        dataType: 'JSON',   //返回值类型  
 	        success:function(data){
@@ -135,7 +135,7 @@ var jobList = {
 	        dataType: 'JSON',   //返回值类型  
 	        success:function(data){
 	    		if(data != null && data.orgFullname != null && data.orgFullname != ''){
-	    			window.location.href = "../recruit/Edit.do";
+	    			window.location.href = "../recruit/Edit.do?a=detail";
 	    		} else {
 	    			$.messager.confirm('消息', '请先完善资料！', function(r){
 	    				if (r){

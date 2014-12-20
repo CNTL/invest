@@ -24,7 +24,7 @@ var headImg = {
 	    		if(data != null){
 	    			var headSrc=data.head;
 	    			if(headSrc != null && headSrc != "")
-	    				document.getElementById('nowPhoto').src = basePath + headSrc;
+	    				document.getElementById('nowPhoto').src = rootPath + headSrc;
 	    		}
 	        } ,
 			error:function (XMLHttpRequest, textStatus, errorThrown) {
@@ -57,21 +57,19 @@ var headImg = {
 	    });
 	},
 	imgUploaded : function(){
+		/*
 		document.getElementById('cut_img').width = "200px";
 		document.getElementById('cut_img').height = "200px";
 		document.getElementById('cut_img').src = rootPath+$("#headImg").val();
 		document.getElementById('cut_url').value = rootPath+$("#headImg").val();
 		document.getElementById('hide').style.display = '';
-		imageinit();
-		gripinit();
-		/*var c_img_t = 180;
-		var c_img_l = 300;
-		$("#coverIMG_div").css("top",c_img_t+"px").css("left",c_img_l+"px").css("display","");
+		*/
+		document.getElementById('cut_url').value = $("#headImg").val();
 		$("#coverIMG_div").empty();
 		if($("#headImg").val()!=""){
 			$("#coverIMG_div").html("<img src=\""+rootPath+$("#headImg").val()+"\" border=\"0\" style=\"width:150px;height:100px;\" />");
 			$("#coverIMG_div").append("<div style=\"width:100%;margin-top:10px;text-align:center;\"><a href=\"javascript:void();\" style=\"background: url(../img/delete.png) no-repeat left;padding-left: 20px;\" onclick=\"headImg.delCoverImg();\">删除</a></div>");
-		}*/
+		}
 	},
 	delCoverImg : function(){
 		$("#coverIMG_div").css("display","none");

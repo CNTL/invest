@@ -27,21 +27,59 @@ function myFun(result){
    map.centerAndZoom(cityName,12);  
 }
 //收藏职位
+var pagei = null;
 var resume = {
 		init : function(){
-			resume.closeMsg();
-			$("#btnSend").click(resume.openMsg);
+			//resume.closeMsg();
+			$("#btnSend").click(resume.addResume);
 		},
-		openMsg : function(){
-			var isPost = resume.isPost();
-			if(!isPost){//如果未投递简历，执行投递简历操作
-				resume.myResume();
-				$('#w').window('open');
-			}
+		addResume : function(){
+			resume.openFormDlg("投递简历", resume.getFormHtml(""));
+			resume.myResume();
 		},
-		closeMsg : function(){
-			$("#resumeID").html("");
-			$('#w').window('close');
+		openFormDlg : function(title,html){
+			pagei = $.layer({
+				type: 1,   //0-4的选择,
+				title: title,
+				maxmin: false,
+				border: [10, 0.2, '#000'],
+				closeBtn: [1, true],
+				shadeClose: false,
+				fix: true,
+				zIndex : 1000,
+				area: ['800px', '500px'],
+				page: {
+					html: html //此处放了防止html被解析，用了\转义，实际使用时可去掉
+				}
+			});
+			$("#form").validationEngine("attach",{
+				autoPositionUpdate:false,//是否自动调整提示层的位置
+				scroll:false,//屏幕自动滚动到第一个验证不通过的位置
+				focusFirstField:false,//验证未通过时，是否给第一个不通过的控件获取焦点
+				promptPosition:"topRight" //验证提示信息的位置，可设置为："topRight", "bottomLeft", "centerRight", "bottomRight" 
+			});
+		},
+		getFormHtml : function(){
+			var id = $("#id").val();
+			var html = '<div class="job_add">' +
+							'<form class="setting-form" id="form" name="form" action="">' +
+								'<input type="hidden" id="recruitID" name="recruitID" value="' + id + '"/>' +
+								'<div class="input">' +
+							        '<label for="resumeID">选择简历：</label>' +
+							        '<select id="resumeID" name="resumeID" class="custform-select validate[maxSize[255],required]" style="width:400px">' +
+							        '</select>' +
+							    '</div>' +
+							    '<div class="btn" style="margin-top:120px;">' +
+							    	'<input style="width:100px; margin-left: 100px;" id="btnOK" name="btnOK" value="提交" type="button" onclick="resume.isPost();"/>' +
+							    	'<input style="width:100px; margin-left: 150px;" id="btnCancel" name="btnCancel" value="取消" type="button" onclick="resume.btnCancel();"/>' +
+							    '</div>' +
+							'</form>' +
+						'</div>';
+			return html;
+		},
+		btnCancel: function(){
+			if(pagei != null)
+				layer.close(pagei);
 		},
 		isCollect : function(){//是否已收藏该职位
 			var isCollect = false;

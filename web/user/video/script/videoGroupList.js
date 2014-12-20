@@ -85,12 +85,12 @@ var videoGroup = {
 		var dataUrl = "../user/video.do?a=getGroupInfo&id="+id;
 		$.ajax({url: dataUrl, async:false, dataType:"json",
 			success: function(datas) {
-				if(data != null && data.length == 1){
-					$("#id").val(data[0].id);
+				if(datas != null){
+					$("#id").val(datas.id);
 					//$("#groupID").val(data[0].groupId);
-	    			$("#groupName").val(data[0].groupName);
-	    			$("#groupIntro").val(data[0].groupIntro);
-	    			$("#groupPhoto").val(data[0].groupPhoto);
+	    			$("#groupName").val(datas.groupName);
+	    			$("#groupIntro").val(datas.groupIntro);
+	    			$("#groupPhoto").val(datas.groupPhoto);
 	    			videoGroup.imgUploaded();
 	    		}
 			}
@@ -118,12 +118,31 @@ var videoGroup = {
     		var id = item.id;
     		var photo = item.groupPhoto;
     		if(photo == null || photo.length == 0)
-    			photo = "../user/photo/img/framels_hover.jpg";
+    			photo = "user/photo/img/framels_hover.jpg";
     		//添加图片的缩略图
-    		$("#photos").append($("<div><a href='#'><img onclick='videoGroup.clickThumb("+id+")' name='photoList' id='" + id + "' src='"+rootPath+photo+"'></a></div>"));
+    		//$("#photos").append($("<div><a href='#'><img onclick='videoGroup.clickThumb("+id+")' name='photoList' id='" + id + "' src='"+rootPath+photo+"'></a></div>"));
+    		var prefix = '<div class="box" style="width:220px;">';
+    		var suffix = '';
+    		if((i + 1)%3==0) {
+    			prefix = '<div class="box box_last" style="width:220px;">'; 
+    			suffix = '<div class="clear"></div>';
+    		}
+    		var html = prefix +
+				            '<div class="people" style="border: 1px #858585 solid;">' +
+				                '<div class="pic" style="width:100%;">' +
+				                    '<a href="#"><img onclick="photoGroup.clickThumb('+id+')" name="photoList" id="' + id + '" src="'+rootPath+photo+'"></a>' +
+				                '</div>' +
+				                '<div class="title">' +
+				                    '<a href="#">'+item.groupName+'</a>' +
+				                    '<span><a title="删除" style="cursor:pointer;background: url(../img/delete.png) no-repeat left;padding-left: 20px;" onclick="videoGroup.delVideoGroup('+id+');"></a></span>' +
+				                    '<span><a title="编辑" style="cursor:pointer;background: url(../img/edit.png) no-repeat left;padding-left: 20px;" onclick="videoGroup.editGroup('+id+');"></a></span>' +
+				                '</div>' +
+				            '</div>' +
+				        '</div>' + suffix;
+    		$(".block1").append(html);
     		
     	});
-    	$("#photos div:has(a)").addClass("thumb pt");
+    	//$("#photos div:has(a)").addClass("thumb pt");
     	/*
     	$.each(result, function(i,item){
     		var myimg = new Image();

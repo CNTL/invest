@@ -50,23 +50,23 @@
 										</tr>
 									</table>
 							   	</div>
-							   	<div id="coverIMG_div" style="display:none;position: absolute; z-index: 122; width:150px;height:150px;overflow:hidden;background:#fff;border:1px solid #C7C7C7;">
-								</div>
 				                 <!-- <div class="input">
 				                 	<input type="file" id="headImg" name="headImg" class="form-control" />
 							        <input type="submit" style="width:50px" id="btnSave" value="上传">
 				                 	<iframe name='hidden_frame' id="hidden_frame" style='display: none'></iframe>
 							    </div> -->
 				             </div>
+				             <!-- 
 				             <div id="nowDiv" style="margin-top:20px;">
 				             	<div class="title"><b>当前头像</b></div>
-				             	<div class="photocontainer"><img id="nowPhoto" style="width: 150px; height: 150px; margin: 0px" src="../headImg/default.bmp"/></div>
+				             	<div class="photocontainer"><img id="nowPhoto" style="width: 150px; height: 150px; margin: 0px" src="../user/headImg/default.bmp"/></div>
 				             </div>
+				              -->
 				         </div>
 				     </form>
-				     <form name="form" id="form" action="../user/user.do?a=saveImg" method="post" onsubmit="return getcutpos();">
-				        <div id="hide" style="display: none;margin:10px;">
-				            <div id="cut_div" style="border: 2px solid #888888; width: 284px; height: 266px; overflow: hidden; position: relative; top: 0px; left: 0px; margin: 4px; cursor: pointer;">
+				     <form name="form" id="form" action="../user/user.do?a=saveImg" method="post">
+				        <div id="hide">
+				            <!-- <div id="cut_div" style="border: 2px solid #888888; width: 284px; height: 266px; overflow: hidden; position: relative; top: 0px; left: 0px; margin: 4px; cursor: pointer;">
 				                <table
 				                    style="border-collapse: collapse; z-index: 10; filter: alpha(opacity = 75); position: relative; left: 0px; top: 0px; width: 284px; height: 266px; opacity: 0.75;"
 				                    cellspacing="0" cellpadding="0" border="0" unselectable="on">
@@ -100,7 +100,13 @@
 				                </tr>
 				            </table>
 				            <img id="img_grip" src="img/head/grip.gif" style="position: absolute; z-index: 100; left: -1000px; top: -1000px; cursor: pointer;"/>
-				            <div class="btn">
+				             -->
+				            <div class="title"><b>当前头像</b></div>
+				            <div id="coverIMG_div" style="position: absolute; z-index: 122; width:150px;height:150px;overflow:hidden;background:#fff;border:1px solid #C7C7C7;">
+							<img id="nowPhoto" style="width: 150px; height: 150px; margin: 0px" src="../user/headImg/default.bmp"/>
+							</div>
+							<br><br><br><br><br><br><br><br>
+				            <div class="btn" style="position: absolute;">
 				            	<input type="hidden" name="MemberID" id="MemberID" value="<c:out value="${memberID}"/>" />
 				                <input type="hidden" name="DocLibID" id="DocLibID" value="<c:out value="${docLibID}"/>" />
 				                <input type="hidden" name="cut_pos" id="cut_pos" value="" />
@@ -123,10 +129,10 @@
 <!-- footer -->
 <script type="text/javascript" src="../user/user/script/drag.js"></script>
 <script type="text/javascript">
-var basePath = "<%=com.tl.common.WebUtil.getRoot(request) %>";
+var rootPath = "<%=com.tl.common.WebUtil.getRoot(request) %>";
 </script>
 <script type="text/javascript" src="../js/plugin/uploadify-3.2.1/jquery.uploadify.js"></script>
-<script type="text/javascript" src="../user/user/script/ImageCopper.js"></script>
+<!-- <script type="text/javascript" src="../user/user/script/ImageCopper.js"></script> -->
 <script type="text/javascript" src="../user/user/script/userHeadImg.js"></script>
 </body>
 </html>

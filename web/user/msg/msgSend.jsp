@@ -26,11 +26,13 @@
 	</div>
 </div>
 <div>
+	<!-- 
 	<div style="width:150px" align="left" class="form-actions">
 	    <button id="btnSend" type="button" class="btn pull-right">
 	       	<i onclick="">发送私信</i>
 	    </button>
 	</div>
+	 -->
 	<div id="w" class="easyui-window" data-options="title:'发送私信',iconCls:'icon-save'" style="width:500px;height:300px;">
 		<div class="easyui-layout" data-options="fit:true">
 			<div data-options="region:'center',border:false" style="padding:10px;background:#fff;border:1px solid #ccc;">

@@ -1,12 +1,6 @@
 $(document).ready(function () {
 	//初始化
 	relAuth.init();
-	$("#organizationBtn").click(function() {
-		relAuth.ajaxFileUpload("organization");
-    });
-	$("#businessLicenseBtn").click(function() {
-		relAuth.ajaxFileUpload("orgBusinessLicense");
-    });
 	$("#form").validationEngine({
 		autoPositionUpdate:true,
 		onValidationComplete:function(from,r){
@@ -19,7 +13,9 @@ $(document).ready(function () {
 	});
 });
 var relAuth = {
+	DEFAULT_PAIR : {key:"id",value:"name"},
 	init : function(){
+		relAuth.initJob();
 		$.ajax({
 	        type:"GET", //请求方式  
 	        url:"../user/user.do?a=findLogin", //请求路径  
@@ -49,6 +45,47 @@ var relAuth = {
 				   alert(errorThrown);
 			}
 	    });
+	},
+	initJob : function(){
+		var dataUrl = "../user/userFetch.do?a=jobTypes";
+		var loading = -1;
+		$.ajax({url: dataUrl, async:true, dataType:"json",
+			beforeSend:function(XMLHttpRequest){				
+				loading = layer.msg("正在初始化数据...", 0, 16);
+			},
+			success: function(datas) {
+				var curJobTypes = [];
+				var jobTypes = datas.jobTypes;
+				for(var i=0;i<jobTypes.length;i++){
+					var jobType = jobTypes[i]; 
+					if(jobType.pid==0){
+						curJobTypes.push(jobType);
+					}
+				}
+				relAuth._setOptions("perJob",curJobTypes,relAuth.DEFAULT_PAIR);
+			},
+			complete: function(XMLHttpRequest, textStatus){
+				layer.close(loading);
+			},
+			error:function (XMLHttpRequest, textStatus, errorThrown) {
+				layer.close(loading);
+				layer.alert('加载数据失败！', 3);
+			}
+		});
+	},
+	_setOptions : function(id, datas, pair) {
+		var sel = document.getElementById(id);
+		if (!sel) return;
+		while (sel.options.length > 0)
+			sel.options.remove(0);
+
+		for (var i = 0; i < datas.length; i++) {
+			var op = document.createElement("OPTION");
+			op.value = datas[i][pair.key];
+			op.text = datas[i][pair.value];
+			sel.options.add(op);
+		}
+		$(sel).trigger("change");
 	},
 	submit : function(){
 		$.ajax({

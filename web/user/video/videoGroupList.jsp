@@ -21,51 +21,14 @@
 				<div class="btn">
 					<input type="button" id="createGroup" name="createGroup" class="add" value="添加视频组"/>
 				</div>
-				<div id="photos">
-				</div>
+				<div class="project_list">
+        			<div class="block1">
+        			</div>
+        		</div>
 			</div>
 		</div>
 	</div>
 </div>
-<%-- <div id="w" class="easyui-window" data-options="title:'新增图册',iconCls:'icon-save'" style="width:700px;height:500px;">
-	<div class="easyui-layout" data-options="fit:true">
-		<div id="editDiv" class="job_add">
-			<form class="setting-form" id="form" name="form" action="">
-				<div class="input">
-			        <label for="name">视频组名称：</label>
-			        <input type="hidden" id="id" name="id" value="<c:out value="${id}"/>"/>
-			        <input type="text" id="groupName" name="groupName" class="form-control validate[maxSize[255],required]" value=""/>
-			        <br>
-			    </div>
-			    <div class="input">
-					<label for="content">视频组描述：</label>
-					<textarea  id="groupIntro" name="groupIntro" class="form-control validate[maxSize[4000]]" style="width:400px;height:100px;" placeholder=""></textarea>
-				</div>
-			    <div class="input">
-					<table style="width:100%;">
-						<tr>
-							<td valign="top" style="width:90px;">
-								<label>视频组图片：</label>
-							</td>
-							<td>
-								<input type="file" name="uploadify" id="uploadify" />
-								<input type="hidden" id="queueItemCount" name="queueItemCount" value="0" />
-								<input type="hidden" id="groupPhoto" name="groupPhoto" value="" />
-								<input type="hidden" id="uploadErrorMsg" name="uploadErrorMsg" value="" />
-							</td>
-						</tr>
-					</table>
-			   </div>
-			   <div id="coverIMG_div" style="display:none;position: absolute; z-index: 122; width:150px;height:150px;overflow:hidden;background:#fff;border:1px solid #C7C7C7;">
-				</div>
-			    <div class="btn" style="margin-top:120px;">
-			    	<input style="width:100px; margin-left: 100px;" id="btnOK" name="btnOK" value="提交" type="button" onclick="videoGroup.saveVideoGroup();"/>
-			    	<input style="width:100px; margin-left: 150px;" id="btnCancel" name="btnCancel" value="取消" type="button" onclick="videoGroup.closeMsg();"/>
-			    </div>
-			</form>
-		</div>
-	</div>
-</div> --%>
 <!-- script -->
 <%@include file="../inc/script.inc"%>
 <!-- script -->

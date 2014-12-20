@@ -15,6 +15,7 @@
     <div class="job_view">
         <div class="main">
             <div class="title">
+            	<input type="hidden" id="id" name="id" value="${recruit.id}"/>
                 <span>${recruit.jobName}</span>
                 <a href="#" class="favorite"></a>
             </div>
@@ -129,6 +130,7 @@
 	<%@include file="../../inc/footer.inc"%>
 	<!-- footer -->
 	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=6eea93095ae93db2c77be9ac910ff311"></script>
-	<script type="text/javascript" src="./script/recruitDetail.js"></script>
+	<script type="text/javascript" src="../js/layer/layer.min.js"></script>
+	<script type="text/javascript" src="../user/recruit/script/recruitDetail.js"></script>
 </body>
 </html>

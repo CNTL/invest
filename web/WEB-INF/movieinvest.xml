@@ -103,6 +103,12 @@
 	</bean>
 	
 	<!-- 个人用户页面 -->
+	<bean id="user.PeopleMain" class="com.tl.invest.user.user.PeopleMainController">
+		<property name="viewName"><value>user/user/peopleMain</value></property>
+	</bean>
+	<bean id="user.People" class="com.tl.invest.user.user.PeopleController">
+		<property name="viewName"><value>user/user/people</value></property>
+	</bean>
 	<bean id="user.BasicInfo" class="com.tl.invest.user.user.UserMainController">
 		<property name="viewName"><value>user/user/userBasicInfo</value></property>
 	</bean>
@@ -160,7 +166,7 @@
 		<property name="viewName"><value>user/user/Address</value></property>
 	</bean>
 	<!-- 招聘列表、细览、修改 -->
-	<bean id="recruit.List" class="com.tl.invest.user.user.UserMainController">
+	<bean id="recruit.List" class="com.tl.invest.user.recruit.RecruitMainController">
 		<property name="viewName"><value>user/recruit/recruitList</value></property>
 	</bean>
 	<bean id="recruit.Detail" class="com.tl.invest.user.recruit.RecruitMainController">
@@ -229,6 +235,8 @@
 				<prop key="/admin/sysParam.do">sys.Param</prop>
 				
 				<!-- 用户管理 -->
+				<prop key="/user/PeopleMain.do">user.PeopleMain</prop>
+				<prop key="/user/People.do">user.People</prop>
 				<prop key="/user/BasicInfo.do">user.BasicInfo</prop>
 				<prop key="/user/HeadImg.do">user.HeadImg</prop>
 				<prop key="/user/Intro.do">user.Intro</prop>
@@ -260,8 +268,8 @@
 				<prop key="/user/msg.do">user.UserMsg</prop>
 				<prop key="/user/resume.do">user.UserResume</prop>
 				<!-- 招聘管理 -->
-				<prop key="/recruit/List.do">recruit.List</prop>
-				<prop key="/recruit/Detail.do">recruit.Detail</prop>
+				<prop key="/recruit/ListMain.do">recruit.List</prop>
+				<prop key="/recruit/DetailMain.do">recruit.Detail</prop>
 				<prop key="/recruit/Edit.do">recruit.Edit</prop>
 				<prop key="/user/recruit.do">user.Recruit</prop>
 				<!-- 简历管理 -->

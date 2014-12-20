@@ -1,6 +1,6 @@
-ï»¿body, input, select, textarea {
+body, input, select, textarea {
     color: #666;
-    font-family: "Microsoft YaHei", "å¾®è½¯é›…é»‘", helvetica, arial, verdana, tahoma, sans-serif;
+    font-family: "Microsoft YaHei", "Î¢ÈíÑÅºÚ", helvetica, arial, verdana, tahoma, sans-serif;
 }
 
 a {
@@ -259,7 +259,10 @@ a {
             width: 50px;
             height: 50px;
         }
-
+		.header .mini_member .avatar img{ 
+			border-radius:50%;  
+			position:relative; 
+		}
         .header .mini_member .username {
             float: left;
             height: 50px;

@@ -68,10 +68,6 @@
 						<div class="input">
 					        <label for="perJob">职业：</label>
 					        <select id="perJob" name="perJob" class="custform-select validate[maxSize[255],required]" wx-validator-error-value="选择职业">
-						        <option value="1">导演</option>
-						        <option value="2">演员</option>
-						        <option value="3">摄影</option>
-						        <option value="4">后期</option>
 					        </select>
 					    </div>
 						<div class="input">
@@ -106,6 +102,7 @@
 <!-- footer -->
 <%@include file="../../inc/footer.inc"%>
 <!-- footer -->
+<script type="text/javascript" src="../js/layer/layer.min.js"></script>
 <script type="text/javascript" src="../userout/script/userCommon.js"></script>
 <script type="text/javascript" src="../user/user/script/userRelAuth.js"></script>
 </body>
