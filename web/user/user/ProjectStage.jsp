@@ -72,7 +72,7 @@
 					<div stage="<c:out value="${stage.stage.id}"/>" class="item" style="padding-top:0px;">
 						<div class="username" style="padding-left:53px;">
 							<img src="../static/image/temp/avatar1.png" />
-							<span><c:out value="${stage.stage.name}"/></span><!--我是独家小蜜蜂-->
+							<span><c:out value="${stage.stage.name}"/></span><c:out value="${stage.schedule.userName}"/>
 						</div>
 						<div class="time" style="width:80px;line-height:25px;">
 							<c:out value="${stage.schedule.created}"/>
@@ -90,7 +90,7 @@
 					<div stage="<c:out value="${stage.stage.id}"/>" class="item" style="padding-top:0px;">
 						<div class="username" style="padding-left:53px;">
 							<img src="../static/image/temp/avatar1.png" />
-							<span><c:out value="${stage.stage.name}"/></span><!--我是独家小蜜蜂-->
+							<span><c:out value="${stage.stage.name}"/></span><c:out value="${stage.schedule.userName}"/>
 						</div>
 						<div class="time" style="width:80px;line-height:25px;">
 							<c:out value="${stage.schedule.created}"/>

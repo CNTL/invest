@@ -434,7 +434,7 @@ public class ProjectService {
 		return getSqlCount(sql,params,db);
 	}
 	
-	public ProjScheduleExt[] getProjScheduleExts(int projId,int pageSize,int page,DBSession db) throws TLException{
+	public ProjScheduleExt[] getProjScheduleExts(long projId,int pageSize,int page,DBSession db) throws TLException{
 		Object[] params = new Object[]{};
 		String sql = "select invest_projschedule.*,sys_dictionary.dic_name stageName,`user`.`perNickName` userName from invest_projschedule left JOIN sys_dictionary on sys_dictionary.dic_id=invest_projschedule.sc_stage";
 		sql += " left JOIN `user` on `user`.id=invest_projschedule.sc_userid";
@@ -478,8 +478,25 @@ public class ProjectService {
 
 	private ProjScheduleExt readProjScheduleExtRS(IResultSet rs) {
 		ProjScheduleExt schedule = new ProjScheduleExt();
-		
-		
+		try {
+			schedule.setId(rs.getLong("sc_id"));
+			schedule.setProjId(rs.getLong("sc_projid"));
+			schedule.setStage(rs.getInt("sc_stage"));
+			schedule.setStageName(rs.getString("stageName"));
+			schedule.setCreated(rs.getTimestamp("sc_created"));
+			schedule.setDeleted(rs.getInt("sc_deleted"));
+			schedule.setUserId(rs.getInt("sc_userid"));
+			schedule.setUserName(rs.getString("userName"));
+			schedule.setContent(rs.getString("sc_content"));
+			schedule.setApproveStatus(rs.getInt("sc_approveStatus"));
+			schedule.setApproveUser(rs.getInt("sc_approveUser"));
+			schedule.setApproveTime(rs.getDate("sc_approveTime"));
+			schedule.setApproveMemo(rs.getString("sc_approveMemo"));		
+			schedule.setLastModified(rs.getTimestamp("sc_lastModified"));
+		} catch (SQLException e) {
+			log.error(e.getMessage(), e);
+			e.printStackTrace();
+		}		
 		
 		return schedule;
 	}

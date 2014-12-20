@@ -163,7 +163,7 @@
 
         <div class="block3 proj_type_<c:out value="${projType3}"/>">
             <div class="top">
-                <h2>影视活动项目</h2>
+                <h2>电影相关项目</h2>
                 <div class="cate">
                     <!--<a href="#">电影书籍</a><span>|</span>
                     <a href="#">影人对话</a><span>|</span>

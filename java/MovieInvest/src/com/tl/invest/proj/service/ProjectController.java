@@ -13,7 +13,7 @@ import com.tl.common.DateUtils;
 import com.tl.invest.common.MoneyHelper;
 import com.tl.invest.constant.DicTypes;
 import com.tl.invest.proj.ProjMode;
-import com.tl.invest.proj.ProjSchedule;
+import com.tl.invest.proj.ProjScheduleExt;
 import com.tl.invest.proj.Project;
 import com.tl.invest.proj.ProjectStage;
 import com.tl.invest.user.user.User;
@@ -58,7 +58,7 @@ public class ProjectController extends ProjectMainController{
 					}
 				}
 				
-				ProjSchedule[] schedules = service.getProjSchedules(proj_id);
+				ProjScheduleExt[] schedules = service.getProjScheduleExts(proj_id, 100, 1, null);
 				Dictionary[] dics = dicReader.getSubDics(DicTypes.DIC_INVEST_STAGE.typeID(), 0);
 				
 				List<ProjectStage> stages = new ArrayList<ProjectStage>();
@@ -67,7 +67,7 @@ public class ProjectController extends ProjectMainController{
 						ProjectStage stage = new ProjectStage();
 						stage.setStage(dic);
 						if(schedules!=null){
-							for (ProjSchedule schedule : schedules) {
+							for (ProjScheduleExt schedule : schedules) {
 								if(dic.getId() == schedule.getStage()){
 									stage.setSchedule(schedule);
 									stages.add(stage);

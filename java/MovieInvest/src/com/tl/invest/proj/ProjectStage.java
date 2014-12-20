@@ -4,7 +4,7 @@ import com.tl.kernel.sys.dic.Dictionary;
 
 public class ProjectStage {
 	private Dictionary stage;
-	private ProjSchedule schedule;
+	private ProjScheduleExt schedule;
 
 	public Dictionary getStage() {
 		return stage;
@@ -18,7 +18,7 @@ public class ProjectStage {
 		return schedule;
 	}
 
-	public void setSchedule(ProjSchedule schedule) {
+	public void setSchedule(ProjScheduleExt schedule) {
 		this.schedule = schedule;
 	}
 	
