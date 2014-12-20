@@ -27,16 +27,20 @@
 				<input class="easyui-textbox" type="text" id="dic_code" name="dic_code" value="<c:out value="${dic_code}"/>"/>   
 			</div>
 			<div>   
-				<label for="dic_code">VALUE:</label>   
+				<label for="dic_value">VALUE:</label>   
 				<input class="easyui-textbox" type="text" id="dic_value" name="dic_value" value="<c:out value="${dic_value}"/>"/>   
 			</div>
 			<div>   
-				<label for="dic_code">TEXT:</label>   
+				<label for="dic_text">TEXT:</label>   
 				<input class="easyui-textbox" type="text" id="dic_text" name="dic_text" value="<c:out value="${dic_text}"/>"/>   
 			</div>
 			<div>   
 				<label for="dic_memo">备注:</label>   
 				<input class="easyui-textbox" type="text" id="dic_memo" name="dic_memo" value="<c:out value="${dic_memo}"/>" data-options="multiline:true" style="height:120px;" />
+			</div>
+			<div>   
+				<label for="dic_order">简码:</label>   
+				<input class="easyui-textbox" type="text" id="dic_order" name="dic_order" value="<c:out value="${dic_order}"/>"/>   
 			</div>
 		</form>
 	</div>

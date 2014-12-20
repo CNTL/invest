@@ -1,27 +1,23 @@
 package com.tl.invest.proj.service;
 
-import java.math.BigDecimal;
-import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import com.tl.common.DateUtils;
-import com.tl.invest.common.MoneyHelper;
 import com.tl.invest.constant.DicTypes;
 import com.tl.invest.proj.ProjMode;
+import com.tl.invest.proj.ProjSchedule;
 import com.tl.invest.proj.Project;
 import com.tl.invest.proj.ProjectModes;
-import com.tl.invest.user.user.User;
 import com.tl.kernel.context.Context;
-import com.tl.kernel.context.TLException;
 import com.tl.kernel.sys.dic.Dictionary;
 import com.tl.kernel.sys.dic.DictionaryReader;
 import com.tl.kernel.web.BaseController;
-import com.tl.kernel.web.SysSessionUser;
 import com.tl.sys.common.SessionHelper;
 
 public class ProjectFetcher extends BaseController{
@@ -65,7 +61,46 @@ public class ProjectFetcher extends BaseController{
 			project.setStatus(0);
 			service.save(project);
 			output("{\"success\":true}", response);
+		}else if("submitstage".equals(action)){
+			submitStage(request,response);
 		}
+	}
+	
+	private void submitStage(HttpServletRequest request,HttpServletResponse response) throws Exception {
+		String param = get(request, "param");
+		JSONObject params = JSONObject.fromObject(param);
+		long projId = params.getLong("projId");
+		ProjSchedule[] schedules = service.getProjSchedules(projId);
+		JSONArray contents = params.getJSONArray("schedules");
+		if (contents != null && contents.size() > 0) {
+			for (int i = 0; i < contents.size(); i++) {
+				JSONObject formObj = contents.getJSONObject(i);
+				int stage = formObj.getInt("stage");
+				String c = formObj.getString("content");
+				boolean isupdate = false;
+				if(schedules!=null && schedules.length>0){
+					for (ProjSchedule ps : schedules) {
+						if(ps.getStage() == stage){
+							isupdate = true;
+							if(!ps.getContent().equals(c)){
+								ps.setContent(c);
+								service.save(ps);
+							}
+							break;
+						}
+					}
+				}
+				if(!isupdate){
+					ProjSchedule ps = new ProjSchedule();
+					service.initProjSchedule(ps, request);
+					ps.setProjId(projId);
+					ps.setStage(stage);
+					ps.setContent(c);
+					service.save(ps);
+				}
+			}
+		}
+		output("{\"success\":true}", response);
 	}
 
 	private void initProjectDatas(HttpServletRequest request,HttpServletResponse response) throws Exception {

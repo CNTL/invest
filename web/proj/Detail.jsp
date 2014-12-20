@@ -41,20 +41,22 @@
             </div>
             <div class="comm">
                 <h2>项目进度：</h2>
+				  <c:forEach var="stage" items="${stages}">
                 <div class="item">
-                    <div class="username">
+                    <div class="username" style="padding-left:53px;">
                         <img src="../static/image/temp/avatar1.png" />
-                        <span>发起人</span> 我是独家小蜜蜂
+                        <span><c:out value="${stage.stage.name}"/></span><!--我是独家小蜜蜂-->
                     </div>
-                    <div class="time">
-                        12小时前
+                    <div class="time" style="width:80px;line-height:25px;">
+                        <c:out value="${stage.schedule.created}"/>
                     </div>
                     <div class="desc">
-                        欢迎大家转发我的项目分享到微博以及微信朋友圈或者直接支持我的专辑哦，希望我的这个从小的心愿可以实现。
+                        <c:out escapeXml="false" value="${stage.schedule.content}"/>
                     </div>
                     <div class="clear"></div>
-                    <span class="btn">评论(0)</span>
+                    <!--<span class="btn">评论(0)</span>-->
                 </div>
+				  </c:forEach>
             </div>
         </div>
         <div class="sider">

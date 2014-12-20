@@ -5,6 +5,7 @@ public enum SysTableLibs {
 	TB_PROJMODE("invest_projmode"),
 	TB_PROJSUBJECT("invest_projsubject"),
 	TB_PROJSUPPORT("invest_projsupport"),
+	TB_PROJSCHEDULE("invest_projschedule"),
 	TB_SYS_MENUES("sys_menues"),
 	TB_SYS_ROLE("sys_role"),
 	TB_SYS_ROLEUSER("sys_roleuser"),

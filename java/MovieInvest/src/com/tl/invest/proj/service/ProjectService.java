@@ -21,6 +21,8 @@ import com.tl.invest.common.MoneyHelper;
 import com.tl.invest.constant.TableLibs;
 import com.tl.invest.proj.ProjMode;
 import com.tl.invest.proj.ProjModeFields;
+import com.tl.invest.proj.ProjSchedule;
+import com.tl.invest.proj.ProjScheduleExt;
 import com.tl.invest.proj.ProjSupport;
 import com.tl.invest.proj.ProjSupportExt;
 import com.tl.invest.proj.Project;
@@ -128,6 +130,93 @@ public class ProjectService {
 		}
 	}
 	
+	public void save(ProjSchedule schedule){
+		DAO d = new DAO();
+	    try {
+	    	schedule.setLastModified(DateUtils.getTimestamp());
+			if(schedule.getId()>0){
+				d.update(schedule);
+			}else {
+				schedule.setId(TBID.getID(TableLibs.TB_PROJSCHEDULE.getTableCode()));
+				d.save(schedule);
+			}
+		} catch (Exception e) {
+			log.error(e.getMessage(),e);
+		}
+	}
+	
+	public void save(ProjSchedule schedule,Session session){
+		DAO d = new DAO();		
+	    try {
+	    	schedule.setLastModified(DateUtils.getTimestamp());
+			if(schedule.getId()>0){
+				d.update(schedule,session);
+			}else {
+				schedule.setId(TBID.getID(TableLibs.TB_PROJSCHEDULE.getTableCode()));
+				d.save(schedule,session);
+			}
+		} catch (Exception e) {
+			log.error(e.getMessage(),e);
+		}
+	}
+	
+	public void deleteSchedule(long id,Session s) throws TLException{
+		ProjSchedule schedule = s == null ? getProjSchedule(id) : getProjSchedule(id, s);
+		if(schedule == null){
+			log.error("id="+id+"的项目不存在");
+			return;
+		}
+		schedule.setDeleted((short) 1);
+		if(s == null){
+			save(schedule);
+		}else {
+			save(schedule, s);
+		}
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public ProjSchedule getProjSchedule(long id, Session s) {
+		ProjSchedule schedule = null;
+		String sql = "select a from com.tl.invest.proj.ProjSchedule as a where a.id=?";
+		DAO d = new DAO();
+		if(s == null){
+			s = d.getSession();
+		}
+		List schedules = d.find(sql, new Object[]{id}, s);
+		if(!schedules.isEmpty()){
+			schedule = (ProjSchedule)schedules.get(0);
+		}
+		return schedule;
+	}
+
+	public ProjSchedule getProjSchedule(long id) {
+		return getProjSchedule(id, null);
+	}
+	
+	public ProjSchedule[] getProjSchedules(long projId){
+		return getProjSchedules(projId, null);
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public ProjSchedule[] getProjSchedules(long projId, Session s) {
+		List<ProjSchedule> list = new ArrayList<ProjSchedule>();
+		String hql = "select a from com.tl.invest.proj.ProjSchedule as a where a.projId=? and a.deleted=0 order by a.stage";
+		DAO d = new DAO();
+		if(s == null){
+			s = d.getSession();
+		}
+		List schedules = d.find(hql, new Object[]{projId}, s);
+		if(!schedules.isEmpty()){
+			for(int i=0;i<schedules.size();i++){
+				list.add((ProjSchedule)schedules.get(i));
+			}
+		}
+		if (list.size() == 0) return null;
+		
+		return (ProjSchedule[]) list.toArray(new ProjSchedule[0]);
+	}
+	
+
 	@SuppressWarnings("rawtypes")
 	public Project get(long id){
 		Project proj = null;
@@ -289,7 +378,7 @@ public class ProjectService {
 	}
 	
 	public ProjectExt[] getProjectExtsPublished(int userID,int pageSize,int page,DBSession db) throws TLException{
-		String sql = "select invest_project.*,sys_dictionary.dic_name typeName,`user`.`name` userName from invest_project left JOIN sys_dictionary on sys_dictionary.dic_id=invest_project.proj_type";
+		String sql = "select invest_project.*,sys_dictionary.dic_name typeName,`user`.`perNickName` userName from invest_project left JOIN sys_dictionary on sys_dictionary.dic_id=invest_project.proj_type";
 		sql += " left JOIN `user` on `user`.id=invest_project.proj_userID";
 		sql += " where invest_project.proj_userID=? order by proj_id desc";
 		Object[] params = new Object[]{userID};
@@ -305,7 +394,7 @@ public class ProjectService {
 	}
 	
 	public SupportProj[] getProjectExtsSupported(int userID,int pageSize,int page,DBSession db) throws TLException{
-		String sql = "select invest_project.*,invest_projsupport.*,invest_projmode.*,`user`.`name` userName,`user`.`code` userCode,sys_dictionary.dic_name typeName";
+		String sql = "select invest_project.*,invest_projsupport.*,invest_projmode.*,`user`.`perNickName` userName,`user`.`code` userCode,sys_dictionary.dic_name typeName";
 			sql +=" from invest_projsupport left join invest_project on invest_projsupport.sp_projID=invest_project.proj_id";
 			sql +=" left join invest_projmode on invest_projsupport.sp_modeID=invest_projmode.mode_id";
 		sql += " left join `user` on `user`.id=invest_project.proj_userID left join sys_dictionary on sys_dictionary.dic_id=invest_project.proj_type";
@@ -322,8 +411,16 @@ public class ProjectService {
 		return getSqlCount(sql,params,db);
 	}
 	
+	public ProjectExt[] getProjectExts(int pageSize,int page,DBSession db) throws TLException{
+		String sql = "select invest_project.*,sys_dictionary.dic_name typeName,`user`.`perNickName` userName from invest_project left JOIN sys_dictionary on sys_dictionary.dic_id=invest_project.proj_type";
+			sql += " left JOIN `user` on `user`.id=invest_project.proj_userID";
+			sql += " where invest_project.proj_deleted=0 order by proj_order,proj_id desc";
+		Object[] params = new Object[]{};
+		return getProjectExts(sql, params, pageSize, page, db);
+	}
+	
 	public ProjectExt[] getProjectExts(int type,int pageSize,int page,DBSession db) throws TLException{
-		String sql = "select invest_project.*,sys_dictionary.dic_name typeName,`user`.`name` userName from invest_project left JOIN sys_dictionary on sys_dictionary.dic_id=invest_project.proj_type";
+		String sql = "select invest_project.*,sys_dictionary.dic_name typeName,`user`.`perNickName` userName from invest_project left JOIN sys_dictionary on sys_dictionary.dic_id=invest_project.proj_type";
 			sql += " left JOIN `user` on `user`.id=invest_project.proj_userID";
 			sql += " where invest_project.proj_type=? and invest_project.proj_deleted=0 order by proj_order,proj_id desc";
 		Object[] params = new Object[]{type};
@@ -337,9 +434,59 @@ public class ProjectService {
 		return getSqlCount(sql,params,db);
 	}
 	
+	public ProjScheduleExt[] getProjScheduleExts(int projId,int pageSize,int page,DBSession db) throws TLException{
+		Object[] params = new Object[]{};
+		String sql = "select invest_projschedule.*,sys_dictionary.dic_name stageName,`user`.`perNickName` userName from invest_projschedule left JOIN sys_dictionary on sys_dictionary.dic_id=invest_projschedule.sc_stage";
+		sql += " left JOIN `user` on `user`.id=invest_projschedule.sc_userid";
+		sql += " where sc_deleted=0 ";
+		if(projId>0){
+			sql += " and sc_projid=?";
+			params = new Object[]{projId};
+		}
+		sql += " order by sc_lastModified desc";
+		
+		return getProjScheduleExts(sql, params, pageSize, page, db);
+	}
+	
+	private ProjScheduleExt[] getProjScheduleExts(String sql, Object[] params,
+			int pageSize, int page, DBSession db) throws TLException {
+		List<ProjScheduleExt> list = new ArrayList<ProjScheduleExt>();
+		IResultSet rs = null;
+		boolean dbIsCreated = false;
+		if(db==null){
+			dbIsCreated = true;
+			db= Context.getDBSession();
+		}
+		try {
+			sql = db.getDialect().getLimitString(sql, pageSize*(page-1), pageSize);
+			rs = db.executeQuery(sql, params);
+			while (rs.next()) {
+				list.add(readProjScheduleExtRS(rs));
+			}
+		} catch (SQLException e) {
+			throw new TLException(e);
+		} finally {
+			ResourceMgr.closeQuietly(rs);
+			if(dbIsCreated){
+				ResourceMgr.closeQuietly(db);
+			}
+		}
+		if (list.size() == 0) return null;
+		
+		return (ProjScheduleExt[]) list.toArray(new ProjScheduleExt[0]);
+	}
+
+	private ProjScheduleExt readProjScheduleExtRS(IResultSet rs) {
+		ProjScheduleExt schedule = new ProjScheduleExt();
+		
+		
+		
+		return schedule;
+	}
+
 	public ProjSupportExt[] getProjectSupports(long projectId,int pageSize,int page,DBSession db) throws TLException{
 		List<ProjSupportExt> list = new ArrayList<ProjSupportExt>();
-		String hql = "select "+TableLibs.TB_PROJSUPPORT.getTableCode()+".*,`user`.`name` userName,`user`.head userHead,`user`.`code` userCode from "+TableLibs.TB_PROJSUPPORT.getTableCode()
+		String hql = "select "+TableLibs.TB_PROJSUPPORT.getTableCode()+".*,`user`.`perNickName` userName,`user`.head userHead,`user`.`code` userCode from "+TableLibs.TB_PROJSUPPORT.getTableCode()
 				+" left JOIN `user` ON `user`.id="+TableLibs.TB_PROJSUPPORT.getTableCode()+".sp_userID where sp_projID=? and sp_deleted=0 order by sp_id desc";
 		IResultSet rs = null;
 		boolean dbIsCreated = false;
@@ -391,6 +538,7 @@ public class ProjectService {
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private ProjSupport readProjSupportRS(IResultSet rs) throws TLException {
 		try {
 			ProjSupport support = new ProjSupport();
@@ -585,7 +733,7 @@ public class ProjectService {
 				per = MoneyHelper.toMoney("100");
 			}
 			else {
-				per = proj.getAmountRaised().divide(proj.getAmountGoal()).multiply(MoneyHelper.toMoney("100"));
+				per = proj.getAmountRaised().divide(proj.getAmountGoal(),2,BigDecimal.ROUND_HALF_UP).multiply(MoneyHelper.toMoney("100"));
 			}
 			per = MoneyHelper.getBigDecimal(per, 0);
 			//剩余时间
@@ -667,5 +815,22 @@ public class ProjectService {
 				throw new TLException(e.getMessage());
 			}
 		}
+	}
+	
+	public void initProjSchedule(ProjSchedule schedule,HttpServletRequest request){
+		if (schedule == null) {
+			schedule = new ProjSchedule();
+		}
+		SysSessionUser user = SessionHelper.getUser(request);
+		schedule.setId(0);
+		schedule.setApproveMemo("");
+		schedule.setApproveStatus(0);
+		schedule.setApproveUser(0);
+		schedule.setCreated(DateUtils.getTimestamp());
+		schedule.setDeleted(0);
+		schedule.setLastModified(DateUtils.getTimestamp());
+		schedule.setProjId(0);
+		schedule.setStage(0);
+		schedule.setUserId(user.getUserID());
 	}
 }

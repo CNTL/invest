@@ -1,7 +1,9 @@
 package com.tl.invest.proj.service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +13,9 @@ import com.tl.common.DateUtils;
 import com.tl.invest.common.MoneyHelper;
 import com.tl.invest.constant.DicTypes;
 import com.tl.invest.proj.ProjMode;
+import com.tl.invest.proj.ProjSchedule;
 import com.tl.invest.proj.Project;
+import com.tl.invest.proj.ProjectStage;
 import com.tl.invest.user.user.User;
 import com.tl.kernel.sys.dic.Dictionary;
 
@@ -39,7 +43,7 @@ public class ProjectController extends ProjectMainController{
 					per = MoneyHelper.toMoney("100");
 				}
 				else {
-					per = proj.getAmountRaised().divide(proj.getAmountGoal()).multiply(MoneyHelper.toMoney("100"));
+					per = proj.getAmountRaised().divide(proj.getAmountGoal(),2,BigDecimal.ROUND_HALF_UP).multiply(MoneyHelper.toMoney("100"));
 				}
 				per = MoneyHelper.getBigDecimal(per, 0);
 				// £”‡ ±º‰
@@ -54,6 +58,25 @@ public class ProjectController extends ProjectMainController{
 					}
 				}
 				
+				ProjSchedule[] schedules = service.getProjSchedules(proj_id);
+				Dictionary[] dics = dicReader.getSubDics(DicTypes.DIC_INVEST_STAGE.typeID(), 0);
+				
+				List<ProjectStage> stages = new ArrayList<ProjectStage>();
+				if(dics!=null){
+					for (Dictionary dic : dics) {
+						ProjectStage stage = new ProjectStage();
+						stage.setStage(dic);
+						if(schedules!=null){
+							for (ProjSchedule schedule : schedules) {
+								if(dic.getId() == schedule.getStage()){
+									stage.setSchedule(schedule);
+									stages.add(stage);
+								}
+							}
+						}
+					}
+				}
+				
 				model.put("user", user);
 				model.put("modes", modes);
 				model.put("province", province);
@@ -61,6 +84,7 @@ public class ProjectController extends ProjectMainController{
 				model.put("county", county);
 				model.put("finishPer", per);
 				model.put("surplus", surplus);
+				model.put("stages", stages);
 			}
 			model.put("proj", proj);
 		}

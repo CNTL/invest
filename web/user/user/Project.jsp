@@ -4,159 +4,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <%@include file="../../inc/meta.inc"%>
+	<link rel="stylesheet" type="text/css" href="../user/css/project.css" />
 	<script type="text/javascript" src="../js/layer/layer.min.js"></script>
+	<script type="text/javascript" src="../user/script/project.js"></script>
 	<script type="text/javascript">
 		var webroot = "<c:out value="${rootPath}"/>";
-		$(function(){
-			var menu = "<c:out value="${menu}"/>";
-			var menuid = "menu_"+menu;
-			$("#"+menuid+" a").addClass("current");
-			
-			$(".returncontent").on("mouseover",function(){
-				layer.tips($(this).attr("data"), this,
-					{style: ['background-color:#78BA32; color:#fff', '#78BA32'],
-					maxWidth:250,
-					guide:0,
-					time: 0,
-					closeBtn:false
-					}
-				)
-			}).on("mouseout",function(){
-				layer.closeTips()
-			});
-			
-			$(".address").on("mouseover",function(){
-				var html = "<span style=\"margin-right:8px;\">收件人:</span>"+$(this).attr("user")+"<br />";
-				html += "<span style=\"margin-right:8px;\">联系电话:</span>"+$(this).attr("phone")+"<br />";
-				html += "<span style=\"margin-right:8px;\">地址:</span>"+$(this).attr("address")+"<br />";
-				html += "<span style=\"margin-right:8px;\">邮编:</span>"+$(this).attr("zipcode");
-				layer.tips(html, this,
-					{style: ['background-color:#78BA32; color:#fff', '#78BA32'],
-					maxWidth:250,
-					guide:0,
-					time: 0,
-					closeBtn:false
-					}
-				)
-			}).on("mouseout",function(){
-				layer.closeTips()
-			});
-			
-			$(".moneyFormat").each(function(i,n){
-				var value = $(this).text();
-				if(value){
-					if(value.endWith(".00")){
-						value = value.substring(0,value.length-3);
-						$(this).text(formatMoney(value,0,"",",","."));
-					}else{
-						$(this).text(formatMoney(value,2,"",",","."));
-					}
-				}
-			});
-		});
-		function delProject(id){
-			if(!id || id<=0) return;
-			if(!window.confirm("确定要删除该项目么？？")){
-				return false;
-			}
-			var dataUrl = "../project/ProjectFetcher.do?action=del&id="+id;
-			var loading = -1;
-			$.ajax({url: dataUrl, async:true, dataType:"json",
-				beforeSend:function(XMLHttpRequest){
-					loading = layer.msg("正在提交数据...", 0, 16);
-				},
-				success: function(datas) {
-					if(datas.success){
-						window.location.reload();
-					}
-				},
-				complete: function(XMLHttpRequest, textStatus){
-					layer.close(loading);
-				},
-				error:function (XMLHttpRequest, textStatus, errorThrown) {
-					layer.close(loading);
-					layer.alert('数据提交失败！', 3);
-				}
-			});
-		}
+		var menu = "<c:out value="${menu}"/>";
 	</script>
-	<style type="text/css">
-		.people_globaltop .wrap .nav li a{padding:0px;}
-		.tb-void {
-			line-height: 18px;
-			text-align: center;
-			border: 1px solid #f2f2f2;
-			border-top: 0;
-			color: #333;
-			width: 100%;
-		}
-		.tb-void a {
-			color: #005ea7;
-			text-decoration: none;
-		}
-		.tb-void th {
-			background: #e7e7e7;
-			height: 32px;
-			line-height: 32px;
-			padding: 0 5px;
-			text-align: center;
-			font-weight: 400;
-		}
-		.tb-void tbody {
-			display: table-row-group;
-			vertical-align: middle;
-			border-color: inherit;
-		}
-		.tb-void .tr-th{
-			background: #f5f5f5;
-		}
-		.tb-void .tr-th td {
-			text-align: left;
-			padding-top: 4px;
-			padding-bottom: 4px;
-		}
-		.tb-void .tr-th span {
-			display: inline-block;
-			margin-right: 10px;
-			overflow: hidden;
-			vertical-align: middle;
-			height: 24px;
-			line-height: 23px;
-			float: left;
-		}
-		.tb-void .tr-th td .tcol1{
-			margin-left:10px;
-			font-size:14px;
-		}
-		.tb-void .tr-th td .tcol3{
-			float:right;
-			margin-right:10px;
-			font-size:12px;
-		}
-		.tb-void .tr-td td {
-			vertical-align: top;
-			padding-top: 10px;
-			border: 1px solid #f2f2f2;
-			padding: 10px 5px;
-		}
-		.tb-void .img-list {
-			text-align: left;
-			width: 120px;
-			overflow: hidden;
-		}
-		.tb-void .img-list .img-box {
-			border: 1px solid #e1e1e1;
-			float: left;
-			margin-right: 4px;
-			margin-bottom: 4px;
-		}
-		.tb-void .img-list img{
-			width:116px;height:80px;border:0px;
-		}
-		.tb-void .ftx-03 {
-			color: #999;
-		}
-	</style>
 </head>
 <body>
 	<%@include file="../../inc/header.inc"%>
@@ -268,7 +122,9 @@
 							<c:if test="${proj.deleted==0 && proj.status==0}">
 							<a href="../project/Publish.do?id=<c:out value="${proj.id}"/>">修改</a>|
 							<a href="javascript:void();" onclick="delProject(<c:out value="${proj.id}"/>)">删除</a>
+							<br />							
 							</c:if>
+							<a href="javascript:;" onclick="setStage(<c:out value="${proj.id}"/>)">项目进度</a>
 						</td>
 					</tr>
 				</tbody>

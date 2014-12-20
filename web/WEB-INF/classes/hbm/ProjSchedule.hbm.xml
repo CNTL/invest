@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tl.invest.proj.ProjSchedule" table="invest_projschedule">
+		<id name="id" type="long">
+			<column name="sc_id" />
+			<generator class="assigned" />
+		</id>
+		<property name="projId" type="long">
+			<column name="sc_projid" not-null="true" />
+       </property>
+		<property name="stage" type="int">
+			<column name="sc_stage" not-null="true" />
+		</property>
+		<property name="deleted" type="int">
+			<column name="sc_deleted" not-null="true" />
+		</property>
+		<property name="created" type="timestamp">
+           <column name="sc_created" length="0" not-null="true" />
+       </property>
+	   <property name="lastModified" type="timestamp">
+           <column name="sc_lastModified" length="0" not-null="true" />
+       </property>
+	   <property name="userId" type="int">
+           <column name="sc_userid" not-null="true" />
+       </property>
+	   <property name="content" type="string">
+            <column name="sc_content" length="4000" />
+        </property>
+	    <property name="approveStatus" type="int">
+            <column name="sc_approveStatus" not-null="true" />
+        </property>
+        <property name="approveUser" type="int">
+            <column name="sc_approveUser" not-null="true" />
+        </property>
+        <property name="approveTime" type="timestamp">
+            <column name="sc_approveTime" length="0" />
+        </property>
+		<property name="approveMemo" type="string">
+            <column name="sc_approveMemo" length="1024" />
+        </property>
+	</class>
+</hibernate-mapping>

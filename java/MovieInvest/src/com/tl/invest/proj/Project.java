@@ -18,6 +18,7 @@ public class Project implements java.io.Serializable {
 	private short approveStatus;
 	private int approveUser;
 	private Date approveTime;
+	private String approveMemo;
 	private int status;
 	private Date locktime;
 	private long pid;
@@ -103,6 +104,14 @@ public class Project implements java.io.Serializable {
 
 	public void setApproveTime(Date approveTime) {
 		this.approveTime = approveTime;
+	}
+
+	public String getApproveMemo() {
+		return approveMemo;
+	}
+
+	public void setApproveMemo(String approveMemo) {
+		this.approveMemo = approveMemo;
 	}
 
 	public int getStatus() {

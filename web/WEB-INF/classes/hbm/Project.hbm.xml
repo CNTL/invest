@@ -26,6 +26,9 @@
         <property name="approveTime" type="timestamp">
             <column name="proj_approveTime" length="0" />
         </property>
+		<property name="approveMemo" type="string">
+            <column name="proj_approveMemo" length="1024" />
+        </property>
         <property name="status" type="int">
             <column name="proj_status" not-null="true" />
         </property>

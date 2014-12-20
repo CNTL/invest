@@ -33,6 +33,7 @@
 		<mapping resource="hbm/Project.hbm.xml"/>
 		<mapping resource="hbm/ProjMode.hbm.xml"/>
 		<mapping resource="hbm/ProjSupport.hbm.xml"/>
+		<mapping resource="hbm/ProjSchedule.hbm.xml"/>
 		<mapping resource="hbm/UserOrder.hbm.xml"/>
 		
 		<mapping resource="hbm/User.hbm.xml"/>
