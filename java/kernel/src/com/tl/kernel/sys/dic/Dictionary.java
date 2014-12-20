@@ -32,7 +32,7 @@ public class Dictionary implements Cloneable{
 	private int valid;
 	private Date lastModified;	//最后修改时间
 	private String memo;
-	
+	private Dictionary[] subDics;//子分类
 	
 	public int getId() {
 		return id;
@@ -134,6 +134,12 @@ public class Dictionary implements Cloneable{
 		this.childCount = childCount;
 	}
 	
+	public Dictionary[] getSubDics() {
+		return subDics;
+	}
+	public void setSubDics(Dictionary[] subDics) {
+		this.subDics = subDics;
+	}
 	/**
 	 * Clone分类对象
 	 */
