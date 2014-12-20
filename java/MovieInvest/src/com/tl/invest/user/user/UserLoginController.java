@@ -81,6 +81,7 @@ public class UserLoginController extends BaseController
 	private String create(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		User user = new User();
 		user.setCode(ParamInitUtils.getString(request.getParameter("code")));
+		user.setPerNickName(ParamInitUtils.getString(request.getParameter("code")));
 		user.setEmail(ParamInitUtils.getString(request.getParameter("email")));
 		//user.setType(ParamInitUtils.getString(request.getParameter("type")));
 		user.setType(ParamInitUtils.getInt(request.getParameter("type")));

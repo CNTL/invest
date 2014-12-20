@@ -9,6 +9,8 @@ public enum DicTypes {
 	DIC_SYS_PARAM("系统参数"),
 	DIC_INVEST_TYPE("众筹类型"),
 	DIC_INVEST_STAGE("项目进度"),
+	DIC_RECRUIT_TYPE("影聘类型"),
+	DIC_JOB_TYPE("职业"),
 	DIC_AREA("地域");
 	
 	private String typeName;

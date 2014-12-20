@@ -11,27 +11,20 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.tl.invest.constant.DicTypes;
 import com.tl.invest.workspace.Entry;
+import com.tl.kernel.context.Context;
 import com.tl.kernel.sys.dic.Dictionary;
 import com.tl.kernel.sys.dic.DictionaryReader;
 
 public class PeopleMainController extends Entry {
-	protected UserManager userMgr = null;
-	protected DictionaryReader dicReader = null;
-	
-	public void setUserMgr(UserManager userMgr) {
-		this.userMgr = userMgr;
-	}
-	public void setDicReader(DictionaryReader dicReader) {
-		this.dicReader = dicReader;
-	}
-	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	protected void setOtherData(javax.servlet.http.HttpServletRequest request, 
 			javax.servlet.http.HttpServletResponse response, Map model) throws Exception {
+		UserManager userMgr = (UserManager)Context.getBean(UserManager.class);
+		DictionaryReader dicReader = (DictionaryReader)Context.getBean(DictionaryReader.class);
 		int type = getInt(request, "type", 0);
 		if(type<=0){
-			Dictionary[] types = dicReader.getSubDics(DicTypes.DIC_INVEST_TYPE.typeID(), 0);
+			Dictionary[] types = dicReader.getSubDics(DicTypes.DIC_JOB_TYPE.typeID(), 0);
 			for (Dictionary dic : types) {
 				int typeID = dic.getId();
 				User[] users = userMgr.getPersons(typeID);

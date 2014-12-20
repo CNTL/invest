@@ -8,7 +8,10 @@ import javax.servlet.http.HttpServletResponse;
 import com.tl.common.ResourceMgr;
 import com.tl.db.DBSession;
 import com.tl.db.IResultSet;
+import com.tl.invest.constant.DicTypes;
 import com.tl.kernel.context.Context;
+import com.tl.kernel.sys.dic.Dictionary;
+import com.tl.kernel.sys.dic.DictionaryReader;
 import com.tl.kernel.web.BaseController;
 
 /** 
@@ -23,6 +26,8 @@ public class UserFetchController extends BaseController {
 		String action = request.getParameter("a");
 		if("find".equals(action)){//查找用户
 			find(request, response);
+		} else if("jobTypes".equals(action)){//职位
+			jobTypes(response);
 		}
 	}
 	
@@ -60,5 +65,26 @@ public class UserFetchController extends BaseController {
 		result.append("]");
 		
 		output(result.toString(), response);
+	}
+	private void jobTypes(HttpServletResponse response) throws Exception {
+		DictionaryReader dicReader = (DictionaryReader)Context.getBean(DictionaryReader.class);
+		Dictionary[] areas = dicReader.getDics(DicTypes.DIC_JOB_TYPE.typeID());
+		
+		StringBuffer sb1 = new StringBuffer();
+		for (Dictionary area : areas) {
+			if(sb1.length()>0) sb1.append(",");
+			sb1.append("{");
+			sb1.append("\"id\":"+area.getId());
+			sb1.append(",\"pid\":"+area.getPid());
+			sb1.append(",\"name\":\""+area.getName()+"\"");
+			sb1.append("}");
+		}
+		
+		StringBuffer sb = new StringBuffer();
+		sb.append("{");
+		sb.append("\"jobTypes\":["+sb1.toString()+"]");
+		sb.append("}");
+		
+		output(sb.toString(), response);
 	}
 }

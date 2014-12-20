@@ -35,6 +35,13 @@ public class PhotoManager {
 		List<UserPhotogroup> list = DAOHelper.find(querySql.toString());
         return list;
 	}
+	
+	@SuppressWarnings("rawtypes")
+	public UserPhotogroup getGroupInfo(int id) throws Exception{
+		List list = DAOHelper.find("select a from com.tl.invest.user.photo.UserPhotogroup as a where a.id = :id", 
+        		new Integer(id), Hibernate.INTEGER);
+        return (UserPhotogroup) list.get(0);
+	}
 	/** 
 	* @author  leijj 
 	* 功能： 创建图册
@@ -73,6 +80,16 @@ public class PhotoManager {
         	dao.closeSession(s);
         }
 	    return id;
+	}
+	/** 
+	* @author  leijj 
+	* 功能： 删除图册相关图片
+	* @param id
+	* @throws Exception 
+	*/ 
+	public void delPhotoByGroup(int id) throws Exception{
+		DAOHelper.delete("delete from com.tl.invest.user.photo.UserPhoto as photogroup where photogroup.groupId = :groupId", 
+        		   new Integer(id), Hibernate.INTEGER);
 	}
 	/** 
 	* @author  leijj 

@@ -33,38 +33,26 @@ public class RecruitController extends BaseController {
 			queryNew(request, response);
 		} else if("queryHot".equals(action)){//获取最热9条招聘信息
 			queryHot(request, response);
-		} else if("save".equals(action)){//获取用户列表
+		} else if("save".equals(action)){//保存招聘信息
 			String json = save(request, response);
 			output(json, response);
-		} else if("detail".equals(action)){//获取用户列表
+		} else if("detail".equals(action)){//获取招聘详情
 			int id = ParamInitUtils.getInt(request.getParameter("id"));
 			model.put("id", id);
 			model.put("mainType", ParamInitUtils.getInt(request.getParameter("mainType")));
-			model.put("@VIEWNAME@", "/recruit/Detail.do?1=1");
-		} else if("edit".equals(action)){//获取用户列表
+			model.put("@VIEWNAME@", "/recruit/DetailMain.do?a=detail");
+		} else if("edit".equals(action)){//获取修改信息
 			int id = ParamInitUtils.getInt(request.getParameter("id"));
 			model.put("id", id);
 			model.put("mainType", ParamInitUtils.getInt(request.getParameter("mainType")));
-			model.put("@VIEWNAME@", "/recruit/Edit.do?1=1");
+			model.put("@VIEWNAME@", "/recruit/Edit.do?a=detail");
+		} else if("isCollect".equals(action)){//是否已收藏该职位
+			isCollect(request, response);
+		} else if("collect".equals(action)){//收藏职位
+			String json = collect(request, response);
+			output(json, response);
 		}
 	}
-	/** 
-	* @author  leijj 
-	* 功能： 获取招聘信息列表
-	* @param request
-	* @param response
-	* @param model
-	* @throws Exception 
-	*/ 
-	/*private void list(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception{
-		int curPage = ParamInitUtils.getInt(request.getParameter("curPage"));
-		int length = ParamInitUtils.getInt(request.getParameter("length"));
-		Message message = recruitManager.getMessageList(curPage, length);
-		model.put("length", length);
-		model.put("msg", message);
-		model.put("@VIEWNAME@", WebUtil.getRoot(request) + "user/recruit/recruitList");
-	}
-	*/
 	/** 
 	* @author  leijj 
 	* 功能： 查询最新招聘信息
@@ -77,7 +65,7 @@ public class RecruitController extends BaseController {
 		String typeFlag = get(request, "typeFlag");//是否是职位管理（view-浏览所有招聘信息，edit-管理我的职位信息）
 		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
 		int start = getInt(request, "start");
-		Message msg = setUser(recruitManager.queryRecruits(start, 9, typeFlag, user.getId()));
+		Message msg = setUser(recruitManager.queryRecruits(start, 9, typeFlag, user == null ? 0 : user.getId()));
 		JSONArray jsonArray = JSONArray.fromObject(msg);  
 		output(jsonArray.toString(), response);
 	}
@@ -93,7 +81,7 @@ public class RecruitController extends BaseController {
 		String typeFlag = get(request, "typeFlag");//是否是职位管理（view-浏览所有招聘信息，edit-管理我的职位信息）
 		int start = getInt(request, "start");
 		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
-		Message msg = setUser(recruitManager.queryHot(start, 9, typeFlag, user.getId()));
+		Message msg = setUser(recruitManager.queryHot(start, 9, typeFlag, user == null ? 0 : user.getId()));
 		JSONArray jsonArray = JSONArray.fromObject(msg);  
 		output(jsonArray.toString(), response);
 	}
@@ -154,6 +142,34 @@ public class RecruitController extends BaseController {
 		recruit.setCreatetime(DateUtils.getTimestamp());
 		//recruit.setPubTime(DateUtils.getTimestamp());
 		recruitManager.save(recruit);
+		return "ok";
+	}
+	
+	private void isCollect(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
+		int userId = 0;
+		if(user != null) userId = user.getId();
+		boolean isCollect = recruitManager.isCollect(userId);
+		output(String.valueOf(isCollect), response);
+	}
+	/** 
+	* @author  leijj 
+	* 功能： 收藏职位保存
+	* @param request
+	* @param response
+	* @return
+	* @throws Exception 
+	*/ 
+	private String collect(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
+		UserRecruitresume recruitResume = new UserRecruitresume();
+		recruitResume.setUserId(user.getId());
+		recruitResume.setUserName(user.getName());
+		recruitResume.setRecruitId(ParamInitUtils.getInt(request.getParameter("recruitID")));
+		recruitResume.setResumeId(0);
+		recruitResume.setIsPostResume(0);;
+		recruitResume.setCreatetime(DateUtils.getTimestamp());
+		recruitManager.collect(recruitResume);
 		return "ok";
 	}
 	private UserManager userManager = (UserManager)Context.getBean(UserManager.class);

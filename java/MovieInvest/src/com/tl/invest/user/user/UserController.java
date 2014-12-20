@@ -13,8 +13,6 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import com.tl.common.DateUtils;
-import com.tl.common.HeadImage;
-import com.tl.common.ImageHelper;
 import com.tl.common.ParamInitUtils;
 import com.tl.common.UploadHelper;
 import com.tl.common.UserEncrypt;
@@ -329,8 +327,10 @@ public class UserController extends BaseController {
 	
 	private String saveHeadImg(HttpServletRequest request) throws Exception {
 		try {
+			/*
 			int width=120;
 			//获取缩放和剪切参数
+			
 			String cutPos = request.getParameter("cut_pos");
 			String[] pos = cutPos.split(",");
 			//左上角坐标
@@ -350,10 +350,10 @@ public class UserController extends BaseController {
 	        //User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
 	        String rootPath = request.getSession().getServletContext().getRealPath("/");
 			//String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/";
-			
+			*/
 	        User user = userManager.getUserByID(SessionHelper.getUserID(request));
-	        String head = destFile.substring(rootPath.length());
-	        head = head.replace("\\", "/");
+	        //String head = destFile.substring(rootPath.length());
+	        String head = request.getParameter("cut_url");
 	        user.setHead(head);
 	        userManager.update(user);
 	        return "ok";

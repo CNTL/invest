@@ -106,8 +106,9 @@ public class Entry extends BaseController {
 		List<Menu> list = new ArrayList<Menu>();
 		list.add(new Menu(1, "首页","/",class1, -999,0));
 		list.add(new Menu(2, "项目","/project/List.do?mainType=2",class2, -999,0));
-		list.add(new Menu(3, "影聘","/recruit/List.do?recruitType=view&mainType=3",class3, -999,0));
-		list.add(new Menu(4, "影人","/org/BasicInfo.do?infoType=1&mainType=4",class4, -999,0));
+		list.add(new Menu(3, "影聘","/recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3",class3, -999,0));
+		list.add(new Menu(4, "影人","/user/PeopleMain.do?mainType=4",class4, -999,0));
+		/*list.add(new Menu(4, "影人","/org/BasicInfo.do?infoType=1&mainType=4",class4, -999,0));*/
 		
 		return (Menu[]) list.toArray(new Menu[0]);
 	}
@@ -141,7 +142,7 @@ public class Entry extends BaseController {
 		} else if(type == 1){//机构用户登录后
 			list.add(new Menu(1, "机构设置","/org/BasicInfo.do?infoType=1&mainType=4","set", -999,0));
 			list.add(new Menu(2, "消息中心","/user/MsgMa.do?infoType=1&mainType=4","msg-info", -999,0));
-			list.add(new Menu(3, "职位管理", "/recruit/List.do?recruitType=edit&mainType=3","spo",-999,0));
+			list.add(new Menu(3, "职位管理", "/recruit/ListMain.do?a=queryNew&recruitType=edit&mainType=3","spo",-999,0));
 			list.add(new Menu(4, "项目管理", "/user/Project.do","spo",-999,0));
 			list.add(new Menu(41, "发布项目", "/project/Publish.do","spo",-999,0));
 			list.add(new Menu(5, "退出", "/user/logout.do","exit bn",-999,0));

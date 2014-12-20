@@ -101,15 +101,30 @@ public class UserManager {
             throw new Exception("", e);
         }
 	}
+	/** 
+	* @author  leijj 
+	* 功能： 获取个人用户
+	* @param start 查询开始数
+	* @param length 查询条数
+	* @return
+	* @throws Exception 
+	*/ 
+	public User[] getPersons(int start, int length) throws Exception{
+		StringBuilder querySql = new StringBuilder("select a from com.tl.invest.user.user.User as a where a.type = 0 order by a.createTime desc");
+		List<User> list = DAOHelper.find(querySql.toString() , start, length);
+		if(list == null || list.size() == 0) return null;
+		return list.toArray(new User[0]);
+	}
+	
 	/**
-	 * 获得所有的用户
+	 * 根据职业获取用户
 	 * @return User对象的数组
 	 */
 	public User[] getPersons(int perJob){
         try
         {
-            List list = DAOHelper.find("select a from com.tl.invest.user.user.User as a where a.type = :type and a.perJob = :perJob order by a.id", 
-            		new Object[]{0, perJob});
+            List list = DAOHelper.find("select a from com.tl.invest.user.user.User as a where a.type = 0 and a.perJob = :perJob order by a.createTime desc", 
+            		String.valueOf(perJob), Hibernate.STRING);
             return getUsers(list);
         } catch (Exception e) {
         }

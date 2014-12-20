@@ -50,8 +50,11 @@ public class PhotoController extends BaseController {
 			savePhotoGroup(request, response);
 		} else if("uploadPhoto".equals(action)){//上传相册头图
 			uploadPhoto(request, response);
+		} else if("getGroupInfo".equals(action)){//获取图册组图信息
+			getGroupInfo(request, response, model);
+		} else if("delPhotoGroup".equals(action)){//删除图册组图信息
+			delPhotoGroup(request, response, model);
 		} 
-		
 	}
 	/** 
 	* @author  leijj 
@@ -83,14 +86,17 @@ public class PhotoController extends BaseController {
 	*/ 
 	private void savePhotoGroup(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
+		int id = ParamInitUtils.getInt(request.getParameter("id"));
 		UserPhotogroup photogroup = new UserPhotogroup();
+		if(id > 0) photogroup = photoManager.getGroupInfo(id);
+		
 		photogroup.setUserId(user.getId());
 		photogroup.setUserName(user.getName());
 		photogroup.setGroupName(ParamInitUtils.getString(request.getParameter("groupName")));
 		photogroup.setGroupIntro(ParamInitUtils.getString(request.getParameter("groupIntro")));
 		photogroup.setGroupPhoto(ParamInitUtils.getString(request.getParameter("groupPhoto")));
 		photogroup.setCreateTime(DateUtils.getTimestamp());
-		int id = photoManager.savePhotoGroup(photogroup);
+		id = photoManager.savePhotoGroup(photogroup);
 		output(String.valueOf(id), response);
 	}
 	private void uploadPhoto(HttpServletRequest request, HttpServletResponse response) throws Exception{
@@ -210,6 +216,18 @@ public class PhotoController extends BaseController {
         }
  
     }
+	private void getGroupInfo(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception{
+		int id = ParamInitUtils.getInt(request.getParameter("id"));
+		UserPhotogroup group = photoManager.getGroupInfo(id);
+		JSONObject json = JSONObject.fromObject(group);
+		output(json.toString(), response);
+	}
+	private void delPhotoGroup(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception{
+		int id = ParamInitUtils.getInt(request.getParameter("id"));
+		photoManager.delPhotoGroup(id);
+		photoManager.delPhotoByGroup(id);
+		output("ok", response);
+	}
 	private UserManager userManager = (UserManager)Context.getBean(UserManager.class);
 	private PhotoManager photoManager = (PhotoManager)Context.getBean(PhotoManager.class);
 }
