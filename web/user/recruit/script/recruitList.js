@@ -42,8 +42,9 @@ var jobList = {
 	        url: url, //请求路径  
 	        cache: false,
 	        dataType: 'JSON',   //返回值类型  
-	        success:function(result){
-	    		if(result != null){
+	        success:function(data){
+	    		if(data != null && data.length > 0){
+	    			var result = data[0];
 	    			$("#total").val(result.total);
 		        	$("#curPage").val(parseInt(result.curPage, 10));
 		        	$("#pageCount").val(result.pageCount);
@@ -67,8 +68,12 @@ var jobList = {
     		var id = item.id;
     		var jobName = item.jobName;
     		var jobPictrue = item.jobPictrue;
-    		if(jobPictrue == null || jobPictrue.length == 0)
+    		if(jobPictrue == null || jobPictrue.length == 0){
     			jobPictrue = '../static/image/temp/pic2.png';
+    		} else {
+    			jobPictrue = rootPath + jobPictrue;
+    		}
+    		
     		var company = item.company;
     		var salary = item.salary;
     		var address = item.address;

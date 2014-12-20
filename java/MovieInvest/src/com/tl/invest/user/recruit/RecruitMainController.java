@@ -40,11 +40,10 @@ public class RecruitMainController extends Entry {
 	* @param model
 	* @throws Exception 
 	*/ 
-	@SuppressWarnings("null")
 	private void detail(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception{
 		int id = ParamInitUtils.getInt(request.getParameter("id"));
 		UserRecruit recruit = recruitManager.getRecruitByID(id);
-		if(recruit != null) return;
+		if(recruit == null) return;
 		recruit.setTime(DateUtils.format(recruit.getCreatetime(), "yyyy-MM-dd hh:mm:ss"));
 		User user = userManager.getUserByID(recruit.getUserId());
 		String head = user.getHead();

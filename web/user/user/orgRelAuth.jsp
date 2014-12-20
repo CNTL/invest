@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="<c:out value="${keywords}"/>" />
 <meta name="description" content="<c:out value="${description}"/>" />
-<link rel="stylesheet" type="text/css" href="../js/plugin/AjaxFileUploaderV2.1/ajaxfileupload.css" />
+<link rel="stylesheet" type="text/css" href="../js/plugin/uploadify-3.2.1/uploadify.css"/>
 <%@include file="../inc/csslink.inc"%>
 </head>
 <body>
@@ -40,6 +40,40 @@
 					        <input class="form-control validate[required]" type="text" id="bankNums" name="bankNums" />
 					    </div>
 					    <div class="input">
+							<table style="width:100%;">
+								<tr>
+									<td valign="top" style="width:90px;">
+										<label>企业组织机构证件照：</label>
+									</td>
+									<td>
+										<input type="file" name="uploadify" id="uploadify" />
+										<input type="hidden" id="queueItemCount" name="queueItemCount" value="0" />
+										<input type="hidden" id="organization" name="organization" value="" />
+										<input type="hidden" id="uploadErrorMsg" name="uploadErrorMsg" value="" />
+									</td>
+								</tr>
+							</table>
+					    </div>
+					    <div id="coverIMG_div" style="display:none;position: absolute; z-index: 122; width:150px;height:150px;overflow:hidden;background:#fff;border:1px solid #C7C7C7;">
+						</div>
+						<div class="input">
+							<table style="width:100%;">
+								<tr>
+									<td valign="top" style="width:90px;">
+										<label>企业营业执照扫描件：</label>
+									</td>
+									<td>
+										<input type="file" name="uploadify1" id="uploadify1" />
+										<input type="hidden" id="queueItemCount1" name="queueItemCount1" value="0" />
+										<input type="hidden" id="orgBusinessLicense" name="organization" value="" />
+										<input type="hidden" id="uploadErrorMsg1" name="uploadErrorMsg1" value="" />
+									</td>
+								</tr>
+							</table>
+					    </div>
+					    <div id="coverIMG_div1" style="display:none;position: absolute; z-index: 122; width:150px;height:150px;overflow:hidden;background:#fff;border:1px solid #C7C7C7;">
+						</div>
+					    <!-- <div class="input">
 					    	<label for="organization">企业组织机构证件照：</label>
 					        <input name="organizationFile" id="organizationFile" type="file" />
 					        <input name="organization" id="organization" type="hidden" value="" />
@@ -68,7 +102,7 @@
 						    <div style="display:none;">
 						    	<img id="orgBusinessLicenseImg" name="orgBusinessLicenseImg" style="width:200px;height:200px;" alt="" src="">
 						    </div>
-					    </div>
+					    </div> -->
 					    <div class="btn">
 					    	<input type="submit" id="btnSave" value="提交信息">
 					    </div>
@@ -89,7 +123,7 @@
 <script type="text/javascript">
 var basePath = "<%=com.tl.common.WebUtil.getRoot(request) %>";
 </script>
-<script type="text/javascript" src="../js/plugin/AjaxFileUploaderV2.1/ajaxfileupload.js" ></script>
+<script type="text/javascript" src="../js/plugin/uploadify-3.2.1/jquery.uploadify.js"></script>
 <script type="text/javascript" src="../user/user/script/orgRelAuth.js"></script>
 </body>
 </html>

@@ -17,6 +17,7 @@ import com.tl.kernel.context.Context;
 import com.tl.kernel.context.DAO;
 import com.tl.kernel.context.DAOHelper;
 import com.tl.kernel.context.TBID;
+import com.tl.kernel.context.TLException;
 
 
 
@@ -99,6 +100,50 @@ public class UserManager {
         {
             throw new Exception("", e);
         }
+	}
+	/**
+	 * 获得所有的用户
+	 * @return User对象的数组
+	 */
+	public User[] getPersons(int perJob){
+        try
+        {
+            List list = DAOHelper.find("select a from com.tl.invest.user.user.User as a where a.type = :type and a.perJob = :perJob order by a.id", 
+            		new Object[]{0, perJob});
+            return getUsers(list);
+        } catch (Exception e) {
+        }
+        return null;
+	}
+	public int getPersonsCount(int type,DBSession db) throws TLException{
+		String sql = "select count(0) from invest_user left JOIN sys_dictionary on sys_dictionary.dic_id=invest_user.perJob";
+		//sql += " left JOIN `user` on `user`.id=invest_project.proj_userID";
+		sql += " where invest_user.type=0 invest_user.perJob=?";
+		Object[] params = new Object[]{type};
+		return getSqlCount(sql,params,db);
+	}
+	private int getSqlCount(String sql,Object[] params,DBSession db) throws TLException{
+		int count =0;
+		boolean dbIsCreated = false;
+		if(db==null){
+			dbIsCreated = true;
+			db= Context.getDBSession();
+		}
+		IResultSet rs = null;
+		try{
+			//dbSession = Context.getDBSession();
+			rs = db.executeQuery(sql,params);
+			if(rs.next())
+				count = rs.getInt(1);
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}finally{
+			ResourceMgr.closeQuietly(rs);
+			if(dbIsCreated){
+				ResourceMgr.closeQuietly(db);
+			}
+		}
+		return count;
 	}
 	/**
 	 * 获得用户ID指定的用户
