@@ -73,7 +73,7 @@
     <!-- END LOGIN -->
     <!-- BEGIN COPYRIGHT -->
     <div class="copyright">
-        2014 &copy; 版权归影投网所有
+        2014 &copy; 版权归合众映画所有
     </div>
     <!-- END COPYRIGHT -->
     
