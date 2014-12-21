@@ -34,7 +34,7 @@ public class ParamInitUtils {
 	* @return 
 	*/ 
 	public static int getInt(String param){
-		if(param == null)
+		if(param == null || "".equals(param))
 			return 0;
 		
 		return Integer.valueOf(param);
