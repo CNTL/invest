@@ -36,6 +36,7 @@
                     </ul>
                 </div>
                 <div class="desc">
+					<p style="text-align:center;"><c:out escapeXml="false" value="${proj.videoUrl}"/></p>
 					<c:out escapeXml="false" value="${proj.content}"/>
                 </div>
             </div>

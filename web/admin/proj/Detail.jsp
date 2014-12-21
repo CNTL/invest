@@ -57,7 +57,7 @@
 						<c:otherwise>未知</c:otherwise>
 					</c:choose>
 				</td>
-				<td colspan="2" rowspan="6" style="padding:20px;">
+				<td colspan="2" rowspan="5" style="padding:20px;">
 					<c:choose>
 						<c:when test="${proj.imgUrl==''}"><img style="width:232px;height:160px;border=0px;" src="../static/image/temp/pic2.png" /></c:when>
 						<c:otherwise><img style="width:232px;height:160px;border=0px;" src="../<c:out value="${proj.imgUrl}"/>" /></c:otherwise>
@@ -82,7 +82,7 @@
 			</tr>
 			<tr>
 				<td class="title">视频地址</td>
-				<td><c:out value="${proj.videoUrl}"/></td>
+				<td colspan="3" align="center"><c:out escapeXml="false" value="${proj.videoUrl}"/></td>
 			</tr>
 			<tr>
 				<td colspan="4" style="line-height:28px;background:#e7e7e7;">支持类型</td>
