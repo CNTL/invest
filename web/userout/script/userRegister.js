@@ -12,7 +12,7 @@ function registerSubmit(){
     		if(data != null && data == 'ok'){
     			$.messager.confirm('消息', '注册成功，请登录!', function(r){
     				if (r){
-    					parent.location.href = 'userLogin.jsp';
+    					parent.location.href = '../user/loginMain.do';
     				}
     			});
     		} else {
@@ -102,7 +102,7 @@ $(document).ready(function () {
 	$('#roleSelect>li').click(function () {
         $('#roleSelect>li').removeClass('current');
         $(this).addClass('current');
-        $('#role').val($(this).attr('data'));
+        $('#type').val($(this).attr('data'));
     });
 	$("#form").validationEngine({
 		autoPositionUpdate:true,
