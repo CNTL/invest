@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tl.invest.notice.Notice" table="announcement">
+		<id name="id" type="long">
+			<column name="id" />
+			<generator class="assigned" />
+		</id>
+		<property name="deleted" type="int">
+			<column name="deleted" not-null="true" />
+		</property>
+		<property name="created" type="timestamp">
+           <column name="created" length="0" not-null="true" />
+       </property>
+	   <property name="userId" type="int">
+           <column name="userId" not-null="true" />
+       </property>
+	   <property name="title" type="string">
+			<column name="title" length="500" />
+		</property>
+		<property name="content" type="string">
+			<column name="content" length="4000" />
+		</property>
+		<property name="order" type="int">
+           <column name="sortCode" not-null="true" />
+       </property>
+	</class>
+</hibernate-mapping>

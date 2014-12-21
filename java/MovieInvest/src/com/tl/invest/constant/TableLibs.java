@@ -1,6 +1,7 @@
 package com.tl.invest.constant;
 
 public enum TableLibs  {
+	TB_NOTICE("announcement"),
 	TB_PROJECT("invest_project"),
 	TB_PROJMODE("invest_projmode"),
 	TB_PROJSUBJECT("invest_projsubject"),

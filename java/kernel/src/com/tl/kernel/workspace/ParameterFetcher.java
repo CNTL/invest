@@ -9,6 +9,7 @@ import com.tl.kernel.context.Context;
 import com.tl.kernel.context.TLException;
 import com.tl.kernel.sys.dic.DictionaryManager;
 import com.tl.kernel.sys.dic.DictionaryType;
+import com.tl.kernel.sys.param.Parameter;
 import com.tl.kernel.sys.param.ParameterManager;
 import com.tl.kernel.sys.param.ParameterType;
 import com.tl.kernel.web.BaseController;
@@ -29,21 +30,60 @@ public class ParameterFetcher extends BaseController {
 			HttpServletResponse response) throws Exception {
 		int typeid = getInt(request, "typeid", 0);
 		int id = getInt(request, "id", 0);
+		//int pid = getInt(request, "pid", 0);
 		
 		DictionaryType dicType = getParamDicType();
 		if(dicType.getId()<=0) throw new TLException("未找到系统参数的定义。");
 		
 		ParameterManager paramMgr = (ParameterManager)Context.getBean(ParameterManager.class);
-		ParameterType[] types = paramMgr.getTypes();
 		StringBuffer sb1 = new StringBuffer();
-		for (ParameterType type : types) {
-			if(sb1.length()>0) sb1.append(",");
-			sb1.append("{");
-			sb1.append("\"id\":"+type.getId()+",");
-			sb1.append("\"text\":\""+type.getName()+"\",");
-			sb1.append("\"state\":\"open\",");
-			sb1.append("\"attributes\":{\"typeid\":\""+dicType.getId()+"\",\"istype\":\"0\",\"pid\":\"0\",\"maxlevel\":\""+dicType.getMaxLevel()+"\"}");
-			sb1.append("}");
+		if(id>0){
+			Parameter[] params = paramMgr.getParameters(id);
+			if(params != null && params.length>0){
+				//sb1.append("[");
+				for (int i=0;i<params.length;i++) {
+					Parameter param = params[i];
+					sb1.append("{");
+					sb1.append("\"id\":"+param.getId()+",");
+					sb1.append("\"text\":\""+param.getName()+"\",");
+					sb1.append("\"state\":\"open\",");
+					sb1.append("\"attributes\":{\"typeid\":\""+dicType.getId()+"\",\"istype\":\"0\",\"pid\":\""+id+"\",\"maxlevel\":\""+dicType.getMaxLevel()+"\"}");
+					sb1.append("}");
+					if(i<params.length-1){
+						sb1.append(",");
+					}
+				}
+				//sb1.append("]");
+			}
+		}else{
+			ParameterType[] types = paramMgr.getTypes();
+			
+			for (ParameterType type : types) {
+				if(sb1.length()>0) sb1.append(",");
+				sb1.append("{");
+				sb1.append("\"id\":"+type.getId()+",");
+				sb1.append("\"text\":\""+type.getName()+"\",");
+				sb1.append("\"state\":\"open\",");
+				sb1.append("\"attributes\":{\"typeid\":\""+dicType.getId()+"\",\"istype\":\"0\",\"pid\":\"0\",\"maxlevel\":\""+dicType.getMaxLevel()+"\"}");
+				Parameter[] params = paramMgr.getParameters(type.getId());
+				if(params != null && params.length>0){
+					sb1.append(",\"children\":[");
+					for (int i=0;i<params.length;i++) {
+						Parameter param = params[i];
+						sb1.append("{");
+						sb1.append("\"id\":"+param.getId()+",");
+						sb1.append("\"text\":\""+param.getName()+"\",");
+						sb1.append("\"state\":\"open\",");
+						sb1.append("\"attributes\":{\"typeid\":\""+dicType.getId()+"\",\"istype\":\"0\",\"pid\":\""+type.getId()+"\",\"maxlevel\":\""+dicType.getMaxLevel()+"\"}");
+						sb1.append("}");
+						if(i<params.length-1){
+							sb1.append(",");
+						}
+					}
+					sb1.append("]");
+				}
+				sb1.append("}");
+			}
 		}
 		
 		StringBuffer sb = new StringBuffer();

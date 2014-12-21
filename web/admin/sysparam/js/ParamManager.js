@@ -111,8 +111,12 @@ function initTreeMenuItem(node){
 		showItems = $('.tree-menu-type');
 		hideItems = $('.tree-menu-cat');
 	}else{
-		showItems = $('.tree-menu-cat');
+		//alert(node.attributes.pid +'--'+ $('.tree-menu-cat').not($("#tree-menu-add")[0]).length);
+		showItems = node.attributes.pid=="0" ? $('.tree-menu-cat') : $('.tree-menu-cat').not($("#tree-menu-add")[0]);
 		hideItems = $('.tree-menu-type');
+		if(node.attributes.pid!="0"){
+			hideItems.push($("#tree-menu-add"));
+		}
 	}
 	for(var i=0;i<showItems.length;i++){
 		$('#tree-menu').menu('showItem',showItems[i]);
@@ -139,7 +143,9 @@ function showList(node){
 		//	$('#content-layout').layout('panel','north').panel("setTitle","分类信息");
 		//	showDicList(node.attributes.typeid,node.id);
 		//}
-		options.rule = "dic_valid=1 and dic_typeid="+node.attributes.typeid+" and dic_pid="+node.id;
+		var pid = node.id;
+		if(node.attributes.pid>0) pid = node.attributes.pid;
+		options.rule = "dic_valid=1 and dic_typeid="+node.attributes.typeid+" and dic_pid="+pid;
 	}
 	tldatagrid.init("datagrid",options);
 	//top.$.messager.alert('debugger',options.rule);

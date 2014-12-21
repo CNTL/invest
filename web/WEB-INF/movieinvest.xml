@@ -214,6 +214,10 @@
 	<!--上传处理-->
 	<bean id="workspace.Upload" class="com.tl.invest.workspace.UploadController">
 	</bean>
+	<bean id="invest.NoticeManager" class="com.tl.invest.notice.NoticeManager"></bean>
+	<bean id="invest.NoticeController" class="com.tl.invest.notice.NoticeController">
+		<property name="mgr"><ref bean="invest.NoticeManager" /></property>
+	</bean>
 	<!--系统首页-->
 	<bean id="invest.Main" class="com.tl.invest.workspace.Main">
 		<property name="viewName"><value>index</value></property>
@@ -295,6 +299,8 @@
 				<prop key="/project/Pay.do">project.Pay</prop>
 				<prop key="/admin/Project.do">admin.Project</prop>
 				<prop key="/admin/ProjectFetcher.do">project.ProjectFetcher</prop>				
+				
+				<prop key="/admin/org/Notice.do">invest.NoticeController</prop>				
 				
 				<prop key="/Upload.do">workspace.Upload</prop>
 			</props>

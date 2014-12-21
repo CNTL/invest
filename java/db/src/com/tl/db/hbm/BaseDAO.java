@@ -189,6 +189,32 @@ public abstract class BaseDAO {
 			closeSession(s);
 		}
 	}
+	
+	public java.util.List find(String queryStr, Object[] paramValue,int start, int length) throws HibernateException {
+		return find(queryStr,paramValue,start,length,null);
+	}
+	public java.util.List find(String queryStr, Object[] paramValue,int start, int length,Session s) throws HibernateException {
+		boolean createSession = false;
+		try {
+			if(s == null){
+				s = getSession();
+				createSession = true;
+			}
+			Query query = s.createQuery(queryStr);
+			for (int i = 0; i < paramValue.length; i++){
+				query.setParameter(i, paramValue[i]);
+			}
+			query.setFirstResult(start);   
+			query.setMaxResults(length);
+			
+			return query.list();
+		} finally {
+			if(createSession){
+				closeSession(s);
+			}
+		}
+	}
+	
 	/**
 	 * Execute a query.
 	 * @param query a query expressed in Hibernate's query language

@@ -27,7 +27,7 @@
 					<div id="tree-menu" class="easyui-menu" style="width:120px;display:none;">
 						<div class="tree-menu-type" data-options="name:'new-type',iconCls:'icon-add'">新增参数分类</div>
 						<!--<div class="tree-menu-type" class="menu-sep"></div>-->
-						<div class="tree-menu-cat" data-options="name:'new-cat',iconCls:'icon-add'">新增参数</div>
+						<div class="tree-menu-cat" id="tree-menu-add" data-options="name:'new-cat',iconCls:'icon-add'">新增参数</div>
 						<div class="tree-menu-cat" data-options="name:'edit',iconCls:'icon-edit'">修改</div>
 						<div class="tree-menu-cat" data-options="name:'remove',iconCls:'icon-remove'">删除</div>
 					</div>

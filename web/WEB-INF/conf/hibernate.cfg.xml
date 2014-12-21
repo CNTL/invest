@@ -30,6 +30,8 @@
 		<mapping resource="hbm/Permission.hbm.xml"/>
 		<mapping resource="hbm/SysParam.hbm.xml"/>
 		
+		<mapping resource="hbm/Notice.hbm.xml"/>
+		
 		<mapping resource="hbm/Project.hbm.xml"/>
 		<mapping resource="hbm/ProjMode.hbm.xml"/>
 		<mapping resource="hbm/ProjSupport.hbm.xml"/>
