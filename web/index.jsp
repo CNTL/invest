@@ -4,8 +4,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <%@include file="./inc/meta.inc"%>
+    <link rel="stylesheet" type="text/css" href="css/animate.min.css" />
 	<script type="text/javascript" src="static/js/idangerous.swiper.min.js"></script>
 	<script type="text/javascript" src="js/utils.js"></script>
+	<script type="text/javascript" src="js/plugin/masonry/masonry.pkgd.min.js"></script>
+ 
 	<script type="text/javascript">
 		var webroot = "<c:out value="${rootPath}"/>";
 		$(function () {
