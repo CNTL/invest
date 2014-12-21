@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.tl.common.DateUtils;
-import com.tl.common.ParamInitUtils;
 import com.tl.common.WebUtil;
 import com.tl.invest.sys.mu.Menu;
 import com.tl.invest.user.recruit.RecruitManager;

@@ -108,7 +108,8 @@ public class PhotoManager {
 	* @param photo
 	* @throws Exception 
 	*/ 
-	public void savePhoto(UserPhoto photo) throws Exception{
+	public int savePhoto(UserPhoto photo) throws Exception{
+		int id = 0;
 	    DAO dao = new DAO();
 	    Session s   = null;
 	    Transaction t = null;
@@ -117,25 +118,40 @@ public class PhotoManager {
 	    	s = dao.getSession();
             t = dao.beginTransaction(s);
 	    	if(photo.getId() <= 0){
-	    		int userID = (int)TBID.getID(SysTableLibs.TB_USERPHOTO.getTableCode());
-	    		photo.setId(userID);
+	    		id = (int)TBID.getID(SysTableLibs.TB_USERPHOTO.getTableCode());
+	    		photo.setId(id);
 		        dao.save(photo,s);
 	    	} else {
+	    		id = photo.getId();
 	    		dao.update(photo,s);
 	    	}
 	    	t.commit();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
         	if(t != null ) t.rollback();
         	
         	if(e instanceof Exception) throw (Exception)e;
         	
             throw new Exception("update UserPhotogroup error.", e);
-        }
-        finally
-        {
+        } finally {
         	dao.closeSession(s);
         }
+	    return id;
+	}
+	
+	/** 
+	* @author  leijj 
+	* 功能： 删除图册相关图片
+	* @param id
+	* @throws Exception 
+	*/ 
+	public void delPhotoById(int id) throws Exception{
+		DAOHelper.delete("delete from com.tl.invest.user.photo.UserPhoto as a where a.id = :id", 
+        		   new Integer(id), Hibernate.INTEGER);
+	}
+	@SuppressWarnings("rawtypes")
+	public UserPhoto getPhotoInfo(int id) throws Exception{
+		List list = DAOHelper.find("select a from com.tl.invest.user.photo.UserPhoto as a where a.id = :id", 
+        		new Integer(id), Hibernate.INTEGER);
+        return (UserPhoto) list.get(0);
 	}
 }

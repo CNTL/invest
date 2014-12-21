@@ -90,7 +90,7 @@ public class RecruitManager {
 	@SuppressWarnings("unchecked")
 	public UserRecruit[] queryRecruits(int start, int length) throws Exception{
 		StringBuilder querySql = new StringBuilder("select a from com.tl.invest.user.recruit.UserRecruit as a");
-		querySql.append(" order by a.createTime desc");
+		querySql.append(" order by a.createtime desc");
 		List<UserRecruit> list = DAOHelper.find(querySql.toString() , start, length);
 		if(list == null || list.size() == 0) return null;
 		return list.toArray(new UserRecruit[0]);
@@ -101,7 +101,7 @@ public class RecruitManager {
 		if("edit".equals(typeFlag)){//管理我的职位，则增加当前用户查询条件
 			querySql.append(" where a.userId=").append(userId);
 		}
-		querySql.append(" order by a.createTime desc");
+		querySql.append(" order by a.createtime desc");
 		List list = DAOHelper.find(querySql.toString() , start, length);
         if(list.size() > 0){
         	Message message = new Message();

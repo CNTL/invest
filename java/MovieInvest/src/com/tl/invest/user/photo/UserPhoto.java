@@ -15,6 +15,7 @@ public class UserPhoto {
 	private Integer groupId;
 	private String groupName;
 	private String photo;
+	private String photoName;
 	private String intro;
 	private Date createTime;
 
@@ -84,6 +85,14 @@ public class UserPhoto {
 
 	public void setPhoto(String photo) {
 		this.photo = photo;
+	}
+
+	public String getPhotoName() {
+		return photoName;
+	}
+
+	public void setPhotoName(String photoName) {
+		this.photoName = photoName;
 	}
 
 	public String getIntro() {

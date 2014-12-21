@@ -77,13 +77,16 @@ public class UserVideoController extends BaseController {
 	private void saveVideoGroup(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
 		UserVideogroup videogroup = new UserVideogroup();
+		int id = ParamInitUtils.getInt(request.getParameter("id"));
+		if(id > 0) videogroup = userVideoManager.getGroupInfo(id);
+		
 		videogroup.setUserId(user.getId());
 		videogroup.setUserName(user.getName());
 		videogroup.setGroupName(ParamInitUtils.getString(request.getParameter("groupName")));
 		videogroup.setGroupIntro(ParamInitUtils.getString(request.getParameter("groupIntro")));
 		videogroup.setGroupPhoto(ParamInitUtils.getString(request.getParameter("groupPhoto")));
 		videogroup.setCreateTime(DateUtils.getTimestamp());
-		int id = userVideoManager.saveVideoGroup(videogroup);
+		id = userVideoManager.saveVideoGroup(videogroup);
 		output(String.valueOf(id), response);
 	}
 	/** 

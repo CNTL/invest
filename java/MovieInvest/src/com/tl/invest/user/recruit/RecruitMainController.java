@@ -55,6 +55,7 @@ public class RecruitMainController extends Entry {
 		int start = getInt(request, "start");
 		Message msg = setUser(recruitManager.queryRecruits(start, 9, recruitType,user == null ? 0 : user.getId()));
 		Dictionary[] types = recruitManager.types();
+		model.put("queryType", "queryNew");
 		model.put("recruitType", recruitType);
 		model.put("types", types);
 		model.put("msg", msg);
@@ -73,6 +74,7 @@ public class RecruitMainController extends Entry {
 		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
 		Message msg = setUser(recruitManager.queryHot(start, 9, recruitType, user == null ? 0 : user.getId()));
 		Dictionary[] types = recruitManager.types();
+		model.put("queryType", "queryHot");
 		model.put("recruitType", recruitType);
 		model.put("types", types);
 		model.put("msg", msg);

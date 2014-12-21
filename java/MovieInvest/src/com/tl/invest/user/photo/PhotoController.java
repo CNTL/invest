@@ -26,7 +26,6 @@ import com.tl.common.DateUtils;
 import com.tl.common.ParamInitUtils;
 import com.tl.common.StringUtils;
 import com.tl.common.UploadHelper;
-import com.tl.common.WebUtil;
 import com.tl.invest.user.user.User;
 import com.tl.invest.user.user.UserManager;
 import com.tl.kernel.context.Context;
@@ -54,6 +53,12 @@ public class PhotoController extends BaseController {
 			getGroupInfo(request, response, model);
 		} else if("delPhotoGroup".equals(action)){//删除图册组图信息
 			delPhotoGroup(request, response, model);
+		} else if("updatePhoto".equals(action)){//删除图片信息
+			updatePhoto(request, response, model);
+		} else if("delPhoto".equals(action)){//删除图片信息
+			delPhoto(request, response, model);
+		} else if("getPhotoInfo".equals(action)){//删除图片信息
+			getPhotoInfo(request, response, model);
 		} 
 	}
 	/** 
@@ -172,7 +177,7 @@ public class PhotoController extends BaseController {
 						in.close();
 						outputStream.close();
 						errorMsg = "上传成功";
-						savePhoto(request, response, user, WebUtil.getRoot(request) + rltPath);
+						savePhoto(request, response, user, rltPath);
 					}
 				}
 			}
@@ -190,6 +195,7 @@ public class PhotoController extends BaseController {
 	}
 	private void savePhoto(HttpServletRequest request, HttpServletResponse response, User user, String photoPath) throws Exception{
 		int groupID = getInt(request, "groupID");
+		String photoName = photoPath.substring(photoPath.lastIndexOf("\\") + 1, photoPath.lastIndexOf("."));
 		UserPhoto photo = new UserPhoto();
 		photo.setGroupId(groupID);
 		//photo.setGroupName(groupName);
@@ -198,6 +204,7 @@ public class PhotoController extends BaseController {
 		photo.setCreateTime(DateUtils.getTimestamp());
 		photo.setIntro("");
 		photo.setPhoto(photoPath);
+		photo.setPhotoName(photoName);
 		photoManager.savePhoto(photo);
 	}
 	private void CreateFolders(String folders) {
@@ -226,6 +233,41 @@ public class PhotoController extends BaseController {
 		int id = ParamInitUtils.getInt(request.getParameter("id"));
 		photoManager.delPhotoGroup(id);
 		photoManager.delPhotoByGroup(id);
+		output("ok", response);
+	}
+	/** 
+	* @author  leijj 
+	* 功能： 保存图册信息
+	* @param request
+	* @param response
+	* @param model
+	* @throws Exception 
+	*/ 
+	private void updatePhoto(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception{
+		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
+		int id = ParamInitUtils.getInt(request.getParameter("id"));
+		UserPhoto photo = new UserPhoto();
+		if(id > 0) photo = photoManager.getPhotoInfo(id);
+		
+		photo.setUserId(user.getId());
+		photo.setUserName(user.getName());
+		photo.setGroupName(ParamInitUtils.getString(request.getParameter("groupName")));
+		photo.setIntro(ParamInitUtils.getString(request.getParameter("intro")));
+		photo.setPhotoName(ParamInitUtils.getString(request.getParameter("photoName")));
+		photo.setCreateTime(DateUtils.getTimestamp());
+		id = photoManager.savePhoto(photo);
+		output(String.valueOf(id), response);
+	}
+	private void getPhotoInfo(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception{
+		int id = ParamInitUtils.getInt(request.getParameter("id"));
+		UserPhoto photo = new UserPhoto();
+		if(id > 0) photo = photoManager.getPhotoInfo(id);
+		JSONObject json = JSONObject.fromObject(photo);
+		output(json.toString(), response);
+	}
+	private void delPhoto(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception{
+		int id = ParamInitUtils.getInt(request.getParameter("id"));
+		photoManager.delPhotoById(id);
 		output("ok", response);
 	}
 	private UserManager userManager = (UserManager)Context.getBean(UserManager.class);
