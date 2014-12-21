@@ -21,6 +21,7 @@
 				<div class="btn">
 					<input type="button" id="createGroup" name="createGroup" class="add" value="添加视频组"/>
 				</div>
+				<br>
 				<div class="project_list">
         			<div class="block1">
         			</div>

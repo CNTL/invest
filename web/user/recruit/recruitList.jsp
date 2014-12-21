@@ -64,8 +64,17 @@
              <div class="clear"></div>
          </div>
          <div class="sort">
-             <a class="current" href="#" id="queryNew" onclick="jobList.change(this);">最新职位</a>
-             <a href="#" id="queryHot" onclick="jobList.change(this);">热门职位</a>
+         	<c:choose>
+				<c:when test="${queryType eq 'queryHot'}">
+					<a href="#" id="queryNew" onclick="jobList.change(this);">最新职位</a>
+	             	<a class="current" href="#" id="queryHot" onclick="jobList.change(this);">热门职位</a>
+				</c:when>
+				<c:otherwise>
+					<a class="current" href="#" id="queryNew" onclick="jobList.change(this);">最新职位</a>
+	             	<a href="#" id="queryHot" onclick="jobList.change(this);">热门职位</a>
+				</c:otherwise>
+			</c:choose>
+             
          </div>
          <!-- <div id="main">
          </div> -->

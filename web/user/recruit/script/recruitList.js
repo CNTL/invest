@@ -153,10 +153,12 @@ var jobList = {
 		$("#main").html("");
 		if(obj.id=='queryNew'){
 			$("#queryType").val('queryNew');
-			jobList.queryNew(0);
+			window.location.href = "../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3";
+			//jobList.queryNew(0);
 		} else if(obj.id=='queryHot'){
-			$("#queryHot").val('queryHot');
-			jobList.queryHot(0);
+			$("#queryType").val('queryHot');
+			window.location.href = "../recruit/ListMain.do?a=queryHot&recruitType=view&mainType=3";
+			//jobList.queryHot(0);
 		}
 		jobList.setClass(obj);
 	},

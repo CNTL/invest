@@ -19,6 +19,7 @@
 			<%@include file="../inc/userHeader.inc"%>
 			<div class="setting-detail">
 				<input type="button" id="createGroup" name="createGroup" class="add" value="创建图册"/>
+				<br>
 				<div class="project_list">
         			<div class="block1">
         			</div>

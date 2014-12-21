@@ -18,17 +18,20 @@
 			<%@include file="../inc/userHeader.inc"%>
 			<div class="setting-detail">
 				<input id="uploadPhoto" name="uploadPhoto" type="button" class="add" value="上传照片"/>
+				<br>
 				<input id="groupID" name="groupID" type="hidden" value="<c:out value="${groupID}"/>"/>
-				<div id="photos">
-					<div id="showPhoto" style="display:none;">	显示大图
-						<img src="../user/photo/img/close.jpg" id="close">	面板中的关闭按钮
-						<div id="showPic"><img></div>
-						<div id="bgblack"></div>	用来显示透明的黑色背景
-						<div id="navigator">
-							<span id="prev"><< 上一幅</span><span id="next">下一幅 >></span>
+				<div class="project_list">
+        			<div class="block1">
+	        			<div id="showPhoto" style="display:none;">
+							<img src="../user/photo/img/close.jpg" id="close">
+							<div id="showPic"><img></div>
+							<div id="bgblack"></div>
+							<div id="navigator">
+								<span id="prev"><< 上一幅</span><span id="next">下一幅 >></span>
+							</div>
 						</div>
 					</div>
-				</div>
+        		</div>
 			</div>
 		</div>
 	</div>
@@ -40,6 +43,10 @@
 <!-- footer -->
 <%@include file="../../inc/footer.inc"%>
 <!-- footer -->
+<script type="text/javascript">
+var rootPath = "<%=com.tl.common.WebUtil.getRoot(request) %>";
+</script>
+<script type="text/javascript" src="../js/layer/layer.min.js"></script>
 <script type="text/javascript" src="../user/photo/script/photoList.js"></script>
 </body>
 </html>

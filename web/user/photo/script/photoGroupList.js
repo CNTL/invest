@@ -159,10 +159,12 @@ var photoGroup = {
 				                    '<a href="#"><img onclick="photoGroup.clickThumb('+id+')" name="photoList" id="' + id + '" src="'+rootPath+photo+'"></a>' +
 				                '</div>' +
 				                '<div class="title">' +
-				                    '<a href="#">'+item.groupName+'</a>' +
-				                    '<span><a title="删除" style="cursor:pointer;background: url(../img/delete.png) no-repeat left;padding-left: 20px;" onclick="photoGroup.delPhotoGroup('+id+');"></a></span>' +
-				                    '<span><a title="编辑" style="cursor:pointer;background: url(../img/edit.png) no-repeat left;padding-left: 20px;" onclick="photoGroup.editGroup('+id+');"></a></span>' +
+				                    '<a href="#" style="text-decoration:none;" onclick="photoGroup.clickThumb('+id+')">'+item.groupName+'</a>' +
 				                '</div>' +
+				                '<div class="tool">' +
+				                	'<a class="view" title="编辑" style="cursor:pointer;background: url(../img/edit.png) no-repeat left;padding-left: 20px;" onclick="photoGroup.editGroup('+id+');"></a>' +
+			                        '<a class="share" title="删除" style="cursor:pointer;background: url(../img/delete.png) no-repeat left;padding-left: 20px;" onclick="photoGroup.delPhotoGroup('+id+');"></a>' +
+			                    '</div>' +
 				            '</div>' +
 				        '</div>' + suffix;
     		$(".block1").append(html);

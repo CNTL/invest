@@ -130,13 +130,15 @@ var videoGroup = {
     		var html = prefix +
 				            '<div class="people" style="border: 1px #858585 solid;">' +
 				                '<div class="pic" style="width:100%;">' +
-				                    '<a href="#"><img onclick="photoGroup.clickThumb('+id+')" name="photoList" id="' + id + '" src="'+rootPath+photo+'"></a>' +
+				                    '<a href="#"><img onclick="videoGroup.clickThumb('+id+')" name="photoList" id="' + id + '" src="'+rootPath+photo+'"></a>' +
 				                '</div>' +
 				                '<div class="title">' +
-				                    '<a href="#">'+item.groupName+'</a>' +
-				                    '<span><a title="删除" style="cursor:pointer;background: url(../img/delete.png) no-repeat left;padding-left: 20px;" onclick="videoGroup.delVideoGroup('+id+');"></a></span>' +
-				                    '<span><a title="编辑" style="cursor:pointer;background: url(../img/edit.png) no-repeat left;padding-left: 20px;" onclick="videoGroup.editGroup('+id+');"></a></span>' +
+				                    '<a href="#" style="text-decoration:none;" onclick="videoGroup.clickThumb('+id+')">'+item.groupName+'</a>' +
 				                '</div>' +
+				                '<div class="tool">' +
+				                	'<a class="view" title="编辑" style="cursor:pointer;background: url(../img/edit.png) no-repeat left;padding-left: 20px;" onclick="videoGroup.editGroup('+id+');"></a>' +
+			                        '<a class="share" title="删除" style="cursor:pointer;background: url(../img/delete.png) no-repeat left;padding-left: 20px;" onclick="videoGroup.delVideoGroup('+id+');"></a>' +
+			                    '</div>' +
 				            '</div>' +
 				        '</div>' + suffix;
     		$(".block1").append(html);
