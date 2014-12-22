@@ -221,7 +221,12 @@
 	<!--系统首页-->
 	<bean id="invest.Main" class="com.tl.invest.workspace.Main">
 		<property name="viewName"><value>index</value></property>
+		<property name="projectService"><ref bean="project.Service" /></property>
+		<property name="userManager"><ref bean="UserManager"/></property>
+		<property name="recruitManager"><ref bean="RecruitManager"/></property>
+		<property name="noticeManager"><ref bean="invest.NoticeManager"/></property>
 	</bean>
+	
 	<!--============ 4. web =============== -->
 	<bean id="appUrl" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="order"><value>3</value></property>
@@ -229,6 +234,7 @@
 			<props>
 				<!--系统首页-->
 				<prop key="/Main.do">invest.Main</prop>
+				 
 				<!-- 系统用户管理 -->
 				<prop key="/admin/sysuser.do">sys.sysuser</prop>
 				<!-- 用户登录 -->
