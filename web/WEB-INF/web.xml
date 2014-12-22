@@ -22,7 +22,7 @@
 			<!-- if file contains part below, it will not do session check.-->
 			<param-name>session-not-checked</param-name>
 			<param-value>
-				index.jsp,default.jsp,Main.do,login.jsp,register.jsp,userLogin.jsp,userlogin.do,syslogin.do,userout/,project/Project.do,project/Support.do,project/ProjectFetcher.do,project/List.do
+				index.jsp,default.jsp,Main.do,login.jsp,register.jsp,userLogin.jsp,userlogin.do,syslogin.do,userout/,Index.do,project/Project.do,project/Support.do,project/ProjectFetcher.do,project/List.do
 			</param-value>
 		</init-param>
 		<init-param>
