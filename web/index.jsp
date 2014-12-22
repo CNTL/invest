@@ -82,54 +82,50 @@
 	<div class="container" id="container">
 	<!-- 項目3 -->
 	<c:forEach var="proj" varStatus="status" items="${projects}" begin="0" end="2" step="1">
-	<div class="box">
-		<div class="box_top"></div>
-		<div class="box_main project">
-			<div class="pic">
-				<a href="Project.do?id=<c:out value="${proj.id}"/>">
-				<c:choose>
-					<c:when test="${proj.imgUrl==''}"><img src="../static/image/temp/pic2.png" /></c:when>
-					<c:otherwise><img src="../<c:out value="${proj.imgUrl}"/>" /></c:otherwise>
-				</c:choose>
-                  </a>
-                    <span>项目</span>
-			</div>
-			<div>
-				<div class="title">
-					<a href="Project.do?id=<c:out value="${proj.id}"/>"><c:out value="${proj.name}"/></a>
-				</div>
-				<div class="desc">
-					<c:out escapeXml="false" value="${proj.summary}"/>
-				</div>
-				<div class="info">
-					 目标：<c:out value="${proj.countDay}"/>天 ￥<c:out value="${proj.amountGoal}"/>
-						<span>
-							<c:choose>
-								<c:when test="${proj.status==0}">未开始</c:when>
-								<c:when test="${proj.status==1}">众筹中</c:when>
-								<c:when test="${proj.status==2}">众筹结束</c:when>
-								<c:when test="${proj.status==3}">锁定</c:when>
-								<c:otherwise>未知</c:otherwise>
-							</c:choose>
-						</span>
-				</div>
-				<div class="progress">
-					 <div class="now" style="width: <c:out value="${proj.finishPer}"/>%;"></div>
-				</div>
-				<div class="status">
-					<ul>
-						 <li><span><c:out value="${proj.finishPer}"/>%</span><br />已达</li>
-                            <li><span><c:out value="${proj.amountRaised}"/></span><br />已筹资</li>
-                            <li class="last"><span><c:out value="${proj.surplus}"/></span><br />剩余时间</li>
-					</ul>
-				</div>
-			</div>
-			<div class="tool">
-				 <a href="javascript:void();" class="share">分享</a>
-                    <a href="javascript:void();" class="view"></a>
-			</div>
-		</div>
-	</div>
+	 <div class="box">
+         <div class="box_top"></div>
+         <div class="box_main project">
+             <div class="pic">
+                 <a href="Project.do?id=<c:out value="${proj.id}"/>"><img src="<c:out value="${proj.imgUrl}"/>" /></a>
+                 <span>项目</span>
+             </div>
+             <div>
+                 <div class="title">
+                     <a href="Project.do?id=<c:out value="${proj.id}"/>"><c:out value="${proj.name}"/></a>
+                 </div>
+                 <div class="desc">
+                     <c:out escapeXml="false" value="${proj.summary}"/>
+                 </div>
+                 <div class="info">
+                     <c:out value="${proj.countDay}"/>天 ￥<c:out value="${proj.amountGoal}"/>
+                     <span>
+						<c:choose>
+							<c:when test="${proj.status==0}">未开始</c:when>
+							<c:when test="${proj.status==1}">众筹中</c:when>
+							<c:when test="${proj.status==2}">众筹结束</c:when>
+							<c:when test="${proj.status==3}">锁定</c:when>
+							<c:otherwise>未知</c:otherwise>
+						</c:choose>
+					</span>
+                 </div>
+                 <div class="progress">
+                     <div class="now" style="width: <c:out value="${proj.finishPer}"/>%;"></div>
+                 </div>
+                 <div class="status">
+                     <ul>
+                         <li><span><c:out value="${proj.finishPer}"/>%</span><br />已达</li>
+                         <li><span>￥<c:out value="${proj.amountRaised}"/></span><br />已筹资</li>
+                         <li class="last"><span><c:out value="${proj.surplus}"/></span><br />剩余时间</li>
+                     </ul>
+                 </div>
+             </div>
+             <div class="tool">
+                 <a href="#" class="share">分享</a>
+                 <a href="#" class="view"></a>
+             </div>
+         </div>
+         <div class="box_bottom"></div>
+     </div>
 	</c:forEach>
 	<c:forEach var="notice" varStatus="status" items="${notices}">
 	<div class="box">
@@ -150,54 +146,50 @@
 	</c:forEach>
 	
 	<c:forEach var="proj" varStatus="status" items="${projects}" begin="3" end="3" step="1">
-	<div class="box">
-		<div class="box_top"></div>
-		<div class="box_main project">
-			<div class="pic">
-				<a href="Project.do?id=<c:out value="${proj.id}"/>">
-				<c:choose>
-					<c:when test="${proj.imgUrl==''}"><img src="../static/image/temp/pic2.png" /></c:when>
-					<c:otherwise><img src="../<c:out value="${proj.imgUrl}"/>" /></c:otherwise>
-				</c:choose>
-                  </a>
-                    <span>项目</span>
-			</div>
-			<div>
-				<div class="title">
-					<a href="Project.do?id=<c:out value="${proj.id}"/>"><c:out value="${proj.name}"/></a>
-				</div>
-				<div class="desc">
-					<c:out escapeXml="false" value="${proj.summary}"/>
-				</div>
-				<div class="info">
-					 目标：<c:out value="${proj.countDay}"/>天 ￥<c:out value="${proj.amountGoal}"/>
-						<span>
-							<c:choose>
-								<c:when test="${proj.status==0}">未开始</c:when>
-								<c:when test="${proj.status==1}">众筹中</c:when>
-								<c:when test="${proj.status==2}">众筹结束</c:when>
-								<c:when test="${proj.status==3}">锁定</c:when>
-								<c:otherwise>未知</c:otherwise>
-							</c:choose>
-						</span>
-				</div>
-				<div class="progress">
-					 <div class="now" style="width: <c:out value="${proj.finishPer}"/>%;"></div>
-				</div>
-				<div class="status">
-					<ul>
-						 <li><span><c:out value="${proj.finishPer}"/>%</span><br />已达</li>
-                            <li><span><c:out value="${proj.amountRaised}"/></span><br />已筹资</li>
-                            <li class="last"><span><c:out value="${proj.surplus}"/></span><br />剩余时间</li>
-					</ul>
-				</div>
-			</div>
-			<div class="tool">
-				 <a href="javascript:void();" class="share">分享</a>
-                    <a href="javascript:void();" class="view"></a>
-			</div>
-		</div>
-	</div>
+	 <div class="box">
+         <div class="box_top"></div>
+         <div class="box_main project">
+             <div class="pic">
+                 <a href="Project.do?id=<c:out value="${proj.id}"/>"><img src="<c:out value="${proj.imgUrl}"/>" /></a>
+                 <span>项目</span>
+             </div>
+             <div>
+                 <div class="title">
+                     <a href="Project.do?id=<c:out value="${proj.id}"/>"><c:out value="${proj.name}"/></a>
+                 </div>
+                 <div class="desc">
+                     <c:out escapeXml="false" value="${proj.summary}"/>
+                 </div>
+                 <div class="info">
+                     <c:out value="${proj.countDay}"/>天 ￥<c:out value="${proj.amountGoal}"/>
+                     <span>
+						<c:choose>
+							<c:when test="${proj.status==0}">未开始</c:when>
+							<c:when test="${proj.status==1}">众筹中</c:when>
+							<c:when test="${proj.status==2}">众筹结束</c:when>
+							<c:when test="${proj.status==3}">锁定</c:when>
+							<c:otherwise>未知</c:otherwise>
+						</c:choose>
+					</span>
+                 </div>
+                 <div class="progress">
+                     <div class="now" style="width: <c:out value="${proj.finishPer}"/>%;"></div>
+                 </div>
+                 <div class="status">
+                     <ul>
+                         <li><span><c:out value="${proj.finishPer}"/>%</span><br />已达</li>
+                         <li><span>￥<c:out value="${proj.amountRaised}"/></span><br />已筹资</li>
+                         <li class="last"><span><c:out value="${proj.surplus}"/></span><br />剩余时间</li>
+                     </ul>
+                 </div>
+             </div>
+             <div class="tool">
+                 <a href="#" class="share">分享</a>
+                 <a href="#" class="view"></a>
+             </div>
+         </div>
+         <div class="box_bottom"></div>
+     </div>
 	</c:forEach>
 	
 	<c:forEach var="recuit" varStatus="status" items="${userRecruit}">
