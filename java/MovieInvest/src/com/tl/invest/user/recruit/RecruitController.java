@@ -7,8 +7,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.json.JSONArray;
-
 import com.tl.common.DateUtils;
 import com.tl.common.Message;
 import com.tl.common.ParamInitUtils;
@@ -29,11 +27,13 @@ public class RecruitController extends BaseController {
 		String action = request.getParameter("a");
 		if("list".equals(action)){//获取用户列表
 			//list(request, response, model);
-		} else if("queryNew".equals(action)){//获取最新9条招聘信息
+		}
+		/*else if("queryNew".equals(action)){//获取最新9条招聘信息
 			queryNew(request, response);
 		} else if("queryHot".equals(action)){//获取最热9条招聘信息
 			queryHot(request, response);
-		} else if("save".equals(action)){//保存招聘信息
+		}*/ 
+		else if("save".equals(action)){//保存招聘信息
 			String json = save(request, response);
 			output(json, response);
 		} else if("detail".equals(action)){//获取招聘详情
@@ -61,14 +61,14 @@ public class RecruitController extends BaseController {
 	* @param model
 	* @throws Exception 
 	*/ 
-	private void queryNew(HttpServletRequest request, HttpServletResponse response) throws Exception{
+	/*private void queryNew(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		String typeFlag = get(request, "typeFlag");//是否是职位管理（view-浏览所有招聘信息，edit-管理我的职位信息）
 		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
 		int start = getInt(request, "start");
 		Message msg = setUser(recruitManager.queryRecruits(start, 9, typeFlag, user == null ? 0 : user.getId()));
 		JSONArray jsonArray = JSONArray.fromObject(msg);  
 		output(jsonArray.toString(), response);
-	}
+	}*/
 	/** 
 	* @author  leijj 
 	* 功能： 查询最热招聘信息
@@ -77,14 +77,14 @@ public class RecruitController extends BaseController {
 	* @param model
 	* @throws Exception 
 	*/ 
-	private void queryHot(HttpServletRequest request, HttpServletResponse response) throws Exception{
+	/*private void queryHot(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		String typeFlag = get(request, "typeFlag");//是否是职位管理（view-浏览所有招聘信息，edit-管理我的职位信息）
 		int start = getInt(request, "start");
 		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
 		Message msg = setUser(recruitManager.queryHot(start, 9, typeFlag, user == null ? 0 : user.getId()));
 		JSONArray jsonArray = JSONArray.fromObject(msg);  
 		output(jsonArray.toString(), response);
-	}
+	}*/
 	
 	private Message setUser(Message msg) throws Exception{
 		if(msg == null) return null;

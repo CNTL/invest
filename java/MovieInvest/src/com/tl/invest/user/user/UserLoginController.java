@@ -43,6 +43,12 @@ public class UserLoginController extends BaseController
 		if("create".equals(action)){//用户注册
 			String result = create(request, response);
 			output(result, response);
+		} else if("loginRel".equals(action)){//已有账号关联
+			String result = loginRel(request, response);
+			output(result, response);
+		} else if("registerRel".equals(action)){//新账号管理
+			String result = registerRel(request, response);
+			output(result, response);
 		} else if("login".equals(action)){//普通用户登录
 			login(request, response);
 		} else if("authCode".equals(action)){//绘制验证码
@@ -91,7 +97,62 @@ public class UserLoginController extends BaseController
 		String result = userManager.create(user);
 		return result;
 	}
-
+	
+	/** 
+	* @author  leijj 
+	* 功能： 与新账号关联
+	* @param request
+	* @param response
+	* @return
+	* @throws Exception 
+	*/ 
+	private String registerRel(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		User user = new User();
+		String qqOpenId = ParamInitUtils.getString(request.getParameter("qqOpenId"));
+		String xlWeiboCode = ParamInitUtils.getString(request.getParameter("xlWeiboCode"));
+		if(qqOpenId != null && !("".equals(qqOpenId))){
+			user.setQqOpenId(qqOpenId);
+		}
+		if(xlWeiboCode != null && !("".equals(xlWeiboCode))){
+			user.setXlWeiboCode(xlWeiboCode);
+		}
+		user.setCode(ParamInitUtils.getString(request.getParameter("code")));
+		user.setPerNickName(ParamInitUtils.getString(request.getParameter("code")));
+		user.setEmail(ParamInitUtils.getString(request.getParameter("email")));
+		//user.setType(ParamInitUtils.getString(request.getParameter("type")));
+		user.setType(ParamInitUtils.getInt(request.getParameter("type")));
+		user.setPassword(ParamInitUtils.getString(request.getParameter("password")));
+		user.setCreateTime(DateUtils.getTimestamp());
+		UserManager userManager = (UserManager) Context.getBean(UserManager.class);
+		String result = userManager.create(user);
+		return result;
+	}
+	/** 
+	* @author  leijj 
+	* 功能： 与已有账号关联
+	* @param request
+	* @param response
+	* @return
+	* @throws Exception 
+	*/ 
+	private String loginRel(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		String code = ParamInitUtils.getString(request.getParameter("code"));
+		if(code == null || "".equals(code)) return "账号为空！";
+		
+		User user = manager.getUserByCode(code);
+		if(user == null) return "该账号不存在！";
+		String qqOpenId = ParamInitUtils.getString(request.getParameter("qqOpenId"));
+		String xlWeiboCode = ParamInitUtils.getString(request.getParameter("xlWeiboCode"));
+		if(qqOpenId != null && !("".equals(qqOpenId))){
+			user.setQqOpenId(qqOpenId);
+		}
+		if(xlWeiboCode != null && !("".equals(xlWeiboCode))){
+			user.setXlWeiboCode(xlWeiboCode);
+		}
+		UserManager userManager = (UserManager) Context.getBean(UserManager.class);
+		String result = userManager.create(user);
+		return result;
+	}
 	/** 
 	* @author  leijj 
 	* 功能： 正常注册用户登录

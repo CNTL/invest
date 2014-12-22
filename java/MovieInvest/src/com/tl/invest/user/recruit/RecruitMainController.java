@@ -32,9 +32,9 @@ public class RecruitMainController extends Entry {
 		if("detail".equals(action)){//获取招聘详细信息
 			detail(request, response, model);
 		} else if("queryNew".equals(action)){//获取最新9条招聘信息
-			queryNew(request, response, model);
+			queryRecruits(request, response, model, "queryNew");
 		}  else if("queryHot".equals(action)){//获取最热9条招聘信息
-			queryHot(request, response, model);
+			queryRecruits(request, response, model, "queryHot");
 		} else{//直接进入招聘信息列表
 			Dictionary[] types = recruitManager.types();
 			model.put("types", types);
@@ -49,34 +49,16 @@ public class RecruitMainController extends Entry {
 	* @param model
 	* @throws Exception 
 	*/ 
-	private void queryNew(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception{
+	private void queryRecruits(HttpServletRequest request, HttpServletResponse response, Map model, String queryType) throws Exception{
 		String recruitType = get(request, "recruitType");//是否是职位管理（view-浏览所有招聘信息，edit-管理我的职位信息）
 		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
-		int start = getInt(request, "start");
-		Message msg = setUser(recruitManager.queryRecruits(start, 9, recruitType,user == null ? 0 : user.getId()));
+		int curPage = getInt(request, "curPage", 1);
+		Message msg = setUser(recruitManager.queryRecruits(curPage, 9, recruitType, queryType, user == null ? 0 : user.getId()));
 		Dictionary[] types = recruitManager.types();
-		model.put("queryType", "queryNew");
+		model.put("queryType", queryType);
 		model.put("recruitType", recruitType);
 		model.put("types", types);
-		model.put("msg", msg);
-	}
-	/** 
-	* @author  leijj 
-	* 功能： 查询最热招聘信息
-	* @param request
-	* @param response
-	* @param model
-	* @throws Exception 
-	*/ 
-	private void queryHot(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception{
-		String recruitType = get(request, "recruitType");//是否是职位管理（view-浏览所有招聘信息，edit-管理我的职位信息）
-		int start = getInt(request, "start");
-		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
-		Message msg = setUser(recruitManager.queryHot(start, 9, recruitType, user == null ? 0 : user.getId()));
-		Dictionary[] types = recruitManager.types();
-		model.put("queryType", "queryHot");
-		model.put("recruitType", recruitType);
-		model.put("types", types);
+		model.put("more", ParamInitUtils.getString(request.getParameter("more")));
 		model.put("msg", msg);
 	}
 	private Message setUser(Message msg) throws Exception{

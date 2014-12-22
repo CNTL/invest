@@ -28,18 +28,15 @@ public class PeopleMainController extends Entry {
 			for (Dictionary dic : types) {
 				int typeID = dic.getId();
 				User[] users = userMgr.getPersons(typeID);
-				if(dic.getName().indexOf("导演")>=0){
+				if(dic.getName().indexOf("演员")>=0){
 					model.put("persons1", users);
 					model.put("perType1", typeID);
-				}else if(dic.getName().indexOf("演员")>=0){
+				}else if(dic.getName().indexOf("前期拍摄")>=0){
 					model.put("persons2", users);
 					model.put("perType2", typeID);
-				}else if(dic.getName().indexOf("摄影")>=0){
+				}else if(dic.getName().indexOf("制作宣发")>=0){
 					model.put("persons3", users);
 					model.put("perType3", typeID);
-				}else if(dic.getName().indexOf("后期")>=0){
-					model.put("persons4", users);
-					model.put("perType4", typeID);
 				}
 			}
 			model.put("personCount", 0);
@@ -57,18 +54,15 @@ public class PeopleMainController extends Entry {
 			
 			Dictionary dic = dicReader.getDic(DicTypes.DIC_INVEST_TYPE.typeID(), type);
 			
-			if(dic.getName().indexOf("导演")>=0){
+			if(dic.getName().indexOf("演员")>=0){
 				model.put("persons1", users);
 				model.put("perType1", type);
-			}else if(dic.getName().indexOf("演员")>=0){
+			}else if(dic.getName().indexOf("前期拍摄")>=0){
 				model.put("persons2", users);
 				model.put("perType2", type);
-			}else if(dic.getName().indexOf("摄影")>=0){
+			}else if(dic.getName().indexOf("制作宣发")>=0){
 				model.put("persons3", users);
 				model.put("perType3", type);
-			}else if(dic.getName().indexOf("后期")>=0){
-				model.put("persons4", users);
-				model.put("perType4", type);
 			}
 			model.put("personCount", personCount);
 			model.put("pageCount", pageCount);

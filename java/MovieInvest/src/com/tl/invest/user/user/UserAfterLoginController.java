@@ -12,7 +12,7 @@ import com.qq.connect.javabeans.AccessToken;
 import com.qq.connect.javabeans.qzone.UserInfoBean;
 import com.qq.connect.oauth.Oauth;
 import com.tl.common.WebUtil;
-import com.tl.kernel.web.BaseController;
+import com.tl.invest.workspace.Entry;
 
 /** 
  * @created 2014年11月13日 上午8:45:56 
@@ -20,7 +20,7 @@ import com.tl.kernel.web.BaseController;
  * 类说明 ： qq登录后
  */
 @SuppressWarnings({"rawtypes", "unchecked"})
-public class UserAfterLoginController extends BaseController {
+public class UserAfterLoginController extends Entry {
 	private UserManager manager = null;
 	public UserManager getManager() {
 		return manager;
@@ -30,7 +30,9 @@ public class UserAfterLoginController extends BaseController {
 		this.manager = manager;
 	}
 
-	protected void handle(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception {
+	@Override
+	protected void setOtherData(HttpServletRequest request,
+			HttpServletResponse response, Map model) throws Exception {
 		String action = request.getParameter("a");
 		if("qqAfterLogin".equals(action)){//qq登录后处理
 			qqAfterLogin(request, response, model);
@@ -62,14 +64,14 @@ public class UserAfterLoginController extends BaseController {
 					User user = manager.getUserByQQ(openID);
 					model.put("openID", openID);
 					if(user != null){//已做过关联用户信息，直接跳转到网站首页
-						String viewName = WebUtil.getRoot(request) + "/user/userSetting";
+						String viewName = WebUtil.getRoot(request) + "/project/List.do?mainType=2";
 						model.put("nickName", user.getPerNickName());
 						model.put("@VIEWNAME@", viewName);
 					} else {
 						UserInfo qzoneUserInfo = new UserInfo(accessToken, openID);
 						UserInfoBean userInfoBean = qzoneUserInfo.getUserInfo();
 						if (userInfoBean.getRet() == 0) {// 获取到了qq登录的用户信息
-							String viewName = WebUtil.getRoot(request) + "/user/userRegisterApi"; //跳转到qq关联用户账户的界面
+							String viewName = WebUtil.getRoot(request) + "/userout/userLoginRel"; //跳转到qq关联用户账户的界面
 							model.put("nickName", userInfoBean.getNickname());
 							model.put("@VIEWNAME@", viewName);
 						} else {

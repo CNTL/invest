@@ -419,4 +419,19 @@ public class UserManager {
 		}
 		return user;
 	}
+	/** 
+	* @author  leijj 
+	* 功能： 是否已实名认证
+	* @param userID
+	* @param db
+	* @return
+	* @throws TLException 
+	*/ 
+	public boolean isRelAuth(int userID,DBSession db) throws TLException{
+		String sql = "SELECT COUNT(0) FROM user u, user_bankcard ub WHERE u.id = ub.userID AND u.id=?";
+		Object[] params = new Object[]{userID};
+		int num =  getSqlCount(sql,params,db);
+		if(num > 0) return true;
+		return false;
+	}
 }
