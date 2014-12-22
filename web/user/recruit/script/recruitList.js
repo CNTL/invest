@@ -26,16 +26,6 @@ var jobList = {
 	queryHot : function(curPage){
 		jobList.query("../user/recruit.do?a=queryHot&curPage=" + curPage + "&typeFlag=" + typeFlag);
 	},
-	queryMore : function(){
-		var queryType = $("#queryType").val();
-		var curPage = $("#curPage").val();
-		curPage = parseInt(curPage, 10) + 1;
-		if(queryType=='queryNew'){
-			jobList.queryNew(curPage);
-		} else if(queryType=='queryHot'){
-			jobList.queryHot(curPage);
-		}
-	},
 	query : function(url){
 		$.ajax({
 	        type:"GET", //请求方式  
@@ -153,11 +143,13 @@ var jobList = {
 		$("#main").html("");
 		if(obj.id=='queryNew'){
 			$("#queryType").val('queryNew');
-			window.location.href = "../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3";
+			var pageUrl = "../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3";
+			window.location.href = pageUrl;
 			//jobList.queryNew(0);
 		} else if(obj.id=='queryHot'){
 			$("#queryType").val('queryHot');
-			window.location.href = "../recruit/ListMain.do?a=queryHot&recruitType=view&mainType=3";
+			var pageUrl = "../recruit/ListMain.do?a=queryHot&recruitType=view&mainType=3";
+			window.location.href = pageUrl;
 			//jobList.queryHot(0);
 		}
 		jobList.setClass(obj);

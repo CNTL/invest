@@ -1,12 +1,6 @@
 $(document).ready(function () {
 	//初始化
 	relAuth.init();
-	/*$("#organizationBtn").click(function() {
-		relAuth.ajaxFileUpload("organization");
-    });
-	$("#orgBusinessLicenseBtn").click(function() {
-		relAuth.ajaxFileUpload("orgBusinessLicense");
-    });*/
 	relAuth.initUploadify("uploadify","queueItemCount","organization","uploadErrorMsg",true,relAuth.imgUploaded);
 	relAuth.initUploadify("uploadify1","queueItemCount1","orgBusinessLicense","uploadErrorMsg1",true,relAuth.imgUploaded1);
 	$("#form").validationEngine({

@@ -125,6 +125,7 @@ var rootPath = "<%=com.tl.common.WebUtil.getRoot(request) %>";
 <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
 <script type="text/javascript" charset="utf-8" src="../ueditor/lang/zh-cn/zh-cn.js"></script>
 <script type="text/javascript" src="../js/plugin/uploadify-3.2.1/jquery.uploadify.js"></script>
+<script type="text/javascript" src="../js/utils.js"></script>
 <script type="text/javascript" src="../static/ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="../user/recruit/script/recruitEdit.js"></script>
 </body>

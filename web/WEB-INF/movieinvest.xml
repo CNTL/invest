@@ -106,6 +106,9 @@
 	<bean id="user.PeopleMain" class="com.tl.invest.user.user.PeopleMainController">
 		<property name="viewName"><value>user/user/peopleMain</value></property>
 	</bean>
+	<bean id="user.PeopleMoreMain" class="com.tl.invest.user.user.PeopleMainController">
+		<property name="viewName"><value>user/user/peopleMoreMain</value></property>
+	</bean>
 	<bean id="user.People" class="com.tl.invest.user.user.PeopleController">
 		<property name="viewName"><value>user/user/people</value></property>
 	</bean>
@@ -246,6 +249,7 @@
 				
 				<!-- 用户管理 -->
 				<prop key="/user/PeopleMain.do">user.PeopleMain</prop>
+				<prop key="/user/PeopleMoreMain.do">user.PeopleMoreMain</prop>
 				<prop key="/user/People.do">user.People</prop>
 				<prop key="/user/BasicInfo.do">user.BasicInfo</prop>
 				<prop key="/user/HeadImg.do">user.HeadImg</prop>
@@ -271,7 +275,7 @@
 				<prop key="/user/userlogin.do">user.Login</prop>
 				<prop key="/user/user.do">user.User</prop>
 				<prop key="/user/userFetch.do">user.UserFetch</prop>
-				<prop key="/user/afterlogin.do">user.afterlogin</prop>
+				<prop key="/user/afterloginMain.do">user.afterlogin</prop>
 				<prop key="/user/logout.do">user.Logout</prop>
 				<prop key="/user/loginMain.do">user.LoginMain</prop>
 				<prop key="/user/registerMain.do">user.RegisterMain</prop>

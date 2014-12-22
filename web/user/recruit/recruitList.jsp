@@ -127,17 +127,34 @@
             </div>
 		</c:forEach>
          <div class="clear"></div>
-         <div class="more">
-         	<a href="#">查看更多</a>
-         	<input type="hidden" id="queryType" name="queryType" value="queryNew" />
-            <input type="hidden" id="total" name="total" value="" />
-			<input type="hidden" id="curPage" name="curPage" value="" />
-			<input type="hidden" id="pageCount" name="pageCount" value="" />
-			<input type="hidden" id="length" name="length" value="" />
-			<input type="hidden" id="userName" name="userName" value="" />
-         </div>
      </div>
     <div class="clear"></div>
+    <c:choose>
+		<c:when test="${more eq '1'}">
+			<div class="pager">
+				<span class="count" title="总记录数"><c:out value="${msg.total }"/> 条</span>
+				<c:choose>
+					<c:when test="${msg.curPage==1}"><a href="javascript:void();" class="prev">上一页</a></c:when>
+					<c:otherwise><a href="../recruit/ListMain.do?a=<c:out value="${queryType}"/>&more=1&recruitType=view&mainType=3&curPage=<c:out value="${msg.curPage-1}"/>" class="prev">上一页</a></c:otherwise>
+				</c:choose>
+				<c:forEach var="x" begin="${msg.pageBegin}" end="${msg.pageEnd}">
+					<c:choose>
+						<c:when test="${msg.curPage==x}"><a href="javascript:void();" class="current"><c:out value="${x}"/></a></c:when>
+						<c:otherwise><a href="../recruit/ListMain.do?a=<c:out value="${queryType}"/>&more=1&recruitType=view&mainType=3&curPage=<c:out value="${x}"/>"><c:out value="${x}"/></a></c:otherwise>
+					</c:choose>
+				</c:forEach>
+				<c:choose>
+					<c:when test="${msg.curPage==msg.pageCount}"><a href="javascript:void();" class="prev">下一页</a></c:when>
+					<c:otherwise><a href="../recruit/ListMain.do?a=<c:out value="${queryType}"/>&more=1&recruitType=view&mainType=3&curPage=<c:out value="${msg.curPage+1}"/>" class="prev">下一页</a></c:otherwise>
+				</c:choose>
+			</div>
+		</c:when>
+		<c:otherwise>
+			<div class="more">
+	         	<a href="../recruit/ListMain.do?a=queryNew&more=1&recruitType=view&mainType=3">查看更多</a>
+	         </div>
+		</c:otherwise>
+	</c:choose>
 </div>
 <!-- script -->
 <%@include file="../inc/script.inc"%>

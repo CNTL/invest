@@ -90,7 +90,7 @@ var jobEdit = {
 		$("#uploadErrorMsg").val("");
 	},
 	initUploadify : function(el,countCtrl,imgCtrl,errorCtrl,auto,successInvok){
-		var sessionid= "";//getCookie("JSESSIONID");
+		var sessionid= getCookie("JSESSIONID");
 		$("#"+el).uploadify({
 			scriptAccess:'always',
 			auto:auto,

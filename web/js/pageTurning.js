@@ -30,7 +30,7 @@ var self = {
 	refresh4Page : function(currentpage, url) {
 		if(url != null && url.length > 0) pageUrl = url + "&curPage=" + currentpage;
 		else if(pageUrl != null && pageUrl.length > 0) pageUrl += "&curPage=" + currentpage; 
-		location.href = pageUrl;
+		window.location.href = pageUrl;
 	},
 	//修改一个元素的Text
 	_setText : function(name, value){
