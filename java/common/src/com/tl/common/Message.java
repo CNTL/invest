@@ -11,6 +11,8 @@ public class Message {
 	private int curPage;
 	private int pageCount;
 	private int length;
+	private int pageBegin;
+	private int pageEnd;
 	private String userName;
 	private List messages;
 	public int getTotal() {
@@ -48,5 +50,40 @@ public class Message {
 	}
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+	
+	public int getPageBegin() {
+		return pageBegin;
+	}
+	public void setPageBegin(int pageBegin) {
+		this.pageBegin = pageBegin;
+	}
+	public int getPageEnd() {
+		return pageEnd;
+	}
+	public void setPageEnd(int pageEnd) {
+		this.pageEnd = pageEnd;
+	}
+	public int getPageBegin(int page) {
+		int begin = page;
+		
+		for (int i=1;i<=4;i++) {
+			if(begin == 1){
+				break;
+			}
+			begin = begin - i;
+		}
+		return begin;
+	}
+	
+	public int getPageEnd(int page,int pageCount) {
+		int end = page;
+		for (int i=1;i<=4;i++) {
+			if(end==pageCount){
+				break;
+			}
+			end = end + 1;
+		}
+		return end;
 	}
 }
