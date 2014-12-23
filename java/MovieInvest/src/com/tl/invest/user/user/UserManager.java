@@ -131,9 +131,9 @@ public class UserManager {
         return null;
 	}
 	public int getPersonsCount(int type,DBSession db) throws TLException{
-		String sql = "select count(0) from invest_user left JOIN sys_dictionary on sys_dictionary.dic_id=invest_user.perJob";
+		String sql = "select count(0) from user left JOIN sys_dictionary on sys_dictionary.dic_id=user.perJob";
 		//sql += " left JOIN `user` on `user`.id=invest_project.proj_userID";
-		sql += " where invest_user.type=0 invest_user.perJob=?";
+		sql += " where user.type=0 and user.perJob=?";
 		Object[] params = new Object[]{type};
 		return getSqlCount(sql,params,db);
 	}

@@ -54,9 +54,10 @@ public class UserLoginController extends BaseController
 		} else if("authCode".equals(action)){//绘制验证码
 			authCode(request, response);
 		} else if("qqLogin".equals(action)){//用户通过qq登录
+			putRedirectURL(request);
 			response.sendRedirect(new Oauth().getAuthorizeURL(request));
-		} else if("xlWeiboLogin".equals(action)){//用户通过新浪微博登录
-			xlWeiboLogin(request, response);
+		} else if("sinaWeibo".equals(action)){//用户通过新浪微博登录
+			sinaWeibo(request, response);
 		} else if("findPwd".equals(action)){//找回密码（第一步，输入邮箱时按照注册邮箱跳转到）
 			findPwd(request, response, model);
 		} else if("resetPwd".equals(action)){//找回密码（第一步，输入邮箱时按照注册邮箱跳转到）
@@ -161,6 +162,7 @@ public class UserLoginController extends BaseController
 	* @throws Exception 
 	*/ 
 	protected void login(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		putRedirectURL(request);
 		String usercode = get(request, "usercode");
 		String password = get(request,"password");
 		User user = manager.login(usercode,password);
@@ -179,16 +181,18 @@ public class UserLoginController extends BaseController
 	* @param response
 	* @throws Exception 
 	*/ 
-	protected void xlWeiboLogin(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		String usercode = get(request, "usercode");
-		String password = get(request,"password");
-		User user = manager.login(usercode,password);
-		if(user!=null){
-			JSONObject jsonArray = JSONObject.fromObject(user);
-			output(jsonArray.toString(), response);
-		}
-		else {
-			output("", response);
+	protected void sinaWeibo(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		putRedirectURL(request);
+		response.sendRedirect(new Oauth().getAuthorizeURL(request));
+		request.getSession().setAttribute("type", "sinaWeibo");
+		weibo4j.Oauth oauth = new weibo4j.Oauth();
+	    String accessURL = oauth.authorize("code","","");
+	
+		if(accessURL!=null){
+			response.sendRedirect(accessURL);
+			return;
+		}else{
+			System.out.println("(sinawb)requestToken为空,出错!");
 		}
 	}
 	protected void authCode(HttpServletRequest request, HttpServletResponse response) throws Exception{
@@ -290,5 +294,13 @@ public class UserLoginController extends BaseController
 		//output(jsonArray.toString(), response);
 		model.put("user", user);
 		model.put("@VIEWNAME@", WebUtil.getRoot(request) + "user/noSession/findPwdStep3.jsp");
+	}
+	
+	private void putRedirectURL(HttpServletRequest request){
+		String redirectURL = request.getParameter("redirectURL");
+		//放入session中，以便登录成功后，可以跳转到主页或者是其他页面
+		request.getSession(true).setAttribute("redirectURL", redirectURL);
+		String state = request.getParameter("state");
+		request.getSession().setAttribute("state", state);
 	}
 }

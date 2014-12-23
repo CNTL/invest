@@ -32,6 +32,7 @@ public class User {
 	private String province;
 	private String city;
 	private String perJob;
+	private String perJobName;
 	private String perPhone;
 	private String orgShortname;
 	private String orgFullname;
@@ -242,6 +243,14 @@ public class User {
 
 	public void setCity(String city) {
 		this.city = city;
+	}
+
+	public String getPerJobName() {
+		return perJobName;
+	}
+
+	public void setPerJobName(String perJobName) {
+		this.perJobName = perJobName;
 	}
 
 	public String getPerJob() {
