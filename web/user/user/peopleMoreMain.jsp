@@ -39,21 +39,9 @@
     <div class="project_list">
         <div class="block1">
             <div class="top">
-                <h2>导演</h2>
-                <!-- <div class="cate">
-                    <a href="#">制片人</a><span>|</span>
-                    <a href="#">纸片主任</a><span>|</span>
-                    <a href="#">统筹</a><span>|</span>
-                    <a href="#">监制</a><span>|</span>
-                    <a href="#">策划</a><span>|</span>
-                    <a href="#">编剧</a><span></span>
-                    <a href="#">更多 &gt;&gt;</a>
-                </div> -->
-                <div class="cate">
-                    <a href="#">更多 &gt;&gt;</a>
-                </div>
+                <h2><c:out value="${perName}"/></h2>
             </div>
-            <c:forEach var="person" varStatus="status" items="${persons1}">
+            <c:forEach var="person" varStatus="status" items="${persons}">
 				<c:choose>
 					<c:when test="${status.index%4==0}"><div class="box box_last"></c:when>
 					<c:otherwise> <div class="box"></c:otherwise>
@@ -61,16 +49,17 @@
 					<div class="box_top"></div>
 	                <div class="box_main people">
 	                    <div class="pic">
-	                    	<a href="Project.do?id=<c:out value="${person.id}"/>">
+	                    	<a href="../user/PeopleDetailMain.do?a=detail&id=<c:out value="${person.id}"/>">
 								<c:choose>
-									<c:when test="${person.head==''}"><img src="../static/image/temp/pic2.png" /></c:when>
+									<c:when test="${person.head=='' || person.head == null}"><img src="../static/image/temp/pic2.png" /></c:when>
 									<c:otherwise><img src="../<c:out value="${person.head}"/>" /></c:otherwise>
 								</c:choose>
 	                      	</a>
+	                      	<span>影人</span>
 	                    </div>
 	                    <div class="title">
 	                        <a href="#"><c:out value="${person.name}"/></a>
-	                        <span>导演</span>
+	                        <span><c:out value="${perName}"/></span>
 	                    </div>
 	                    <div class="desc">
 	                        <c:out value="${person.intro}"/>

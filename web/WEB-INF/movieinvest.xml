@@ -53,8 +53,14 @@
 	<bean id="user.LoginMain" class="com.tl.invest.user.user.UserLoginMainController">
 		<property name="viewName"><value>userout/userLogin</value></property>
 	</bean>
+	<bean id="user.LoginRelMain" class="com.tl.invest.user.user.UserLoginMainController">
+		<property name="viewName"><value>userout/userLoginRel</value></property>
+	</bean>
 	<bean id="user.RegisterMain" class="com.tl.invest.user.user.UserRegisterMainController">
 		<property name="viewName"><value>userout/userRegister</value></property>
+	</bean>
+	<bean id="user.RegisterRelMain" class="com.tl.invest.user.user.UserRegisterMainController">
+		<property name="viewName"><value>userout/userRegisterRel</value></property>
 	</bean>
 	<!--项目-->
 	<bean id="project.Service" class="com.tl.invest.proj.service.ProjectService" />
@@ -110,7 +116,7 @@
 		<property name="viewName"><value>user/user/peopleMoreMain</value></property>
 	</bean>
 	<bean id="user.People" class="com.tl.invest.user.user.PeopleController">
-		<property name="viewName"><value>user/user/people</value></property>
+		<property name="viewName"><value>user/user/peopleDetail</value></property>
 	</bean>
 	<bean id="user.BasicInfo" class="com.tl.invest.user.user.UserMainController">
 		<property name="viewName"><value>user/user/userBasicInfo</value></property>
@@ -126,6 +132,18 @@
 	</bean>
 	<bean id="user.RelAuth" class="com.tl.invest.user.user.UserMainController">
 		<property name="viewName"><value>user/user/userRelAuth</value></property>
+	</bean>
+	<bean id="user.PhotoGroupMain" class="com.tl.invest.user.user.PeopleController">
+		<property name="viewName"><value>user/photo/photoGroupList</value></property>
+	</bean>
+	<bean id="user.PhotoMain" class="com.tl.invest.user.user.PeopleController">
+		<property name="viewName"><value>user/photo/photoList</value></property>
+	</bean>
+	<bean id="user.VideoGroupMain" class="com.tl.invest.user.user.PeopleController">
+		<property name="viewName"><value>user/video/videoGroupList</value></property>
+	</bean>
+	<bean id="user.VideoMain" class="com.tl.invest.user.user.PeopleController">
+		<property name="viewName"><value>user/video/videoList</value></property>
 	</bean>
 	<bean id="user.PhotoGroupMa" class="com.tl.invest.user.user.UserMainController">
 		<property name="viewName"><value>user/photo/photoGroupList</value></property>
@@ -250,7 +268,7 @@
 				<!-- 用户管理 -->
 				<prop key="/user/PeopleMain.do">user.PeopleMain</prop>
 				<prop key="/user/PeopleMoreMain.do">user.PeopleMoreMain</prop>
-				<prop key="/user/People.do">user.People</prop>
+				<prop key="/user/PeopleDetailMain.do">user.People</prop>
 				<prop key="/user/BasicInfo.do">user.BasicInfo</prop>
 				<prop key="/user/HeadImg.do">user.HeadImg</prop>
 				<prop key="/user/Intro.do">user.Intro</prop>
@@ -260,6 +278,10 @@
 				<prop key="/user/PhotoMa.do">user.PhotoMa</prop>
 				<prop key="/user/VideoGroupMa.do">user.VideoGroupMa</prop>
 				<prop key="/user/VideoMa.do">user.VideoMa</prop>
+				<prop key="/user/PhotoGroupMain.do">user.PhotoGroupMain</prop>
+				<prop key="/user/PhotoMain.do">user.PhotoMain</prop>
+				<prop key="/user/VideoGroupMain.do">user.VideoGroupMain</prop>
+				<prop key="/user/VideoMain.do">user.VideoMain</prop>
 				<prop key="/user/MsgMa.do">user.MsgMa</prop>
 				<prop key="/user/MsgDetailMa.do">user.MsgDetailMa</prop>
 				

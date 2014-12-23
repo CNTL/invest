@@ -35,161 +35,61 @@
 	<div class="banner">
         <img src="../static/image/banner3.png" />
     </div>
-
     <div class="project_list">
-        <div class="block1">
+	   	<c:forEach var="data" varStatus="status1" items="${datas}">
+	   	<div class="block1">
+            <a class="left" href="#"></a>
+            <a class="right" href="#"></a>
             <div class="top">
-                <h2>演员</h2>
-                <!-- <div class="cate">
-                    <a href="#">制片人</a><span>|</span>
-                    <a href="#">纸片主任</a><span>|</span>
-                    <a href="#">统筹</a><span>|</span>
-                    <a href="#">监制</a><span>|</span>
-                    <a href="#">策划</a><span>|</span>
-                    <a href="#">编剧</a><span></span>
-                    <a href="#">更多 &gt;&gt;</a>
-                </div> -->
+                <h2><c:out value="${data.perName}"/></h2>
                 <div class="cate">
-                    <a href="../user/PeopleMoreMain.do?type=<c:out value="${perType1}"/>">更多 &gt;&gt;</a>
+                    <a href="../user/PeopleMoreMain.do?type=<c:out value="${data.perType}"/>">更多 &gt;&gt;</a>
                 </div>
             </div>
-            <c:forEach var="person" varStatus="status" items="${persons1}">
-				<c:choose>
-					<c:when test="${status.index%4==0}"><div class="box box_last"></c:when>
-					<c:otherwise> <div class="box"></c:otherwise>
-				</c:choose>
-					<div class="box_top"></div>
-	                <div class="box_main people">
-	                    <div class="pic">
-	                    	<a href="Project.do?id=<c:out value="${person.id}"/>">
-								<c:choose>
-									<c:when test="${person.head=='' || person.head == null}"><img src="../static/image/temp/pic2.png" /></c:when>
-									<c:otherwise><img src="../<c:out value="${person.head}"/>" /></c:otherwise>
-								</c:choose>
-	                      	</a>
-	                    </div>
-	                    <div class="title">
-	                        <a href="#"><c:out value="${person.name}"/></a>
-	                        <span>演员</span>
-	                    </div>
-	                    <div class="desc">
-	                        <c:out value="${person.intro}"/>
-	                    </div>
-	                    <div class="tool">
-	                        <a href="#" class="share">分享</a>
-	                        <a href="#" class="view"></a>
-	                    </div>
-	                </div>
-	                <div class="box_bottom"></div>
-				</div>
-			</c:forEach>
-            <div class="clear"></div>
-        </div>
-        
-        
-        <div class="block2">
-            <div class="wrap">
-	            <div class="top">
-	                <h2>前期拍摄</h2>
-	                <div class="cate">
-	                    <a href="../user/PeopleMoreMain.do?type=<c:out value="${perType2}"/>">更多 &gt;&gt;</a>
-	                </div>
-	                <!-- <div class="cate">
-	                    <a href="#">制片人</a><span>|</span>
-	                    <a href="#">纸片主任</a><span>|</span>
-	                    <a href="#">统筹</a><span>|</span>
-	                    <a href="#">监制</a><span>|</span>
-	                    <a href="#">策划</a><span>|</span>
-	                    <a href="#">编剧</a><span></span>
-	                    <a href="#">更多 &gt;&gt;</a>
-	                </div> -->
-	            </div>
-	            <c:forEach var="person" varStatus="status" items="${persons2}">
-					<c:choose>
-						<c:when test="${status.index%4==0}"><div class="box box_last"></c:when>
-						<c:otherwise> <div class="box"></c:otherwise>
-					</c:choose>
-						<div class="box_top"></div>
-		                <div class="box_main people">
-		                    <div class="pic">
-		                    	<a href="Project.do?id=<c:out value="${person.id}"/>">
-									<c:choose>
-										<c:when test="${person.head=='' || person.head == null}"><img src="../static/image/temp/pic2.png" /></c:when>
-										<c:otherwise><img src="../<c:out value="${person.head}"/>" /></c:otherwise>
-									</c:choose>
-		                      	</a>
-		                    </div>
-		                    <div class="title">
-		                        <a href="#"><c:out value="${person.name}"/></a>
-		                        <span>前期拍摄</span>
-		                    </div>
-		                    <div class="desc">
-		                        <c:out value="${person.intro}"/>
-		                    </div>
-		                    <div class="tool">
-		                        <a href="#" class="share">分享</a>
-		                        <a href="#" class="view"></a>
-		                    </div>
-		                </div>
-		                <div class="box_bottom"></div>
-					</div>
-				</c:forEach>
-	            <div class="clear"></div>
-        	</div>
-        </div>
-        
-        
-        <div class="block1">
-            <div class="top">
-                <h2>制作宣发</h2>
-                <div class="cate">
-                    <a href="../user/PeopleMoreMain.do?type=<c:out value="${perType3}"/>">更多 &gt;&gt;</a>
+            <div class="people_scroll">
+                <div class="wrapper">
+                    <div class="slide">
+                    	<c:forEach var="person" varStatus="status" items="${data.persons}">
+                    	<c:choose>
+							<c:when test="${status.index%4==0}"><div class="box box_last"></c:when>
+							<c:otherwise> <div class="box"></c:otherwise>
+						</c:choose>
+                            <div class="box_top"></div>
+                            <div class="box_main project">
+                                <div class="pic">
+			                    	<a href="../user/PeopleDetailMain.do?a=detail&id=<c:out value="${person.id}"/>">
+										<c:choose>
+											<c:when test="${person.head=='' || person.head == null}"><img src="../static/image/temp/pic2.png" /></c:when>
+											<c:otherwise><img src="../<c:out value="${person.head}"/>" /></c:otherwise>
+										</c:choose>
+			                      	</a>
+			                      	<span>影人</span>
+			                    </div>
+                                <div>
+                                	<div class="title">
+				                        <a href="#"><c:out value="${person.name}"/></a>
+				                        <%-- <span><c:out value="${data.perName}"/></span> --%>
+				                    </div>
+				                    <div class="desc">
+				                        <c:out value="${person.intro}"/>
+				                    </div>
+                                </div>
+                                <div class="tool">
+                                    <a href="#" class="share">分享</a>
+                                    <a href="#" class="view"></a>
+                                </div>
+                            </div>
+                            <div class="box_bottom"></div>
+                        </div>
+                        </c:forEach>
+                    </div>
                 </div>
-                <!-- <div class="cate">
-                    <a href="#">制片人</a><span>|</span>
-                    <a href="#">纸片主任</a><span>|</span>
-                    <a href="#">统筹</a><span>|</span>
-                    <a href="#">监制</a><span>|</span>
-                    <a href="#">策划</a><span>|</span>
-                    <a href="#">编剧</a><span></span>
-                    <a href="#">更多 &gt;&gt;</a>
-                </div> -->
             </div>
-            <c:forEach var="person" varStatus="status" items="${persons3}">
-				<c:choose>
-					<c:when test="${status.index%4==0}"><div class="box box_last"></c:when>
-					<c:otherwise> <div class="box"></c:otherwise>
-				</c:choose>
-					<div class="box_top"></div>
-	                <div class="box_main people">
-	                    <div class="pic">
-	                    	<a href="../user/user.do?a=detail&id=<c:out value="${person.id}"/>">
-								<c:choose>
-									<c:when test="${person.head=='' || person.head == null}"><img src="../static/image/temp/pic2.png" /></c:when>
-									<c:otherwise><img src="../<c:out value="${person.head}"/>" /></c:otherwise>
-								</c:choose>
-	                      	</a>
-	                    </div>
-	                    <div class="title">
-	                        <a href="#"><c:out value="${person.name}"/></a>
-	                        <span>制作宣发</span>
-	                    </div>
-	                    <div class="desc">
-	                        <c:out value="${person.intro}"/>
-	                    </div>
-	                    <div class="tool">
-	                        <a href="#" class="share">分享</a>
-	                        <a href="#" class="view"></a>
-	                    </div>
-	                </div>
-	                <div class="box_bottom"></div>
-				</div>
-			</c:forEach>
-            <div class="clear"></div>
         </div>
-        
-        </div>
-	</div>
+        <div class="shadow"></div>
+        </c:forEach>
+       </div>
+
 	<%@include file="../../inc/footer.inc"%>
 </body>
 </html>
