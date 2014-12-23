@@ -86,12 +86,12 @@
          <div class="box_top"></div>
          <div class="box_main project">
              <div class="pic">
-                 <a href="Project.do?id=<c:out value="${proj.id}"/>"><img src="<c:out value="${proj.imgUrl}"/>" /></a>
+                 <a href="project/Project.do?id=<c:out value="${proj.id}"/>"><img src="<c:out value="${proj.imgUrl}"/>" /></a>
                  <span>项目</span>
              </div>
              <div>
                  <div class="title">
-                     <a href="Project.do?id=<c:out value="${proj.id}"/>"><c:out value="${proj.name}"/></a>
+                     <a href="project/Project.do?id=<c:out value="${proj.id}"/>"><c:out value="${proj.name}"/></a>
                  </div>
                  <div class="desc">
                      <c:out escapeXml="false" value="${proj.summary}"/>
@@ -197,7 +197,7 @@
 			<div class="box_top"></div>
 			<div class="box_main job">
 				<div class="pic">
-					<a href="#"><img src="static/image/temp/pic2.png" /></a> <span>影聘</span>
+					<a href="#"><img src="<c:out value="${recuit.jobPictrue}"/>" /></a> <span>影聘</span>
 				</div>
 				<div>
 					<div class="title">
@@ -207,12 +207,12 @@
 						<ul>
 							<li><c:out value="${recuit.salary}"/></li>
 							<li><c:out value="${recuit.city}"/></li>
-							<li><c:out value="${recuit.resumeNum}"/>个月</li>
+							<li><c:out value="${recuit.days}"/>天</li>
 						</ul>
 					</div>
 					<div class="desc">
 						<span><c:out value="${recuit.jobIntro}"/></span><br />
-						发布时间：<c:out value="${recuit.time}"/><br /> 已投递简历人数：2人
+						发布时间：<c:out value="${recuit.pubTime}"/><br /> 已投递简历人数：<c:out value="${recuit.resumeNum}"/>人
 					</div>
 				</div>
 				<div class="tool">
@@ -228,7 +228,7 @@
 		<div class="box_top"></div>
 		<div class="box_main people">
 			<div class="pic">
-				<img src="static/image/temp/pic2.png" /> <span>影人</span>
+				<img src="<c:out value="${user.head}"/>" /> <span>影人</span>
 			</div>
 			<div class="title">
 				<a href="#"><c:out value="${user.name}"/></a> <span><c:out value="${user.perJob}"/></span>
