@@ -8,6 +8,7 @@
 	<link rel="stylesheet" type="text/css" href="./uploadify/uploadify.css"/>
 	<script type="text/javascript" src="../../js/jquery/jquery.min.js"></script>
 	<script type="text/javascript" src="./uploadify/swfupload.cookies.js"></script>
+	<script type="text/javascript" src="../../js/utils.js"></script>
 	<script type="text/javascript" src="./uploadify/jquery.uploadify-3.1.js"></script>
 	<script type="text/JavaScript">
 	$(function(){
@@ -15,10 +16,11 @@
 	});
 	function upload(){
 		var groupID = $("#groupID").val();
+		var sessionid = getCookie("JSESSIONID");
         $("#uploadify").uploadify({
             height: 30,
             swf: '../../user/photo/uploadify/uploadify.swf',
-            uploader: '../../user/photo.do?a=uploadPhoto&groupID=' + groupID,
+            uploader: '../../user/photo.do?a=uploadPhoto&groupID=' + groupID + '&jsessionid=' + sessionid,
             width: 120,
             cancelImg: 'uploadify-cancel.png',
             buttonText: '选择图片',

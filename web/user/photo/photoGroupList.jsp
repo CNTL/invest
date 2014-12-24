@@ -19,6 +19,7 @@
 			<%@include file="../inc/userHeader.inc"%>
 			<div class="setting-detail">
 				<input type="button" id="createGroup" name="createGroup" class="add" value="创建图册"/>
+				<input type="hidden" id="opType" name="opType" value="edit"/>
 				<br>
 				<div class="project_list">
         			<div class="block1">
@@ -40,6 +41,7 @@ var rootPath = "<%=com.tl.common.WebUtil.getRoot(request) %>";
 </script>
 <script type="text/javascript" src="../js/layer/layer.min.js"></script>
 <script type="text/javascript" src="../js/plugin/uploadify-3.2.1/jquery.uploadify.js"></script>
+<script type="text/javascript" src="../js/utils.js"></script>
 <script type="text/javascript" src="../user/photo/script/photoGroupList.js"></script>
 </body>
 </html>

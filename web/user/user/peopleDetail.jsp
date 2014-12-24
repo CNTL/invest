@@ -42,7 +42,7 @@
             </div>
             <div class="clear"></div>
             <ul class="nav">
-                <li><a href="#" class="current">个人简介</a></li>
+                <li><a href="../user/PeopleDetailMain.do?a=detail&id=${user.id}" class="current">个人简介</a></li>
                 <li><a href="../user/PhotoGroupMain.do?a=photo&id=${user.id}">相册</a></li>
                 <li><a href="../user/VideoGroupMain.do?a=video&id=${user.id}">视频</a></li>
             </ul>

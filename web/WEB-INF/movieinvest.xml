@@ -134,16 +134,16 @@
 		<property name="viewName"><value>user/user/userRelAuth</value></property>
 	</bean>
 	<bean id="user.PhotoGroupMain" class="com.tl.invest.user.user.PeopleController">
-		<property name="viewName"><value>user/photo/photoGroupList</value></property>
+		<property name="viewName"><value>user/photo/photoViewGroupList</value></property>
 	</bean>
 	<bean id="user.PhotoMain" class="com.tl.invest.user.user.PeopleController">
-		<property name="viewName"><value>user/photo/photoList</value></property>
+		<property name="viewName"><value>user/photo/photoViewList</value></property>
 	</bean>
 	<bean id="user.VideoGroupMain" class="com.tl.invest.user.user.PeopleController">
-		<property name="viewName"><value>user/video/videoGroupList</value></property>
+		<property name="viewName"><value>user/video/videoViewGroupList</value></property>
 	</bean>
 	<bean id="user.VideoMain" class="com.tl.invest.user.user.PeopleController">
-		<property name="viewName"><value>user/video/videoList</value></property>
+		<property name="viewName"><value>user/video/videoViewList</value></property>
 	</bean>
 	<bean id="user.PhotoGroupMa" class="com.tl.invest.user.user.UserMainController">
 		<property name="viewName"><value>user/photo/photoGroupList</value></property>

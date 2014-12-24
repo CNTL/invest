@@ -6,10 +6,6 @@ var videoGroup = {
 	init : function(){
 		$("#createGroup").click(videoGroup.addGroup);
 		videoGroup.initGroup();
-		//videoGroup.initUploadify("uploadify","queueItemCount","groupPhoto","uploadErrorMsg",true,videoGroup.imgUploaded);
-		//$("#createGroup").click(videoGroup.openMsg);
-		//videoGroup.closeMsg();
-		//videoGroup.initGroup();
 	},
 	addGroup : function(){
 		videoGroup.openGroupFormDlg("新增", videoGroup.getVideoFormHtml(""));
@@ -144,18 +140,6 @@ var videoGroup = {
     		$(".block1").append(html);
     		
     	});
-    	//$("#photos div:has(a)").addClass("thumb pt");
-    	/*
-    	$.each(result, function(i,item){
-    		var myimg = new Image();
-    		myimg.src = $("#photos a img").get(i).src;
-    		//根据图片的比例（水平或者竖直），添加不同的样式
-    		if(myimg.width > myimg.height)
-    			$("#photos div:has(a):eq("+i+")").addClass("ls");
-    		else
-    			$("#photos div:has(a):eq("+i+")").addClass("pt");
-    	});
-    	*/
 	},
 	clickThumb : function(id){
 		window.location.href="../user/VideoMa.do?infoType=7&groupID=" + id; 

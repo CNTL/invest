@@ -19,6 +19,7 @@
 			<div class="setting-detail">
 				<input id="uploadPhoto" name="uploadPhoto" type="button" class="add" value="上传照片"/>
 				<br>
+				<input type="hidden" id="opType" name="opType" value="edit"/>
 				<input id="groupID" name="groupID" type="hidden" value="<c:out value="${groupID}"/>"/>
 				<div class="project_list">
         			<div class="block1">
@@ -47,6 +48,7 @@
 var rootPath = "<%=com.tl.common.WebUtil.getRoot(request) %>";
 </script>
 <script type="text/javascript" src="../js/layer/layer.min.js"></script>
+<script type="text/javascript" src="../js/utils.js"></script>
 <script type="text/javascript" src="../user/photo/script/photoList.js"></script>
 </body>
 </html>

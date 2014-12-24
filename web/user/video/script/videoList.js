@@ -5,8 +5,6 @@ var pagei = null;
 var myVideo = {
 	init : function(){
 		$("#createVideo").click(myVideo.addVideo);
-		//$("#btnOK").click(myVideo.btnOK);
-		//$("#btnCancel").click(myVideo.btnCancel);
 		myVideo.initVideo();
 	},
 	initVideo : function(){
@@ -34,20 +32,30 @@ var myVideo = {
     			photo = "../user/photo/img/framels_hover.jpg";
     		if(video == null || photo.length == 0)
     			video = "";
-    		//添加图片的缩略图
-    		$("#photos").append($("<div><a target='_black' href='" + video + "'><img name='photoList' id='" + id + "' src='"+photo+"'></a></div>"));
     		
-    	});
-    	$("#photos div:has(a)").addClass("thumb");
-    	
-    	$.each(result, function(i,item){
-    		var myimg = new Image();
-    		myimg.src = $("#photos a img").get(i).src;
-    		//根据图片的比例（水平或者竖直），添加不同的样式
-    		if(myimg.width > myimg.height)
-    			$("#photos div:has(a):eq("+i+")").addClass("ls");
-    		else
-    			$("#photos div:has(a):eq("+i+")").addClass("pt");
+    		//添加图片的缩略图
+    		var prefix = '<div class="box" style="width:220px;">';
+    		var suffix = '';
+    		if((i + 1)%3==0) {
+    			prefix = '<div class="box box_last" style="width:220px;">'; 
+    			suffix = '<div class="clear"></div>';
+    		}
+    		var html = prefix +
+				            '<div class="people" style="border: 1px #858585 solid;">' +
+				                '<div class="pic" style="width:100%;">' +
+				                    '<a href="'+video+'" target="_black"><img name="photoList" id="' + id + '" src="'+rootPath+photo+'"></a>' +
+				                '</div>' +
+				                '<div class="title">' +
+				                    '<a href="'+video+'" target="_black" style="text-decoration:none;">'+item.name+'</a>' +
+				                '</div>' +
+				                '<div class="tool">' +
+				                	'<a class="view" title="编辑" style="cursor:pointer;background: url(../img/edit.png) no-repeat left;padding-left: 20px;" onclick="myVideo.editVideo('+id+');"></a>' +
+			                        '<a class="share" title="删除" style="cursor:pointer;background: url(../img/delete.png) no-repeat left;padding-left: 20px;" onclick="myVideo.delVideo('+id+');"></a>' +
+			                    '</div>' +
+				            '</div>' +
+				        '</div>' + suffix;
+    		$(".block1").append(html);
+    		
     	});
 	},
 	saveVideo : function(){
@@ -112,13 +120,13 @@ var myVideo = {
 					        '<label for="name">视频名称：</label>' +
 					        '<input type="hidden" id="id" name="id" value=""/>' +
 					        '<input type="hidden" id="groupID" name="groupID" value=""/>' +
-					        '<input type="text" id="videoName" name="videoName" class="form-control validate[maxSize[255],required]" value=""/>' +
+					        '<input type="text" id="name" name="name" class="form-control validate[maxSize[255],required]" value=""/>' +
 					    '</div>' +
 					    '<div class="input">' +
 							'<table style="width:100%;">' +
 								'<tr>' +
 									'<td valign="top" style="width:90px;">' +
-										'<label>相册头图：</label>' +
+										'<label>视频图片：</label>' +
 									'</td>' +
 									'<td>' +
 										'<input type="file" name="uploadify" id="uploadify" />' +
@@ -134,7 +142,7 @@ var myVideo = {
 						'<div style="margin-top:100px;">' +
 						    '<div class="input">' +
 						        '<label for="video">视频地址：</label>' +
-						        '<input type="text" id="videoUrl" name="videoUrl" class="form-control validate[maxSize[255],required]" value=""/>' +
+						        '<input type="text" id="video" name="video" class="form-control validate[maxSize[255],required]" value=""/>' +
 						    '</div>' +
 						    '<div class="input">' +
 								'<label for="intro">视频描述：</label>' +
@@ -150,22 +158,20 @@ var myVideo = {
 		return html;
 	},
 	getVideoInfo : function(id){
-		var video = null;
 		var dataUrl = "../user/video.do?a=getVideoInfo&id="+id;
 		$.ajax({url: dataUrl, async:false, dataType:"json",
-			success: function(datas) {
-				if(data != null && data.length == 1){
-					$("#id").val(data[0].id);
-					$("#groupID").val(data[0].groupId);
-	    			$("#name").val(data[0].name);
-	    			$("#photo").val(data[0].photo);
-	    			$("#video").val(data[0].video);
-	    			$("#intro").val(data[0].intro);
+			success: function(data) {
+				if(data != null){
+					$("#id").val(data.id);
+					$("#groupID").val(data.groupId);
+	    			$("#name").val(data.name);
+	    			$("#photo").val(data.photo);
+	    			$("#video").val(data.video);
+	    			$("#intro").val(data.intro);
+	    			myVideo.imgUploaded();
 	    		}
 			}
 		});
-		
-		return video;
 	},
 	openVideoFormDlg : function(title,html){
 		pagei = $.layer({
@@ -183,8 +189,6 @@ var myVideo = {
 			}
 		});
 		myVideo.initUploadify("uploadify","queueItemCount","photo","uploadErrorMsg",true,myVideo.imgUploaded);
-		//$("#btnCancel").click(video.btnCancel);
-		//$("#btnOK").click(video.btnOK);
 		$("#form").validationEngine("attach",{
 			autoPositionUpdate:false,//是否自动调整提示层的位置
 			scroll:false,//屏幕自动滚动到第一个验证不通过的位置
@@ -228,7 +232,7 @@ var myVideo = {
 		$("#uploadErrorMsg").val("");
 	},
 	initUploadify : function(el,countCtrl,imgCtrl,errorCtrl,auto,successInvok){
-		var sessionid= "";//getCookie("JSESSIONID");
+		var sessionid= getCookie("JSESSIONID");
 		$("#"+el).uploadify({
 			scriptAccess:'always',
 			auto:auto,
