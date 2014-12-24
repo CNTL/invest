@@ -47,8 +47,15 @@ public class UserVideoController extends BaseController {
 		}
 	}
 	private void getVideoGroups(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
-		List<UserVideogroup> videogroups = userVideoManager.getVideoGroups(user.getId());
+		int userID = getInt(request, "userID");
+		if(userID == 0){
+			User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
+			if(user != null){
+				userID = user.getId();
+			}
+		}
+		if(userID == 0) return;
+		List<UserVideogroup> videogroups = userVideoManager.getVideoGroups(userID);
 		JSONArray jsonArray = JSONArray.fromObject(videogroups);  
 		output(jsonArray.toString(), response);
 	}
@@ -112,8 +119,8 @@ public class UserVideoController extends BaseController {
 	*/ 
 	private void getVideoInfo(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception{
 		int id = ParamInitUtils.getInt(request.getParameter("id"));
-		UserVideogroup videogroup = userVideoManager.getGroupInfo(id);
-		JSONObject json = JSONObject.fromObject(videogroup);
+		UserVideo video = userVideoManager.getVideoInfo(id);
+		JSONObject json = JSONObject.fromObject(video);
 		output(json.toString(), response);
 	}
 	/** 

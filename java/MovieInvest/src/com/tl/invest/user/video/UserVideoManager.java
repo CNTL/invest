@@ -97,10 +97,10 @@ public class UserVideoManager {
 		List<UserVideo> list = DAOHelper.find(querySql.toString());
         return list;
 	}
-	public UserVideogroup getVideoInfo(int id) throws Exception{
+	public UserVideo getVideoInfo(int id) throws Exception{
 		List list = DAOHelper.find("select a from com.tl.invest.user.video.UserVideo as a where a.id = :id", 
         		new Integer(id), Hibernate.INTEGER);
-        return (UserVideogroup) list.get(0);
+        return (UserVideo) list.get(0);
 	}
 	public int saveVideo(UserVideo userVideo) throws Exception{
 		int id = 0;

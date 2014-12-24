@@ -41,23 +41,32 @@ import com.tl.sys.common.SessionHelper;
 public class PhotoController extends BaseController {
 	protected void handle(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception {
 		String action = request.getParameter("a");
-		if("getPhotos".equals(action)){//获取用户列表
+		if("getPhotos".equals(action)){
+			//获取某图册下的所有图片
 			getPhotos(request, response);
-		} else if("getPhotoGroups".equals(action)){//获取用户列表
+		} else if("getPhotoGroups".equals(action)){
+			//获取用户图册
 			getPhotoGroups(request, response);
-		} else if("savePhotoGroup".equals(action)){//保存相册信息
+		} else if("savePhotoGroup".equals(action)){
+			//保存图册信息
 			savePhotoGroup(request, response);
-		} else if("uploadPhoto".equals(action)){//上传相册头图
+		} else if("uploadPhoto".equals(action)){
+			//上传图片
 			uploadPhoto(request, response);
-		} else if("getGroupInfo".equals(action)){//获取图册组图信息
+		} else if("getGroupInfo".equals(action)){
+			//获取图册组图信息
 			getGroupInfo(request, response, model);
-		} else if("delPhotoGroup".equals(action)){//删除图册组图信息
+		} else if("delPhotoGroup".equals(action)){
+			//删除图册组图信息
 			delPhotoGroup(request, response, model);
-		} else if("updatePhoto".equals(action)){//删除图片信息
+		} else if("updatePhoto".equals(action)){
+			//修改图片信息
 			updatePhoto(request, response, model);
-		} else if("delPhoto".equals(action)){//删除图片信息
+		} else if("delPhoto".equals(action)){
+			//删除图片信息
 			delPhoto(request, response, model);
-		} else if("getPhotoInfo".equals(action)){//删除图片信息
+		} else if("getPhotoInfo".equals(action)){
+			//获取图片信息
 			getPhotoInfo(request, response, model);
 		} 
 	}
@@ -76,8 +85,15 @@ public class PhotoController extends BaseController {
 	}
 	
 	private void getPhotoGroups(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
-		List<UserPhotogroup> photogroups = photoManager.getPhotoGroups(user.getId());
+		int userID = getInt(request, "userID");
+		if(userID == 0){
+			User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
+			if(user != null){
+				userID = user.getId();
+			}
+		}
+		if(userID == 0) return;
+		List<UserPhotogroup> photogroups = photoManager.getPhotoGroups(userID);
 		JSONArray jsonArray = JSONArray.fromObject(photogroups);  
 		output(jsonArray.toString(), response);
 	}

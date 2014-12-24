@@ -31,7 +31,7 @@ public class PeopleController extends UserMainController {
 		
 	}
 	
-	public void detail(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception {
+	private void detail(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception {
 		int id = getInt(request, "id", 0);
 		if(id > 0){
 			UserManager userManager = (UserManager)Context.getBean(UserManager.class);
@@ -47,11 +47,17 @@ public class PeopleController extends UserMainController {
 			}
 		}
 	}
-	public void video(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception {
-		
+	private void video(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception {
+		//继承实现
+		int groupID = getInt(request, "groupID");
+		model.put("groupID", groupID);
+		this.detail(request, response, model);
 	}
-	public void photo(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception {
-		
+	private void photo(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception {
+		//继承实现
+		int groupID = getInt(request, "groupID");
+		model.put("groupID", groupID);
+		this.detail(request, response, model);
 	}
 	@Override
 	protected void setMetaData(HttpServletRequest request,Map model) {
