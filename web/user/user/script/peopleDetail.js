@@ -1,9 +1,13 @@
-$(document).ready(function () {
-	msg.getMyMsgs();
-});
 var pagei = null;
 var msg = {
 	addMsg : function(){
+		var userID = $("#userID").val();
+		alert(userID)
+		if(userID == null || userID.length == 0 || userID == 0){
+			setCookie("loginCurrentUrl", window.location.href);
+			window.location.href = "../user/loginMain.do"
+			return;
+		}
 		msg.openFormDlg("发消息", msg.getFormHtml(""));
 	},
 	openFormDlg : function(title,html){
@@ -21,6 +25,9 @@ var msg = {
 				html: html //此处放了防止html被解析，用了\转义，实际使用时可去掉
 			}
 		});
+		$("#msgToDiv").html($("#userName").val());
+		$("#msgTo").val($("#userName").val());
+		$("#msgTo_ID").val($("#userID").val());
 		$("#form").validationEngine("attach",{
 			autoPositionUpdate:false,//是否自动调整提示层的位置
 			scroll:false,//屏幕自动滚动到第一个验证不通过的位置
@@ -89,71 +96,5 @@ var msg = {
 				$.messager.alert('发送失败！',errorThrown);
 			}
 	    });
-	},
-	getMyMsgs : function(){
-		var msg_toID = $("#msg_toID").val();
-		$.ajax({
-	        type:"GET", //请求方式  
-	        url:"../user/msg.do?a=getTalkList&msg_toID=" + msg_toID, //请求路径  
-	        cache: false,
-	        dataType: 'JSON',   //返回值类型  
-	        success:function(result){
-	        	if(!result||typeof Object.prototype.toString.call(result) == "[object Array]"||!result.length)return;
-				var l = result.length;
-				for (var j = 0; j < l; j++) {
-					var userMsg = result[j];
-					msg.setMsgs(userMsg);
-				}
-	        } ,
-			error:function (XMLHttpRequest, textStatus, errorThrown) {
-				$.messager.alert('获取消息失败！',errorThrown);
-			}
-	    });
-	},
-	setMsgs : function(userMsg){
-		$("#userName").html(userMsg.msg_to);
-		/**
-		 * 根据接收用户组装消息列表 
-		 **/
-		$("#msgDiv .userHead").attr("href", "../user/PeopleDetailMain.do?a=detail&id=" + userMsg.msg_fromID);
-		var userHead = userMsg.userHead;
-		if(userHead == null || userHead.length == 0)
-			userHead = "static/image/temp/avatar1.png";
-		$("#msgDiv .userHead img").attr("src", rootPath + userHead);
-		$("#msgDiv .msgFrom").attr("href", "../user/PeopleDetailMain.do?a=detail&id=" + userMsg.msg_fromID);
-		$("#msgDiv .msgFrom").html(userMsg.msg_to);
-		$("#msgDiv .gray").html(userMsg.createTime);
-		$("#msgDiv .msg-cnt").html(userMsg.msg_content);
-		$("#msgDiv .Js-reply").attr("onclick", "msg.replyMsg(" + userMsg.msg_toID + ",'" + userMsg.msg_to + "')");
-		$("#msgDiv .delMsg").attr("onclick", "msg.delMsg(" + userMsg.id + ")");
-		$("#msgList").append($("#msgDiv ul").html());
-	},
-	delMsg : function(id){
-		$.ajax({
-	        type:"GET", //请求方式  
-	        url:"../user/msg.do?a=delMsg&id=" + id, //请求路径  
-	        cache: false,
-	        dataType: 'TEXT',   //返回值类型  
-	        success:function(data){
-	        	if(data != null && data == 'ok'){
-	    			$.messager.confirm('消息', '删除成功！', function(r){
-	    				if (r){
-	    					window.location.href=window.location.href; 
-	    				}
-	    			});
-	    		} else {
-	    			$.messager.alert('删除失败！',data);
-	    		}
-	        } ,
-			error:function (XMLHttpRequest, textStatus, errorThrown) {
-				$.messager.alert('删除失败！',errorThrown);
-			}
-	    });
-	},
-	replyMsg : function(msg_toID, msg_to){
-		msg.addMsg();
-		$("#msgToDiv").html(msg_to);
-		$("#msgTo").val(msg_to);
-		$("#msgTo_ID").val(msg_toID);
 	}
 }

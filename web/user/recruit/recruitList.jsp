@@ -41,7 +41,7 @@
     </c:forEach>
     </div>
     <div class="main">
-         <a class="add" onclick="jobList.addRecruit();">+ 发布职位</a>
+         <a class="add" style="cursor:pointer" onclick="jobList.addRecruit();">+ 发布职位</a>
 		 <div class="top">
              <a href="#">公司</a>
              <a href="#">简历管理</a>
@@ -86,10 +86,18 @@
                 <div class="box_top"></div>
                 <div class="box_main job">
                     <div class="pic">
-                        <c:choose>
-							<c:when test="${msg.jobPictrue==''}"><img src="../static/image/temp/pic2.png" /></c:when>
-							<c:otherwise><img src="../<c:out value="${msg.jobPictrue}"/>" /></c:otherwise>
+                    	<c:choose>
+							<c:when test="${recruitType=='edit'}">
+								<a href="../user/recruit.do?a=edit&mainType=3&id=${msg.id}">${msg.jobName}
+							</c:when>
+							<c:otherwise>
+								<a href="../user/recruit.do?a=detail&mainType=3&id=${msg.id}">${msg.jobName}
+							</c:otherwise>
 						</c:choose>
+	                        <c:choose>
+								<c:when test="${msg.jobPictrue==''}"><img src="../static/image/temp/pic2.png" /></c:when>
+								<c:otherwise><img src="../<c:out value="${msg.jobPictrue}"/>" /></c:otherwise>
+							</c:choose>
 						</a>
                         <span>影聘</span>
                     </div>

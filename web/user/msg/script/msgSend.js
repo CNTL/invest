@@ -1,36 +1,73 @@
 $(document).ready(function () {
-	//autoCompleteInit();
-	msg.init();
-	$("#form").validationEngine({
-		autoPositionUpdate:true,
-		onValidationComplete:function(from,r){
-			if (r){
-				window.onbeforeunload = null;
-				msg.sendMsg();
-			}
-		}
-	});
+	msg.getMyMsgs();
 });
+var pagei = null;
 var msg = {
-	init : function(){
-		msg.closeMsg();
-		$("#btnSend").click(msg.openMsg);
-		$("#msgTo").blur(msg.toBlur);//会员，带输入提示
-		msg.getMyMsgs();
+	addMsg : function(){
+		msg.openFormDlg("发消息", msg.getFormHtml(""));
 	},
-	openMsg : function(){
-		$('#w').window('open');
+	openFormDlg : function(title,html){
+		pagei = $.layer({
+			type: 1,   //0-4的选择,
+			title: title,
+			maxmin: false,
+			border: [10, 0.2, '#000'],
+			closeBtn: [1, true],
+			shadeClose: false,
+			fix: true,
+			zIndex : 1000,
+			area: ['800px', '450px'],
+			page: {
+				html: html //此处放了防止html被解析，用了\转义，实际使用时可去掉
+			}
+		});
+		$("#form").validationEngine("attach",{
+			autoPositionUpdate:false,//是否自动调整提示层的位置
+			scroll:false,//屏幕自动滚动到第一个验证不通过的位置
+			focusFirstField:false,//验证未通过时，是否给第一个不通过的控件获取焦点
+			promptPosition:"topRight" //验证提示信息的位置，可设置为："topRight", "bottomLeft", "centerRight", "bottomRight" 
+		});
 	},
-	closeMsg : function(){
-		$("#msgTo").val("");
-		$("#msgTo_ID").val("");
-		$('#w').window('close');
+	getFormHtml : function(id){
+		var html = '<div class="job_add">' +
+						'<form class="setting-form" id="form" name="form" action="">' +
+							'<div class="input">' +
+						        '<label for="msgTo">收件人：</label>' + '<span id="msgToDiv"></span>' + 
+						        '<input type="hidden" id="msgTo" name="msgTo" value=""/>' +
+						        '<input type="hidden" id="msgTo_ID" name="msgTo_ID" value="" />' +
+						    '</div>' +
+						    '<br>' +
+						    '<div class="input">' +
+						    	'<label for="msgContent">内容：</label>' +
+								'<textarea  id="msgContent" name="msgContent" class="validate[required]" style="width:500px;height:200px;" placeholder="消息内容"></textarea>' +
+							'</div>' +
+						    '<div class="btn">' +
+						    	'<input style="width:100px; margin-left: 100px;" id="btnOK" name="btnOK" value="提交" type="button" onclick="msg.btnOK();"/>' +
+						    	'<input style="width:100px; margin-left: 150px;" id="btnCancel" name="btnCancel" value="取消" type="button" onclick="msg.btnCancel();"/>' +
+						    '</div>' +
+						'</form>' +
+					'</div>';
+		return html;
+	},
+	btnOK : function(){
+		if(!msg._validForm()) return;
+		msg.sendMsg();
+		if(pagei != null)
+			layer.close(pagei);
+	},
+	btnCancel: function(){
+		if(pagei != null)
+			layer.close(pagei);
+	},
+	_validForm : function() {
+		if (!$("#form").validationEngine("validate")){
+			//验证提示
+			$("#form").validationEngine({scroll:false});
+			return false;
+		}
+		return true;
 	},
 	sendMsg : function(){
-		var msgTo_ID = $('#msgTo_ID').val();
-		var msgTo = $('#msgTo').val();
-		var msgContent = $('#msgContent').val();
-		var params = "&msgTo_ID=" + msgTo_ID + "&msgTo=" + encodeURIComponent(msgTo) + "&msgContent=" + encodeURIComponent(msgContent); 
 		//alert(params)
 		$.ajax({
 	        type:"POST", //请求方式  
@@ -85,10 +122,12 @@ var msg = {
 		/**
 		 * 根据接收用户组装消息列表 
 		 **/
-		$("#msgDiv .userHead").attr("href", "/home/id-" + userMsg.msg_toID);
-		$("#msgDiv .userHead img").attr("src", rootPath + userMsg.userHead);
-		
-		$("#msgDiv .msgTo").attr("href", "/home/id-" + userMsg.msg_toID);
+		$("#msgDiv .userHead").attr("href", "../user/PeopleDetailMain.do?a=detail&id=" + userMsg.msg_toID);
+		var userHead = userMsg.userHead;
+		if(userHead == null || userHead.length == 0)
+			userHead = "static/image/temp/avatar1.png";
+		$("#msgDiv .userHead img").attr("src", rootPath + userHead);
+		$("#msgDiv .msgTo").attr("href", "../user/PeopleDetailMain.do?a=detail&id=" + userMsg.msg_toID);
 		$("#msgDiv .msgTo").html(userMsg.msg_to);
 		$("#msgDiv .gray").html(userMsg.createTime);
 		$("#msgDiv .msg-cnt").html(userMsg.msg_content);
@@ -122,8 +161,9 @@ var msg = {
 	    });
 	},
 	replyMsg : function(msg_toID,msg_to){
+		msg.addMsg();
+		$("#msgToDiv").html(msg_to);
 		$("#msgTo").val(msg_to);
 		$("#msgTo_ID").val(msg_toID);
-		msg.openMsg();
 	}
 }

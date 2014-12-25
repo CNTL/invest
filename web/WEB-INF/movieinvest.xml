@@ -214,6 +214,8 @@
 	</bean>
 	<bean id="user.Recruit" class="com.tl.invest.user.recruit.RecruitController">
 	</bean>
+	<bean id="user.RecruitResume" class="com.tl.invest.user.recruit.RecruitResumeController">
+	</bean>
 	<bean id="user.UserResume" class="com.tl.invest.user.resume.UserResumeController">
 	</bean>
 	<bean id="user.UserVideo" class="com.tl.invest.user.video.UserVideoController">
@@ -308,6 +310,7 @@
 				<prop key="/recruit/DetailMain.do">recruit.Detail</prop>
 				<prop key="/recruit/Edit.do">recruit.Edit</prop>
 				<prop key="/user/recruit.do">user.Recruit</prop>
+				<prop key="/user/recruitResume.do">user.RecruitResume</prop>
 				<!-- 简历管理 -->
 				<prop key="/resume/myresume.do">resume.myresume</prop>
 				<prop key="/resume/myrecruit.do">resume.myrecruit</prop>

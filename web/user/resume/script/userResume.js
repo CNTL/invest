@@ -28,7 +28,7 @@ var resume = {
 	        cache: false,
 	        dataType: 'JSON',   //返回值类型  
 	        success:function(data){
-	    		if(data != null && data.length == 1){
+	    		if(data != null && data!='' && data.length == 1){
 	    			$("#name").val(data[0].name);
 	    			$("#content").val(data[0].content);
 	    			$("#contentTxt").val(data[0].content);

@@ -15,9 +15,9 @@
     <div class="job_view">
         <div class="main">
             <div class="title">
-            	<input type="hidden" id="id" name="id" value="${recruit.id}"/>
+            	<input type="hidden" id="recruitID" name="recruitID" value="${recruit.id}"/>
                 <span>${recruit.jobName}</span>
-                <a href="#" class="favorite"></a>
+                <a style="cursor:pointer" class="favorite" onclick="resume.collect();"></a>
             </div>
             <div class="desc">
                 <ul>
@@ -39,7 +39,7 @@
             <div class="tip">
                 你还没有简历呢，你可以完善在线简历，也可上传附件简历直接投递
             </div>
-            <a href="#" class="submit" onclick="collectResume();">投递简历</a>
+            <a style="cursor:pointer" class="submit" id="btnSend">投递简历</a>
         </div>
         <div class="sider">
             <div class="desc">
@@ -104,24 +104,9 @@
         </div>
         <div class="clear"></div>
     </div>
-    <div id="w" class="easyui-window" data-options="title:'发送简历',iconCls:'icon-save'" style="width:200px;height:200px;display:none;">
-	<div class="easyui-layout" data-options="fit:true">
-		<div class="job_add">
-			<form class="setting-form" id="form" name="form" action="">
-				<input type="hidden" id="recruitID" name="recruitID" value="${recruit.id}"/>
-				<div class="input">
-			        <label for="resumeID">选择简历：</label>
-			        <select id="resumeID" name="resumeID" class="custform-select validate[maxSize[255],required]" style="width:400px">
-			        </select>
-			    </div>
-			</form>
-		</div>
-		<div data-options="region:'south',border:false" style="text-align:right;padding:5px 0;">
-			<a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" href="javascript:void(0)" onclick="resume.post();">发送</a>
-			<a class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" href="javascript:void(0)" onclick="resume.closeMsg()">取消</a>
-		</div>
-	</div>
-</div>
+    <div style="display:none">
+    	<input type="text" id="location" name="location" value="${user.location}"/>
+    </div>
 	<!-- script -->
 	<%@include file="../inc/script.inc"%>
 	<!-- script -->
@@ -131,6 +116,7 @@
 	<!-- footer -->
 	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=6eea93095ae93db2c77be9ac910ff311"></script>
 	<script type="text/javascript" src="../js/layer/layer.min.js"></script>
+	<script type="text/javascript" src="../js/utils.js"></script>
 	<script type="text/javascript" src="../user/recruit/script/recruitDetail.js"></script>
 </body>
 </html>

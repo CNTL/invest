@@ -26,35 +26,6 @@
 	</div>
 </div>
 <div>
-	<!-- 
-	<div style="width:150px" align="left" class="form-actions">
-	    <button id="btnSend" type="button" class="btn pull-right">
-	       	<i onclick="">发送私信</i>
-	    </button>
-	</div>
-	 -->
-	<div id="w" class="easyui-window" data-options="title:'发送私信',iconCls:'icon-save'" style="width:500px;height:300px;">
-		<div class="easyui-layout" data-options="fit:true">
-			<div data-options="region:'center',border:false" style="padding:10px;background:#fff;border:1px solid #ccc;">
-				<form class="setting-form" id="form" name="form" action="">
-					<div class="form-group form-item">
-				        <label style="width:60px; float:left; margin-top:5px;">收件人：</label>
-				        <input type="text" id="msgTo" name="msgTo" value="" class="validate[maxSize[255],required] ac_input" url="../../user/userFetch.do?a=find" pair="true" auto-complete="true" autocomplete="off"/>
-				        <input type="hidden" id="msgTo_ID" name="msgTo_ID" value="" />
-				    </div>
-				    <br>
-				    <div class="form-group form-item">
-				    	<label style="width:60px; float:left; margin-top:5px;">内容：</label>
-						<textarea  id="msgContent" name="msgContent" class="validate[required] ac_input" style="width:300px;height:100px;" placeholder="消息内容"></textarea>
-					</div>
-				</form>
-			</div>
-			<div data-options="region:'south',border:false" style="text-align:right;padding:5px 0;">
-				<a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" href="javascript:void(0)" onclick="msg.sendMsg();">发送</a>
-				<a class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" href="javascript:void(0)" onclick="msg.closeMsg()">取消</a>
-			</div>
-		</div>
-	</div>
 	<div class="page tr"></div>
 	<div class="message-box">
 		<div id="message_all" class="message-item">
@@ -70,13 +41,13 @@
 		<ul>
 			<li class="talk-list">
 				<div class="talk-face">
-					<a class="userHead" href="/home/id-356405" target="_blank">
+					<a class="userHead">
 						<img src="">
 					</a>
 	            </div>
 	            <div class="msg-box">
 	               	<div class="user-name">
-	               		<a class="msgTo" href="/home/id-356405" target="_blank"></a>
+	               		<a class="msgTo"></a>
 	               		<span class="gray"></span>
 	               	</div>
 	               	<div class="msg-cnt"></div>
@@ -97,11 +68,10 @@
 <!-- footer -->
 <%@include file="../../inc/footer.inc"%>
 <!-- footer -->
-<script type="text/javascript" src="../js/plugin/jquery-autocomplete/jquery.autocomplete.min.js"></script>
 <script type="text/javascript">
 var rootPath = "<%=com.tl.common.WebUtil.getRoot(request) %>";
 </script>
-<script type="text/javascript" src="../common/autocomplete.js"></script>
+<script type="text/javascript" src="../js/layer/layer.min.js"></script>
 <script type="text/javascript" src="../user/msg/script/msgSend.js"></script>
 </body>
 </html>

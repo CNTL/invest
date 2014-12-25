@@ -1,6 +1,6 @@
 var map = new BMap.Map("allmap");
 $(document).ready(function(){
-	var location = '${user.location}';
+	var location = $("#location").val();
 	if(location != null && location != ""){
 		var myGeo = new BMap.Geocoder();
 		myGeo.getPoint(location, function(point){
@@ -12,6 +12,8 @@ $(document).ready(function(){
 		var myCity = new BMap.LocalCity();
 		myCity.get(myFun);
 	}
+	
+	resume.init();
 });
 function setMyPoint(lng,lat){
 	var point = new BMap.Point(lng,lat);
@@ -33,9 +35,21 @@ var resume = {
 			//resume.closeMsg();
 			$("#btnSend").click(resume.addResume);
 		},
+		isLogin : function(){
+			var isLogin = false; 
+			var userID = $("#userID").val();
+			if(userID == null || userID.length == 0 || userID == 0){
+				setCookie("loginCurrentUrl", window.location.href);
+				window.location.href = "../user/loginMain.do"
+			} else{
+				isLogin = true;
+			}
+			return isLogin;
+		},
 		addResume : function(){
-			resume.openFormDlg("投递简历", resume.getFormHtml(""));
-			resume.myResume();
+			var isLogin = resume.isLogin();
+			if(isLogin)
+				resume.openFormDlg("投递简历", resume.getFormHtml(""));
 		},
 		openFormDlg : function(title,html){
 			pagei = $.layer({
@@ -47,11 +61,12 @@ var resume = {
 				shadeClose: false,
 				fix: true,
 				zIndex : 1000,
-				area: ['800px', '500px'],
+				area: ['800px', '300px'],
 				page: {
 					html: html //此处放了防止html被解析，用了\转义，实际使用时可去掉
 				}
 			});
+			resume.myResume();
 			$("#form").validationEngine("attach",{
 				autoPositionUpdate:false,//是否自动调整提示层的位置
 				scroll:false,//屏幕自动滚动到第一个验证不通过的位置
@@ -60,7 +75,7 @@ var resume = {
 			});
 		},
 		getFormHtml : function(){
-			var id = $("#id").val();
+			var id = $("#recruitID").val();
 			var html = '<div class="job_add">' +
 							'<form class="setting-form" id="form" name="form" action="">' +
 								'<input type="hidden" id="recruitID" name="recruitID" value="' + id + '"/>' +
@@ -70,49 +85,44 @@ var resume = {
 							        '</select>' +
 							    '</div>' +
 							    '<div class="btn" style="margin-top:120px;">' +
-							    	'<input style="width:100px; margin-left: 100px;" id="btnOK" name="btnOK" value="提交" type="button" onclick="resume.isPost();"/>' +
+							    	'<input style="width:100px; margin-left: 100px;" id="btnOK" name="btnOK" value="提交" type="button" onclick="resume.btnOK();"/>' +
 							    	'<input style="width:100px; margin-left: 150px;" id="btnCancel" name="btnCancel" value="取消" type="button" onclick="resume.btnCancel();"/>' +
 							    '</div>' +
 							'</form>' +
 						'</div>';
 			return html;
 		},
+		btnOK : function(){
+			if(!resume._validForm()) return;
+			resume.post();
+			if(pagei != null)
+				layer.close(pagei);
+		},
 		btnCancel: function(){
 			if(pagei != null)
 				layer.close(pagei);
 		},
-		isCollect : function(){//是否已收藏该职位
-			var isCollect = false;
-			$.ajax({
-		        type:"GET", //请求方式  
-		        url:"../user/recruit.do?a=isCollect", //请求路径  
-		        cache: false,
-		        dataType: 'TEXT',   //返回值类型  
-		        success:function(data){
-		    		if(data != null && data == true){
-		    			$.messager.alert('消息','您已收藏该职位！');
-		    			isCollect = true;
-		    		} else {
-		    			isCollect = false;
-		    		}
-		        } ,
-				error:function (XMLHttpRequest, textStatus, errorThrown) {
-					   alert("error="+errorThrown);
-				}
-		    });
-			return isCollect;
+		_validForm : function() {
+			if (!$("#form").validationEngine("validate")){
+				//验证提示
+				$("#form").validationEngine({scroll:false});
+				return false;
+			}
+			return true;
 		},
 		collect : function(){//收藏该职位
-			var isCollect = resume.isCollect();
-			if(isCollect){//如果未收藏职位，执行收藏职位操作
+			var isLogin = resume.isLogin();
+			if(isLogin){
 				$.ajax({
 			        type:"GET", //请求方式  
-			        url:"../user/recruit.do?a=collect&recruitID=" + $("#recruitID").val(), //请求路径  
+			        url:"../user/recruitResume.do?a=collect&recruitID=" + $("#recruitID").val(), //请求路径  
 			        cache: false,
 			        dataType: 'TEXT',   //返回值类型  
 			        success:function(data){
-			    		if(data != null && data == true){
+			    		if(data != null && data == "ok"){
 			    			$.messager.alert('消息','收藏职位成功！');
+			    		}else{
+			    			$.messager.alert('消息', data);
 			    		}
 			        } ,
 					error:function (XMLHttpRequest, textStatus, errorThrown) {
@@ -121,36 +131,17 @@ var resume = {
 			    });
 			}
 		},
-		isPost : function(){//是否已投递简历
-			var isPost = false;
-			$.ajax({
-		        type:"GET", //请求方式  
-		        url:"../user/recruit.do?a=isPost", //请求路径  
-		        cache: false,
-		        dataType: 'TEXT',   //返回值类型  
-		        success:function(data){
-		    		if(data != null && data == true){
-		    			$.messager.alert('消息','该职位您已投递简历！');
-		    			isPost = true;
-		    		} else {
-		    			isPost = false;
-		    		}
-		        } ,
-				error:function (XMLHttpRequest, textStatus, errorThrown) {
-					   alert("error="+errorThrown);
-				}
-		    });
-			return isPost;
-		},
 		post : function(){//投递简历
 			$.ajax({
 		        type:"GET", //请求方式  
-		        url:"../user/recruit.do?a=post&recruitID=" + $("#recruitID").val() + "&resumeID=" + $("#resumeID").val(), //请求路径  
+		        url:"../user/recruitResume.do?a=post&recruitID=" + $("#recruitID").val() + "&resumeID=" + $("#resumeID").val(), //请求路径  
 		        cache: false,
 		        dataType: 'TEXT',   //返回值类型  
 		        success:function(data){
-		    		if(data != null && data == true){
+		        	if(data != null && data == "ok"){
 		    			$.messager.alert('消息','投递简历成功！');
+		    		}else{
+		    			$.messager.alert('消息', data);
 		    		}
 		        } ,
 				error:function (XMLHttpRequest, textStatus, errorThrown) {
@@ -161,7 +152,7 @@ var resume = {
 		myResume : function(){
 			$.ajax({
 		        type:"GET", //请求方式  
-		        url:"../user/resume.do?a=getMyResumes", //请求路径  
+		        url:"../user/resume.do?a=sendResumes", //请求路径  
 		        cache: false,
 		        dataType: 'JSON',   //返回值类型  
 		        success:function(result){
