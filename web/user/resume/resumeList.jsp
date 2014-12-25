@@ -37,12 +37,6 @@
         <tbody id='mytbody'>
         </tbody>
     </table>
-    <div class="pager">
-        <span class="count" title="总记录数">6 条</span>
-        <span class="prev">上一页</span>
-        <span class="current">1</span>
-        <a href="#" class="next">下一页</a>
-    </div>
 </div>
 <div>
 <input type="hidden" id="total" name="total" value="" />
@@ -51,24 +45,6 @@
 <input type="hidden" id="length" name="length" value="" />
 <input type="hidden" id="userName" name="userName" value="" />
 </div>
-<%-- 
-<div class="main clearfix">
-	<div class="setting wrap">
-			<%@include file="../inc/userHeader.inc"%>
-			<div class="setting-detail">
-				<div class="job_add">
-				    <div class="input">
-				    	<input type="button" style="width:100px" id="addResume" value="添加简历"/>
-				        <div id="main">
-				        </div>
-				    </div>
-				</div>
-			</div>
-		</div>
-	</div>
-	</div>
- --%>
-
 <!-- script -->
 <%@include file="../inc/script.inc"%>
 <!-- script -->

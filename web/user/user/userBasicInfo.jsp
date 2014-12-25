@@ -27,14 +27,6 @@
 					        <label for="perNickName">昵称：</label>
 					        <input class="form-control validate[maxSize[255]]" type="text" id="perNickName" name="perNickName" placeholder="昵称"/>
 					    </div>
-					    <div class="input">
-					        <label for="perPostAddr">邮寄地址：</label>
-					        <input class="form-control validate[maxSize[255]]" type="text" id="perPostAddr" name="perPostAddr" placeholder="邮寄地址"/>
-					    </div>
-					    <div class="input">
-					        <label for="perPostCode">邮编：</label>
-					        <input class="form-control validate[maxSize[255]]" type="text" id="perPostCode" name="perPostCode" placeholder="邮寄地址"/>
-					    </div>
 						<div class="input">
 							<label>个人简介：</label>
 							<textarea  id="intro" name="intro" style="width:400px;height:100px;" placeholder="个人简介"></textarea>

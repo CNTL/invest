@@ -30,7 +30,9 @@ var resumeList = {
 					
 					var html = '<tr><td><div class="comm">' + resume.name +
 					'</div><div class="date">' + resume.createTime +
-					'</div></td><td><a style="cursor:pointer" onclick="resumeList.modifyResume('+resume.id+');" class="red">修改</a><br />' +
+					'</div></td><td>'+
+					'<a style="cursor:pointer" onclick="resumeList.viewResume('+resume.id+');" class="red">预览</a><br />' +
+					'<a style="cursor:pointer" onclick="resumeList.modifyResume('+resume.id+');" class="red">修改</a><br />' +
 					'<a style="cursor:pointer" onclick="resumeList.deleteResume('+resume.id+');">删除</a></td></tr>';
 					$("#mytbody").append(html);
 				}
@@ -71,5 +73,9 @@ var resumeList = {
 	},
 	modifyResume : function(id){
 		window.location.replace("../resume/resumeEdit.do?infoType=1&id=" + id);
+	}
+	,
+	viewResume : function(id){
+		window.open("../resume/resumeDetail.do?infoType=1&id=" + id);
 	}
 }

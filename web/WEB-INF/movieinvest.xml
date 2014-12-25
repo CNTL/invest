@@ -201,11 +201,14 @@
 		<property name="viewName"><value>user/resume/resumeList</value></property>
 	</bean>
 	<bean id="resume.myrecruit" class="com.tl.invest.user.resume.ResumeMainController">
-		<property name="viewName"><value>user/resume/myRecruit</value></property>
+		<property name="viewName"><value>user/resume/recruitResume</value></property>
 	</bean>
 	<bean id="resume.recruitresume" class="com.tl.invest.user.resume.ResumeMainController">
 		<property name="viewName"><value>user/resume/recruitResume</value></property>
 	</bean>
+	<bean id="resume.resumeDetail" class="com.tl.invest.user.resume.ResumeMainController">
+		<property name="viewName"><value>user/resume/resumeDetail</value></property>
+	</bean>	
 	<bean id="resume.resumeEdit" class="com.tl.invest.user.resume.ResumeMainController">
 		<property name="viewName"><value>user/resume/resumeEdit</value></property>
 	</bean>		
@@ -316,6 +319,7 @@
 				<prop key="/resume/myrecruit.do">resume.myrecruit</prop>
 				<prop key="/resume/recruitresume.do">resume.recruitresume</prop>
 				<prop key="/resume/resumeEdit.do">resume.resumeEdit</prop>
+				<prop key="/resume/resumeDetail.do">resume.resumeDetail</prop>
 				<!-- 我的相册 -->
 				<prop key="/user/photo.do">user.Photo</prop>
 				<!-- 我的视频 -->

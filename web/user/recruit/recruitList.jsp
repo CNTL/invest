@@ -88,10 +88,10 @@
                     <div class="pic">
                     	<c:choose>
 							<c:when test="${recruitType=='edit'}">
-								<a href="../user/recruit.do?a=edit&mainType=3&id=${msg.id}">${msg.jobName}
+								<a href="../user/recruit.do?a=edit&mainType=3&id=${msg.id}">
 							</c:when>
 							<c:otherwise>
-								<a href="../user/recruit.do?a=detail&mainType=3&id=${msg.id}">${msg.jobName}
+								<a href="../user/recruit.do?a=detail&mainType=3&id=${msg.id}">
 							</c:otherwise>
 						</c:choose>
 	                        <c:choose>
