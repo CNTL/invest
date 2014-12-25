@@ -1,5 +1,6 @@
 package com.tl.invest.user.resume;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +17,7 @@ import com.tl.common.ResourceMgr;
 import com.tl.common.log.Log;
 import com.tl.db.DBSession;
 import com.tl.db.IResultSet;
+import com.tl.invest.user.recruit.UserRecruit;
 import com.tl.invest.user.user.User;
 import com.tl.invest.user.user.UserManager;
 import com.tl.kernel.constant.SysTableLibs;
@@ -23,13 +25,14 @@ import com.tl.kernel.context.Context;
 import com.tl.kernel.context.DAO;
 import com.tl.kernel.context.DAOHelper;
 import com.tl.kernel.context.TBID;
+import com.tl.kernel.context.TLException;
 
 /** 
  * @created 2014年11月2日 下午10:41:26 
  * @author  leijj
  * 类说明 ： 
  */
-@SuppressWarnings({ "deprecation", "resource", "rawtypes"})
+@SuppressWarnings({ "deprecation", "rawtypes"})
 public class UserResumeManager {
 	protected Log log = Context.getLog("invest");
 	/**
@@ -113,100 +116,6 @@ public class UserResumeManager {
 		}
 		return result;
 	}
-	/** 
-	* @author  leijj 
-	* 功能： 查询我收藏的职位或已投过简历的职位
-	* @param start 开始页码
-	* @param length 一页长度
-	* @param user 用户
-	* @param isPost 是否已投简历
-	* @return 
-	*/ 
-	public Message myRecruit(int start, int length, User user, boolean isPost){
-		int total = 0;
-		Message message = new Message();
-		List<Map<String, String>> result = new ArrayList<Map<String, String>>();
-		String rTablename = SysTableLibs.TB_USERRECRUIT.getTableCode();
-		String rrTablename = SysTableLibs.TB_USERRECRUITRESUME.getTableCode();
-		StringBuilder countSql = new StringBuilder("select count(r.id) as total from ").append(rTablename).append("  as r, ")
-				.append(rrTablename).append(" as rr where r.id=rr.recruitID and rr.userId=?");
-		
-		StringBuilder querySql = new StringBuilder("select r.* from ").append(rTablename).append("  as r, ")
-				.append(rrTablename).append(" as rr where r.id=rr.recruitID and rr.userId=?");
-		
-		if(isPost){
-			countSql.append(" and rr.isPostResume=1");
-			querySql.append(" and rr.isPostResume=1");
-		}
-		querySql.append( " ORDER BY rr.createtime DESC ");
-		DBSession conn = null;
-		IResultSet rs = null;
-		IResultSet numRs = null;
-		try {
-	    	conn = Context.getDBSession();
-	    	rs = conn.executeQuery(countSql.toString(), new Object[]{user.getId()});
-			while (rs.next()) {
-				total = rs.getInt("total");
-			}
-			//按数据库类型获得不同的查询个数限制语句
-	    	String sql = conn.getDialect().getLimitString(querySql.toString(), start, length);
-	    	rs = conn.executeQuery(sql, new Object[]{user.getId()});
-			while (rs.next()) {
-				Map<String, String> oneResult = assemble(user.getId(), rs);
-				result.add(oneResult);
-			}
-			int pageCount = (total/length == 0 ? total/length : (total/length + 1));
-			message.setCurPage(start + 1);
-			message.setLength(length);
-			message.setMessages(result);
-			message.setPageCount(pageCount);
-			message.setTotal(total);
-			message.setUserName(user.getName());
-		} catch (Exception e) {
-			log.error(e);
-		} finally {
-			ResourceMgr.closeQuietly(numRs);
-			ResourceMgr.closeQuietly(rs);
-			ResourceMgr.closeQuietly(conn);
-		}
-		return message;
-	}
-	private Map<String, String> assemble(int userID, IResultSet rs) throws Exception{
-		User user = userManager.getUserByID(userID);
-		Map<String, String> oneResult = new HashMap<String, String>();
-		
-		oneResult.put("id", ParamInitUtils.getString(rs.getString("id")));
-		oneResult.put("userId", ParamInitUtils.getString(rs.getString("userId")));
-		oneResult.put("userName", ParamInitUtils.getString(rs.getString("userName")));
-		oneResult.put("createTime", ParamInitUtils.getString(rs.getString("createTime")));
-		oneResult.put("company", user.getOrgFullname());
-		oneResult.put("city", user.getCity());
-		oneResult.put("jobName", ParamInitUtils.getString(rs.getString("jobName")));
-		oneResult.put("jobPictrue", ParamInitUtils.getString(rs.getString("jobPictrue")));
-		oneResult.put("jobCateId", ParamInitUtils.getString(rs.getString("jobCateId")));
-		oneResult.put("jobCate", ParamInitUtils.getString(rs.getString("jobCate")));
-		oneResult.put("company", ParamInitUtils.getString(rs.getString("")));
-		oneResult.put("linkman", ParamInitUtils.getString(rs.getString("linkman")));
-		oneResult.put("linkPhone", ParamInitUtils.getString(rs.getString("linkPhone")));
-		oneResult.put("linkEmail", ParamInitUtils.getString(rs.getString("linkEmail")));
-		oneResult.put("province", ParamInitUtils.getString(rs.getString("province")));
-		oneResult.put("city", ParamInitUtils.getString(rs.getString("city")));
-		oneResult.put("area", ParamInitUtils.getString(rs.getString("area")));
-		oneResult.put("salary", ParamInitUtils.getString(rs.getString("salary")));
-		oneResult.put("content", ParamInitUtils.getString(rs.getString("content")));
-		oneResult.put("address", ParamInitUtils.getString(rs.getString("address")));
-		oneResult.put("working", ParamInitUtils.getString(rs.getString("working")));
-		oneResult.put("eduReq", ParamInitUtils.getString(rs.getString("eduReq")));
-		oneResult.put("isFulltime", ParamInitUtils.getString(rs.getString("isFulltime")));
-		oneResult.put("jobAttract", ParamInitUtils.getString(rs.getString("jobAttract")));
-		oneResult.put("jobIntro", ParamInitUtils.getString(rs.getString("jobIntro")));
-		oneResult.put("createtime", ParamInitUtils.getString(rs.getString("createtime")));
-		oneResult.put("time", DateUtils.format(rs.getDate("createtime"), "yyyy-MM-dd hh:mm:ss"));
-		oneResult.put("isPub", ParamInitUtils.getString(rs.getString("isPub")));
-		oneResult.put("resumeNum", ParamInitUtils.getString(rs.getString("resumeNum")));
-		oneResult.put("days", ParamInitUtils.getString(rs.getString("days")));
-		return oneResult;
-	}
 	/**
 	 * 根据ID获取建立信息
 	 * 
@@ -224,20 +133,157 @@ public class UserResumeManager {
 		DAOHelper.delete("delete from com.tl.invest.user.resume.UserResume as resume where resume.id = :id", 
         		   new Integer(id), Hibernate.INTEGER);
 	}
-	private UserManager userManager = (UserManager)Context.getBean(UserManager.class);
-	/*public List<UserRecruit> myRecruit1(int start, int length, Integer userId, boolean isPost) throws Exception{
-		StringBuilder querySql = new StringBuilder("select a from com.tl.invest.user.recruit.UserRecruit as a")
-			.append(",com.tl.invest.user.recruit.UserRecruitresume as b where a.id=b.recruitID")
-			.append(" and a.userId=").append(userId);
-		if(isPost){
-			querySql.append(" and b.isPostResume=1");
-		}
-		querySql.append(" ORDER BY b.createtime DESC");
-		List list = DAOHelper.find(querySql.toString() , start, length);
-        if(list.size() > 0)
-            return list;
+	
+	/** 
+	* @author  leijj 
+	* 功能： 我收藏的职位
+	* @param curPage
+	* @param length
+	* @param userId
+	* @return
+	* @throws Exception 
+	*/ 
+	public Message getMyRecruits(int curPage, int length, Integer userId) throws Exception{
+		String sql = "SELECT rt.* FROM user_recruit rt,user_recruitresume rr WHERE rt.id=rr.recruitID and rr.userId=?";
+		Object[] params = new Object[]{userId};
+		List<UserRecruit> myRecruits =  getMyRecruits(sql, params, length, curPage, null);
+		int total = getMyRecruitsCount(userId, null);
+		return setMessage(myRecruits, curPage, length, total);
+	} 
+	public int getMyRecruitsCount(int userID,DBSession db) throws TLException{
+		String sql = "select count(rt.id) FROM user_recruit rt,user_recruitresume rr WHERE rt.id=rr.recruitID and rr.userId=?";
+		Object[] params = new Object[]{userID};
+		return getSqlCount(sql,params,db);
+	}
+	
+	/** 
+	* @author  leijj 
+	* 功能： 我已投递简历的职位
+	* @param curPage
+	* @param length
+	* @param userId
+	* @return
+	* @throws Exception 
+	*/ 
+	public Message getMyResumeRecruits(int curPage, int length, Integer userId) throws Exception{
+		String sql = "SELECT rt.* FROM user_recruit rt,user_recruitresume rr, user_resume rs WHERE rt.id=rr.recruitID AND rs.id=rr.resumeID and rr.userId=?";
+		Object[] params = new Object[]{userId};
+		List<UserRecruit> myRecruits =  getMyRecruits(sql, params, length, curPage, null);
+		int total = getMyResumeRecruitCount(userId, null);
+		return setMessage(myRecruits, curPage, length, total);
+	}
+	public int getMyResumeRecruitCount(int userID,DBSession db) throws Exception{
+		String sql = "SELECT COUNT(rt.id) FROM user_recruit rt,user_recruitresume rr, user_resume rs WHERE rt.id=rr.recruitID AND rs.id=rr.resumeID and rr.userId=?";
+		Object[] params = new Object[]{userID};
+		return getSqlCount(sql,params,db);
+	}
+	/** 
+	* @author  leijj 
+	* 功能： 组装翻页信息
+	* @param list
+	* @param curPage
+	* @param length
+	* @param total
+	* @return 
+	*/ 
+	public Message setMessage(List list, int curPage, int length, int total){
+		if(list != null && list.size() > 0){
+        	Message message = new Message();
+			int pageCount = total/length;
+			if(total % length >0) pageCount = pageCount + 1;
+			if(pageCount<=0) pageCount = 1;
+			
+			message.setCurPage(curPage);
+			message.setLength(length);
+			message.setMessages(list);
+			message.setPageCount(pageCount);
+			message.setTotal(total);
+			message.setPageBegin(message.getPageBegin(curPage));
+			message.setPageEnd(message.getPageEnd(curPage, pageCount));
+            return message;
+        }
         else
-            return null;
-        
-	}*/
+           return null;
+	}
+	
+	private List<UserRecruit> getMyRecruits(String sql, Object[] params, int pageSize, int page, DBSession db) throws TLException{
+		List<UserRecruit> list = new ArrayList<UserRecruit>();
+		IResultSet rs = null;
+		boolean dbIsCreated = false;
+		if(db==null){
+			dbIsCreated = true;
+			db= Context.getDBSession();
+		}
+		try {
+			sql = db.getDialect().getLimitString(sql, pageSize*(page-1), pageSize);
+			rs = db.executeQuery(sql, params);
+			while (rs.next()) {
+				list.add(readRecruitRS(rs));
+			}
+		} catch (SQLException e) {
+			throw new TLException(e);
+		} finally {
+			ResourceMgr.closeQuietly(rs);
+			if(dbIsCreated){
+				ResourceMgr.closeQuietly(db);
+			}
+		}
+		if (list.size() == 0) return null;
+		
+		return list;
+	}
+	private int getSqlCount(String sql,Object[] params,DBSession db) throws TLException{
+		int count =0;
+		boolean dbIsCreated = false;
+		if(db==null){
+			dbIsCreated = true;
+			db= Context.getDBSession();
+		}
+		IResultSet rs = null;
+		try{
+			//dbSession = Context.getDBSession();
+			rs = db.executeQuery(sql,params);
+			if(rs.next())
+				count = rs.getInt(1);
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}finally{
+			ResourceMgr.closeQuietly(rs);
+			if(dbIsCreated){
+				ResourceMgr.closeQuietly(db);
+			}
+		}
+		return count;
+	}
+	private UserRecruit readRecruitRS(IResultSet rs) throws TLException{
+		try {
+			UserRecruit recruit = new UserRecruit();
+			recruit.setId(rs.getInt("id"));
+			recruit.setUserId(rs.getInt("userId"));
+			recruit.setJobName(rs.getString("jobName"));
+			recruit.setJobPictrue(rs.getString("jobPictrue"));
+			recruit.setJobCateId(rs.getInt("jobCateId"));
+			recruit.setJobCate(rs.getString("jobCate"));
+			recruit.setLinkman(rs.getString("linkman"));
+			recruit.setLinkPhone(rs.getString("linkPhone"));
+			recruit.setLinkEmail(rs.getString("linkEmail"));
+			recruit.setSalary(rs.getString("salary"));
+			recruit.setContent(rs.getString("content"));
+			recruit.setAddress(rs.getString("address"));
+			recruit.setWorking(rs.getString("working"));
+			recruit.setEduReq(rs.getString("eduReq"));
+			recruit.setIsFulltime(rs.getInt("isFulltime"));
+			recruit.setJobAttract(rs.getString("jobAttract"));
+			recruit.setJobIntro(rs.getString("jobIntro"));
+			recruit.setCreatetime(rs.getTimestamp("createtime"));
+			User user = userManager.getUserByID(recruit.getUserId());
+			recruit.setCompany(user.getOrgFullname());
+			recruit.setCity(user.getCity());
+			recruit.setTime(DateUtils.format(recruit.getCreatetime(), "yyyy-MM-dd hh:mm:ss"));
+			return recruit;
+		} catch (Exception e) {
+			throw new TLException(e);
+		}
+	}
+	private UserManager userManager = (UserManager)Context.getBean(UserManager.class);
 }

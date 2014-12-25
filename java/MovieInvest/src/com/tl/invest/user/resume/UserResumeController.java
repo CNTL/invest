@@ -39,10 +39,6 @@ public class UserResumeController extends BaseController {
 			curResume(request, response);
 		} else if("deleteResume".equals(action)){//删除简历
 			deleteResume(request, response);
-		} else if("myRecruit".equals(action)){//我收藏的职位
-			myRecruit(request, response);
-		} else if("recruitResume".equals(action)){//已投递简历的职位
-			recruitResume(request, response);
 		} else if ("uploadAtt".equals(action)) {
 			String json = upload(request);
 			output(json, response);
@@ -97,7 +93,6 @@ public class UserResumeController extends BaseController {
 		String typeFlag = get(request, "typeFlag");//浏览简历或修改建立（view-浏览简历，edit-修改建立）
 		int start = getInt(request, "start");
 		Message result = resumeManager.getMyResumes(start, 9, typeFlag, user);
-		//List<Map<String, String>> result = resumeManager.getMyResumes(user);
 		String json = JSONArray.fromObject(result).toString();
 		output(json, response);
 	}
@@ -113,35 +108,6 @@ public class UserResumeController extends BaseController {
 		List<Map<String, String>> resumes = resumeManager.getMyResumes(user);
 		//List<Map<String, String>> result = resumeManager.getMyResumes(user);
 		String json = JSONArray.fromObject(resumes).toString();
-		output(json, response);
-	}
-	/** 
-	* @author  leijj 
-	* 功能： 我收藏的职位
-	* @param request
-	* @param response
-	* @throws Exception 
-	*/ 
-	private void myRecruit(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		int start = getInt(request, "start");
-		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
-		Message message = resumeManager.myRecruit(start, 9, user, true);
-		String json = JSONArray.fromObject(message).toString();
-		output(json, response);
-	}
-	
-	/** 
-	* @author  leijj 
-	* 功能： 我已投过简历的职位
-	* @param request
-	* @param response
-	* @throws Exception 
-	*/ 
-	private void recruitResume(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		int start = getInt(request, "start");
-		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
-		Message message = resumeManager.myRecruit(start, 9, user, false);
-		String json = JSONArray.fromObject(message).toString();
 		output(json, response);
 	}
 	UserResumeManager resumeManager = (UserResumeManager) Context.getBean(UserResumeManager.class);
