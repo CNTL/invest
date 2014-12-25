@@ -26,7 +26,7 @@ import com.tl.kernel.sys.dic.DictionaryReader;
  * @author  leijj
  * 类说明 ： 
  */
-@SuppressWarnings({ "rawtypes", "deprecation"})
+@SuppressWarnings({ "rawtypes", "deprecation", "unchecked"})
 public class RecruitManager {
 	/**
 	 * 根据菜单id获取已发布的消息列表
@@ -87,7 +87,6 @@ public class RecruitManager {
 		}
 		return count;
 	}
-	@SuppressWarnings("unchecked")
 	public UserRecruit[] queryRecruits(int start, int length) throws Exception{
 		StringBuilder querySql = new StringBuilder("select a from com.tl.invest.user.recruit.UserRecruit as a");
 		querySql.append(" order by a.createtime desc");
@@ -191,13 +190,24 @@ public class RecruitManager {
 	 * 
 	 * @param ID
 	 */
-	public boolean isCollect(int userId) throws Exception{
-		List list = DAOHelper.find("select a from com.tl.invest.user.recruit.UserRecruitresume as a where a.userId = :userId", 
-        		new Integer(userId), Hibernate.INTEGER);
+	public UserRecruitresume recruitresume(int userId, int recruitId) throws Exception{
+		String sql = "select a from com.tl.invest.user.recruit.UserRecruitresume as a where a.userId = "+
+				userId + " and a.recruitId = " + recruitId;
+		List<UserRecruitresume> list = DAOHelper.find(sql);
         if(list != null && list.size() > 0)
-            return true;
+            return list.get(0);
         else
-            return false;
+            return null;
+	}
+	
+	public UserRecruitresume recruitresume(int userId, int recruitId, int resumeId) throws Exception{
+		String sql = "select a from com.tl.invest.user.recruit.UserRecruitresume as a where a.userId = "+
+				userId + " and a.recruitId = " + recruitId + " and a.resumeId = " + resumeId;
+		List<UserRecruitresume> list = DAOHelper.find(sql);
+        if(list != null && list.size() > 0)
+            return list.get(0);
+        else
+            return null;
 	}
 	/** 
 	* @author  leijj 

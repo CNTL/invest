@@ -26,6 +26,22 @@ import com.tl.kernel.context.Context;
 @SuppressWarnings({ "unchecked", "rawtypes","unused"})
 public class ResumeMainController extends Entry {
 	@Override
+	protected void setOtherData(HttpServletRequest request,
+			HttpServletResponse response, Map model) throws Exception {
+		String action = request.getParameter("a");
+		if("myrecruit".equals(action)){//用户主页
+			myrecruit(request, response, model);
+		} else if("recruitresume".equals(action)){//用户图册
+			recruitresume(request, response, model);
+		}
+	}
+	private void myrecruit(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception {
+		
+	}
+	private void recruitresume(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception {
+		
+	}
+	@Override
 	protected String getCurrentMenu() {
 		return "影人";
 	}

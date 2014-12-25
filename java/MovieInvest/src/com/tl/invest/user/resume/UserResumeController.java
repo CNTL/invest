@@ -1,5 +1,6 @@
 package com.tl.invest.user.resume;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +31,8 @@ public class UserResumeController extends BaseController {
 		String action = request.getParameter("a");
 		if("getMyResumes".equals(action)){//根据消息接收方查出消息列表
 			getMyResumes(request, response);
+		} else if("sendResumes".equals(action)){//保存用户简历
+			sendResumes(request, response);
 		} else if("saveResume".equals(action)){//保存用户简历
 			saveResume(request, response);
 		} else if("curResume".equals(action)){//根据id查询简历
@@ -96,6 +99,20 @@ public class UserResumeController extends BaseController {
 		Message result = resumeManager.getMyResumes(start, 9, typeFlag, user);
 		//List<Map<String, String>> result = resumeManager.getMyResumes(user);
 		String json = JSONArray.fromObject(result).toString();
+		output(json, response);
+	}
+	/** 
+	* @author  leijj 
+	* 功能： 获取我的简历
+	* @param request
+	* @param response
+	* @throws Exception 
+	*/
+	private void sendResumes(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
+		List<Map<String, String>> resumes = resumeManager.getMyResumes(user);
+		//List<Map<String, String>> result = resumeManager.getMyResumes(user);
+		String json = JSONArray.fromObject(resumes).toString();
 		output(json, response);
 	}
 	/** 

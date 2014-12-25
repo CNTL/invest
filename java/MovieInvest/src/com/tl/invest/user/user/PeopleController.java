@@ -46,18 +46,19 @@ public class PeopleController extends UserMainController {
 				model.put("user", new User());
 			}
 		}
+		model.put("viewType", "detail");
 	}
 	private void video(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception {
-		//继承实现
+		this.detail(request, response, model);
 		int groupID = getInt(request, "groupID");
 		model.put("groupID", groupID);
-		this.detail(request, response, model);
+		model.put("viewType", "video");
 	}
 	private void photo(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception {
-		//继承实现
+		this.detail(request, response, model);
 		int groupID = getInt(request, "groupID");
 		model.put("groupID", groupID);
-		this.detail(request, response, model);
+		model.put("viewType", "photo");
 	}
 	@Override
 	protected void setMetaData(HttpServletRequest request,Map model) {
