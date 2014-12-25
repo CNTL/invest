@@ -21,6 +21,13 @@
 	        <input class="form-control validate[maxSize[255],required]" type="text" id="jobName" name="jobName" value="${recruit.jobName}" placeholder="招聘主题"/>
 	    </div>
 	    <div class="input">
+			<label>职位：</label>
+			<select id="firstType" name="firstType" class="validate[required]">
+			</select>
+			<select id="secondType" name="secondType" class="validate[required]">
+			</select>
+		</div>
+	    <div class="input">
 			<table style="width:100%;">
 				<tr>
 					<td valign="top" style="width:90px;">
@@ -109,24 +116,26 @@
         </div>
 	</form>
 </div>
-<!-- script -->
-<%@include file="../inc/script.inc"%>
-<!-- script -->
 
 <!-- footer -->
 <%@include file="../../inc/footer.inc"%>
+<!-- footer -->
+
+<!-- script -->
+<%@include file="../inc/script.inc"%>
+<!-- script -->
 <script type="text/javascript">
 var rootPath = "<%=com.tl.common.WebUtil.getRoot(request) %>";
 </script>
-<!-- footer -->
 <script type="text/javascript" charset="utf-8" src="../user/recruit/script/ueditor.config.js"></script>
 <script type="text/javascript" charset="utf-8" src="../ueditor/ueditor.all.min.js"> </script>
-<!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
-<!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
 <script type="text/javascript" charset="utf-8" src="../ueditor/lang/zh-cn/zh-cn.js"></script>
 <script type="text/javascript" src="../js/plugin/uploadify-3.2.1/jquery.uploadify.js"></script>
 <script type="text/javascript" src="../js/utils.js"></script>
 <script type="text/javascript" src="../static/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="../js/json/json2.js"></script>
+<script type="text/javascript" src="../user/recruit/script/datas.js"></script>
 <script type="text/javascript" src="../user/recruit/script/recruitEdit.js"></script>
+<script type="text/javascript" src="../js/layer/layer.min.js"></script>
 </body>
 </html>

@@ -1,25 +1,60 @@
 $(document).ready(function () {
-	jobEdit.init();
-	//初始化
-	$("#form").validationEngine({
-		autoPositionUpdate:true,
-		onValidationComplete:function(from,r){
-			if (r){
-				window.onbeforeunload = null;
-				$("#btnSave").attr("disabled", true);
-				jobEdit.submit();
-			}
+	var init = function() {
+		if (!type_datas || !type_datas.ready) {
+			setTimeout(init, 100);
+			return;
 		}
-	});
+		jobEdit.init();
+		//初始化
+		$("#form").validationEngine({
+			autoPositionUpdate:true,
+			onValidationComplete:function(from,r){
+				if (r){
+					window.onbeforeunload = null;
+					$("#btnSave").attr("disabled", true);
+					jobEdit.submit();
+				}
+			}
+		});
+	}
+	init();
 });
 var jobEdit = {
+	eventList : [
+ 		{id:"firstType",evt:"change", fn:"changeFirstType"}
+ 		],
+ 	DEFAULT_PAIR : {key:"id",value:"name"},
 	init : function(){
-		//实例化编辑器
-	    //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
-	    //UE.getEditor('content', { initialFrameHeight: 300 });
+		//按事件表依次绑定
+		for (var i = 0; i < jobEdit.eventList.length; i++) {
+			var h = jobEdit.eventList[i];
+			$("#" + h.id).bind(h.evt, jobEdit[h.fn]);
+		}
 		jobEdit.editorInit();
 	    $("#mapSearch").attr("onclick","getMap();");
 	    jobEdit.initUploadify("uploadify","queueItemCount","jobPictrue","uploadErrorMsg",true,jobEdit.imgUploaded);
+	    jobEdit._setOptions("firstType",type_datas.getFirstTypes(),jobEdit.DEFAULT_PAIR);
+	},
+	changeFirstType : function(){
+		var secondTypes = [];
+		var pid = $("#firstType").val();
+		secondTypes = type_datas.getSecondTypes(pid);
+		jobEdit._setOptions("secondType",secondTypes,jobEdit.DEFAULT_PAIR);
+	},
+	_setOptions : function(id, datas, pair) {
+		var sel = document.getElementById(id);
+		if (!sel) return;
+		
+		while (sel.options.length > 0)
+			sel.options.remove(0);
+
+		for (var i = 0; i < datas.length; i++) {
+			var op = document.createElement("OPTION");
+			op.value = datas[i][pair.key];
+			op.text = datas[i][pair.value];
+			sel.options.add(op);
+		}
+		$(sel).trigger("change");
 	},
 	editorInit : function(){
 		var editor = CKEDITOR.replace("contentTxt",
@@ -57,7 +92,11 @@ var jobEdit = {
 	        dataType: 'text',   //返回值类型  
 	        success:function(data){
 	    		if(data != null && data == 'ok'){
-	    			$.messager.alert('消息','保存影聘内容成功！');
+	    			$.messager.confirm('消息', '保存影聘内容成功！', function(r){
+	    				if (r){
+	    					history.go(-1);
+	    				}
+	    			});
 	    		} else {
 	    			$.messager.alert('保存影聘内容失败',data);
 	    		}
