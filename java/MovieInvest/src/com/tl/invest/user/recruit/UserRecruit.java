@@ -37,6 +37,9 @@ public class UserRecruit {
 	private Integer isPub;
 	private Integer resumeNum;
 	private String days;
+	private Integer firstType;
+	private Integer secondType;
+	private String typeName;
 	public UserRecruit() {
 	}
 
@@ -302,5 +305,29 @@ public class UserRecruit {
 
 	public void setDays(String days) {
 		this.days = days;
+	}
+
+	public Integer getFirstType() {
+		return firstType;
+	}
+
+	public void setFirstType(Integer firstType) {
+		this.firstType = firstType;
+	}
+
+	public Integer getSecondType() {
+		return secondType;
+	}
+
+	public void setSecondType(Integer secondType) {
+		this.secondType = secondType;
+	}
+
+	public String getTypeName() {
+		return typeName;
+	}
+
+	public void setTypeName(String typeName) {
+		this.typeName = typeName;
 	}
 }
