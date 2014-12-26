@@ -66,8 +66,9 @@
         <div class="swiper">
             <div class="wrapper">
                 <div class="slide"> <img src="static/image/temp/pic1.png" /> </div>
-                <div class="slide"> <img src="static/image/temp/pic1.png" /> </div>
-                <div class="slide"> <img src="static/image/temp/pic1.png" /> </div>
+                <div class="slide"> <img src="static/image/temp/1.png" /> </div>
+                <div class="slide"> <img src="static/image/temp/2.png" /> </div>
+                <div class="slide"> <img src="static/image/temp/3.png" /> </div>
             </div>
         </div>
         <div class="pagination"></div>
