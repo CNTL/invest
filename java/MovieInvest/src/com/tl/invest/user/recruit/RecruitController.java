@@ -40,7 +40,7 @@ public class RecruitController extends BaseController {
 			int id = ParamInitUtils.getInt(request.getParameter("id"));
 			model.put("id", id);
 			model.put("mainType", ParamInitUtils.getInt(request.getParameter("mainType")));
-			response.sendRedirect(WebUtil.getRoot(request) + "recruit/Edit.do?a=detail?a=detail&id=" + id);
+			response.sendRedirect(WebUtil.getRoot(request) + "recruit/Edit.do?a=detail&id=" + id);
 		}
 	}
 	/** 

@@ -1,6 +1,5 @@
 package com.tl.invest.user.resume;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,16 +9,15 @@ import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import com.tl.common.DateUtils;
 import com.tl.common.Message;
 import com.tl.common.ParamInitUtils;
 import com.tl.common.ResourceMgr;
 import com.tl.common.log.Log;
 import com.tl.db.DBSession;
 import com.tl.db.IResultSet;
+import com.tl.invest.user.recruit.RecruitManager;
 import com.tl.invest.user.recruit.UserRecruit;
 import com.tl.invest.user.user.User;
-import com.tl.invest.user.user.UserManager;
 import com.tl.kernel.constant.SysTableLibs;
 import com.tl.kernel.context.Context;
 import com.tl.kernel.context.DAO;
@@ -146,14 +144,14 @@ public class UserResumeManager {
 	public Message getMyRecruits(int curPage, int length, Integer userId) throws Exception{
 		String sql = "SELECT rt.* FROM user_recruit rt,user_recruitresume rr WHERE rt.id=rr.recruitID and rr.userId=?";
 		Object[] params = new Object[]{userId};
-		List<UserRecruit> myRecruits =  getMyRecruits(sql, params, length, curPage, null);
+		List<UserRecruit> myRecruits =  recruitManager.getRecruits(sql, params, length, curPage, null);
 		int total = getMyRecruitsCount(userId, null);
-		return setMessage(myRecruits, curPage, length, total);
+		return recruitManager.setMessage(myRecruits, curPage, length, total);
 	} 
 	public int getMyRecruitsCount(int userID,DBSession db) throws TLException{
 		String sql = "select count(rt.id) FROM user_recruit rt,user_recruitresume rr WHERE rt.id=rr.recruitID and rr.userId=?";
 		Object[] params = new Object[]{userID};
-		return getSqlCount(sql,params,db);
+		return recruitManager.getSqlCount(sql,params,db);
 	}
 	
 	/** 
@@ -168,122 +166,15 @@ public class UserResumeManager {
 	public Message getMyResumeRecruits(int curPage, int length, Integer userId) throws Exception{
 		String sql = "SELECT rt.* FROM user_recruit rt,user_recruitresume rr, user_resume rs WHERE rt.id=rr.recruitID AND rs.id=rr.resumeID and rr.userId=?";
 		Object[] params = new Object[]{userId};
-		List<UserRecruit> myRecruits =  getMyRecruits(sql, params, length, curPage, null);
+		List<UserRecruit> myRecruits =  recruitManager.getRecruits(sql, params, length, curPage, null);
 		int total = getMyResumeRecruitCount(userId, null);
-		return setMessage(myRecruits, curPage, length, total);
+		return recruitManager.setMessage(myRecruits, curPage, length, total);
 	}
 	public int getMyResumeRecruitCount(int userID,DBSession db) throws Exception{
 		String sql = "SELECT COUNT(rt.id) FROM user_recruit rt,user_recruitresume rr, user_resume rs WHERE rt.id=rr.recruitID AND rs.id=rr.resumeID and rr.userId=?";
 		Object[] params = new Object[]{userID};
-		return getSqlCount(sql,params,db);
-	}
-	/** 
-	* @author  leijj 
-	* 功能： 组装翻页信息
-	* @param list
-	* @param curPage
-	* @param length
-	* @param total
-	* @return 
-	*/ 
-	public Message setMessage(List list, int curPage, int length, int total){
-		if(list != null && list.size() > 0){
-        	Message message = new Message();
-			int pageCount = total/length;
-			if(total % length >0) pageCount = pageCount + 1;
-			if(pageCount<=0) pageCount = 1;
-			
-			message.setCurPage(curPage);
-			message.setLength(length);
-			message.setMessages(list);
-			message.setPageCount(pageCount);
-			message.setTotal(total);
-			message.setPageBegin(message.getPageBegin(curPage));
-			message.setPageEnd(message.getPageEnd(curPage, pageCount));
-            return message;
-        }
-        else
-           return null;
+		return recruitManager.getSqlCount(sql,params,db);
 	}
 	
-	private List<UserRecruit> getMyRecruits(String sql, Object[] params, int pageSize, int page, DBSession db) throws TLException{
-		List<UserRecruit> list = new ArrayList<UserRecruit>();
-		IResultSet rs = null;
-		boolean dbIsCreated = false;
-		if(db==null){
-			dbIsCreated = true;
-			db= Context.getDBSession();
-		}
-		try {
-			sql = db.getDialect().getLimitString(sql, pageSize*(page-1), pageSize);
-			rs = db.executeQuery(sql, params);
-			while (rs.next()) {
-				list.add(readRecruitRS(rs));
-			}
-		} catch (SQLException e) {
-			throw new TLException(e);
-		} finally {
-			ResourceMgr.closeQuietly(rs);
-			if(dbIsCreated){
-				ResourceMgr.closeQuietly(db);
-			}
-		}
-		if (list.size() == 0) return null;
-		
-		return list;
-	}
-	private int getSqlCount(String sql,Object[] params,DBSession db) throws TLException{
-		int count =0;
-		boolean dbIsCreated = false;
-		if(db==null){
-			dbIsCreated = true;
-			db= Context.getDBSession();
-		}
-		IResultSet rs = null;
-		try{
-			//dbSession = Context.getDBSession();
-			rs = db.executeQuery(sql,params);
-			if(rs.next())
-				count = rs.getInt(1);
-		}catch(Exception ex){
-			ex.printStackTrace();
-		}finally{
-			ResourceMgr.closeQuietly(rs);
-			if(dbIsCreated){
-				ResourceMgr.closeQuietly(db);
-			}
-		}
-		return count;
-	}
-	private UserRecruit readRecruitRS(IResultSet rs) throws TLException{
-		try {
-			UserRecruit recruit = new UserRecruit();
-			recruit.setId(rs.getInt("id"));
-			recruit.setUserId(rs.getInt("userId"));
-			recruit.setJobName(rs.getString("jobName"));
-			recruit.setJobPictrue(rs.getString("jobPictrue"));
-			recruit.setJobCateId(rs.getInt("jobCateId"));
-			recruit.setJobCate(rs.getString("jobCate"));
-			recruit.setLinkman(rs.getString("linkman"));
-			recruit.setLinkPhone(rs.getString("linkPhone"));
-			recruit.setLinkEmail(rs.getString("linkEmail"));
-			recruit.setSalary(rs.getString("salary"));
-			recruit.setContent(rs.getString("content"));
-			recruit.setAddress(rs.getString("address"));
-			recruit.setWorking(rs.getString("working"));
-			recruit.setEduReq(rs.getString("eduReq"));
-			recruit.setIsFulltime(rs.getInt("isFulltime"));
-			recruit.setJobAttract(rs.getString("jobAttract"));
-			recruit.setJobIntro(rs.getString("jobIntro"));
-			recruit.setCreatetime(rs.getTimestamp("createtime"));
-			User user = userManager.getUserByID(recruit.getUserId());
-			recruit.setCompany(user.getOrgFullname());
-			recruit.setCity(user.getCity());
-			recruit.setTime(DateUtils.format(recruit.getCreatetime(), "yyyy-MM-dd hh:mm:ss"));
-			return recruit;
-		} catch (Exception e) {
-			throw new TLException(e);
-		}
-	}
-	private UserManager userManager = (UserManager)Context.getBean(UserManager.class);
+	RecruitManager recruitManager = (RecruitManager) Context.getBean(RecruitManager.class);
 }

@@ -38,9 +38,11 @@ public class PeopleController extends UserMainController {
 			user = userManager.getUserByID(id);
 			if(user!=null){
 				DictionaryReader dicReader = (DictionaryReader) Context.getBean(DictionaryReader.class);
-				int perJob = Integer.valueOf(user.getPerJob());//职业
-				Dictionary dic = dicReader.getDic(DicTypes.DIC_JOB_TYPE.typeID(), perJob);
-				user.setPerJobName(dic.getName());
+				if(user.getPerJob() != null && !"".equals(user.getPerJob())){
+					int perJob = Integer.valueOf(user.getPerJob());//职业
+					Dictionary dic = dicReader.getDic(DicTypes.DIC_JOB_TYPE.typeID(), perJob);
+					user.setPerJobName(dic.getName());
+				}
 				model.put("user", user);
 			} else {
 				model.put("user", new User());
@@ -62,8 +64,14 @@ public class PeopleController extends UserMainController {
 	}
 	@Override
 	protected void setMetaData(HttpServletRequest request,Map model) {
-		model.put("title", (user !=null ? user.getName():"") + "合众映画");
+		String name = "";
+		if(user != null && user.getType() == 0){//个人
+			name = user.getPerNickName();
+		} else if(user != null && user.getType() == 1){//机构
+			name = user.getOrgShortname();
+		}
+		model.put("title", name + "合众映画");
 		model.put("keywords", "合众映画");
-		model.put("description", user !=null ? user.getName():"合众映画");
+		model.put("description", name + "合众映画");
 	}
 }

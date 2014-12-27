@@ -1,5 +1,6 @@
 package com.tl.invest.user.user;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.type.Type;
 
+import com.tl.common.Message;
 import com.tl.common.ResourceMgr;
 import com.tl.common.UserEncrypt;
 import com.tl.db.DBSession;
@@ -101,65 +103,7 @@ public class UserManager {
             throw new Exception("", e);
         }
 	}
-	/** 
-	* @author  leijj 
-	* 功能： 获取个人用户
-	* @param start 查询开始数
-	* @param length 查询条数
-	* @return
-	* @throws Exception 
-	*/ 
-	public User[] getPersons(int start, int length) throws Exception{
-		StringBuilder querySql = new StringBuilder("select a from com.tl.invest.user.user.User as a where a.type = 0 order by a.createTime desc");
-		List<User> list = DAOHelper.find(querySql.toString() , start, length);
-		if(list == null || list.size() == 0) return null;
-		return list.toArray(new User[0]);
-	}
 	
-	/**
-	 * 根据职业获取用户
-	 * @return User对象的数组
-	 */
-	public User[] getPersons(int perJob){
-        try
-        {
-            List list = DAOHelper.find("select a from com.tl.invest.user.user.User as a where a.type = 0 and a.perJob = :perJob order by a.createTime desc", 
-            		String.valueOf(perJob), Hibernate.STRING);
-            return getUsers(list);
-        } catch (Exception e) {
-        }
-        return null;
-	}
-	public int getPersonsCount(int type,DBSession db) throws TLException{
-		String sql = "select count(0) from user left JOIN sys_dictionary on sys_dictionary.dic_id=user.perJob";
-		//sql += " left JOIN `user` on `user`.id=invest_project.proj_userID";
-		sql += " where user.type=0 and user.perJob=?";
-		Object[] params = new Object[]{type};
-		return getSqlCount(sql,params,db);
-	}
-	private int getSqlCount(String sql,Object[] params,DBSession db) throws TLException{
-		int count =0;
-		boolean dbIsCreated = false;
-		if(db==null){
-			dbIsCreated = true;
-			db= Context.getDBSession();
-		}
-		IResultSet rs = null;
-		try{
-			//dbSession = Context.getDBSession();
-			rs = db.executeQuery(sql,params);
-			if(rs.next())
-				count = rs.getInt(1);
-		}catch(Exception ex){
-			ex.printStackTrace();
-		}finally{
-			ResourceMgr.closeQuietly(rs);
-			if(dbIsCreated){
-				ResourceMgr.closeQuietly(db);
-			}
-		}
-		return count;
-	}
 	/**
 	 * 获得用户ID指定的用户
 	 * 
@@ -180,13 +124,6 @@ public class UserManager {
 	 * @param user    用户对象
 	 */
 	public void update(User user) throws Exception{
-	    /*
-		User user1 = getUserByID(user.getId());
-	    if( user1 == null)
-	        throw new Exception("the updated user not exist.");
-	    if(user1.getId() != user.getId())
-	        throw new Exception("cannt update user code.");
-	    */
 	    DAO dao = new DAO();
 	    Session s   = null;
 	    Transaction t = null;
@@ -433,5 +370,166 @@ public class UserManager {
 		int num =  getSqlCount(sql,params,db);
 		if(num > 0) return true;
 		return false;
+	}
+	/** 
+	* @author  leijj 
+	* 功能： 获取个人用户
+	* @param start 查询开始数
+	* @param length 查询条数
+	* @return
+	* @throws Exception 
+	*/ 
+	public User[] getPersons(int start, int length) throws Exception{
+		StringBuilder querySql = new StringBuilder("select a from com.tl.invest.user.user.User as a where a.type = 0 order by a.createTime desc");
+		List<User> list = DAOHelper.find(querySql.toString() , start, length);
+		if(list == null || list.size() == 0) return null;
+		return list.toArray(new User[0]);
+	}
+	/** 
+	* @author  leijj 
+	* 功能： 根据职业查询相应的个人用户
+	* @param perJob
+	* @param curPage
+	* @param length
+	* @return
+	* @throws Exception 
+	*/ 
+	public Message queryPersons(int perJob, int curPage, int length) throws Exception{
+		StringBuilder querySql = new StringBuilder("select a from com.tl.invest.user.user.User as a where a.type = 0 and a.perJob = "+perJob+" order by a.createTime desc");
+		List<User> persons = DAOHelper.find(querySql.toString() , length*(curPage-1), length);
+		int total = getPersonsCount(perJob, null);
+		return setMessage(persons, curPage, length, total);
+	}
+	
+	/** 
+	* @author  leijj 
+	* 功能： 根据职业查询相应的个人用户数
+	* @param perJob
+	* @param db
+	* @return
+	* @throws TLException 
+	*/ 
+	public int getPersonsCount(int perJob, DBSession db) throws TLException{
+		String sql = "select count(0) from user where user.type=0 and user.perJob=?";
+		Object[] params = new Object[]{perJob};
+		return getSqlCount(sql,params,db);
+	}
+	/** 
+	* @author  leijj 
+	* 功能： 查询公司用户
+	* @param curPage
+	* @param length
+	* @return
+	* @throws Exception 
+	*/ 
+	public Message queryCompanys(int curPage, int length) throws Exception{
+		StringBuilder querySql = new StringBuilder("SELECT DISTINCT u.* FROM user_recruit rt,user u WHERE u.id=rt.userID AND u.type=1");
+		StringBuilder countSql = new StringBuilder("SELECT count(rtUser.userID) AS count FROM (SELECT DISTINCT u.id as userID FROM user_recruit rt,user u WHERE u.id=rt.userID AND u.type=1) AS rtUser");
+		Object[] params = null;
+		
+		List<User> companys =  getUsers(querySql.toString(), params, length, curPage, null);
+		int total = getSqlCount(countSql.toString(), params, null);
+		return setMessage(companys, curPage, length, total);
+	}
+	
+	public List<User> getUsers(String sql, Object[] params, int pageSize, int page, DBSession db) throws TLException{
+		List<User> list = new ArrayList<User>();
+		IResultSet rs = null;
+		boolean dbIsCreated = false;
+		if(db==null){
+			dbIsCreated = true;
+			db= Context.getDBSession();
+		}
+		try {
+			sql = db.getDialect().getLimitString(sql, pageSize*(page-1), pageSize);
+			rs = db.executeQuery(sql, params);
+			while (rs.next()) {
+				list.add(readUser(rs));
+			}
+		} catch (SQLException e) {
+			throw new TLException(e);
+		} finally {
+			ResourceMgr.closeQuietly(rs);
+			if(dbIsCreated){
+				ResourceMgr.closeQuietly(db);
+			}
+		}
+		if (list.size() == 0) return null;
+		
+		return list;
+	}
+	
+	private User readUser(IResultSet rs) throws TLException{
+		try {
+			User user = new User();
+			user.setId(rs.getInt("id"));
+			user.setCode(rs.getString("code"));
+			user.setOrganization(rs.getString("organization"));
+			user.setOrgBusinessLicense(rs.getString("orgBusinessLicense"));
+			user.setOrgFullname(rs.getString("orgFullname"));
+			user.setOrgHomePage(rs.getString("orgHomePage"));
+			user.setOrgNature(rs.getString("orgNature"));
+			user.setOrgScale(rs.getString("orgScale"));
+			user.setOrgShortname(rs.getString("orgShortname"));
+			user.setOrgTrade(rs.getString("orgTrade"));
+			user.setHead(rs.getString("head"));
+			user.setIntro(rs.getString("intro"));
+			return user;
+		} catch (Exception e) {
+			throw new TLException(e);
+		}
+	}
+	
+	/** 
+	* @author  leijj 
+	* 功能： 组装翻页信息
+	* @param list
+	* @param curPage
+	* @param length
+	* @param total
+	* @return 
+	*/ 
+	public Message setMessage(List list, int curPage, int length, int total){
+		if(list != null && list.size() > 0){
+        	Message message = new Message();
+			int pageCount = total/length;
+			if(total % length >0) pageCount = pageCount + 1;
+			if(pageCount<=0) pageCount = 1;
+			
+			message.setCurPage(curPage);
+			message.setLength(length);
+			message.setMessages(list);
+			message.setPageCount(pageCount);
+			message.setTotal(total);
+			message.setPageBegin(message.getPageBegin(curPage));
+			message.setPageEnd(message.getPageEnd(curPage, pageCount));
+            return message;
+        }
+        else
+           return null;
+	}
+	
+	private int getSqlCount(String sql,Object[] params,DBSession db) throws TLException{
+		int count =0;
+		boolean dbIsCreated = false;
+		if(db==null){
+			dbIsCreated = true;
+			db= Context.getDBSession();
+		}
+		IResultSet rs = null;
+		try{
+			//dbSession = Context.getDBSession();
+			rs = db.executeQuery(sql,params);
+			if(rs.next())
+				count = rs.getInt(1);
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}finally{
+			ResourceMgr.closeQuietly(rs);
+			if(dbIsCreated){
+				ResourceMgr.closeQuietly(db);
+			}
+		}
+		return count;
 	}
 }

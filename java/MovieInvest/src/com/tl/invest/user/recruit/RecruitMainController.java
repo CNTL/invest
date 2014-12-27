@@ -1,7 +1,5 @@
 package com.tl.invest.user.recruit;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,7 +31,7 @@ public class RecruitMainController extends Entry {
 			detail(request, response, model);
 		} else if("queryNew".equals(action)){//获取最新9条招聘信息
 			queryRecruits(request, response, model, "queryNew");
-		}  else if("queryHot".equals(action)){//获取最热9条招聘信息
+		} else if("queryHot".equals(action)){//获取最热9条招聘信息
 			queryRecruits(request, response, model, "queryHot");
 		} else{//直接进入招聘信息列表
 			Dictionary[] types = recruitManager.types();
@@ -51,31 +49,21 @@ public class RecruitMainController extends Entry {
 	*/ 
 	private void queryRecruits(HttpServletRequest request, HttpServletResponse response, Map model, String queryType) throws Exception{
 		String recruitType = get(request, "recruitType");//是否是职位管理（view-浏览所有招聘信息，edit-管理我的职位信息）
-		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
+		int type = getInt(request, "type");//0=职位，1=公司
+		String key = get(request, "key");//查询条件的值
 		int curPage = getInt(request, "curPage", 1);
-		Message msg = setUser(recruitManager.queryRecruits(curPage, 9, recruitType, queryType, user == null ? 0 : user.getId()));
+		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
+		int userId = user == null ? 0 : user.getId();
+		Message msg = recruitManager.queryRecruits(curPage, 9, userId, recruitType, queryType, type, key);
+		//setUser(recruitManager.queryRecruits(curPage, 9, recruitType, queryType, user == null ? 0 : user.getId()));
 		Dictionary[] types = recruitManager.types();
 		model.put("queryType", queryType);
 		model.put("recruitType", recruitType);
 		model.put("types", types);
+		model.put("type", type);
+		model.put("key", key);
 		model.put("more", ParamInitUtils.getString(request.getParameter("more")));
 		model.put("msg", msg);
-	}
-	private Message setUser(Message msg) throws Exception{
-		if(msg == null) return null;
-		List<UserRecruit> recruitList = msg.getMessages();
-		if(recruitList == null || recruitList.size() == 0) return null;
-		
-		List<UserRecruit> newList = new ArrayList<UserRecruit>();
-		for(UserRecruit recruit : recruitList){
-			User user = userManager.getUserByID(recruit.getUserId());
-			recruit.setCompany(user.getOrgFullname());
-			recruit.setCity(user.getCity());
-			recruit.setTime(DateUtils.format(recruit.getCreatetime(), "yyyy-MM-dd hh:mm:ss"));
-			newList.add(recruit);
-		}
-		msg.setMessages(newList);
-		return msg;
 	}
 	@Override
 	protected void setMetaData(HttpServletRequest request,Map model) {

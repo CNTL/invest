@@ -1,5 +1,6 @@
 package com.tl.invest.user.recruit;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,11 +8,15 @@ import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import com.tl.common.DateUtils;
 import com.tl.common.Message;
 import com.tl.common.ResourceMgr;
+import com.tl.common.StringUtils;
 import com.tl.db.DBSession;
 import com.tl.db.IResultSet;
 import com.tl.invest.constant.DicTypes;
+import com.tl.invest.user.user.User;
+import com.tl.invest.user.user.UserManager;
 import com.tl.kernel.constant.SysTableLibs;
 import com.tl.kernel.context.Context;
 import com.tl.kernel.context.DAO;
@@ -28,41 +33,6 @@ import com.tl.kernel.sys.dic.DictionaryReader;
  */
 @SuppressWarnings({ "rawtypes", "deprecation", "unchecked"})
 public class RecruitManager {
-	/**
-	 * 根据菜单id获取已发布的消息列表
-	 * @param openID
-	 * @param menuID
-	 * @param curPage
-	 * @param length
-	 * @return
-	 * @throws Exception
-	 */
-	/*public Message getMessageList(int curPage, int length) throws Exception{
-		if(curPage == 0) curPage = 1;//下标是0时是第一页
-		
-		Message message = new Message();
-		message.setCurPage(curPage);
-		message.setLength(length);
-		
-		int count = getCount();
-		if (count == 0){
-			message.setTotal(0);
-			message.setPageCount(1);
-		} else{
-			message.setTotal(count);
-			int pageCount = 0;
-			if((count%length) == 0)
-				pageCount = (count/length);
-			else
-				pageCount = (count/length) + 1;
-			
-			message.setPageCount(pageCount);
-			int start = (curPage - 1) * length;
-			List<UserRecruit> msgList = queryRecruits(start, length, null, null);
-			message.setMessages(msgList);
-		}
-		return message;
-	}*/
 	/** 
 	* @author  leijj 
 	* 功能： 获取招聘信息条数
@@ -113,9 +83,9 @@ public class RecruitManager {
 			querySql.append(" where a.userId=").append(userId);
 			countSql = " where userID=" + userId;
 		}
-		if("queryNew".equals(queryType)){
+		if("queryNew".equals(queryType)){//最新职位
 			querySql.append(" order by a.createtime desc");
-		} else if("queryHot".equals(queryType)){
+		} else if("queryHot".equals(queryType)){//最热职位
 			querySql.append(" order by a.resumeNum desc");
 		}
 		
@@ -138,6 +108,33 @@ public class RecruitManager {
         }
         else
             return null;
+	}
+	public Message queryRecruits(int curPage, int length, Integer userId, 
+			String recruitType, String queryType, int type, String key) throws Exception{
+		StringBuilder querySql = new StringBuilder("SELECT rt.* FROM user_recruit rt,user u WHERE u.id=rt.userID");
+		StringBuilder countSql = new StringBuilder("SELECT count(rt.id) FROM user_recruit rt,user u WHERE u.id=rt.userID");
+		Object[] params = null;
+		if("edit".equals(recruitType) && userId > 0){//管理我的职位，则增加当前用户查询条件
+			querySql.append(" and u.id=?");
+			countSql.append(" and u.id=?");
+			params = new Object[]{userId};
+		}
+		if(type == 0 && !StringUtils.isEmpty(key)){//职位查询条件
+			querySql.append(" AND typeName LIKE '%").append(key).append("%'");
+			countSql.append(" AND typeName LIKE '%").append(key).append("%'");
+		} else if(type == 1 && !StringUtils.isEmpty(key)){//公司查询条件
+			querySql.append(" AND (u.orgShortname LIKE '%").append(key).append("%' OR u.orgFullname LIKE '%").append(key).append("%')");
+			countSql.append(" AND (u.orgShortname LIKE '%").append(key).append("%' OR u.orgFullname LIKE '%").append(key).append("%')");
+		}
+		if("queryNew".equals(queryType)){//最新职位
+			querySql.append(" order by rt.createtime desc");
+		} else if("queryHot".equals(queryType)){//最热职位
+			querySql.append(" order by rt.resumeNum desc");
+		}
+		
+		List<UserRecruit> myRecruits =  getRecruits(querySql.toString(), params, length, curPage, null);
+		int total = getSqlCount(countSql.toString(), params, null);
+		return setMessage(myRecruits, curPage, length, total);
 	}
 	
 	public void save(UserRecruit recruit) throws Exception{
@@ -285,4 +282,112 @@ public class RecruitManager {
 		
 		return typeList;
 	}
+	/** 
+	* @author  leijj 
+	* 功能： 组装翻页信息
+	* @param list
+	* @param curPage
+	* @param length
+	* @param total
+	* @return 
+	*/ 
+	public Message setMessage(List list, int curPage, int length, int total){
+		if(list != null && list.size() > 0){
+        	Message message = new Message();
+			int pageCount = total/length;
+			if(total % length >0) pageCount = pageCount + 1;
+			if(pageCount<=0) pageCount = 1;
+			
+			message.setCurPage(curPage);
+			message.setLength(length);
+			message.setMessages(list);
+			message.setPageCount(pageCount);
+			message.setTotal(total);
+			message.setPageBegin(message.getPageBegin(curPage));
+			message.setPageEnd(message.getPageEnd(curPage, pageCount));
+            return message;
+        }
+        else
+           return null;
+	}
+	
+	public List<UserRecruit> getRecruits(String sql, Object[] params, int pageSize, int page, DBSession db) throws TLException{
+		List<UserRecruit> list = new ArrayList<UserRecruit>();
+		IResultSet rs = null;
+		boolean dbIsCreated = false;
+		if(db==null){
+			dbIsCreated = true;
+			db= Context.getDBSession();
+		}
+		try {
+			sql = db.getDialect().getLimitString(sql, pageSize*(page-1), pageSize);
+			rs = db.executeQuery(sql, params);
+			while (rs.next()) {
+				list.add(readRecruitRS(rs));
+			}
+		} catch (SQLException e) {
+			throw new TLException(e);
+		} finally {
+			ResourceMgr.closeQuietly(rs);
+			if(dbIsCreated){
+				ResourceMgr.closeQuietly(db);
+			}
+		}
+		if (list.size() == 0) return null;
+		
+		return list;
+	}
+	public int getSqlCount(String sql,Object[] params,DBSession db) throws TLException{
+		int count =0;
+		boolean dbIsCreated = false;
+		if(db==null){
+			dbIsCreated = true;
+			db= Context.getDBSession();
+		}
+		IResultSet rs = null;
+		try{
+			rs = db.executeQuery(sql,params);
+			if(rs.next())
+				count = rs.getInt(1);
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}finally{
+			ResourceMgr.closeQuietly(rs);
+			if(dbIsCreated){
+				ResourceMgr.closeQuietly(db);
+			}
+		}
+		return count;
+	}
+	private UserRecruit readRecruitRS(IResultSet rs) throws TLException{
+		try {
+			UserRecruit recruit = new UserRecruit();
+			recruit.setId(rs.getInt("id"));
+			recruit.setUserId(rs.getInt("userId"));
+			recruit.setJobName(rs.getString("jobName"));
+			recruit.setJobPictrue(rs.getString("jobPictrue"));
+			recruit.setJobCateId(rs.getInt("jobCateId"));
+			recruit.setJobCate(rs.getString("jobCate"));
+			recruit.setLinkman(rs.getString("linkman"));
+			recruit.setLinkPhone(rs.getString("linkPhone"));
+			recruit.setLinkEmail(rs.getString("linkEmail"));
+			recruit.setSalary(rs.getString("salary"));
+			recruit.setContent(rs.getString("content"));
+			recruit.setAddress(rs.getString("address"));
+			recruit.setWorking(rs.getString("working"));
+			recruit.setEduReq(rs.getString("eduReq"));
+			recruit.setIsFulltime(rs.getInt("isFulltime"));
+			recruit.setJobAttract(rs.getString("jobAttract"));
+			recruit.setJobIntro(rs.getString("jobIntro"));
+			recruit.setCreatetime(rs.getTimestamp("createtime"));
+			User user = userManager.getUserByID(recruit.getUserId());
+			recruit.setCompany(user.getOrgFullname());
+			recruit.setCity(user.getCity());
+			recruit.setTime(DateUtils.format(recruit.getCreatetime(), "yyyy-MM-dd hh:mm:ss"));
+			return recruit;
+		} catch (Exception e) {
+			throw new TLException(e);
+		}
+	}
+	private UserManager userManager = (UserManager)Context.getBean(UserManager.class);
 }

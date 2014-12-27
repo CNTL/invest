@@ -53,7 +53,7 @@ public class UserRecruit {
 			String province, String city, String area, String salary,
 			String content, String address, String working, String eduReq,
 			Integer isFulltime, String jobAttract, String jobIntro,
-			Date createtime, Date pubTime, Integer isPub, Integer resumeNum) {
+			Date createtime, Integer isPub, Integer resumeNum) {
 		this.id = id;
 		this.userId = userId;
 		this.userName = userName;
