@@ -213,7 +213,7 @@
 					</div>
 					<div class="desc">
 						<span><c:out value="${recuit.jobIntro}"/></span><br />
-						发布时间：<c:out value="${recuit.pubTime}"/><br /> 已投递简历人数：<c:out value="${recuit.resumeNum}"/>人
+						发布时间：<c:out value="${recuit.createtime}"/><br /> 已投递简历人数：<c:out value="${recuit.resumeNum}"/>人
 					</div>
 				</div>
 				<div class="tool">

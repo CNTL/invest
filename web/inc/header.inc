@@ -39,6 +39,6 @@
     </div>
 	</c:if>
 	<div style="display:none;">
-		<input id="userID" name="userID" value="<c:out value="${loginUser.id}"/>"/>
+		<input type="hidden" id="userID" name="userID" value="<c:out value="${loginUser.id}"/>"/>
 	</div>
 </div>

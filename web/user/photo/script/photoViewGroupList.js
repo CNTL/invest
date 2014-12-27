@@ -3,7 +3,7 @@ $(document).ready(function () {
 });
 var photoGroup = {
 	initGroup : function(){
-		var userID = $("#userID").val();
+		var userID = $("#curUserID").val();
 		$.ajax({
 	        type:"GET", //请求方式  
 	        url:"../user/photo.do?a=getPhotoGroups&userID=" + userID, //请求路径  
@@ -46,7 +46,7 @@ var photoGroup = {
     	});
 	},
 	clickThumb : function(id){
-		var userID = $("#userID").val();
+		var userID = $("#curUserID").val();
 		window.location.href="../user/PhotoMain.do?a=photo&id=" + userID + "&infoType=6&groupID=" + id; 
 	}
 }

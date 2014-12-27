@@ -73,36 +73,6 @@
 					    </div>
 					    <div id="coverIMG_div1" style="display:none;position: absolute; z-index: 122; width:150px;height:150px;overflow:hidden;background:#fff;border:1px solid #C7C7C7;">
 						</div>
-					    <!-- <div class="input">
-					    	<label for="organization">企业组织机构证件照：</label>
-					        <input name="organizationFile" id="organizationFile" type="file" />
-					        <input name="organization" id="organization" type="hidden" value="" />
-					        <input type="button" style="width:50px" id="organizationBtn" value="上传">
-					        <div id="organizationWait" style="padding: 50px 0 0 0;display:none;">
-						        <div style="width: 103px;margin: 0 auto;"><img src="../js/plugin/AjaxFileUploaderV2.1/loading.gif"/></div>
-						        <br></br>
-						        <div style="width: 103px;margin: 0 auto;"><span>请稍等...</span></div>
-						        <br></br>
-						    </div>
-						    <div style="display:none;">
-						    	<img id="organizationImg" name="organizationImg" style="width:200px;height:200px;" alt="" src="">
-						    </div>
-					    </div>
-					    <div class="input">
-					    	<label for="orgBusinessLicense">企业营业执照扫描件：</label>
-					        <input name="orgBusinessLicenseFile"  id="orgBusinessLicenseFile" width="100px" class="form-control" type="file" />
-					        <input type="button" style="width:50px" id="orgBusinessLicenseBtn" value="上传">
-					        <input name="orgBusinessLicense" id="orgBusinessLicense" type="hidden" value="" />
-					        <div id="orgBusinessLicenseWait" style="padding: 50px 0 0 0;display:none;">
-						        <div style="width: 103px;margin: 0 auto;"><img src="../js/plugin/AjaxFileUploaderV2.1/loading.gif"/></div>
-						        <br></br>
-						        <div style="width: 103px;margin: 0 auto;"><span>请稍等...</span></div>
-						        <br></br>
-						    </div>
-						    <div style="display:none;">
-						    	<img id="orgBusinessLicenseImg" name="orgBusinessLicenseImg" style="width:200px;height:200px;" alt="" src="">
-						    </div>
-					    </div> -->
 					    <div class="btn">
 					    	<input type="submit" id="btnSave" value="提交信息">
 					    </div>

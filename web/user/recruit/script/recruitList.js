@@ -17,6 +17,7 @@ $(document).ready(function () {
 var jobList = {
 	init : function(){
 		$("#type").selectbox();
+		$("#search").click(jobList.search);
 	},
 	addRecruit : function(){
 		$.ajax({
@@ -60,5 +61,11 @@ var jobList = {
 		    $(this).removeClass("current");
 		});
 		$(obj).addClass("current");
+	},
+	search : function(){
+		var type = $("#type").val();
+		var key = $("#key").val();
+		var pageUrl = "../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=" + type + "&key=" + key;  
+		window.location.href = pageUrl;
 	}
 }

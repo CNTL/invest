@@ -3,7 +3,7 @@ $(document).ready(function () {
 });
 var videoGroup = {
 	initGroup : function(){
-		var userID = $("#userID").val();
+		var userID = $("#curUserID").val();
 		$.ajax({
 	        type:"GET", //请求方式  
 	        url:"../user/video.do?a=getVideoGroups&userID=" + userID, //请求路径  
@@ -47,7 +47,7 @@ var videoGroup = {
     	});
 	},
 	clickThumb : function(id){
-		var userID = $("#userID").val();
+		var userID = $("#curUserID").val();
 		window.location.href="../user/VideoMain.do?a=video&id=" + userID + "&infoType=7&groupID=" + id;
 	}
 }

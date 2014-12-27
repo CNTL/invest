@@ -18,20 +18,36 @@
     <div class="sider">
     <c:forEach var="type" varStatus="status" items="${types}">
     	<div class="cate">
-	    	<h2><a href="#"><c:out value="${type.name}"/></a></h2>
+	    	<h2>
+	    	<a href="../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=0&key=${type.name}&more=${more}">
+	    		<c:out value="${type.name}"/>
+	    	</a>
+	    	</h2>
 		    <ul>
 		    <c:forEach var="subType" varStatus="status" items="${type.subDics}">
-		    	<li><a href="#"><c:out value="${subType.name}"/></a></li>
+		    	<li>
+		    	<a href="../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=0&key=${subType.name}&more=${more}">
+		    		<c:out value="${subType.name}"/>
+		    	</a>
+		    	</li>
 		    </c:forEach>
 		    </ul>
 		    <div class="clear"></div>
 		    <div class="expand">
                 <div class="blank"></div>
                 <div class="item">
-                	<h3><a href="#"><c:out value="${type.name}"/></a></h3>
+                	<h3>
+                	<a href="../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=0&key=${type.name}&more=${more}">
+                		<c:out value="${type.name}"/>
+                	</a>
+                	</h3>
                 	<ul>
                 	<c:forEach var="subType" varStatus="status" items="${type.subDics}">
-				    	<li><a href="#"><c:out value="${subType.name}"/></a></li>
+				    	<li>
+				    	<a href="../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=0&key=${subType.name}&more=${more}">
+				    		<c:out value="${subType.name}"/>
+				    	</a>
+				    	</li>
 				    </c:forEach>
 				    </ul>
                 	<div class="clear"></div>
@@ -45,18 +61,18 @@
 			<c:when test="${loginUser.id>0 && loginUser.type==1}">
 				<a class="add" style="cursor:pointer" onclick="jobList.addRecruit();">+ 发布职位</a>
 				<div class="top">
-				    <a href="#">公司</a>
+				    <a href="../user/CompanyMain.do?a=queryCompanys&mainType=3">公司</a>
 				</div>
 			</c:when>
 			<c:when test="${loginUser.id>0 && loginUser.type==0}">
 				<div class="top">
-				    <a href="#">公司</a>
-				    <a href="#">简历管理</a>
+				    <a href="../user/CompanyMain.do?a=queryCompanys&mainType=3">公司</a>
+				    <a href="../resume/myresume.do?infoType=1">简历管理</a>
 				</div>
 			</c:when>
 			<c:otherwise>
 				<div class="top">
-				    <a href="#">公司</a>
+				    <a href="../user/CompanyMain.do?a=queryCompanys&mainType=3">公司</a>
 				</div>
 			</c:otherwise>
 		</c:choose>
@@ -64,12 +80,20 @@
              <form action="" method="POST">
                  <div class="type">
                      <select name="type" id="type">
-                         <option value="0">职位</option>
-                         <option value="1">公司</option>
+                     <c:choose>
+						<c:when test="${type==1}">
+							<option value="0">职位</option>
+                        	<option value="1" selected>公司</option>
+						</c:when>
+						<c:otherwise>
+							<option value="0" selected>职位</option>
+                        	<option value="1">公司</option>
+						</c:otherwise>
+					 </c:choose>
                      </select>
                  </div>
                  <div class="key">
-                     <input type="text" name="key" value="" placeholder="请输入你要搜索的职位，如“制片人”"/>
+                     <input type="text" id="key" name="key" value="<c:out value="${key}"/>" placeholder="请输入你要搜索的职位，如“制片人”"/>
                  </div>
                  <div class="submit">
                      <input type="button" id="search" name="search" value="搜索" />
@@ -155,17 +179,17 @@
 					<span class="count" title="总记录数"><c:out value="${msg.total }"/> 条</span>
 					<c:choose>
 						<c:when test="${msg.curPage==1}"><a href="javascript:void();" class="prev">上一页</a></c:when>
-						<c:otherwise><a href="../recruit/ListMain.do?a=<c:out value="${queryType}"/>&more=1&recruitType=view&mainType=3&curPage=<c:out value="${msg.curPage-1}"/>" class="prev">上一页</a></c:otherwise>
+						<c:otherwise><a href="../recruit/ListMain.do?a=<c:out value="${queryType}"/>&more=1&recruitType=view&mainType=3&type=${type}&key=${key}&curPage=<c:out value="${msg.curPage-1}"/>" class="prev">上一页</a></c:otherwise>
 					</c:choose>
 					<c:forEach var="x" begin="${msg.pageBegin}" end="${msg.pageEnd}">
 						<c:choose>
 							<c:when test="${msg.curPage==x}"><a href="javascript:void();" class="current"><c:out value="${x}"/></a></c:when>
-							<c:otherwise><a href="../recruit/ListMain.do?a=<c:out value="${queryType}"/>&more=1&recruitType=view&mainType=3&curPage=<c:out value="${x}"/>"><c:out value="${x}"/></a></c:otherwise>
+							<c:otherwise><a href="../recruit/ListMain.do?a=<c:out value="${queryType}"/>&more=1&recruitType=view&mainType=3&type=${type}&key=${key}&curPage=<c:out value="${x}"/>"><c:out value="${x}"/></a></c:otherwise>
 						</c:choose>
 					</c:forEach>
 					<c:choose>
 						<c:when test="${msg.curPage==msg.pageCount}"><a href="javascript:void();" class="prev">下一页</a></c:when>
-						<c:otherwise><a href="../recruit/ListMain.do?a=<c:out value="${queryType}"/>&more=1&recruitType=view&mainType=3&curPage=<c:out value="${msg.curPage+1}"/>" class="prev">下一页</a></c:otherwise>
+						<c:otherwise><a href="../recruit/ListMain.do?a=<c:out value="${queryType}"/>&more=1&recruitType=view&mainType=3&type=${type}&key=${key}&curPage=<c:out value="${msg.curPage+1}"/>" class="prev">下一页</a></c:otherwise>
 					</c:choose>
 				</div>
 			</c:when>

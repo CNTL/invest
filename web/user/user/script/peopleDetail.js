@@ -1,7 +1,7 @@
 var pagei = null;
 var msg = {
 	addMsg : function(){
-		var userID = $("#userID").val();
+		var userID = $("#curUserID").val();
 		alert(userID)
 		if(userID == null || userID.length == 0 || userID == 0){
 			setCookie("loginCurrentUrl", window.location.href);
@@ -27,7 +27,7 @@ var msg = {
 		});
 		$("#msgToDiv").html($("#userName").val());
 		$("#msgTo").val($("#userName").val());
-		$("#msgTo_ID").val($("#userID").val());
+		$("#msgTo_ID").val($("#curUserID").val());
 		$("#form").validationEngine("attach",{
 			autoPositionUpdate:false,//是否自动调整提示层的位置
 			scroll:false,//屏幕自动滚动到第一个验证不通过的位置
