@@ -110,28 +110,44 @@ public class RecruitManager {
             return null;
 	}
 	public Message queryRecruits(int curPage, int length, Integer userId, 
-			String recruitType, String queryType, int type, String key) throws Exception{
-		StringBuilder querySql = new StringBuilder("SELECT rt.* FROM user_recruit rt,user u WHERE u.id=rt.userID");
-		StringBuilder countSql = new StringBuilder("SELECT count(rt.id) FROM user_recruit rt,user u WHERE u.id=rt.userID");
-		Object[] params = null;
+			String recruitType, String queryType, int type, String key, String city) throws Exception{
+		StringBuilder querySql = new StringBuilder("SELECT DISTINCT rt.*,u.city,dic.dic_id,dic.dic_name FROM user_recruit rt,user u LEFT JOIN sys_dictionary AS dic ON u.city=dic.dic_id WHERE u.id=rt.userID ");
+		StringBuilder countSql = new StringBuilder("SELECT count(rt.id) FROM user_recruit rt,user u LEFT JOIN sys_dictionary AS dic ON u.city=dic.dic_id WHERE u.id=rt.userID ");
+		
+		List<Object> paramList = new ArrayList<Object>();
 		if("edit".equals(recruitType) && userId > 0){//管理我的职位，则增加当前用户查询条件
 			querySql.append(" and u.id=?");
 			countSql.append(" and u.id=?");
-			params = new Object[]{userId};
+			//params = new Object[]{userId};
+			paramList.add(userId);
 		}
 		if(type == 0 && !StringUtils.isEmpty(key)){//职位查询条件
-			querySql.append(" AND typeName LIKE '%").append(key).append("%'");
-			countSql.append(" AND typeName LIKE '%").append(key).append("%'");
+			querySql.append(" AND rt.typeName LIKE '%").append(key).append("%'");
+			countSql.append(" AND rt.typeName LIKE '%").append(key).append("%'");
 		} else if(type == 1 && !StringUtils.isEmpty(key)){//公司查询条件
 			querySql.append(" AND (u.orgShortname LIKE '%").append(key).append("%' OR u.orgFullname LIKE '%").append(key).append("%')");
 			countSql.append(" AND (u.orgShortname LIKE '%").append(key).append("%' OR u.orgFullname LIKE '%").append(key).append("%')");
+		}
+		if(!StringUtils.isEmpty(city)){
+			if("其他".equals(city)){
+				String citys = "'北京','上海','广州','南京','重庆','长春','银川','苏州','横店','涿州','海外'";
+				querySql.append(" and dic.dic_name not in (").append(citys).append(")");
+				countSql.append(" and dic.dic_name not in (").append(citys).append(")");
+			} else {
+				querySql.append(" and dic.dic_name=?");
+				countSql.append(" and dic.dic_name=?");
+				paramList.add(city);
+			}
 		}
 		if("queryNew".equals(queryType)){//最新职位
 			querySql.append(" order by rt.createtime desc");
 		} else if("queryHot".equals(queryType)){//最热职位
 			querySql.append(" order by rt.resumeNum desc");
 		}
-		
+		Object[] params = null;
+		if(paramList != null && paramList.size() > 0){
+			params = paramList.toArray(new Object[0]);
+		}
 		List<UserRecruit> myRecruits =  getRecruits(querySql.toString(), params, length, curPage, null);
 		int total = getSqlCount(countSql.toString(), params, null);
 		return setMessage(myRecruits, curPage, length, total);

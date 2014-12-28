@@ -92,14 +92,16 @@ public class PeopleMainController extends Entry {
 			Dictionary[] types = dicReader.getSubDics(DicTypes.DIC_JOB_TYPE.typeID(), 0);
 			if(types == null || types.length == 0) return;
 			for (Dictionary dic : types) {
-				Map<String, Object> dataMap = new HashMap<String, Object>();
 				int typeID = dic.getId();
 				String typeName = dic.getName();
-				Message msg = userManager.queryPersons(typeID, 1, 4);
-				dataMap.put("persons", msg);
-				dataMap.put("perType", typeID);
-				dataMap.put("perName", typeName);
-				dataList.add(dataMap);
+				if(!"ÆäËû".equals(typeName)){
+					Map<String, Object> dataMap = new HashMap<String, Object>();
+					Message msg = userManager.queryPersons(typeID, 1, 4);
+					dataMap.put("persons", msg);
+					dataMap.put("perType", typeID);
+					dataMap.put("perName", typeName);
+					dataList.add(dataMap);
+				}
 			}
 			model.put("datas", dataList);
 		} else {

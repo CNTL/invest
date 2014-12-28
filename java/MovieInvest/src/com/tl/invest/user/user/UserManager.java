@@ -11,15 +11,19 @@ import org.hibernate.type.Type;
 
 import com.tl.common.Message;
 import com.tl.common.ResourceMgr;
+import com.tl.common.StringUtils;
 import com.tl.common.UserEncrypt;
 import com.tl.db.DBSession;
 import com.tl.db.IResultSet;
+import com.tl.invest.constant.DicTypes;
 import com.tl.kernel.constant.SysTableLibs;
 import com.tl.kernel.context.Context;
 import com.tl.kernel.context.DAO;
 import com.tl.kernel.context.DAOHelper;
 import com.tl.kernel.context.TBID;
 import com.tl.kernel.context.TLException;
+import com.tl.kernel.sys.dic.Dictionary;
+import com.tl.kernel.sys.dic.DictionaryReader;
 
 
 
@@ -383,7 +387,19 @@ public class UserManager {
 		StringBuilder querySql = new StringBuilder("select a from com.tl.invest.user.user.User as a where a.type = 0 order by a.createTime desc");
 		List<User> list = DAOHelper.find(querySql.toString() , start, length);
 		if(list == null || list.size() == 0) return null;
-		return list.toArray(new User[0]);
+		DictionaryReader dicReader = (DictionaryReader) Context.getBean(DictionaryReader.class);
+		List<User> users = new ArrayList<User>();
+		for(User user : list){
+			if(user!=null){
+				if(user.getPerJob() != null && !"".equals(user.getPerJob())){
+					int perJob = Integer.valueOf(user.getPerJob());//职业
+					Dictionary dic = dicReader.getDic(DicTypes.DIC_JOB_TYPE.typeID(), perJob);
+					user.setPerJobName(dic.getName());
+				}
+				users.add(user);
+			}
+		}
+		return users.toArray(new User[0]);
 	}
 	/** 
 	* @author  leijj 
@@ -422,11 +438,27 @@ public class UserManager {
 	* @return
 	* @throws Exception 
 	*/ 
-	public Message queryCompanys(int curPage, int length) throws Exception{
-		StringBuilder querySql = new StringBuilder("SELECT DISTINCT u.* FROM user_recruit rt,user u WHERE u.id=rt.userID AND u.type=1");
-		StringBuilder countSql = new StringBuilder("SELECT count(rtUser.userID) AS count FROM (SELECT DISTINCT u.id as userID FROM user_recruit rt,user u WHERE u.id=rt.userID AND u.type=1) AS rtUser");
+	public Message queryCompanys(int curPage, int length, String city) throws Exception{
+		StringBuilder querySql = new StringBuilder("SELECT DISTINCT u.*,dic.dic_id,dic.dic_name FROM user_recruit rt,user u LEFT JOIN sys_dictionary AS dic ON u.city=dic.dic_id WHERE u.id=rt.userID AND u.type=1");
+		StringBuilder countSql = new StringBuilder("SELECT count(rtUser.userID) AS count FROM (SELECT DISTINCT u.id as userID FROM user_recruit rt,user u LEFT JOIN sys_dictionary AS dic ON u.city=dic.dic_id WHERE u.id=rt.userID AND u.type=1");
+		List<Object> paramList = new ArrayList<Object>();
+		if(!StringUtils.isEmpty(city)){
+			if("其他".equals(city)){
+				String citys = "'北京','上海','广州','南京','重庆','长春','银川','苏州','横店','涿州','海外'";
+				querySql.append(" and dic.dic_name not in (").append(citys).append(")");
+				countSql.append(" and dic.dic_name not in (").append(citys).append(")");
+			} else {
+				querySql.append(" and dic.dic_name=?");
+				countSql.append(" and dic.dic_name=?");
+				paramList.add(city);
+			}
+		}
+		countSql.append(" ) AS rtUser");
+	
 		Object[] params = null;
-		
+		if(paramList != null && paramList.size() > 0){
+			params = paramList.toArray(new Object[0]);
+		}
 		List<User> companys =  getUsers(querySql.toString(), params, length, curPage, null);
 		int total = getSqlCount(countSql.toString(), params, null);
 		return setMessage(companys, curPage, length, total);

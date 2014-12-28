@@ -36,7 +36,9 @@ public class CompanyMainController extends Entry {
 	*/ 
 	private void queryCompanys(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception{
 		int curPage = getInt(request, "curPage", 1);
-		Message msg = userManager.queryCompanys(curPage, 9);
+		String city = get(request, "city");//查询条件的值
+		Message msg = userManager.queryCompanys(curPage, 9, city);
+		model.put("city", city);
 		model.put("msg", msg);
 	}
 	@Override

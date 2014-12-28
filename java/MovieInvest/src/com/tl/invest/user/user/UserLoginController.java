@@ -94,6 +94,7 @@ public class UserLoginController extends BaseController
 		user.setType(ParamInitUtils.getInt(request.getParameter("type")));
 		user.setPassword(ParamInitUtils.getString(request.getParameter("password")));
 		user.setCreateTime(DateUtils.getTimestamp());
+		user.setIsRealNameIdent(0);//Œ¥»œ÷§
 		UserManager userManager = (UserManager) Context.getBean(UserManager.class);
 		String result = userManager.create(user);
 		return result;
