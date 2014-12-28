@@ -33,16 +33,14 @@
     <script>
         jQuery(document).ready(function () {
         	loadUser();
+        	$("#btnOK").click(function(){
+        		var url = "../user/user.do?a=checkUser&id="+id;
+        		$.get(url, function(data){
+        			 window.parent.tldialog.closeRefresh();
+        			});
+        	});
         });
         
-        function postUser(){
-        	var url = "sysuser.do?action=updateuser&id="+$("#id").val()+"&username="+$("#username").val()+"&code="+$("#code").val()+"&pwd="+$("#pwd").val()+"&email="+$("#email").val()+"&mobile="+$("#mobile").val();
-        	$.get(url, function(data){
-        		  if(data=="ok"){
-        			  window.parent.tldialog.closeRefresh();
-        		  }
-        		});
-        }
         function loadUser(){
         	var id = $.query.get("id");
         	if(id>0){
@@ -55,6 +53,13 @@
         				userType = "机构";
         			}
         			sb.push("<tbody>");
+        			if(json.isRealNameIdent==0){
+        				sb.push("<tr>");
+            			sb.push("<td colSpan=\"2\" class=\"text-center\"><button id=\"btnOK\" class=\"btn btn-primary\">认证通过</button></td>");
+            			
+            			sb.push("</tr>");
+        			}
+        			
         			
         			if(json.type==0){
         				sb.push("<tr>");
@@ -150,10 +155,7 @@
             			
             			sb.push("</tr>");
             			
-            			sb.push("<tr>");
-            			sb.push("<td colSpan=\"2\"><button id=\"btnOK\" class=\"btn btn-primary\">认证通过</button></td>");
-            			
-            			sb.push("</tr>");
+            		
             			sb.push("</tbody>");
         			}
 

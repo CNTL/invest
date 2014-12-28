@@ -10,13 +10,31 @@ var options = {
 				iconCls: 'icon-add',
 				handler: function(){
 					var docIds = tldatagrid.getSelectedIDs();
-					tldialog.show("认证用户","./userCheck.jsp?id="+docIds,476,700);
+					if(docIds>0){
+						tldialog.show("认证用户","./userCheck.jsp?id="+docIds,476,700);
+					}
+					else{
+						alert("请选择一条记录。")
+					}
+					
 				}
 			},'-',{
-				iconCls: 'icon-add',
+				iconCls: 'icon-remove',
 				handler: function(){
 					var docIds = tldatagrid.getSelectedIDs();
-					alert(docIds);
+					if(docIds>0){
+						if(confirm("你确定要删除吗？")){
+							var url = "../user/user.do?a=deleteUser&id="+docIds;
+							alert(url);
+							$.get(url, function(data){
+								tldialog.closeRefresh();
+			        		});
+						}
+					}
+					else{
+						alert("请选择一条记录。")
+					}
+					 
 				}
 			}],	
 	rowStyler : function(index,row){
