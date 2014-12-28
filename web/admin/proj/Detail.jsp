@@ -38,8 +38,8 @@
 				<td style="width:250px;">
 					<c:choose>
 						<c:when test="${proj.approveStatus==0}">未审批</c:when>
-						<c:when test="${proj.approveStatus==1}">已审批</c:when>
-						<c:when test="${proj.approveStatus==2}">审批未通过</c:when>
+						<c:when test="${proj.approveStatus==2}">已审批</c:when>
+						<c:when test="${proj.approveStatus==3}">审批未通过</c:when>
 						<c:otherwise>未知</c:otherwise>
 					</c:choose>
 					--
