@@ -44,6 +44,15 @@ public class User {
 	private String orgTrade;
 	private String orgScale;
 	private String orgHomePage;
+	private int deleted;
+	public int getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(int deleted) {
+		this.deleted = deleted;
+	}
+
 	private List<UserBankcard> bankcards;
 	public User() {
 	}

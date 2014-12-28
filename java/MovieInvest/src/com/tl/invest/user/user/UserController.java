@@ -94,7 +94,50 @@ public class UserController extends BaseController {
 		} else if ("uploadAtt".equals(action)) {
 			String json = upload(request);
 			output(json, response);
+		}else if ("getUser".equals(action)) {
+			getUser(request,response);
 		}
+		else if ("checkUser".equals(action)) {
+			checkUser(request,response);
+		}
+		else if ("deleteUser".equals(action)) {
+			deleteUser(request,response);
+		}
+	}
+	/**根据ID获取用户
+	 * @param request
+	 * @param response
+	 * @throws Exception
+	 */
+	private void deleteUser(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		int id = getInt(request, "id", 0);
+		User user = userManager.getUserByID(id);
+		user.setDeleted(1);
+		userManager.update(user);
+		output("ok", response);
+	}
+	/**根据ID获取用户
+	 * @param request
+	 * @param response
+	 * @throws Exception
+	 */
+	private void checkUser(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		int id = getInt(request, "id", 0);
+		User user = userManager.getUserByID(id);
+		user.setIsRealNameIdent(1);
+		userManager.update(user);
+		output("ok", response);
+	}
+	/**根据ID获取用户
+	 * @param request
+	 * @param response
+	 * @throws Exception
+	 */
+	private void getUser(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		int id = getInt(request, "id", 0);
+		User user = userManager.getUserByID(id);
+		JSONObject jsonArray = JSONObject.fromObject(user);  
+		output(jsonArray.toString(), response);
 	}
 	/** 
 	* @author  leijj 
