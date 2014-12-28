@@ -24,7 +24,7 @@
 	<!-- ======================== 调度触发器 ======================== -->  
 	<bean id="updateProjectStatusTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
 		<property name="jobDetail" ref="updateProjectStatusServiceJobMethod"></property>  
-		<property name="cronExpression" value="0/30 * * * * ?"></property>  
+		<property name="cronExpression" value="0 1 0 * * ?"></property>  
 	</bean>
 	<!-- ======================== 调度工厂 ======================== -->  
 	<bean id="SpringJobSchedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">  
