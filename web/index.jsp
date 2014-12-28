@@ -151,7 +151,7 @@
          <div class="box_top"></div>
          <div class="box_main project">
              <div class="pic">
-                 <a href="Project.do?id=<c:out value="${proj.id}"/>"><img src="<c:out value="${proj.imgUrl}"/>" /></a>
+                 <a href="project/Project.do?id=<c:out value="${proj.id}"/>"><img src="<c:out value="${proj.imgUrl}"/>" /></a>
                  <span>项目</span>
              </div>
              <div>
@@ -198,11 +198,11 @@
 			<div class="box_top"></div>
 			<div class="box_main job">
 				<div class="pic">
-					<a href="#"><img src="<c:out value="${recuit.jobPictrue}"/>" /></a> <span>影聘</span>
+					<a href="recruit/DetailMain.do?a=detail&id=<c:out value="${recuit.id}"/>"><img src="<c:out value="${recuit.jobPictrue}"/>" /></a> <span>影聘</span>
 				</div>
 				<div>
 					<div class="title">
-						<a href="#"><c:out value="${recuit.jobName}"/></a> <span><c:out value="${recuit.company}"/></span>
+						<a href="recruit/DetailMain.do?a=detail&id=<c:out value="${recuit.id}"/>"><c:out value="${recuit.jobName}"/></a> <span><c:out value="${recuit.company}"/></span>
 					</div>
 					<div class="info">
 						<ul>
@@ -229,10 +229,10 @@
 		<div class="box_top"></div>
 		<div class="box_main people">
 			<div class="pic">
-				<img src="<c:out value="${user.head}"/>" /> <span>影人</span>
+				<a href="user/PeopleDetailMain.do?a=detail&id=<c:out value="${user.id}"/>"><img src="<c:out value="${user.head}"/>" /> </a><span>影人</span>
 			</div>
 			<div class="title">
-				<a href="#"><c:out value="${user.name}"/></a> <span><c:out value="${user.perJob}"/></span>
+				<a href="user/PeopleDetailMain.do?a=detail&id=<c:out value="${user.id}"/>"><c:out value="${user.name}"/></a> <span><c:out value="${user.perJobName}"/></span>
 			</div>
 			<div class="desc"><c:out value="${user.intro}"/></div>
 			<div class="tool">
