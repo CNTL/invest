@@ -5,10 +5,13 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONObject;
+
 import com.tl.common.DateUtils;
 import com.tl.common.StringUtils;
 import com.tl.invest.sys.user.Permission;
 import com.tl.invest.sys.user.Role;
+import com.tl.invest.sys.user.SysUser;
 import com.tl.invest.sys.user.SysUserManager;
 import com.tl.kernel.context.Context;
 import com.tl.kernel.context.TLException;
@@ -29,6 +32,75 @@ public class SysUserController extends BaseController {
 				deleteRole(request,model);
 			}
 		}
+		else if("updateuser".equals(action)){
+			updateSysUser(request,response);
+		}
+		else if("getuser".equals(action)){
+			getSysUser(request,response);
+		}
+	}
+	/** 更新系统用户
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @throws Exception
+	 */
+	private void getSysUser(HttpServletRequest request,
+			HttpServletResponse response) throws Exception{
+		Integer id = getInt(request, "id",0);
+		try {
+			SysUserManager userMgr = (SysUserManager)Context.getBean(SysUserManager.class);
+			
+			SysUser user = new SysUser();
+			if(id>0){
+				user = userMgr.getUser(id);
+			}
+			JSONObject jsonArray = JSONObject.fromObject(user);  
+			output(jsonArray.toString(), response);
+		} catch (Exception e) {
+			log.error(e.getMessage(),e);
+		}
+		
+	}
+	
+	/** 更新系统用户
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @throws Exception
+	 */
+	private void updateSysUser(HttpServletRequest request,
+			HttpServletResponse response) throws Exception{
+		Integer id = getInt(request, "id",0);
+		String username = get(request, "username","");
+		String code = get(request, "code","");
+		String pwd = get(request, "pwd");
+		String email = get(request, "email","");
+		String mobile= get(request, "mobile","");
+		try {
+			SysUserManager userMgr = (SysUserManager)Context.getBean(SysUserManager.class);
+			
+			SysUser user = new SysUser();
+			if(id>0){
+				user = userMgr.getUser(id);
+			}
+			
+			user.setId(id);
+			user.setCode(code);
+			user.setUsername(username);
+			user.setPwd(pwd);
+			user.setEmail(email);
+			user.setMobile(mobile);
+			user.setGroupid(0);
+			user.setDeleted(0);
+			user.setCreatetime(DateUtils.getTimestamp());
+			userMgr.saveUser(user);
+			
+			output("ok", response);
+		} catch (Exception e) {
+			log.error(e.getMessage(),e);
+		}
+		
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })

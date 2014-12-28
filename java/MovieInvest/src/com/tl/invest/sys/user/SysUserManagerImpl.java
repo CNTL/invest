@@ -265,7 +265,7 @@ public class SysUserManagerImpl implements SysUserManager {
 	public SysUser getUser(int userID, Session s) {
 		SysUser user = null;
 		DAO d = new DAO();
-		String HQL = "select a from com.tl.invest.sys.user.SysUser as a where a.id = :id";
+		String HQL = "select a from com.tl.invest.sys.user.SysUser as a where a.id = ?";
 		Object[] params = new Object[]{userID};
 		List users = s == null ? d.find(HQL,params) : d.find(HQL, params, s);
 		if(!users.isEmpty()){
@@ -284,7 +284,7 @@ public class SysUserManagerImpl implements SysUserManager {
 	public SysUser getUser(String userCode, Session s) {
 		SysUser user = null;
 		DAO d = new DAO();
-		String HQL = "select a from com.tl.invest.sys.user.SysUser as a where a.code = :code";
+		String HQL = "select a from com.tl.invest.sys.user.SysUser as a where a.code = ?";
 		Object[] params = new Object[]{userCode};
 		List users = s == null ? d.find(HQL,params) : d.find(HQL,params ,s);
 		if(!users.isEmpty()){
