@@ -9,13 +9,13 @@ var options = {
 	toolbar: [{
 				iconCls: 'icon-add',
 				handler: function(){
-					tldialog.show("新增","./userEdit.jsp?valueArray=",680,460);
+					tldialog.show("新增系统用户","./userEdit.jsp?valueArray=",476,577);
 				}
 			},'-',{
 				iconCls: 'icon-edit',
 				handler: function(){
 					var docIds = tldatagrid.getSelectedIDs();
-					tldialog.show("修改","./userEdit.jsp?valueArray="+docIds,680,460);
+					tldialog.show("修改系统用户","./userEdit.jsp?id="+docIds,476,577);
 				}
 			}],	
 	rowStyler : function(index,row){
