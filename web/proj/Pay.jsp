@@ -15,6 +15,7 @@
 	<script type="text/javascript" src="../proj/script/pay.js"></script>
 	<script type="text/javascript">
 		var webroot = "<c:out value="${rootPath}"/>";
+		var price = "<c:out value="${mode.price}"/>";
 	</script>
 </head>
 <body>
@@ -28,6 +29,7 @@
 			<c:out value="${error}"/>
 		</c:when>
 		<c:otherwise>
+		<form id="form" name="form" action="" method="post">
 		<div class="order-box">
 			<div id="confirm-order">
 				<div class="pay-tit"><h3>确认收货地址</h3></div>
@@ -104,54 +106,48 @@
 						</span>
 						<span class="pos5"><c:out value="${mode.returntime}"/></span>
 					</div>
-					<div class="supdtl-cont-bot">给项目发起人留言<textarea name="memo" type="text"></textarea></div>
+					
+					<div class="order-detail" style="padding: 20px;margin: 15px 0 0 0;">		
+						<h6 style="font-size: 18px;padding: 5px 0 15px 0;font-weight: normal;margin: 0;">捐赠金额</h6>	
+						<div class="mon-boo clearfix" style="position: relative;display: block;">
+							<i class="s-money" style="background: url(../static/image/juanz.png) no-repeat;width: 15px;height: 24px;position: absolute;left: 15px;top: 15px;"></i>
+							<input class="price how-much validate[required,custom[number]]" id="custom_price" name="custom_price" type="text" placeholder="请输入金额" maxlength="8"
+							 style="float: left;width: 230px;height: 50px;line-height: 30px;border: 1px #fff solid;border-radius: 5px;outline: none;padding: 0 35px;color: #55acef;font-size: 24px;font-weight: bold;"/>
+							<div class="m-progressdialog" style="display:none;"><!-- |digits|min -->
+								<i class="mokl" style="left: 38%;">38%</i>
+								<div class="m-progressdialog-grey">
+								<div class="m-progressdialog-navy" data-ed="3000.0000" data-ing="108.0000" style="width: 38%;"></div>
+								<div class="m-progressdialog-light" style="width: 4%;"></div>
+								</div>
+								<span>目前完成<span class="cur-count">4%</span></span>
+							</div>
+						</div>
+					</div>
+					
+					<div class="supdtl-cont-bot">给项目发起人留言<textarea name="memo" id="memo" type="text"></textarea></div>
 				</div>
 			</div>
 			<div><h3 class="hst">选择支付方式</h3></div>
 			<div class="pay-wrap">
-				<div class="pay-head clearfix" style="display:none;">
-					<ul>
-						<li class="lan">平台支付</li>
-						<li class="">网银支付</li>
-					</ul>
-				</div> 
 				<div class="pay-con" id="Js-select">
-					<input type="hidden" class="sel_bank" name="bank_id" value="alipay">
-					<input type="hidden" class="sel_num" name="payment" value="29">
 					<div class="pay-row" style="border-top-width: medium; border-top-style: none; display: block;">
 						<div class="cashier-cach">
 							<ul>
 								<li class="alipay select">
-									<span class="" value="alipay" data-payment="29"></span>
+									<span class="" value="alipay"></span>
 								</li>
 							</ul>
 						</div>
 					</div>
-					<div class="pay-row" style="display:none;">
-						<div class="cashier-cash">
-							<ul>
-								<li> <span class="alibank_types bk_typeICBC" value="ICBC" data-payment="38"> </span> </li>
-								<li> <span class="alibank_types bk_typeCMBCHINA" value="CMBCHINA" data-payment="38"> </span> </li>
-								<li> <span class="alibank_types bk_typeCCB" value="CCB" data-payment="38"> </span> </li>
-								<li> <span class="alibank_types bk_typeABC" value="ABC" data-payment="38"> </span> </li>
-								<li> <span class="alibank_types bk_typeSPDB" value="SPDB" data-payment="38"> </span> </li>
-								<li> <span class="alibank_types bk_typeCEB" value="CEB" data-payment="38"> </span> </li>
-								<li> <span class="alibank_types bk_typeCMBC" value="CMBC" data-payment="38"> </span> </li>
-								<li> <span class="alibank_types bk_typeGDB" value="GDB" data-payment="38"> </span> </li>
-								<li> <span class="alibank_types bk_typeBOC" value="BOC" data-payment="38"> </span> </li>
-								<li> <span class="alibank_types bk_typeBOCO" value="BOCO" data-payment="38"> </span> </li>
-								<li> <span class="alibank_types bk_typePOST" value="POST" data-payment="38"> </span> </li>
-							</ul>
-						</div>
-					</div>
-					<input type="hidden" name="item_id" value="91369">
 				</div>
 			</div>
 			<div class="pay-submit">
-				<div>总计金额：<span>￥<c:out value="${totalFee}"/></span></div>
+				<div>总计金额：<span id="span_totalfee">￥<c:out value="${totalFee}"/></span></div>
+				<input type="hidden" id="order_totalfee" name="order_totalfee" value="<c:out value="${totalFee}"/>" />
 				<input type="submit" class="btn-effect-blue btn-sub w217" value="确认付款">
 			</div>
 		</div>
+		</form>
 		</c:otherwise>
 		</c:choose>
 		</div>

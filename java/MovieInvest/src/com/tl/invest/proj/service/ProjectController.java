@@ -61,16 +61,27 @@ public class ProjectController extends ProjectMainController{
 				ProjScheduleExt[] schedules = service.getProjScheduleExts(proj_id, 100, 1, null);
 				Dictionary[] dics = dicReader.getSubDics(DicTypes.DIC_INVEST_STAGE.typeID(), 0);
 				
+				int currtStage = 1;
+				int lastCurrtStage = currtStage;
+				
 				List<ProjectStage> stages = new ArrayList<ProjectStage>();
 				if(dics!=null){
 					for (Dictionary dic : dics) {
 						ProjectStage stage = new ProjectStage();
-						stage.setStage(dic);
+						stage.setStage(dic);						
 						if(schedules!=null){
 							for (ProjScheduleExt schedule : schedules) {
 								if(dic.getId() == schedule.getStage()){
 									stage.setSchedule(schedule);
 									stages.add(stage);
+									if(dic.getCode().equals("2")||dic.getCode().equals("3")||dic.getCode().equals("4")){
+										lastCurrtStage = 2;
+									}else if(dic.getCode().equals("5")){
+										lastCurrtStage = 5;
+									}
+									if(currtStage<lastCurrtStage){
+										currtStage = lastCurrtStage;
+									}
 								}
 							}
 						}
@@ -85,6 +96,7 @@ public class ProjectController extends ProjectMainController{
 				model.put("finishPer", per);
 				model.put("surplus", surplus);
 				model.put("stages", stages);
+				model.put("curstage", currtStage);
 			}
 			model.put("proj", proj);
 		}

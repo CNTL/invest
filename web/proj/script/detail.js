@@ -48,6 +48,14 @@ $(function(){
 			window.location.href = "../project/Pay.do?id="+modeid;
 		}
 	});
+	
+	if(curstage == "1"){
+		$(".project_view .main .content .progress li.s1").addClass("s1_1");
+	}else if(curstage == "2"){
+		$(".project_view .main .content .progress li.s2").addClass("s2_1");
+	}else if(curstage == "5"){
+		$(".project_view .main .content .progress li.s3").addClass("s3_1");
+	}
 });
 
 function showModePhotosPage(modeid,start){

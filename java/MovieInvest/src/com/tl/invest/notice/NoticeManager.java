@@ -5,7 +5,10 @@ import java.util.List;
 
 import org.hibernate.Session;
 
+import com.tl.common.ResourceMgr;
 import com.tl.common.log.Log;
+import com.tl.db.DBSession;
+import com.tl.db.IResultSet;
 import com.tl.invest.constant.TableLibs;
 import com.tl.kernel.context.Context;
 import com.tl.kernel.context.DAO;
@@ -103,5 +106,35 @@ public class NoticeManager {
 		if (list.size() == 0) return null;
 		
 		return (Notice[]) list.toArray(new Notice[0]);
+	}
+	
+	public int getNoticeCount() throws TLException{
+		return getNoticeCount(null);
+	}
+	
+	public int getNoticeCount(DBSession db) throws TLException{
+		int count =0;
+		boolean dbIsCreated = false;
+		if(db==null){
+			dbIsCreated = true;
+			db= Context.getDBSession();
+		}
+		IResultSet rs = null;
+		try{
+			String sql = "select count(0) from "+TableLibs.TB_NOTICE.getTableCode();
+			sql += " where deleted=0";
+			//dbSession = Context.getDBSession();
+			rs = db.executeQuery(sql,null);
+			if(rs.next())
+				count = rs.getInt(1);
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}finally{
+			ResourceMgr.closeQuietly(rs);
+			if(dbIsCreated){
+				ResourceMgr.closeQuietly(db);
+			}
+		}
+		return count;
 	}
 }

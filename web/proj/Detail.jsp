@@ -9,7 +9,37 @@
 	<script type="text/javascript" src="../proj/script/detail.js"></script>
 	<script type="text/javascript">
 		var webroot = "<c:out value="${rootPath}"/>";
+		var curstage = "<c:out value="${curstage}"/>";
 	</script>
+	<style type="text/css">
+		.project_view .main .content .progress li.s1 {
+			background: url(../static/image/p1.png) no-repeat;
+		}
+
+		.project_view .main .content .progress li.s2 {
+			margin-left: 70px;
+			background: url(../static/image/p2.png) no-repeat;
+		}
+
+		.project_view .main .content .progress li.s3 {
+			margin-left: 70px;
+			background: url(../static/image/p3.png) no-repeat;
+		}
+		
+		.project_view .main .content .progress li.s1_1 {
+			background: url(../static/image/p1_1.png) no-repeat;
+		}
+
+		.project_view .main .content .progress li.s2_1 {
+			margin-left: 70px;
+			background: url(../static/image/p2_1.png) no-repeat;
+		}
+
+		.project_view .main .content .progress li.s3_1 {
+			margin-left: 70px;
+			background: url(../static/image/p3_1.png) no-repeat;
+		}
+	</style>
 </head>
 <body>
 	<%@include file="../inc/header.inc"%>
@@ -97,16 +127,24 @@
 						<c:when test="${mode.price<=0}">无私支持</c:when>
 						<c:otherwise>支持￥<label class="moneyFormat"><c:out value="${mode.price}"/></label></c:otherwise>
 					</c:choose>
-                    <div class="count">已有 <span class="red"><c:out value="${mode.countSupport}"/></span> 位支持者/限额 <span class="red"><c:out value="${mode.countGoal}"/></span> 位</div>
+                    <div class="count">已有 <span class="red"><c:out value="${mode.countSupport}"/></span> 位支持者
+					<c:if test="${mode.countGoal>0}">/限额 <span class="red"><c:out value="${mode.countGoal}"/></span> 位</c:if></div>
                 </div>
                 <div class="content">
 					<div id="returncontent_<c:out value="${mode.id}"/>" class="returncontent" modeid="<c:out value="${mode.id}"/>" imgs="<c:out value="${mode.imgURL}"/>"><c:out value="${mode.returnContent}"/></div>
-					<span class="supportBtn" modeid="<c:out value="${mode.id}"/>" userid="<c:out value="${loginUser.id}"/>">
+					<!--<span class="supportBtn" modeid="<c:out value="${mode.id}"/>" userid="<c:out value="${loginUser.id}"/>">-->
+					<button class="btn btn-danger supportBtn" modeid="<c:out value="${mode.id}"/>" userid="<c:out value="${loginUser.id}"/>"
+						<c:if test="${(mode.countGoal>0 && mode.countSupport>=mode.countGoal) || proj.status!=1}">
+						disabled="disabled"
+						</c:if>
+					>
 						<c:choose>
 							<c:when test="${mode.price<=0}">无私支持</c:when>
 							<c:otherwise>支持￥<label class="moneyFormat"><c:out value="${mode.price}"/></label></c:otherwise>
 						</c:choose>
-				  </span></div>
+					</button>
+					<!--</span>-->
+				 </div>
             </div>
 			</c:forEach>
         </div>
