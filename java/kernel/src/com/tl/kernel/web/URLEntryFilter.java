@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.qq.connect.utils.URLEncodeUtils;
 import com.tl.common.WebUtil;
 
 /**
@@ -101,6 +102,9 @@ public class URLEntryFilter implements Filter {
 	}
 	
 	private boolean validSession(String path, HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String queryString = request.getQueryString();
+		String url = request.getRequestURL().toString();
+		url = URLEncodeUtils.encodeURL(url + "?" +queryString);
 		/*
 		 * 此时只要有任意一个的session就允许通过。
 		 */
@@ -113,13 +117,13 @@ public class URLEntryFilter implements Filter {
 		if (isAdminConsole(path)) {
 			if (session.getAttribute(SysSessionUser.sessionAdminName) == null) {
 				System.out.println("[-----非法请求路径, 重新定位到登录界面-----]" + path);
-				response.sendRedirect(WebUtil.getRoot(request) + "admin/login.jsp");
+				response.sendRedirect(WebUtil.getRoot(request) + "admin/login.jsp?url=" + url);
 				return false;
 			}
 		} else {
 			if (session.getAttribute(SysSessionUser.sessionName) == null) {
 				System.out.println("[-----Illegal path, redirect to login-----]" + path);
-				response.sendRedirect(WebUtil.getRoot(request) + "userout/userLogin.jsp");
+				response.sendRedirect(WebUtil.getRoot(request) + "login.jsp?url=" + url);
 				return false;
 			}
 		}
