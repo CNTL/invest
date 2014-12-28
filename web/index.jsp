@@ -135,10 +135,10 @@
 				<div class="notice">
 					<h2>最新通知</h2>
 					<div class="content">
-						<span class="i"></span><c:out value="${notice.title}"/>
+						<span class="i"></span><c:out value="${notice.content}"/>
 					</div>
 					<div class="more">
-						<a href="#">查看更多</a>
+						<a href="notice/List.do">查看更多</a>
 					</div>
 				</div>
 			</div>
