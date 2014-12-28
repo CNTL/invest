@@ -23,6 +23,18 @@
 					        <input class="form-control validate[maxSize[255]]" type="text" id="orgFullname" name="orgFullname" placeholder="机构全称"/>
 					    </div>
 					    <div class="input">
+							<label>地域：</label>
+							<select id="province" name="province" class="validate[required]" onchange="detail.changeProvince();">
+								<option value="">省份</option>
+								<option value="1">选项一</option>
+							</select>
+							<select id="city" name="city" class="validate[required]">
+								<option value="">城市</option>
+								<option value="1">选项一</option>
+							</select>
+						</div>
+						<!-- 
+					    <div class="input">
 							<label for="province">工作所在地：</label>
 							<select id="province" name="province">
 								<option>请选择省份</option>
@@ -65,6 +77,7 @@
 								<option>请选择城市</option>
 							</select>
 						</div>
+						 -->
 					    <div class="input">
 							<label for="province">公司地点：</label>
 				            <input type="text" class="form-control input-lg" id="location" name="location" value="" placeholder="公司地址"/>
@@ -112,7 +125,9 @@
 <!-- footer -->
 <%@include file="../../inc/footer.inc"%>
 <!-- footer -->
+<script type="text/javascript" src="../js/layer/layer.min.js"></script>
 <script type="text/javascript" src="../userout/script/userCommon.js"></script>
+<script type="text/javascript" src="../proj/script/datas.js"></script>
 <script type="text/javascript" src="../user/user/script/orgDetailInfo.js"></script>
 </body>
 </html>

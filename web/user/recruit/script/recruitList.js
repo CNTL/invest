@@ -16,8 +16,35 @@ $(document).ready(function () {
 });
 var jobList = {
 	init : function(){
+		$(".subscribe").find("a").each(function(){
+		    $(this).attr("style","cursor:pointer;text-transform:none;text-decoration:none;");
+		});
 		$("#type").selectbox();
 		$("#search").click(jobList.search);
+	},
+	cityQuery : function(type, more, city){
+		var paramData = {};
+		paramData["recruitType"] = "view";
+		paramData["mainType"] =  "3";
+		paramData["type"] = type;
+		paramData["key"] = $("#key").val();
+		paramData["more"] = more;
+		paramData["city"] = city;
+		var params = {"param":JSON.stringify(paramData)};
+		alert(params)
+		$.ajax({
+	        type:"POST", //请求方式  
+	        url:"../recruit/ListMain.do?a=queryNew&city=" + city, //请求路径  
+	        async:true, 
+	        cache: false,
+	        data: params,
+	        dataType: 'text',   //返回值类型  
+	        success:function(data){
+	        } ,
+			error:function (XMLHttpRequest, textStatus, errorThrown) {
+				alert("error="+errorThrown);
+			}
+	    });
 	},
 	addRecruit : function(){
 		$.ajax({

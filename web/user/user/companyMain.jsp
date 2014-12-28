@@ -8,6 +8,21 @@
 	<meta name="keywords" content="<c:out value="${keywords}"/>" />
 	<meta name="description" content="<c:out value="${description}"/>" />
 	<%@include file="../inc/csslink.inc"%>
+	<style>
+	  	.nav li{width:80px;
+			floag:left;
+			list-style:none;
+			display:inline;
+			font:16px "微软雅黑","宋体",Arial;
+			color:#333;
+		}
+		.nav a {text-transform:none;text-decoration:none;} 
+		.nav a:hover{
+			background:#019875;
+			color:white;
+			cursor:pointer;
+		}
+	</style>
     <script type="text/javascript" src="../static/js/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="../static/js/idangerous.swiper.min.js"></script>
     <script type="text/javascript" src="../static/js/common.js"></script>
@@ -18,12 +33,71 @@
 	<div class="banner">
         <img src="../static/image/banner3.png" />
     </div>
-
+    <div style="display:none;">
+    	<input type="text" id="city" name="city" value="<c:out value="${city}"/>"/>
+    </div>
     <div class="project_list">
         <div class="block1">
+        	<br>
+        	<div>
+				<dt>
+					<ul class="nav">
+						<li>
+							<a href="../user/CompanyMain.do?a=queryCompanys&mainType=3&city=北京">北京</a>
+							|
+						</li>
+						<li>
+							<a href="../user/CompanyMain.do?a=queryCompanys&mainType=3&city=上海">上海</a>
+							|
+						</li>
+						<li>
+							<a href="../user/CompanyMain.do?a=queryCompanys&mainType=3&city=广州">广州</a>
+							|
+						</li>
+						<li>
+							<a href="../user/CompanyMain.do?a=queryCompanys&mainType=3&city=南京">南京</a>
+							|
+						</li>
+						<li>
+							<a href="../user/CompanyMain.do?a=queryCompanys&mainType=3&city=重庆">重庆</a>
+							|
+						</li>
+						<li>
+							<a href="../user/CompanyMain.do?a=queryCompanys&mainType=3&city=长春">长春</a>
+							|
+						</li>
+						<li>
+							<a href="../user/CompanyMain.do?a=queryCompanys&mainType=3&city=银川">银川</a>
+							|
+						</li>
+						<li>
+							<a href="../user/CompanyMain.do?a=queryCompanys&mainType=3&city=苏州">苏州</a>
+							|
+						</li>
+						<li>
+							<a href="../user/CompanyMain.do?a=queryCompanys&mainType=3&city=横店">横店</a>
+							|
+						</li>
+						<li>
+							<a href="../user/CompanyMain.do?a=queryCompanys&mainType=3&city=涿州">涿州</a>
+							|
+						</li>
+						<li>
+							<a href="../user/CompanyMain.do?a=queryCompanys&mainType=3&city=海外">海外</a>
+							|
+						</li>
+						<li>
+							<a href="../user/CompanyMain.do?a=queryCompanys&mainType=3&city=其他">其他</a>
+						</li>		
+					</ul>
+				</dt>
+			</div>
+			<br>
+			<!-- 
             <div class="top">
                 <h2>公司</h2>
             </div>
+             -->
             <c:forEach var="msg" varStatus="status" items="${msg.messages}">
 				<c:choose>
 					<c:when test="${status.index%4==0}"><div class="box box_last"></c:when>

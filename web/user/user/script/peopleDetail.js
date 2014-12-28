@@ -1,8 +1,7 @@
 var pagei = null;
 var msg = {
 	addMsg : function(){
-		var userID = $("#curUserID").val();
-		alert(userID)
+		var userID = $("#userID").val();
 		if(userID == null || userID.length == 0 || userID == 0){
 			setCookie("loginCurrentUrl", window.location.href);
 			window.location.href = "../user/loginMain.do"

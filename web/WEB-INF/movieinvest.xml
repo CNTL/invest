@@ -34,7 +34,6 @@
 			</list>  
 		</property>  
 	</bean>
-	
 	<!-- 系统用户管理 -->
 	<bean id="SysuserManager" class="com.tl.sys.sysuser.SysuserManager"/>
 	<bean id="sys.sysuser" class="com.tl.invest.sys.user.web.SysUserController"></bean>
@@ -67,11 +66,14 @@
 	<bean id="user.Login" class="com.tl.invest.user.user.UserLoginController">
 		<property name="manager"><ref bean="UserManager"/></property>
 	</bean>
-	<bean id="user.afterlogin" class="com.tl.invest.user.user.UserAfterLoginController">
-		<property name="manager"><ref bean="UserManager"/></property>
-	</bean>
 	<bean id="user.Logout" class="com.tl.invest.user.user.UserLogoutController"></bean>
 	<!-- 用户登录主界面 -->
+	<bean id="user.afterLogin" class="com.tl.invest.user.user.UserAfterLoginController">
+		<property name="viewName"><value>userout/userLoginApi</value></property>
+	</bean>
+	<bean id="user.afterRegister" class="com.tl.invest.user.user.UserAfterLoginController">
+		<property name="viewName"><value>userout/userRegisterApi</value></property>
+	</bean>
 	<bean id="user.LoginMain" class="com.tl.invest.user.user.UserLoginMainController">
 		<property name="viewName"><value>userout/userLogin</value></property>
 	</bean>
@@ -339,7 +341,8 @@
 				<prop key="/user/userlogin.do">user.Login</prop>
 				<prop key="/user/user.do">user.User</prop>
 				<prop key="/user/userFetch.do">user.UserFetch</prop>
-				<prop key="/user/afterloginMain.do">user.afterlogin</prop>
+				<prop key="/user/afterLoginMain.do">user.afterLogin</prop>
+				<prop key="/user/afterRegisterMain.do">user.afterRegister</prop>
 				<prop key="/user/logout.do">user.Logout</prop>
 				<prop key="/user/loginMain.do">user.LoginMain</prop>
 				<prop key="/user/registerMain.do">user.RegisterMain</prop>

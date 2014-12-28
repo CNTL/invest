@@ -13,7 +13,7 @@
 <body>
 <%@include file="../../inc/header.inc"%>
 <%@include file="../inc/peopleHeader.inc"%>
-<div class="project_list">
+<div class="people_profile">
 	<input type="hidden" id="opType" name="opType" value="view"/>
 	<input id="groupID" name="groupID" type="hidden" value="<c:out value="${groupID}"/>"/>
 		<div class="project_list">
@@ -28,6 +28,7 @@
 			</div>
 		</div>
      </div>
+     <div class="clear"></div>
 </div>
 <!-- script -->
 <%@include file="../inc/script.inc"%>
@@ -40,6 +41,7 @@
 var rootPath = "<%=com.tl.common.WebUtil.getRoot(request) %>";
 </script>
 <script type="text/javascript" src="../js/layer/layer.min.js"></script>
+<script type="text/javascript" src="../js/utils.js"></script>
 <script type="text/javascript" src="../user/user/script/peopleDetail.js"></script>
 <script type="text/javascript" src="../user/photo/script/photoViewList.js"></script>
 </body>

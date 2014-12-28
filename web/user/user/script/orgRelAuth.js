@@ -23,20 +23,26 @@ var relAuth = {
 	        dataType: 'JSON',   //返回值类型  
 	        success:function(data){
 	    		if(data != null){
+	    			var isIdent = "&nbsp;&nbsp;未认证&nbsp;&nbsp;";
 	    			$("#orgFullname").val(data.orgFullname);
 	    			$("#name").val(data.name);
 	    			$("#identityCard").val(data.identityCard);
+	    			if(data.isRealNameIdent == 1) {
+	    				$("#isIdent").attr("style","background:#019875;color:white;");
+	    				isIdent = "&nbsp;&nbsp;已认证&nbsp;&nbsp;";
+	    			} else {
+	    				$("#isIdent").attr("style","background:red;color:white;");
+	    			}
+	    			$("#isIdent").html(isIdent);
 	    			if(data.organization != null && data.organization.length > 0){
 	    				var srcUrl = data.organization;
 	    				$("#organization").val(srcUrl);
-	    				$("#organizationImg").attr("src", basePath + srcUrl);
-	    				$("#organizationImg").parent().show();
+	    				relAuth.imgUploaded();
 	    			}
 	    			if(data.orgBusinessLicense != null && data.orgBusinessLicense.length > 0) {
 	    				var srcUrl = data.orgBusinessLicense;
 	    				$("#orgBusinessLicense").val(srcUrl);
-	    				$("#orgBusinessLicenseImg").attr("src", basePath + srcUrl);
-	    				$("#orgBusinessLicenseImg").parent().show();
+	    				relAuth.imgUploaded1();
 	    			}
 	    			var bankcards = eval(data.bankcards);
 	    			if(bankcards != null && bankcards.length > 0){
@@ -87,7 +93,7 @@ var relAuth = {
 		}
 	},
 	imgUploaded : function(){
-		var c_img_t = 180;
+		var c_img_t = 280;
 		var c_img_l = 300;
 		$("#coverIMG_div").css("top",c_img_t+"px").css("left",c_img_l+"px").css("display","");
 		$("#coverIMG_div").empty();
@@ -104,7 +110,7 @@ var relAuth = {
 		$("#uploadErrorMsg").val("");
 	},
 	imgUploaded1 : function(){
-		var c_img_t = 180;
+		var c_img_t = 450;
 		var c_img_l = 300;
 		$("#coverIMG_div1").css("top",c_img_t+"px").css("left",c_img_l+"px").css("display","");
 		$("#coverIMG_div1").empty();
@@ -121,7 +127,7 @@ var relAuth = {
 		$("#uploadErrorMsg1").val("");
 	},
 	initUploadify : function(el,countCtrl,imgCtrl,errorCtrl,auto,successInvok){
-		var sessionid= "";//getCookie("JSESSIONID");
+		var sessionid= getCookie("JSESSIONID");
 		$("#"+el).uploadify({
 			scriptAccess:'always',
 			auto:auto,

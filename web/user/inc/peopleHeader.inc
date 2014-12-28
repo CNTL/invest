@@ -4,28 +4,43 @@
            <!-- <a href="../org/BasicInfo.do?infoType=1&mainType=1" class="profile">个人设置</a> -->
            <div class="avavtar">
                <c:choose>
-				<c:when test="${user.head=='' || user.head == null}"><img src="../static/image/temp/pic2.png" /></c:when>
-				<c:otherwise><img src="../<c:out value="${user.head}"/>" /></c:otherwise>
-			</c:choose>
+					<c:when test="${user.head=='' || user.head == null}"><img src="../static/image/temp/pic2.png" /></c:when>
+					<c:otherwise><img src="../<c:out value="${user.head}"/>" /></c:otherwise>
+			 	</c:choose>
            </div>
            <div class="info">
            		<c:choose>
 					<c:when test="${user.type==0}">
 						<h2>我是一个<c:out value="${user.perJobName}"/>
 						<span>个人</span>
+						<span>
+	                  	<c:choose>
+							<c:when test="${user.isRealNameIdent==1}">已认证</c:when>
+							<c:otherwise>未认证</c:otherwise>
+					 	</c:choose>
+					 	</span>
 						</h2>
 						<div class="desc">
-		                  	 昵称：<c:out value="${user.perNickName}"/><br />
-		                    <a onclick="msg.addMsg();"><span>短信息</span></a>
+		                  	 昵称：<c:out value="${user.perNickName}"/>
+		                  	
+		                  	 <br />
+		                    <a style="cursor:pointer;" onclick="msg.addMsg();"><span>短信息</span></a>
 		                </div>
 					</c:when>
 					<c:when test="${user.type==1}">
 						<h2><c:out value="${user.orgFullname}"/>
 						<span>机构</span>
+						<span>
+	                  	 <c:choose>
+							<c:when test="${user.isRealNameIdent==1}">已认证</c:when>
+							<c:otherwise>未认证</c:otherwise>
+					 	 </c:choose>
+					 	 </span>
 						</h2>
 						<div class="desc">
-		                  	 简称：<c:out value="${user.orgShortname}"/><br />
-		                    <a onclick="msg.addMsg();"><span>短信息</span></a>
+		                  	 简称：<c:out value="${user.orgShortname}"/>
+		                  	 <br />
+		                    <a style="cursor:pointer;" onclick="msg.addMsg();"><span>短信息</span></a>
 		                </div>
 					</c:when>
 					<c:otherwise>未知</c:otherwise>

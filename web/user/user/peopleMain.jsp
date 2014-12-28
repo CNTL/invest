@@ -12,21 +12,6 @@
     <script type="text/javascript" src="../static/js/idangerous.swiper.min.js"></script>
     <script type="text/javascript" src="../static/js/common.js"></script>
     <script>
-        /* $(function () {
-            var mySwiper = new Swiper('.people_scroll', {
-                loop: true,
-                wrapperClass: 'wrapper',
-                slideClass: 'slide'
-            });
-            $('.left').on('click', function (e) {
-                e.preventDefault();
-                mySwiper.swipePrev();
-            });
-            $('.right').on('click', function (e) {
-                e.preventDefault();
-                mySwiper.swipeNext();
-            });
-        }); */
         var rootPath = "<%=com.tl.common.WebUtil.getRoot(request) %>";
         function mySwipePrev(type){
         	var curPage = $("#curPage" + type).val();
@@ -86,14 +71,15 @@
 	    		html += '<div class="box_top"></div>' + 
 		                '<div class="box_main project">' + 
 		                '<div class="pic">' + 
-		                	'<a href="../user/PeopleDetailMain.do?a=detail&mainType=4&id=<c:out value="${person.id}"/>">' + 
+		                	'<a href="../user/PeopleDetailMain.do?a=detail&mainType=4&id='+id+'">' + 
 		                		'<img src="' + head + '" />' + 
 		                  	'</a>' + 
 		                  	'<span>影人</span>' + 
 		                '</div>' + 
 		                '<div>' + 
 		                	'<div class="title">' + 
-		                        '<a href="#">'+name+'</a>' + 
+		                        '<a href="../user/PeopleDetailMain.do?a=detail&mainType=4&id='+id+'">'+
+		                        name+'</a>' + 
 		                    '</div>' + 
 		                    '<div class="desc">' + intro + '</div>' + 
 		                '</div>' + 
@@ -152,7 +138,9 @@
 			                    </div>
                                 <div>
                                 	<div class="title">
-				                        <a href="#"><c:out value="${person.name}"/></a>
+				                        <a href="../user/PeopleDetailMain.do?a=detail&mainType=4&id=<c:out value="${person.id}"/>">
+				                        <c:out value="${person.name}"/>
+				                        </a>
 				                        <%-- <span><c:out value="${data.perName}"/></span> --%>
 				                    </div>
 				                    <div class="desc">

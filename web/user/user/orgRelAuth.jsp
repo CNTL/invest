@@ -20,6 +20,12 @@
 				<div class="job_add">
 					<form class="setting-form" id="form" name="form" action="">
 						<div class="input">
+							<label for="orgFullname">
+							<span id="isIdent">
+						 	</span>
+						 	</label>
+						</div>
+						<div class="input">
 					        <label for="orgFullname">公司全称：</label>
 					        <input class="form-control validate[maxSize[255]]" type="text" id="orgFullname" name="orgFullname" />
 					    </div>
@@ -39,7 +45,7 @@
 					        <label for="bankNums">银行卡号：</label>
 					        <input class="form-control validate[required]" type="text" id="bankNums" name="bankNums" />
 					    </div>
-					    <div class="input">
+					    <div class="input" style="height:150px;">
 							<table style="width:100%;">
 								<tr>
 									<td valign="top" style="width:90px;">
@@ -56,7 +62,7 @@
 					    </div>
 					    <div id="coverIMG_div" style="display:none;position: absolute; z-index: 122; width:150px;height:150px;overflow:hidden;background:#fff;border:1px solid #C7C7C7;">
 						</div>
-						<div class="input">
+						<div class="input" style="height:150px;">
 							<table style="width:100%;">
 								<tr>
 									<td valign="top" style="width:90px;">
@@ -65,7 +71,7 @@
 									<td>
 										<input type="file" name="uploadify1" id="uploadify1" />
 										<input type="hidden" id="queueItemCount1" name="queueItemCount1" value="0" />
-										<input type="hidden" id="orgBusinessLicense" name="organization" value="" />
+										<input type="hidden" id="orgBusinessLicense" name="orgBusinessLicense" value="" />
 										<input type="hidden" id="uploadErrorMsg1" name="uploadErrorMsg1" value="" />
 									</td>
 								</tr>
@@ -91,9 +97,10 @@
 <!-- footer -->
 <script type="text/javascript" src="../userout/script/userCommon.js"></script>
 <script type="text/javascript">
-var basePath = "<%=com.tl.common.WebUtil.getRoot(request) %>";
+var rootPath = "<%=com.tl.common.WebUtil.getRoot(request) %>";
 </script>
 <script type="text/javascript" src="../js/plugin/uploadify-3.2.1/jquery.uploadify.js"></script>
+<script type="text/javascript" src="../js/utils.js"></script>
 <script type="text/javascript" src="../user/user/script/orgRelAuth.js"></script>
 </body>
 </html>

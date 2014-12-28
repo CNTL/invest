@@ -28,6 +28,7 @@ var photo = {
     		
     		if(photo == null || photo.length == 0)
     			photo = "user/photo/img/framels_hover.jpg";
+    		
     		//添加图片的缩略图
     		var prefix = '<div class="box" style="width:220px;">';
     		var suffix = '';

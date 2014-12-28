@@ -79,7 +79,7 @@ var headImg = {
 		$("#uploadErrorMsg").val("");
 	},
 	initUploadify : function(el,countCtrl,imgCtrl,errorCtrl,auto,successInvok){
-		var sessionid= "";//getCookie("JSESSIONID");
+		var sessionid= "";
 		$("#"+el).uploadify({
 			scriptAccess:'always',
 			auto:auto,

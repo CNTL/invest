@@ -133,6 +133,7 @@ var rootPath = "<%=com.tl.common.WebUtil.getRoot(request) %>";
 </script>
 <script type="text/javascript" src="../js/plugin/uploadify-3.2.1/jquery.uploadify.js"></script>
 <!-- <script type="text/javascript" src="../user/user/script/ImageCopper.js"></script> -->
+<script type="text/javascript" src="../js/utils.js"></script>
 <script type="text/javascript" src="../user/user/script/userHeadImg.js"></script>
 </body>
 </html>

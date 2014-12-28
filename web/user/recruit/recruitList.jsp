@@ -8,6 +8,14 @@
 <meta name="keywords" content="<c:out value="${keywords}"/>" />
 <meta name="description" content="<c:out value="${description}"/>" />
 <%@include file="../inc/csslink.inc"%>
+<style>
+	a {text-transform:none;text-decoration:none;} 
+	a:hover{
+		background:#019875;
+		color:white;
+		cursor:pointer;
+	}
+  </style>
 </head>
 <body>
 <%@include file="../../inc/header.inc"%>
@@ -55,6 +63,46 @@
         	</div>
 	    </div>
     </c:forEach>
+    	<div class="subscribe">
+            <h2><a href="#">订阅职位</a></h2>
+            <div class="item">
+                <a href="../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=${type}&more=${more}&city=北京">北京</a>
+            </div>
+            <div class="item item_last">
+                <a href="../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=${type}&more=${more}&city=上海">上海</a>
+            </div>
+            <div class="item">
+                <a href="../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=${type}&more=${more}&city=广州">广州</a>
+            </div>
+            <div class="item item_last">
+                <a href="../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=${type}&more=${more}&city=南京">南京</a>
+            </div>
+            <div class="item">
+                <a href="../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=${type}&more=${more}&city=重庆">重庆</a>
+            </div>
+            <div class="item item_last">
+                <a href="../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=${type}&more=${more}&city=长春">长春</a>
+            </div>
+            <div class="item">
+                <a href="../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=${type}&more=${more}&city=银川">银川</a>
+            </div>
+            <div class="item item_last">
+                <a href="../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=${type}&more=${more}&city=苏州">苏州</a>
+            </div>
+            <div class="item">
+                <a href="../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=${type}&more=${more}&city=横店">横店</a>
+            </div>
+            <div class="item item_last">
+                <a href="../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=${type}&more=${more}&city=涿州">涿州</a>
+            </div>
+            <div class="item">
+                <a href="../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=${type}&more=${more}&city=海外">海外</a>
+            </div>
+            <div class="item item_last">
+                <a href="../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=${type}&more=${more}&city=其他">其他</a>
+            </div>
+            <div class="clear"></div>
+        </div>
     </div>
     <div class="main">
     	<c:choose>
@@ -94,6 +142,7 @@
                  </div>
                  <div class="key">
                      <input type="text" id="key" name="key" value="<c:out value="${key}"/>" placeholder="请输入你要搜索的职位，如“制片人”"/>
+                     <input type="text" id="city" name="city" value="<c:out value="${key}"/>"/>
                  </div>
                  <div class="submit">
                      <input type="button" id="search" name="search" value="搜索" />
