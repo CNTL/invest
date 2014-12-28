@@ -11,6 +11,30 @@
 	<!--===ContextAware=-->
 	<bean id="ContextAware" class="com.tl.kernel.context.ContextAware" init-method="setToContext"/>
 	
+	<!-- 定时器 -->
+	<bean id="updateProjectStatusServiceJob" class="com.tl.invest.quartz.UpdateProjectStatus" />
+	<bean id="updateProjectStatusServiceJobMethod" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
+		<property name="targetObject">  
+			<ref bean="updateProjectStatusServiceJob"/>  
+		</property>  
+		<property name="targetMethod">  <!-- 要执行的方法名称 -->  
+			<value>execute</value>  
+		</property>  
+	</bean>  
+	<!-- ======================== 调度触发器 ======================== -->  
+	<bean id="updateProjectStatusTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+		<property name="jobDetail" ref="updateProjectStatusServiceJobMethod"></property>  
+		<property name="cronExpression" value="0/30 * * * * ?"></property>  
+	</bean>
+	<!-- ======================== 调度工厂 ======================== -->  
+	<bean id="SpringJobSchedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">  
+		<property name="triggers">  
+			<list>  
+				<ref bean="updateProjectStatusTrigger"/>  
+			</list>  
+		</property>  
+	</bean>
+	
 	<!-- 系统用户管理 -->
 	<bean id="SysuserManager" class="com.tl.sys.sysuser.SysuserManager"/>
 	<bean id="sys.sysuser" class="com.tl.sys.sysuser.SysuserController">

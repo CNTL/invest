@@ -109,7 +109,7 @@
 								<c:choose>
 									<c:when test="${proj.deleted==1}">已删除</c:when>
 									<c:when test="${proj.approveStatus==0}">未审批</c:when>
-									<c:when test="${proj.approveStatus==2}">审批未通过</c:when>
+									<c:when test="${proj.approveStatus==3}">审批未通过</c:when>
 									<c:when test="${proj.status==0}">未开始</c:when>
 									<c:when test="${proj.status==1}">众筹中</c:when>
 									<c:when test="${proj.status==2}">众筹结束</c:when>

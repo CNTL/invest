@@ -32,7 +32,7 @@ public class Main extends Entry {
 		//获取4条项目
 		ProjectExt[] projects =null;
 		try {
-			 projects = projectService.getProjectExts(4, 1, null);
+			 projects = projectService.getProjectExts(4, 1,"proj_approveStatus in(-1,2)", null);
 			 model.put("projects", projects);
 		}
 		catch(Exception e){

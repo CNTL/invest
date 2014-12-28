@@ -49,7 +49,7 @@ var options = {
 				{title:"支持数",field:"proj_countSupport",width:60,sortable:false},
 				{title:"状态",field:"proj_status",width:80,sortable:true,formatter:statusFormatter},
 				{title:"是否删除",field:"proj_deleted",width:70,sortable:true,formatter:function(val,row){if(val==1){return "<span style='background:red;color:white'>已删除</span>";}else{return "--";}}},
-				{title:"审批状态",field:"proj_approveStatus",width:80,sortable:true,formatter:function(val,row){if(val==1){return "<span style='background:green;color:white'>已审批</span>";}else if(val==2){return "<span style='background:red;color:white'>审批未通过</span>";}else{return "未审批";}}},
+				{title:"审批状态",field:"proj_approveStatus",width:80,sortable:true,formatter:function(val,row){if(val==2){return "<span style='background:green;color:white'>已审批</span>";}else if(val==3){return "<span style='background:red;color:white'>审批未通过</span>";}else{return "未审批";}}},
 				{title:"审批人",field:"approveUserName",width:80,sortable:true},
 				{title:"审批时间",field:"proj_approveTime",width:130,sortable:true},
 				{title:"锁定时间",field:"proj_locktime",width:130,sortable:true},

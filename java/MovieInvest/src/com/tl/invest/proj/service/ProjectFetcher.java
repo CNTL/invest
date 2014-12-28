@@ -44,7 +44,7 @@ public class ProjectFetcher extends BaseController{
 		}else if("pass".equals(action)){
 			long proj_id = getLong(request, "id", 0);
 			Project project = service.get(proj_id);
-			project.setApproveStatus((short)1);
+			project.setApproveStatus((short)2);
 			project.setApproveTime(DateUtils.getTimestamp());
 			project.setApproveUser(SessionHelper.getSysUserID(request));
 			project.setBeginDate(DateUtils.getDate());
@@ -55,7 +55,7 @@ public class ProjectFetcher extends BaseController{
 		}else if("reject".equals(action)){
 			long proj_id = getLong(request, "id", 0);
 			Project project = service.get(proj_id);
-			project.setApproveStatus((short)2);
+			project.setApproveStatus((short)3);
 			project.setApproveTime(DateUtils.getTimestamp());
 			project.setApproveUser(SessionHelper.getSysUserID(request));
 			project.setStatus(0);

@@ -89,7 +89,7 @@ public class NoticeManager {
 	@SuppressWarnings("rawtypes")
 	public Notice[] getNotices(int page,int pageSize,Session s) throws TLException{
 		List<Notice> list = new ArrayList<Notice>();
-		String hql = "select a from com.tl.invest.notice.Notice as a where a.deleted=0 order by a.order,a.id desc";
+		String hql = "select a from com.tl.invest.notice.Notice as a where a.deleted=0 order by a.order desc,a.id desc";
 		DAO d = new DAO();
 		if(s == null){
 			s = d.getSession();

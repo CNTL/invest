@@ -35,7 +35,7 @@ public class ProjectMainController extends Entry {
 			Dictionary[] types = dicReader.getSubDics(DicTypes.DIC_INVEST_TYPE.typeID(), 0);
 			for (Dictionary dic : types) {
 				int typeID = dic.getId();
-				ProjectExt[] projs = service.getProjectExts(typeID, 8, 1, null);
+				ProjectExt[] projs = service.getProjectExts(typeID, 8, 1,"proj_approveStatus in(-1,2)", null);
 				if(dic.getName().indexOf("Î¢µçÓ°")>=0){
 					model.put("projs1", projs);
 					model.put("projType1", typeID);
@@ -54,8 +54,8 @@ public class ProjectMainController extends Entry {
 			model.put("page", 1);
 		}else {
 			int page = getInt(request, "page", 1);
-			ProjectExt[] projs = service.getProjectExts(type, 20, page, null);
-			int projCount = service.getProjectExtsCount(type, null);
+			ProjectExt[] projs = service.getProjectExts(type, 20, page,"proj_approveStatus in(-1,2)", null);
+			int projCount = service.getProjectExtsCount(type,"proj_approveStatus in(-1,2)", null);
 			int pageCount = projCount/20;
 			if(projCount % 20 >0) pageCount = pageCount + 1;
 			if(pageCount<=0) pageCount = 1;

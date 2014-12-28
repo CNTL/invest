@@ -14,6 +14,7 @@ import org.hibernate.Session;
 
 import com.tl.common.DateUtils;
 import com.tl.common.ResourceMgr;
+import com.tl.common.StringUtils;
 import com.tl.common.log.Log;
 import com.tl.db.DBSession;
 import com.tl.db.IResultSet;
@@ -403,26 +404,46 @@ public class ProjectService {
 		return getSupportProjs(sql, params, pageSize, page, db);
 	}
 	
-	public int getProjectExtsCount(int type,DBSession db) throws TLException{
+	public int getProjectExtsCount(int type,String where,DBSession db) throws TLException{
 		String sql = "select count(0) from invest_project left JOIN sys_dictionary on sys_dictionary.dic_id=invest_project.proj_type";
 		sql += " left JOIN `user` on `user`.id=invest_project.proj_userID";
 		sql += " where invest_project.proj_type=? and invest_project.proj_deleted=0";
+		if(!StringUtils.isEmpty(where)){
+			sql += " and " + where;
+		}
 		Object[] params = new Object[]{type};
 		return getSqlCount(sql,params,db);
 	}
 	
-	public ProjectExt[] getProjectExts(int pageSize,int page,DBSession db) throws TLException{
+	/**
+	 * 
+	 * @param pageSize
+	 * @param page
+	 * @param where Из type=1 and type=2
+	 * @param db
+	 * @return
+	 * @throws TLException
+	 */
+	public ProjectExt[] getProjectExts(int pageSize,int page,String where,DBSession db) throws TLException{
 		String sql = "select invest_project.*,sys_dictionary.dic_name typeName,`user`.`perNickName` userName from invest_project left JOIN sys_dictionary on sys_dictionary.dic_id=invest_project.proj_type";
 			sql += " left JOIN `user` on `user`.id=invest_project.proj_userID";
-			sql += " where invest_project.proj_deleted=0 order by proj_order,proj_id desc";
+			sql += " where invest_project.proj_deleted=0";
+		if(!StringUtils.isEmpty(where)){
+			sql += " and " + where;
+		}
+		sql += " order by proj_order,proj_id desc";
 		Object[] params = new Object[]{};
 		return getProjectExts(sql, params, pageSize, page, db);
 	}
 	
-	public ProjectExt[] getProjectExts(int type,int pageSize,int page,DBSession db) throws TLException{
+	public ProjectExt[] getProjectExts(int type,int pageSize,int page,String where,DBSession db) throws TLException{
 		String sql = "select invest_project.*,sys_dictionary.dic_name typeName,`user`.`perNickName` userName from invest_project left JOIN sys_dictionary on sys_dictionary.dic_id=invest_project.proj_type";
 			sql += " left JOIN `user` on `user`.id=invest_project.proj_userID";
-			sql += " where invest_project.proj_type=? and invest_project.proj_deleted=0 order by proj_order,proj_id desc";
+			sql += " where invest_project.proj_type=? and invest_project.proj_deleted=0";
+			if(!StringUtils.isEmpty(where)){
+				sql += " and " + where;
+			}
+			sql += " order by proj_order,proj_id desc";
 		Object[] params = new Object[]{type};
 		return getProjectExts(sql, params, pageSize, page, db);
 	}
