@@ -11,7 +11,7 @@ var options = {
 				handler: function(){
 					var docIds = tldatagrid.getSelectedIDs();
 					if(docIds>0){
-						tldialog.show("认证用户","./userCheck.jsp?id="+docIds,476,700);
+						tldialog.show("认证用户","./userCheck.jsp?id="+docIds,800,700);
 					}
 					else{
 						alert("请选择一条记录。")

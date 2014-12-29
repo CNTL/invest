@@ -31,142 +31,137 @@
 	
  
     <script>
-        jQuery(document).ready(function () {
-        	loadUser();
-        	$("#btnOK").click(function(){
-        		var url = "../user/user.do?a=checkUser&id="+id;
-        		$.get(url, function(data){
-        			 window.parent.tldialog.closeRefresh();
-        			});
-        	});
-        });
-        
-        function loadUser(){
-        	var id = $.query.get("id");
-        	if(id>0){
-        		var url = "../user/user.do?a=getUser&id="+id;
-        		
-        		$.getJSON(url, function(json){
-        			var sb = [];
-        			var userType = "个人";
-        			if(json.type==1){
-        				userType = "机构";
-        			}
-        			sb.push("<tbody>");
-        			if(json.isRealNameIdent==0){
-        				sb.push("<tr>");
-            			sb.push("<td colSpan=\"2\" class=\"text-center\"><button id=\"btnOK\" class=\"btn btn-primary\">认证通过</button></td>");
-            			
-            			sb.push("</tr>");
-        			}
-        			
-        			
-        			if(json.type==0){
-        				sb.push("<tr>");
-            			sb.push("<td>类型：</td>");
-            			sb.push("<td>"+userType+"</td>");
-            			sb.push("</tr>");
-            			
-            			sb.push("<tr>");
-            			sb.push("<td>编码：</td>");
-            			sb.push("<td>"+json.code+"</td>");
-            			sb.push("</tr>");
-            			
-            			sb.push("<tr>");
-            			sb.push("<td>姓名：</td>");
-            			sb.push("<td>"+json.name+"</td>");
-            			sb.push("</tr>");
-            			
-            			
-            			
-            			sb.push("<tr>");
-            			sb.push("<td>昵称：</td>");
-            			sb.push("<td>"+json.perNickName+"</td>");
-            			sb.push("</tr>");
-            			
-            			sb.push("<tr>");
-            			sb.push("<td>身份证：</td>");
-            			sb.push("<td>"+json.identityCard+"</td>");
-            			sb.push("</tr>");
-            			
-            			sb.push("<tr>");
-            			sb.push("<td>电话：</td>");
-            			sb.push("<td>"+json.perPhone+"</td>");
-            			sb.push("</tr>");
-            			
-            			sb.push("<tr>");
-            			sb.push("<td>邮件：</td>");
-            			sb.push("<td>"+json.email+"</td>");
-            			sb.push("</tr>");
-            			
-            			sb.push("<tr>");
-            			sb.push("<td>地址：</td>");
-            			sb.push("<td>"+json.perPostAddr+"</td>");
-            			sb.push("</tr>");
-            			
-            			
-            			sb.push("<tr>");
-            			sb.push("<td>邮编：</td>");
-            			sb.push("<td>"+json.perPostCode+"</td>");
-            			sb.push("</tr>");
-            			
-            			sb.push("</tbody>");
-        			}else{
-        				sb.push("<tr>");
-            			sb.push("<td>类型：</td>");
-            			sb.push("<td>"+userType+"</td>");
-            			sb.push("</tr>");
-            			
-            			sb.push("<tr>");
-            			sb.push("<td>编码：</td>");
-            			sb.push("<td>"+json.code+"</td>");
-            			sb.push("</tr>");
-            			
-            			sb.push("<tr>");
-            			sb.push("<td>机构简称：</td>");
-            			sb.push("<td>"+json.orgShortname+"</td>");
-            			sb.push("</tr>");
-            			
-            			sb.push("<tr>");
-            			sb.push("<td>机构全称：</td>");
-            			sb.push("<td>"+json.orgFullname+"</td>");
-            			sb.push("</tr>");
-            			
-            			sb.push("<tr>");
-            			sb.push("<td>法人代表：</td>");
-            			sb.push("<td>"+json.name+"</td>");
-            			sb.push("</tr>");
-            			
-            			sb.push("<tr>");
-            			sb.push("<td colSpan=\"2\">组织机构证件照</td>");
-            			
-            			sb.push("</tr>");
-            			sb.push("<tr>");
-            			sb.push("<td colSpan=\"2\"><img src=\""+json.organization+"\" alt=\"组织机构证件照\" /></td>");
-            			
-            			sb.push("</tr>");
-            			
-            			sb.push("<tr>");
-            			sb.push("<td colSpan=\"2\">组织机构证件照</td>");
-            			
-            			sb.push("</tr>");
-            			sb.push("<tr>");
-            			sb.push("<td colSpan=\"2\"><img src=\""+json.orgBusinessLicense+"\" alt=\"组织机构证件照\" /></td>");
-            			
-            			sb.push("</tr>");
-            			
-            		
-            			sb.push("</tbody>");
-        			}
+      jQuery(document).ready(function () {
+      	loadUser();
+      });
+     
+     function loadUser(){
+     	var id = $.query.get("id");
+     	if(id>0){
+     		var url = "../user/user.do?a=getUser&id="+id;
+     		
+     		$.getJSON(url, function(json){
+     			var sb = [];
+     			var userType = "个人";
+     			if(json.type==1){
+     				userType = "机构";
+     			}
+     			sb.push("<tbody>");
+     			if(json.isRealNameIdent==0){
+     				sb.push("<tr>");
+         			sb.push("<td colSpan=\"2\" class=\"text-center\"><button  id=\"btnOK\" class=\"btn btn-primary\">认证通过</button></td>");
+         			
+         			sb.push("</tr>");
+     			}
+     			
+     			
+     			if(json.type==0){
+     				sb.push("<tr>");
+         			sb.push("<td>类型：</td>");
+         			sb.push("<td>"+userType+"</td>");
+         			sb.push("</tr>");
+         			
+         			sb.push("<tr>");
+         			sb.push("<td>编码：</td>");
+         			sb.push("<td>"+json.code+"</td>");
+         			sb.push("</tr>");
+         			
+         			sb.push("<tr>");
+         			sb.push("<td>姓名：</td>");
+         			sb.push("<td>"+json.name+"</td>");
+         			sb.push("</tr>");
+         			
+         			
+         			
+         			sb.push("<tr>");
+         			sb.push("<td>昵称：</td>");
+         			sb.push("<td>"+json.perNickName+"</td>");
+         			sb.push("</tr>");
+         			
+         			sb.push("<tr>");
+         			sb.push("<td>身份证：</td>");
+         			sb.push("<td>"+json.identityCard+"</td>");
+         			sb.push("</tr>");
+         			
+         			sb.push("<tr>");
+         			sb.push("<td>电话：</td>");
+         			sb.push("<td>"+json.perPhone+"</td>");
+         			sb.push("</tr>");
+         			
+         			sb.push("<tr>");
+         			sb.push("<td>邮件：</td>");
+         			sb.push("<td>"+json.email+"</td>");
+         			sb.push("</tr>");
+         			
+         			sb.push("<tr>");
+         			sb.push("<td>地址：</td>");
+         			sb.push("<td>"+json.perPostAddr+"</td>");
+         			sb.push("</tr>");
+         			
+         			
+         			sb.push("<tr>");
+         			sb.push("<td>邮编：</td>");
+         			sb.push("<td>"+json.perPostCode+"</td>");
+         			sb.push("</tr>");
+         			
+         			sb.push("</tbody>");
+     			}else{
+     				sb.push("<tr>");
+         			sb.push("<td>类型：</td>");
+         			sb.push("<td>"+userType+"</td>");
+         			sb.push("</tr>");
+         			
+         			sb.push("<tr>");
+         			sb.push("<td>编码：</td>");
+         			sb.push("<td>"+json.code+"</td>");
+         			sb.push("</tr>");
+         			
+         			sb.push("<tr>");
+         			sb.push("<td>机构简称：</td>");
+         			sb.push("<td>"+json.orgShortname+"</td>");
+         			sb.push("</tr>");
+         			
+         			sb.push("<tr>");
+         			sb.push("<td>机构全称：</td>");
+         			sb.push("<td>"+json.orgFullname+"</td>");
+         			sb.push("</tr>");
+         			
+         			sb.push("<tr>");
+         			sb.push("<td>法人代表：</td>");
+         			sb.push("<td>"+json.name+"</td>");
+         			sb.push("</tr>");
+         			
+         			sb.push("<tr>");
+         			sb.push("<td colSpan=\"2\">组织机构证件照</td>");
+         			
+         			sb.push("</tr>");
+         			sb.push("<tr>");
+         			sb.push("<td colSpan=\"2\"><img src=\""+json.organization+"\" alt=\"组织机构证件照\" style=\"width:100%;\" /></td>");
+         			sb.push("</tr>");
+         			
+         			sb.push("<tr>");
+         			sb.push("<td colSpan=\"2\">组织机构证件照</td>");
+         			
+         			sb.push("</tr>");
+         			sb.push("<tr>");
+         			sb.push("<td colSpan=\"2\"><img src=\""+json.orgBusinessLicense+"\" alt=\"组织机构证件照\" style=\"width:100%;\" /></td>");
+         			
+         			sb.push("</tr>");
 
-        			$("#userInfo").append(sb.join(''));
-        			
-        			 
-        		});
-        	}
-        }
-        
-         
+         			sb.push("</tbody>");
+     			}
+
+     			$("#userInfo").append(sb.join(''));
+     			$("#btnOK").click(function(){
+     				var url = "../user/user.do?a=checkUser&id="+id;
+     	    		$.get(url, function(data){
+     	    			  window.parent.tldialog.closeRefresh();
+     	    			});
+     			});
+     			 
+     		});
+     	}
+     }
     </script>
    
 
