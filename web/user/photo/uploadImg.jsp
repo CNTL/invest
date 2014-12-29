@@ -16,13 +16,13 @@
 	});
 	function upload(){
 		var groupID = $("#groupID").val();
-		var sessionid = getCookie("JSESSIONID");
+		var sessionid= '${pageContext.session.id}';
         $("#uploadify").uploadify({
             height: 30,
             swf: '../../user/photo/uploadify/uploadify.swf',
             uploader: '../../user/photo.do?a=uploadPhoto&groupID=' + groupID + '&jsessionid=' + sessionid,
             width: 120,
-            cancelImg: 'uploadify-cancel.png',
+            cancelImg: '../js/plugin/uploadify-3.2.1/uploadify-cancel.png',
             buttonText: '选择图片',
             fileTypeExts: '*.gif;*.jpg;*.jpeg;*.png;*.*',
             fileSizeLimit: 0,

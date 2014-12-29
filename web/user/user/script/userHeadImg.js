@@ -57,13 +57,7 @@ var headImg = {
 	    });
 	},
 	imgUploaded : function(){
-		/*
-		document.getElementById('cut_img').width = "200px";
-		document.getElementById('cut_img').height = "200px";
-		document.getElementById('cut_img').src = rootPath+$("#headImg").val();
-		document.getElementById('cut_url').value = rootPath+$("#headImg").val();
-		document.getElementById('hide').style.display = '';
-		*/
+		document.getElementById('coverIMG_div').style.display = '';
 		document.getElementById('cut_url').value = $("#headImg").val();
 		$("#coverIMG_div").empty();
 		if($("#headImg").val()!=""){
@@ -79,7 +73,7 @@ var headImg = {
 		$("#uploadErrorMsg").val("");
 	},
 	initUploadify : function(el,countCtrl,imgCtrl,errorCtrl,auto,successInvok){
-		var sessionid= "";
+		var sessionid= '${pageContext.session.id}';
 		$("#"+el).uploadify({
 			scriptAccess:'always',
 			auto:auto,

@@ -175,7 +175,7 @@
 	<bean id="user.PhotoGroupMa" class="com.tl.invest.user.user.UserMainController">
 		<property name="viewName"><value>user/photo/photoGroupList</value></property>
 	</bean>
-	<bean id="user.PhotoMa" class="com.tl.invest.user.user.UserMainController">
+	<bean id="user.PhotoMa" class="com.tl.invest.user.user.PeopleController">
 		<property name="viewName"><value>user/photo/photoList</value></property>
 	</bean>
 	<bean id="user.VideoGroupMa" class="com.tl.invest.user.user.UserMainController">

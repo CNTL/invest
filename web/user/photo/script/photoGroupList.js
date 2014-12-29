@@ -182,7 +182,7 @@ var photoGroup = {
     	*/
 	},
 	clickThumb : function(id){
-		window.location.href="../user/PhotoMa.do?infoType=6&groupID=" + id; 
+		window.location.href="../user/PhotoMa.do?a=photo&infoType=6&groupID=" + id; 
 	},
 	openMsg : function(){
 		$('#w').window('open');
@@ -257,7 +257,7 @@ var photoGroup = {
 		$("#uploadErrorMsg").val("");
 	},
 	initUploadify : function(el,countCtrl,imgCtrl,errorCtrl,auto,successInvok){
-		var sessionid= "";//getCookie("JSESSIONID");
+		var sessionid= '${pageContext.session.id}';
 		$("#"+el).uploadify({
 			scriptAccess:'always',
 			auto:auto,

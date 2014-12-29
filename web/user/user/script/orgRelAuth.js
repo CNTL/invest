@@ -93,7 +93,7 @@ var relAuth = {
 		}
 	},
 	imgUploaded : function(){
-		var c_img_t = 280;
+		var c_img_t = 330;
 		var c_img_l = 300;
 		$("#coverIMG_div").css("top",c_img_t+"px").css("left",c_img_l+"px").css("display","");
 		$("#coverIMG_div").empty();
@@ -110,7 +110,7 @@ var relAuth = {
 		$("#uploadErrorMsg").val("");
 	},
 	imgUploaded1 : function(){
-		var c_img_t = 450;
+		var c_img_t = 500;
 		var c_img_l = 300;
 		$("#coverIMG_div1").css("top",c_img_t+"px").css("left",c_img_l+"px").css("display","");
 		$("#coverIMG_div1").empty();
@@ -127,7 +127,7 @@ var relAuth = {
 		$("#uploadErrorMsg1").val("");
 	},
 	initUploadify : function(el,countCtrl,imgCtrl,errorCtrl,auto,successInvok){
-		var sessionid= getCookie("JSESSIONID");
+		var sessionid= '${pageContext.session.id}';
 		$("#"+el).uploadify({
 			scriptAccess:'always',
 			auto:auto,

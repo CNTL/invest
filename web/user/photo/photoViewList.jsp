@@ -17,15 +17,23 @@
 	<input type="hidden" id="opType" name="opType" value="view"/>
 	<input id="groupID" name="groupID" type="hidden" value="<c:out value="${groupID}"/>"/>
 		<div class="project_list">
-     		<div class="block1">
-      			<div id="showPhoto" style="display:none;">
-				<img src="../user/photo/img/close.jpg" id="close">
-				<div id="showPic"><img></div>
-				<div id="bgblack"></div>
-				<div id="navigator">
-					<span id="prev"><< 上一幅</span><span id="next">下一幅 >></span>
-				</div>
-			</div>
+     		<div id="imgs" class="block1">
+     			<c:forEach var="photo" varStatus="status" items="${photos}">
+     			<c:choose>
+					<c:when test="${status.index%4==0}"><div class="box box_last" style="width:220px;"></c:when>
+					<c:otherwise><div class="box" style="width:220px;"></c:otherwise>
+				</c:choose>
+   					<div class="people" style="border: 1px #858585 solid;">
+   						<div class="pic" style="width:100%;">
+   							<a><img style="cursor:pointer;" src="<%=com.tl.common.WebUtil.getRoot(request) %><c:out value="${photo.photo}"/>"></a>
+   						</div>
+   						<div class="title">
+   							<a style="text-decoration:none;"><c:out value="${photo.photoName}"/></a>
+   						</div>
+   					</div>
+   					<div class="clear"></div>
+   				</div>
+     			</c:forEach>
 		</div>
      </div>
      <div class="clear"></div>
@@ -37,12 +45,22 @@
 <!-- footer -->
 <%@include file="../../inc/footer.inc"%>
 <!-- footer -->
+<script src="../layer/jquery.js?v=1.83.min"></script>
+<script src="../layer/layer.min.js"></script>
 <script type="text/javascript">
-var rootPath = "<%=com.tl.common.WebUtil.getRoot(request) %>";
+;!function(){
+	layer.use('extend/layer.ext.js', function(){
+	    //初始加载即调用，所以需放在ext回调里
+	    layer.ext = function(){
+	        layer.photosPage({
+	            html:'',
+	            title: '图册浏览',
+	            id: 100, //相册id，可选
+	            parent:'#imgs'
+	        });
+	    };
+	});
+}();
 </script>
-<script type="text/javascript" src="../js/layer/layer.min.js"></script>
-<script type="text/javascript" src="../js/utils.js"></script>
-<script type="text/javascript" src="../user/user/script/peopleDetail.js"></script>
-<script type="text/javascript" src="../user/photo/script/photoViewList.js"></script>
 </body>
 </html>

@@ -128,5 +128,9 @@
             <column name="orgHomePage">
             </column>
         </property>
+        <property name="deleted" type="java.lang.Integer">
+            <column name="deleted">
+            </column>
+        </property>
     </class>
 </hibernate-mapping>
