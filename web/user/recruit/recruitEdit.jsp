@@ -50,7 +50,7 @@
 	    </div>
 	    <div class="input">
 	        <label for="days">工作时长：</label>
-	        <input class="form-control validate[maxSize[255]]" type="text" id="days" name="days" value="${recruit.days}" placeholder="工作时长"/>
+	        <input class="form-control validate[maxSize[255]]" type="text" id="days" name="days" value="${recruit.days}" placeholder="工作时长"/>（天）
 	    </div>
 	    <div class="input">
 	        <label for="working">经验要求：</label>

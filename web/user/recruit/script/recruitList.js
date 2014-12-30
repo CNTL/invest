@@ -54,7 +54,7 @@ var jobList = {
 	        dataType: 'JSON',   //返回值类型  
 	        success:function(data){
 	    		if(data != null && data.orgFullname != null && data.orgFullname != ''){
-	    			window.location.href = "../recruit/Edit.do?a=detail";
+	    			window.location.href = "../recruit/Edit.do?a=detail&mainType=3";
 	    		} else {
 	    			$.messager.confirm('消息', '请先完善资料！', function(r){
 	    				if (r){
@@ -92,7 +92,10 @@ var jobList = {
 	search : function(){
 		var type = $("#type").val();
 		var key = $("#key").val();
-		var pageUrl = "../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=" + type + "&key=" + key;  
+		var city = $("#city").val();
+		var more = $("#more").val();
+		var pageUrl = "../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=" + type + 
+			"&key=" + key + "&city=" + encodeURIComponent(city) + "&more=" + more;  
 		window.location.href = pageUrl;
 	}
 }

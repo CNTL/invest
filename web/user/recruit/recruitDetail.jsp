@@ -62,44 +62,33 @@
             </div>
             <div class="relate">
                 <h2>相似职位</h2>
+                <c:forEach var="msg" varStatus="status" items="${simiRecruits}">
                 <div class="item">
                     <div class="pic">
-                        <img src="static/image/temp/pic5.png" />
+                        <a href="../user/recruit.do?a=detail&mainType=3&id=${msg.id}">
+	                        <c:choose>
+								<c:when test="${msg.jobPictrue==''}"><img src="../static/image/temp/pic2.png" /></c:when>
+								<c:otherwise><img src="../<c:out value="${msg.jobPictrue}"/>" /></c:otherwise>
+							</c:choose>
+						</a>
                     </div>
                     <div class="title">
-                        <a href="#">化妆师</a>
+                        <a href="../user/recruit.do?a=detail&mainType=3&id=${msg.id}">${msg.jobName}</a>
+                        <span><c:out value="${msg.company}"/></span>
                     </div>
                     <div class="company">
-                        小马奔腾电影
+                        <c:out value="${msg.company}"/>
                     </div>
                     <div class="info">
                         <ul>
-                            <li>100K</li>
-                            <li>北京</li>
-                            <li>3个月</li>
+                            <li><c:out value="${msg.salary}"/></li>
+                            <li><c:out value="${msg.address}"/></li>
+                            <li><c:out value="${msg.days}"/></li>
                         </ul>
                     </div>
                     <div class="clear"></div>
                 </div>
-                <div class="item">
-                    <div class="pic">
-                        <img src="static/image/temp/pic5.png" />
-                    </div>
-                    <div class="title">
-                        <a href="#">化妆师</a>
-                    </div>
-                    <div class="company">
-                        小马奔腾电影
-                    </div>
-                    <div class="info">
-                        <ul>
-                            <li>100K</li>
-                            <li>北京</li>
-                            <li>3个月</li>
-                        </ul>
-                    </div>
-                    <div class="clear"></div>
-                </div>
+                </c:forEach>
             </div>
         </div>
         <div class="clear"></div>

@@ -22,6 +22,10 @@
 <div class="banner">
     <img src="../static/image/banner1.png" />
 </div>
+<div style="display:none;">
+<input type="text" id="city" name="city" value="<c:out value="${city}"/>"/>
+<input type="text" id="more" name="more" value="<c:out value="${more}"/>"/>
+</div>
 <div class="job_list">
     <div class="sider">
     <c:forEach var="type" varStatus="status" items="${types}">
@@ -142,7 +146,6 @@
                  </div>
                  <div class="key">
                      <input type="text" id="key" name="key" value="<c:out value="${key}"/>" placeholder="请输入你要搜索的职位，如“制片人”"/>
-                     <input type="text" id="city" name="city" value="<c:out value="${key}"/>"/>
                  </div>
                  <div class="submit">
                      <input type="button" id="search" name="search" value="搜索" />
