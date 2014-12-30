@@ -152,7 +152,12 @@ public class RecruitManager {
 		int total = getSqlCount(countSql.toString(), params, null);
 		return setMessage(myRecruits, curPage, length, total);
 	}
-	
+	public List<UserRecruit> querySimiRecruits(String typeName) throws TLException{
+		StringBuilder querySql = new StringBuilder("SELECT rt.* FROM user_recruit rt WHERE rt.typeName LIKE '%")
+			.append(typeName).append("%'");
+		List<UserRecruit> myRecruits =  getRecruits(querySql.toString(), null, 4, 1, null);
+		return myRecruits;
+	}
 	public void save(UserRecruit recruit) throws Exception{
 	     
 	    DAO dao = new DAO();

@@ -1,5 +1,6 @@
 package com.tl.invest.user.recruit;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -57,7 +58,6 @@ public class RecruitMainController extends Entry {
 		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
 		int userId = user == null ? 0 : user.getId();
 		Message msg = recruitManager.queryRecruits(curPage, 9, userId, recruitType, queryType, searchType, key, city);
-		//setUser(recruitManager.queryRecruits(curPage, 9, recruitType, queryType, user == null ? 0 : user.getId()));
 		Dictionary[] types = recruitManager.types();
 		model.put("queryType", queryType);
 		model.put("recruitType", recruitType);
@@ -93,6 +93,12 @@ public class RecruitMainController extends Entry {
 		String head = user.getHead();
 		if(head == null || head.length() == 0) head = "user/headImg/default.bmp";
 		user.setHead(WebUtil.getRoot(request).concat(head));
+		String typeName = recruit.getTypeName();
+		if(typeName != null && typeName.length() > 0){
+			List<UserRecruit> simiRecruits = recruitManager.querySimiRecruits(typeName);
+			model.put("simiRecruits", simiRecruits);
+		}
+		
 		model.put("recruit", recruit);
 		model.put("user", user);
 		//response.sendRedirect(WebUtil.getRoot(request) + "user/recruit/recruitDetail.jsp");
