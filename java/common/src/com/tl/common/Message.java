@@ -71,7 +71,7 @@ public class Message {
 			if(begin == 1){
 				break;
 			}
-			begin = begin - i;
+			begin = begin - 1;
 		}
 		return begin;
 	}
