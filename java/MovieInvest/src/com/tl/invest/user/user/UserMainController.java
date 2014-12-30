@@ -80,10 +80,10 @@ public class UserMainController extends Entry {
 			list.add(new Menu(2, "修改密码","/user/PwdChange.do?infoType=2", class2, -999,0));
 			list.add(new Menu(3, "头像管理", "/user/HeadImg.do?infoType=3", class3,-999,0));
 			list.add(new Menu(4, "实名认证", "/user/RelAuth.do?infoType=4", class4,-999,0));
-			/*list.add(new Menu(41, "详细资料", "/user/DetailInfo.do?infoType=5", class5,-999,0));*/
-			list.add(new Menu(5, "个人图册", "/user/PhotoGroupMa.do?infoType=6", class6,-999,0));
-			list.add(new Menu(6, "个人视频", "/user/VideoGroupMa.do?infoType=7", class7,-999,0));
-			list.add(new Menu(7, "收件地址", "/user/Address.do?infoType=8", class8,-999,0));
+			list.add(new Menu(5, "个人图册", "/user/PhotoGroupMa.do?infoType=5", class5,-999,0));
+			list.add(new Menu(6, "个人视频", "/user/VideoGroupMa.do?infoType=6", class6,-999,0));
+			/*list.add(new Menu(7, "简历管理", "/resume/userResume.do?infoType=7", class7,-999,0));*/
+			list.add(new Menu(8, "收件地址", "/user/Address.do?infoType=8", class8,-999,0));
 		} else if(type == 1){//机构用户登录后
 			list.add(new Menu(1, "基本资料", "/org/BasicInfo.do?infoType=1", class1, -999,0));
 			list.add(new Menu(2, "修改密码", "/user/PwdChange.do?infoType=2", class2, -999,0));

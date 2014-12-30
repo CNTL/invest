@@ -32,6 +32,7 @@ public class ResumeMainController extends Entry {
 	protected void setOtherData(HttpServletRequest request,
 			HttpServletResponse response, Map model) throws Exception {
 		String action = request.getParameter("a");
+		model.put("type", request.getParameter("type"));
 		if("myrecruit".equals(action)){
 			//我收藏的职位
 			myrecruit(request, response, model);
