@@ -135,7 +135,10 @@
 				<div class="notice">
 					<h2>最新通知</h2>
 					<div class="content">
-						<span class="i"></span><c:out value="${notice.content}"/>
+						
+						<h3><span class="i"></span><c:out value="${notice.title}"/></h3>
+						<p style="border-bottom:1px dashed #FCB988;height:4px;width:98%;">&nbsp;</p>
+						<p><c:out value="${notice.content}"/></p>
 					</div>
 					<div class="more">
 						<a href="notice/List.do">查看更多</a>
