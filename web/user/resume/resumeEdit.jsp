@@ -71,7 +71,9 @@
         </div>
 	</form>
 </div>
-			
+<div>
+<input type="hidden" id="type" name="type" value="<c:out value="${hidden}"/>" />
+</div>			
 <!-- script -->
 <%@include file="../inc/script.inc"%>
 <!-- script -->

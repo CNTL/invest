@@ -43,7 +43,8 @@ var resumeList = {
 	    });
 	},
 	addResume : function(){
-		window.location.replace("../resume/resumeEdit.do?infoType=1");
+		var type = $("#type").val();
+		window.location.replace("../resume/resumeEdit.do?infoType=1" + "&type=" + type);
 	},
 	deleteResume : function(id){
 		$.messager.confirm('消息', '您确定要删除该简历？', function(r){
@@ -72,7 +73,8 @@ var resumeList = {
 		});
 	},
 	modifyResume : function(id){
-		window.location.replace("../resume/resumeEdit.do?infoType=1&id=" + id);
+		var type = $("#type").val();
+		window.location.replace("../resume/resumeEdit.do?infoType=1&id=" + id + "&type=" + type);
 	}
 	,
 	viewResume : function(id){

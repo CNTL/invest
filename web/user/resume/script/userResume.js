@@ -79,7 +79,14 @@ var resume = {
 	    		if(data != null && data == 'ok'){
 	    			$.messager.confirm('消息', '保存简历成功！', function(r){
 	    				if (r){
-	    					window.location.href= "../resume/myresume.do?infoType=1"; 
+	    					var type = $("#type").val();
+	    					if(type == "userResumeList") {
+	    						window.location.replace("../resume/userResume.do?infoType=7");
+	    					} else{
+	    						window.location.replace("../resume/myresume.do?infoType=1");
+	    					}
+	    					//history.go(-1);
+	    					//window.location.href= "../resume/myresume.do?infoType=1"; 
 	    				}
 	    			});
 	    		} else {

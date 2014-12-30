@@ -13,30 +13,26 @@
 <body>
 <%@include file="../../inc/header.inc"%>
 <div class="shadow"></div>
-<div class="people_globaltop">
-    <div class="wrap">
-        <ul class="nav">
-        	<c:forEach var="gm" items="${iMenus}">
-        		<li><a href="<c:out value="${gm.url}"/>" class="<c:out value="${gm.className}"/>"><c:out value="${gm.name}"/></a></li>
-			</c:forEach>
-        </ul>
-    </div>
-</div>
-<br/>
-<div class="btn">
-	<input type="button" id="addResume" value="添加简历">
-</div>
-<div class="people_view">
-    <table>
-        <thead>
-            <tr>
-                <th>简历名称</th>
-                <th style="width: 80px;">操作</th>
-            </tr>
-        </thead>
-        <tbody id='mytbody'>
-        </tbody>
-    </table>
+<div class="main clearfix">
+	<div class="setting wrap">
+	<%@include file="../inc/userHeader.inc"%>
+	<div class="setting-detail">
+		<div class="btn">
+			<input type="button" id="addResume" value="添加简历">
+		</div>
+		<div class="people_view" style="width:700px;">
+		    <table>
+		        <thead>
+		            <tr>
+		                <th>简历名称</th>
+		                <th style="width: 80px;">操作</th>
+		            </tr>
+		        </thead>
+		        <tbody id='mytbody'>
+		        </tbody>
+		    </table>
+		</div>
+	</div>
 </div>
 <div>
 <input type="hidden" id="total" name="total" value="" />
@@ -44,7 +40,7 @@
 <input type="hidden" id="pageCount" name="pageCount" value="" />
 <input type="hidden" id="length" name="length" value="" />
 <input type="hidden" id="userName" name="userName" value="" />
-<input type="hidden" id="type" name="type" value="resumeList" />
+<input type="hidden" id="type" name="type" value="userResumeList" />
 </div>
 <!-- script -->
 <%@include file="../inc/script.inc"%>

@@ -230,6 +230,9 @@
 	<bean id="resume.myresume" class="com.tl.invest.user.resume.ResumeMainController">
 		<property name="viewName"><value>user/resume/resumeList</value></property>
 	</bean>
+	<bean id="resume.userResume" class="com.tl.invest.user.user.UserMainController">
+		<property name="viewName"><value>user/resume/userResumeList</value></property>
+	</bean>
 	<bean id="resume.myrecruit" class="com.tl.invest.user.resume.ResumeMainController">
 		<property name="viewName"><value>user/resume/recruitResume</value></property>
 	</bean>
@@ -357,6 +360,7 @@
 				<prop key="/user/recruitResume.do">user.RecruitResume</prop>
 				<!-- 简历管理 -->
 				<prop key="/resume/myresume.do">resume.myresume</prop>
+				<prop key="/resume/userResume.do">resume.userResume</prop>
 				<prop key="/resume/myrecruit.do">resume.myrecruit</prop>
 				<prop key="/resume/recruitresume.do">resume.recruitresume</prop>
 				<prop key="/resume/resumeEdit.do">resume.resumeEdit</prop>
