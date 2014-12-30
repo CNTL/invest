@@ -1,11 +1,14 @@
 package com.tl.invest.user.user;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.tl.invest.constant.DicTypes;
+import com.tl.invest.user.photo.PhotoManager;
+import com.tl.invest.user.photo.UserPhoto;
 import com.tl.kernel.context.Context;
 import com.tl.kernel.sys.dic.Dictionary;
 import com.tl.kernel.sys.dic.DictionaryReader;
@@ -59,6 +62,9 @@ public class PeopleController extends UserMainController {
 	private void photo(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception {
 		this.detail(request, response, model);
 		int groupID = getInt(request, "groupID");
+		PhotoManager photoManager = (PhotoManager)Context.getBean(PhotoManager.class);
+		List<UserPhoto> photos = photoManager.getPhotos(groupID);
+		model.put("photos", photos);
 		model.put("groupID", groupID);
 		model.put("viewType", "photo");
 	}

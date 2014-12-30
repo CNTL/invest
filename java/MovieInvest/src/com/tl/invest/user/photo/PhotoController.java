@@ -160,7 +160,7 @@ public class PhotoController extends BaseController {
 					StringBuilder sb = new StringBuilder();
 					sb.append(StringUtils.isEmpty(folder)?"":(folder+File.separator));
 					sb.append("upload\\photo\\");
-					sb.append(user.getCode());
+					sb.append(user == null ? "" : user.getCode());
 					sb.append("\\");
 					sb.append(format.format(dNow));// 当前日期
 					sb.append(File.separator+format1.format(dNow));
