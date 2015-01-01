@@ -5,6 +5,7 @@
 <head>
     <%@include file="../inc/meta.inc"%>
     <script type="text/javascript" src="../js/utils.js"></script>
+	<script type="text/javascript" src="../js/share.js"></script>
 	<script type="text/javascript">
 		var webroot = "<c:out value="${rootPath}"/>";
 		$(function(){
@@ -45,17 +46,17 @@
                 <div class="box_top"></div>
                 <div class="box_main project">
                     <div class="pic">
-						<a href="Project.do?id=<c:out value="${proj.id}"/>">
+						<a href="<c:out value="${rootPath}"/>project/Project.do?id=<c:out value="${proj.id}"/>">
 							<c:choose>
-								<c:when test="${proj.imgUrl==''}"><img src="../static/image/temp/pic2.png" /></c:when>
-								<c:otherwise><img src="../<c:out value="${proj.imgUrl}"/>" /></c:otherwise>
+								<c:when test="${proj.imgUrl==''}"><img src="<c:out value="${rootPath}"/>static/image/temp/pic2.png" /></c:when>
+								<c:otherwise><img src="<c:out value="${rootPath}"/><c:out value="${proj.imgUrl}"/>" /></c:otherwise>
 							</c:choose>
                       </a>
                         <span class="two"><c:out value="${proj.typeNickName}"/></span>
                     </div>
                     <div>
                         <div class="title">
-                            <a href="Project.do?id=<c:out value="${proj.id}"/>"><c:out value="${proj.name}"/></a>
+                            <a href="<c:out value="${rootPath}"/>project/Project.do?id=<c:out value="${proj.id}"/>"><c:out value="${proj.name}"/></a>
                         </div>
                         <div class="desc">
                             <c:out escapeXml="false" value="${proj.summary}"/>
@@ -84,8 +85,8 @@
                         </div>
                     </div>
                     <div class="tool">
-                        <a href="javascript:void();" class="share">分享</a>
-                        <a href="javascript:void();" class="view"></a>
+							<a href="javascript:void();" class="share">分享</a>
+							<a href="javascript:void();" class="view"></a>
                     </div>
                 </div>
                 <div class="box_bottom"></div>
@@ -111,17 +112,17 @@
 					<div class="box_top"></div>
 					<div class="box_main project">
 						<div class="pic">
-							<a href="Project.do?id=<c:out value="${proj.id}"/>">
+							<a href="<c:out value="${rootPath}"/>project/Project.do?id=<c:out value="${proj.id}"/>">
 								<c:choose>
-									<c:when test="${proj.imgUrl==''}"><img src="../static/image/temp/pic2.png" /></c:when>
-									<c:otherwise><img src="../<c:out value="${proj.imgUrl}"/>" /></c:otherwise>
+									<c:when test="${proj.imgUrl==''}"><img src="<c:out value="${rootPath}"/>static/image/temp/pic2.png" /></c:when>
+									<c:otherwise><img src="<c:out value="${rootPath}"/><c:out value="${proj.imgUrl}"/>" /></c:otherwise>
 								</c:choose>
 						  </a>
 							<span class="three"><c:out value="${proj.typeNickName}"/></span>
 						</div>
 						<div>
 							<div class="title">
-								<a href="Project.do?id=<c:out value="${proj.id}"/>"><c:out value="${proj.name}"/></a>
+								<a href="<c:out value="${rootPath}"/>project/Project.do?id=<c:out value="${proj.id}"/>"><c:out value="${proj.name}"/></a>
 							</div>
 							<div class="desc">
 								<c:out escapeXml="false" value="${proj.summary}"/>
@@ -177,17 +178,17 @@
                 <div class="box_top"></div>
                 <div class="box_main project">
                     <div class="pic">
-						<a href="Project.do?id=<c:out value="${proj.id}"/>">
+						<a href="<c:out value="${rootPath}"/>project/Project.do?id=<c:out value="${proj.id}"/>">
 							<c:choose>
-								<c:when test="${proj.imgUrl==''}"><img src="../static/image/temp/pic2.png" /></c:when>
-								<c:otherwise><img src="../<c:out value="${proj.imgUrl}"/>" /></c:otherwise>
+								<c:when test="${proj.imgUrl==''}"><img src="<c:out value="${rootPath}"/>static/image/temp/pic2.png" /></c:when>
+								<c:otherwise><img src="<c:out value="${rootPath}"/><c:out value="${proj.imgUrl}"/>" /></c:otherwise>
 							</c:choose>
                       </a>
                         <span class="four"><c:out value="${proj.typeNickName}"/></span>
                     </div>
                     <div>
                         <div class="title">
-                            <a href="Project.do?id=<c:out value="${proj.id}"/>"><c:out value="${proj.name}"/></a>
+                            <a href="<c:out value="${rootPath}"/>project/Project.do?id=<c:out value="${proj.id}"/>"><c:out value="${proj.name}"/></a>
                         </div>
                         <div class="desc">
                             <c:out escapeXml="false" value="${proj.summary}"/>
@@ -247,6 +248,6 @@
 		</div>
 		
     </div>
-	<%@include file="../inc/footer.inc"%>
+	<%@include file="../inc/footer.inc"%>	
 </body>
 </html>

@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="css/animate.min.css" />
 	<script type="text/javascript" src="static/js/idangerous.swiper.min.js"></script>
 	<script type="text/javascript" src="js/utils.js"></script>
+	<script type="text/javascript" src="js/share.js"></script>
 	<script type="text/javascript" src="js/plugin/masonry/masonry.pkgd.min.js"></script>
  
 	<script type="text/javascript">
