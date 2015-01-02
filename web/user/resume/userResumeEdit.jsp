@@ -29,7 +29,7 @@
 			    </div>
 				<div class="input">
 		             <label>简历内容：</label>
-		             <div class="text">
+		             <div style="width:700px">
 		                 <textarea id="contentTxt" name="contentTxt" class="form-control validate[maxSize[4000]]"></textarea>
 		                 <input type="hidden" id="content" name="content" value=""/>
 		             </div>
@@ -58,7 +58,7 @@
 			</form>
 		</div>
 		<div>
-		<input type="hidden" id="type" name="type" value="<c:out value="${hidden}"/>" />
+		<input type="hidden" id="type" name="type" value="<c:out value="${type}"/>" />
 		</div>
 		</div>
 	</div>

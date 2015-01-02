@@ -81,9 +81,9 @@ var resume = {
 	    				if (r){
 	    					var type = $("#type").val();
 	    					if(type == "resumeList" ){
-	    						window.location.replace("../resume/myresume.do?infoType=1&id=" + id  + "&type=" + type);
-	    					} else if(type == "userResumeList"){
-	    						window.location.replace("../resume/userResume.do?infoType=7&id=" + id  + "&type=" + type);
+	    						window.location.href= "../resume/myresume.do?infoType=1&type=" + type; 
+	    					} else{
+	    						window.location.href= "../resume/userResume.do?infoType=7&type=" + type; 
 	    					}
 	    					//history.go(-1);
 	    					//window.location.href= "../resume/myresume.do?infoType=1"; 
@@ -100,7 +100,11 @@ var resume = {
 	    });
 	},
 	imgUploaded : function(){
-		var c_img_t = 525;
+		var c_img_t = 555;
+		var type = $("#type").val();
+		if(type == "resumeList" ){
+			c_img_t = 525;
+		}
 		var c_img_l = 300;
 		$("#coverIMG_div").css("top",c_img_t+"px").css("left",c_img_l+"px").css("display","");
 		$("#coverIMG_div").empty();
