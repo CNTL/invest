@@ -35,20 +35,11 @@
 		<div class="input">
              <label>简历内容：</label>
              <div class="text">
-                 <textarea id="contentTxt" name="contentTxt" class="form-control validate[maxSize[4000]]"></textarea>
+                 <textarea style="width:100px" id="contentTxt" name="contentTxt" class="form-control validate[maxSize[4000]]"></textarea>
                  <input type="hidden" id="content" name="content" value=""/>
              </div>
              <div class="clear"></div>
         </div>
-	    <!-- <div class="input">
-            <label for="affix">简历附件：</label>
-            <input type="file" id="affixFile" name="affixFile" class="form-control" />
-            <input type="hidden" id="affix" name="affix" class="form-control" />
-            <input type="button" style="width:50px" id="affixBtn" value="上传">
-            <div id="affixBak" style="height:100px;width:100px;margin-left:200px;">
-            	<a id="affixImg" style="height:100px;width:100px;">简历</a>
-            </div>
-	    </div> -->
 	    <div class="input">
 			<table style="width:100%;">
 				<tr>

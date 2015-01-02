@@ -244,6 +244,9 @@
 	</bean>	
 	<bean id="resume.resumeEdit" class="com.tl.invest.user.resume.ResumeMainController">
 		<property name="viewName"><value>user/resume/resumeEdit</value></property>
+	</bean>
+	<bean id="resume.uesrResumeEdit" class="com.tl.invest.user.user.UserMainController">
+		<property name="viewName"><value>user/resume/userResumeEdit</value></property>
 	</bean>		
 	
 	<bean id="user.UserMsg" class="com.tl.invest.user.msg.UserMsgController">
@@ -364,6 +367,7 @@
 				<prop key="/resume/myrecruit.do">resume.myrecruit</prop>
 				<prop key="/resume/recruitresume.do">resume.recruitresume</prop>
 				<prop key="/resume/resumeEdit.do">resume.resumeEdit</prop>
+				<prop key="/resume/uesrResumeEdit.do">resume.uesrResumeEdit</prop>
 				<prop key="/resume/resumeDetail.do">resume.resumeDetail</prop>
 				<!-- 我的相册 -->
 				<prop key="/user/photo.do">user.Photo</prop>
