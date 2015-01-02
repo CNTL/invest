@@ -12,6 +12,7 @@
  
 	<script type="text/javascript">
 		var webroot = "<c:out value="${rootPath}"/>";
+		var pageIndex = 0;
 		$(function () {
 			setCookie("loginCurrentUrl", window.location.href);
 			setCookie("loginCurrentMenu", "1");
@@ -33,7 +34,15 @@
             });
             
             waterpull();
+            
+            $("#btn-more").click(function(){
+            	getItem();
+            	
+            });
         });
+		function share(){
+			//TODO:设置分享按钮
+		}
 		function waterpull(){
 			
 			 $('#container').masonry({
@@ -52,6 +61,151 @@
 	            });
 			 
 	         $(".box").addClass('animated zoomIn');
+		}
+		
+		function getItem(){
+			pageIndex = pageIndex+1;
+			$.getJSON("MainList.do?action=getIndexItems&pageIndex="+pageIndex, function(json){
+				  var sb = [];
+				  if(json==null){ return ;}
+				  
+				  if(json.projectItems!=null && json.projectItems.length>0){
+					  sb.push(formatProject(json.projectItems));
+				  }
+				  if(json.userRecruitItems!=null&&json.userRecruitItems.length>0){
+					  sb.push(formatUserRecruit(json.userRecruitItems));
+				  }
+				  if(json.userItems!=null&&json.userItems.length>0){
+					 sb.push(formatUser(json.userItems));
+				  }
+				  var items = $(sb.join(""));
+				  $('#container').append(items).masonry('appended',items);
+				  share();
+				 
+			});
+
+			
+			
+		}
+		function formatProject(items){
+			var sb =[];
+			$.each(items,function(i,n){
+				var status = "未知";
+				if(n.status==0){
+					status = "未开始";
+				}
+				if(n.status==1){
+					status = "众筹中";	
+				}
+				if(n.status==2){
+					status = "众筹结束";
+				}
+				if(n.status==3){
+					status = "锁定";
+				}
+				
+				sb.push("<div class=\"box\">");
+				sb.push("    <div class=\"box_top\"></div>");
+				sb.push("    <div class=\"box_main project\">");
+				sb.push("        <div class=\"pic\">");
+				sb.push("            <a href=\"project/Project.do?id="+n.id+"\"><img src=\""+n.imgUrl+"\" /></a>");
+				sb.push("            <span>项目</span>");
+				sb.push("        </div>");
+				sb.push("        <div>");
+				sb.push("            <div class=\"title\">");
+				sb.push("                <a href=\"project/Project.do?id="+n.id+"\">"+n.name+"</a>");
+				sb.push("            </div>");
+				sb.push("            <div class=\"desc\">");
+				sb.push(n.summary);
+				sb.push("            </div>");
+				sb.push("            <div class=\"info\">"+n.countDay+"天 ￥"+n.amountGoal);
+				sb.push("                <span>"+status+"</span>");
+				sb.push("            </div>");
+				sb.push("            <div class=\"progress\">");
+				sb.push("                <div class=\"now\" style=\"width:"+n.finishPer+"%;\"></div>");
+				sb.push("            </div>");
+				sb.push("            <div class=\"status\">");
+				sb.push("                <ul>");
+				sb.push("                    <li><span>"+n.finishPer+"%</span><br />已达</li>");
+				sb.push("                    <li><span>￥"+n.amountRaised+"</span><br />已筹资</li>");
+				sb.push("                    <li class=\"last\"><span>"+n.surplus+"</span><br />剩余时间</li>");
+				sb.push("                </ul>");
+				sb.push("            </div>");
+				sb.push("        </div>");
+				sb.push("        <div class=\"tool\">");
+				sb.push("            <a href=\"#\" class=\"share\">分享</a>");
+				sb.push("            <a href=\"#\" class=\"view\"></a>");
+				sb.push("        </div>");
+				sb.push("    </div>");
+				sb.push("    <div class=\"box_bottom\"></div>");
+				sb.push("</div>");
+			});
+			
+			return sb.join('');
+		}
+		
+		function formatUserRecruit(items){
+			var sb =[];
+			$.each(items,function(i,n){
+				sb.push("<div class=\"box\">");
+				sb.push("    <div class=\"box_top\"></div>");
+				sb.push("    <div class=\"box_main job\">");
+				sb.push("        <div class=\"pic\">");
+				sb.push("            <a href=\"recruit/DetailMain.do?a=detail&id="+n.id+"\"><img src=\""+n.jobPictrue+"\" /></a> <span>影聘</span>");
+				sb.push("        </div>");
+				sb.push("        <div>");
+				sb.push("            <div class=\"title\">");
+				sb.push("                <a href=\"recruit/DetailMain.do?a=detail&id="+n.id+"\">"+n.jobName+"</a> <span>"+n.company+"</span>");
+				sb.push("            </div>");
+				sb.push("            <div class=\"info\">");
+				sb.push("                <ul>");
+				sb.push("                    <li>"+n.salary+"</li>");
+				sb.push("                    <li>"+n.city+"</li>");
+				sb.push("                    <li>"+n.days+"天</li>");
+				sb.push("                </ul>");
+				sb.push("            </div>");
+				sb.push("            <div class=\"desc\">");
+				sb.push("                <span>"+n.jobIntro+"</span><br />");
+				sb.push("                发布时间："+formatTime(n.createtime)+"<br /> 已投递简历人数："+n.resumeNum+"人");
+				sb.push("            </div>");
+				sb.push("        </div>");
+				sb.push("        <div class=\"tool\">");
+				sb.push("            <a href=\"#\" class=\"share\">分享</a> <a href=\"#\" class=\"view\"></a>");
+				sb.push("        </div>");
+				sb.push("    </div>");
+				sb.push("    <div class=\"box_bottom\"></div>");
+				sb.push("</div>");
+			});
+			
+			return sb.join('');
+		}
+		
+		function formatUser(items){
+			var sb =[];
+			$.each(items,function(i,n){
+				sb.push("<div class=\"box\">");
+				sb.push("    <div class=\"box_top\"></div>");
+				sb.push("    <div class=\"box_main people\">");
+				sb.push("        <div class=\"pic\">");
+				sb.push("            <a href=\"user/PeopleDetailMain.do?a=detail&id="+n.id+"\"><img src=\""+n.head+"\" /> </a><span>影人</span>");
+				sb.push("        </div>");
+				sb.push("        <div class=\"title\">");
+				sb.push("            <a href=\"user/PeopleDetailMain.do?a=detail&id="+n.id+"\">"+n.name+"</a> <span>"+n.perJobName+"</span>");
+				sb.push("        </div>");
+				sb.push("        <div class=\"desc\">"+n.intro+"</div>");
+				sb.push("        <div class=\"tool\">");
+				sb.push("            <a href=\"#\" class=\"share\">分享</a> <a href=\"#\" class=\"view\"></a>");
+				sb.push("        </div>");
+				sb.push("    </div>");
+				sb.push("    <div class=\"box_bottom\"></div>");
+				sb.push("</div>");
+			});
+			
+			return sb.join('');
+		}
+		function formatTime(time){
+			//TODO:解析时间格式
+			return time.year+"-"+time.month+"-"+time.day;
 		}
 	</script>
 	<style type="text/css">
@@ -249,6 +403,8 @@
 	
 	<!-- container end -->
 	</div>
+	<div class="more text-center"><button id="btn-more" class="btn btn-info btn-sm">点击更多</button></div>
+	<p>&nbsp;</p>
 	
 	<%@include file="../inc/footer.inc"%>
 </body>

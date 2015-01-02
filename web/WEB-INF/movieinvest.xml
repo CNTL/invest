@@ -296,7 +296,12 @@
 		<property name="recruitManager"><ref bean="RecruitManager"/></property>
 		<property name="noticeManager"><ref bean="invest.NoticeManager"/></property>
 	</bean>
-	
+	<bean id="invest.MainList" class="com.tl.invest.workspace.MainListController">
+		<property name="projectService"><ref bean="project.Service" /></property>
+		<property name="userManager"><ref bean="UserManager"/></property>
+		<property name="recruitManager"><ref bean="RecruitManager"/></property>
+	</bean>
+
 	<!--============ 4. web =============== -->
 	<bean id="appUrl" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="order"><value>3</value></property>
@@ -304,6 +309,7 @@
 			<props>
 				<!--系统首页-->
 				<prop key="/Main.do">invest.Main</prop>
+				<prop key="/MainList.do">invest.MainList</prop>
 				 
 				<!-- 系统用户管理 -->
 				<prop key="/admin/sysuser.do">sys.sysuser</prop>
