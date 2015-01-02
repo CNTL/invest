@@ -40,9 +40,7 @@
             	
             });
         });
-		function share(){
-			//TODO:设置分享按钮
-		}
+	
 		function waterpull(){
 			
 			 $('#container').masonry({
@@ -64,7 +62,7 @@
 		}
 		
 		function getItem(){
-			//pageIndex = pageIndex+1;
+			pageIndex = pageIndex+1;
 			$.getJSON("MainList.do?action=getIndexItems&pageIndex="+pageIndex, function(json){
 				  var sb = [];
 				  if(json==null){ return ;}
@@ -80,7 +78,7 @@
 				  }
 				  var items = $(sb.join(""));
 				  $('#container').append(items).masonry('appended',items);
-				  share();
+				  shareInfo();
 				 
 			});
 

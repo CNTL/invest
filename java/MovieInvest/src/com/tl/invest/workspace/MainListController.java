@@ -1,10 +1,11 @@
 package com.tl.invest.workspace;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
-import net.sf.json.processors.JsDateJsonBeanProcessor;
 import net.sf.json.processors.JsonValueProcessor;
 
 import com.tl.invest.proj.ProjectExt;
@@ -50,6 +50,7 @@ public class MainListController extends BaseController {
 		MainList mainList = new MainList();
 		JsonConfig jsonConfig = new JsonConfig();
 		jsonConfig.registerJsonValueProcessor(Timestamp.class,new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
+		jsonConfig.registerJsonValueProcessor(Date.class, new JsonDateValueProcessor()); 
         
 		try
 		{
@@ -85,8 +86,13 @@ public class MainListController extends BaseController {
         }catch(Exception e){    
            
         }
+		String ttString = "";
+		try{
+			ttString = JSONObject.fromObject(mainList, jsonConfig).toString();
+		}catch(Exception e){
+			
+		}
 		
-		String ttString = JSONObject.fromObject(mainList, jsonConfig).toString();
 		output(ttString, response);
 	}
 	
@@ -196,6 +202,43 @@ public class MainListController extends BaseController {
 	    }
 
 	}
+	public class JsonDateValueProcessor implements JsonValueProcessor {
+		private String format ="yyyy-MM-dd";
+		
+		public JsonDateValueProcessor() {
+			super();
+		}
+		
+		public JsonDateValueProcessor(String format) {
+			super();
+			this.format = format;
+		}
+
+		@Override
+		public Object processArrayValue(Object paramObject,
+				JsonConfig paramJsonConfig) {
+			return process(paramObject);
+		}
+
+		@Override
+		public Object processObjectValue(String paramString, Object paramObject,
+				JsonConfig paramJsonConfig) {
+			return process(paramObject);
+		}
+		
+		
+		private Object process(Object value){
+	        if(value instanceof Date){  
+	            SimpleDateFormat sdf = new SimpleDateFormat(format,Locale.CHINA);  
+	            return sdf.format(value);
+	        }  
+	        return value == null ? "" : value.toString();  
+	    }
+
+	}
+
+	
+
 
 	
 }
