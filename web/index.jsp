@@ -64,7 +64,7 @@
 		}
 		
 		function getItem(){
-			pageIndex = pageIndex+1;
+			//pageIndex = pageIndex+1;
 			$.getJSON("MainList.do?action=getIndexItems&pageIndex="+pageIndex, function(json){
 				  var sb = [];
 				  if(json==null){ return ;}
@@ -166,7 +166,7 @@
 				sb.push("            </div>");
 				sb.push("            <div class=\"desc\">");
 				sb.push("                <span>"+n.jobIntro+"</span><br />");
-				sb.push("                发布时间："+formatTime(n.createtime)+"<br /> 已投递简历人数："+n.resumeNum+"人");
+				sb.push("                发布时间："+n.createtime+"<br /> 已投递简历人数："+n.resumeNum+"人");
 				sb.push("            </div>");
 				sb.push("        </div>");
 				sb.push("        <div class=\"tool\">");
@@ -202,10 +202,6 @@
 			});
 			
 			return sb.join('');
-		}
-		function formatTime(time){
-			//TODO:解析时间格式
-			return time.year+"-"+time.month+"-"+time.day;
 		}
 	</script>
 	<style type="text/css">
