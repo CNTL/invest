@@ -304,6 +304,11 @@
 		<property name="recruitManager"><ref bean="RecruitManager"/></property>
 	</bean>
 
+	
+	<bean id="help.Agreement" class="com.tl.invest.workspace.HelpMainController">
+		<property name="viewName"><value>static/help/agreement</value></property>
+	</bean>
+	
 	<!--============ 4. web =============== -->
 	<bean id="appUrl" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="order"><value>3</value></property>
@@ -401,6 +406,8 @@
 				<prop key="/notice/List.do">invest.NoticeList</prop>
 				
 				<prop key="/Upload.do">workspace.Upload</prop>
+				
+				<prop key="/help/Agreement.do">help.Agreement</prop>
 			</props>
 		</property>
 	</bean>

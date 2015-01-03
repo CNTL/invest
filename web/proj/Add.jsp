@@ -115,8 +115,8 @@
 			<label for="proj_agreements">
 				<input type="checkbox" id="proj_agreements" name="proj_agreements" checked="checked" style="width:18px;height:18px;" />
 				提交信息即代表已经同意
-				<a href="###" style="color:blue;">《项目发起协议》</a>及
-				<a href="###" style="color:blue;">《注意事项》</a>
+				<a href="<c:out value="${rootPath}"/>help/Agreement.do" style="color:blue;" target="_blank">《项目发起协议》</a>及
+				<a href="<c:out value="${rootPath}"/>help/Agreement.do" style="color:blue;" target="_blank">《注意事项》</a>
 			</label>
 		</div>
 		<div class="btn">
