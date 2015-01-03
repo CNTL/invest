@@ -39,9 +39,9 @@
             </div>
             <div class="clear"></div>
             <ul class="nav">
-                <li id="menu_1"><a href="Project.do?m=1">发起的项目</a></li>
-				 <li id="menu_2"><a href="Project.do?m=2">支持的项目</a></li>
-                <!--<li><a href="#">喜欢的项目</a></li>-->
+				<li id="menu_1"><a href="Project.do?m=1">发起的项目</a></li>
+				<li id="menu_2"><a href="Project.do?m=2">支持的项目</a></li>
+				<li id="menu_3"><a href="Project.do?m=3">收藏的项目</a></li>
             </ul>
 		</div>
     </div>
@@ -58,7 +58,7 @@
 		-->
 		<div class="content" style="float:left;width:100%;">
 			<c:choose>
-			<c:when test="${menu==1}">
+			<c:when test="${menu==1 || menu==3}">
 			<table class="tb-void">
 				<thead>
 					<tr>
@@ -119,12 +119,20 @@
 							</span>
 						</td>
 						<td>
+							<c:choose>
+							<c:when test="${menu==1}">
 							<c:if test="${proj.deleted==0 && proj.status==0}">
 							<a href="../project/Publish.do?id=<c:out value="${proj.id}"/>">修改</a>|
 							<a href="javascript:void();" onclick="delProject(<c:out value="${proj.id}"/>)">删除</a>
 							<br />							
 							</c:if>
 							<a href="javascript:;" onclick="setStage(<c:out value="${proj.id}"/>)">项目进度</a>
+							</c:when>
+							
+							<c:when test="${menu==3}">
+								<a href="javascript:void();" onclick="delFavorite(<c:out value="${proj.id}"/>)">删除</a>
+							</c:when>
+							</c:choose>
 						</td>
 					</tr>
 				</tbody>

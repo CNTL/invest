@@ -25,6 +25,10 @@ public class UserProjectController extends ProjectMainController {
 			SupportProj[] projs = service.getProjectExtsSupported(userID, 20, page, null);
 			projCount = service.getProjectExtsSupportedCount(userID, null);
 			model.put("projs", projs);
+		}else if(m == 3){
+			ProjectExt[] projs = service.getProjectExtsFavorited(userID, 20, page, null);
+			projCount = service.getProjectExtsFavoritedCount(userID, null);
+			model.put("projs", projs);
 		}
 		
 		int pageCount = projCount/20;

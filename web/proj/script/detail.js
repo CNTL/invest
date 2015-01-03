@@ -58,6 +58,31 @@ $(function(){
 	}
 });
 
+function addFavorite(id){
+	if(!id || id<=0) return;
+	var dataUrl = "../project/ProjectFetcher.do?action=addfavorite&id="+id;
+	var loading = -1;
+	$.ajax({url: dataUrl, async:true, dataType:"json",
+		beforeSend:function(XMLHttpRequest){
+			loading = layer.msg("正在提交数据...", 0, 16);
+		},
+		success: function(datas) {
+			if(datas.success){
+				window.location.reload();
+			}else{
+				layer.alert(datas.msg, 3);
+			}
+		},
+		complete: function(XMLHttpRequest, textStatus){
+			layer.close(loading);
+		},
+		error:function (XMLHttpRequest, textStatus, errorThrown) {
+			layer.close(loading);
+			layer.alert('数据提交失败！', 3);
+		}
+	});
+}
+
 function showModePhotosPage(modeid,start){
 	layer.photos({
 		html: $("#returncontent_"+modeid).html(),//自定义的html，显示在层右侧

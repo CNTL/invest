@@ -91,8 +91,16 @@
             </div>
         </div>
         <div class="sider">
-			<div class="desc" style="padding: 5px 25px;">
-				<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a></div>
+			<div class="desc" style="padding: 5px 5px;height:48px;">
+				<div class="bdsharebuttonbox" style="width: 200px;float: left;"><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a></div>
+				<div class="bdshare-button-style0-24" style="float:right;">
+					<c:if test="${favorited==0}">
+					<a href="javascript:void(0);" onclick="addFavorite(<c:out value="${proj.id}"/>);" style="background-image: url(../static/image/sc.png);">收藏</a>
+					</c:if>
+					<c:if test="${favorited==1}">
+					<a href="javascript:void(0);" style="background-image: url(../static/image/sc.png);">已收藏</a>
+					</c:if>
+				</div>
 <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":["tieba","kaixin001","bdhome","tsohu","tsina","tqf","hi","copy"],"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
 			</div>
             <div class="desc">
@@ -120,7 +128,7 @@
                     <ul>
                         <li><span><c:out value="${surplus}"/></span><br />剩余时间</li>
                         <li><span><c:out value="${proj.countSupport}"/></span><br />支持者</li>
-                        <!--<li class="last"><span>211</span><br />喜欢</li>-->
+                        <li class="last"><span><c:out value="${proj.countLove}"/></span><br />收藏</li>
                     </ul>
                 </div>
             </div>

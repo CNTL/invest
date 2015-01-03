@@ -38,6 +38,8 @@
 		<mapping resource="hbm/ProjSchedule.hbm.xml"/>
 		<mapping resource="hbm/UserOrder.hbm.xml"/>
 		
+		<mapping resource="hbm/Favorite.hbm.xml"/>
+		
 		<mapping resource="hbm/User.hbm.xml"/>
 		<mapping resource="hbm/UserAddress.hbm.xml"/>
 		<mapping resource="hbm/UserBankcard.hbm.xml"/>

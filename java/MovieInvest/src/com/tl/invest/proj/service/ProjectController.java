@@ -12,12 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 import com.tl.common.DateUtils;
 import com.tl.invest.common.MoneyHelper;
 import com.tl.invest.constant.DicTypes;
+import com.tl.invest.favorite.Favorite;
+import com.tl.invest.favorite.FavoriteManager;
 import com.tl.invest.proj.ProjMode;
 import com.tl.invest.proj.ProjScheduleExt;
 import com.tl.invest.proj.Project;
 import com.tl.invest.proj.ProjectStage;
 import com.tl.invest.user.user.User;
+import com.tl.kernel.context.Context;
 import com.tl.kernel.sys.dic.Dictionary;
+import com.tl.sys.common.SessionHelper;
 
 public class ProjectController extends ProjectMainController{
 	
@@ -88,6 +92,14 @@ public class ProjectController extends ProjectMainController{
 					}
 				}
 				
+				int favorited = 0;
+				int curUserId = SessionHelper.getUserID(request);
+				if(curUserId>0){
+					FavoriteManager favMgr = (FavoriteManager)Context.getBean(FavoriteManager.class);
+					Favorite fav = favMgr.get(curUserId, 1, proj_id);
+					if(fav!=null) favorited = 1;
+				}
+				
 				model.put("user", user);
 				model.put("modes", modes);
 				model.put("province", province);
@@ -97,6 +109,7 @@ public class ProjectController extends ProjectMainController{
 				model.put("surplus", surplus);
 				model.put("stages", stages);
 				model.put("curstage", currtStage);
+				model.put("favorited", favorited);
 			}
 			model.put("proj", proj);
 		}

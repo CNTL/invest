@@ -9,7 +9,10 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import com.tl.common.DateUtils;
+import com.tl.common.WebUtil;
 import com.tl.invest.constant.DicTypes;
+import com.tl.invest.favorite.Favorite;
+import com.tl.invest.favorite.FavoriteManager;
 import com.tl.invest.proj.ProjMode;
 import com.tl.invest.proj.ProjSchedule;
 import com.tl.invest.proj.Project;
@@ -63,6 +66,43 @@ public class ProjectFetcher extends BaseController{
 			output("{\"success\":true}", response);
 		}else if("submitstage".equals(action)){
 			submitStage(request,response);
+		}else if ("addfavorite".equals(action)) {
+			int userId = SessionHelper.getUserID(request);
+			if(userId <= 0){
+				output("{\"success\":false,\"msg\":\"您还没有登陆...<br /><br /><a href='"+WebUtil.getRoot(request)+"login.jsp' style='color:blue;'>点击登陆</a><br /><br />\"}", response);
+				return;
+			}
+			FavoriteManager mgr = (FavoriteManager)Context.getBean(FavoriteManager.class);
+			long proj_id = getLong(request, "id", 0);
+			Favorite favorite = mgr.get(SessionHelper.getUserID(request), 1, proj_id);
+			if(favorite == null){
+				Project project = service.get(proj_id);
+				if(project != null){
+					favorite = new Favorite();
+					favorite.setCreated(DateUtils.getTimestamp());
+					favorite.setItemId(proj_id);
+					favorite.setLibId(1);
+					favorite.setUserId(SessionHelper.getUserID(request));
+					
+					mgr.save(favorite);
+					service.updateFavoriteCount(proj_id);
+				}
+			}
+			output("{\"success\":true}", response);
+		}else if ("delfavorite".equals(action)) {
+			int userId = SessionHelper.getUserID(request);
+			if(userId <= 0){
+				output("{\"success\":false,\"msg\":\"您还没有登陆...<br /><br /><a href='"+WebUtil.getRoot(request)+"login.jsp' style='color:blue;'>点击登陆</a><br /><br />\"}", response);
+				return;
+			}
+			FavoriteManager mgr = (FavoriteManager)Context.getBean(FavoriteManager.class);
+			long proj_id = getLong(request, "id", 0);
+			Favorite favorite = mgr.get(SessionHelper.getUserID(request), 1, proj_id);
+			if(favorite!=null){
+				mgr.delete(favorite);
+				service.updateFavoriteCount(proj_id);
+			}
+			output("{\"success\":true}", response);
 		}
 	}
 	

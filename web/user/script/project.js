@@ -44,6 +44,33 @@ $(function(){
 		}
 	});
 });
+
+function delFavorite(id){
+	if(!id || id<=0) return;
+	if(!window.confirm("确定要删除该收藏么？？")){
+		return false;
+	}
+	var dataUrl = "../project/ProjectFetcher.do?action=delfavorite&id="+id;
+	var loading = -1;
+	$.ajax({url: dataUrl, async:true, dataType:"json",
+		beforeSend:function(XMLHttpRequest){
+			loading = layer.msg("正在提交数据...", 0, 16);
+		},
+		success: function(datas) {
+			if(datas.success){
+				window.location.reload();
+			}
+		},
+		complete: function(XMLHttpRequest, textStatus){
+			layer.close(loading);
+		},
+		error:function (XMLHttpRequest, textStatus, errorThrown) {
+			layer.close(loading);
+			layer.alert('数据提交失败！', 3);
+		}
+	});
+}
+
 function delProject(id){
 	if(!id || id<=0) return;
 	if(!window.confirm("确定要删除该项目么？？")){

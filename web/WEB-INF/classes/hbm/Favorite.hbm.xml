@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2014-9-9 23:05:48 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tl.invest.favorite.Favorite" table="invest_favorite">
+        <id name="id" type="long">
+            <column name="fav_id" />
+            <generator class="assigned" />
+        </id>
+		<property name="libId" type="int">
+            <column name="fav_libId" not-null="true" />
+        </property>
+        <property name="itemId" type="long">
+            <column name="fav_itemId" not-null="true" />
+        </property>        
+		<property name="userId" type="int">
+            <column name="fav_userId" not-null="true" />
+        </property>
+        <property name="created" type="timestamp">
+            <column name="fav_created" length="0" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

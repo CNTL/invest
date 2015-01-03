@@ -370,6 +370,38 @@ public class ProjectService {
 		return (SupportProj[]) list.toArray(new SupportProj[0]);
 	}
 	
+	public void updateFavoriteCount(long projId){
+		String sql = "update invest_project set proj_countLove=(select count(0) from invest_favorite where fav_libId=1 and fav_itemId=proj_id) where proj_id=?";
+		Object[] params = new Object[]{projId};
+		DBSession db = null;
+		try {
+			db = Context.getDBSession();
+			db.executeUpdate(sql, params);
+		} catch (Exception e) {
+			log.error(e.getMessage(),e);
+		} finally{
+			ResourceMgr.closeQuietly(db);
+		}
+	}
+	
+	public int getProjectExtsFavoritedCount(int userID,DBSession db) throws TLException{
+		String sql = "select count(0) from invest_project left JOIN sys_dictionary on sys_dictionary.dic_id=invest_project.proj_type";
+		sql += " left JOIN `user` on `user`.id=invest_project.proj_userID";
+		sql += " left JOIN invest_favorite on fav_itemId=proj_id";
+		sql += " where fav_libId=1 and fav_userId=?";
+		Object[] params = new Object[]{userID};
+		return getSqlCount(sql,params,db);
+	}
+	
+	public ProjectExt[] getProjectExtsFavorited(int userID,int pageSize,int page,DBSession db) throws TLException{
+		String sql = "select invest_project.*,sys_dictionary.dic_name typeName,`user`.`perNickName` userName,fav_created from invest_project left JOIN sys_dictionary on sys_dictionary.dic_id=invest_project.proj_type";
+		sql += " left JOIN `user` on `user`.id=invest_project.proj_userID";
+		sql += " left JOIN invest_favorite on fav_itemId=proj_id";
+		sql += " where fav_libId=1 and fav_userId=? order by fav_created desc";
+		Object[] params = new Object[]{userID};
+		return getProjectExts(sql, params, pageSize, page, db);
+	}
+	
 	public int getProjectExtsPublishedCount(int userID,DBSession db) throws TLException{
 		String sql = "select count(0) from invest_project left JOIN sys_dictionary on sys_dictionary.dic_id=invest_project.proj_type";
 		sql += " left JOIN `user` on `user`.id=invest_project.proj_userID";

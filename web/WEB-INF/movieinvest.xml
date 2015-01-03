@@ -132,6 +132,8 @@
 		<property name="viewName"><value>proj/Pay</value></property>
 	</bean>
 	
+	<bean id="FavoriteManager" class="com.tl.invest.favorite.FavoriteManager"></bean>
+	
 	<!-- 个人用户页面 -->
 	<bean id="user.PeopleMain" class="com.tl.invest.user.user.PeopleMainController">
 		<property name="viewName"><value>user/user/peopleMain</value></property>
