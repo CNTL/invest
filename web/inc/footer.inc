@@ -39,7 +39,7 @@
 		</div>
 	</div>
 	<div class="copyright">
-		©2014 北京合众映画影视科技有限公司 Hezhongfilm.com 版权所有<br />
+		©2014 北京合众映画影视科技有限公司 www.crowdcine.com 版权所有<br />
 		<!--京ICP备140118851号　京公网安备110105015888-->
 	</div>
 </div>
