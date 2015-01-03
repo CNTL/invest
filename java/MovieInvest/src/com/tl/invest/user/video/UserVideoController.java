@@ -133,7 +133,10 @@ public class UserVideoController extends BaseController {
 	*/ 
 	private void saveVideo(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
+		int id = ParamInitUtils.getInt(request.getParameter("id"));
 		UserVideo userVideo = new UserVideo();
+		if(id > 0) userVideo = userVideoManager.getVideoInfo(id);
+		
 		userVideo.setUserId(user.getId());
 		userVideo.setUserName(user.getName());
 		userVideo.setGroupId(getInt(request, "groupID"));
