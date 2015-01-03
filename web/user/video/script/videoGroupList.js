@@ -142,7 +142,7 @@ var videoGroup = {
     	});
 	},
 	clickThumb : function(id){
-		window.location.href="../user/VideoMa.do?infoType=7&groupID=" + id; 
+		window.location.href="../user/VideoMa.do?infoType=6&groupID=" + id; 
 	},
 	saveVideoGroup : function(){
 		$.ajax({

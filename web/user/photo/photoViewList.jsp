@@ -45,8 +45,8 @@
 <!-- footer -->
 <%@include file="../../inc/footer.inc"%>
 <!-- footer -->
-<script src="../layer/jquery.js?v=1.83.min"></script>
-<script src="../layer/layer.min.js"></script>
+<script src="./layer/jquery.js?v=1.83.min"></script>
+<script src="./layer/layer.min.js"></script>
 <script type="text/javascript">
 ;!function(){
 	layer.use('extend/layer.ext.js', function(){

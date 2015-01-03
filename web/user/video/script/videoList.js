@@ -59,9 +59,10 @@ var myVideo = {
     	});
 	},
 	saveVideo : function(){
+		var groupID = $("#groupID").val();
 		$.ajax({
 	        type:"POST", //请求方式  
-	        url:"../user/video.do?a=saveVideo", //请求路径  
+	        url:"../user/video.do?a=saveVideo&groupID="+groupID, //请求路径  
 	        cache: false,
 	        data:$('#form').serialize(),  //传参 
 	        dataType: 'text',   //返回值类型  
@@ -69,7 +70,7 @@ var myVideo = {
 	    		if(data != null && data.length > 0){
 	    			$.messager.confirm('消息', '创建视频成功！', function(r){
 	    				if (r){
-	    					window.location.href="../user/VideoMa.do?infoType=7&groupID=" + data; 
+	    					window.location.href="../user/VideoMa.do?infoType=6&groupID=" + data; 
 	    				}
 	    			});
 	    		} else {
@@ -119,8 +120,7 @@ var myVideo = {
 						'<div class="input">' +
 					        '<label for="name">视频名称：</label>' +
 					        '<input type="hidden" id="id" name="id" value=""/>' +
-					        '<input type="hidden" id="groupID" name="groupID" value=""/>' +
-					        '<input type="text" id="name" name="name" class="form-control validate[maxSize[255],required]" value=""/>' +
+					        '<input type="text" id="videoName" name="videoName" class="form-control validate[maxSize[255],required]" value=""/>' +
 					    '</div>' +
 					    '<div class="input">' +
 							'<table style="width:100%;">' +
@@ -142,7 +142,7 @@ var myVideo = {
 						'<div style="margin-top:100px;">' +
 						    '<div class="input">' +
 						        '<label for="video">视频地址：</label>' +
-						        '<input type="text" id="video" name="video" class="form-control validate[maxSize[255],required]" value=""/>' +
+						        '<input type="text" id="videoUrl" name="videoUrl" class="form-control validate[maxSize[255],required]" value=""/>' +
 						    '</div>' +
 						    '<div class="input">' +
 								'<label for="intro">视频描述：</label>' +
@@ -164,9 +164,9 @@ var myVideo = {
 				if(data != null){
 					$("#id").val(data.id);
 					$("#groupID").val(data.groupId);
-	    			$("#name").val(data.name);
+	    			$("#videoName").val(data.name);
 	    			$("#photo").val(data.photo);
-	    			$("#video").val(data.video);
+	    			$("#videoUrl").val(data.video);
 	    			$("#intro").val(data.intro);
 	    			myVideo.imgUploaded();
 	    		}
@@ -313,7 +313,6 @@ var myVideo = {
             default:
                 msgText += "错误代码：" + errorCode + "\n" + errorMsg;
         }
-        alert(msgText);
 		return false;
     },
 	uploadify_onUploadError : function(file, errorCode, errorMsg, errorString) {
@@ -352,7 +351,6 @@ var myVideo = {
                 msgText += "文件:" + file.name + "\n错误码:" + errorCode + "\n"
                         + errorMsg + "\n" + errorString;
         }
-        alert(msgText);
 		return false;;
     }
 }

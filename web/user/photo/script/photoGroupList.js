@@ -182,7 +182,7 @@ var photoGroup = {
     	*/
 	},
 	clickThumb : function(id){
-		window.location.href="../user/PhotoMa.do?a=photo&infoType=6&groupID=" + id; 
+		window.location.href="../user/PhotoMa.do?a=photo&infoType=5&groupID=" + id; 
 	},
 	openMsg : function(){
 		$('#w').window('open');
