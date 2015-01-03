@@ -42,12 +42,12 @@ function shareInfo(){
 		$(this).remove();
 	});
 	
-	$(".bdsharebuttonbox").on("mouseover",function(){
-		var m = $(this).closest("div.box_main");
-		bdshare.text = $(m).find("div.title").text();
-		bdshare.desc = $(m).find("div.desc").text();
-		bdshare.url = $(m).find("div.pic a").attr("href");
-		bdshare.pic = $(m).find("div.pic img").attr("src");
-	});
+//	$(".bdsharebuttonbox").on("mouseover",function(){
+//		var m = $(this).closest("div.box_main");
+//		bdshare.text = $(m).find("div.title").text();
+//		bdshare.desc = $(m).find("div.desc").text();
+//		bdshare.url = $(m).find("div.pic a").attr("href");
+//		bdshare.pic = $(m).find("div.pic img").attr("src");
+//	});
 	bdshare.init();
 }
