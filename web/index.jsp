@@ -12,7 +12,7 @@
  
 	<script type="text/javascript">
 		var webroot = "<c:out value="${rootPath}"/>";
-		var pageIndex = 0;
+		var pageIndex = 1;
 		$(function () {
 			setCookie("loginCurrentUrl", window.location.href);
 			setCookie("loginCurrentMenu", "1");
