@@ -29,7 +29,7 @@ var bdshare = {
 				}},
 			"share":{}
 		};
-		with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+		with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)+Math.round(new Date().getTime()/1000)];
 	}
 };
 function shareInfo(){
@@ -42,12 +42,12 @@ function shareInfo(){
 		$(this).remove();
 	});
 	
-//	$(".bdsharebuttonbox").on("mouseover",function(){
-//		var m = $(this).closest("div.box_main");
-//		bdshare.text = $(m).find("div.title").text();
-//		bdshare.desc = $(m).find("div.desc").text();
-//		bdshare.url = $(m).find("div.pic a").attr("href");
-//		bdshare.pic = $(m).find("div.pic img").attr("src");
-//	});
+	$(".bdsharebuttonbox").on("mouseover",function(){
+		var m = $(this).closest("div.box_main");
+		bdshare.text = $(m).find("div.title").text();
+		bdshare.desc = $(m).find("div.desc").text();
+		bdshare.url = $(m).find("div.pic a").attr("href");
+		bdshare.pic = $(m).find("div.pic img").attr("src");
+	});
 	bdshare.init();
 }

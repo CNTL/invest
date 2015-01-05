@@ -78,8 +78,11 @@
 				  }
 				  var items = $(sb.join(""));
 				  $('#container').append(items).masonry('appended',items);
-				  shareInfo();
-				 
+				  //shareInfo();
+				  $.getScript('http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)+Math.round(new Date().getTime()/1000),function(){
+						//newFun('"Checking new script"');//这个函数是在new.js里面的，当点击click后运行这个函数
+						//alert("loaded");
+					});
 			});
 
 			
@@ -131,7 +134,9 @@
 				sb.push("            </div>");
 				sb.push("        </div>");
 				sb.push("        <div class=\"tool\">");
-				sb.push("            <a href=\"#\" class=\"share\">分享</a>");
+				sb.push("            <div class=\"bdsharebuttonbox\" style=\"width:60px;float:left;\">");
+				sb.push("				<a href=\"javascript:void();\" class=\"bds_more share\" style=\"margin: 0px 0px 0px 10px;\" data-cmd=\"more\">分享</a>");
+				sb.push("			 </div>");
 				sb.push("            <a href=\"#\" class=\"view\"></a>");
 				sb.push("        </div>");
 				sb.push("    </div>");
@@ -168,7 +173,10 @@
 				sb.push("            </div>");
 				sb.push("        </div>");
 				sb.push("        <div class=\"tool\">");
-				sb.push("            <a href=\"#\" class=\"share\">分享</a> <a href=\"#\" class=\"view\"></a>");
+				sb.push("            <div class=\"bdsharebuttonbox\" style=\"width:60px;float:left;\">");
+				sb.push("				<a href=\"javascript:void();\" class=\"bds_more share\" style=\"margin: 0px 0px 0px 10px;\" data-cmd=\"more\">分享</a>");
+				sb.push("			 </div>");
+				sb.push("			<a href=\"#\" class=\"view\"></a>");
 				sb.push("        </div>");
 				sb.push("    </div>");
 				sb.push("    <div class=\"box_bottom\"></div>");
@@ -192,7 +200,10 @@
 				sb.push("        </div>");
 				sb.push("        <div class=\"desc\">"+n.intro+"</div>");
 				sb.push("        <div class=\"tool\">");
-				sb.push("            <a href=\"#\" class=\"share\">分享</a> <a href=\"#\" class=\"view\"></a>");
+				sb.push("            <div class=\"bdsharebuttonbox\" style=\"width:60px;float:left;\">");
+				sb.push("				<a href=\"javascript:void();\" class=\"bds_more share\" style=\"margin: 0px 0px 0px 10px;\" data-cmd=\"more\">分享</a>");
+				sb.push("			 </div>");
+				sb.push("			<a href=\"#\" class=\"view\"></a>");
 				sb.push("        </div>");
 				sb.push("    </div>");
 				sb.push("    <div class=\"box_bottom\"></div>");
@@ -399,7 +410,6 @@
 	</div>
 	<div class="more text-center"><button id="btn-more" class="btn btn-info btn-sm">点击更多</button></div>
 	<p>&nbsp;</p>
-	
 	<%@include file="../inc/footer.inc"%>
 </body>
 </html>

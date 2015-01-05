@@ -39,6 +39,7 @@
                 </div>
             </div>
 			<c:forEach var="proj" varStatus="status" items="${projs1}">
+			<c:if test="${status.index<4}">
 			<c:choose>
 				<c:when test="${status.index%4==0}"><div class="box box_last"></c:when>
 				<c:otherwise> <div class="box"></c:otherwise>
@@ -91,6 +92,7 @@
                 </div>
                 <div class="box_bottom"></div>
             </div>
+			</c:if>
 			</c:forEach>
             <div class="clear"></div>
         </div>
@@ -107,8 +109,12 @@
                         <a href="List.do?type=<c:out value="${projType2}"/>">更多 &gt;&gt;</a>
                     </div>
                 </div>
-                <c:forEach var="proj" items="${projs2}">
-				<div class="box">
+                <c:forEach var="proj" varStatus="status" items="${projs2}">
+				<c:if test="${status.index<4}">
+				<c:choose>
+					<c:when test="${status.index%4==0}"><div class="box box_last"></c:when>
+					<c:otherwise> <div class="box"></c:otherwise>
+				</c:choose>
 					<div class="box_top"></div>
 					<div class="box_main project">
 						<div class="pic">
@@ -157,6 +163,7 @@
 					</div>
 					<div class="box_bottom"></div>
 				</div>
+				</c:if>
 				</c:forEach>
                 <div class="clear"></div>
             </div>
@@ -173,8 +180,12 @@
                     <a href="List.do?type=<c:out value="${projType3}"/>">更多 &gt;&gt;</a>
                 </div>
             </div>
-            <c:forEach var="proj" items="${projs3}">
-            <div class="box">
+            <c:forEach var="proj" varStatus="status" items="${projs3}">
+				<c:if test="${status.index<4}">
+				<c:choose>
+					<c:when test="${status.index%4==0}"><div class="box box_last"></c:when>
+					<c:otherwise> <div class="box"></c:otherwise>
+				</c:choose>
                 <div class="box_top"></div>
                 <div class="box_main project">
                     <div class="pic">
@@ -223,6 +234,7 @@
                 </div>
                 <div class="box_bottom"></div>
             </div>
+			</c:if>
 			</c:forEach>
             <div class="clear"></div>
         </div>
