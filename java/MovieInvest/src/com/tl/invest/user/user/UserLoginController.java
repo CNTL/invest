@@ -13,6 +13,7 @@ import com.qq.connect.oauth.Oauth;
 import com.tl.common.DateUtils;
 import com.tl.common.ParamInitUtils;
 import com.tl.common.RandomValidateCode;
+import com.tl.common.VerifyCaptchaHelper;
 import com.tl.common.WebUtil;
 import com.tl.invest.user.email.EMailSenderHelper;
 import com.tl.invest.user.email.EmailSender;
