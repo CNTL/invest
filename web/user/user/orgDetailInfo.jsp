@@ -86,18 +86,19 @@
 						</div>
 					    <div class="input">
 					        <label for="orgNature">公司性质：</label>
-					        <input class="form-control validate[maxSize[255]]" type="text" id="orgNature" name="orgNature" placeholder="公司性质"/>
-					    </div>
-					    <div class="input">
-					        <label for="orgTrade">所属行业：</label>
-					        <input class="form-control validate[maxSize[255]]" type="text" id="orgTrade" name="orgTrade" style="width:200px"/>
-					         <select id="orgTradeSel" name="orgTradeSel" class="custform-select validate[maxSize[255],required]" style="width:170px">
+					        <input class="form-control validate[maxSize[255]]" type="text" id="orgNature" name="orgNature" style="width:200px" placeholder="公司性质"/>
+					         <select id="orgNatureSel" name="orgTradeSel" class="custform-select validate[maxSize[255],required]" style="width:170px">
 						        <option value="国营">国营</option>
 						        <option value="外商独资">外商独资</option>
 						        <option value="中外合资">中外合资</option>
 						        <option value="私营企业">私营企业</option>
 						        <option value="其他">其他</option>
 					        </select>
+					    </div>
+					    <div class="input">
+					        <label for="orgTrade">所属行业：</label>
+					        <input class="form-control validate[maxSize[255]]" type="text" id="orgTrade" name="orgTrade" style="width:400px"/>
+					        
 					    </div>
 					    <div class="input">
 					        <label for="orgScale">公司规模：</label>
