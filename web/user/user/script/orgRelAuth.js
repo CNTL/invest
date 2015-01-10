@@ -1,5 +1,20 @@
 $(document).ready(function () {
 	//初始化
+	$("#btnGetCode").click(function(){
+		var mobile=$("#perPhone").val();
+		if(mobile==""){
+			alert("请输入手机号码。")
+			return false;
+		}
+		$.get("../CaptchaSMS.do?action=VerifySMS&mobile="+mobile, function(data){
+			if(data.toString().length==4){
+				$("#perPhoneCodeCur").val(data);
+			}
+			else{
+				alert("获取验证码失败。")
+			}
+		});
+	});
 	relAuth.init();
 	relAuth.initUploadify("uploadify","queueItemCount","organization","uploadErrorMsg",true,relAuth.imgUploaded);
 	relAuth.initUploadify("uploadify1","queueItemCount1","orgBusinessLicense","uploadErrorMsg1",true,relAuth.imgUploaded1);
@@ -58,6 +73,10 @@ var relAuth = {
 	},
 	submit : function(){
 		var flag = true;
+		if($("#perPhoneCode").val()!=$("#perPhoneCodeCur").val()){
+			alert("输入的手机验证码错误。")
+			return;
+		}
 		var organization = $("#organization").val();
 		if(organization == null || organization.length == 0){
 			$.messager.alert('消息','请上传企业组织机构证件照！');

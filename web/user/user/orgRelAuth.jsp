@@ -37,6 +37,16 @@
 					        <label for="identityCard">法人代表身份证：</label>
 					        <input class="form-control validate[custom[shenfenzheng],required]" type="text" id="identityCard" name="identityCard" />
 					    </div>
+					    <div class="input">
+					        <label for="perPhone">法人代表手机：</label>
+					        <input class="form-control validate[custom[mobilephone],required]" type="text" id="perPhone" name="perPhone" style="width:200px" />
+					        <span class="btn" id="btnGetCode">获取验证码</span>
+					    </div>
+					    <div class="input">
+					        <label for="identityCard">短信验证码：</label>
+					        <input class="form-control validate[required]" type="text" id="perPhoneCode" name="perPhoneCode" style="width:200px" />
+					        <input type="hidden" id="perPhoneCodeCur" name="perPhoneCodeCur"/>
+					    </div>
 					    <div class="input" style="display:none;">
 					        <label for="openingBanks">银行卡开户行：</label>
 					        <input class="form-control validate[required]" type="text" id="openingBanks" name="openingBanks" />

@@ -47,7 +47,7 @@ public class VerifyCaptchaHelper {
 
 		 for (int i = 0; i < 4; i++) {    
 	            // 得到随机产生的验证码数字。    
-	            String strRand = String.valueOf(codeSequence[random.nextInt(36)]);                
+	            String strRand = String.valueOf(codeSequence[random.nextInt(10)]);                
 	            // 将产生的四个随机数组合在一起。                
 	            randomCode.append(strRand);   
 		 }
