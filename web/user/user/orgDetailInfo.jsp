@@ -90,7 +90,14 @@
 					    </div>
 					    <div class="input">
 					        <label for="orgTrade">所属行业：</label>
-					        <input class="form-control validate[maxSize[255]]" type="text" id="orgTrade" name="orgTrade" placeholder="所属行业"/>
+					        <input class="form-control validate[maxSize[255]]" type="text" id="orgTrade" name="orgTrade" style="width:200px"/>
+					         <select id="orgTradeSel" name="orgTradeSel" class="custform-select validate[maxSize[255],required]" style="width:170px">
+						        <option value="国营">国营</option>
+						        <option value="外商独资">外商独资</option>
+						        <option value="中外合资">中外合资</option>
+						        <option value="私营企业">私营企业</option>
+						        <option value="其他">其他</option>
+					        </select>
 					    </div>
 					    <div class="input">
 					        <label for="orgScale">公司规模：</label>
@@ -99,12 +106,12 @@
 						        <option value="2">100-500人</option>
 						        <option value="3">500-1000人</option>
 						        <option value="4">1000-5000人</option>
-						        <option value="4">5000人以上</option>
+						        <option value="5">5000人以上</option>
 					        </select>
 					    </div>
 						<div class="input">
 					        <label for="orgHomePage">公司主页：</label>
-					        <input class="form-control validate[maxSize[255]]" type="text" id="orgHomePage" name="orgHomePage" placeholder="公司主页"/>
+					        <input class="form-control" type="text" id="orgHomePage" name="orgHomePage" placeholder="公司主页"/>
 					    </div>
 					    <div class="btn">
 				        	<input type="submit" id="btnSave" value="提交信息">

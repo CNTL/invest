@@ -37,13 +37,13 @@
 					        <label for="identityCard">法人代表身份证：</label>
 					        <input class="form-control validate[custom[shenfenzheng],required]" type="text" id="identityCard" name="identityCard" />
 					    </div>
-					    <div class="input">
+					    <div class="input" style="display:none;">
 					        <label for="openingBanks">银行卡开户行：</label>
 					        <input class="form-control validate[required]" type="text" id="openingBanks" name="openingBanks" />
 					    </div>
-					    <div class="input">
+					    <div class="input" style="display:none;">
 					        <label for="bankNums">银行卡号：</label>
-					        <input class="form-control validate[required]" type="text" id="bankNums" name="bankNums" />
+					        <input class="form-control" type="hidden" id="bankNums" name="bankNums" />
 					    </div>
 					    <div class="input" style="height:150px;">
 							<table style="width:100%;">

@@ -1,4 +1,8 @@
 $(document).ready(function () {
+	$("#orgTrade").hide();
+	$("#orgTradeSel").change(function(){
+		$("#orgTrade").val($(this).val());
+	});
 	var init = function() {
 		if (!proj_datas || !proj_datas.ready) {
 			setTimeout(init, 100);
@@ -25,6 +29,16 @@ var detail = {
 	    			$("#coordinate").val(data.coordinate);
 	    			$("#orgNature").val(data.orgNature);
 	    			$("#orgTrade").val(data.orgTrade);
+	    			if(data.orgTrade.toString()=="国营"||data.orgTrade.toString()=="外商独资"||data.orgTrade.toString()=="中外合资"||data.orgTrade.toString()=="私营企业"){
+	    				$("#orgTrade").hide();
+	    				$("#orgTradeSel").show();
+	    				$("#orgTradeSel option[value='"+data.orgTrade+"']").prop("selected", true);
+	    			}
+	    			else{
+	    				$("#orgTrade").show();
+	    				$("#orgTradeSel").hide();
+	    			}
+	    			
 	    			$("#orgScale").val(data.orgScale);
 	    			$("#orgHomePage").val(data.orgHomePage);
 	    		}

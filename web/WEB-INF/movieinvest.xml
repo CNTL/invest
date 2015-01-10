@@ -47,6 +47,9 @@
 	<bean id="sys.Param" class="com.tl.sys.param.SysParamController">
 		<property name="sysParamManager"><ref bean="SysParamManager"/></property>
 	</bean>
+	<bean id="sys.Captcha" class="com.tl.security.CaptchaController"/>
+	<bean id="sys.CaptchaSMS" class="com.tl.security.VerifySMSCaptchaController"/>
+	
 	
 	<!-- 用户管理 -->
 	<bean id="UserManager" class="com.tl.invest.user.user.UserManager"/>
@@ -317,7 +320,9 @@
 				<!--系统首页-->
 				<prop key="/Main.do">invest.Main</prop>
 				<prop key="/MainList.do">invest.MainList</prop>
-				 
+				<prop key="/Captcha.do">sys.Captcha</prop>
+				<prop key="/CaptchaSMS.do">sys.CaptchaSMS</prop>
+				  
 				<!-- 系统用户管理 -->
 				<prop key="/admin/sysuser.do">sys.sysuser</prop>
 				<!-- 用户登录 -->

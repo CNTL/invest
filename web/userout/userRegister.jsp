@@ -13,7 +13,6 @@
 <body>
 	<%@include file="../inc/header.inc"%>
     <div class="shadow"></div>
-    
     <div class="register">
         <div class="form">
             <form id="form" action="" method="post">

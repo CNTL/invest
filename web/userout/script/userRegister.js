@@ -70,20 +70,10 @@ function valError(){
 }
 
 function changeValPic(){
-	$("#validateCode").removeAttr("src");
-	$.ajax({
-        type:"GET", //请求方式  
-        url:"../user/userlogin.do?a=authCode", //请求路径  
-        cache: false,
-        dataType: 'text',   //返回值类型  
-        success:function(data){
-        	$("#curVal").val(data);
-        	setTimeout('$("#validateCode").attr("src", rootURL + "userout/img/validate.png");',1000);//延时3秒 
-        } ,
-		error:function (XMLHttpRequest, textStatus, errorThrown) {
-			alert(errorThrown);
-		}
-    });
+	$.get("../Captcha.do?action=randomcode", function(data){
+			$("#curVal").val(data);
+			$("#validateCode").attr("src","../Captcha.do?action=getimage&randomcode="+data+"&rand="+Math.random());
+		});
 }
 function checkMyVal(){
 	var curVal = $("#curVal").val();
