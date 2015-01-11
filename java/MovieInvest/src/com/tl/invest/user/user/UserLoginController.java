@@ -13,11 +13,15 @@ import com.qq.connect.oauth.Oauth;
 import com.tl.common.DateUtils;
 import com.tl.common.ParamInitUtils;
 import com.tl.common.RandomValidateCode;
-import com.tl.common.VerifyCaptchaHelper;
 import com.tl.common.WebUtil;
 import com.tl.invest.user.email.EMailSenderHelper;
 import com.tl.invest.user.email.EmailSender;
 import com.tl.invest.user.email.SimpleMailSender;
+import com.tl.invest.user.photo.PhotoManager;
+import com.tl.invest.user.photo.UserPhoto;
+import com.tl.invest.user.photo.UserPhotogroup;
+import com.tl.invest.user.video.UserVideoManager;
+import com.tl.invest.user.video.UserVideogroup;
 import com.tl.kernel.context.Context;
 import com.tl.kernel.web.BaseController;
 import com.tl.kernel.web.SysSessionUser;
@@ -92,15 +96,69 @@ public class UserLoginController extends BaseController
 		user.setPerNickName(ParamInitUtils.getString(request.getParameter("code")));
 		user.setEmail(ParamInitUtils.getString(request.getParameter("email")));
 		//user.setType(ParamInitUtils.getString(request.getParameter("type")));
-		user.setType(ParamInitUtils.getInt(request.getParameter("type")));
+		int type = ParamInitUtils.getInt(request.getParameter("type"));
+		user.setType(type);
 		user.setPassword(ParamInitUtils.getString(request.getParameter("password")));
 		user.setCreateTime(DateUtils.getTimestamp());
 		user.setIsRealNameIdent(0);//未认证
 		UserManager userManager = (UserManager) Context.getBean(UserManager.class);
 		String result = userManager.create(user);
+		savePhotoGroup(user, type, request, response);
+		saveVideoGroup(user, type, request, response);
 		return result;
 	}
-	
+	/** 
+	* @author  leijj 
+	* 功能： 保存图册信息
+	* @param request
+	* @param response
+	* @param model
+	* @throws Exception 
+	*/ 
+	private void savePhotoGroup(User user, int type, HttpServletRequest request, HttpServletResponse response) throws Exception{
+		UserPhotogroup photogroup = new UserPhotogroup();
+		
+		photogroup.setUserId(user.getId());
+		photogroup.setUserName(user.getName());
+		photogroup.setGroupPhoto("user\\photo\\img\\framels_hover.jpg");
+		photogroup.setCreateTime(DateUtils.getTimestamp());
+		if(type == 0){//个人
+			photogroup.setGroupName("生活照");
+			photoManager.savePhotoGroup(photogroup);
+			savePhoto(user, photogroup, request, response);
+			
+			photogroup.setId(0);
+			photogroup.setGroupName("剧照");
+			photoManager.savePhotoGroup(photogroup);
+			savePhoto(user, photogroup, request, response);
+		} else if(type == 1){//机构
+			photogroup.setGroupName("默认");
+			photoManager.savePhotoGroup(photogroup);
+			savePhoto(user, photogroup, request, response);
+		}
+	}
+	private void savePhoto(User user, UserPhotogroup photogroup, HttpServletRequest request, HttpServletResponse response) throws Exception{
+		UserPhoto photo = new UserPhoto();
+		
+		photo.setUserId(user.getId());
+		photo.setUserName(user.getName());
+		photo.setGroupId(photogroup.getId());
+		photo.setGroupName(photogroup.getGroupName());
+		photo.setPhotoName("默认");
+		photo.setPhoto("user\\photo\\img\\framels_hover.jpg");
+		photo.setCreateTime(DateUtils.getTimestamp());
+		photoManager.savePhoto(photo);
+	}
+	private void saveVideoGroup(User user, int type , HttpServletRequest request, HttpServletResponse response) throws Exception{
+		UserVideogroup videogroup = new UserVideogroup();
+		
+		videogroup.setUserId(user.getId());
+		videogroup.setUserName(user.getName());
+		videogroup.setGroupPhoto("user\\photo\\img\\framels_hover.jpg");
+		videogroup.setCreateTime(DateUtils.getTimestamp());
+		videogroup.setGroupName("默认");
+		userVideoManager.saveVideoGroup(videogroup);
+	}
 	/** 
 	* @author  leijj 
 	* 功能： 与新账号关联
@@ -305,4 +363,6 @@ public class UserLoginController extends BaseController
 		String state = request.getParameter("state");
 		request.getSession().setAttribute("state", state);
 	}
+	private PhotoManager photoManager = (PhotoManager)Context.getBean(PhotoManager.class);
+	private UserVideoManager userVideoManager = (UserVideoManager)Context.getBean(UserVideoManager.class);
 }

@@ -45,6 +45,11 @@ public class User {
 	private String orgScale;
 	private String orgHomePage;
 	private int deleted;
+	private int gender;
+	private Timestamp birthdate;
+	private Integer firstType;
+	private Integer secondType;
+	private String typeName;
 	public int getDeleted() {
 		return deleted;
 	}
@@ -364,5 +369,45 @@ public class User {
 
 	public void setBankcards(List<UserBankcard> bankcards) {
 		this.bankcards = bankcards;
+	}
+
+	public int getGender() {
+		return gender;
+	}
+
+	public void setGender(int gender) {
+		this.gender = gender;
+	}
+
+	public Timestamp getBirthdate() {
+		return birthdate;
+	}
+
+	public void setBirthdate(Timestamp birthdate) {
+		this.birthdate = birthdate;
+	}
+
+	public Integer getFirstType() {
+		return firstType;
+	}
+
+	public void setFirstType(Integer firstType) {
+		this.firstType = firstType;
+	}
+
+	public Integer getSecondType() {
+		return secondType;
+	}
+
+	public void setSecondType(Integer secondType) {
+		this.secondType = secondType;
+	}
+
+	public String getTypeName() {
+		return typeName;
+	}
+
+	public void setTypeName(String typeName) {
+		this.typeName = typeName;
 	}
 }

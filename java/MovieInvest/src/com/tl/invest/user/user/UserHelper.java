@@ -1,6 +1,10 @@
 package com.tl.invest.user.user;
 
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,6 +24,25 @@ import com.tl.common.UploadHelper;
  * 类说明 ： 
  */
 public class UserHelper {
+	public static Map<String, List<String>> pMap = new HashMap<String, List<String>>();
+	static {
+		List<String> actor = new ArrayList<String>();
+		actor.add("演员");
+		pMap.put("演员", actor);
+		
+		List<String> earStage = new ArrayList<String>();
+		earStage.add("导演");
+		earStage.add("制片人");
+		pMap.put("前期制作", earStage);
+		
+		List<String> laterStage = new ArrayList<String>();
+		laterStage.add("动画");
+		pMap.put("后期制作", laterStage);
+		
+		List<String> other = new ArrayList<String>();
+		other.add("其他");
+		pMap.put("其他影人", other);
+	}
 
 	public static String saveAffix(HttpServletRequest request, String prefix){
 		boolean isAjaxUpload = request.getHeader( "X_Requested_With" ) != null;
@@ -59,5 +82,20 @@ public class UserHelper {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public static List<String> personTypeList(String key){
+		return pMap.get(key);
+	}
+	
+	public boolean isPType(String key, String value) {
+		List<String> ptList = pMap.get(key);
+		if(ptList == null || ptList.size() == 0) return false;
+		for(String pt : ptList){
+			if(pt.equals(value)){
+				return true;
+			}
+		}
+		return false;
 	}
 }
