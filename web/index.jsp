@@ -1,10 +1,9 @@
 <%@ include file="./include/Include.jsp"%>
 <%@page pageEncoding="UTF-8"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <%@include file="./inc/meta.inc"%>
-    <link rel="stylesheet" type="text/css" href="css/animate.min.css" />
+    <link rel="stylesheet" type="text/css" href="<c:out value="${rootPath}"/>css/animate.min.css" />
 	<script type="text/javascript" src="static/js/idangerous.swiper.min.js"></script>
 	<script type="text/javascript" src="js/utils.js"></script>
 	<script type="text/javascript" src="js/share.js"></script>
@@ -220,7 +219,7 @@
 <body>
 	<%@include file="./inc/header.inc"%>
 	
-	<div class="scroll">
+	<div class="scroll hidden-xs">
         <a class="left" href="#"></a>
         <a class="right" href="#"></a>
         <div class="swiper">

@@ -10,14 +10,14 @@
 			</c:forEach>
 		</ul>
 	</div>
-	<div class="mini_search">
+	<div class="mini_search hidden-xs">
 		<input type="text" id="k" name="k" class="text" value="搜索影片名称" />
 		<input type="button" class="btn" value="" />
 		
 	</div>
 	 
 	<c:if test="${loginUser.id==0}" >
-	<div class="mini_login">
+	<div class="mini_login hidden-xs">
 		<a href="<c:out value="${rootPath}"/>login.jsp">登录</a>
 		<span>|</span>
 		<a href="<c:out value="${rootPath}"/>register.jsp">注册</a>
