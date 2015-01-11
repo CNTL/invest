@@ -22,6 +22,11 @@
 			color:white;
 			cursor:pointer;
 		}
+		.current{
+			background:#019875;
+			color:white;
+			cursor:pointer;
+		}
 	</style>
     <script type="text/javascript" src="../static/js/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="../static/js/idangerous.swiper.min.js"></script>
@@ -42,53 +47,19 @@
         	<div>
 				<dt>
 					<ul class="nav">
-						<li>
-							<a href="../user/CompanyMain.do?a=queryCompanys&mainType=3&city=北京">北京</a>
+						<c:forEach var="name" varStatus="status" items="${hotCitys}">
+							<li>
+							<c:choose>
+								<c:when test="${name==city}">
+								<a class="current" href="../user/CompanyMain.do?a=queryCompanys&mainType=3&city=<c:out value="${name}"/>"><c:out value="${name}"/></a>
+								</c:when>
+								<c:otherwise>
+								<a href="../user/CompanyMain.do?a=queryCompanys&mainType=3&city=<c:out value="${name}"/>"><c:out value="${name}"/></a>
+								</c:otherwise>
+							</c:choose>
+							</li>
 							|
-						</li>
-						<li>
-							<a href="../user/CompanyMain.do?a=queryCompanys&mainType=3&city=上海">上海</a>
-							|
-						</li>
-						<li>
-							<a href="../user/CompanyMain.do?a=queryCompanys&mainType=3&city=广州">广州</a>
-							|
-						</li>
-						<li>
-							<a href="../user/CompanyMain.do?a=queryCompanys&mainType=3&city=南京">南京</a>
-							|
-						</li>
-						<li>
-							<a href="../user/CompanyMain.do?a=queryCompanys&mainType=3&city=重庆">重庆</a>
-							|
-						</li>
-						<li>
-							<a href="../user/CompanyMain.do?a=queryCompanys&mainType=3&city=长春">长春</a>
-							|
-						</li>
-						<li>
-							<a href="../user/CompanyMain.do?a=queryCompanys&mainType=3&city=银川">银川</a>
-							|
-						</li>
-						<li>
-							<a href="../user/CompanyMain.do?a=queryCompanys&mainType=3&city=苏州">苏州</a>
-							|
-						</li>
-						<li>
-							<a href="../user/CompanyMain.do?a=queryCompanys&mainType=3&city=横店">横店</a>
-							|
-						</li>
-						<li>
-							<a href="../user/CompanyMain.do?a=queryCompanys&mainType=3&city=涿州">涿州</a>
-							|
-						</li>
-						<li>
-							<a href="../user/CompanyMain.do?a=queryCompanys&mainType=3&city=海外">海外</a>
-							|
-						</li>
-						<li>
-							<a href="../user/CompanyMain.do?a=queryCompanys&mainType=3&city=其他">其他</a>
-						</li>		
+						</c:forEach>
 					</ul>
 				</dt>
 			</div>

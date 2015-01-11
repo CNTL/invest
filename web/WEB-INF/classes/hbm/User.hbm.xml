@@ -132,5 +132,25 @@
             <column name="deleted">
             </column>
         </property>
+        <property name="gender" type="java.lang.Integer">
+            <column name="gender">
+            </column>
+        </property>
+        <property name="birthdate" type="java.sql.Timestamp">
+            <column name="birthdate" length="19">
+            </column>
+        </property>
+        <property name="firstType" type="java.lang.Integer">
+            <column name="firstType">
+            </column>
+        </property>
+        <property name="secondType" type="java.lang.Integer">
+            <column name="secondType">
+            </column>
+        </property>
+        <property name="typeName" type="string">
+            <column name="typeName" length="500">
+            </column>
+        </property>
     </class>
 </hibernate-mapping>
