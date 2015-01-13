@@ -7,7 +7,8 @@ var options = {
 	rule:"deleted=0",
 	showFooter:false,
 	toolbar: [{
-				iconCls: 'icon-add',
+				text:'认证用户',
+				iconCls: 'icon-ok',
 				handler: function(){
 					var docIds = tldatagrid.getSelectedIDs();
 					if(docIds>0){
@@ -19,6 +20,7 @@ var options = {
 					
 				}
 			},'-',{
+				text:'删除用户',
 				iconCls: 'icon-remove',
 				handler: function(){
 					var docIds = tldatagrid.getSelectedIDs();
@@ -37,17 +39,18 @@ var options = {
 					 
 				}
 			},'-',{
-		iconCls: 'icon-remove',
-		handler: function(){
-			var docIds = tldatagrid.getSelectedIDs();
-			if(docIds>0){
-				tldialog.show("","./userOrder.jsp?id="+docIds,800,700);
-			}
-			else{
-				alert("请选择一条记录。")
-			}
-			 
-		}
+				text:'首页排序',
+				iconCls: 'icon-filter',
+				handler: function(){
+					var docIds = tldatagrid.getSelectedIDs();
+					if(docIds>0){
+						tldialog.show("","./userOrder.jsp?id="+docIds,800,700);
+					}
+					else{
+						alert("请选择一条记录。")
+					}
+					 
+				}
 	}],	
 	rowStyler : function(index,row){
 		//if (row.type<=0) return 'background-color:green;color:#fff;';
