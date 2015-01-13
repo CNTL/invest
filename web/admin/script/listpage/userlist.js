@@ -27,7 +27,6 @@ var options = {
 					if(docIds>0){
 						if(confirm("你确定要删除吗？")){
 							var url = "../user/user.do?a=deleteUser&id="+docIds;
-							alert(url);
 							$.get(url, function(data){
 								tldialog.closeRefresh();
 			        		});
@@ -44,7 +43,7 @@ var options = {
 				handler: function(){
 					var docIds = tldatagrid.getSelectedIDs();
 					if(docIds>0){
-						tldialog.show("","./userOrder.jsp?id="+docIds,800,700);
+						tldialog.show("","./userOrder.jsp?id="+docIds,800,500);
 					}
 					else{
 						alert("请选择一条记录。")

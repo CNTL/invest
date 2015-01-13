@@ -53,7 +53,7 @@
      			sb.push("<tbody>");
      			 
    				sb.push("<tr>");
-       			sb.push("<td colSpan=\"2\" class=\"text-center\"><button  id=\"btnOK\" class=\"btn btn-primary\">保存</button></td>");   			
+       			sb.push("<td colSpan=\"2\" class=\"text-center\"><button  id=\"btnOK\" class=\"btn btn-primary\">保存</button>&nbsp;&nbsp;<button id=\"btnCancle\" class=\"btn btn-primary\">关闭</button></td>");   			
        			sb.push("</tr>");
      			if(json.type==0){
      				
@@ -120,6 +120,9 @@
      	    		$.get(url, function(data){
      	    			  window.parent.tldialog.closeRefresh();
      	    		});
+     			});
+     			$("#btnCancle").click(function(){
+     				window.parent.tldialog.closeRefresh();
      			});
      			 
      		});
