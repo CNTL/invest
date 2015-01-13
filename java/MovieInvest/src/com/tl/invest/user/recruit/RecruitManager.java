@@ -58,8 +58,8 @@ public class RecruitManager {
 		return count;
 	}
 	public UserRecruit[] queryRecruits(int start, int length) throws Exception{
-		StringBuilder querySql = new StringBuilder("select a from com.tl.invest.user.recruit.UserRecruit as a");
-		querySql.append(" order by a.createtime desc");
+		StringBuilder querySql = new StringBuilder("select a from com.tl.invest.user.recruit.UserRecruit as a where a.jobOrder>0 ");
+		querySql.append(" order by a.jobOrder asc");
 		List<UserRecruit> list = DAOHelper.find(querySql.toString() , start, length);
 		if(list == null || list.size() == 0) return null;
 		return list.toArray(new UserRecruit[0]);

@@ -43,7 +43,7 @@ public class MainListController extends BaseController {
 	private void getIndexItems(HttpServletRequest request,
 			HttpServletResponse response, Map model)throws Exception{
 		Integer pageIndex = getInt(request, "pageIndex",0);
-		Integer pageSize = 4;
+		Integer pageSize = 8;
 	
 		MainList mainList = new MainList();
 		JsonConfig jsonConfig = new JsonConfig();
@@ -125,11 +125,4 @@ public class MainListController extends BaseController {
 	public void setProjectService(ProjectService projectService) {
 		this.projectService = projectService;
 	}
-	
-	
-
-	
-
-
-	
 }

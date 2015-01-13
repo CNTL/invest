@@ -384,7 +384,7 @@ public class UserManager {
 	* @throws Exception 
 	*/ 
 	public User[] getPersons(int start, int length) throws Exception{
-		StringBuilder querySql = new StringBuilder("select a from com.tl.invest.user.user.User as a where a.type = 0 order by a.createTime desc");
+		StringBuilder querySql = new StringBuilder("select a from com.tl.invest.user.user.User as a where a.type = 0 and a.perOrder>0 and a.deleted=0 order by a.perOrder asc");
 		List<User> list = DAOHelper.find(querySql.toString() , start, length);
 		if(list == null || list.size() == 0) return null;
 		DictionaryReader dicReader = (DictionaryReader) Context.getBean(DictionaryReader.class);
