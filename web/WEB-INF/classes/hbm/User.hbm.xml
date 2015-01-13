@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Nov 17, 2014 3:11:25 PM by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-    <class name="com.tl.invest.user.user.User" table="user">
+    <class name="com.tl.invest.user.user.User" table="user" >
         <id name="id" type="int">
             <column name="id" />
             <generator class="assigned" />
@@ -136,7 +136,7 @@
             <column name="gender">
             </column>
         </property>
-        <property name="birthdate" type="java.sql.Timestamp">
+        <property name="birthdate" type="java.sql.Date">
             <column name="birthdate" length="19">
             </column>
         </property>
@@ -150,6 +150,10 @@
         </property>
         <property name="typeName" type="string">
             <column name="typeName" length="500">
+            </column>
+        </property>
+    	<property name="perOrder" type="java.lang.Integer">
+            <column name="perOrder">
             </column>
         </property>
     </class>

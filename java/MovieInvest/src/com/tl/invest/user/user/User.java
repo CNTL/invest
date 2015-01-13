@@ -2,6 +2,7 @@ package com.tl.invest.user.user;
 
 // Generated Nov 17, 2014 3:11:25 PM by Hibernate Tools 3.4.0.CR1
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -46,10 +47,19 @@ public class User {
 	private String orgHomePage;
 	private int deleted;
 	private int gender;
-	private Timestamp birthdate;
+	private Date birthdate;
 	private Integer firstType;
 	private Integer secondType;
 	private String typeName;
+	private Integer perOrder;
+	public Integer getPerOrder() {
+		return perOrder;
+	}
+
+	public void setPerOrder(Integer order) {
+		this.perOrder = order;
+	}
+
 	public int getDeleted() {
 		return deleted;
 	}
@@ -379,11 +389,11 @@ public class User {
 		this.gender = gender;
 	}
 
-	public Timestamp getBirthdate() {
+	public Date getBirthdate() {
 		return birthdate;
 	}
 
-	public void setBirthdate(Timestamp birthdate) {
+	public void setBirthdate(Date birthdate) {
 		this.birthdate = birthdate;
 	}
 

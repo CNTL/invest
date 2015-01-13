@@ -2,6 +2,8 @@ package com.tl.invest.user.user;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -11,8 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
 
+import com.tl.common.DateJsonValueProcessor;
 import com.tl.common.DateUtils;
+import com.tl.common.JsonDateValueProcessor;
 import com.tl.common.ParamInitUtils;
 import com.tl.common.UploadHelper;
 import com.tl.common.UserEncrypt;
@@ -126,7 +131,11 @@ public class UserController extends BaseController {
 	 */
 	private void checkUser(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		int id = getInt(request, "id", 0);
+		String birthday = get(request, "birthdate","");
+		int gender = getInt(request, "gender",1);
 		User user = userManager.getUserByID(id);
+		user.setBirthdate(Date.valueOf(birthday));
+		user.setGender(gender);
 		user.setIsRealNameIdent(1);
 		userManager.update(user);
 		output("ok", response);
@@ -139,7 +148,10 @@ public class UserController extends BaseController {
 	private void getUser(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		int id = getInt(request, "id", 0);
 		User user = userManager.getUserByID(id);
-		JSONObject jsonArray = JSONObject.fromObject(user);  
+		JsonConfig jsonConfig = new JsonConfig();
+		jsonConfig.registerJsonValueProcessor(Timestamp.class,new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
+		jsonConfig.registerJsonValueProcessor(Date.class, new JsonDateValueProcessor()); 
+		JSONObject jsonArray = JSONObject.fromObject(user,jsonConfig);  
 		output(jsonArray.toString(), response);
 	}
 	/** 
@@ -152,7 +164,11 @@ public class UserController extends BaseController {
 	*/ 
 	private void find(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		User user = userManager.getUserByCode(ParamInitUtils.getString(request.getParameter("code")));
-		JSONObject jsonArray = JSONObject.fromObject(user);  
+		
+		JsonConfig jsonConfig = new JsonConfig();
+		jsonConfig.registerJsonValueProcessor(Timestamp.class,new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
+		jsonConfig.registerJsonValueProcessor(Date.class, new JsonDateValueProcessor()); 
+		JSONObject jsonArray = JSONObject.fromObject(user,jsonConfig); 
 		output(jsonArray.toString(), response);
 	}
 	/** 
@@ -167,8 +183,10 @@ public class UserController extends BaseController {
 		List<UserBankcard> bankcards = bankcardManager.getByUserId(user.getId());
 		if(bankcards != null && bankcards.size() > 0) 
 			user.setBankcards(bankcards);
-		
-		JSONObject jsonArray = JSONObject.fromObject(user);  
+		JsonConfig jsonConfig = new JsonConfig();
+		jsonConfig.registerJsonValueProcessor(Timestamp.class,new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
+		jsonConfig.registerJsonValueProcessor(Date.class, new JsonDateValueProcessor()); 
+		JSONObject jsonArray = JSONObject.fromObject(user,jsonConfig);  
 		output(jsonArray.toString(), response);
 	}
 	/** 

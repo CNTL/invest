@@ -40,6 +40,15 @@ public class UserRecruit {
 	private Integer firstType;
 	private Integer secondType;
 	private String typeName;
+	private Integer jobOrder;
+	public Integer getJobOrder() {
+		return jobOrder;
+	}
+
+	public void setJobOrder(Integer jobOrder) {
+		this.jobOrder = jobOrder;
+	}
+
 	public UserRecruit() {
 	}
 
