@@ -110,7 +110,9 @@ public class UserController extends BaseController {
 			deleteUser(request,response);
 		} else if ("typeDatas".equals(action)) {
 			typeDatas(request,response);
-		} 
+		} else if("orderUser".equals(action)){
+			orderUser(request,response);
+		}
 	}
 	/**根据ID获取用户
 	 * @param request
@@ -137,6 +139,19 @@ public class UserController extends BaseController {
 		user.setBirthdate(Date.valueOf(birthday));
 		user.setGender(gender);
 		user.setIsRealNameIdent(1);
+		userManager.update(user);
+		output("ok", response);
+	}
+	/**设置用户排序
+	 * @param request
+	 * @param response
+	 * @throws Exception
+	 */
+	private void orderUser(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		int id = getInt(request, "id", 0);
+		int order = getInt(request, "order",0);
+		User user = userManager.getUserByID(id);
+		user.setPerOrder(order);
 		userManager.update(user);
 		output("ok", response);
 	}

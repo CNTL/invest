@@ -36,7 +36,19 @@ var options = {
 					}
 					 
 				}
-			}],	
+			},'-',{
+		iconCls: 'icon-remove',
+		handler: function(){
+			var docIds = tldatagrid.getSelectedIDs();
+			if(docIds>0){
+				tldialog.show("","./userOrder.jsp?id="+docIds,800,700);
+			}
+			else{
+				alert("请选择一条记录。")
+			}
+			 
+		}
+	}],	
 	rowStyler : function(index,row){
 		//if (row.type<=0) return 'background-color:green;color:#fff;';
 	},
@@ -56,6 +68,7 @@ var options = {
 				{title:"是否认证",field:"isRealNameIdent",width:120,sortable:true},
 				{title:"职业",field:"perJob",width:120,sortable:true},
 				{title:"电话",field:"perPhone",width:150,sortable:true},
+				{title:"序号",field:"perOrder",width:60,sortable:true},
 	            {title:"创建时间",field:"createTime",width:130,sortable:true}				
 			]],
 	otherfields : []	
