@@ -1,18 +1,18 @@
 var options = {
 	itemID:"id",//主键
-	tbview:"user",//表名或试图名称
+	tbview:"user_recruit",//表名或试图名称
 	url:'../workspace/tblist.do',//
 	method:'post',
 	sortName:"id",
 	rule:"deleted=0",
 	showFooter:false,
 	toolbar: [{
-				text:'认证用户',
+				text:'发布',
 				iconCls: 'icon-ok',
 				handler: function(){
 					var docIds = tldatagrid.getSelectedIDs();
 					if(docIds>0){
-						tldialog.show("认证用户","./userCheck.jsp?id="+docIds,800,700);
+						tldialog.show("发布职位","./userRecruitCheck.jsp?id="+docIds,800,700);
 					}
 					else{
 						alert("请选择一条记录。")
@@ -20,13 +20,13 @@ var options = {
 					
 				}
 			},'-',{
-				text:'删除用户',
+				text:'删除',
 				iconCls: 'icon-remove',
 				handler: function(){
 					var docIds = tldatagrid.getSelectedIDs();
 					if(docIds>0){
 						if(confirm("你确定要删除吗？")){
-							var url = "../user/user.do?a=deleteUser&id="+docIds;
+							var url = "../user/recruit.do?a=deleteRecruit&id="+docIds;
 							$.get(url, function(data){
 								tldialog.closeRefresh();
 			        		});
@@ -43,7 +43,7 @@ var options = {
 				handler: function(){
 					var docIds = tldatagrid.getSelectedIDs();
 					if(docIds>0){
-						tldialog.show("首页排序","./userOrder.jsp?id="+docIds,800,500);
+						tldialog.show("首页排序","./userRecruitOrder.jsp?id="+docIds,800,500);
 					}
 					else{
 						alert("请选择一条记录。")
@@ -62,16 +62,15 @@ var options = {
 	columns : [[
 				{title:"复选框",field:"ck",width:60,sortable:false,checkbox:true},
 				{title:"ID",field:"id",width:60,sortable:true},
-				{title:"姓名",field:"name",width:60,sortable:true},
-				{title:"用户编码",field:"code",width:60,sortable:true},
-				{title:"昵称",field:"perNickName",width:60,sortable:true},
-	            {title:"类型",field:"type",width:60,sortable:true},
-				{title:"证件号码",field:"identityCard",width:120,sortable:true},
-				{title:"是否认证",field:"isRealNameIdent",width:120,sortable:true},
-				{title:"职业",field:"perJob",width:120,sortable:true},
-				{title:"电话",field:"perPhone",width:150,sortable:true},
-				{title:"序号",field:"perOrder",width:60,sortable:true},
-	            {title:"创建时间",field:"createTime",width:130,sortable:true}				
+				{title:"公司名称",field:"userName",width:200,sortable:true},
+				{title:"职位",field:"jobName",width:100,sortable:true},
+				{title:"职位分类",field:"jobCate",width:60,sortable:true},
+	            {title:"省市",field:"province",width:60,sortable:true},
+				{title:"城市",field:"city",width:120,sortable:true},
+				{title:"地址",field:"address",width:120,sortable:true},
+				{title:"是否发布",field:"isPub",width:120,sortable:true},
+				{title:"首页排序",field:"jobOrder",width:150,sortable:true},
+	            {title:"创建时间",field:"createtime",width:130,sortable:true}				
 			]],
 	otherfields : []	
 };

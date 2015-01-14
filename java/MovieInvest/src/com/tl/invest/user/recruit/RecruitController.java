@@ -1,11 +1,18 @@
 package com.tl.invest.user.recruit;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
+
+import com.tl.common.DateJsonValueProcessor;
 import com.tl.common.DateUtils;
+import com.tl.common.JsonDateValueProcessor;
 import com.tl.common.ParamInitUtils;
 import com.tl.common.WebUtil;
 import com.tl.invest.constant.DicTypes;
@@ -41,8 +48,99 @@ public class RecruitController extends BaseController {
 			model.put("id", id);
 			model.put("mainType", ParamInitUtils.getInt(request.getParameter("mainType")));
 			response.sendRedirect(WebUtil.getRoot(request) + "recruit/Edit.do?a=detail&id=" + id);
+		}else if("checkRecruit".equals(action)){
+			checkRecruit(request,response);
+		}else if("orderRecruit".equals(action)){
+			orderRecruit(request,response);
+		}else if("deleteRecruit".equals(action)){
+			deleteRecruit(request,response);
+		}else if("getRecruit".equals(action)){
+			getRecruit(request,response);
 		}
 	}
+	
+	/** 设置职位发布
+	 * @param request
+	 * @param response
+	 * @throws Exception
+	 */
+	private void checkRecruit(HttpServletRequest request, HttpServletResponse response)throws Exception{
+		Integer id = getInt(request, "id",0);
+		Integer ispub = getInt(request, "ispub",0);
+		try{
+			UserRecruit recruit = new UserRecruit();
+			recruit = recruitManager.getRecruitByID(id);
+			recruit.setIsPub(ispub);
+			recruitManager.save(recruit);
+			output("ok", response);
+		}catch(Exception e){
+			output("error", response);
+		}
+		
+	}
+	
+	/** 设置职位排序
+	 * @param request
+	 * @param response
+	 * @throws Exception
+	 */
+	private void orderRecruit(HttpServletRequest request, HttpServletResponse response)throws Exception{
+		Integer id = getInt(request, "id",0);
+		Integer order = getInt(request, "order",0);
+		try{
+			UserRecruit recruit = new UserRecruit();
+			recruit = recruitManager.getRecruitByID(id);
+			recruit.setJobOrder(order);
+			recruitManager.save(recruit);
+			output("ok", response);
+		}catch(Exception e){
+			output("error", response);
+		}
+		
+	}
+	
+	/** 删除职位
+	 * @param request
+	 * @param response
+	 * @throws Exception
+	 */
+	private void deleteRecruit(HttpServletRequest request, HttpServletResponse response)throws Exception{
+		Integer id = getInt(request, "id",0);
+		Integer order = getInt(request, "order",0);
+		try{
+			UserRecruit recruit = new UserRecruit();
+			recruit = recruitManager.getRecruitByID(id);
+			recruit.setDeleted(1);
+			recruitManager.save(recruit);
+			output("ok", response);
+		}catch(Exception e){
+			output("error", response);
+		}
+		
+	}
+	
+	/** 获得一个职位
+	 * @param request
+	 * @param response
+	 * @throws Exception
+	 */
+	private void getRecruit(HttpServletRequest request, HttpServletResponse response)throws Exception{
+		Integer id = getInt(request, "id",0);
+		try {
+			UserRecruit recruit = new UserRecruit();
+			recruit = recruitManager.getRecruitByID(id);
+			JsonConfig jsonConfig = new JsonConfig();
+			jsonConfig.registerJsonValueProcessor(Timestamp.class,new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
+			jsonConfig.registerJsonValueProcessor(Date.class, new JsonDateValueProcessor()); 
+			JSONObject jsonArray = JSONObject.fromObject(recruit,jsonConfig);  
+			output(jsonArray.toString(), response);
+		} catch (Exception e) {
+			output("error", response);
+		}
+		
+		
+	}
+	
 	/** 
 	* @author  leijj 
 	* 功能： 保存招聘信息

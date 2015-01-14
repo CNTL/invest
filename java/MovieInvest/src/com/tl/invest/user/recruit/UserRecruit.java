@@ -41,6 +41,15 @@ public class UserRecruit {
 	private Integer secondType;
 	private String typeName;
 	private Integer jobOrder;
+	private int deleted;
+	public int getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(int deleted) {
+		this.deleted = deleted;
+	}
+
 	public Integer getJobOrder() {
 		return jobOrder;
 	}

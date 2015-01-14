@@ -135,10 +135,11 @@ public class UserController extends BaseController {
 		int id = getInt(request, "id", 0);
 		String birthday = get(request, "birthdate","");
 		int gender = getInt(request, "gender",1);
+		int check = getInt(request, "check",0);
 		User user = userManager.getUserByID(id);
 		user.setBirthdate(Date.valueOf(birthday));
 		user.setGender(gender);
-		user.setIsRealNameIdent(1);
+		user.setIsRealNameIdent(check);
 		userManager.update(user);
 		output("ok", response);
 	}

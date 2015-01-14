@@ -57,7 +57,12 @@
          			
          			sb.push("</tr>");
      			}
-     			
+     			else{
+     				sb.push("<tr>");
+         			sb.push("<td colSpan=\"2\" class=\"text-center\"><button  id=\"btnCancle\" class=\"btn btn-primary\">取消认证</button></td>");
+         			
+         			sb.push("</tr>");
+     			}
      			
      			if(json.type==0){
      				
@@ -88,7 +93,7 @@
          			
          			sb.push("<tr>");
          			sb.push("<td>出生日期：</td>");
-         			sb.push("<td><input id=\"u-birthdate\" type=\"text\" "+json.birthdate+"</input>示例：1980-01-01</td>");
+         			sb.push("<td><input id=\"u-birthdate\" type=\"text\" value=\""+json.birthdate+"\" />示例：1980-01-01</td>");
          			sb.push("</tr>");
          			
          			sb.push("<tr>");
@@ -198,11 +203,32 @@
      					
      				}
      				
-     				var url = "../user/user.do?a=checkUser&id="+id+"&birthdate="+$("#u-birthdate").val()+"&gender="+$("#u-gender").val();
+     				var url = "../user/user.do?a=checkUser&id="+id+"&birthdate="+$("#u-birthdate").val()+"&gender="+$("#u-gender").val()+"&check=1";
      	    		$.get(url, function(data){
      	    			  window.parent.tldialog.closeRefresh();
      	    		});
      			});
+     			
+     			$("#btnCancle").click(function(){
+     				if($("#u-gender").length>0&&$("#u-gender").val()=="-1"){
+     					alert("请设置性别。")
+     					return;
+     				}
+     				if($("#u-birthdate").length>0){
+     					if(checkDate($("#u-birthdate").val())==false){
+     						alert("请设置出生日期。")
+         					return;
+     					}
+     					
+     				}
+     				
+     				var url = "../user/user.do?a=checkUser&id="+id+"&birthdate="+$("#u-birthdate").val()+"&gender="+$("#u-gender").val()+"&check=0";;
+     	    		$.get(url, function(data){
+     	    			  window.parent.tldialog.closeRefresh();
+     	    		});
+     			});
+     			
+     			
      			 
      		});
      	}
