@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>设置职位排序</title>
+    <title>设置项目排序</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -36,11 +36,11 @@
      function loadUser(){
      	var id = $.query.get("id");
      	if(id>0){
-     		var url = "../user/recruit.do?a=getRecruit&id="+id;
+     		var url = "../admin/ProjectFetcher.do?action=getProject&id="+id;
      		
      		$.getJSON(url, function(json){
 				var sb = [];
-     			var order = json.jobOrder;
+     			var order = json.order;
      			sb.push("<tbody>");
      			sb.push("<tr>");
      			sb.push("<td colSpan=\"2\" class=\"text-center\"><button  id=\"btnOK\" class=\"btn btn-primary\">设置排序</button> &nbsp;</td>");
@@ -53,46 +53,32 @@
      			sb.push("</tr>");
      			
    				sb.push("<tr>");
-       			sb.push("<td>职位：</td>");
-       			sb.push("<td>"+json.jobName+"</td>");
+       			sb.push("<td>项目名称：</td>");
+       			sb.push("<td>"+json.name+"</td>");
        			sb.push("</tr>");
        			
        			sb.push("<tr>");
-       			sb.push("<td>薪水：</td>");
-       			sb.push("<td>"+json.salary+"</td>");
+       			sb.push("<td>创建时间：</td>");
+       			sb.push("<td>"+json.created+"</td>");
        			sb.push("</tr>");
        			
-       			sb.push("<tr>");
-       			sb.push("<td>工作要求：</td>");
-       			sb.push("<td>"+json.working+"</td>");
-       			sb.push("</tr>");
+       		 
        			
        			sb.push("<tr>");
-       			sb.push("<td>职位诱惑：</td>");
-       			sb.push("<td>"+json.jobAttract+"</td>");
-       			sb.push("</tr>");
+       			sb.push("<td colSpan=\"2\">项目简介</td>");
        			
-       			sb.push("<tr>");
-       			sb.push("<td>联系人：</td>");
-       			sb.push("<td>"+json.linkman+"</td>");
        			sb.push("</tr>");
-       			
        			sb.push("<tr>");
-       			sb.push("<td>联系人手机：</td>");
-       			sb.push("<td>"+json.linkPhone+"</td>");
+       			sb.push("<td colSpan=\"2\">"+json.summary+"</td>");
        			sb.push("</tr>");
-       			
-       			sb.push("<tr>");
-       			sb.push("<td>联系人邮件：</td>");
-       			sb.push("<td>"+json.linkEmail+"</td>");
-       			sb.push("</tr>");
+       	 
        		
        			sb.push("<tr>");
-       			sb.push("<td colSpan=\"2\">职位描述</td>");
+       			sb.push("<td colSpan=\"2\">项目图片</td>");
        			
        			sb.push("</tr>");
        			sb.push("<tr>");
-       			sb.push("<td colSpan=\"2\">"+json.content+"</td>");
+       			sb.push("<td colSpan=\"2\"><img src=\""+json.imgUrl+"\" alt=\"项目图片\" style=\"width:100%;\" /></td>");
        			sb.push("</tr>");
        			
        			sb.push("</tbody>");
@@ -105,14 +91,12 @@
      			
      			$("#btnOK").click(function(){
      				
-     				var url = "../user/recruit.do?a=orderRecruit&id="+id+"&order="+$("#u-order").val();
+     				var url = "../admin/ProjectFetcher.do?action=sortProject&id="+id+"&order="+$("#u-order").val();
      				 
      	    		$.get(url, function(data){
      	    			  window.parent.tldialog.closeRefresh();
      	    		});
      			});
-     			 
-     			 
      		});
      	}
      }

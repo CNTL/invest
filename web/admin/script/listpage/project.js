@@ -6,7 +6,21 @@ var options = {
 	sortName:"proj_id",
 	rule:"1=1",
 	showFooter:false,
-	toolbar: [],	
+	toolbar: 
+				[{
+					text:'首页排序',
+					iconCls: 'icon-filter',
+					handler: function(){
+						var docIds = tldatagrid.getSelectedIDs();
+						if(docIds>0){
+							tldialog.show("首页排序","./projectOrder.jsp?id="+docIds,800,500);
+						}
+						else{
+							alert("请选择一条记录。")
+						}
+						 
+					}
+		}],	
 	rowStyler : function(index,row){
 		//if (row.AI_Debt<=0) return 'background-color:green;color:#fff;';
 	},
@@ -39,6 +53,7 @@ var options = {
 					]],
 	columns : [[
 				{title:"项目名称",field:"proj_name",width:200,sortable:false},
+				{title:"首页排序",field:"proj_order",width:80,sortable:false},
 				{title:"类型",field:"typeName",width:80,sortable:false},
 				{title:"创建人",field:"userName",width:70,sortable:false},
 				{title:"目标天数",field:"proj_countDay",width:60,sortable:false},
