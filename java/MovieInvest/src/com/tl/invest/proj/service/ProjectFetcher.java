@@ -165,6 +165,7 @@ public class ProjectFetcher extends BaseController{
 			int order = getInt(request, "order",0);
 			Project project = service.get(id);
 			project.setOrder(order);
+			service.save(project);
 			output("ok", response);
 		} catch (Exception e) {
 			 output("error", response);
