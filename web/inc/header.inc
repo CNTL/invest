@@ -17,7 +17,7 @@
 	</div>
 	 
 	<c:if test="${loginUser.id==0}" >
-	<div class="mini_login hidden-xs">
+	<div class="mini_login">
 		<a href="<c:out value="${rootPath}"/>login.jsp">登录</a>
 		<span>|</span>
 		<a href="<c:out value="${rootPath}"/>register.jsp">注册</a>
