@@ -3,12 +3,8 @@
 <!doctype html>
 <html>
 <head>
-<title><c:out value="${title}"/></title>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="keywords" content="<c:out value="${keywords}"/>" />
-	<meta name="description" content="<c:out value="${description}"/>" />
+	<%@include file="../../inc/meta.inc"%>
 	<%@include file="../inc/csslink.inc"%>
-    <script type="text/javascript" src="../static/js/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="../static/js/idangerous.swiper.min.js"></script>
     <script type="text/javascript" src="../static/js/common.js"></script>
     <script>
@@ -96,8 +92,9 @@
 </head>
 
 <body>
+<div id="body-container" style="min-width:980px;">
 	<%@include file="../../inc/header.inc"%>
-	<div class="banner">
+	<div class="banner  hidden-xs">
         <img src="../static/image/banner3.png" />
     </div>
     <div id="test"></div>
@@ -164,5 +161,6 @@
        </div>
 
 	<%@include file="../../inc/footer.inc"%>
+	</div>
 </body>
 </html>

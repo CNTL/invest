@@ -2393,6 +2393,7 @@ font-size: 16px;
 background: url(../image/s42.png) no-repeat right;
 }
 
+/*
 @media screen and (max-width: 768px) { 
 .header .nav li {
 	margin-right: 0px;
@@ -2418,8 +2419,4 @@ background: url(../image/s42.png) no-repeat right;
 }
 
 }
-
-@media screen and (max-width: 270px) { 
-
-
-}
+*/

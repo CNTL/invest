@@ -1,6 +1,7 @@
 <%@ include file="./include/Include.jsp"%>
 <%@page pageEncoding="UTF-8"%>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!doctype html>
+<html>
 <head>
     <%@include file="./inc/meta.inc"%>
     <link rel="stylesheet" type="text/css" href="<c:out value="${rootPath}"/>css/animate.min.css" />
@@ -15,7 +16,7 @@
 		$(function () {
 			setCookie("loginCurrentUrl", window.location.href);
 			setCookie("loginCurrentMenu", "1");
-            var mySwiper = new Swiper('.swiper', {
+			var mySwiper = new Swiper('.swiper', {
                 pagination: '.pagination',
                 loop: true,
                 wrapperClass: 'wrapper',
@@ -34,12 +35,15 @@
             
             waterpull();
             
+            
             $("#btn-more").click(function(){
             	getItem();
             	
             });
+			
+          
         });
-	
+		
 		function waterpull(){
 			
 			 $('#container').masonry({
@@ -217,6 +221,7 @@
 	</style>
 </head>
 <body>
+<div id="body-container" style="min-width:980px;">
 	<%@include file="./inc/header.inc"%>
 	
 	<div class="scroll hidden-xs">
@@ -410,5 +415,6 @@
 	<div class="more text-center"><button id="btn-more" class="btn btn-info btn-sm">点击更多</button></div>
 	<p>&nbsp;</p>
 	<%@include file="../inc/footer.inc"%>
+</div>
 </body>
 </html>
