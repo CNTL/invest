@@ -27,6 +27,17 @@
 					        <label for="perNickName">昵称：</label>
 					        <input class="form-control validate[maxSize[255]]" type="text" id="perNickName" name="perNickName" placeholder="昵称"/>
 					    </div>
+					    <div class="input">
+					    	<label for="gender">性别：</label>
+					    	<select name="type" id="type">
+		                    	<option value="0">男</option>
+		                        <option value="1" selected>女</option> 
+		                    </select>
+		                </div>
+					    <div class="input">
+					        <label for="birthdate">出生日期：</label>
+					        <input class="form-control validate[maxSize[255]]" type="text" id="birthdate" name="birthdate" placeholder="出生日期"/>
+					    </div>
 						<div class="input">
 							<label>个人简介：</label>
 							<textarea  id="intro" name="intro" style="width:400px;height:100px;" placeholder="个人简介"></textarea>
