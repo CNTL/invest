@@ -204,12 +204,12 @@
                         <div class="info">
                             <ul>
                                 <li><c:out value="${msg.salary}"/></li>
-                                <li><c:out value="${msg.address}"/></li>
-                                <li><c:out value="${msg.days}"/></li>
+                                <li><c:out value="${msg.city}"/></li>
+                                <li><c:out value="${msg.days}"/>天</li>
                             </ul>
                         </div>
                         <div class="desc">
-                            <span><c:out value="${msg.jobAttract}"/></span><br />
+                            <span>职位诱惑：<c:out value="${msg.jobAttract}"/></span><br />
                            	 发布时间：<c:out value="${msg.createtime}"/><br />
                             	已投递简历人数：<c:out value="${msg.resumeNum}"/>人
                         </div>
