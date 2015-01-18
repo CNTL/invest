@@ -26,7 +26,7 @@
 </div>
 <div class="job_list">
     <div class="sider">
-    <c:forEach var="type" varStatus="status" items="${types}">
+    <c:forEach var="type" varStatus="status" items="${types}" >
     	<div class="cate">
 	    	<h2>
 	    	<a href="../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=0&key=${type.name}&more=${more}">
@@ -34,7 +34,7 @@
 	    	</a>
 	    	</h2>
 		    <ul>
-		    <c:forEach var="subType" varStatus="status" items="${type.subDics}">
+		    <c:forEach var="subType" varStatus="status" items="${type.subDics}" begin="0" end="9" step="1">
 		    	<li>
 		    	<a href="../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=0&key=${subType.name}&more=${more}">
 		    		<c:out value="${subType.name}"/>

@@ -1,11 +1,11 @@
 $(document).ready(function () {
 	//初始化
 	$("#btnGetCode").click(function(){
-		var mobile=$("#perPhone").val();
-		if(mobile==""){
-			alert("请输入手机号码。")
-			return false;
-		}
+//		var mobile=$("#perPhone").val();
+//		if(mobile==""){
+//			alert("请输入手机号码。")
+//			return false;
+//		}
 		$.get("../CaptchaSMS.do?action=VerifySMS&mobile="+mobile, function(data){
 			if(data.toString().length==4){
 				$("#perPhoneCodeCur").val(data);
@@ -64,6 +64,7 @@ var relAuth = {
 	    				$("#openingBanks").val(bankcards[0].openingBank);//银行卡开户行
 		    			$("#bankNums").val(bankcards[0].bankNum);//银行卡号
 	    			}
+	    			$("#perPhone").val(data.perPhone);
 	    		}
 	        } ,
 			error:function (XMLHttpRequest, textStatus, errorThrown) {
