@@ -306,6 +306,8 @@ public class UserController extends BaseController {
 	*/ 
 	private void userBasicInfo(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
+		//user.setBirthdate(DateUtils.format(""));
+		user.setGender(ParamInitUtils.getInt(request.getParameter("gender")));
 		user.setPerNickName(ParamInitUtils.getString(request.getParameter("perNickName")));
 		user.setPerPostAddr(ParamInitUtils.getString(request.getParameter("perPostAddr")));
 		user.setPerPostCode(ParamInitUtils.getString(request.getParameter("perPostCode")));
@@ -336,10 +338,10 @@ public class UserController extends BaseController {
 		String typeName = "";
 		Dictionary dic = null;
 		if(secondType > 0){
-			dic = dicReader.getDic(DicTypes.DIC_PERSON_TYPE.typeID(), secondType);
+			dic = dicReader.getDic(DicTypes.DIC_RECRUIT_TYPE.typeID(), secondType);
 			typeName = dic.getCascadeName();
 		} else if(firstType > 0){
-			dic = dicReader.getDic(DicTypes.DIC_PERSON_TYPE.typeID(), firstType);
+			dic = dicReader.getDic(DicTypes.DIC_RECRUIT_TYPE.typeID(), firstType);
 			typeName = dic.getCascadeName();
 		}
 		user.setFirstType(firstType);
@@ -477,7 +479,7 @@ public class UserController extends BaseController {
 	
 	private void typeDatas(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		DictionaryReader dicReader = (DictionaryReader)Context.getBean(DictionaryReader.class);
-		Dictionary[] jobTypes = dicReader.getDics(DicTypes.DIC_PERSON_TYPE.typeID());
+		Dictionary[] jobTypes = dicReader.getDics(DicTypes.DIC_RECRUIT_TYPE.typeID());
 		
 		StringBuffer sb1 = new StringBuffer();
 		for (Dictionary job : jobTypes) {

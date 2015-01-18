@@ -17,6 +17,11 @@ import com.baidu.ueditor.define.FileType;
 import com.tl.common.DateUtils;
 import com.tl.common.PathFormat;
 import com.tl.common.UploadHelper;
+import com.tl.invest.constant.DicTypes;
+import com.tl.kernel.context.Context;
+import com.tl.kernel.context.TLException;
+import com.tl.kernel.sys.dic.Dictionary;
+import com.tl.kernel.sys.dic.DictionaryReader;
 
 /** 
  * @created 2014年11月2日 下午11:47:44 
@@ -26,21 +31,51 @@ import com.tl.common.UploadHelper;
 public class UserHelper {
 	public static Map<String, List<String>> pMap = new HashMap<String, List<String>>();
 	static {
-		List<String> actor = new ArrayList<String>();
-		actor.add("演员");
+		DictionaryReader dicReader = (DictionaryReader) Context.getBean(DictionaryReader.class);
+		List<String> actor = new ArrayList<String>();//演员
+		List<String> earStage = new ArrayList<String>();//前期制作
+		List<String> laterStage = new ArrayList<String>();//后期制作
+		List<String> other = new ArrayList<String>();//其他
+		try {
+			Dictionary[] jobTypes = dicReader.getDics(DicTypes.DIC_RECRUIT_TYPE.typeID());
+			if(jobTypes != null && jobTypes.length > 0){
+				for (Dictionary job : jobTypes) {
+					if("前期拍摄".equals(job.getName())){
+						Dictionary[] subJobTypes = dicReader.getSubDics(DicTypes.DIC_RECRUIT_TYPE.typeID(), job.getId());
+						if(subJobTypes != null && subJobTypes.length > 0){
+							for (Dictionary subJob : subJobTypes) {
+								if("演员".equals(subJob.getName())){
+									actor.add(subJob.getName());
+								} else {
+									earStage.add(subJob.getName());
+								}
+							}
+						}
+					} else if("后期制作".equals(job.getName())){
+						Dictionary[] subJobTypes = dicReader.getSubDics(DicTypes.DIC_RECRUIT_TYPE.typeID(), job.getId());
+						if(subJobTypes != null && subJobTypes.length > 0){
+							for (Dictionary subJob : subJobTypes) {
+								laterStage.add(subJob.getName());
+							}
+						}
+					} else {
+						Dictionary[] subJobTypes = dicReader.getSubDics(DicTypes.DIC_RECRUIT_TYPE.typeID(), job.getId());
+						if(subJobTypes != null && subJobTypes.length > 0){
+							for (Dictionary subJob : subJobTypes) {
+								other.add(subJob.getName());
+							}
+						}
+					}
+				}	
+			}
+			
+		} catch (TLException e) {
+			e.printStackTrace();
+		}
+		
 		pMap.put("演员", actor);
-		
-		List<String> earStage = new ArrayList<String>();
-		earStage.add("导演");
-		earStage.add("制片人");
 		pMap.put("前期制作", earStage);
-		
-		List<String> laterStage = new ArrayList<String>();
-		laterStage.add("动画");
 		pMap.put("后期制作", laterStage);
-		
-		List<String> other = new ArrayList<String>();
-		other.add("其他");
 		pMap.put("其他影人", other);
 	}
 

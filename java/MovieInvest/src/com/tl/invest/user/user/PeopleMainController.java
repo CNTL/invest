@@ -141,7 +141,7 @@ public class PeopleMainController extends Entry {
 			model.put("msg", msg);
 		} else {
 			int curPage = getInt(request, "curPage", 1);
-			Dictionary pesonTypeDic = dicReader.getDicByName(DicTypes.DIC_PERSON_TYPE.typeID(), typeName);
+			Dictionary pesonTypeDic = dicReader.getDicByName(DicTypes.DIC_RECRUIT_TYPE.typeID(), typeName);
 			if(pesonTypeDic == null) return;
 			
 			int secondType = pesonTypeDic.getId();
