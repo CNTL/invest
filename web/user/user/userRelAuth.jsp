@@ -146,6 +146,7 @@
 <!-- footer -->
 <script type="text/javascript" src="../js/layer/layer.min.js"></script>
 <script type="text/javascript" src="../js/plugin/uploadify-3.2.1/jquery.uploadify.js"></script>
+<script type="text/javascript" src="../user/user/script/datas.js"></script>
 <script type="text/javascript" src="../userout/script/userCommon.js"></script>
 <script type="text/javascript" src="../user/user/script/userRelAuth.js"></script>
 </body>

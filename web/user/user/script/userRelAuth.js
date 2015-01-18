@@ -1,23 +1,38 @@
 $(document).ready(function () {
-	//初始化
-	relAuth.init();
-	relAuth.initUploadify("uploadify","queueItemCount","organization","uploadErrorMsg",true,relAuth.imgUploaded);
-	relAuth.initUploadify("uploadify1","queueItemCount1","orgBusinessLicense","uploadErrorMsg1",true,relAuth.imgUploaded1);
-	$("#form").validationEngine({
-		autoPositionUpdate:true,
-		onValidationComplete:function(from,r){
-			if (r){
-				window.onbeforeunload = null;
-				$("#btnSave").attr("disabled", true);
-				relAuth.submit();
-			}
+	var init = function() {
+		if (!type_datas || !type_datas.ready) {
+			setTimeout(init, 100);
+			return;
 		}
-	});
+		//初始化
+		relAuth.init();
+		relAuth.initUploadify("uploadify","queueItemCount","organization","uploadErrorMsg",true,relAuth.imgUploaded);
+		relAuth.initUploadify("uploadify1","queueItemCount1","orgBusinessLicense","uploadErrorMsg1",true,relAuth.imgUploaded1);
+		$("#form").validationEngine({
+			autoPositionUpdate:true,
+			onValidationComplete:function(from,r){
+				if (r){
+					window.onbeforeunload = null;
+					$("#btnSave").attr("disabled", true);
+					relAuth.submit();
+				}
+			}
+		});
+	}
+	init();
 });
 var relAuth = {
+	eventList : [
+  		{id:"firstType",evt:"change", fn:"changeFirstType"}
+  	],
 	DEFAULT_PAIR : {key:"id",value:"name"},
 	init : function(){
-		relAuth.initJob();
+		//按事件表依次绑定
+		for (var i = 0; i < relAuth.eventList.length; i++) {
+			var h = relAuth.eventList[i];
+			$("#" + h.id).bind(h.evt, relAuth[h.fn]);
+		}
+		//relAuth.initJob();
 		$.ajax({
 	        type:"GET", //请求方式  
 	        url:"../user/user.do?a=findLogin", //请求路径  
@@ -26,11 +41,11 @@ var relAuth = {
 	        success:function(data){
 	    		if(data != null){
 	    			$("#name").val(data.name);
-	    			$("#province").val(data.province);//下拉框
+	    			/*$("#province").val(data.province);//下拉框
 	    			if(data.city != null && data.city.length > 0){
 	    				load_city(data.city);
-	    			}
-	    			$("#perJob").val(data.perJob);//下拉框
+	    			}*/
+	    			//$("#perJob").val(data.perJob);//下拉框
 	    			$("#perPhone").val(data.perPhone);
 	    			$("#identityCard").val(data.identityCard);
 	    			if(data.isRealNameIdent == 1) {
@@ -56,6 +71,8 @@ var relAuth = {
 				   alert(errorThrown);
 			}
 	    });
+		
+		relAuth._setOptions("firstType", type_datas.getFirstTypes(), relAuth.DEFAULT_PAIR);
 	},
 	initJob : function(){
 		var dataUrl = "../user/userFetch.do?a=jobTypes";
@@ -84,9 +101,16 @@ var relAuth = {
 			}
 		});
 	},
+	changeFirstType : function(){
+		var secondTypes = [];
+		var pid = $("#firstType").val();
+		secondTypes = type_datas.getSecondTypes(pid);
+		relAuth._setOptions("secondType",secondTypes,relAuth.DEFAULT_PAIR);
+	},
 	_setOptions : function(id, datas, pair) {
 		var sel = document.getElementById(id);
 		if (!sel) return;
+		
 		while (sel.options.length > 0)
 			sel.options.remove(0);
 
