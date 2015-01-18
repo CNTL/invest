@@ -65,8 +65,10 @@ public class UserLoginController extends BaseController
 			sinaWeibo(request, response);
 		} else if("findPwd".equals(action)){//找回密码（第一步，输入邮箱时按照注册邮箱跳转到）
 			findPwd(request, response, model);
-		} else if("resetPwd".equals(action)){//找回密码（第一步，输入邮箱时按照注册邮箱跳转到）
+		} else if("resetPwd".equals(action)){//找回密码（第三步，重置密码页面）
 			resetPwd(request, response, model);
+		} else if("updatePwd".equals(action)){//找回密码（重置密码保存）
+			updatePwd(request, response, model);
 		} else {
 			response.setContentType("text/xml; charset=UTF-8");
 			PrintWriter out = response.getWriter();
@@ -315,7 +317,7 @@ public class UserLoginController extends BaseController
 			output("{\"error\":\"您输入的邮箱地址未注册！\"}", response);
 		} else {//已注册
 			//1.忘注册邮箱发送邮件
-			sendEmail(user);
+			sendEmail(request, user);
 			//2.跳转至找回密码步骤2
 			model.put("email", email);
 			Map<String, String> result = new HashMap<String, String>();
@@ -333,10 +335,11 @@ public class UserLoginController extends BaseController
 	* 功能： 发送找回密码邮件
 	* @param email 
 	*/ 
-	private void sendEmail(User user){
+	private void sendEmail(HttpServletRequest request, User user){
 		StringBuilder emailHtml =  new StringBuilder("");
-		emailHtml.append("<a href=\"../../user/userlogin.do?a=resetPwd&id=")
-			.append(user.getId()).append("\">").append("此链接重置密码").append("</a>");
+		emailHtml.append("<a href=\"").append(WebUtil.getRoot(request))
+			.append("user/userlogin.do?a=resetPwd&id=")
+			.append(user.getId()).append("\">").append("请点击此链接重置合众映画登陆密码").append("</a>");
 		EmailSender emailSender = EMailSenderHelper.getEmailSender();//邮件发送服务器信息先组装好
 		emailSender.setSubject("合众映画——找回密码");//邮件标题   
 		emailSender.setContent(emailHtml.toString()); //邮件内容
@@ -353,9 +356,16 @@ public class UserLoginController extends BaseController
 		//JSONObject jsonArray = JSONObject.fromObject(user);
 		//output(jsonArray.toString(), response);
 		model.put("user", user);
-		model.put("@VIEWNAME@", WebUtil.getRoot(request) + "user/noSession/findPwdStep3.jsp");
+		model.put("@VIEWNAME@", "userout/findPwdStep3");
 	}
-	
+	private void updatePwd(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception {
+		int id = ParamInitUtils.getInt(request.getParameter("id"));
+		if(id == 0) return;
+		User user = manager.getUserByID(id);
+		user.setPassword(ParamInitUtils.getString(request.getParameter("newpwd")));
+		manager.update(user);
+		output(String.valueOf(user.getId()), response);
+	}
 	private void putRedirectURL(HttpServletRequest request){
 		String redirectURL = request.getParameter("redirectURL");
 		//放入session中，以便登录成功后，可以跳转到主页或者是其他页面
