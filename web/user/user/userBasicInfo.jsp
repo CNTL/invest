@@ -29,7 +29,7 @@
 					    </div>
 					    <div class="input">
 					    	<label for="gender">性别：</label>
-					    	<select name="type" id="type">
+					    	<select id="gender" name="gender">
 		                    	<option value="0">男</option>
 		                        <option value="1" selected>女</option> 
 		                    </select>
