@@ -102,7 +102,7 @@
          			
          			sb.push("</tr>");
          			sb.push("<tr>");
-         			sb.push("<td colSpan=\"2\"><img src=\""+json.head+"\" alt=\"头像\" style=\"width:100%;\" /></td>");
+         			sb.push("<td colSpan=\"2\"><img src=\"../"+json.head+"\" alt=\"头像\" style=\"width:100%;\" /></td>");
          			sb.push("</tr>");
          			
          			sb.push("</tbody>");

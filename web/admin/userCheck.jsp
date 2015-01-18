@@ -41,7 +41,9 @@
      		var url = "../user/user.do?a=getUser&id="+id;
      		
      		$.getJSON(url, function(json){
+     			
      			var sb = [];
+     			var type = json.type;
      			var gender = "-1";
  				if(json.gender!=null&&json.gender!=""){
  					gender = json.gender;
@@ -169,7 +171,7 @@
          			
          			sb.push("</tr>");
          			sb.push("<tr>");
-         			sb.push("<td colSpan=\"2\"><img src=\""+json.organization+"\" alt=\"组织机构证件照\" style=\"width:100%;\" /></td>");
+         			sb.push("<td colSpan=\"2\"><img src=\"../"+json.organization+"\" alt=\"组织机构证件照\" style=\"width:100%;\" /></td>");
          			sb.push("</tr>");
          			
          			sb.push("<tr>");
@@ -177,7 +179,7 @@
          			
          			sb.push("</tr>");
          			sb.push("<tr>");
-         			sb.push("<td colSpan=\"2\"><img src=\""+json.orgBusinessLicense+"\" alt=\"组织机构证件照\" style=\"width:100%;\" /></td>");
+         			sb.push("<td colSpan=\"2\"><img src=\"../"+json.orgBusinessLicense+"\" alt=\"组织机构证件照\" style=\"width:100%;\" /></td>");
          			
          			sb.push("</tr>");
 
@@ -191,38 +193,43 @@
      			}
      			
      			$("#btnOK").click(function(){
-     				if($("#u-gender").length>0&&$("#u-gender").val()=="-1"){
-     					alert("请设置性别。")
-     					return;
-     				}
-     				if($("#u-birthdate").length>0){
-     					if(checkDate($("#u-birthdate").val())==false){
-     						alert("请设置出生日期。")
+     				if(type == 0){
+     					if($("#u-gender").length>0&&$("#u-gender").val()=="-1"){
+         					alert("请设置性别。")
          					return;
-     					}
-     					
+         				}
+         				if($("#u-birthdate").length>0){
+         					if(checkDate($("#u-birthdate").val())==false){
+         						alert("请设置出生日期。")
+             					return;
+         					}
+         					
+         				}
      				}
      				
-     				var url = "../user/user.do?a=checkUser&id="+id+"&birthdate="+$("#u-birthdate").val()+"&gender="+$("#u-gender").val()+"&check=1";
+     				
+     				var url = "../user/user.do?a=checkUser&id="+id+"&birthdate="+$("#u-birthdate").val()+"&gender="+$("#u-gender").val()+"&check=1&type="+type;
      	    		$.get(url, function(data){
      	    			  window.parent.tldialog.closeRefresh();
      	    		});
      			});
      			
      			$("#btnCancle").click(function(){
-     				if($("#u-gender").length>0&&$("#u-gender").val()=="-1"){
-     					alert("请设置性别。")
-     					return;
-     				}
-     				if($("#u-birthdate").length>0){
-     					if(checkDate($("#u-birthdate").val())==false){
-     						alert("请设置出生日期。")
+     				if(type == 0){
+     					if($("#u-gender").length>0&&$("#u-gender").val()=="-1"){
+         					alert("请设置性别。")
          					return;
-     					}
-     					
+         				}
+         				if($("#u-birthdate").length>0){
+         					if(checkDate($("#u-birthdate").val())==false){
+         						alert("请设置出生日期。")
+             					return;
+         					}
+         					
+         				}
      				}
      				
-     				var url = "../user/user.do?a=checkUser&id="+id+"&birthdate="+$("#u-birthdate").val()+"&gender="+$("#u-gender").val()+"&check=0";;
+     				var url = "../user/user.do?a=checkUser&id="+id+"&birthdate="+$("#u-birthdate").val()+"&gender="+$("#u-gender").val()+"&check=0&type="+type;;
      	    		$.get(url, function(data){
      	    			  window.parent.tldialog.closeRefresh();
      	    		});
@@ -241,6 +248,7 @@
          return false;
     	 
     } 
+   
     </script>
    
 

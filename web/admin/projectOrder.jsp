@@ -78,7 +78,7 @@
        			
        			sb.push("</tr>");
        			sb.push("<tr>");
-       			sb.push("<td colSpan=\"2\"><img src=\""+json.imgUrl+"\" alt=\"项目图片\" style=\"width:100%;\" /></td>");
+       			sb.push("<td colSpan=\"2\"><img src=\"../"+json.imgUrl+"\" alt=\"项目图片\" style=\"width:100%;\" /></td>");
        			sb.push("</tr>");
        			
        			sb.push("</tbody>");
