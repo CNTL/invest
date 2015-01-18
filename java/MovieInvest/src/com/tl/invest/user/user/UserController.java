@@ -133,12 +133,17 @@ public class UserController extends BaseController {
 	 */
 	private void checkUser(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		int id = getInt(request, "id", 0);
-		String birthday = get(request, "birthdate","");
-		int gender = getInt(request, "gender",1);
-		int check = getInt(request, "check",0);
+		int type = getInt(request, "type",0);
 		User user = userManager.getUserByID(id);
-		user.setBirthdate(Date.valueOf(birthday));
-		user.setGender(gender);
+		String birthday = "";
+		int gender = 0;
+		if(type==0){
+			birthday = get(request, "birthdate","");
+			gender = getInt(request, "gender",1);
+			user.setBirthdate(Date.valueOf(birthday));
+			user.setGender(gender);
+		}
+		int check = getInt(request, "check",0);
 		user.setIsRealNameIdent(check);
 		userManager.update(user);
 		output("ok", response);
