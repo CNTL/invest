@@ -403,10 +403,13 @@ public class RecruitManager {
 			recruit.setCreatetime(rs.getTimestamp("createtime"));
 			recruit.setJobOrder(rs.getInt("jobOrder"));
 			recruit.setDeleted(rs.getInt("deleted"));
+			recruit.setDays(rs.getString("days"));
 			
 			User user = userManager.getUserByID(recruit.getUserId());
 			recruit.setCompany(user.getOrgFullname());
-			recruit.setCity(user.getCity());
+			DictionaryReader reader = (DictionaryReader)Context.getBean("DictionaryReader");
+			Dictionary dictionary = reader.getDic(4,Integer.parseInt(user.getCity(), 10) );
+			recruit.setCity(dictionary.getName());
 			recruit.setTime(DateUtils.format(recruit.getCreatetime(), "yyyy-MM-dd hh:mm:ss"));
 			return recruit;
 		} catch (Exception e) {

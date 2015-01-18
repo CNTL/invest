@@ -13,12 +13,17 @@ import net.sf.json.JsonConfig;
 
 import com.tl.common.DateJsonValueProcessor;
 import com.tl.common.JsonDateValueProcessor;
+import com.tl.invest.notice.Notice;
+import com.tl.invest.notice.NoticeManager;
 import com.tl.invest.proj.ProjectExt;
 import com.tl.invest.proj.service.ProjectService;
 import com.tl.invest.user.recruit.RecruitManager;
 import com.tl.invest.user.recruit.UserRecruit;
 import com.tl.invest.user.user.User;
 import com.tl.invest.user.user.UserManager;
+import com.tl.kernel.context.Context;
+import com.tl.kernel.sys.dic.Dictionary;
+import com.tl.kernel.sys.dic.DictionaryReader;
 import com.tl.kernel.web.BaseController;
 
 public class MainListController extends BaseController {
@@ -67,7 +72,13 @@ public class MainListController extends BaseController {
 			if(userRecruits!=null && userRecruits.length>0){
 				ArrayList<UserRecruit> userRecruitItems =new ArrayList<UserRecruit>(); 
 				 for (UserRecruit e : userRecruits) {
-					 userRecruitItems.add(e);
+					 User user = userManager.getUserByID(e.getUserId());
+					 e.setCompany(user.getOrgFullname());
+					 DictionaryReader reader = (DictionaryReader)Context.getBean("DictionaryReader");
+					 Dictionary dictionary = reader.getDic(4,Integer.parseInt(user.getCity(), 10) );
+					 e.setCity(dictionary.getName());
+					 
+					userRecruitItems.add(e);
 				}
 				mainList.setUserRecruitItems(userRecruitItems);
 			}
@@ -79,6 +90,15 @@ public class MainListController extends BaseController {
 					userItem.add(e);
 				}
 				mainList.setUserItem(userItem);
+			}
+			
+			Notice[] notices = noticeManager.getNotices(1, 1);
+			if(notices!=null && notices.length>0){
+				ArrayList<Notice> noticeItem =new ArrayList<Notice>();
+				for (Notice e : notices) {
+					noticeItem.add(e);
+				}
+				mainList.setNotices(noticeItem);
 			}
             
         }catch(Exception e){    
@@ -124,5 +144,16 @@ public class MainListController extends BaseController {
 	}
 	public void setProjectService(ProjectService projectService) {
 		this.projectService = projectService;
+	}
+	
+	/**
+	 * ֪ͨ
+	 */
+	private NoticeManager noticeManager = null;
+	public NoticeManager getNoticeManager() {
+		return noticeManager;
+	}
+	public void setNoticeManager(NoticeManager noticeManager) {
+		this.noticeManager = noticeManager;
 	}
 }

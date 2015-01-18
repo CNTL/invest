@@ -1,8 +1,7 @@
 package com.tl.invest.workspace;
 import java.util.ArrayList;
 
-import antlr.collections.List;
-
+import com.tl.invest.notice.Notice;
 import com.tl.invest.proj.ProjectExt;
 import com.tl.invest.user.recruit.UserRecruit;
 import com.tl.invest.user.user.User;
@@ -17,6 +16,13 @@ public class MainList  {
 	 private ArrayList<ProjectExt> projectItems =new ArrayList<ProjectExt>();  
 	 private ArrayList<UserRecruit> userRecruitItems =new ArrayList<UserRecruit>();  
 	 private ArrayList<User> userItems =new ArrayList<User>();
+	 private ArrayList<Notice> noticesItems = new ArrayList<Notice>();
+	public ArrayList<Notice> getNotices() {
+		return noticesItems;
+	}
+	public void setNotices(ArrayList<Notice> notices) {
+		this.noticesItems = notices;
+	}
 	public ArrayList<ProjectExt> getProjectItems() {
 		return projectItems;
 	}
