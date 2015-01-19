@@ -121,7 +121,7 @@ var tldatagrid = {
 		param.rule = tldatagrid.options.rule;
 		param.showfooter = tldatagrid.options.showFooter ? "true" : "false";
 		param.selectedID = tldatagrid.getSelectedIDs();
-		alert(param.queryconditions);
+		//alert(param.queryconditions);
 		$("#"+tldatagrid.id).datagrid("load",param);
 	},
 	getSelectedIDs : function(){

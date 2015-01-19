@@ -128,7 +128,7 @@
          			
          			sb.push("</tr>");
          			sb.push("<tr>");
-         			sb.push("<td colSpan=\"2\"><img src=\""+json.organization+"\" alt=\"手持身份证照片\" style=\"width:100%;\" /></td>");
+         			sb.push("<td colSpan=\"2\"><img src=\"../"+json.organization+"\" alt=\"手持身份证照片\" style=\"width:100%;\" /></td>");
          			sb.push("</tr>");
          			
          			sb.push("<tr>");
@@ -136,7 +136,7 @@
          			
          			sb.push("</tr>");
          			sb.push("<tr>");
-         			sb.push("<td colSpan=\"2\"><img src=\""+json.orgBusinessLicense+"\" alt=\"身份证正反面照片\" style=\"width:100%;\" /></td>");
+         			sb.push("<td colSpan=\"2\"><img src=\"../"+json.orgBusinessLicense+"\" alt=\"身份证正反面照片\" style=\"width:100%;\" /></td>");
          			
          			
          			sb.push("</tbody>");
