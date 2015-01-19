@@ -161,7 +161,6 @@ var relAuth = {
 		var c_img_l = 300;
 		$("#coverIMG_div").css("top",c_img_t+"px").css("left",c_img_l+"px").css("display","");
 		$("#coverIMG_div").empty();
-		alert(rootPath);
 		if($("#organization").val()!=""){
 			$("#coverIMG_div").html("<img src=\""+rootPath+$("#organization").val()+"\" border=\"0\" style=\"width:150px;height:100px;\" />");
 			$("#coverIMG_div").append("<div style=\"width:100%;margin-top:10px;text-align:center;\"><a href=\"javascript:void();\" style=\"background: url(../img/delete.png) no-repeat left;padding-left: 20px;\" onclick=\"relAuth.delCoverImg();\">删除</a></div>");
