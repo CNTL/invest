@@ -7,6 +7,11 @@
 	<%@include file="../inc/csslink.inc"%>
     <script type="text/javascript" src="../static/js/idangerous.swiper.min.js"></script>
     <script type="text/javascript" src="../static/js/common.js"></script>
+    <style>
+    .title span{
+    float:right;color:#bababa;
+    }
+    </style>
     <script>
         var rootPath = "<%=com.tl.common.WebUtil.getRoot(request) %>";
         function mySwipePrev(type){
@@ -51,6 +56,7 @@
 	    		var name = item.name;
 	    		var intro = item.intro;
 	    		var head = item.head;
+	    		var job = item.perJobName;
 	    		if(head == null || head.length == 0){
 	    			head = '../static/image/temp/pic2.png';
 	    		} else {
@@ -75,7 +81,7 @@
 		                '<div>' + 
 		                	'<div class="title">' + 
 		                        '<a href="../user/PeopleDetailMain.do?a=detail&mainType=4&id='+id+'">'+
-		                        name+'</a>' + 
+		                        name+'</a><span>'+job+'</span>' + 
 		                    '</div>' + 
 		                    '<div class="desc">' + intro + '</div>' + 
 		                '</div>' + 
@@ -101,8 +107,8 @@
     <div class="project_list">
 	   	<c:forEach var="data" varStatus="status1" items="${datas}">
 	   	<div class="block1">
-            <a class="left" style="cursor:pointer" onclick="mySwipePrev(${data.perType})"></a>
-            <a class="right" style="cursor:pointer" onclick="mySwipeNext(${data.perType})"></a>
+            <a class="left" style="cursor:pointer;display:none;" onclick="mySwipePrev(${data.perType})"></a>
+            <a class="right" style="cursor:pointer;display:none;" onclick="mySwipeNext(${data.perType})"></a>
             <div class="top">
                 <h2><c:out value="${data.perName}"/></h2>
                 <div class="cate">
@@ -138,7 +144,7 @@
 				                        <a href="../user/PeopleDetailMain.do?a=detail&mainType=4&id=<c:out value="${person.id}"/>">
 				                        <c:out value="${person.name}"/>
 				                        </a>
-				                        <%-- <span><c:out value="${data.perName}"/></span> --%>
+				                        <span><c:out value="${person.perJobName}"/></span>
 				                    </div>
 				                    <div class="desc">
 				                        <c:out value="${person.intro}"/>
