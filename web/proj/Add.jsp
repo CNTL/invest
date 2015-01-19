@@ -186,7 +186,8 @@
 						['TextColor','BGColor'],
 						//全屏           显示区块
 						['Maximize', 'ShowBlocks','-']
-					]
+					],
+					filebrowserImageUploadUrl : webroot + 'CkEditorUpload.do?folder=upload|project' //固定路径
 				}
 			);
         });

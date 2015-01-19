@@ -279,8 +279,8 @@
 		<property name="viewName"><value>user/user/ProjectStage</value></property>
 	</bean>
 	<!--上传处理-->
-	<bean id="workspace.Upload" class="com.tl.invest.workspace.UploadController">
-	</bean>
+	<bean id="workspace.Upload" class="com.tl.invest.workspace.UploadController" />
+	<bean id="workspace.CkEditorUpload" class="com.tl.invest.workspace.CkEditorUploadController" />
 	<bean id="invest.NoticeManager" class="com.tl.invest.notice.NoticeManager"></bean>
 	<bean id="invest.NoticeController" class="com.tl.invest.notice.NoticeController">
 		<property name="mgr"><ref bean="invest.NoticeManager" /></property>
@@ -306,7 +306,6 @@
 		<property name="userManager"><ref bean="UserManager"/></property>
 		<property name="recruitManager"><ref bean="RecruitManager"/></property>
 		<property name="noticeManager"><ref bean="invest.NoticeManager"/></property>
-		
 	</bean>
 
 	
@@ -413,6 +412,7 @@
 				<prop key="/notice/List.do">invest.NoticeList</prop>
 				
 				<prop key="/Upload.do">workspace.Upload</prop>
+				<prop key="/CkEditorUpload.do">workspace.CkEditorUpload</prop>
 				
 				<prop key="/help/Agreement.do">help.Agreement</prop>
 			</props>
