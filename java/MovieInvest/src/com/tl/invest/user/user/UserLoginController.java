@@ -1,6 +1,8 @@
 package com.tl.invest.user.user;
 
 import java.io.PrintWriter;
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,9 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
 
 import com.qq.connect.oauth.Oauth;
+import com.tl.common.DateJsonValueProcessor;
 import com.tl.common.DateUtils;
+import com.tl.common.JsonDateValueProcessor;
 import com.tl.common.ParamInitUtils;
 import com.tl.common.RandomValidateCode;
 import com.tl.common.WebUtil;
@@ -229,7 +234,10 @@ public class UserLoginController extends BaseController
 		String password = get(request,"password");
 		User user = manager.login(usercode,password);
 		if(user!=null){
-			JSONObject jsonArray = JSONObject.fromObject(user);
+			JsonConfig jsonConfig = new JsonConfig();
+			jsonConfig.registerJsonValueProcessor(Timestamp.class,new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
+			jsonConfig.registerJsonValueProcessor(Date.class, new JsonDateValueProcessor()); 
+			JSONObject jsonArray = JSONObject.fromObject(user,jsonConfig);
 			output(jsonArray.toString(), response);
 		}
 		else {
@@ -281,8 +289,12 @@ public class UserLoginController extends BaseController
 	protected User putSession(HttpServletRequest request,
 			HttpServletResponse response, int loginID, boolean isAdmin) throws Exception {
 		User user = manager.getUserByID(loginID);
+		JsonConfig jsonConfig = new JsonConfig();
+		jsonConfig.registerJsonValueProcessor(Timestamp.class,new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
+		jsonConfig.registerJsonValueProcessor(Date.class, new JsonDateValueProcessor()); 
+		 
 		if(user != null){
-			JSONObject jsonArray = JSONObject.fromObject(user);
+			JSONObject jsonArray = JSONObject.fromObject(user,jsonConfig);
 			output(jsonArray.toString(), response);
 		} else {
 			output("", response);
@@ -323,7 +335,10 @@ public class UserLoginController extends BaseController
 			Map<String, String> result = new HashMap<String, String>();
 			result.put("email", email);
 			result.put("emailType", "http://mail.".concat(email.substring(email.lastIndexOf("@") + 1)));
-			JSONObject jsonArray = JSONObject.fromObject(result);
+			JsonConfig jsonConfig = new JsonConfig();
+			jsonConfig.registerJsonValueProcessor(Timestamp.class,new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
+			jsonConfig.registerJsonValueProcessor(Date.class, new JsonDateValueProcessor()); 
+			JSONObject jsonArray = JSONObject.fromObject(result,jsonConfig);
 			output(jsonArray.toString(), response);
 			//output("{\"email\":\"" + email + "\"}", response);
 			//model.put("@VIEWNAME@", WebUtil.getRoot(request) + "user/noSession/findPwdStep2.jsp");

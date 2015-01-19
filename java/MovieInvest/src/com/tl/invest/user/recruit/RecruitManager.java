@@ -408,7 +408,7 @@ public class RecruitManager {
 			User user = userManager.getUserByID(recruit.getUserId());
 			recruit.setCompany(user.getOrgFullname());
 			DictionaryReader reader = (DictionaryReader)Context.getBean("DictionaryReader");
-			Dictionary dictionary = reader.getDic(4,Integer.parseInt(user.getCity(), 10) );
+			Dictionary dictionary = reader.getDic(DicTypes.DIC_AREA.typeID(),Integer.parseInt(user.getCity(), 10) );
 			recruit.setCity(dictionary.getName());
 			recruit.setTime(DateUtils.format(recruit.getCreatetime(), "yyyy-MM-dd hh:mm:ss"));
 			return recruit;

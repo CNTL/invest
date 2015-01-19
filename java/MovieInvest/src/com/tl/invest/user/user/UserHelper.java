@@ -133,4 +133,42 @@ public class UserHelper {
 		}
 		return false;
 	}
+	
+	/** 获得职业类型
+	 * @param firsttype
+	 * @param secondtype
+	 * @return
+	 * @throws TLException
+	 */
+	public static int getPreJob(int firsttype,int secondtype) throws TLException {
+		
+		DictionaryReader dicReader = (DictionaryReader) Context.getBean(DictionaryReader.class);
+		Dictionary dicFirst = dicReader.getDic(DicTypes.DIC_RECRUIT_TYPE.typeID(), firsttype);
+		Dictionary dicSecond = dicReader.getDic(DicTypes.DIC_RECRUIT_TYPE.typeID(), secondtype);
+		
+		//职业分类
+		 //演员
+		Dictionary dic1 = dicReader.getDicByName(DicTypes.DIC_JOB_TYPE.typeID(), "演员");
+		//前期制作
+		Dictionary dic2 = dicReader.getDicByName(DicTypes.DIC_JOB_TYPE.typeID(), "前期制作");
+		//后期制作
+		Dictionary dic3 = dicReader.getDicByName(DicTypes.DIC_JOB_TYPE.typeID(), "后期制作");
+		//其他影人
+		Dictionary dic4 = dicReader.getDicByName(DicTypes.DIC_JOB_TYPE.typeID(), "其他影人");
+		
+		if(dicFirst.getName().equals("前期拍摄")){
+			 if(dicSecond.getName().equals("演员")){
+				 return dic1.getId();
+			 }
+			 else{
+				 return dic2.getId();
+			 }
+		}
+		else if(dicFirst.getName().equals("后期制作")){
+			return dic3.getId();
+		}
+		else {
+			return dic4.getId();
+		}
+	}
 }

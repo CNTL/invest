@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
 	var init = function() {
 		if (!type_datas || !type_datas.ready) {
@@ -41,11 +42,8 @@ var relAuth = {
 	        success:function(data){
 	    		if(data != null){
 	    			$("#name").val(data.name);
-	    			/*$("#province").val(data.province);//下拉框
-	    			if(data.city != null && data.city.length > 0){
-	    				load_city(data.city);
-	    			}*/
-	    			//$("#perJob").val(data.perJob);//下拉框
+	    			$("#firstType").val(data.firstType);
+	    			$("#secondType").val(data.secondType);
 	    			$("#perPhone").val(data.perPhone);
 	    			$("#identityCard").val(data.identityCard);
 	    			if(data.isRealNameIdent == 1) {
@@ -163,6 +161,7 @@ var relAuth = {
 		var c_img_l = 300;
 		$("#coverIMG_div").css("top",c_img_t+"px").css("left",c_img_l+"px").css("display","");
 		$("#coverIMG_div").empty();
+		alert(rootPath);
 		if($("#organization").val()!=""){
 			$("#coverIMG_div").html("<img src=\""+rootPath+$("#organization").val()+"\" border=\"0\" style=\"width:150px;height:100px;\" />");
 			$("#coverIMG_div").append("<div style=\"width:100%;margin-top:10px;text-align:center;\"><a href=\"javascript:void();\" style=\"background: url(../img/delete.png) no-repeat left;padding-left: 20px;\" onclick=\"relAuth.delCoverImg();\">删除</a></div>");

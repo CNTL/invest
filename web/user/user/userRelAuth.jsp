@@ -9,6 +9,7 @@
 <meta name="description" content="<c:out value="${description}"/>" />
 <link rel="stylesheet" type="text/css" href="../js/plugin/uploadify-3.2.1/uploadify.css"/>
 <%@include file="../inc/csslink.inc"%>
+
 </head>
 <body>
 <%@include file="../../inc/header.inc"%>
@@ -30,7 +31,7 @@
 					        <input class="form-control validate[required]" type="text" id="name" name="name" />
 					    </div>
 					     <div class="input">
-							<label>影人分类：</label>
+							<label>职业：</label>
 							<select id="firstType" name="firstType" class="validate[required]">
 							</select>
 							<select id="secondType" name="secondType" class="validate[required]">
@@ -48,7 +49,7 @@
 							<table style="width:100%;">
 								<tr>
 									<td valign="top" style="width:90px;">
-										<label>身份证正面证件照：</label>
+										<label>手持身份证正面照：</label>
 									</td>
 									<td>
 										<input type="file" name="uploadify" id="uploadify" />
@@ -65,7 +66,7 @@
 							<table style="width:100%;">
 								<tr>
 									<td valign="top" style="width:90px;">
-										<label>身份证反面证件照：</label>
+										<label>身份证正反面证件照：</label>
 									</td>
 									<td>
 										<input type="file" name="uploadify1" id="uploadify1" />
@@ -94,6 +95,10 @@
 <!-- footer -->
 <%@include file="../../inc/footer.inc"%>
 <!-- footer -->
+ 
+<script type="text/javascript">
+var rootPath = "<%=com.tl.common.WebUtil.getRoot(request) %>";
+</script>
 <script type="text/javascript" src="../js/layer/layer.min.js"></script>
 <script type="text/javascript" src="../js/plugin/uploadify-3.2.1/jquery.uploadify.js"></script>
 <script type="text/javascript" src="../user/user/script/datas.js"></script>

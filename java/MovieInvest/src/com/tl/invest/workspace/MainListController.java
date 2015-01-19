@@ -13,6 +13,7 @@ import net.sf.json.JsonConfig;
 
 import com.tl.common.DateJsonValueProcessor;
 import com.tl.common.JsonDateValueProcessor;
+import com.tl.invest.constant.DicTypes;
 import com.tl.invest.notice.Notice;
 import com.tl.invest.notice.NoticeManager;
 import com.tl.invest.proj.ProjectExt;
@@ -75,7 +76,7 @@ public class MainListController extends BaseController {
 					 User user = userManager.getUserByID(e.getUserId());
 					 e.setCompany(user.getOrgFullname());
 					 DictionaryReader reader = (DictionaryReader)Context.getBean("DictionaryReader");
-					 Dictionary dictionary = reader.getDic(4,Integer.parseInt(user.getCity(), 10) );
+					 Dictionary dictionary = reader.getDic(DicTypes.DIC_AREA.typeID(),Integer.parseInt(user.getCity(), 10) );
 					 e.setCity(dictionary.getName());
 					 
 					userRecruitItems.add(e);

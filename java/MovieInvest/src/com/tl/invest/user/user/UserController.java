@@ -325,14 +325,14 @@ public class UserController extends BaseController {
 	*/ 
 	private void userRelAuth(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
-		user.setName(ParamInitUtils.getString(request.getParameter("name")));//姓名
-		user.setProvince(ParamInitUtils.getString(request.getParameter("province")));//省份
-		user.setCity(ParamInitUtils.getString(request.getParameter("city")));//城市
-		user.setPerJob(ParamInitUtils.getString(request.getParameter("perJob")));//职业
-		user.setPerPhone(ParamInitUtils.getString(request.getParameter("perPhone")));//手机号
-		user.setIdentityCard(ParamInitUtils.getString(request.getParameter("identityCard")));//身份证
-		user.setOrganization(ParamInitUtils.getString(request.getParameter("organization")));
-		user.setOrgBusinessLicense(ParamInitUtils.getString(request.getParameter("orgBusinessLicense")));
+		user.setName(get(request, "name",""));//姓名
+		user.setProvince(get(request, "province"));//省份
+		user.setCity(get(request, "city",""));//城市
+		user.setPerJob(get(request, "perJob",""));//职业
+		user.setPerPhone(get(request, "perPhone",""));//手机号
+		user.setIdentityCard(get(request, "identityCard",""));//身份证
+		user.setOrganization(get(request, "organization",""));
+		user.setOrgBusinessLicense(get(request, "orgBusinessLicense",""));
 		int firstType = getInt(request, "firstType");
 		int secondType = getInt(request, "secondType");
 		String typeName = "";
@@ -344,6 +344,7 @@ public class UserController extends BaseController {
 			dic = dicReader.getDic(DicTypes.DIC_RECRUIT_TYPE.typeID(), firstType);
 			typeName = dic.getCascadeName();
 		}
+		user.setPerJob(String.valueOf(UserHelper.getPreJob(firstType,secondType )));
 		user.setFirstType(firstType);
 		user.setSecondType(secondType);
 		user.setTypeName(typeName);
