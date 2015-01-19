@@ -392,8 +392,7 @@ public class UserManager {
 		for(User user : list){
 			if(user!=null){
 				if(user.getPerJob() != null && !"".equals(user.getPerJob())){
-					int perJob = Integer.valueOf(user.getPerJob());//ְҵ
-					Dictionary dic = dicReader.getDic(DicTypes.DIC_JOB_TYPE.typeID(), perJob);
+					Dictionary dic = dicReader.getDic(DicTypes.DIC_RECRUIT_TYPE.typeID(), user.getSecondType());
 					user.setPerJobName(dic.getName());
 				}
 				users.add(user);

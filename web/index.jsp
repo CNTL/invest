@@ -77,8 +77,8 @@
 				  if(json.userRecruitItems!=null&&json.userRecruitItems.length>0){
 					  sb.push(formatUserRecruit(json.userRecruitItems));
 				  }
-				  if(json.userItems!=null&&json.userItems.length>0){
-					 sb.push(formatUser(json.userItems));
+				  if(json.userItem!=null&&json.userItem.length>0){
+					 sb.push(formatUser(json.userItem));	
 				  }
 				  var items = $(sb.join(""));
 				  $('#container').empty();
