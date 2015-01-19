@@ -23,7 +23,7 @@ var photoGroup = {
     		var id = item.id;
     		var photo = item.groupPhoto;
     		if(photo == null || photo.length == 0)
-    			photo = "user/photo/img/framels_hover.jpg";
+    			photo = "user\photo\img\framels_hover.jpg";
     		//添加图片的缩略图
     		//$("#photos").append($("<div><a href='#'><img onclick='photoGroup.clickThumb("+id+")' name='photoList' id='" + id + "' src='"+rootPath+photo+"'></a></div>"));
     		var prefix = '<div class="box" style="width:220px;">';
@@ -33,11 +33,11 @@ var photoGroup = {
     			suffix = '<div class="clear"></div>';
     		}
     		var html = prefix +
-				            '<div class="people" style="border: 1px #858585 solid;">' +
+				            '<div class="people" style="border: 1px #D6D6D6 solid;">' +
 				                '<div class="pic" style="width:100%;">' +
 				                    '<a href="#"><img onclick="photoGroup.clickThumb('+id+')" name="photoList" id="' + id + '" src="'+rootPath+photo+'"></a>' +
 				                '</div>' +
-				                '<div class="title">' +
+				                '<div class="title" style="text-align:center;">' +
 				                    '<a href="#" style="text-decoration:none;" onclick="photoGroup.clickThumb('+id+')">'+item.groupName+'</a>' +
 				                '</div>' +
 				             '</div>' +
