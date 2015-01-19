@@ -44,7 +44,7 @@
 					    </div>
 					    <div class="input">
 					        <label for="identityCard">短信验证码：</label>
-					        <input class="form-control validate[required]" type="text" id="perPhoneCode" name="perPhoneCode" style="width:200px" />
+					        <input class="form-control" type="text" id="perPhoneCode" name="perPhoneCode" style="width:200px" />
 					        <input type="hidden" id="perPhoneCodeCur" name="perPhoneCodeCur"/>
 					    </div>
 					    <div class="input" style="display:none;">

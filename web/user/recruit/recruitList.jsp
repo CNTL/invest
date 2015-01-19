@@ -3,10 +3,7 @@
 <!doctype html>
 <html>
 <head>
-<title><c:out value="${title}"/></title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="keywords" content="<c:out value="${keywords}"/>" />
-<meta name="description" content="<c:out value="${description}"/>" />
+<%@include file="../../inc/meta.inc"%>
 <%@include file="../inc/csslink.inc"%>
 <style>
 	a {text-transform:none;text-decoration:none;} 
@@ -18,8 +15,9 @@
   </style>
 </head>
 <body>
+<div id="body-container" style="min-width:980px;">
 <%@include file="../../inc/header.inc"%>
-<div class="banner">
+<div class="banner hidden-xs">
     <img src="../static/image/banner1.png" />
 </div>
 <div style="display:none;">
@@ -28,7 +26,7 @@
 </div>
 <div class="job_list">
     <div class="sider">
-    <c:forEach var="type" varStatus="status" items="${types}">
+    <c:forEach var="type" varStatus="status" items="${types}" >
     	<div class="cate">
 	    	<h2>
 	    	<a href="../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=0&key=${type.name}&more=${more}">
@@ -36,7 +34,7 @@
 	    	</a>
 	    	</h2>
 		    <ul>
-		    <c:forEach var="subType" varStatus="status" items="${type.subDics}">
+		    <c:forEach var="subType" varStatus="status" items="${type.subDics}" begin="0" end="9" step="1">
 		    	<li>
 		    	<a href="../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=0&key=${subType.name}&more=${more}">
 		    		<c:out value="${subType.name}"/>
@@ -206,12 +204,12 @@
                         <div class="info">
                             <ul>
                                 <li><c:out value="${msg.salary}"/></li>
-                                <li><c:out value="${msg.address}"/></li>
-                                <li><c:out value="${msg.days}"/></li>
+                                <li><c:out value="${msg.city}"/></li>
+                                <li><c:out value="${msg.days}"/>天</li>
                             </ul>
                         </div>
                         <div class="desc">
-                            <span><c:out value="${msg.jobAttract}"/></span><br />
+                            <span>职位诱惑：<c:out value="${msg.jobAttract}"/></span><br />
                            	 发布时间：<c:out value="${msg.createtime}"/><br />
                             	已投递简历人数：<c:out value="${msg.resumeNum}"/>人
                         </div>
@@ -268,5 +266,6 @@
 <script type="text/javascript" src="../static/js/jquery-migrate-1.1.1.js"></script>
 <script type="text/javascript" src="../static/js/jQselect.js"></script>
 <script src = "../user/recruit/script/recruitList.js"></script>
+</div>
 </body>
 </html>

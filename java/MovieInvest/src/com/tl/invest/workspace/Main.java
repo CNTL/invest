@@ -13,6 +13,9 @@ import com.tl.invest.user.recruit.RecruitManager;
 import com.tl.invest.user.recruit.UserRecruit;
 import com.tl.invest.user.user.User;
 import com.tl.invest.user.user.UserManager;
+import com.tl.kernel.context.Context;
+import com.tl.kernel.sys.dic.Dictionary;
+import com.tl.kernel.sys.dic.DictionaryReader;
 
 public class Main extends Entry {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -43,6 +46,14 @@ public class Main extends Entry {
 		UserRecruit[] userRecruit=null;
 		try {
 			userRecruit = recruitManager.queryRecruits(0, 4);
+			for (int i = 0; i < userRecruit.length; i++) {
+				User user = userManager.getUserByID(userRecruit[i].getUserId());
+				userRecruit[i].setCompany(user.getOrgFullname());
+				DictionaryReader reader = (DictionaryReader)Context.getBean("DictionaryReader");
+				Dictionary dictionary = reader.getDic(4,Integer.parseInt(user.getCity(), 10) );
+				userRecruit[i].setCity(dictionary.getName());
+			}
+			
 			model.put("userRecruit", userRecruit);
 		} catch (Exception e) {
 			 

@@ -2,6 +2,7 @@ package com.tl.invest.user.user;
 
 // Generated Nov 17, 2014 3:11:25 PM by Hibernate Tools 3.4.0.CR1
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -45,6 +46,20 @@ public class User {
 	private String orgScale;
 	private String orgHomePage;
 	private int deleted;
+	private int gender;
+	private Date birthdate;
+	private Integer firstType;
+	private Integer secondType;
+	private String typeName;
+	private Integer perOrder;
+	public Integer getPerOrder() {
+		return perOrder;
+	}
+
+	public void setPerOrder(Integer order) {
+		this.perOrder = order;
+	}
+
 	public int getDeleted() {
 		return deleted;
 	}
@@ -364,5 +379,45 @@ public class User {
 
 	public void setBankcards(List<UserBankcard> bankcards) {
 		this.bankcards = bankcards;
+	}
+
+	public int getGender() {
+		return gender;
+	}
+
+	public void setGender(int gender) {
+		this.gender = gender;
+	}
+
+	public Date getBirthdate() {
+		return birthdate;
+	}
+
+	public void setBirthdate(Date birthdate) {
+		this.birthdate = birthdate;
+	}
+
+	public Integer getFirstType() {
+		return firstType;
+	}
+
+	public void setFirstType(Integer firstType) {
+		this.firstType = firstType;
+	}
+
+	public Integer getSecondType() {
+		return secondType;
+	}
+
+	public void setSecondType(Integer secondType) {
+		this.secondType = secondType;
+	}
+
+	public String getTypeName() {
+		return typeName;
+	}
+
+	public void setTypeName(String typeName) {
+		this.typeName = typeName;
 	}
 }

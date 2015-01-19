@@ -22,8 +22,9 @@
 	</script>
 </head>
 <body>
+<div id="body-container" style="min-width:980px;">
 	<%@include file="../inc/header.inc"%>
-	<div class="banner">
+	<div class="banner hidden-xs">
         <img src="../static/image/banner2.png" />
     </div>
 	<div class="project_list">
@@ -261,5 +262,6 @@
 		
     </div>
 	<%@include file="../inc/footer.inc"%>	
+	</div>
 </body>
 </html>

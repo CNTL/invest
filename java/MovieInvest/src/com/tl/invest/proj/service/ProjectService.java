@@ -459,11 +459,11 @@ public class ProjectService {
 	public ProjectExt[] getProjectExts(int pageSize,int page,String where,DBSession db) throws TLException{
 		String sql = "select invest_project.*,sys_dictionary.dic_name typeName,`user`.`perNickName` userName from invest_project left JOIN sys_dictionary on sys_dictionary.dic_id=invest_project.proj_type";
 			sql += " left JOIN `user` on `user`.id=invest_project.proj_userID";
-			sql += " where invest_project.proj_deleted=0";
+			sql += " where invest_project.proj_deleted=0 and invest_project.proj_order>0";
 		if(!StringUtils.isEmpty(where)){
 			sql += " and " + where;
 		}
-		sql += " order by proj_order,proj_id desc";
+		sql += " order by proj_order asc";
 		Object[] params = new Object[]{};
 		return getProjectExts(sql, params, pageSize, page, db);
 	}

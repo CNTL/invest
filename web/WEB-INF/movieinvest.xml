@@ -305,6 +305,8 @@
 		<property name="projectService"><ref bean="project.Service" /></property>
 		<property name="userManager"><ref bean="UserManager"/></property>
 		<property name="recruitManager"><ref bean="RecruitManager"/></property>
+		<property name="noticeManager"><ref bean="invest.NoticeManager"/></property>
+		
 	</bean>
 
 	

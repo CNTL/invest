@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONObject;
 
 import com.tl.common.Message;
+import com.tl.common.StringUtils;
 import com.tl.invest.constant.DicTypes;
 import com.tl.invest.workspace.Entry;
 import com.tl.kernel.context.Context;
@@ -29,8 +30,10 @@ public class PeopleMainController extends Entry {
 			javax.servlet.http.HttpServletResponse response, Map model)
 			throws Exception {
 		String action = request.getParameter("a");
-		if("queryPersons".equals(action)){//获取招聘详细信息
+		if("queryPersons".equals(action)){//更多影人信息
 			queryPersons(request, response, model);
+		} else if ("queryMorePersons".equals(action)) {
+			queryMorePersons(request, response, model);
 		} else if ("getPersons".equals(action)) {
 			getPersons(request, response, model);
 		}
@@ -113,6 +116,38 @@ public class PeopleMainController extends Entry {
 				model.put("perType", type);
 				model.put("perName", dic.getName());
 			}
+			model.put("msg", msg);
+		}
+		model.put("type", type);
+	}
+	
+	private void queryMorePersons(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception{
+		DictionaryReader dicReader = (DictionaryReader) Context.getBean(DictionaryReader.class);
+		int type = getInt(request, "type", 0);
+		String typeName = get(request, "typeName");
+		Dictionary typeDic = dicReader.getDic(DicTypes.DIC_JOB_TYPE.typeID(), type);
+		if(typeDic == null) return;
+		if(type == typeDic.getId()){
+			model.put("perType", type);
+			model.put("perName", typeDic.getName());
+			
+			String perName = typeDic.getName();
+			List<String> personTypeList = UserHelper.personTypeList(perName);
+			model.put("typeNames", personTypeList);
+		}
+		if (StringUtils.isEmpty(typeName)) {
+			int curPage = getInt(request, "curPage", 1);
+			Message msg = userManager.queryPersons(type, curPage, 20);
+			model.put("msg", msg);
+		} else {
+			int curPage = getInt(request, "curPage", 1);
+			Dictionary pesonTypeDic = dicReader.getDicByName(DicTypes.DIC_RECRUIT_TYPE.typeID(), typeName);
+			if(pesonTypeDic == null) return;
+			
+			int secondType = pesonTypeDic.getId();
+			model.put("typeName", pesonTypeDic.getName());
+			Message msg = userManager.queryMorePersons(secondType, curPage, 20);
+			
 			model.put("msg", msg);
 		}
 		model.put("type", type);

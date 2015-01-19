@@ -127,5 +127,14 @@
             <column name="typeName" length="500">
             </column>
         </property>
+         <property name="deleted" type="java.lang.Integer">
+            <column name="deleted">
+            </column>
+        </property>
+          <property name="jobOrder" type="java.lang.Integer">
+            <column name="jobOrder">
+            </column>
+        </property>
+        
     </class>
 </hibernate-mapping>

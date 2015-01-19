@@ -25,6 +25,8 @@ var complete = {
 	    			$("#perNickName").val(data.perNickName);
 	    			$("#perPostAddr").val(data.perPostAddr);
 	    			$("#perPostCode").val(data.perPostCode);
+	    			$("#gender").val(data.gender);
+	    			$("#birthdate").val(data.birthdate);
 	    			$("#intro").val(data.intro);
 	    		}
 	        } ,

@@ -41,7 +41,7 @@ public class RecruitManager {
 	public int getCount(){
 		String tablename = SysTableLibs.TB_USERRECRUIT.getTableCode();
 		int count = 0;
-		StringBuilder querySql = new StringBuilder("select count(1) as length from ").append(tablename);
+		StringBuilder querySql = new StringBuilder("select count(1) as length from ").append(tablename).append(" where "+tablename+".deleted=0 ");
 		DBSession dbsession = null;
 		IResultSet rs = null;
 		try {
@@ -58,8 +58,8 @@ public class RecruitManager {
 		return count;
 	}
 	public UserRecruit[] queryRecruits(int start, int length) throws Exception{
-		StringBuilder querySql = new StringBuilder("select a from com.tl.invest.user.recruit.UserRecruit as a");
-		querySql.append(" order by a.createtime desc");
+		StringBuilder querySql = new StringBuilder("select a from com.tl.invest.user.recruit.UserRecruit as a where a.jobOrder>0 and deleted=0 ");
+		querySql.append(" order by a.jobOrder asc");
 		List<UserRecruit> list = DAOHelper.find(querySql.toString() , start, length);
 		if(list == null || list.size() == 0) return null;
 		return list.toArray(new UserRecruit[0]);
@@ -77,7 +77,7 @@ public class RecruitManager {
 	* @throws Exception 
 	*/ 
 	public Message queryRecruits(int curPage, int length, String recruitType, String queryType, Integer userId) throws Exception{
-		StringBuilder querySql = new StringBuilder("select a from com.tl.invest.user.recruit.UserRecruit as a");
+		StringBuilder querySql = new StringBuilder("select a from com.tl.invest.user.recruit.UserRecruit as a where deleted=0 ");
 		String countSql = "";
 		if("edit".equals(recruitType) && userId > 0){//管理我的职位，则增加当前用户查询条件
 			querySql.append(" where a.userId=").append(userId);
@@ -196,7 +196,7 @@ public class RecruitManager {
 	 * @param ID
 	 */
 	public UserRecruit getRecruitByID(int id) throws Exception{
-		List list = DAOHelper.find("select a from com.tl.invest.user.recruit.UserRecruit as a where a.id = :id", 
+		List list = DAOHelper.find("select a from com.tl.invest.user.recruit.UserRecruit as a where a.id = :id and deleted=0", 
         		new Integer(id), Hibernate.INTEGER);
         if(list.size() > 0)
             return (UserRecruit) list.get(0);
@@ -401,9 +401,15 @@ public class RecruitManager {
 			recruit.setJobAttract(rs.getString("jobAttract"));
 			recruit.setJobIntro(rs.getString("jobIntro"));
 			recruit.setCreatetime(rs.getTimestamp("createtime"));
+			recruit.setJobOrder(rs.getInt("jobOrder"));
+			recruit.setDeleted(rs.getInt("deleted"));
+			recruit.setDays(rs.getString("days"));
+			
 			User user = userManager.getUserByID(recruit.getUserId());
 			recruit.setCompany(user.getOrgFullname());
-			recruit.setCity(user.getCity());
+			DictionaryReader reader = (DictionaryReader)Context.getBean("DictionaryReader");
+			Dictionary dictionary = reader.getDic(4,Integer.parseInt(user.getCity(), 10) );
+			recruit.setCity(dictionary.getName());
 			recruit.setTime(DateUtils.format(recruit.getCreatetime(), "yyyy-MM-dd hh:mm:ss"));
 			return recruit;
 		} catch (Exception e) {

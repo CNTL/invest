@@ -1,10 +1,10 @@
 <%@ include file="./include/Include.jsp"%>
 <%@page pageEncoding="UTF-8"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!doctype html>
+<html>
 <head>
     <%@include file="./inc/meta.inc"%>
-    <link rel="stylesheet" type="text/css" href="css/animate.min.css" />
+    <link rel="stylesheet" type="text/css" href="<c:out value="${rootPath}"/>css/animate.min.css" />
 	<script type="text/javascript" src="static/js/idangerous.swiper.min.js"></script>
 	<script type="text/javascript" src="js/utils.js"></script>
 	<script type="text/javascript" src="js/share.js"></script>
@@ -16,7 +16,7 @@
 		$(function () {
 			setCookie("loginCurrentUrl", window.location.href);
 			setCookie("loginCurrentMenu", "1");
-            var mySwiper = new Swiper('.swiper', {
+			var mySwiper = new Swiper('.swiper', {
                 pagination: '.pagination',
                 loop: true,
                 wrapperClass: 'wrapper',
@@ -35,12 +35,16 @@
             
             waterpull();
             
+            
             $("#btn-more").click(function(){
             	getItem();
+            	$("#btn-more").hide();
             	
             });
+			
+          
         });
-	
+		
 		function waterpull(){
 			
 			 $('#container').masonry({
@@ -62,13 +66,13 @@
 		}
 		
 		function getItem(){
-			pageIndex = pageIndex+1;
+			//pageIndex = pageIndex+1;
 			$.getJSON("MainList.do?action=getIndexItems&pageIndex="+pageIndex, function(json){
 				  var sb = [];
 				  if(json==null){ return ;}
 				  
 				  if(json.projectItems!=null && json.projectItems.length>0){
-					  sb.push(formatProject(json.projectItems));
+					  sb.push(formatProject(json,json.projectItems));
 				  }
 				  if(json.userRecruitItems!=null&&json.userRecruitItems.length>0){
 					  sb.push(formatUserRecruit(json.userRecruitItems));
@@ -77,7 +81,10 @@
 					 sb.push(formatUser(json.userItems));
 				  }
 				  var items = $(sb.join(""));
-				  $('#container').append(items).masonry('appended',items);
+				  $('#container').empty();
+				  $('#container').masonry( 'destroy' );
+				  $('#container').append(items);//.masonry('appended',items);
+				  waterpull();
 				  //shareInfo();
 				  $.getScript('http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)+Math.round(new Date().getTime()/1000),function(){
 						//newFun('"Checking new script"');//这个函数是在new.js里面的，当点击click后运行这个函数
@@ -88,9 +95,14 @@
 			
 			
 		}
-		function formatProject(items){
+		function formatProject(json,items){
 			var sb =[];
 			$.each(items,function(i,n){
+				//动态将通知插入第三位
+				if(i==3){
+					sb.push(formatNotice(json.notices));
+				}
+				
 				var status = "未知";
 				if(n.status==0){
 					status = "未开始";
@@ -168,7 +180,7 @@
 				sb.push("                </ul>");
 				sb.push("            </div>");
 				sb.push("            <div class=\"desc\">");
-				sb.push("                <span>"+n.jobIntro+"</span><br />");
+				sb.push("                <span>职位诱惑："+n.jobAttract+"</span><br />");
 				sb.push("                发布时间："+n.createtime+"<br /> 已投递简历人数："+n.resumeNum+"人");
 				sb.push("            </div>");
 				sb.push("        </div>");
@@ -212,15 +224,41 @@
 			
 			return sb.join('');
 		}
+		function formatNotice(items){
+			var sb =[];
+			$.each(items,function(i,n){
+				sb.push("<div class=\"box\">");
+				sb.push("			<div class=\"box_top\"></div>");
+				sb.push("			<div class=\"box_main\">");
+				sb.push("				<div class=\"notice\">");
+				sb.push("					<h2>最新通知</h2>");
+				sb.push("					<div class=\"content\">");
+				sb.push("						");
+				sb.push("						<h3><span class=\"i\"></span>"+n.title+"</h3>");
+				sb.push("						<p style=\"border-bottom:1px dashed #FCB988;height:4px;width:98%;\">&nbsp;</p>");
+				sb.push("						<p>"+n.content+"</p>");
+				sb.push("					</div>");
+				sb.push("					<div class=\"more\">");
+				sb.push("						<a href=\"notice/List.do\">查看更多</a>");
+				sb.push("					</div>");
+				sb.push("				</div>");
+				sb.push("			</div>");
+				sb.push("			<div class=\"box_bottom\"></div>");
+				sb.push("		</div>");
+			});
+			
+			return sb.join('');
+		}
 	</script>
 	<style type="text/css">
 		.container .cell{margin-right:0px;}
 	</style>
 </head>
 <body>
+<div id="body-container" style="min-width:980px;">
 	<%@include file="./inc/header.inc"%>
 	
-	<div class="scroll">
+	<div class="scroll hidden-xs">
         <a class="left" href="#"></a>
         <a class="right" href="#"></a>
         <div class="swiper">
@@ -375,7 +413,7 @@
 						</ul>
 					</div>
 					<div class="desc">
-						<span><c:out value="${recuit.jobIntro}"/></span><br />
+					 <span>职位诱惑：<c:out value="${recuit.jobAttract}"/></span><br />
 						发布时间：<c:out value="${recuit.createtime}"/><br /> 已投递简历人数：<c:out value="${recuit.resumeNum}"/>人
 					</div>
 				</div>
@@ -411,5 +449,6 @@
 	<div class="more text-center"><button id="btn-more" class="btn btn-info btn-sm">点击更多</button></div>
 	<p>&nbsp;</p>
 	<%@include file="../inc/footer.inc"%>
+</div>
 </body>
 </html>

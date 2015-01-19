@@ -8,6 +8,26 @@
 	<meta name="keywords" content="<c:out value="${keywords}"/>" />
 	<meta name="description" content="<c:out value="${description}"/>" />
 	<%@include file="../inc/csslink.inc"%>
+	<style>
+	  	.nav li{width:80px;
+			floag:left;
+			list-style:none;
+			display:inline;
+			font:16px "微软雅黑","宋体",Arial;
+			color:#333;
+		}
+		.nav a {text-transform:none;text-decoration:none;} 
+		.nav a:hover{
+			background:#019875;
+			color:white;
+			cursor:pointer;
+		}
+		.current{
+			background:#019875;
+			color:white;
+			cursor:pointer;
+		} 
+	</style>
     <script type="text/javascript" src="../static/js/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="../static/js/idangerous.swiper.min.js"></script>
     <script type="text/javascript" src="../static/js/common.js"></script>
@@ -21,9 +41,29 @@
 
     <div class="project_list">
         <div class="block1">
-            <div class="top">
+        	<%-- <div class="top">
                 <h2><c:out value="${perName}"/></h2>
-            </div>
+            </div> --%>
+        	<div>
+				<dt>
+					<ul class="nav">
+						<c:forEach var="name" varStatus="status" items="${typeNames}">
+							<li>
+							<c:choose>
+								<c:when test="${name==typeName}">
+								<a class="current" href="../user/PeopleMoreMain.do?a=queryMorePersons&mainType=4&type=<c:out value="${perType}"/>&typeName=<c:out value="${name}"/>"><c:out value="${name}"/></a>
+								</c:when>
+								<c:otherwise>
+								<a href="../user/PeopleMoreMain.do?a=queryMorePersons&mainType=4&type=<c:out value="${perType}"/>&typeName=<c:out value="${name}"/>"><c:out value="${name}"/></a>
+								</c:otherwise>
+							</c:choose>
+							</li>
+							|
+						</c:forEach>
+					</ul>
+				</dt>
+			</div>
+			<br>
             <c:forEach var="person" varStatus="status" items="${msg.messages}">
 				<c:choose>
 					<c:when test="${status.index%4==0}"><div class="box box_last"></c:when>

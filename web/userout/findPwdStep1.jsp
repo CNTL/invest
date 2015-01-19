@@ -14,7 +14,7 @@
 	<div class="login">
     	<input type="hidden" id="resubmitToken" value="" />
      	<div class="form" style="margin-left:200px;">
-        	<img src="./img/psw_step1.png" width="369" height="56" alt="找回密码第一步" />
+        	<img src="../userout/img/psw_step1.png" width="369" height="56" alt="找回密码第一步" />
         	<br><br>
             <form id="form" name="form" action="../user/user.do?a=findPwd" method="post">
            		<div class="input" style="margin-left:40px;">

@@ -13,11 +13,15 @@ import com.qq.connect.oauth.Oauth;
 import com.tl.common.DateUtils;
 import com.tl.common.ParamInitUtils;
 import com.tl.common.RandomValidateCode;
-import com.tl.common.VerifyCaptchaHelper;
 import com.tl.common.WebUtil;
 import com.tl.invest.user.email.EMailSenderHelper;
 import com.tl.invest.user.email.EmailSender;
 import com.tl.invest.user.email.SimpleMailSender;
+import com.tl.invest.user.photo.PhotoManager;
+import com.tl.invest.user.photo.UserPhoto;
+import com.tl.invest.user.photo.UserPhotogroup;
+import com.tl.invest.user.video.UserVideoManager;
+import com.tl.invest.user.video.UserVideogroup;
 import com.tl.kernel.context.Context;
 import com.tl.kernel.web.BaseController;
 import com.tl.kernel.web.SysSessionUser;
@@ -61,8 +65,10 @@ public class UserLoginController extends BaseController
 			sinaWeibo(request, response);
 		} else if("findPwd".equals(action)){//找回密码（第一步，输入邮箱时按照注册邮箱跳转到）
 			findPwd(request, response, model);
-		} else if("resetPwd".equals(action)){//找回密码（第一步，输入邮箱时按照注册邮箱跳转到）
+		} else if("resetPwd".equals(action)){//找回密码（第三步，重置密码页面）
 			resetPwd(request, response, model);
+		} else if("updatePwd".equals(action)){//找回密码（重置密码保存）
+			updatePwd(request, response, model);
 		} else {
 			response.setContentType("text/xml; charset=UTF-8");
 			PrintWriter out = response.getWriter();
@@ -92,15 +98,69 @@ public class UserLoginController extends BaseController
 		user.setPerNickName(ParamInitUtils.getString(request.getParameter("code")));
 		user.setEmail(ParamInitUtils.getString(request.getParameter("email")));
 		//user.setType(ParamInitUtils.getString(request.getParameter("type")));
-		user.setType(ParamInitUtils.getInt(request.getParameter("type")));
+		int type = ParamInitUtils.getInt(request.getParameter("type"));
+		user.setType(type);
 		user.setPassword(ParamInitUtils.getString(request.getParameter("password")));
 		user.setCreateTime(DateUtils.getTimestamp());
 		user.setIsRealNameIdent(0);//未认证
 		UserManager userManager = (UserManager) Context.getBean(UserManager.class);
 		String result = userManager.create(user);
+		savePhotoGroup(user, type, request, response);
+		saveVideoGroup(user, type, request, response);
 		return result;
 	}
-	
+	/** 
+	* @author  leijj 
+	* 功能： 保存图册信息
+	* @param request
+	* @param response
+	* @param model
+	* @throws Exception 
+	*/ 
+	private void savePhotoGroup(User user, int type, HttpServletRequest request, HttpServletResponse response) throws Exception{
+		UserPhotogroup photogroup = new UserPhotogroup();
+		
+		photogroup.setUserId(user.getId());
+		photogroup.setUserName(user.getName());
+		photogroup.setGroupPhoto("user\\photo\\img\\framels_hover.jpg");
+		photogroup.setCreateTime(DateUtils.getTimestamp());
+		if(type == 0){//个人
+			photogroup.setGroupName("生活照");
+			photoManager.savePhotoGroup(photogroup);
+			savePhoto(user, photogroup, request, response);
+			
+			photogroup.setId(0);
+			photogroup.setGroupName("剧照");
+			photoManager.savePhotoGroup(photogroup);
+			savePhoto(user, photogroup, request, response);
+		} else if(type == 1){//机构
+			photogroup.setGroupName("默认");
+			photoManager.savePhotoGroup(photogroup);
+			savePhoto(user, photogroup, request, response);
+		}
+	}
+	private void savePhoto(User user, UserPhotogroup photogroup, HttpServletRequest request, HttpServletResponse response) throws Exception{
+		UserPhoto photo = new UserPhoto();
+		
+		photo.setUserId(user.getId());
+		photo.setUserName(user.getName());
+		photo.setGroupId(photogroup.getId());
+		photo.setGroupName(photogroup.getGroupName());
+		photo.setPhotoName("默认");
+		photo.setPhoto("user\\photo\\img\\framels_hover.jpg");
+		photo.setCreateTime(DateUtils.getTimestamp());
+		photoManager.savePhoto(photo);
+	}
+	private void saveVideoGroup(User user, int type , HttpServletRequest request, HttpServletResponse response) throws Exception{
+		UserVideogroup videogroup = new UserVideogroup();
+		
+		videogroup.setUserId(user.getId());
+		videogroup.setUserName(user.getName());
+		videogroup.setGroupPhoto("user\\photo\\img\\framels_hover.jpg");
+		videogroup.setCreateTime(DateUtils.getTimestamp());
+		videogroup.setGroupName("默认");
+		userVideoManager.saveVideoGroup(videogroup);
+	}
 	/** 
 	* @author  leijj 
 	* 功能： 与新账号关联
@@ -257,7 +317,7 @@ public class UserLoginController extends BaseController
 			output("{\"error\":\"您输入的邮箱地址未注册！\"}", response);
 		} else {//已注册
 			//1.忘注册邮箱发送邮件
-			sendEmail(user);
+			sendEmail(request, user);
 			//2.跳转至找回密码步骤2
 			model.put("email", email);
 			Map<String, String> result = new HashMap<String, String>();
@@ -275,10 +335,11 @@ public class UserLoginController extends BaseController
 	* 功能： 发送找回密码邮件
 	* @param email 
 	*/ 
-	private void sendEmail(User user){
+	private void sendEmail(HttpServletRequest request, User user){
 		StringBuilder emailHtml =  new StringBuilder("");
-		emailHtml.append("<a href=\"../../user/userlogin.do?a=resetPwd&id=")
-			.append(user.getId()).append("\">").append("此链接重置密码").append("</a>");
+		emailHtml.append("<a href=\"").append(WebUtil.getRoot(request))
+			.append("user/userlogin.do?a=resetPwd&id=")
+			.append(user.getId()).append("\">").append("请点击此链接重置合众映画登陆密码").append("</a>");
 		EmailSender emailSender = EMailSenderHelper.getEmailSender();//邮件发送服务器信息先组装好
 		emailSender.setSubject("合众映画——找回密码");//邮件标题   
 		emailSender.setContent(emailHtml.toString()); //邮件内容
@@ -295,9 +356,16 @@ public class UserLoginController extends BaseController
 		//JSONObject jsonArray = JSONObject.fromObject(user);
 		//output(jsonArray.toString(), response);
 		model.put("user", user);
-		model.put("@VIEWNAME@", WebUtil.getRoot(request) + "user/noSession/findPwdStep3.jsp");
+		model.put("@VIEWNAME@", "userout/findPwdStep3");
 	}
-	
+	private void updatePwd(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception {
+		int id = ParamInitUtils.getInt(request.getParameter("id"));
+		if(id == 0) return;
+		User user = manager.getUserByID(id);
+		user.setPassword(ParamInitUtils.getString(request.getParameter("newpwd")));
+		manager.update(user);
+		output(String.valueOf(user.getId()), response);
+	}
 	private void putRedirectURL(HttpServletRequest request){
 		String redirectURL = request.getParameter("redirectURL");
 		//放入session中，以便登录成功后，可以跳转到主页或者是其他页面
@@ -305,4 +373,6 @@ public class UserLoginController extends BaseController
 		String state = request.getParameter("state");
 		request.getSession().setAttribute("state", state);
 	}
+	private PhotoManager photoManager = (PhotoManager)Context.getBean(PhotoManager.class);
+	private UserVideoManager userVideoManager = (UserVideoManager)Context.getBean(UserVideoManager.class);
 }

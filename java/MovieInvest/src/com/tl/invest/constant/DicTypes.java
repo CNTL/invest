@@ -10,6 +10,8 @@ public enum DicTypes {
 	DIC_INVEST_TYPE("众筹类型"),
 	DIC_INVEST_STAGE("项目进度"),
 	DIC_RECRUIT_TYPE("影聘分类"),
+	DIC_RECRUIT_HOT_TYPE("影聘热门城市"),
+	DIC_PERSON_TYPE("影人分类"),
 	DIC_JOB_TYPE("职业"),
 	DIC_AREA("地域");
 	

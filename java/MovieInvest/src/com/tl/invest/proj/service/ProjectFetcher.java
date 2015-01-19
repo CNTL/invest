@@ -1,5 +1,7 @@
 package com.tl.invest.proj.service;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -7,8 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
 
+import com.tl.common.DateJsonValueProcessor;
 import com.tl.common.DateUtils;
+import com.tl.common.JsonDateValueProcessor;
 import com.tl.common.WebUtil;
 import com.tl.invest.constant.DicTypes;
 import com.tl.invest.favorite.Favorite;
@@ -103,6 +108,67 @@ public class ProjectFetcher extends BaseController{
 				service.updateFavoriteCount(proj_id);
 			}
 			output("{\"success\":true}", response);
+		}else if("delProject".equals(action)){
+			delProject(request,response);
+		}
+		else if("sortProject".equals(action)){
+			sortProject(request,response);
+		}
+		else if("getProject".equals(action)){
+			getProject(request,response);
+		}
+	}
+	
+	/**删除项目
+	 * @param request
+	 * @param response
+	 * @throws Exception
+	 */
+	private void delProject(HttpServletRequest request,HttpServletResponse response)throws Exception{
+		try {
+			int id = getInt(request, "id",0);
+			service.delete(id);
+			output("ok", response);
+		} catch (Exception e) {
+			 output("error", response);
+		}
+	}
+	
+	/**删除项目
+	 * @param request
+	 * @param response
+	 * @throws Exception
+	 */
+	private void getProject(HttpServletRequest request,HttpServletResponse response)throws Exception{
+		try {
+			int id = getInt(request, "id",0);
+			Project project = service.get(id);
+			JsonConfig jsonConfig = new JsonConfig();
+			jsonConfig.registerJsonValueProcessor(Timestamp.class,new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
+			jsonConfig.registerJsonValueProcessor(Date.class, new JsonDateValueProcessor());
+			String outpuString = JSONObject.fromObject(project, jsonConfig).toString();
+			output(outpuString, response);
+		} catch (Exception e) {
+			 output("error", response);
+		}
+	}
+	
+	
+	/**设置首页排序
+	 * @param request
+	 * @param response
+	 * @throws Exception
+	 */
+	private void sortProject(HttpServletRequest request,HttpServletResponse response)throws Exception{
+		try {
+			int id = getInt(request, "id",0);
+			int order = getInt(request, "order",0);
+			Project project = service.get(id);
+			project.setOrder(order);
+			service.save(project);
+			output("ok", response);
+		} catch (Exception e) {
+			 output("error", response);
 		}
 	}
 	

@@ -1,6 +1,6 @@
 ﻿<div class="footer">
 	<div class="wrap">
-		<div class="info">
+		<div class="info hidden-xs">
 			<ul>
 				<li><h2>发起项目</h2></li>
 				<li><a href="#">微电影</a></li>

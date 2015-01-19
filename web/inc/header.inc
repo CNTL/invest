@@ -10,7 +10,7 @@
 			</c:forEach>
 		</ul>
 	</div>
-	<div class="mini_search">
+	<div class="mini_search hidden-xs">
 		<input type="text" id="k" name="k" class="text" value="搜索影片名称" />
 		<input type="button" class="btn" value="" />
 		

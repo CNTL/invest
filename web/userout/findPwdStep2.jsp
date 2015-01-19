@@ -15,7 +15,7 @@
 	<div class="login">
     	<input type="hidden" id="resubmitToken" value="" />
         <div class="form" style="margin-left:200px;">
-        	<img src="./img/psw_step2.png" width="369" height="56" alt="找回密码第二步" />
+        	<img src="../userout/img/psw_step2.png" width="369" height="56" alt="找回密码第二步" />
         	<br><br>
            	<div class="input" style="margin-left:-100px;">
             	<span>密码重置邮件已发送至你的邮箱：<a>${param.email == null ? "" : param.email }</a></span>

@@ -384,7 +384,7 @@ public class UserManager {
 	* @throws Exception 
 	*/ 
 	public User[] getPersons(int start, int length) throws Exception{
-		StringBuilder querySql = new StringBuilder("select a from com.tl.invest.user.user.User as a where a.type = 0 order by a.createTime desc");
+		StringBuilder querySql = new StringBuilder("select a from com.tl.invest.user.user.User as a where a.type = 0 and a.perOrder>0 and a.deleted=0 order by a.perOrder asc");
 		List<User> list = DAOHelper.find(querySql.toString() , start, length);
 		if(list == null || list.size() == 0) return null;
 		DictionaryReader dicReader = (DictionaryReader) Context.getBean(DictionaryReader.class);
@@ -411,7 +411,7 @@ public class UserManager {
 	* @throws Exception 
 	*/ 
 	public Message queryPersons(int perJob, int curPage, int length) throws Exception{
-		StringBuilder querySql = new StringBuilder("select a from com.tl.invest.user.user.User as a where a.type = 0 and a.perJob = "+perJob+" order by a.createTime desc");
+		StringBuilder querySql = new StringBuilder("select a from com.tl.invest.user.user.User as a where a.type = 0 and a.isRealNameIdent=1 and a.perJob = "+perJob+" order by a.createTime desc");
 		List<User> persons = DAOHelper.find(querySql.toString() , length*(curPage-1), length);
 		int total = getPersonsCount(perJob, null);
 		return setMessage(persons, curPage, length, total);
@@ -428,6 +428,27 @@ public class UserManager {
 	public int getPersonsCount(int perJob, DBSession db) throws TLException{
 		String sql = "select count(0) from user where user.type=0 and user.perJob=?";
 		Object[] params = new Object[]{perJob};
+		return getSqlCount(sql,params,db);
+	}
+	
+	public Message queryMorePersons(int personType, int curPage, int length) throws Exception{
+		StringBuilder querySql = new StringBuilder("select a from com.tl.invest.user.user.User as a where a.type = 0 and a.isRealNameIdent=1 and a.secondType = "+
+				personType + " order by a.createTime desc");
+		List<User> persons = DAOHelper.find(querySql.toString() , length*(curPage-1), length);
+		int total = getMorePersonsCount(personType, null);
+		return setMessage(persons, curPage, length, total);
+	}
+	/** 
+	* @author  leijj 
+	* 功能： 根据职业查询相应的个人用户数
+	* @param perJob
+	* @param db
+	* @return
+	* @throws TLException 
+	*/ 
+	public int getMorePersonsCount(int personType, DBSession db) throws TLException{
+		String sql = "select count(0) from user where user.type=0 and user.secondType=?";
+		Object[] params = new Object[]{personType};
 		return getSqlCount(sql,params,db);
 	}
 	/** 
