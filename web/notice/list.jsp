@@ -120,17 +120,17 @@
 			<span class="count" title="总记录数"><c:out value="${noticeCount}"/> 条</span>
 			<c:choose>
 				<c:when test="${page==1}"><a href="javascript:void();" class="prev">上一页</a></c:when>
-				<c:otherwise><a href="Project.do?m=<c:out value="${menu}"/>&page=<c:out value="${page-1}"/>" class="prev">上一页</a></c:otherwise>
+				<c:otherwise><a href="List.do?page=<c:out value="${page-1}"/>" class="prev">上一页</a></c:otherwise>
 			</c:choose>
 			<c:forEach var="x" begin="${pageBegin}" end="${pageEnd}">
 				<c:choose>
 					<c:when test="${page==x}"><a href="javascript:void();" class="current"><c:out value="${x}"/></a></c:when>
-					<c:otherwise><a href="Project.do?m=<c:out value="${menu}"/>&page=<c:out value="${x}"/>"><c:out value="${x}"/></a></c:otherwise>
+					<c:otherwise><a href="List.do?page=<c:out value="${x}"/>"><c:out value="${x}"/></a></c:otherwise>
 				</c:choose>
 			</c:forEach>
 			<c:choose>
 				<c:when test="${page==pageCount}"><a href="javascript:void();" class="prev">下一页</a></c:when>
-				<c:otherwise><a href="Project.do?m=<c:out value="${menu}"/>&page=<c:out value="${page+1}"/>" class="prev">下一页</a></c:otherwise>
+				<c:otherwise><a href="List.do?page=<c:out value="${page+1}"/>" class="prev">下一页</a></c:otherwise>
 			</c:choose>
 		</div>
 	</div>

@@ -17,10 +17,14 @@ $(function () {
 			js : prefixPath+"js/plugin/jquery-validate/js/jquery.validationEngine.js",
 			css : prefixPath+"js/plugin/jquery-validate/css/validationEngine.jquery.css"
 		},
+		tlsearchBox : {
+			js : prefixPath+"admin/script/listpage/tl.searchbox.js",
+			css : prefixPath+"admin/script/listpage/tl.searchbox.css"
+		},
 		tldatagrid : {
 			js : prefixPath+"admin/script/listpage/tl.datagrid.js",
 			css : prefixPath+"js/jquery-easyui/themes/icon.css"
-		},
+		},		
 		tldialog : {
 			js : prefixPath+"admin/script/listpage/tl.dialog.js"
 		},
@@ -29,14 +33,15 @@ $(function () {
 		}
 	};
 	easyloader.modules = $.extend({}, tlModules, easyloader.modules);
-	using(['bootstrap','jqvalidation_cn','jqvalidation','parser', 'layout','messager', 'datagrid','dialog','tldatagrid','tldialog','easyuicolor'], function () {
+	using(['bootstrap','jqvalidation_cn','jqvalidation','parser', 'layout','messager', 'datagrid','dialog','tlsearchBox','tldatagrid','tldialog','easyuicolor'], function () {
 		//alert("Finish!");
 		$("#easyui-layout").layout();
 		tldatagrid.init("datagrid",options);
 		//$("#searchList").click(search);
 		//$("#toggleSearchAdvList").click(advanceSearch);
-		autoLayoutHeight();
+		//autoLayoutHeight();
 		$(window).resize(reDraw);
+		reDraw();
 		//$("#divQueryCust").resize(reDraw);
 		//initQueryForm();		 
 	});

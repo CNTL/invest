@@ -18,10 +18,11 @@ public class NoticeMainController extends Entry {
 	protected void setOtherData(javax.servlet.http.HttpServletRequest request, 
 			javax.servlet.http.HttpServletResponse response, Map model) throws Exception {
 		int page = getInt(request, "page", 1);
-		Notice[] notices = mgr.getNotices(page, 30);
+		int pageSize = getInt(request, "pagesize", 30);
+		Notice[] notices = mgr.getNotices(page, pageSize);
 		int noticeCount = mgr.getNoticeCount();
-		int pageCount = noticeCount/30;
-		if(noticeCount % 20 >0) pageCount = pageCount + 1;
+		int pageCount = noticeCount/pageSize;
+		if(noticeCount % pageSize >0) pageCount = pageCount + 1;
 		if(pageCount<=0) pageCount = 1;
 		
 		model.put("notices", notices);

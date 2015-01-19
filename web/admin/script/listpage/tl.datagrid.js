@@ -26,9 +26,6 @@ var tldatagrid = {
 	init : function(id,opts){
 		tldatagrid.id = id;
 		tldatagrid.setAllColumns(opts);
-		if(opts.searchFields && opts.searchFields.fields && opts.searchFields.fields.length>0){
-			e5searchBox.init(opts.searchFields);
-		}
 		
 		tldatagrid.options = $.extend({},tldatagrid.defoptions,opts);
 		//tldatagrid.setDispalyFields();
@@ -68,7 +65,9 @@ var tldatagrid = {
 		tldatagrid.setLoader();
 		var dg = $('#'+tldatagrid.id);
 		dg.datagrid(tldatagrid.options);
-
+		if(options.searchFields && options.searchFields.fields && options.searchFields.fields.length>0){
+			tlsearchBox.init(options.searchFields);
+		}
 		var pager = dg.datagrid('getPager');
 		pager.pagination({
 			buttons:[{
@@ -113,7 +112,7 @@ var tldatagrid = {
 	},
 	reload : function(){
 		var param = {};
-		param.queryconditions = "";//e5_queryform.getQuery();
+		param.queryconditions = tlsearchBox.getQueryConditions();
 		param.searchfields = JSON.stringify(tldatagrid.options.searchFields);			
 		param.selectfields = JSON.stringify({fields:tldatagrid.getSelectFields()});
 		param.sumfields = JSON.stringify({fields:tldatagrid.getSumableFields()});
@@ -122,7 +121,7 @@ var tldatagrid = {
 		param.rule = tldatagrid.options.rule;
 		param.showfooter = tldatagrid.options.showFooter ? "true" : "false";
 		param.selectedID = tldatagrid.getSelectedIDs();
-		
+		alert(param.queryconditions);
 		$("#"+tldatagrid.id).datagrid("load",param);
 	},
 	getSelectedIDs : function(){

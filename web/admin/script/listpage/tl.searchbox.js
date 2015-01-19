@@ -1,8 +1,24 @@
 var tlsearchBox = {
 	init : function(searchFields){
+		if($(".datagrid-toolbar").length!=1) return;
+		var searchBoxHTML = "<div id=\"main_search\" style=\"padding:5px;\">";
+			searchBoxHTML +="	<div id=\"searchBtnArea\">";
+			searchBoxHTML +="		<div class=\"btn-group searchListGroup\">";
+			searchBoxHTML +="			<button type=\"button\" class=\"btn btn-search\" onclick=\"tldatagrid.reload();\">搜索</button>";
+			searchBoxHTML +="			<!--<div class=\"btn\" id=\"searchList\" onclick=\"tldatagrid.reload();\">";
+			searchBoxHTML +="				<i class=\"icon-search\"></i>";
+			searchBoxHTML +="				<span class=\"more\" id=\"toggleSearchAdvList\"><i class=\"caret\"></i></span>";
+			searchBoxHTML +="			</div>-->";
+			searchBoxHTML +="		</div>";
+			searchBoxHTML +="	</div>";
+			searchBoxHTML +="	<div id=\"divQueryCust\" style=\"margin-right:40px;\">";
+			searchBoxHTML +="	</div>";
+			searchBoxHTML +="</div>";
+		$(".datagrid-toolbar").prepend(searchBoxHTML);
+		
 		var fields=[];var moreFields = [];
 		if(searchFields && searchFields.fields && searchFields.fields.length>0){
-			fields = searchFields.fields;
+			fields = searchFields.fields;			
 			var queryDIV = $("#divQueryCust");
 			queryDIV.html("");
 			var queryForm = document.createElement("form");
@@ -43,14 +59,14 @@ var tlsearchBox = {
 		li.className = "drop-class";
 		var span = document.createElement("span");
 		span.className = "custform-span";
-		span.id="SPAN_"+field.fieldcode;
+		span.id="SPAN_"+field.code;
 		li.appendChild(span);
 		var label = document.createElement("label");
-		label.id="LABEL_"+field.fieldcode;
+		label.id="LABEL_"+field.code;
 		if(field.ctrl=="CHECK"){
 			if(field.datatype="YN"){
 				label.className = "custform-label-checkbox checkbox";
-				tlsearchBox.setElementAttrible(label,"for",field.fieldcode);
+				tlsearchBox.setElementAttrible(label,"for",field.code);
 				span.appendChild(label);
 				var ck = tlsearchBox.createInput(field,"checkbox","custform-checkbox");
 				label.appendChild(ck);
@@ -77,20 +93,20 @@ var tlsearchBox = {
 				input_Name.autocomplete = "off";
 				div.appendChild(input_ID);
 				div.appendChild(input_Name);
-			}else if(field.ctrl == "INPUT_DATA_RANGE"){
+			}else if(field.ctrl == "INPUT_DATE_RANGE"){
 				var input0 = tlsearchBox.createInputExt(field,"text","custform-input-date validate[custom[dateFormat]]","_0");			
 				var div_text = document.createTextNode(" - ");
 				var input1 = tlsearchBox.createInputExt(field,"text","custform-input-date validate[custom[dateFormat]]","_1");
-				if(field.fieldcode=="AI_PublishTime"||field.fieldcode=="B_PublishTime"||field.fieldcode=="P_Date"){
+				if(field.code=="AI_PublishTime"||field.code=="B_PublishTime"||field.code=="P_Date"){
 					input0.value=dateFormatter(new Date());
 					input1.value=dateFormatter(new Date());
 				}
 				div.appendChild(input0);
 				div.appendChild(div_text);
 				div.appendChild(input1);
-			}else if(field.ctrl == "INPUT_DATA"){
+			}else if(field.ctrl == "INPUT_DATE"){
 				var input0 = tlsearchBox.createInput(field,"text","custform-input-date validate[custom[dateFormat]]");
-				if(field.fieldcode=="AI_PublishTime"||field.fieldcode=="B_PublishTime"||field.fieldcode=="P_Date"){
+				if(field.code=="AI_PublishTime"||field.code=="B_PublishTime"||field.code=="P_Date"){
 					input0.value=dateFormatter(new Date());
 				}
 				div.appendChild(input0);
@@ -108,11 +124,10 @@ var tlsearchBox = {
 				div.appendChild(inputID);
 			}else if(field.ctrl == "SELECT"){
 				var sel = document.createElement("select");
-				sel.id = field.fieldcode;
-				sel.name = field.doctype+"."+field.fieldcode;				
+				sel.id = field.code;
+				sel.name = field.code;				
 				sel.className = "custform-select";
 				tlsearchBox.setElementAttrible(sel,"show-all",field.showall);
-				tlsearchBox.setElementAttrible(sel,"doctype",field.doctype);
 				if(field.datatype=="url"){
 					tlsearchBox.setElementAttrible(sel,"url",field.dataurl);
 				}else if(field.datatype=="fixed"){
@@ -142,9 +157,9 @@ var tlsearchBox = {
 	},
 	createInputExt : function(field,type,className,idExt){
 		var input = document.createElement("input");
-		input.name = field.doctype+"."+field.fieldcode+idExt;
+		input.name = field.doctype+"."+field.code+idExt;
 		input.doctype = field.doctype;
-		input.id = field.fieldcode+idExt;
+		input.id = field.code+idExt;
 		input.className=className;
 		input.type = type;
 		input.value = "";
@@ -171,5 +186,76 @@ var tlsearchBox = {
 			}
 		}
 		return true;
+	},
+	getQueryConditions : function(){
+		var values = [];
+		tlsearchBox._oneTypeParams(values, "#queryForm select");
+		tlsearchBox._oneTypeParams(values, "#queryForm input[type='checkbox']");
+		tlsearchBox._oneTypeParams(values, "#queryForm input[type='radio']");
+		tlsearchBox._oneTypeParams(values, "#queryForm input[type='hidden']");
+		tlsearchBox._textParams(values, "#queryForm input[type='text']");
+		
+		if (values.length < 1) return "";
+		
+		var result = "@QUERYCODE@=QUERYCODE";
+		for (var i = 0; i < values.length; i++) {
+			result += "&" + tlsearchBox._encodeSpecialCode(values[i].name) + "=" + tlsearchBox._encodeSpecialCode(values[i].value);
+		}
+		
+		return result;
+	},
+	_oneTypeParams : function(values, oneType) {
+		var fields = $(oneType).serializeArray();
+		jQuery.each( fields, function(i, sel){
+			if (sel.value) {
+				values.push(sel);
+			}
+		});
+	},
+	//对input text的处理：若hidden的ID域没有值，才加text值
+	_textParams : function(values, oneType) {
+		var fields = $(oneType).serializeArray();
+		jQuery.each( fields, function(i, sel){
+			if (sel.value) {
+				if (!tlsearchBox._hasHiddenValue(values, sel.name))
+					values.push(sel);
+			}
+		});
+	},
+	_hasHiddenValue : function(values, name) {
+		for (var i = 0; i < values.length; i++) {
+			if (values[i].name == name + "_ID" || values[i].name == name + "ID" )
+				return true;
+		}
+		return false;
+	},
+	_encodeSpecialCode : function(param1){
+		if (!param1) return "";
+
+		var res = "";
+		for(var i = 0;i < param1.length;i ++){
+			switch (param1.charCodeAt(i)){
+				case 0x20://space
+				case 0x3f://?
+				case 0x23://#
+				case 0x26://&
+				case 0x22://"
+				case 0x27://'
+				case 0x2a://*
+				case 0x3d://=
+				case 0x5c:// \
+				case 0x2f:// /
+				case 0x2e:// .
+				case 0x25:// .
+					res += escape(param1.charAt(i));
+					break;
+				case 0x2b:
+					res += "%2b";
+					break;
+				default:
+					res += encodeURI(param1.charAt(i));
+			}
+		}
+		return res;
 	}
 }

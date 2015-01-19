@@ -6,7 +6,12 @@ var options = {
 	sortName:"proj_id",
 	rule:"1=1",
 	showFooter:false,
-	toolbar: [],	
+	toolbar: [{
+				iconCls: 'icon-add',
+				handler: function(){
+					
+				}
+			}],	
 	rowStyler : function(index,row){
 		//if (row.AI_Debt<=0) return 'background-color:green;color:#fff;';
 	},
@@ -25,10 +30,12 @@ var options = {
 			tldialog.close();
 		}};
 		var toolbars = [];
-		if(rowData.proj_approveStatus == 0){
+		if(rowData.proj_approveStatus == 0 || rowData.proj_approveStatus == 1){
 			toolbars.push(oktool);
 			toolbars.push(notool);
 		} else if(rowData.proj_approveStatus == 2){
+			toolbars.push(notool);
+		} else if(rowData.proj_approveStatus == 3){
 			toolbars.push(oktool);
 		}
 		toolbars.push(colsetool);
@@ -55,6 +62,12 @@ var options = {
 				{title:"锁定时间",field:"proj_locktime",width:130,sortable:true},
 	            {title:"创建时间",field:"proj_created",width:130,sortable:true}				
 			]],
+	searchFields : {
+		fields:[
+			{name:"审批状态",code:"AI_PayStatus",operator:"eq",ctrl:"SELECT",showall:"true",multiple:"false",datatype:"fixed",datas:[{value:"0",text:"未审批"},{value:"1",text:"审批中"},{value:"2",text:"已审批"},{value:"3",text:"已审未通过"}]}
+		],
+		moreFields:[]
+	},
 	otherfields : []	
 };
 
