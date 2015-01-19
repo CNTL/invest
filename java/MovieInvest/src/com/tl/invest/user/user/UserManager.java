@@ -2,6 +2,7 @@ package com.tl.invest.user.user;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.Hibernate;
@@ -9,6 +10,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.type.Type;
 
+import com.sun.org.apache.bcel.internal.generic.AALOAD;
 import com.tl.common.Message;
 import com.tl.common.ResourceMgr;
 import com.tl.common.StringUtils;
@@ -387,14 +389,9 @@ public class UserManager {
 		StringBuilder querySql = new StringBuilder("select a from com.tl.invest.user.user.User as a where a.type = 0 and a.perOrder>0 and a.deleted=0 order by a.perOrder asc");
 		List<User> list = DAOHelper.find(querySql.toString() , start, length);
 		if(list == null || list.size() == 0) return null;
-		DictionaryReader dicReader = (DictionaryReader) Context.getBean(DictionaryReader.class);
 		List<User> users = new ArrayList<User>();
 		for(User user : list){
 			if(user!=null){
-				if(user.getPerJob() != null && !"".equals(user.getPerJob())){
-					Dictionary dic = dicReader.getDic(DicTypes.DIC_RECRUIT_TYPE.typeID(), user.getSecondType());
-					user.setPerJobName(dic.getName());
-				}
 				users.add(user);
 			}
 		}
@@ -413,7 +410,16 @@ public class UserManager {
 		StringBuilder querySql = new StringBuilder("select a from com.tl.invest.user.user.User as a where a.type = 0 and a.isRealNameIdent=1 and a.perJob = "+perJob+" order by a.createTime desc");
 		List<User> persons = DAOHelper.find(querySql.toString() , length*(curPage-1), length);
 		int total = getPersonsCount(perJob, null);
-		return setMessage(persons, curPage, length, total);
+		return setMessage(setPerJob(persons), curPage, length, total);
+	}
+	
+	public List<User> setPerJob(List<User> persons){
+		
+		for (int i = 0; i < persons.size(); i++) {
+			User user = persons.get(i);
+			user.setPerJobName(user.getPerJobName());
+		}
+		return persons;
 	}
 	
 	/** 
