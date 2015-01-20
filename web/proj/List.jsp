@@ -40,7 +40,6 @@
                 </div>
             </div>
 			<c:forEach var="proj" varStatus="status" items="${projs1}">
-			<c:if test="${status.index<4}">
 			<c:choose>
 				<c:when test="${status.index%4==0}"><div class="box box_last"></c:when>
 				<c:otherwise> <div class="box"></c:otherwise>
@@ -93,7 +92,6 @@
                 </div>
                 <div class="box_bottom"></div>
             </div>
-			</c:if>
 			</c:forEach>
             <div class="clear"></div>
         </div>
@@ -111,7 +109,6 @@
                     </div>
                 </div>
                 <c:forEach var="proj" varStatus="status" items="${projs2}">
-				<c:if test="${status.index<4}">
 				<c:choose>
 					<c:when test="${status.index%4==0}"><div class="box box_last"></c:when>
 					<c:otherwise> <div class="box"></c:otherwise>
@@ -164,7 +161,6 @@
 					</div>
 					<div class="box_bottom"></div>
 				</div>
-				</c:if>
 				</c:forEach>
                 <div class="clear"></div>
             </div>
@@ -182,7 +178,6 @@
                 </div>
             </div>
             <c:forEach var="proj" varStatus="status" items="${projs3}">
-				<c:if test="${status.index<4}">
 				<c:choose>
 					<c:when test="${status.index%4==0}"><div class="box box_last"></c:when>
 					<c:otherwise> <div class="box"></c:otherwise>
@@ -235,7 +230,6 @@
                 </div>
                 <div class="box_bottom"></div>
             </div>
-			</c:if>
 			</c:forEach>
             <div class="clear"></div>
         </div>

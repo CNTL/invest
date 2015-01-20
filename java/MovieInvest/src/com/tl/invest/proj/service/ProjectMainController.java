@@ -32,10 +32,11 @@ public class ProjectMainController extends Entry {
 			javax.servlet.http.HttpServletResponse response, Map model) throws Exception {
 		int type = getInt(request, "type", 0);
 		if(type<=0){
+			int pageSize = getInt(request, "pagesize", 4);
 			Dictionary[] types = dicReader.getSubDics(DicTypes.DIC_INVEST_TYPE.typeID(), 0);
 			for (Dictionary dic : types) {
 				int typeID = dic.getId();
-				ProjectExt[] projs = service.getProjectExts(typeID, 8, 1,"proj_approveStatus in(-1,2)", null);
+				ProjectExt[] projs = service.getProjectExts(typeID, pageSize, 1,"proj_approveStatus in(-1,2)", null);
 				if(dic.getName().indexOf("Î¢µçÓ°")>=0){
 					model.put("projs1", projs);
 					model.put("projType1", typeID);
@@ -54,10 +55,11 @@ public class ProjectMainController extends Entry {
 			model.put("page", 1);
 		}else {
 			int page = getInt(request, "page", 1);
-			ProjectExt[] projs = service.getProjectExts(type, 20, page,"proj_approveStatus in(-1,2)", null);
+			int pageSize = getInt(request, "pagesize", 20);
+			ProjectExt[] projs = service.getProjectExts(type, pageSize, page,"proj_approveStatus in(-1,2)", null);
 			int projCount = service.getProjectExtsCount(type,"proj_approveStatus in(-1,2)", null);
-			int pageCount = projCount/20;
-			if(projCount % 20 >0) pageCount = pageCount + 1;
+			int pageCount = projCount/pageSize;
+			if(projCount % pageSize >0) pageCount = pageCount + 1;
 			if(pageCount<=0) pageCount = 1;
 			
 			Dictionary dic = dicReader.getDic(DicTypes.DIC_INVEST_TYPE.typeID(), type);
@@ -77,6 +79,7 @@ public class ProjectMainController extends Entry {
 			model.put("pageBegin", getPageBegin(page));
 			model.put("pageEnd", getPageEnd(page, pageCount));
 			model.put("page", page);
+			model.put("pagesize", pageSize);
 		}
 		model.put("type", type);
 	};
