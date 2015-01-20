@@ -112,8 +112,8 @@ var tldatagrid = {
 	},
 	reload : function(){
 		var param = {};
-		param.queryconditions = tlsearchBox.getQueryConditions();
-		param.searchfields = JSON.stringify(tldatagrid.options.searchFields);			
+		param.queryconditions = JSON.stringify({fields:tlsearchBox.getQueryConditions()});
+		//param.searchfields = JSON.stringify(tldatagrid.options.searchFields);			
 		param.selectfields = JSON.stringify({fields:tldatagrid.getSelectFields()});
 		param.sumfields = JSON.stringify({fields:tldatagrid.getSumableFields()});
 		param.primarykey = tldatagrid.options.itemID;
@@ -121,7 +121,7 @@ var tldatagrid = {
 		param.rule = tldatagrid.options.rule;
 		param.showfooter = tldatagrid.options.showFooter ? "true" : "false";
 		param.selectedID = tldatagrid.getSelectedIDs();
-		//alert(param.queryconditions);
+		
 		$("#"+tldatagrid.id).datagrid("load",param);
 	},
 	getSelectedIDs : function(){

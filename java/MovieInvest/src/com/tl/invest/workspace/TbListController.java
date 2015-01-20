@@ -10,11 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import com.sun.jndi.toolkit.dir.SearchFilter;
 import com.tl.common.Pair;
 import com.tl.common.ResourceMgr;
 import com.tl.common.StringUtils;
 import com.tl.db.DBSession;
 import com.tl.db.IResultSet;
+import com.tl.invest.workspace.query.QueryField;
+import com.tl.invest.workspace.query.QueryOperator;
 import com.tl.kernel.context.Context;
 import com.tl.kernel.web.BaseController;
 @SuppressWarnings({ "rawtypes", "unused" })
@@ -26,7 +29,6 @@ public class TbListController extends BaseController {
 		String order = get(request,"order","desc");
 		String sort = get(request, "sort", "");
 		//得到查询条件
-		String queryconditions = get(request, "queryconditions","");
 		String primarykey = get(request, "primarykey","");
 		String tbView = get(request, "tbview","");
 		String rule = get(request, "rule","");
@@ -47,19 +49,37 @@ public class TbListController extends BaseController {
 			}
 			
 			String jsondata = "";
-			JSONObject fieldsJsonObject = getJsonObject(request, "searchfields");
-			//List<QueryField> fields = getQueryFields(fieldsJsonObject);
-			
+						
 			if(StringUtils.isNotEmpty(tbView)){
 				//得到选择查看字段
 				JSONObject selFieldJsonObject = getJsonObject(request, "selectfields");
 				JSONArray selFields = selFieldJsonObject.getJSONArray("fields");
+				
+				JSONObject searchFieldJsonObject = getJsonObject(request, "queryconditions");
+				JSONArray searchFields = searchFieldJsonObject.getJSONArray("fields");
 				//选择字段处理
 				List<Pair> selectFields = new ArrayList<Pair>();
 				for (int i=0;i<selFields.size();i++) {	
 					JSONObject selfield = selFields.getJSONObject(i);
 					selectFields.add(new Pair(selfield.getString("name"), selfield.getString("code")));
 				}
+				
+				List<QueryField> queryFields = new ArrayList<QueryField>();
+				for (int i=0;i<searchFields.size();i++) {
+					JSONObject qField = searchFields.getJSONObject(i);
+					QueryField f = new QueryField();
+					f.setCode(qField.getString("code"));
+					f.setName(qField.getString("name"));
+					f.setOperator(Enum.valueOf(QueryOperator.class, qField.getString("operator")));
+					f.setSql(qField.getString("sql"));
+					boolean needQuote = false;
+					if("true".equals(qField.getString("quote")) || "1".equals(qField.getString("quote"))){
+						needQuote = true;
+					}
+					f.setNeedQuote(needQuote);
+					//f.setValues(values);
+				}
+				
 				//QueryViewParser viewParser = (QueryViewParser)Context.getBean(QueryViewParser.class);
 				//视图查询条件
 				String viewWhere = "";//viewParser.getSQL(fields, queryconditions);

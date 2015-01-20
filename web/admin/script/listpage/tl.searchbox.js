@@ -1,5 +1,7 @@
 var tlsearchBox = {
+	searchFields:{fields:[],moreFields:[]},
 	init : function(searchFields){
+		tlsearchBox.searchFields = searchFields;
 		if($(".datagrid-toolbar").length!=1) return;
 		var searchBoxHTML = "<div id=\"main_search\" style=\"padding:5px;\">";
 			searchBoxHTML +="	<div id=\"searchBtnArea\">";
@@ -84,7 +86,7 @@ var tlsearchBox = {
 			if(field.ctrl=="INPUT"){
 				var input = tlsearchBox.createInput(field,"text","custform-input");
 				div.appendChild(input);
-			}else if(field.ctrl=="INPUT_AUTOCOMPLETE"){
+			}else if(field.ctrl=="INPUT_AUTOCOMPLETE_KV"){
 				var input_ID = tlsearchBox.createInputExt(field,"hidden","","_ID");	
 				var input_Name = tlsearchBox.createInput(field,"text","custform-input ac_input");
 				tlsearchBox.setElementAttrible(input_Name,"auto-complete","true");
@@ -173,7 +175,7 @@ var tlsearchBox = {
 	},
 	setElementAttrible : function(el,name,value){
 		var attr = document.createAttribute(name);
-		attr.nodeValue = value;
+		attr.value = value;
 		el.setAttributeNode(attr);
 	},
 	addClass : function(el,className){
@@ -188,6 +190,54 @@ var tlsearchBox = {
 		return true;
 	},
 	getQueryConditions : function(){
+		var conditions = [];
+		if(tlsearchBox.searchFields.fields && tlsearchBox.searchFields.fields.length>0){
+			var fields = tlsearchBox.searchFields.fields;
+			for(var i in fields){
+				tlsearchBox._oneQueryCondition(conditions,fields[i]);
+			}
+		}
+		
+		if(tlsearchBox.searchFields.moreFields && tlsearchBox.searchFields.moreFields.length>0){
+			var fields = tlsearchBox.searchFields.moreFields;
+			for(var i in fields){
+				tlsearchBox._oneQueryCondition(conditions,fields[i]);
+			}
+		}
+		return conditions;
+	},
+	_oneQueryCondition : function(conditions,field){
+		var condition = {};
+		condition.name = field.name;
+		condition.code = field.code;
+		condition.operator = field.operator;
+		condition.quote = field.quote;
+		condition.sql = field.sql;
+		condition.values = [];
+		if(field.ctrl == "INPUT"
+			|| field.ctrl == "INPUT_DATE"
+			|| field.ctrl == "SELECT"
+			|| field.ctrl == "INPUT_AUTOCOMPLETE") {
+			if($("#"+field.code).val()!=""){
+				condition.values.push({"value":$("#"+field.code).val()});
+			}
+		}else if(field.ctrl == "INPUT_DATE_RANGE"){
+			if($("#"+field.code+"_0").val()!="") condition.values.push({"value":$("#"+field.code+"_0").val()});
+			if($("#"+field.code+"_1").val()!="") condition.values.push({"value":$("#"+field.code+"_1").val()});
+		}else if(field.ctrl == "INPUT_AUTOCOMPLETE_KV"
+			|| field.ctrl == "INPUT_DLG_KV"){
+			var idValue = $("#"+field.code+"_ID").val();
+			var value = $("#"+field.code).val();
+			if(!idValue && idValue!=""){
+				value = idValue;
+			}
+			if(!value && value!="") condition.values.push({"value":value});
+		}
+		if(condition.values.length>0){
+			conditions.push(condition);
+		}
+	},
+	getQuery : function(){
 		var values = [];
 		tlsearchBox._oneTypeParams(values, "#queryForm select");
 		tlsearchBox._oneTypeParams(values, "#queryForm input[type='checkbox']");
