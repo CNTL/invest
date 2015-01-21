@@ -58,6 +58,24 @@ public enum QueryOperator {
 		public String operator() {
 			return "<=";
 		}
+	},
+	LIKE("LIKE"){
+		@Override
+		public String operator() {
+			return " like ";
+		}
+	},
+	LLIKE("LIKE"){
+		@Override
+		public String operator() {
+			return " like ";
+		}
+	},
+	RLIKE("LIKE"){
+		@Override
+		public String operator() {
+			return " like ";
+		}
 	};
 	
 	private String operatorName;

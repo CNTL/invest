@@ -14,15 +14,17 @@ import com.sun.jndi.toolkit.dir.SearchFilter;
 import com.tl.common.Pair;
 import com.tl.common.ResourceMgr;
 import com.tl.common.StringUtils;
+import com.tl.common.log.Log;
 import com.tl.db.DBSession;
 import com.tl.db.IResultSet;
 import com.tl.invest.workspace.query.QueryField;
 import com.tl.invest.workspace.query.QueryOperator;
+import com.tl.invest.workspace.query.QueryParser;
+import com.tl.invest.workspace.query.QueryUtil;
 import com.tl.kernel.context.Context;
 import com.tl.kernel.web.BaseController;
 @SuppressWarnings({ "rawtypes", "unused" })
-public class TbListController extends BaseController {
-
+public class TbListController extends BaseController {	
 	@Override
 	protected void handle(HttpServletRequest request,
 			HttpServletResponse response, Map model) throws Exception {
@@ -64,25 +66,11 @@ public class TbListController extends BaseController {
 					selectFields.add(new Pair(selfield.getString("name"), selfield.getString("code")));
 				}
 				
-				List<QueryField> queryFields = new ArrayList<QueryField>();
-				for (int i=0;i<searchFields.size();i++) {
-					JSONObject qField = searchFields.getJSONObject(i);
-					QueryField f = new QueryField();
-					f.setCode(qField.getString("code"));
-					f.setName(qField.getString("name"));
-					f.setOperator(Enum.valueOf(QueryOperator.class, qField.getString("operator")));
-					f.setSql(qField.getString("sql"));
-					boolean needQuote = false;
-					if("true".equals(qField.getString("quote")) || "1".equals(qField.getString("quote"))){
-						needQuote = true;
-					}
-					f.setNeedQuote(needQuote);
-					//f.setValues(values);
-				}
+				QueryField[] queryFields = QueryUtil.getQueryFields(searchFields);
 				
-				//QueryViewParser viewParser = (QueryViewParser)Context.getBean(QueryViewParser.class);
+				QueryParser parser = (QueryParser)Context.getBean(QueryParser.class);
 				//视图查询条件
-				String viewWhere = "";//viewParser.getSQL(fields, queryconditions);
+				String viewWhere = parser.getSQL(queryFields);
 				if(StringUtils.isNotEmpty(viewWhere) && StringUtils.isNotEmpty(rule)){
 					viewWhere += " and ";
 				}
@@ -111,10 +99,13 @@ public class TbListController extends BaseController {
 		sb.append("{\"total\":");
 		try{
 			dbSession = Context.getDBSession();
-			sql = dbSession.getDialect().getLimitString(sql, pageSize*(page-1), pageSize);	
-			log.info(sql);
+			sql = dbSession.getDialect().getLimitString(sql, pageSize*(page-1), pageSize);
 			rs = dbSession.executeQuery(sql);
 			String countSql = "select count(0) from "+tbView+" where  "+whereSQL;
+			if(log.isDebugEnabled()){
+				log.debug(sql);
+				log.debug(countSql);
+			}
 			sb.append(getCount(countSql,dbSession)+",\"rows\":[");
 			
 			StringBuffer sb1 = new StringBuffer();

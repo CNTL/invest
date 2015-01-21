@@ -73,5 +73,13 @@ var options = {
 				{title:"序号",field:"perOrder",width:60,sortable:true},
 	            {title:"创建时间",field:"createTime",width:130,sortable:true}				
 			]],
+	searchFields : {
+		fields:[
+			{name:"用户编码",code:"code",operator:"LIKE",quote:"true",edittype:"INPUT"},
+			{name:"证件号码",code:"identityCard",operator:"EQ",quote:"true",edittype:"INPUT"},
+			{name:"是否认证",code:"isRealNameIdent",operator:"EQ",quote:"false",edittype:"SELECT",showall:"true",multiple:"false",datatype:"fixed",datas:[{value:"0",text:"未认证"},{value:"1",text:"已认证"}]}
+		],
+		moreFields:[]
+	},
 	otherfields : []	
 };

@@ -65,7 +65,7 @@ var tlsearchBox = {
 		li.appendChild(span);
 		var label = document.createElement("label");
 		label.id="LABEL_"+field.code;
-		if(field.ctrl=="CHECK"){
+		if(field.edittype=="CHECK"){
 			if(field.datatype="YN"){
 				label.className = "custform-label-checkbox checkbox";
 				tlsearchBox.setElementAttrible(label,"for",field.code);
@@ -83,10 +83,10 @@ var tlsearchBox = {
 			var div = document.createElement("div");
 			div.className="custform-controls";
 			span.appendChild(div);
-			if(field.ctrl=="INPUT"){
+			if(field.edittype=="INPUT"){
 				var input = tlsearchBox.createInput(field,"text","custform-input");
 				div.appendChild(input);
-			}else if(field.ctrl=="INPUT_AUTOCOMPLETE_KV"){
+			}else if(field.edittype=="INPUT_AUTOCOMPLETE_KV"){
 				var input_ID = tlsearchBox.createInputExt(field,"hidden","","_ID");	
 				var input_Name = tlsearchBox.createInput(field,"text","custform-input ac_input");
 				tlsearchBox.setElementAttrible(input_Name,"auto-complete","true");
@@ -95,7 +95,7 @@ var tlsearchBox = {
 				input_Name.autocomplete = "off";
 				div.appendChild(input_ID);
 				div.appendChild(input_Name);
-			}else if(field.ctrl == "INPUT_DATE_RANGE"){
+			}else if(field.edittype == "INPUT_DATE_RANGE"){
 				var input0 = tlsearchBox.createInputExt(field,"text","custform-input-date validate[custom[dateFormat]]","_0");			
 				var div_text = document.createTextNode(" - ");
 				var input1 = tlsearchBox.createInputExt(field,"text","custform-input-date validate[custom[dateFormat]]","_1");
@@ -106,13 +106,13 @@ var tlsearchBox = {
 				div.appendChild(input0);
 				div.appendChild(div_text);
 				div.appendChild(input1);
-			}else if(field.ctrl == "INPUT_DATE"){
+			}else if(field.edittype == "INPUT_DATE"){
 				var input0 = tlsearchBox.createInput(field,"text","custform-input-date validate[custom[dateFormat]]");
 				if(field.code=="AI_PublishTime"||field.code=="B_PublishTime"||field.code=="P_Date"){
 					input0.value=dateFormatter(new Date());
 				}
 				div.appendChild(input0);
-			}else if(field.ctrl == "INPUT_DLG"){
+			}else if(field.edittype == "INPUT_DLG"){
 				var inputName = tlsearchBox.createInput(field,"text","custform-input34");
 				inputName.readonly = "true";
 				var selectBtn = tlsearchBox.createButton("button","btn custform-button");
@@ -124,7 +124,7 @@ var tlsearchBox = {
 				div.appendChild(inputName);
 				div.appendChild(selectBtn);
 				div.appendChild(inputID);
-			}else if(field.ctrl == "SELECT"){
+			}else if(field.edittype == "SELECT"){
 				var sel = document.createElement("select");
 				sel.id = field.code;
 				sel.name = field.code;				
@@ -208,32 +208,41 @@ var tlsearchBox = {
 	},
 	_oneQueryCondition : function(conditions,field){
 		var condition = {};
-		condition.name = field.name;
-		condition.code = field.code;
-		condition.operator = field.operator;
-		condition.quote = field.quote;
-		condition.sql = field.sql;
+		condition.ext = 0;
 		condition.values = [];
-		if(field.ctrl == "INPUT"
-			|| field.ctrl == "INPUT_DATE"
-			|| field.ctrl == "SELECT"
-			|| field.ctrl == "INPUT_AUTOCOMPLETE") {
+		if(field.edittype == "INPUT"
+			|| field.edittype == "INPUT_DATE"
+			|| field.edittype == "SELECT"
+			|| field.edittype == "INPUT_AUTOCOMPLETE") {
 			if($("#"+field.code).val()!=""){
 				condition.values.push({"value":$("#"+field.code).val()});
 			}
-		}else if(field.ctrl == "INPUT_DATE_RANGE"){
-			if($("#"+field.code+"_0").val()!="") condition.values.push({"value":$("#"+field.code+"_0").val()});
-			if($("#"+field.code+"_1").val()!="") condition.values.push({"value":$("#"+field.code+"_1").val()});
-		}else if(field.ctrl == "INPUT_AUTOCOMPLETE_KV"
-			|| field.ctrl == "INPUT_DLG_KV"){
-			var idValue = $("#"+field.code+"_ID").val();
+		}else if(field.edittype == "INPUT_DATE_RANGE"){
+			var value1 = $("#"+field.code+"_0").val();
+			var value2 = $("#"+field.code+"_1").val();
+			if(value1 != "" || value2 != ""){
+				condition.values.push({"value":value1});
+				condition.values.push({"value":value2});
+			}
+		}else if(field.edittype == "INPUT_AUTOCOMPLETE_KV"
+			|| field.edittype == "INPUT_DLG_KV"){
+			var idValue = $("#"+field.extcode).val();
 			var value = $("#"+field.code).val();
 			if(!idValue && idValue!=""){
 				value = idValue;
+				condition.ext = 1;
 			}
 			if(!value && value!="") condition.values.push({"value":value});
 		}
 		if(condition.values.length>0){
+			condition.name = field.name;
+			condition.code = field.code;
+			condition.extcode = field.extcode;
+			condition.edittype = field.edittype;
+			condition.operator = field.operator;
+			condition.quote = field.quote;
+			condition.sql = field.sql;
+			
 			conditions.push(condition);
 		}
 	},

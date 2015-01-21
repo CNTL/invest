@@ -22,6 +22,7 @@
 	</bean>
 	<bean id="sys.UserFetcher" class="com.tl.invest.sys.user.web.SysUserFetcher" />
 	<bean id="sys.User" class="com.tl.invest.sys.user.web.SysUserController" />
+	<bean id="QueryParser" class="com.tl.invest.workspace.query.QueryParser" />
 	<bean id="workspace.TbList" class="com.tl.invest.workspace.TbListController" />
 	<bean id="workspace.after" class="com.tl.invest.workspace.AfterProcess" />
 	<bean id="workspace.DictionaryFetcher" class="com.tl.kernel.workspace.DictionaryFetcher">

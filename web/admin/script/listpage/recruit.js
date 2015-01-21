@@ -72,5 +72,13 @@ var options = {
 				{title:"首页排序",field:"jobOrder",width:150,sortable:true},
 	            {title:"创建时间",field:"createtime",width:130,sortable:true}				
 			]],
+	searchFields : {
+		fields:[
+			{name:"公司名称",code:"userName",operator:"LIKE",quote:"true",edittype:"INPUT"},
+			{name:"职位",code:"jobName",operator:"LIKE",quote:"true",edittype:"INPUT"},
+			{name:"是否发布",code:"isPub",operator:"EQ",quote:"false",edittype:"SELECT",showall:"true",multiple:"false",datatype:"fixed",datas:[{value:"0",text:"未发布"},{value:"1",text:"已发布"}]}
+		],
+		moreFields:[]
+	},
 	otherfields : []	
 };

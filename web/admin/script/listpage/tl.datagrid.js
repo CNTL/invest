@@ -33,16 +33,7 @@ var tldatagrid = {
 	},
 	setLoader : function(){
 		tldatagrid.options.loader = function(param,success,error){
-			param.queryconditions = "";//e5_queryform.getQuery();
-			param.searchfields = JSON.stringify(tldatagrid.options.searchFields);			
-			param.selectfields = JSON.stringify({fields:tldatagrid.getSelectFields()});
-			param.sumfields = JSON.stringify({fields:tldatagrid.getSumableFields()});
-			param.primarykey = tldatagrid.options.itemID;
-			param.tbview = tldatagrid.options.tbview;
-			param.rule = tldatagrid.options.rule;
-			param.showfooter = tldatagrid.options.showFooter ? "true" : "false";
-			
-			param.selectedID = tldatagrid.getSelectedIDs();;
+			param = tldatagrid.getParam(param);
 			if (!tldatagrid.options.url) {
 				return false;
 			}
@@ -74,17 +65,8 @@ var tldatagrid = {
 				iconCls:'icon-xls',
 				handler:function(){
 					tldatagridExport.showMsg("<div style='text-align:center;'><h4><b>正在准备数据...</b></h4></div><div style='text-align:center;margin-top:20px;'><img src='../images/loadingbar.gif' border='0' alt='正在做导出数据的操作'/></div>");
-					
 					var param = {};
-					param.queryconditions = "";//e5_queryform.getQuery();
-					param.searchfields = JSON.stringify(tldatagrid.options.searchFields);			
-					param.selectfields = JSON.stringify({fields:tldatagrid.getSelectFields()});
-					param.sumfields = JSON.stringify({fields:tldatagrid.getSumableFields()});
-					param.primarykey = tldatagrid.options.itemID;
-					param.tbview = tldatagrid.options.tbview;
-					param.rule = tldatagrid.options.rule;
-					param.selectedID = tldatagrid.getSelectedIDs();
-					param.showfooter = tldatagrid.options.showFooter ? "true" : "false";
+					param = tldatagrid.getParam(param);
 					if (!tldatagrid.options.url) {
 						return false;
 					}
@@ -112,8 +94,12 @@ var tldatagrid = {
 	},
 	reload : function(){
 		var param = {};
+		param = tldatagrid.getParam(param);
+		
+		$("#"+tldatagrid.id).datagrid("load",param);
+	},
+	getParam : function(param){
 		param.queryconditions = JSON.stringify({fields:tlsearchBox.getQueryConditions()});
-		//param.searchfields = JSON.stringify(tldatagrid.options.searchFields);			
 		param.selectfields = JSON.stringify({fields:tldatagrid.getSelectFields()});
 		param.sumfields = JSON.stringify({fields:tldatagrid.getSumableFields()});
 		param.primarykey = tldatagrid.options.itemID;
@@ -121,8 +107,7 @@ var tldatagrid = {
 		param.rule = tldatagrid.options.rule;
 		param.showfooter = tldatagrid.options.showFooter ? "true" : "false";
 		param.selectedID = tldatagrid.getSelectedIDs();
-		
-		$("#"+tldatagrid.id).datagrid("load",param);
+		return param;
 	},
 	getSelectedIDs : function(){
 		var docs = $("#"+tldatagrid.id).datagrid("getSelections");

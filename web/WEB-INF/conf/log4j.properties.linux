@@ -1,11 +1,11 @@
 ### set log levels - for more verbose logging change 'info' to 'debug' ###
 ### OFF,fatal,error,warn,info,debug,trace,ALL
-log4j.rootLogger=info, stdout
+log4j.rootLogger=warn, stdout
 
-log4j.logger.tl=info, tl
-log4j.logger.invest=info, invest
-log4j.logger.sys=info, sys
-log4j.logger.alipay=info, alipay
+log4j.logger.tl=warn, tl
+log4j.logger.invest=warn, invest
+log4j.logger.sys=warn, sys
+log4j.logger.alipay=warn, alipay
 
 ### direct log messages to stdout ###
 log4j.appender.stdout=org.apache.log4j.ConsoleAppender

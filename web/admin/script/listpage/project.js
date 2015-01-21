@@ -74,7 +74,8 @@ var options = {
 			]],
 	searchFields : {
 		fields:[
-			{name:"审批状态",code:"AI_PayStatus",operator:"eq",quote:"false",ctrl:"SELECT",showall:"true",multiple:"false",datatype:"fixed",datas:[{value:"0",text:"未审批"},{value:"1",text:"审批中"},{value:"2",text:"已审批"},{value:"3",text:"已审未通过"}]}
+			{name:"审批状态",code:"proj_approveStatus",operator:"EQ",quote:"false",edittype:"SELECT",showall:"true",multiple:"false",datatype:"fixed",datas:[{value:"0",text:"未审批"},{value:"1",text:"审批中"},{value:"2",text:"已审批"},{value:"3",text:"已审未通过"}]}//,
+			//{name:"审批时间",code:"proj_approveTime",edittype:"INPUT_DATE_RANGE"}//未实现选择，可以手工输入
 		],
 		moreFields:[]
 	},
