@@ -6,6 +6,8 @@ package com.tl.invest.user.user;
  * 类说明 ： 
  */
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,15 +16,25 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
+import net.sf.json.util.CycleDetectionStrategy;
 
+import com.tl.common.DateJsonValueProcessor;
+import com.tl.common.JsonDateValueProcessor;
 import com.tl.common.Message;
 import com.tl.common.StringUtils;
 import com.tl.invest.constant.DicTypes;
+import com.tl.invest.constant.JobSection;
 import com.tl.invest.workspace.Entry;
 import com.tl.kernel.context.Context;
 import com.tl.kernel.sys.dic.Dictionary;
 import com.tl.kernel.sys.dic.DictionaryReader;
+/**
+ * @author wang.yq
+ *
+ */
 @SuppressWarnings({ "unchecked", "rawtypes" })
 public class PeopleMainController extends Entry {
 	@Override
@@ -36,6 +48,9 @@ public class PeopleMainController extends Entry {
 			queryMorePersons(request, response, model);
 		} else if ("getPersons".equals(action)) {
 			getPersons(request, response, model);
+		}
+		else if("getSeachItems".equals(action)){
+			getSeachItems(request, response, model);
 		}
 		/*
 		DictionaryReader dicReader = (DictionaryReader) Context.getBean(DictionaryReader.class);
@@ -87,6 +102,32 @@ public class PeopleMainController extends Entry {
 		
 		*/
 	}
+	
+	/**获得查询条件项
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @throws Exception
+	 */
+	private void getSeachItems(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception{
+		int type = getInt(request, "type", 0);
+		if(type>0){
+			List<Dictionary> list = UserHelper.getTypeCats(type);
+			JsonConfig jsonConfig = new JsonConfig();
+			jsonConfig.setCycleDetectionStrategy(CycleDetectionStrategy.LENIENT);
+			jsonConfig.registerJsonValueProcessor(Timestamp.class,new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
+			jsonConfig.registerJsonValueProcessor(Date.class, new JsonDateValueProcessor()); 
+
+			JSONArray json = JSONArray.fromObject(list, jsonConfig); 
+			 
+			String result = json.toString();
+			output(result, response);
+		}
+		else{
+			output("", response);
+		}
+		
+	}
 	private void queryPersons(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception{
 		DictionaryReader dicReader = (DictionaryReader) Context.getBean(DictionaryReader.class);
 		int type = getInt(request, "type", 0);
@@ -97,16 +138,16 @@ public class PeopleMainController extends Entry {
 			for (Dictionary dic : types) {
 				int typeID = dic.getId();
 				String typeName = dic.getName();
-				if(!"其他影人".equals(typeName)){
-					Map<String, Object> dataMap = new HashMap<String, Object>();
-					Message msg = userManager.queryPersons(typeID, 1, 4);
-					dataMap.put("persons", msg);
-					dataMap.put("perType", typeID);
-					dataMap.put("perName", typeName);
-					dataList.add(dataMap);
-				}
-			}
+				Map<String, Object> dataMap = new HashMap<String, Object>();
+				Message msg = userManager.queryPersons(typeID, 1, 4);
+				dataMap.put("persons", msg);
+				dataMap.put("perType", typeID);
+				dataMap.put("perName", typeName);
+				dataList.add(dataMap);
+				
+			} 
 			model.put("datas", dataList);
+	 
 		} else {
 			int curPage = getInt(request, "curPage", 1);
 			Message msg = userManager.queryPersons(type, curPage, 20);
