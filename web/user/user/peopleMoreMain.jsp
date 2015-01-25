@@ -4,9 +4,7 @@
 <html>
 <head>
 <title><c:out value="${title}"/></title>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="keywords" content="<c:out value="${keywords}"/>" />
-	<meta name="description" content="<c:out value="${description}"/>" />
+ 	<%@include file="../../inc/meta.inc"%>
 	<%@include file="../inc/csslink.inc"%>
 	<style>
 	  	.nav li{width:80px;
@@ -27,19 +25,65 @@
 			color:white;
 			cursor:pointer;
 		} 
+		 #taglist{
+		 	padding:50px 200px;
+		 	height:50px;
+		 }
+		 #taglist dd a {
+		 	font-size:14px;
+            color: #555;
+            margin-right: 5px;
+            cursor: pointer;
+            padding: 5px 5px;
+        }
+
+        #taglist dd a:hover {
+            color: white;
+            background: #38C6E4;
+        }
+        
+        .ddselect{
+        	color: white;
+            background: #38C6E4;
+        }
+
 	</style>
-    <script type="text/javascript" src="../static/js/jquery-1.11.1.min.js"></script>
+   
     <script type="text/javascript" src="../static/js/idangerous.swiper.min.js"></script>
     <script type="text/javascript" src="../static/js/common.js"></script>
+    <script type="text/javascript" src="../js/plugin/query/jquery.query.js"></script>
+    <script type="text/javascript" src="../user/user/script/peopleMore.js"></script>
+       
 </head>
 
 <body>
+<div id="body-container" style="min-width:980px;">
 	<%@include file="../../inc/header.inc"%>
 	<div class="banner">
         <img src="../static/image/banner3.png" />
     </div>
-
+	
     <div class="project_list">
+    <div class="container-fluid">
+		<div class="row" id="rows">
+			<dl class="dl-horizontal" id="taglist" data-type="41">
+                <dt>搜索条件：</dt>
+                <dd><a data-group="all" href="#">全部</a>|<a data-group="sex" href="#">男</a>|<a data-group="sex" href="#">女</a>|<a data-group="age" href="#">20岁以下</a>|<a data-group="age" href="#">20岁-30岁</a>|<a data-group="age" href="#">30岁以上</a>|</dd>
+            </dl>
+            <dl class="dl-horizontal" id="taglist2" data-type="42">
+                <dt>搜索条件：</dt>
+                <dd><a data-group="all" href="#">全部</a>|</dd>
+            </dl>
+             <dl class="dl-horizontal" id="taglist2" data-type="43">
+                <dt>搜索条件：</dt>
+                <dd><a data-group="all" href="#">全部</a>|</dd>
+            </dl>
+            <dl class="dl-horizontal" id="taglist2" data-type="44">
+                <dt>搜索条件：</dt>
+                <dd><a data-group="all" href="#">全部</a>|</dd>
+            </dl>
+		</div>
+	</div>
         <div class="block1">
         	<%-- <div class="top">
                 <h2><c:out value="${perName}"/></h2>
@@ -118,5 +162,6 @@
 		</div>
 	</div>
 	<%@include file="../../inc/footer.inc"%>
+	</div>
 </body>
 </html>
