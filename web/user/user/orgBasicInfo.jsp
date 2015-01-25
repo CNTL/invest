@@ -25,11 +25,11 @@
 					    </div>
 					    <div class="input">
 					        <label for="nickName">机构简称：</label>
-					        <input class="form-control validate[maxSize[255]]" type="text" id="orgShortname" name="orgShortname" placeholder="机构简称"/>
+					        <input class="form-control validate[maxSize[255],required]" type="text" id="orgShortname" name="orgShortname" placeholder="机构简称"/>
 					    </div>
 					    <div class="input">
 					        <label for="postAddr">机构全称：</label>
-					        <input class="form-control validate[maxSize[255]]" type="text" id="orgFullname" name="orgFullname" placeholder="机构全称"/>
+					        <input class="form-control validate[maxSize[255],required]" type="text" id="orgFullname" name="orgFullname" placeholder="机构全称"/>
 					    </div>
 						<div class="input">
 							<label>机构简介：</label>

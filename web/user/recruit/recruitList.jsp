@@ -3,7 +3,6 @@
 <!doctype html>
 <html>
 <head>
-<%@include file="../../inc/meta.inc"%>
 <%@include file="../inc/csslink.inc"%>
 <style>
 	a {text-transform:none;text-decoration:none;} 
@@ -67,42 +66,14 @@
     </c:forEach>
     	<div class="subscribe">
             <h2><a href="#">订阅职位</a></h2>
-            <div class="item">
-                <a href="../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=${type}&more=${more}&city=北京">北京</a>
-            </div>
-            <div class="item item_last">
-                <a href="../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=${type}&more=${more}&city=上海">上海</a>
-            </div>
-            <div class="item">
-                <a href="../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=${type}&more=${more}&city=广州">广州</a>
-            </div>
-            <div class="item item_last">
-                <a href="../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=${type}&more=${more}&city=南京">南京</a>
-            </div>
-            <div class="item">
-                <a href="../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=${type}&more=${more}&city=重庆">重庆</a>
-            </div>
-            <div class="item item_last">
-                <a href="../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=${type}&more=${more}&city=长春">长春</a>
-            </div>
-            <div class="item">
-                <a href="../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=${type}&more=${more}&city=银川">银川</a>
-            </div>
-            <div class="item item_last">
-                <a href="../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=${type}&more=${more}&city=苏州">苏州</a>
-            </div>
-            <div class="item">
-                <a href="../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=${type}&more=${more}&city=横店">横店</a>
-            </div>
-            <div class="item item_last">
-                <a href="../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=${type}&more=${more}&city=涿州">涿州</a>
-            </div>
-            <div class="item">
-                <a href="../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=${type}&more=${more}&city=海外">海外</a>
-            </div>
-            <div class="item item_last">
-                <a href="../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=${type}&more=${more}&city=其他">其他</a>
-            </div>
+            <c:forEach var="city" varStatus="status" items="${cities}" >
+            	<c:choose>
+					<c:when test="${status.index%2==0}"><div class="item item_last"></c:when>
+					<c:otherwise><div class="item"></c:otherwise>
+				</c:choose>
+	                <a href="../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=${type}&more=${more}&city=${city.id}">${city.name}</a>
+	            </div>
+    		</c:forEach>
             <div class="clear"></div>
         </div>
     </div>
@@ -119,6 +90,7 @@
 				    <a href="../user/CompanyMain.do?a=queryCompanys&mainType=3">公司</a>
 				    <a href="../resume/myresume.do?infoType=1">简历管理</a>
 				</div>
+				<a class="add" style="cursor:pointer" onclick="jobList.addRecruit();">+ 发布职位</a>
 			</c:when>
 			<c:otherwise>
 				<div class="top">
@@ -126,7 +98,7 @@
 				</div>
 			</c:otherwise>
 		</c:choose>
-         <div class="search">
+        <div class="search">
              <form action="" method="POST">
                  <div class="type">
                      <select name="type" id="type">
@@ -252,13 +224,14 @@
      </div>
     <div class="clear"></div>
 </div>
+</div>
+<!-- footer -->
+<%@include file="../../inc/footer.inc"%>
+<!-- footer -->    
 <!-- script -->
 <%@include file="../inc/script.inc"%>
 <!-- script -->
 
-<!-- footer -->
-<%@include file="../../inc/footer.inc"%>
-<!-- footer -->    
 <script>
 	var typeFlag = "<%=request.getParameter("recruitType") %>";
 	var rootPath = "<%=com.tl.common.WebUtil.getRoot(request) %>";
@@ -266,6 +239,6 @@
 <script type="text/javascript" src="../static/js/jquery-migrate-1.1.1.js"></script>
 <script type="text/javascript" src="../static/js/jQselect.js"></script>
 <script src = "../user/recruit/script/recruitList.js"></script>
-</div>
+
 </body>
 </html>

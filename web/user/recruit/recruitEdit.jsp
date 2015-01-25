@@ -15,6 +15,12 @@
 <div class="shadow"></div>
 <div class="job_add">
 	<form class="setting-form" id="form" name="form" action="">
+		<div>
+		<input type="hidden" id="id" name="id" value="${recruit.id}"/>
+		<input type="hidden" id="firstType_h" name="firstType_h" value="${recruit.firstType}"/>
+		<input type="hidden" id="secondType_h" name="secondType_h" value="${recruit.secondType}"/>
+		<input type="hidden" id="cityId_h" name="cityId_h" value="${recruit.cityId}"/>
+		</div>
 		<!-- <h2>公司介绍</h2> --> 
 		<div class="input">
 	        <label for="jobName">招聘主题：</label>
@@ -25,6 +31,11 @@
 			<select id="firstType" name="firstType" class="validate[required]">
 			</select>
 			<select id="secondType" name="secondType" class="validate[required]">
+			</select>
+		</div>
+		<div class="input">
+			<label>工作地点：</label>
+			<select id="workCity" name="workCity" class="validate[required]">
 			</select>
 		</div>
 	    <div class="input">
@@ -80,17 +91,6 @@
 	        <label for="jobAttract">职位诱惑：</label>
 	        <input class="form-control validate[maxSize[255],required]" type="text" id="jobAttract" name="jobAttract" value="${recruit.jobAttract}" placeholder="职位诱惑"/>
 	    </div>
-		<!-- 
-		<div class="input">
-			<label for="content">招聘内容:</label>
-		    <script type="text/plain" id="content" name="content" style="margin-left:100px; width:700px;height:100px;">
- 			${recruit.content}
-			<br/>岗位职责：
-			<br/><br/>任职资格：
-
-			</script>
-		</div>
-		 -->
 		<div class="input">
              <label>招聘内容：</label>
              <div class="text">
@@ -134,8 +134,9 @@ var rootPath = "<%=com.tl.common.WebUtil.getRoot(request) %>";
 <script type="text/javascript" src="../js/utils.js"></script>
 <script type="text/javascript" src="../static/ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="../js/json/json2.js"></script>
-<script type="text/javascript" src="../user/recruit/script/datas.js"></script>
 <script type="text/javascript" src="../user/recruit/script/recruitEdit.js"></script>
 <script type="text/javascript" src="../js/layer/layer.min.js"></script>
+<script type="text/javascript" src="../user/recruit/script/datas.js"></script>
+<script type="text/javascript" src="../user/recruit/script/cities.js"></script>
 </body>
 </html>

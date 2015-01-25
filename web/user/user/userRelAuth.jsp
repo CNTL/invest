@@ -20,6 +20,10 @@
 			<div class="setting-detail">
 				<div class="job_add">
 					<form class="setting-form" id="form" name="form" action="">
+						<div>
+							<input type="hidden" id="firstType_h" name="firstType_h" value=""/>
+							<input type="hidden" id="secondType_h" name="secondType_h" value=""/>
+						</div>
 						<div class="input">
 							<label for="">
 							<span id="isIdent">

@@ -4,6 +4,11 @@ $(document).ready(function () {
 			setTimeout(init, 100);
 			return;
 		}
+		
+		if (!city_datas || !city_datas.ready) {
+			setTimeout(init, 100);
+			return;
+		}
 		jobEdit.init();
 		//初始化
 		$("#form").validationEngine({
@@ -25,6 +30,7 @@ var jobEdit = {
  		],
  	DEFAULT_PAIR : {key:"id",value:"name"},
 	init : function(){
+		//$("#proj_city").val(datas.proj.city).trigger("change");
 		//按事件表依次绑定
 		for (var i = 0; i < jobEdit.eventList.length; i++) {
 			var h = jobEdit.eventList[i];
@@ -34,6 +40,21 @@ var jobEdit = {
 	    $("#mapSearch").attr("onclick","getMap();");
 	    jobEdit.initUploadify("uploadify","queueItemCount","jobPictrue","uploadErrorMsg",true,jobEdit.imgUploaded);
 	    jobEdit._setOptions("firstType",type_datas.getFirstTypes(),jobEdit.DEFAULT_PAIR);
+	    jobEdit._setOptions("workCity",city_datas.getCities(),jobEdit.DEFAULT_PAIR);
+	    
+	    var firstType_h = $("#firstType_h").val();
+		if(firstType_h != null && firstType_h != ''){
+			$("#firstType").val(firstType_h).trigger("change");
+		}
+		
+		var secondType_h = $("#secondType_h").val();
+		if(secondType_h != null && secondType_h != ''){
+			$("#secondType").val(secondType_h).trigger("change");
+		}
+		var cityId_h = $("#cityId_h").val();
+		if(cityId_h != null && cityId_h != ''){
+			$("#workCity").val(cityId_h).trigger("change");
+		}
 	},
 	changeFirstType : function(){
 		var secondTypes = [];
@@ -249,7 +270,6 @@ var jobEdit = {
                 msgText += "文件:" + file.name + "\n错误码:" + errorCode + "\n"
                         + errorMsg + "\n" + errorString;
         }
-        alert(msgText);
 		return false;;
     }
 }

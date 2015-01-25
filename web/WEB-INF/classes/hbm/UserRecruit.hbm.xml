@@ -135,6 +135,13 @@
             <column name="jobOrder">
             </column>
         </property>
-        
+        <property name="cityId" type="java.lang.Integer">
+            <column name="cityId">
+            </column>
+        </property>
+        <property name="cityName" type="string">
+            <column name="cityName" length="500">
+            </column>
+        </property>
     </class>
 </hibernate-mapping>

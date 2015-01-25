@@ -27,7 +27,7 @@
 						</div>
 						<div class="input">
 					        <label for="orgFullname">公司全称：</label>
-					        <input class="form-control validate[maxSize[255]]" type="text" id="orgFullname" name="orgFullname" />
+					        <input class="form-control validate[maxSize[255],required]" type="text" id="orgFullname" name="orgFullname" />
 					    </div>
 						<div class="input">
 					        <label for="name">法人代表：</label>
