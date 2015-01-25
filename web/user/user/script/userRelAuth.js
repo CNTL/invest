@@ -42,8 +42,11 @@ var relAuth = {
 	        success:function(data){
 	    		if(data != null){
 	    			$("#name").val(data.name);
-	    			$("#firstType").val(data.firstType);
-	    			$("#secondType").val(data.secondType);
+	    			$("#firstType_h").val(data.firstType);
+	    			$("#secondType_h").val(data.secondType);
+	    			//$("#firstType").val(data.firstType);
+	    			//$("#secondType").val(data.secondType);
+	    			$("#province").val(data.province);//下拉框
 	    			$("#perPhone").val(data.perPhone);
 	    			$("#identityCard").val(data.identityCard);
 	    			if(data.isRealNameIdent == 1) {
@@ -71,6 +74,15 @@ var relAuth = {
 	    });
 		
 		relAuth._setOptions("firstType", type_datas.getFirstTypes(), relAuth.DEFAULT_PAIR);
+		
+		var firstType_h = $("#firstType_h").val();
+		if(firstType_h != null && firstType_h != ''){
+			$("#firstType").val(firstType_h).trigger("change");
+		}
+		var secondType_h = $("#secondType_h").val();
+		if(secondType_h != null && secondType_h != ''){
+			$("#secondType").val(secondType_h).trigger("change");
+		}
 	},
 	initJob : function(){
 		var dataUrl = "../user/userFetch.do?a=jobTypes";
