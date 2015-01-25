@@ -97,7 +97,7 @@ public class PeopleMainController extends Entry {
 			for (Dictionary dic : types) {
 				int typeID = dic.getId();
 				String typeName = dic.getName();
-				if(!"其他".equals(typeName)){
+				if(!"其他影人".equals(typeName)){
 					Map<String, Object> dataMap = new HashMap<String, Object>();
 					Message msg = userManager.queryPersons(typeID, 1, 4);
 					dataMap.put("persons", msg);

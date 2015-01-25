@@ -18,10 +18,14 @@ import com.tl.common.DateUtils;
 import com.tl.common.PathFormat;
 import com.tl.common.UploadHelper;
 import com.tl.invest.constant.DicTypes;
+import com.tl.invest.constant.JobSection;
+import com.tl.invest.constant.RecruitCat;
 import com.tl.kernel.context.Context;
 import com.tl.kernel.context.TLException;
 import com.tl.kernel.sys.dic.Dictionary;
 import com.tl.kernel.sys.dic.DictionaryReader;
+import com.tl.kernel.sys.dic.DictionaryType;
+
 
 /** 
  * @created 2014年11月2日 下午11:47:44 
@@ -29,29 +33,30 @@ import com.tl.kernel.sys.dic.DictionaryReader;
  * 类说明 ： 
  */
 public class UserHelper {
+	 
 	public static Map<String, List<String>> pMap = new HashMap<String, List<String>>();
 	static {
 		DictionaryReader dicReader = (DictionaryReader) Context.getBean(DictionaryReader.class);
 		List<String> actor = new ArrayList<String>();//演员
-		List<String> earStage = new ArrayList<String>();//前期制作
+		List<String> earStage = new ArrayList<String>();//前期拍摄
 		List<String> laterStage = new ArrayList<String>();//后期制作
 		List<String> other = new ArrayList<String>();//其他
 		try {
 			Dictionary[] jobTypes = dicReader.getDics(DicTypes.DIC_RECRUIT_TYPE.typeID());
 			if(jobTypes != null && jobTypes.length > 0){
 				for (Dictionary job : jobTypes) {
-					if("前期拍摄".equals(job.getName())){
+					if(JobSection.SECTION_FOWARD.typeName().equals(job.getName())){
 						Dictionary[] subJobTypes = dicReader.getSubDics(DicTypes.DIC_RECRUIT_TYPE.typeID(), job.getId());
 						if(subJobTypes != null && subJobTypes.length > 0){
 							for (Dictionary subJob : subJobTypes) {
-								if("演员".equals(subJob.getName())){
+								if(JobSection.SECTION_ACTOR.typeName().equals(subJob.getName())){
 									actor.add(subJob.getName());
 								} else {
 									earStage.add(subJob.getName());
 								}
 							}
 						}
-					} else if("后期制作".equals(job.getName())){
+					} else if(JobSection.SECTION_AFTER.typeName().equals(job.getName())){
 						Dictionary[] subJobTypes = dicReader.getSubDics(DicTypes.DIC_RECRUIT_TYPE.typeID(), job.getId());
 						if(subJobTypes != null && subJobTypes.length > 0){
 							for (Dictionary subJob : subJobTypes) {
@@ -73,10 +78,10 @@ public class UserHelper {
 			e.printStackTrace();
 		}
 		
-		pMap.put("演员", actor);
-		pMap.put("前期制作", earStage);
-		pMap.put("后期制作", laterStage);
-		pMap.put("其他影人", other);
+		pMap.put(JobSection.SECTION_ACTOR.typeName(), actor);
+		pMap.put(JobSection.SECTION_FOWARD.typeName(), earStage);
+		pMap.put(JobSection.SECTION_AFTER.typeName(), laterStage);
+		pMap.put(JobSection.SECTION_OTHER.typeName(), other);
 	}
 
 	public static String saveAffix(HttpServletRequest request, String prefix){
@@ -148,27 +153,69 @@ public class UserHelper {
 		
 		//职业分类
 		 //演员
-		Dictionary dic1 = dicReader.getDicByName(DicTypes.DIC_JOB_TYPE.typeID(), "演员");
-		//前期制作
-		Dictionary dic2 = dicReader.getDicByName(DicTypes.DIC_JOB_TYPE.typeID(), "前期制作");
+		Dictionary dic1 = dicReader.getDicByName(DicTypes.DIC_JOB_TYPE.typeID(), JobSection.SECTION_ACTOR.typeName());
+		//前期拍摄
+		Dictionary dic2 = dicReader.getDicByName(DicTypes.DIC_JOB_TYPE.typeID(), JobSection.SECTION_FOWARD.typeName());
 		//后期制作
-		Dictionary dic3 = dicReader.getDicByName(DicTypes.DIC_JOB_TYPE.typeID(), "后期制作");
+		Dictionary dic3 = dicReader.getDicByName(DicTypes.DIC_JOB_TYPE.typeID(), JobSection.SECTION_AFTER.typeName());
 		//其他影人
-		Dictionary dic4 = dicReader.getDicByName(DicTypes.DIC_JOB_TYPE.typeID(), "其他影人");
+		Dictionary dic4 = dicReader.getDicByName(DicTypes.DIC_JOB_TYPE.typeID(), JobSection.SECTION_OTHER.typeName());
 		
-		if(dicFirst.getName().equals("前期拍摄")){
-			 if(dicSecond.getName().equals("演员")){
+		if(dicFirst.getName().equals(JobSection.SECTION_FOWARD.typeName())){
+			 if(dicSecond.getName().equals(JobSection.SECTION_ACTOR.typeName())){
 				 return dic1.getId();
 			 }
 			 else{
 				 return dic2.getId();
 			 }
 		}
-		else if(dicFirst.getName().equals("后期制作")){
+		else if(dicFirst.getName().equals(JobSection.SECTION_AFTER.typeName())){
 			return dic3.getId();
 		}
 		else {
 			return dic4.getId();
 		}
+	}
+	
+	/**根据影人分（演员、前期拍摄、后期制作、其他影人）获取对应的影人分类
+	 * @return
+	 * @throws TLException
+	 */
+	public static List<Dictionary> getTypeCats(int typeid) throws TLException{
+		
+		DictionaryReader dicReader = (DictionaryReader) Context.getBean(DictionaryReader.class);
+		List<Dictionary> list = new ArrayList<Dictionary>();
+		if(typeid == JobSection.SECTION_ACTOR.typeID()){
+			
+		}
+		if(typeid == JobSection.SECTION_FOWARD.typeID()){
+			Dictionary dic = dicReader.getDic(DicTypes.DIC_RECRUIT_TYPE.typeID(), RecruitCat.REC_FOWARD.typeID());
+			Dictionary[] dics =dicReader.getChildrenDics(DicTypes.DIC_RECRUIT_TYPE.typeID(), RecruitCat.REC_FOWARD.typeID());
+
+			dic.setSubDics(dics);
+			list.add(dic);
+		}
+		if(typeid == JobSection.SECTION_AFTER.typeID()){
+			Dictionary dic = dicReader.getDic(DicTypes.DIC_RECRUIT_TYPE.typeID(), RecruitCat.REC_AFTER.typeID());
+			Dictionary[] dics =dicReader.getChildrenDics(DicTypes.DIC_RECRUIT_TYPE.typeID(), RecruitCat.REC_AFTER.typeID());
+
+			dic.setSubDics(dics);
+			list.add(dic);
+		}
+		if(typeid == JobSection.SECTION_OTHER.typeID()){
+			Dictionary dic = dicReader.getDic(DicTypes.DIC_RECRUIT_TYPE.typeID(), RecruitCat.REC_PUB.typeID());
+			Dictionary[] dics =dicReader.getChildrenDics(DicTypes.DIC_RECRUIT_TYPE.typeID(), RecruitCat.REC_PUB.typeID());
+
+			dic.setSubDics(dics);
+			list.add(dic);
+			
+			Dictionary dic2 = dicReader.getDic(DicTypes.DIC_RECRUIT_TYPE.typeID(), RecruitCat.REC_CARTOON.typeID());
+			Dictionary[] dics2 =dicReader.getChildrenDics(DicTypes.DIC_RECRUIT_TYPE.typeID(), RecruitCat.REC_CARTOON.typeID());
+
+			dic.setSubDics(dics2);
+			list.add(dic2);
+		}
+		
+		return list;
 	}
 }
