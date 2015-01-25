@@ -500,7 +500,12 @@ public class UserManager {
 		StringBuilder countSql = new StringBuilder("SELECT count(rtUser.userID) AS count FROM (SELECT DISTINCT u.id as userID FROM user_recruit rt,user u LEFT JOIN sys_dictionary AS dic ON u.city=dic.dic_id WHERE u.id=rt.userID AND u.type=1");
 		List<Object> paramList = new ArrayList<Object>();
 		if(!StringUtils.isEmpty(city)){
-			if("其他".equals(city)){
+			if(!StringUtils.isEmpty(city)){
+				querySql.append(" and rt.cityName=?");
+				countSql.append(" and rt.cityName=?");
+				paramList.add(city);
+			}
+			/*if("其他".equals(city)){
 				String citys = "'北京','上海','广州','南京','重庆','长春','银川','苏州','横店','涿州','海外'";
 				querySql.append(" and dic.dic_name not in (").append(citys).append(")");
 				countSql.append(" and dic.dic_name not in (").append(citys).append(")");
@@ -508,7 +513,7 @@ public class UserManager {
 				querySql.append(" and dic.dic_name=?");
 				countSql.append(" and dic.dic_name=?");
 				paramList.add(city);
-			}
+			}*/
 		}
 		countSql.append(" ) AS rtUser");
 	

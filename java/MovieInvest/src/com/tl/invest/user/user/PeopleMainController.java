@@ -26,7 +26,6 @@ import com.tl.common.JsonDateValueProcessor;
 import com.tl.common.Message;
 import com.tl.common.StringUtils;
 import com.tl.invest.constant.DicTypes;
-import com.tl.invest.constant.JobSection;
 import com.tl.invest.workspace.Entry;
 import com.tl.kernel.context.Context;
 import com.tl.kernel.sys.dic.Dictionary;
