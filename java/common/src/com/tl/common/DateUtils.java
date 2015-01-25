@@ -390,4 +390,19 @@ public class DateUtils {
 		sb.append(format.format(dNow));
 		return sb.toString();
 	}
+	/**
+	 * 获取当前日期几年前的日期
+	 * @param date
+	 * @return
+	 */
+	public static String getSysDateYears(int years) {
+		StringBuilder dateBuilder = new StringBuilder();
+		String yearNum = YearNum();
+		int yearsNum = Integer.valueOf(yearNum) + years;
+		String monthNum = MonthNum();
+		String dayNum = DayNum();
+		dateBuilder.append(yearsNum).append("-").append(monthNum).append("-").append(dayNum);
+		return dateBuilder.toString();
+		
+	}
 }
