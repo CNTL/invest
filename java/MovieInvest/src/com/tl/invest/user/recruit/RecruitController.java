@@ -151,18 +151,14 @@ public class RecruitController extends BaseController {
 	*/ 
 	private String save(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
-		/*
-		user.setOrgFullname(ParamInitUtils.getString(request.getParameter("orgFullname")));
-		user.setLocation(ParamInitUtils.getString(request.getParameter("location")));
-		user.setCoordinate(ParamInitUtils.getString(request.getParameter("coordinate")));
-		user.setOrgNature(ParamInitUtils.getString(request.getParameter("orgNature")));
-		user.setOrgTrade(ParamInitUtils.getString(request.getParameter("orgTrade")));
-		user.setOrgScale(ParamInitUtils.getString(request.getParameter("orgScale")));
-		user.setOrgHomePage(ParamInitUtils.getString(request.getParameter("orgHomePage")));
-		userManager.update(user);
-		*/
+		int id = getInt(request, "id");
+		UserRecruit recruit = new UserRecruit();
+		if(id > 0){
+			recruit = recruitManager.getRecruitByID(id);
+		}
 		int firstType = getInt(request, "firstType");
 		int secondType = getInt(request, "secondType");
+		int cityId = getInt(request, "workCity");
 		String typeName = "";
 		Dictionary dic = null;
 		if(secondType > 0){
@@ -172,7 +168,7 @@ public class RecruitController extends BaseController {
 			dic = dicReader.getDic(DicTypes.DIC_RECRUIT_TYPE.typeID(), firstType);
 			typeName = dic.getCascadeName();
 		}
-		UserRecruit recruit = new UserRecruit();
+		
 		recruit.setUserId(user.getId());
 		recruit.setUserName(user.getName());
 		//jobName jobPictrue salary working eduReq isFulltime jobAttract
@@ -188,11 +184,17 @@ public class RecruitController extends BaseController {
 		recruit.setLinkman(ParamInitUtils.getString(request.getParameter("linkman")));
 		recruit.setLinkPhone(ParamInitUtils.getString(request.getParameter("linkPhone")));
 		recruit.setLinkEmail(ParamInitUtils.getString(request.getParameter("linkEmail")));
-		recruit.setCreatetime(DateUtils.getTimestamp());
 		recruit.setFirstType(firstType);
 		recruit.setSecondType(secondType);
 		recruit.setTypeName(typeName);
 		//recruit.setPubTime(DateUtils.getTimestamp());
+		recruit.setCityId(cityId);
+		if(cityId > 0){
+			dic = dicReader.getDic(DicTypes.DIC_RECRUIT_HOT_TYPE.typeID(), cityId);
+			typeName = dic.getCascadeName();
+		}
+		recruit.setCityName(typeName);
+		recruit.setCreatetime(DateUtils.getTimestamp());
 		recruitManager.save(recruit);
 		return "ok";
 	}

@@ -110,6 +110,8 @@ public class UserController extends BaseController {
 			deleteUser(request,response);
 		} else if ("typeDatas".equals(action)) {
 			typeDatas(request,response);
+		} else if ("cities".equals(action)) {
+			cities(request,response);
 		} else if("orderUser".equals(action)){
 			orderUser(request,response);
 		}
@@ -495,6 +497,28 @@ public class UserController extends BaseController {
 		StringBuffer sb = new StringBuffer();
 		sb.append("{");
 		sb.append("\"jobTypes\":["+sb1.toString()+"]");
+		sb.append("}");
+		
+		output(sb.toString(), response);
+	}
+	
+	private void cities(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		DictionaryReader dicReader = (DictionaryReader)Context.getBean(DictionaryReader.class);
+		Dictionary[] cities = dicReader.getDics(DicTypes.DIC_RECRUIT_HOT_TYPE.typeID());
+		
+		StringBuffer sb1 = new StringBuffer();
+		for (Dictionary city : cities) {
+			if(sb1.length()>0) sb1.append(",");
+			sb1.append("{");
+			sb1.append("\"id\":"+city.getId());
+			sb1.append(",\"pid\":"+city.getPid());
+			sb1.append(",\"name\":\""+city.getName()+"\"");
+			sb1.append("}");
+		}
+		
+		StringBuffer sb = new StringBuffer();
+		sb.append("{");
+		sb.append("\"cities\":["+sb1.toString()+"]");
 		sb.append("}");
 		
 		output(sb.toString(), response);

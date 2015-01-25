@@ -129,15 +129,9 @@ public class RecruitManager {
 			countSql.append(" AND (u.orgShortname LIKE '%").append(key).append("%' OR u.orgFullname LIKE '%").append(key).append("%')");
 		}
 		if(!StringUtils.isEmpty(city)){
-			if("其他".equals(city)){
-				String citys = "'北京','上海','广州','南京','重庆','长春','银川','苏州','横店','涿州','海外'";
-				querySql.append(" and dic.dic_name not in (").append(citys).append(")");
-				countSql.append(" and dic.dic_name not in (").append(citys).append(")");
-			} else {
-				querySql.append(" and dic.dic_name=?");
-				countSql.append(" and dic.dic_name=?");
-				paramList.add(city);
-			}
+			querySql.append(" and rt.cityId=?");
+			countSql.append(" and rt.cityId=?");
+			paramList.add(city);
 		}
 		if("queryNew".equals(queryType)){//最新职位
 			querySql.append(" order by rt.createtime desc");

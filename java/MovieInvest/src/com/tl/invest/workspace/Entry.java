@@ -135,10 +135,11 @@ public class Entry extends BaseController {
 		if(type == 0){//个人用户登录后
 			list.add(new Menu(1, "个人设置","/user/BasicInfo.do?infoType=1","set", -999,0));
 			list.add(new Menu(2, "消息中心","/user/MsgMa.do?infoType=1&mainType=4","msg-info", -999,0));
-			list.add(new Menu(3, "简历管理", "/resume/myresume.do?infoType=1","spo",-999,0));
-			list.add(new Menu(4, "项目管理", "/user/Project.do","spo",-999,0));
-			list.add(new Menu(41, "发布项目", "/project/Publish.do","spo",-999,0));
-			list.add(new Menu(5, "退出", "/user/logout.do","exit bn",-999,0));
+			list.add(new Menu(3, "职位管理", "/recruit/ListMain.do?a=queryNew&recruitType=edit&mainType=3","spo",-999,0));
+			list.add(new Menu(4, "简历管理", "/resume/myresume.do?infoType=1","spo",-999,0));
+			list.add(new Menu(5, "项目管理", "/user/Project.do","spo",-999,0));
+			list.add(new Menu(6, "发布项目", "/project/Publish.do","spo",-999,0));
+			list.add(new Menu(7, "退出", "/user/logout.do","exit bn",-999,0));
 		} else if(type == 1){//机构用户登录后
 			list.add(new Menu(1, "机构设置","/org/BasicInfo.do?infoType=1&mainType=4","set", -999,0));
 			list.add(new Menu(2, "消息中心","/user/MsgMa.do?infoType=1&mainType=4","msg-info", -999,0));

@@ -41,6 +41,8 @@ public class UserRecruit {
 	private Integer secondType;
 	private String typeName;
 	private Integer jobOrder;
+	private Integer cityId;
+	private String cityName;
 	private int deleted;
 	public int getDeleted() {
 		return deleted;
@@ -347,5 +349,21 @@ public class UserRecruit {
 
 	public void setTypeName(String typeName) {
 		this.typeName = typeName;
+	}
+
+	public Integer getCityId() {
+		return cityId;
+	}
+
+	public void setCityId(Integer cityId) {
+		this.cityId = cityId;
+	}
+
+	public String getCityName() {
+		return cityName;
+	}
+
+	public void setCityName(String cityName) {
+		this.cityName = cityName;
 	}
 }

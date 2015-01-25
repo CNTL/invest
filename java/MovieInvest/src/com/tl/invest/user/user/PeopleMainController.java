@@ -182,12 +182,28 @@ public class PeopleMainController extends Entry {
 			model.put("msg", msg);
 		} else {
 			int curPage = getInt(request, "curPage", 1);
-			Dictionary pesonTypeDic = dicReader.getDicByName(DicTypes.DIC_RECRUIT_TYPE.typeID(), typeName);
-			if(pesonTypeDic == null) return;
+			//年龄
+			int age = getInt(request, "age");
+			//性别
+			int gender = getInt(request, "gender");
+			//影人分类
+			StringBuilder typeIds = new StringBuilder("");
+			String[] typeNameArr = typeName.split(",");
+			if(typeNameArr != null && typeNameArr.length > 0){
+				for (int i = 0; i < typeNameArr.length; i++) {
+					String curTypeName = typeNameArr[i];
+					Dictionary pserType = dicReader.getDicByName(DicTypes.DIC_RECRUIT_TYPE.typeID(), curTypeName);
+					if(i > 0) typeIds.append(",");
+					typeIds.append(pserType.getId());
+				}
+			}
+			//String personType = get(request, "personType");
+			//Dictionary pesonTypeDic = dicReader.getDicByName(DicTypes.DIC_RECRUIT_TYPE.typeID(), typeName);
+			//if(pesonTypeDic == null) return;
 			
-			int secondType = pesonTypeDic.getId();
-			model.put("typeName", pesonTypeDic.getName());
-			Message msg = userManager.queryMorePersons(secondType, curPage, 20);
+			//int secondType = pesonTypeDic.getId();
+			model.put("typeName", typeName);
+			Message msg = userManager.queryMorePersons(curPage, 20, age, gender, typeIds.toString());
 			
 			model.put("msg", msg);
 		}

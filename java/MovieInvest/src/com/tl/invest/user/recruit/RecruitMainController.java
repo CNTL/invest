@@ -10,11 +10,13 @@ import com.tl.common.DateUtils;
 import com.tl.common.Message;
 import com.tl.common.ParamInitUtils;
 import com.tl.common.WebUtil;
+import com.tl.invest.constant.DicTypes;
 import com.tl.invest.user.user.User;
 import com.tl.invest.user.user.UserManager;
 import com.tl.invest.workspace.Entry;
 import com.tl.kernel.context.Context;
 import com.tl.kernel.sys.dic.Dictionary;
+import com.tl.kernel.sys.dic.DictionaryReader;
 import com.tl.sys.common.SessionHelper;
 
 /** 
@@ -49,6 +51,9 @@ public class RecruitMainController extends Entry {
 	* @throws Exception 
 	*/ 
 	private void queryRecruits(HttpServletRequest request, HttpServletResponse response, Map model, String queryType) throws Exception{
+		DictionaryReader dicReader = (DictionaryReader)Context.getBean(DictionaryReader.class);
+		Dictionary[] cities = dicReader.getDics(DicTypes.DIC_RECRUIT_HOT_TYPE.typeID());
+		
 		request.setCharacterEncoding("utf-8");
 		String recruitType = get(request, "recruitType");//是否是职位管理（view-浏览所有招聘信息，edit-管理我的职位信息）
 		int searchType = getInt(request, "searchType");//0=职位，1=公司
@@ -67,6 +72,7 @@ public class RecruitMainController extends Entry {
 		model.put("city", city);
 		model.put("more", ParamInitUtils.getString(request.getParameter("more")));
 		model.put("msg", msg);
+		model.put("cities", cities);
 	}
 	@Override
 	protected void setMetaData(HttpServletRequest request,Map model) {

@@ -2,7 +2,6 @@ package com.tl.invest.user.user;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.Hibernate;
@@ -10,22 +9,19 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.type.Type;
 
-import com.sun.org.apache.bcel.internal.generic.AALOAD;
+import com.tl.common.DateUtils;
 import com.tl.common.Message;
 import com.tl.common.ResourceMgr;
 import com.tl.common.StringUtils;
 import com.tl.common.UserEncrypt;
 import com.tl.db.DBSession;
 import com.tl.db.IResultSet;
-import com.tl.invest.constant.DicTypes;
 import com.tl.kernel.constant.SysTableLibs;
 import com.tl.kernel.context.Context;
 import com.tl.kernel.context.DAO;
 import com.tl.kernel.context.DAOHelper;
 import com.tl.kernel.context.TBID;
 import com.tl.kernel.context.TLException;
-import com.tl.kernel.sys.dic.Dictionary;
-import com.tl.kernel.sys.dic.DictionaryReader;
 
 
 
@@ -436,11 +432,14 @@ public class UserManager {
 		return getSqlCount(sql,params,db);
 	}
 	
-	public Message queryMorePersons(int personType, int curPage, int length) throws Exception{
-		StringBuilder querySql = new StringBuilder("select a from com.tl.invest.user.user.User as a where a.type = 0 and a.isRealNameIdent=1 and a.secondType = "+
-				personType + " order by a.createTime desc");
+	public Message queryMorePersons(int curPage, int length,
+			int age, int gender, String typeIds) throws Exception{
+		StringBuilder querySql = new StringBuilder("select a from com.tl.invest.user.user.User as a")
+			.append(" where a.type = 0 and a.isRealNameIdent=1 ");
+		querySql.append(morePersonsSql(age, gender, typeIds));
+		querySql.append(" order by a.createTime desc");
 		List<User> persons = DAOHelper.find(querySql.toString() , length*(curPage-1), length);
-		int total = getMorePersonsCount(personType, null);
+		int total = getMorePersonsCount(age, gender, typeIds, null);
 		return setMessage(persons, curPage, length, total);
 	}
 	/** 
@@ -451,10 +450,42 @@ public class UserManager {
 	* @return
 	* @throws TLException 
 	*/ 
-	public int getMorePersonsCount(int personType, DBSession db) throws TLException{
-		String sql = "select count(0) from user where user.type=0 and user.secondType=?";
-		Object[] params = new Object[]{personType};
-		return getSqlCount(sql,params,db);
+	public int getMorePersonsCount(int age, int gender, String typeIds, DBSession db) throws TLException{
+		String sql = "select count(0) from user where user.type=0 ";
+		sql += morePersonsSql(age, gender, typeIds);
+		return getSqlCount(sql,null,db);
+	}
+	
+	private String morePersonsSql(int age, int gender, String typeIds) {
+		StringBuilder querySql = new StringBuilder("");
+		if(age > 0){
+			querySql.append(calBirthday(age));
+		}
+		if(gender > 0){
+			querySql.append(" and a.gender=").append(gender);		
+		}
+		if(!StringUtils.isEmpty(typeIds)){
+			querySql.append("  and a.secondType in(").append(typeIds).append(")");	
+		}
+		return querySql.toString();
+	}
+	private String calBirthday(int value) {
+		StringBuilder querySql = new StringBuilder("");
+		switch (value) {
+		case 1://20岁以下
+			querySql.append(" and a.birthdate >=").append(DateUtils.getSysDateYears(20));
+			break;
+		case 2://20-30岁
+			querySql.append(" and a.birthdate <=").append(DateUtils.getSysDateYears(20));
+			querySql.append(" and a.birthdate >=").append(DateUtils.getSysDateYears(30));
+			break;
+		case 3://30岁以上
+			querySql.append(" and a.birthdate <=").append(DateUtils.getSysDateYears(30));
+			break;
+		default:
+			break;
+		}
+		return null;
 	}
 	/** 
 	* @author  leijj 
