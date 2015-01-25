@@ -66,6 +66,10 @@
     <div class="project_list">
     <div class="container-fluid">
 		<div class="row" id="rows">
+			
+			<c:forEach var="s" varStatus="status" items="${seachItems}">
+				<a href="#" ><c:out value="${s.name}"/></a>
+			</c:forEach>
 			<dl class="dl-horizontal" id="taglist" data-type="41">
                 <dt>搜索条件：</dt>
                 <dd><a data-group="all" href="#">全部</a>|<a data-group="sex" href="#">男</a>|<a data-group="sex" href="#">女</a>|<a data-group="age" href="#">20岁以下</a>|<a data-group="age" href="#">20岁-30岁</a>|<a data-group="age" href="#">30岁以上</a>|</dd>
