@@ -25,26 +25,37 @@
 			color:white;
 			cursor:pointer;
 		} 
-		 #taglist{
-		 	padding:50px 200px;
-		 	height:50px;
-		 }
-		 #taglist dd a {
+		#rows dl{
+			margin-bottom:5px;
+		}
+		#rows dt{
+			text-align:left;
+			width:90px;
+			font-size:14px;
+		}
+		#rows dd{
+			margin-left:0;
+		}
+	 
+		 #rows dd a {
 		 	font-size:14px;
             color: #555;
             margin-right: 5px;
             cursor: pointer;
             padding: 5px 5px;
+            text-decoration:none;
+            
         }
 
-        #taglist dd a:hover {
+        #rows dd a:hover {
             color: white;
             background: #38C6E4;
+            text-decoration:none;
         }
-        
-        .ddselect{
+        .aselect{
         	color: white;
             background: #38C6E4;
+            text-decoration:none;
         }
 
 	</style>
@@ -64,34 +75,16 @@
     </div>
 	
     <div class="project_list">
-    <div class="container-fluid">
-		<div class="row" id="rows">
-			
-			<c:forEach var="s" varStatus="status" items="${seachItems}">
-				<a href="#" ><c:out value="${s.name}"/></a>
-			</c:forEach>
-			<dl class="dl-horizontal" id="taglist" data-type="41">
-                <dt>搜索条件：</dt>
-                <dd><a data-group="all" href="#">全部</a>|<a data-group="sex" href="#">男</a>|<a data-group="sex" href="#">女</a>|<a data-group="age" href="#">20岁以下</a>|<a data-group="age" href="#">20岁-30岁</a>|<a data-group="age" href="#">30岁以上</a>|</dd>
-            </dl>
-            <dl class="dl-horizontal" id="taglist2" data-type="42">
-                <dt>搜索条件：</dt>
-                <dd><a data-group="all" href="#">全部</a>|</dd>
-            </dl>
-             <dl class="dl-horizontal" id="taglist2" data-type="43">
-                <dt>搜索条件：</dt>
-                <dd><a data-group="all" href="#">全部</a>|</dd>
-            </dl>
-            <dl class="dl-horizontal" id="taglist2" data-type="44">
-                <dt>搜索条件：</dt>
-                <dd><a data-group="all" href="#">全部</a>|</dd>
-            </dl>
-		</div>
-	</div>
+  
         <div class="block1">
-        	<%-- <div class="top">
+        	<div class="top">
                 <h2><c:out value="${perName}"/></h2>
-            </div> --%>
+            </div> 
+              <div class="container-fluid">
+				<div class="row text-left" id="rows">
+					
+				</div>
+			</div>
         	<div>
 				<dt>
 					<ul class="nav">
@@ -132,7 +125,7 @@
 	                        <a href="../user/PeopleDetailMain.do?a=detail&mainType=4&id=<c:out value="${person.id}"/>">
 	                        <c:out value="${person.name}"/>
 	                        </a>
-	                        <span><c:out value="${perName}"/></span>
+	                        <span><c:out value="${person.perJobName}"/></span>
 	                    </div>
 	                    <div class="desc">
 	                        <c:out value="${person.intro}"/>
