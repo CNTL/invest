@@ -212,7 +212,7 @@ public class UserHelper {
 			Dictionary dic2 = dicReader.getDic(DicTypes.DIC_RECRUIT_TYPE.typeID(), RecruitCat.REC_CARTOON.typeID());
 			Dictionary[] dics2 =dicReader.getChildrenDics(DicTypes.DIC_RECRUIT_TYPE.typeID(), RecruitCat.REC_CARTOON.typeID());
 
-			dic.setSubDics(dics2);
+			dic2.setSubDics(dics2);
 			list.add(dic2);
 		}
 		
