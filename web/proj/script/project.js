@@ -4,7 +4,8 @@ var proj_form = {
 	eventList : [
 		{id:"proj_province",evt:"change", fn:"changeProvince"}, 
 		{id:"proj_city",evt:"change", fn:"changeCity"}, 
-		{id:"proj_countDay_sel",evt:"change", fn:"changeCountDaySel"}
+		{id:"proj_countDay_sel",evt:"change", fn:"changeCountDaySel"},
+		{id:"proj_payType",evt:"change",fn:"changePayType"}
 		],
 	DEFAULT_PAIR : {key:"id",value:"name"},
 	init : function(){
@@ -24,7 +25,8 @@ var proj_form = {
 		proj_form._setOptions("proj_province",proj_datas.getProvinces(),proj_form.DEFAULT_PAIR);
 		
 		proj_form.initUploadify("uploadify","queueItemCount","proj_imgURL","uploadErrorMsg",true,proj_form.imgUploaded);
-		$("#btnNext").bind("click",proj_form["next"]);
+		
+		$("#btnNext").bind("click",proj_form["next"]);//绑定btnNext事件，不再执行changePayType
 		$("#btnPre").bind("click",proj_form["pre"]);
 		$("#btnSave").bind("click",proj_form["save"]);
 		$("#proj_newmode").bind("click",proj_form["addMode"]);
@@ -32,11 +34,11 @@ var proj_form = {
 		$("body").delegate("#mode_countGoal_free_chk","click",proj_form["freeCheckClick"]);
 		$("body").delegate("#mode_price_free_chk","click",proj_form["freeCheckClick"]);
 		$("body").delegate("#mode_freight_free_chk","click",proj_form["freeCheckClick"]);
-		
+				
 		$("#form1").validationEngine({
 			autoPositionUpdate:false
 		});
-		
+		//proj_form.changePayType(); //已经绑定btnNext的按钮事件此处不再绑定
 		proj_form.showEdit();
 	},
 	showEdit : function(){
@@ -62,6 +64,7 @@ var proj_form = {
 				$("#proj_province").val(datas.proj.province).trigger("change");
 				$("#proj_city").val(datas.proj.city).trigger("change");
 				$("#proj_county").val(datas.proj.county);
+				$("#proj_payType").val(datas.proj.payType).trigger("change");
 				$("#proj_amountGoal").val(datas.proj.amountGoal);
 				$("#proj_timeType").val(datas.proj.timeType);
 				$("#proj_countDay").val(datas.proj.countDay);
@@ -330,6 +333,7 @@ var proj_form = {
 		form["proj_province"] = $("#proj_province").val();
 		form["proj_city"] = $("#proj_city").val();
 		form["proj_county"] = $("#proj_county").val();
+		form["proj_payType"] = $("#proj_payType").val();
 		form["proj_amountGoal"] = $("#proj_amountGoal").val();
 		form["proj_timeType"] = $("#proj_timeType").val();
 		form["proj_countDay_sel"] = $("#proj_countDay_sel").val();
@@ -409,6 +413,10 @@ var proj_form = {
 		
 		proj_form._save();
 	},
+	saveAuction : function(){
+		if(!proj_form._validStep1()) return;
+		proj_form._save();
+	},
 	initProjTypes : function(){
 		$("#proj_type_select li").remove();
 		var types = proj_datas.getProjTypes();
@@ -427,6 +435,18 @@ var proj_form = {
 		
 		$('#proj_type_select li.current').trigger("click");
 	},
+	changePayType : function(){
+		var t = $("#proj_payType").val();
+		if(t == 0){			
+			$("#btnNext").val("下一步");
+			$('#btnNext').unbind("click",proj_form["saveAuction"]);
+			$('#btnNext').bind("click",proj_form["next"]);
+		}else if(t == 1){
+			$("#btnNext").val("提交信息");
+			$('#btnNext').unbind("click",proj_form["next"]);
+			$('#btnNext').bind("click",proj_form["saveAuction"]);
+		}
+	},
 	changeProvince : function(){
 		var cities = [];
 		var pid = $("#proj_province").val();
@@ -436,7 +456,9 @@ var proj_form = {
 	changeCity : function(){
 		var counties = [];
 		var cid = $("#proj_city").val();
-		counties = proj_datas.getCounties(cid);
+		//counties = proj_datas.getCounties(cid);
+		//只到二级地区
+		counties = [{"id":"0","name":"请选择"}];
 		proj_form._setOptions("proj_county",counties,proj_form.DEFAULT_PAIR);
 	},
 	changeCountDaySel : function(){

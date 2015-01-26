@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
-import com.sun.jndi.toolkit.dir.SearchFilter;
 import com.tl.common.Pair;
 import com.tl.common.ResourceMgr;
 import com.tl.common.StringUtils;

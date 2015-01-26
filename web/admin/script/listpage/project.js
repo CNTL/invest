@@ -48,7 +48,7 @@ var options = {
 			toolbars.push(oktool);
 		}
 		toolbars.push(colsetool);
-		tldialog.show(rowData.proj_name,"../admin/Project.do?id="+rowData.proj_id,800,648,true,false,false,toolbars);
+		tldialog.show(rowData.proj_name,"../admin/Project.do?from=admin&id="+rowData.proj_id,800,648,true,false,false,toolbars);
 	},
 	frozenColumns : [[{title:"复选框",field:"ck",width:60,sortable:false,checkbox:true},
 						{title:"ID",field:"proj_id",width:60,sortable:true}

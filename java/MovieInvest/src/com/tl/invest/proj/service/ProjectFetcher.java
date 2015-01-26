@@ -216,9 +216,13 @@ public class ProjectFetcher extends BaseController{
 			Project proj = service.get(proj_id);
 			ProjMode[] modes = service.getProjectModes(proj_id);
 			pm.setProj(proj);
-			pm.setModes(modes);
+			pm.setModes(modes == null ? new ProjMode[0] : modes);
 		}
-		output(JSONObject.fromObject(pm).toString(), response);
+		JsonConfig jsonConfig = new JsonConfig();
+		jsonConfig.registerJsonValueProcessor(Timestamp.class,new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
+		jsonConfig.registerJsonValueProcessor(Date.class, new JsonDateValueProcessor()); 
+		
+		output(JSONObject.fromObject(pm,jsonConfig).toString(), response);
 	}
 
 	private void initDatas(HttpServletResponse response) throws Exception {

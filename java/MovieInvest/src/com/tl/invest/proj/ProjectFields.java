@@ -78,6 +78,13 @@ public enum ProjectFields {
 			project.setUserId(Integer.parseInt(value));
 		}
 	},
+	payType("proj_payType","项目类别",DataType.INTEGER){
+		@Override
+		public void setValue(Project project, String value) {
+			if(StringUtils.isEmpty(value)) value = "0";
+			project.setPayType(Integer.parseInt(value));
+		}
+	},
 	type("proj_type","项目类型",DataType.INTEGER) {
 		@Override
 		public void setValue(Project project, String value) {

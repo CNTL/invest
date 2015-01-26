@@ -14,6 +14,8 @@ public class SupportController extends ProjectController {
 	protected void setOtherData(HttpServletRequest request,
 			HttpServletResponse response,Map model) throws Exception {
 		super.setOtherData(request, response, model);
+		model.remove("@VIEWNAME@");
+		
 		int page = getInt(request, "page", 1);
 		if(proj!=null){
 			ProjSupportExt[] supports = service.getProjectSupports(proj.getId(),20,page, null);

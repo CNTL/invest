@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.tl.common.DateUtils;
+import com.tl.common.StringUtils;
 import com.tl.invest.common.MoneyHelper;
 import com.tl.invest.constant.DicTypes;
 import com.tl.invest.favorite.Favorite;
@@ -32,6 +33,8 @@ public class ProjectController extends ProjectMainController{
 	protected void setOtherData(HttpServletRequest request,
 			HttpServletResponse response,Map model) throws Exception {
 		long proj_id = getLong(request, "id", 0);
+		String from = get(request, "from", "");
+		int payType = 0;
 		if(proj_id > 0){
 			proj = service.get(proj_id);
 			if(proj!=null){
@@ -41,26 +44,13 @@ public class ProjectController extends ProjectMainController{
 				Dictionary city = dicReader.getDic(DicTypes.DIC_AREA.typeID(), proj.getCity());
 				Dictionary county = dicReader.getDic(DicTypes.DIC_AREA.typeID(), proj.getCounty());
 				
-				//完成百分比
-				BigDecimal per = MoneyHelper.ZERO;
-				if(proj.getAmountGoal().compareTo(MoneyHelper.ZERO)<=0){
-					per = MoneyHelper.toMoney("100");
-				}
-				else {
-					per = proj.getAmountRaised().divide(proj.getAmountGoal(),2,BigDecimal.ROUND_HALF_UP).multiply(MoneyHelper.toMoney("100"));
-				}
-				per = MoneyHelper.getBigDecimal(per, 0);
+				payType = proj.getPayType();
+				
 				//剩余时间
-				String surplus = "--";
-				Date endDate = proj.getEndDate();
-				if(endDate != null){
-					long l=endDate.getTime() - DateUtils.getDate().getTime();
-					if(l<=0){
-						surplus = "0天";
-					}else {
-						surplus = String.valueOf(l/(24*60*60*1000))+"天";
-					}
-				}
+				String surplus = getSurPlus();
+				
+				//完成百分比
+				BigDecimal per = getFinishedPer();
 				
 				ProjScheduleExt[] schedules = service.getProjScheduleExts(proj_id, 100, 1, null);
 				Dictionary[] dics = dicReader.getSubDics(DicTypes.DIC_INVEST_STAGE.typeID(), 0);
@@ -113,6 +103,13 @@ public class ProjectController extends ProjectMainController{
 			}
 			model.put("proj", proj);
 		}
+		if(StringUtils.isEmpty(from)){
+			if(payType == 1){
+				model.put("@VIEWNAME@", "proj/DetailJP");
+			}else {
+				model.put("@VIEWNAME@", "proj/Detail");
+			}
+		}
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -121,5 +118,46 @@ public class ProjectController extends ProjectMainController{
 		model.put("title", (proj!=null?proj.getName():"") + "合众映画");
 		model.put("keywords", "合众映画");
 		model.put("description", proj!=null?proj.getSummary():"合众映画");
+	}
+	
+	/**
+	 * 获取完成百分比
+	 * @return
+	 */
+	private BigDecimal getFinishedPer(){
+		int payType = proj.getPayType();
+		BigDecimal per = MoneyHelper.ZERO;
+		if(payType == 1){
+			Date beginDate = proj.getBeginDate();
+			if(beginDate!=null){
+				long l= DateUtils.getDate().getTime() - beginDate.getTime();
+				if(l>0){
+					BigDecimal t = MoneyHelper.toMoney(String.valueOf(l/(24*60*60*1000)));
+					per = t.divide(MoneyHelper.getBigDecimal(String.valueOf(proj.getCountDay()), 2), 2,BigDecimal.ROUND_HALF_UP).multiply(MoneyHelper.toMoney("100"));
+				}
+			}
+		}else{
+			if(proj.getAmountGoal().compareTo(MoneyHelper.ZERO)<=0){
+				per = MoneyHelper.toMoney("100");
+			}
+			else {
+				per = proj.getAmountRaised().divide(proj.getAmountGoal(),2,BigDecimal.ROUND_HALF_UP).multiply(MoneyHelper.toMoney("100"));
+			}
+		}
+		return MoneyHelper.getBigDecimal(per, 0);
+	}
+	
+	private String getSurPlus(){
+		String surplus = "--";
+		Date endDate = proj.getEndDate();
+		if(endDate != null){
+			long l=endDate.getTime() - DateUtils.getDate().getTime();
+			if(l<=0){
+				surplus = "0天";
+			}else {
+				surplus = String.valueOf(l/(24*60*60*1000))+"天";
+			}
+		}
+		return surplus;
 	}
 }

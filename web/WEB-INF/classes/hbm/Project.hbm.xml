@@ -44,6 +44,9 @@
         <property name="userId" type="int">
             <column name="proj_userID" not-null="true" />
         </property>
+		<property name="payType" type="int">
+            <column name="proj_payType" not-null="true" />
+        </property>
         <property name="type" type="int">
             <column name="proj_type" not-null="true" />
         </property>

@@ -669,6 +669,7 @@ public class ProjectService {
 			proj.setPid(rs.getLong("proj_pid"));
 			proj.setName(rs.getString("proj_name"));
 			proj.setUserId(rs.getInt("proj_userID"));
+			proj.setPayType(rs.getInt("proj_payType"));
 			proj.setType(rs.getInt("proj_type"));
 			proj.setTimeType(rs.getInt("proj_timeType"));
 			proj.setCountDay(rs.getInt("proj_countDay"));
@@ -766,6 +767,7 @@ public class ProjectService {
 			proj.setPid(rs.getLong("proj_pid"));
 			proj.setName(rs.getString("proj_name"));
 			proj.setUserId(rs.getInt("proj_userID"));
+			proj.setPayType(rs.getInt("proj_payType"));
 			proj.setType(rs.getInt("proj_type"));
 			proj.setTimeType(rs.getInt("proj_timeType"));
 			proj.setCountDay(rs.getInt("proj_countDay"));

@@ -41,10 +41,10 @@
 			</ul>
 		</div>
 	   <div class="input">
-			<label>项目名称：</label><input type="text" id="proj_name" name="proj_name" value="" class="validate[maxSize[255],required]"/>
+			<label>项目名称：<span style="color:red;">*</span></label><input type="text" id="proj_name" name="proj_name" value="" class="validate[maxSize[255],required]"/>
 	   </div>
 	   <div class="input">
-			<label>地域：</label>
+			<label>地域：<span style="color:red;">*</span></label>
 			<select id="proj_province" name="proj_province" class="validate[required]">
 				<option value="">省份</option>
 				<option value="1">选项一</option>
@@ -53,13 +53,19 @@
 				<option value="">城市</option>
 				<option value="1">选项一</option>
 			</select>
-			<select id="proj_county" name="proj_county" class="validate[required]">
+			<select id="proj_county" name="proj_county" class="validate[required]" style="display:none;">
 				<option value="">地区</option>
 				<option value="1">选项一</option>
 			</select>
 		</div>
 		<div class="input">
-			<label>众筹金额：</label>
+			<label>
+				<select id="proj_payType" name="proj_payType" style="color:#666;width: 105px;padding-left: 5px;">
+					<option value="0">众筹金额</option>
+					<option value="1">起拍金额</option>
+				</select>
+				<span style="color:red;">*</span>
+			</label>
 			<input type="text" id="proj_amountGoal" name="proj_amountGoal" value="" class="validate[required,custom[number]]" />
 		</div>
 		<div class="input">
@@ -95,7 +101,7 @@
 	   </div>
 		<div class="input">
 			<label>视频地址：</label>
-			<input type="text" id="proj_videoURL" name="proj_videoURL" style="width:848px;" value="" />
+			<input type="text" id="proj_videoURL" name="proj_videoURL" style="width:828px;" value="" />
 		</div>
 		<div class="input">
 			<label>项目简介：</label>
