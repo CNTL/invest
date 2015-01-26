@@ -396,13 +396,12 @@ public class DateUtils {
 	 * @return
 	 */
 	public static String getSysDateYears(int years) {
-		StringBuilder dateBuilder = new StringBuilder();
+		StringBuilder date = new StringBuilder();
 		String yearNum = YearNum();
 		int yearsNum = Integer.valueOf(yearNum) + years;
 		String monthNum = MonthNum();
 		String dayNum = DayNum();
-		dateBuilder.append(yearsNum).append("-").append(monthNum).append("-").append(dayNum);
-		return dateBuilder.toString();
-		
+		date.append(yearsNum).append("-").append(monthNum).append("-").append(dayNum);
+		return date.toString();
 	}
 }
