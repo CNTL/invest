@@ -398,7 +398,7 @@ public class DateUtils {
 	public static String getSysDateYears(int years) {
 		StringBuilder date = new StringBuilder();
 		String yearNum = YearNum();
-		int yearsNum = Integer.valueOf(yearNum) + years;
+		int yearsNum = Integer.valueOf(yearNum) - years;
 		String monthNum = MonthNum();
 		String dayNum = DayNum();
 		date.append(yearsNum).append("-").append(monthNum).append("-").append(dayNum);

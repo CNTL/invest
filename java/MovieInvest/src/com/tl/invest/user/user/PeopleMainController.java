@@ -43,8 +43,6 @@ public class PeopleMainController extends Entry {
 		String action = request.getParameter("a");
 		if("queryPersons".equals(action)){//更多影人信息
 			queryPersons(request, response, model);
-		} else if ("queryMorePersons".equals(action)) {
-			queryMorePersons(request, response, model);
 		} else if ("getPersons".equals(action)) {
 			getPersons(request, response, model);
 		}
@@ -149,65 +147,40 @@ public class PeopleMainController extends Entry {
 	 
 		} else {
 			int curPage = getInt(request, "curPage", 1);
-			Message msg = userManager.queryPersons(type, curPage, 20);
-			Dictionary dic = dicReader.getDic(DicTypes.DIC_JOB_TYPE.typeID(), type);
-			if(dic == null) return;
-			if(type == dic.getId()){
-				model.put("perType", type);
-				model.put("perName", dic.getName());
+			//年龄
+			int age = getInt(request, "age",-1);
+			//性别
+			int gender = getInt(request, "gender",-1);
+			//类型
+			String types = get(request, "types","");
+			
+			if(StringUtils.isEmpty(types)&&age<0&&gender<0){
+				
+				Message msg = userManager.queryPersons(type, curPage, 20);
+				Dictionary dic = dicReader.getDic(DicTypes.DIC_JOB_TYPE.typeID(), type);
+				if(dic == null) return;
+				if(type == dic.getId()){
+					model.put("perType", type);
+					model.put("perName", dic.getName());
+				}
+				model.put("msg", msg);
 			}
-			model.put("msg", msg);
+			else{
+				 
+				Message msg = userManager.queryMorePersons(curPage, 20,type, age, gender, types.toString());
+				Dictionary dic = dicReader.getDic(DicTypes.DIC_JOB_TYPE.typeID(), type);
+				if(dic == null) return;
+				if(type == dic.getId()){
+					model.put("perType", type);
+					model.put("perName", dic.getName());
+				}
+				model.put("msg", msg);
+			}
+			
 		}
 		model.put("type", type);
 	}
 	
-	private void queryMorePersons(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception{
-		DictionaryReader dicReader = (DictionaryReader) Context.getBean(DictionaryReader.class);
-		int type = getInt(request, "type", 0);
-		String typeName = get(request, "typeName");
-		Dictionary typeDic = dicReader.getDic(DicTypes.DIC_JOB_TYPE.typeID(), type);
-		if(typeDic == null) return;
-		if(type == typeDic.getId()){
-			model.put("perType", type);
-			model.put("perName", typeDic.getName());
-			
-			String perName = typeDic.getName();
-			List<String> personTypeList = UserHelper.personTypeList(perName);
-			model.put("typeNames", personTypeList);
-		}
-		if (StringUtils.isEmpty(typeName)) {
-			int curPage = getInt(request, "curPage", 1);
-			Message msg = userManager.queryPersons(type, curPage, 20);
-			model.put("msg", msg);
-		} else {
-			int curPage = getInt(request, "curPage", 1);
-			//年龄
-			int age = getInt(request, "age");
-			//性别
-			int gender = getInt(request, "gender");
-			//影人分类
-			StringBuilder typeIds = new StringBuilder("");
-			String[] typeNameArr = typeName.split(",");
-			if(typeNameArr != null && typeNameArr.length > 0){
-				for (int i = 0; i < typeNameArr.length; i++) {
-					String curTypeName = typeNameArr[i];
-					Dictionary pserType = dicReader.getDicByName(DicTypes.DIC_RECRUIT_TYPE.typeID(), curTypeName);
-					if(i > 0) typeIds.append(",");
-					typeIds.append(pserType.getId());
-				}
-			}
-			//String personType = get(request, "personType");
-			//Dictionary pesonTypeDic = dicReader.getDicByName(DicTypes.DIC_RECRUIT_TYPE.typeID(), typeName);
-			//if(pesonTypeDic == null) return;
-			
-			//int secondType = pesonTypeDic.getId();
-			model.put("typeName", typeName);
-			Message msg = userManager.queryMorePersons(curPage, 20, age, gender, typeIds.toString());
-			
-			model.put("msg", msg);
-		}
-		model.put("type", type);
-	}
 	/** 
 	* @author  leijj 
 	* 功能： 影人主页翻页操作

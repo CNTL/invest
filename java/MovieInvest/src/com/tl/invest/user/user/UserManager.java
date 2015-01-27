@@ -427,15 +427,15 @@ public class UserManager {
 	* @throws TLException 
 	*/ 
 	public int getPersonsCount(int perJob, DBSession db) throws TLException{
-		String sql = "select count(0) from user where user.type=0 and user.perJob=?";
+		String sql = "select count(0) from user as a where a.type=0 and a.deleted=0  and a.perJob=?";
 		Object[] params = new Object[]{perJob};
 		return getSqlCount(sql,params,db);
 	}
 	
-	public Message queryMorePersons(int curPage, int length,
+	public Message queryMorePersons(int curPage, int length,int perJob,
 			int age, int gender, String typeIds) throws Exception{
 		StringBuilder querySql = new StringBuilder("select a from com.tl.invest.user.user.User as a")
-			.append(" where a.type = 0 and a.isRealNameIdent=1 ");
+			.append(" where a.type = 0 and a.isRealNameIdent=1 and a.deleted=0 and a.perJob='"+String.valueOf(perJob)+"'");
 		querySql.append(morePersonsSql(age, gender, typeIds));
 		querySql.append(" order by a.createTime desc");
 		List<User> persons = DAOHelper.find(querySql.toString() , length*(curPage-1), length);
@@ -451,7 +451,7 @@ public class UserManager {
 	* @throws TLException 
 	*/ 
 	public int getMorePersonsCount(int age, int gender, String typeIds, DBSession db) throws TLException{
-		String sql = "select count(0) from user where user.type=0 ";
+		String sql = "select count(0) from user as a where a.type=0 ";
 		sql += morePersonsSql(age, gender, typeIds);
 		return getSqlCount(sql,null,db);
 	}
@@ -461,7 +461,7 @@ public class UserManager {
 		if(age > 0){
 			querySql.append(calBirthday(age));
 		}
-		if(gender > 0){
+		if(gender >=0){
 			querySql.append(" and a.gender=").append(gender);		
 		}
 		if(!StringUtils.isEmpty(typeIds)){
@@ -473,7 +473,7 @@ public class UserManager {
 		StringBuilder querySql = new StringBuilder("");
 		switch (value) {
 		case 1://20ËêÒÔÏÂ
-			querySql.append(" and a.birthdate >=").append(DateUtils.getSysDateYears(20));
+			querySql.append(" and a.birthdate <=").append(DateUtils.getSysDateYears(20));
 			break;
 		case 2://20-30Ëê
 			querySql.append(" and a.birthdate <=").append(DateUtils.getSysDateYears(20));
@@ -485,7 +485,7 @@ public class UserManager {
 		default:
 			break;
 		}
-		return null;
+		return querySql.toString();
 	}
 	/** 
 	* @author  leijj 
