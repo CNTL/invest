@@ -85,26 +85,26 @@
 					
 				</div>
 			</div>
-        	<div>
-				<dt>
-					<ul class="nav">
-						<c:forEach var="name" varStatus="status" items="${typeNames}">
-							<li>
-							<c:choose>
-								<c:when test="${name==typeName}">
-								<a class="current" href="../user/PeopleMoreMain.do?a=queryMorePersons&mainType=4&type=<c:out value="${perType}"/>&typeName=<c:out value="${name}"/>"><c:out value="${name}"/></a>
-								</c:when>
-								<c:otherwise>
-								<a href="../user/PeopleMoreMain.do?a=queryMorePersons&mainType=4&type=<c:out value="${perType}"/>&typeName=<c:out value="${name}"/>"><c:out value="${name}"/></a>
-								</c:otherwise>
-							</c:choose>
-							</li>
-							|
-						</c:forEach>
-					</ul>
-				</dt>
-			</div>
-			<br>
+<!--         	<div> -->
+<!-- 				<dt> -->
+<!-- 					<ul class="nav"> -->
+<%-- 						<c:forEach var="name" varStatus="status" items="${typeNames}"> --%>
+<!-- 							<li> -->
+<%-- 							<c:choose> --%>
+<%-- 								<c:when test="${name==typeName}"> --%>
+<%-- 								<a class="current" href="../user/PeopleMoreMain.do?a=queryMorePersons&mainType=4&type=<c:out value="${perType}"/>&typeName=<c:out value="${name}"/>"><c:out value="${name}"/></a> --%>
+<%-- 								</c:when> --%>
+<%-- 								<c:otherwise> --%>
+<%-- 								<a href="../user/PeopleMoreMain.do?a=queryMorePersons&mainType=4&type=<c:out value="${perType}"/>&typeName=<c:out value="${name}"/>"><c:out value="${name}"/></a> --%>
+<%-- 								</c:otherwise> --%>
+<%-- 							</c:choose> --%>
+<!-- 							</li> -->
+<!-- 							| -->
+<%-- 						</c:forEach> --%>
+<!-- 					</ul> -->
+<!-- 				</dt> -->
+<!-- 			</div> -->
+<!-- 			<br> -->
             <c:forEach var="person" varStatus="status" items="${msg.messages}">
 				<c:choose>
 					<c:when test="${status.index%4==0}"><div class="box box_last"></c:when>
