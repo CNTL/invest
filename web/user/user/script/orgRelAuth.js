@@ -79,15 +79,21 @@ var relAuth = {
 			return;
 		}
 		var organization = $("#organization").val();
-		if(organization == null || organization.length == 0){
-			$.messager.alert('消息','请上传企业组织机构证件照！');
-			flag = false;
-			$("#btnSave").attr("disabled", false);
-			return;
-		}
+//		if(organization == null || organization.length == 0){
+//			$.messager.alert('消息','请上传企业组织机构证件照！');
+//			flag = false;
+//			$("#btnSave").attr("disabled", false);
+//			return;
+//		}
 		var orgBusinessLicense = $("#orgBusinessLicense").val();
-		if(orgBusinessLicense == null || orgBusinessLicense.length == 0){
-			$.messager.alert('消息','请上传企业营业执照扫描件！');
+//		if(orgBusinessLicense == null || orgBusinessLicense.length == 0){
+//			$.messager.alert('消息','请上传企业营业执照扫描件！');
+//			flag = false;
+//			$("#btnSave").attr("disabled", false);
+//			return;
+//		}
+		if(organization.length==0 ||orgBusinessLicense.length){
+			alert("需要上传准拍证扫描件或者企业营业执照扫描件。")
 			flag = false;
 			$("#btnSave").attr("disabled", false);
 			return;

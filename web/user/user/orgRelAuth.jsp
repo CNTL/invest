@@ -59,7 +59,7 @@
 							<table style="width:100%;">
 								<tr>
 									<td valign="top" style="width:90px;">
-										<label>企业组织机构证件照：</label>
+										<label>准拍证扫描件：</label>
 									</td>
 									<td>
 										<input type="file" name="uploadify" id="uploadify" />
@@ -72,6 +72,20 @@
 					    </div>
 					    <div id="coverIMG_div" style="display:none;position: absolute; z-index: 122; width:150px;height:150px;overflow:hidden;background:#fff;border:1px solid #C7C7C7;">
 						</div>
+					    <div class="input" style="height:50px;">
+							<table style="width:100%;">
+								<tr>
+									<td valign="top" style="width:90px;">
+										<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;或者</label>
+									</td>
+									<td>
+										 
+									</td>
+								</tr>
+							</table>
+					    </div>
+					    
+						
 						<div class="input" style="height:150px;">
 							<table style="width:100%;">
 								<tr>

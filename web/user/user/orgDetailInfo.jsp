@@ -50,9 +50,9 @@
 						        <option value="其他">其他</option>
 					        </select>
 					    </div>
-					    <div class="input">
+					    <div class="input" style="display:none">
 					        <label for="orgTrade">所属行业：</label>
-					        <input class="form-control validate[maxSize[255]]" type="text" id="orgTrade" name="orgTrade" style="width:400px"/>
+					        <input class="form-control" type="text" id="orgTrade" name="orgTrade" style="width:400px"/>
 					        
 					    </div>
 					    <div class="input">
