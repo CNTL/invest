@@ -49,55 +49,6 @@ public class PeopleMainController extends Entry {
 		else if("getSeachItems".equals(action)){
 			getSeachItems(request, response, model);
 		}
-		/*
-		DictionaryReader dicReader = (DictionaryReader) Context.getBean(DictionaryReader.class);
-		int type = getInt(request, "type", 0);
-		if (type <= 0) {
-			List<Map<String, Object>> dataList = new ArrayList<Map<String, Object>>();
-			Dictionary[] types = dicReader.getSubDics(DicTypes.DIC_JOB_TYPE.typeID(), 0);
-			if(types == null || types.length == 0) return;
-			for (Dictionary dic : types) {
-				Map<String, Object> dataMap = new HashMap<String, Object>();
-				int typeID = dic.getId();
-				String typeName = dic.getName();
-				User[] users = userMgr.getPersons(typeID);
-				dataMap.put("persons", users);
-				dataMap.put("perType", typeID);
-				dataMap.put("perName", typeName);
-				dataList.add(dataMap);
-			}
-			model.put("datas", dataList);
-			model.put("personCount", 0);
-			model.put("pageCount", 1);
-			model.put("pageBegin", 1);
-			model.put("pageEnd", 1);
-			model.put("page", 1);
-		} else {
-			int page = getInt(request, "page", 1);
-			User[] users = userMgr.getPersons(type);
-			int personCount = userMgr.getPersonsCount(type, null);
-			int pageCount = personCount / 4;
-			if (personCount % 4 > 0)
-				pageCount = pageCount + 1;
-			if (pageCount <= 0)
-				pageCount = 1;
-
-			Dictionary dic = dicReader.getDic(DicTypes.DIC_JOB_TYPE.typeID(), type);
-			if(dic == null) return;
-			if(type == dic.getId()){
-				model.put("persons", users);
-				model.put("perType", type);
-				model.put("perName", dic.getName());
-			}
-			model.put("personCount", personCount);
-			model.put("pageCount", pageCount);
-			model.put("pageBegin", getPageBegin(page));
-			model.put("pageEnd", getPageEnd(page, pageCount));
-			model.put("page", page);
-		}
-		model.put("type", type);
-		
-		*/
 	}
 	
 	/**获得查询条件项
