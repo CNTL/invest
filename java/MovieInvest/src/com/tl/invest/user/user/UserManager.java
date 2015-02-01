@@ -3,6 +3,8 @@ package com.tl.invest.user.user;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
@@ -249,10 +251,32 @@ public class UserManager {
 	 */
 	public User login(String code,String pwd) {
 		User user = null;
+		String field = "";
+		String mailcheck = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";
 		 
+		Pattern mailregex = Pattern.compile(mailcheck);    
+		Matcher mailmatcher = mailregex.matcher(code);    
+		boolean isMailMatched = mailmatcher.matches(); 
+		
+		String check = "^(13[4,5,6,7,8,9]|15[0,8,9,1,7]|188|187)\\d{8}$";  
+		Pattern regex = Pattern.compile(check);  
+		Matcher matcher = regex.matcher(code);  
+		boolean isMatched = matcher.matches();  
+		
+		if(isMailMatched){
+			field = "email";
+
+		}else if(isMatched){
+			field = "perPhone";
+
+		}else{
+			field = "code";
+
+		}
+		
 		Object[] paramObjects = {code,UserEncrypt.getInstance().encrypt(pwd)};
 		try {
-			List list = DAOHelper.find("select a from com.tl.invest.user.user.User as a where a.code=? and a.password=?",
+			List list = DAOHelper.find("select a from com.tl.invest.user.user.User as a where  a.deleted=0 and a."+field+"=? and a.password=?",
 					paramObjects);
 			if(!list.isEmpty()){
 				user = (User)list.get(0);
