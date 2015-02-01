@@ -34,6 +34,17 @@ function setGroup(){
 		});
 	});
 	
+	var types = $.query.get("types");
+	if(types){
+		var rootUrl = url.replace(firstUrl,"");
+		var dls = $("#rows a");
+		var ids = types.split(",");
+		$.each(ids,function(i,n){
+			$("#rows a[data-group='item'][data-id='"+n+"']").addClass("aselect");
+		});
+		 
+	}
+	
 }
 function setGroupFirst(){
 	$("#taglist a").each(function(){
@@ -57,6 +68,15 @@ function setGroupFirst(){
 			searchFirst();
 		});
 	});
+	//设置已选择项
+	var age = $.query.get("age");
+	var gender = $.query.get("gender");
+	if(age){
+		$("#taglist a[data-group='age'][data-id='"+age+"']").addClass("aselect");
+	}
+	if(gender||gender>=0){
+		$("#taglist a[data-group='sex'][data-id='"+gender+"']").addClass("aselect");
+	}
 }
 
 function setFowardGroup(){
@@ -90,7 +110,7 @@ function setFowardGroup(){
 			if(sb.join('')==""){
 				sb.push("<dl class=\"dl-horizontal\" id=\"taglist\" data-id=\"41\">");
 				sb.push("                <dt>搜索条件：</dt>");
-				sb.push("                <dd><a data-group=\"all\" href=\"#\">全部</a>|<a data-group=\"sex\" href=\"#\" data-id=\"0\">男</a>|<a data-group=\"sex\" data-id=\"1\" href=\"#\">女</a>|<a data-group=\"age\" href=\"#\" data-id=\"1\">20岁以下</a>|<a data-group=\"age\" data-id=\"2\" href=\"#\">20岁-30岁</a>|<a data-group=\"age\" data-id=\"3\" href=\"#\">30岁以上</a>|</dd>");
+				sb.push("                <dd><a data-group=\"all\" href=\"#\">全部</a>|<a data-group=\"sex\" href=\"#\" data-id=\"1\">男</a>|<a data-group=\"sex\" data-id=\"0\" href=\"#\">女</a>|<a data-group=\"age\" href=\"#\" data-id=\"1\">20岁以下</a>|<a data-group=\"age\" data-id=\"2\" href=\"#\">20岁-30岁</a>|<a data-group=\"age\" data-id=\"3\" href=\"#\">30岁以上</a>|</dd>");
 				sb.push("</dl>");
 				$("#rows").append(sb.join(''));
 				setGroupFirst();

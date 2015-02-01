@@ -520,6 +520,10 @@ color: #BABABA;
 line-height: 24px;
 color: #494949;
 margin: 10px;
+min-height:70px;
+overflow:hidden; /*不显示超过对象宽度的内容*/ 
+text-overflow:ellipsis; /*当对象内文本溢出时显示省略标记（...）*/ 
+ 
 }
 
 .box .project .title {
@@ -538,6 +542,9 @@ color: #494949;
 line-height: 24px;
 color: #bababa;
 margin: 0 10px 20px;
+min-height:70px;
+overflow:hidden; /*不显示超过对象宽度的内容*/ 
+text-overflow:ellipsis; /*当对象内文本溢出时显示省略标记（...）*/ 
 }
 
 .box .project .info {
@@ -2230,17 +2237,21 @@ font-size: 16px;
 color: #999;
 text-decoration: none;
 margin-right: 10px;
-border-top: 3px #fff solid;
+
 }
 
 .job_list .main .sort a:hover {
-color: #333;
-border-top: 3px #FFB124 solid;
+color: #fff;
+border: 3px #FFB124 solid;
+background-color:#FFB124;
+
 }
 
 .job_list .main .sort a.current {
-color: #333;
+color: #fff;
 border-top: 3px #FFB124 solid;
+border: 3px #FFB124 solid;
+background-color:#FFB124;
 }
 
 .job_list .main .box {
