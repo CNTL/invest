@@ -19,7 +19,7 @@
 		</property>  
 		<property name="targetMethod">  <!-- 要执行的方法名称 -->  
 			<value>execute</value>  
-		</property>  
+		</property>
 	</bean>  
 	<!-- ======================== 调度触发器 ======================== -->  
 	<bean id="updateProjectStatusTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
@@ -307,6 +307,12 @@
 		<property name="noticeManager"><ref bean="invest.NoticeManager"/></property>
 	</bean>
 
+	<bean id="workspace.search" class="com.tl.invest.workspace.SearchController">
+		<property name="projectService"><ref bean="project.Service" /></property>
+		<property name="userManager"><ref bean="UserManager"/></property>
+		<property name="recruitManager"><ref bean="RecruitManager"/></property>
+		<property name="viewName"><value>search/Search</value></property>
+	</bean>
 	
 	<bean id="help.Agreement" class="com.tl.invest.workspace.HelpMainController">
 		<property name="viewName"><value>static/help/agreement</value></property>
@@ -412,6 +418,8 @@
 				
 				<prop key="/Upload.do">workspace.Upload</prop>
 				<prop key="/CkEditorUpload.do">workspace.CkEditorUpload</prop>
+				
+				<prop key="/Search.do">workspace.search</prop>
 				
 				<prop key="/help/Agreement.do">help.Agreement</prop>
 			</props>

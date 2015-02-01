@@ -56,6 +56,13 @@ $(function(){
 	}else if(curstage == "5"){
 		$(".project_view .main .content .progress li.s3").addClass("s3_1");
 	}
+	
+	$("#jpForm").validationEngine("attach",{
+		autoPositionUpdate:false,//是否自动调整提示层的位置
+		scroll:false,//屏幕自动滚动到第一个验证不通过的位置
+		focusFirstField:false,//验证未通过时，是否给第一个不通过的控件获取焦点
+		promptPosition:"topRight" //验证提示信息的位置，可设置为："topRight", "bottomLeft", "centerRight", "bottomRight" 
+	});
 });
 
 function addFavorite(id){
@@ -93,4 +100,23 @@ function showModePhotosPage(modeid,start){
 			title: '' //相册标题
 		}
 	});
+}
+
+function jingpai(){
+	if(validJpForm()){
+		var oldValue = $("#amountJP").attr("oldvalue");
+		var value = $("#amountJP").val();
+		
+		if(parseFloat(oldValue)>=parseFloat(value)){
+			layer.alert("竞拍金额不能小于当前金额："+oldValue);
+		}
+	}
+}
+function validJpForm() {
+	if (!$("#jpForm").validationEngine("validate")){
+		//验证提示
+		$("#jpForm").validationEngine("updatePromptsPosition");
+		return false;
+	}
+	return true;
 }

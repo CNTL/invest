@@ -14,8 +14,7 @@ public class SupportController extends ProjectController {
 	protected void setOtherData(HttpServletRequest request,
 			HttpServletResponse response,Map model) throws Exception {
 		super.setOtherData(request, response, model);
-		model.remove("@VIEWNAME@");
-		
+		int payType = proj == null ? 0 : proj.getPayType();
 		int page = getInt(request, "page", 1);
 		if(proj!=null){
 			ProjSupportExt[] supports = service.getProjectSupports(proj.getId(),20,page, null);
@@ -27,6 +26,12 @@ public class SupportController extends ProjectController {
 			model.put("supportCount", supportCount);
 			model.put("pageCount", pageCount);
 			model.put("page", page);
+		}
+		
+		if(payType == 1){
+			model.put("@VIEWNAME@", "proj/SupportJP");
+		}else {
+			model.put("@VIEWNAME@", "proj/Support");
 		}
 	}
 }

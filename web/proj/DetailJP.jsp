@@ -4,9 +4,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <%@include file="../inc/meta.inc"%>
+	<link rel="stylesheet" type="text/css" href="../js/plugin/jquery-validate/css/validationEngine.jquery.css"/>
 	<script type="text/javascript" src="../js/layer/layer.min.js"></script>
 	<script type="text/javascript" src="../js/layer/extend/layer.ext.js"></script>
 	<script type="text/javascript" src="../proj/script/detail.js"></script>
+	<script type="text/javascript" src="../js/plugin/jquery-validate/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="../js/plugin/jquery-validate/js/jquery.validationEngine.js"></script>
+	<script type="text/javascript" src="../js/plugin/jquery-validate/js/languages/jquery.validationEngine-zh_CN.js"></script>
 	<script type="text/javascript">
 		var webroot = "<c:out value="${rootPath}"/>";
 		var curstage = "<c:out value="${curstage}"/>";
@@ -132,33 +136,20 @@
                     </ul>
                 </div>
             </div>
-			<c:forEach var="mode" items="${modes}">
-            <div class="support">
-                <div class="top">
-					<c:choose>
-						<c:when test="${mode.price<=0}">无私支持</c:when>
-						<c:otherwise>支持￥<label class="moneyFormat"><c:out value="${mode.price}"/></label></c:otherwise>
-					</c:choose>
-                    <div class="count">已有 <span class="red"><c:out value="${mode.countSupport}"/></span> 位支持者
-					<c:if test="${mode.countGoal>0}">/限额 <span class="red"><c:out value="${mode.countGoal}"/></span> 位</c:if></div>
-                </div>
-                <div class="content">
-					<div id="returncontent_<c:out value="${mode.id}"/>" class="returncontent" modeid="<c:out value="${mode.id}"/>" imgs="<c:out value="${mode.imgURL}"/>"><c:out value="${mode.returnContent}"/></div>
-					<!--<span class="supportBtn" modeid="<c:out value="${mode.id}"/>" userid="<c:out value="${loginUser.id}"/>">-->
-					<button class="btn btn-danger supportBtn" modeid="<c:out value="${mode.id}"/>" userid="<c:out value="${loginUser.id}"/>"
-						<c:if test="${(mode.countGoal>0 && mode.countSupport>=mode.countGoal) || proj.status!=1}">
-						disabled="disabled"
-						</c:if>
-					>
-						<c:choose>
-							<c:when test="${mode.price<=0}">无私支持</c:when>
-							<c:otherwise>支持￥<label class="moneyFormat"><c:out value="${mode.price}"/></label></c:otherwise>
-						</c:choose>
-					</button>
-					<!--</span>-->
-				 </div>
-            </div>
-			</c:forEach>
+			<div class="support">
+				<div class="top">
+					我要竞拍
+					<div class="count">已有 <span class="red"><c:out value="${proj.countSupport}"/></span> 位竞拍者</div>
+				</div>
+				<div class="content">
+					<form id="jpForm" name="jpForm" action="" onSubmit="return false">
+						<i class="s-money" style="background: url(../static/image/juanz.png) no-repeat;width: 15px;height: 24px;position: absolute;left: 15px;top: 85px;"></i>
+						<input id="amountJP" name="amountJP" type="text" class="validate[required,custom[number]]" oldvalue="<c:out value="${proj.amountRaised}"/>" value="" 
+						style="margin-left:18px;width: 238px;height:50px;line-height:30px;border: 1px #000 solid;border-radius: 5px;outline: none;padding: 0 28px;color: #55acef;font-size: 24px;font-weight: bold;"/>
+						<img src="../static/image/jp.png" border="0" style="cursor: pointer;margin-top:10px;" onclick="jingpai();"/>
+					</form>
+				</div>
+           </div>
         </div>
         <div class="clear"></div>
     </div>

@@ -10,10 +10,24 @@
 			</c:forEach>
 		</ul>
 	</div>
-	<div class="mini_search hidden-xs">
-		<input type="text" id="k" name="k" class="text" value="搜索影片名称" />
-		<input type="button" class="btn" value="" />
-		
+	<div class="mini_search hidden-xs" style="width:300px;">
+		<form id="mianSearchForm" name="mianSearchForm" action="<c:out value="${rootPath}"/>Search.do">
+			<select id="seachType" name="t" style="height:34px;line-height:34px;font-size:14px;border:0px;border-right:1px #E0E0E0;position:absolute;top:1px;left:16px;">
+				<option value="1">项目</option>
+				<option value="2">影聘</option>
+				<option value="3">影人</option>
+			</seachType>
+			<input type="text" id="seachKeyWord" name="k" class="text" value="" placeholder="请输入搜索关键字" style="left:76px;width:180px;color: #666;"/>
+			<input type="submit" id="btnSeach" class="btn" value="" />
+		</form>
+		<script type="text/script">
+			$("#mianSearchForm").validationEngine("attach",{
+				autoPositionUpdate:false,//是否自动调整提示层的位置
+				scroll:false,//屏幕自动滚动到第一个验证不通过的位置
+				focusFirstField:false,//验证未通过时，是否给第一个不通过的控件获取焦点
+				promptPosition:"bottomRight" //验证提示信息的位置，可设置为："topRight", "bottomLeft", "centerRight", "bottomRight" 
+			});
+		</script>
 	</div>
 	 
 	<c:if test="${loginUser.id==0}" >

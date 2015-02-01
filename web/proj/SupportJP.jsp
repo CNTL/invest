@@ -4,7 +4,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <%@include file="../inc/meta.inc"%>
+	<link rel="stylesheet" type="text/css" href="../js/plugin/jquery-validate/css/validationEngine.jquery.css"/>
 	<script type="text/javascript" src="../proj/script/detail.js"></script>
+	<script type="text/javascript" src="../js/plugin/jquery-validate/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="../js/plugin/jquery-validate/js/jquery.validationEngine.js"></script>
+	<script type="text/javascript" src="../js/plugin/jquery-validate/js/languages/jquery.validationEngine-zh_CN.js"></script>
 	<script type="text/javascript">
 		var webroot = "<c:out value="${rootPath}"/>";
 		var curstage = "<c:out value="${curstage}"/>";
@@ -60,7 +64,7 @@
 				<div class="nav">
                     <ul>
                         <li><a href="Project.do?id=<c:out value="${proj.id}"/>">项目主页</a></li>
-                        <li><a href="javascript:void();" class="current">支持者(<c:out value="${proj.countSupport}"/>)</a></li>
+                        <li><a href="javascript:void();" class="current">竞拍者(<c:out value="${proj.countSupport}"/>)</a></li>
                     </ul>
                </div>
 			   <c:forEach var="support" items="${supports}">
@@ -73,7 +77,7 @@
                     </div>
                     <div class="username">
                         <a href="javascript:void(0);"><c:out value="${support.userName}"/></a><br/>
-                        支持此项目 <span>￥<c:out value="${support.amount}"/></span> 元
+                        参拍金额 <span>￥<c:out value="${support.amount}"/></span> 元
                     </div>
                     <span class="msg">发私信</span>
                     <div class="clear"></div>
@@ -104,8 +108,8 @@
 				<span class="status">
 					<c:choose>
 						<c:when test="${proj.status==0}">未开始</c:when>
-						<c:when test="${proj.status==1}">众筹中</c:when>
-						<c:when test="${proj.status==2}">众筹结束</c:when>
+						<c:when test="${proj.status==1}">竞拍中</c:when>
+						<c:when test="${proj.status==2}">竞拍结束</c:when>
 						<c:when test="${proj.status==3}">锁定</c:when>
 						<c:otherwise>未知</c:otherwise>
 					</c:choose>
@@ -113,8 +117,8 @@
                 <h2>目前累计金额：</h2>
                 <div class="money">￥<span class="moneyFormat"><c:out value="${proj.amountRaised}"/></span></div>
                 <div class="tip">
-                    此项目必须在 <span><c:out value="${proj.endDate}"/></span> 前得到
-                    ¥<span class="moneyFormat"><c:out value="${proj.amountGoal}"/></span> 的支持才可成功！
+                    此项目在 <span><c:out value="${proj.endDate}"/></span> 结束<br />
+                    起拍金额为 ¥<span class="moneyFormat"><c:out value="${proj.amountGoal}"/></span>
                 </div>
                 <div class="progress">
                     <div class="now" style="width: <c:out value="${finishPer}"/>%;"></div>
@@ -124,31 +128,25 @@
                 <div class="info">
                     <ul>
                         <li><span><c:out value="${surplus}"/></span><br />剩余时间</li>
-                        <li><span><c:out value="${proj.countSupport}"/></span><br />支持者</li>
+                        <li><span><c:out value="${proj.countSupport}"/></span><br />竞拍者</li>
                         <li class="last"><span><c:out value="${proj.countLove}"/></span><br />收藏</li>
                     </ul>
                 </div>
             </div>
-			<c:forEach var="mode" items="${modes}">
-            <div class="support">
-                <div class="top">
-					<c:choose>
-						<c:when test="${mode.price<=0}">无私支持</c:when>
-						<c:otherwise>支持￥<label class="moneyFormat"><c:out value="${mode.price}"/></label></c:otherwise>
-					</c:choose>
-                    <div class="count">已有 <span class="red"><c:out value="${mode.countSupport}"/></span> 位支持者/限额 <span class="red"><c:out value="${mode.countGoal}"/></span> 位</div>
-                </div>
-                <div class="content">
-                    <c:out value="${mode.returnContent}"/>
-                    <span>
-						<c:choose>
-							<c:when test="${mode.price<=0}">无私支持</c:when>
-							<c:otherwise>支持￥<label class="moneyFormat"><c:out value="${mode.price}"/></label></c:otherwise>
-						</c:choose>
-					  </span>
-                </div>
-            </div>
-			</c:forEach>
+			<div class="support">
+				<div class="top">
+					我要竞拍
+					<div class="count">已有 <span class="red"><c:out value="${proj.countSupport}"/></span> 位竞拍者</div>
+				</div>
+				<div class="content">
+					<form id="jpForm" name="jpForm" action="" onSubmit="return false">
+						<i class="s-money" style="background: url(../static/image/juanz.png) no-repeat;width: 15px;height: 24px;position: absolute;left: 15px;top: 85px;"></i>
+						<input id="amountJP" name="amountJP" type="text" class="validate[required,custom[number]]" oldvalue="<c:out value="${proj.amountRaised}"/>" value="" 
+						style="margin-left:18px;width: 238px;height:50px;line-height:30px;border: 1px #000 solid;border-radius: 5px;outline: none;padding: 0 28px;color: #55acef;font-size: 24px;font-weight: bold;"/>
+						<img src="../static/image/jp.png" border="0" style="cursor: pointer;margin-top:10px;" onclick="jingpai();"/>
+					</form>
+				</div>
+           </div>
         </div>
         <div class="clear"></div>
 	</div>	   

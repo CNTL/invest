@@ -437,13 +437,29 @@ public class ProjectService {
 	}
 	
 	public int getProjectExtsCount(int type,String where,DBSession db) throws TLException{
+		Object[] params = new Object[]{};
 		String sql = "select count(0) from invest_project left JOIN sys_dictionary on sys_dictionary.dic_id=invest_project.proj_type";
 		sql += " left JOIN `user` on `user`.id=invest_project.proj_userID";
-		sql += " where invest_project.proj_type=? and invest_project.proj_deleted=0";
+		sql += " where invest_project.proj_deleted=0";
+		if(type > 0){
+			sql += " and invest_project.proj_type=? ";
+			params = new Object[]{type};
+		}
 		if(!StringUtils.isEmpty(where)){
 			sql += " and " + where;
 		}
-		Object[] params = new Object[]{type};
+
+		return getSqlCount(sql,params,db);
+	}
+	
+	public int getProjectExtsCount(String where,DBSession db) throws TLException{
+		String sql = "select count(0) from invest_project left JOIN sys_dictionary on sys_dictionary.dic_id=invest_project.proj_type";
+		sql += " left JOIN `user` on `user`.id=invest_project.proj_userID";
+		sql += " where invest_project.proj_deleted=0";
+		if(!StringUtils.isEmpty(where)){
+			sql += " and " + where;
+		}
+		Object[] params = new Object[]{};
 		return getSqlCount(sql,params,db);
 	}
 	
@@ -469,14 +485,19 @@ public class ProjectService {
 	}
 	
 	public ProjectExt[] getProjectExts(int type,int pageSize,int page,String where,DBSession db) throws TLException{
+		Object[] params = new Object[]{};
 		String sql = "select invest_project.*,sys_dictionary.dic_name typeName,`user`.`perNickName` userName from invest_project left JOIN sys_dictionary on sys_dictionary.dic_id=invest_project.proj_type";
 			sql += " left JOIN `user` on `user`.id=invest_project.proj_userID";
-			sql += " where invest_project.proj_type=? and invest_project.proj_deleted=0";
+			sql += " where invest_project.proj_deleted=0";
+			if(type > 0){
+				sql += " and invest_project.proj_type=? ";
+				params = new Object[]{type};
+			}
 			if(!StringUtils.isEmpty(where)){
 				sql += " and " + where;
 			}
 			sql += " order by proj_order,proj_id desc";
-		Object[] params = new Object[]{type};
+		
 		return getProjectExts(sql, params, pageSize, page, db);
 	}
 	
@@ -795,8 +816,8 @@ public class ProjectService {
 				proj.setTypeNickName("短片");
 			}else if(proj.getTypeName().indexOf("长片")>=0){
 				proj.setTypeNickName("长片");
-			}else if(proj.getTypeName().indexOf("活动")>=0){
-				proj.setTypeNickName("活动");
+			}else if(proj.getTypeName().indexOf("电影")>=0){
+				proj.setTypeNickName("电影");
 			}
 			
 			//完成百分比
