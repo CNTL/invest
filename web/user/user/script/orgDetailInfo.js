@@ -1,4 +1,5 @@
 $(document).ready(function () {
+	
 	$("#orgNature").hide();
 	$("#orgNatureSel").change(function(){
 		$("#orgNature").val($(this).val());
@@ -18,6 +19,16 @@ $(document).ready(function () {
 		detail.init();
 	}
 	init();
+	
+	var type = $.query.get("type");
+	 
+	if(type==0){
+		
+		$("#lbcompany").text("项目(团队)全称：");
+		$("#propty").hide();
+		$("#lborgScale").text("团队规模：")
+		$("#lborgHomePage").text("团队主页：")
+	}
 });
 var detail = {
 	DEFAULT_PAIR : {key:"id",value:"name"},

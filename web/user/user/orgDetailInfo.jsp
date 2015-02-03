@@ -3,11 +3,14 @@
 <!doctype html>
 <html>
 <head>
-<title><c:out value="${title}"/></title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="keywords" content="<c:out value="${keywords}"/>" />
-<meta name="description" content="<c:out value="${description}"/>" />
+ <%@include file="../inc/script.inc"%>
 <%@include file="../inc/csslink.inc"%>
+<script type="text/javascript" src="../js/plugin/query/jquery.query.js"></script>
+<script type="text/javascript" src="../js/layer/layer.min.js"></script>
+<script type="text/javascript" src="../userout/script/userCommon.js"></script>
+<script type="text/javascript" src="../proj/script/datas.js"></script>
+<script type="text/javascript" src="../user/user/script/orgDetailInfo.js"></script>
 </head>
 <body>
 <%@include file="../../inc/header.inc"%>
@@ -19,11 +22,11 @@
 				<div class="job_add">
 					<form class="setting-form" id="form" name="form" action="">
 					    <div class="input">
-					        <label for="orgFullname">公司全称：</label>
+					        <label id="lbcompany" for="orgFullname">公司全称：</label>
 					        <input class="form-control validate[maxSize[255],required]" type="text" id="orgFullname" name="orgFullname" placeholder="机构全称"/>
 					    </div>
 					    <div class="input">
-							<label>地域：</label>
+							<label id="area">招聘地点：</label>
 							<select id="province" name="province" class="validate[required]" onchange="detail.changeProvince();">
 								<option value="">省份</option>
 								<option value="1">选项一</option>
@@ -34,12 +37,12 @@
 							</select>
 						</div>
 					    <div class="input">
-							<label for="province">公司地点：</label>
+							<label for="province">招聘地址：</label>
 				            <input type="text" class="form-control input-lg" id="location" name="location" value="" placeholder="公司地址"/>
 					        <input type="button" style="width:100px" id="mapSearch" value="从地图搜索">
 				            <input type="hidden" class="form-control input-lg" id="coordinate" name="coordinate" value="" placeholder="公司地址坐标"/>
 						</div>
-					    <div class="input">
+					    <div class="input" id="propty">
 					        <label for="orgNature">公司性质：</label>
 					        <input class="form-control validate[maxSize[255]]" type="text" id="orgNature" name="orgNature" style="width:200px" placeholder="公司性质"/>
 					         <select id="orgNatureSel" name="orgTradeSel" class="custform-select validate[maxSize[255],required]" style="width:170px">
@@ -56,7 +59,7 @@
 					        
 					    </div>
 					    <div class="input">
-					        <label for="orgScale">公司规模：</label>
+					        <label for="orgScale" id="lborgScale">公司规模：</label>
 					        <select id="orgScale" name="orgScale" class="custform-select validate[maxSize[255],required]" style="width:400px">
 						        <option value="1">100人以下</option>
 						        <option value="2">100-500人</option>
@@ -66,7 +69,7 @@
 					        </select>
 					    </div>
 						<div class="input">
-					        <label for="orgHomePage">公司主页：</label>
+					        <label for="orgHomePage" id="lborgHomePage">公司主页：</label>
 					        <input class="form-control" type="text" id="orgHomePage" name="orgHomePage" placeholder="公司主页"/>
 					    </div>
 					    <div class="btn">
@@ -82,15 +85,12 @@
 	</div>
 </div>
 <!-- script -->
-<%@include file="../inc/script.inc"%>
+
 <!-- script -->
 
 <!-- footer -->
 <%@include file="../../inc/footer.inc"%>
 <!-- footer -->
-<script type="text/javascript" src="../js/layer/layer.min.js"></script>
-<script type="text/javascript" src="../userout/script/userCommon.js"></script>
-<script type="text/javascript" src="../proj/script/datas.js"></script>
-<script type="text/javascript" src="../user/user/script/orgDetailInfo.js"></script>
+
 </body>
 </html>
