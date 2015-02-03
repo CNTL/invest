@@ -1,5 +1,6 @@
 package com.tl.invest.proj.service;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Map;
@@ -15,11 +16,13 @@ import com.tl.common.DateJsonValueProcessor;
 import com.tl.common.DateUtils;
 import com.tl.common.JsonDateValueProcessor;
 import com.tl.common.WebUtil;
+import com.tl.invest.common.MoneyHelper;
 import com.tl.invest.constant.DicTypes;
 import com.tl.invest.favorite.Favorite;
 import com.tl.invest.favorite.FavoriteManager;
 import com.tl.invest.proj.ProjMode;
 import com.tl.invest.proj.ProjSchedule;
+import com.tl.invest.proj.ProjSupport;
 import com.tl.invest.proj.Project;
 import com.tl.invest.proj.ProjectModes;
 import com.tl.kernel.context.Context;
@@ -110,15 +113,57 @@ public class ProjectFetcher extends BaseController{
 			output("{\"success\":true}", response);
 		}else if("delProject".equals(action)){
 			delProject(request,response);
-		}
-		else if("sortProject".equals(action)){
+		} else if("sortProject".equals(action)){
 			sortProject(request,response);
-		}
-		else if("getProject".equals(action)){
+		} else if("getProject".equals(action)){
 			getProject(request,response);
+		} else if("auction".equals(action)){
+			auction(request,response);
 		}
 	}
 	
+	private void auction(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		int userId = SessionHelper.getUserID(request);
+		
+		if(userId <= 0){
+			output("{\"success\":false,\"msg\":\"您还没有登陆...<br /><br /><a href='"+WebUtil.getRoot(request)+"login.jsp' style='color:blue;'>点击登陆</a><br /><br />\"}", response);
+			return;
+		}
+		long proj_id = getLong(request, "id", 0);
+		BigDecimal amount = MoneyHelper.toMoney(get(request, "amount", "0"));
+		
+		Project proj = service.get(proj_id);
+		if(proj == null){
+			output("{\"success\":false,\"msg\":\"竞拍项目不存在\"}", response);
+			return;
+		}
+		
+		if(amount.compareTo(proj.getAmountGoal())==-1 || amount.compareTo(proj.getAmountRaised())==-1){
+			output("{\"success\":false,\"msg\":\"竞拍金额不能低于￥"+(proj.getAmountGoal().compareTo(proj.getAmountRaised())==-1 ? proj.getAmountRaised() : proj.getAmountGoal())+"\"}", response);
+			return;
+		}
+		
+		ProjSupport support = new ProjSupport();
+		service.initProjSupport(support, request);
+		support.setProjId(proj_id);
+		support.setAmount(amount);
+		support.setModeId(0);
+		support.setOrderId(0L);
+		
+		service.save(support);
+		if(support.getId()>0){
+			proj.setAmountRaised(amount);
+			proj.setCountSupport(proj.getCountSupport() + 1);
+			service.save(proj);
+			service.updateJP(proj_id, support.getId());
+			
+			output("{\"success\":true,\"msg\":\"竞拍成功\"}", response);
+		}else {
+			output("{\"success\":false,\"msg\":\"竞拍失败\"}", response);
+		}
+	}
+
 	/**删除项目
 	 * @param request
 	 * @param response

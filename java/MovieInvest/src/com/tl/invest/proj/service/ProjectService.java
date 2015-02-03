@@ -175,6 +175,47 @@ public class ProjectService {
 		}
 	}
 	
+	public void save(ProjSupport support) {
+		DAO d = new DAO();
+	    try {
+			if(support.getId()>0){
+				d.update(support);
+			}else {
+				support.setId(TBID.getID(TableLibs.TB_PROJSUPPORT.getTableCode()));
+				d.save(support);
+			}
+		} catch (Exception e) {
+			log.error(e.getMessage(),e);
+		}
+	}
+	public void save(ProjSupport support,Session session) {
+		DAO d = new DAO();		
+	    try {
+			if(support.getId()>0){
+				d.update(support,session);
+			}else {
+				support.setId(TBID.getID(TableLibs.TB_PROJSUPPORT.getTableCode()));
+				d.save(support,session);
+			}
+		} catch (Exception e) {
+			log.error(e.getMessage(),e);
+		}
+	}
+	
+	public void updateJP(long projId,long supportId){
+		String sql = "update invest_projsupport set sp_status=4 where sp_projID=? and sp_id<>?";
+		Object[] params = new Object[]{projId,supportId};
+		DBSession db = null;
+		try {
+			db = Context.getDBSession();
+			db.executeUpdate(sql, params);
+		} catch (Exception e) {
+			log.error(e.getMessage(),e);
+		} finally{
+			ResourceMgr.closeQuietly(db);
+		}
+	}
+	
 	@SuppressWarnings("rawtypes")
 	public ProjSchedule getProjSchedule(long id, Session s) {
 		ProjSchedule schedule = null;
@@ -574,11 +615,16 @@ public class ProjectService {
 		
 		return schedule;
 	}
-
 	public ProjSupportExt[] getProjectSupports(long projectId,int pageSize,int page,DBSession db) throws TLException{
+		return getProjectSupports(projectId,pageSize,page,"sp_id desc",db);
+	}
+	public ProjSupportExt[] getProjectSupports(long projectId,int pageSize,int page,String orderBy,DBSession db) throws TLException{
 		List<ProjSupportExt> list = new ArrayList<ProjSupportExt>();
 		String hql = "select "+TableLibs.TB_PROJSUPPORT.getTableCode()+".*,`user`.`perNickName` userName,`user`.head userHead,`user`.`code` userCode from "+TableLibs.TB_PROJSUPPORT.getTableCode()
-				+" left JOIN `user` ON `user`.id="+TableLibs.TB_PROJSUPPORT.getTableCode()+".sp_userID where sp_projID=? and sp_deleted=0 order by sp_id desc";
+				+" left JOIN `user` ON `user`.id="+TableLibs.TB_PROJSUPPORT.getTableCode()+".sp_userID where sp_projID=? and sp_deleted=0";
+		if(StringUtils.isNotEmpty(orderBy)){
+			hql += "  order by "+orderBy;
+		}
 		IResultSet rs = null;
 		boolean dbIsCreated = false;
 		if(db==null){
@@ -822,11 +868,22 @@ public class ProjectService {
 			
 			//完成百分比
 			BigDecimal per = MoneyHelper.ZERO;
-			if(proj.getAmountGoal().compareTo(MoneyHelper.ZERO)<=0){
-				per = MoneyHelper.toMoney("100");
-			}
-			else {
-				per = proj.getAmountRaised().divide(proj.getAmountGoal(),2,BigDecimal.ROUND_HALF_UP).multiply(MoneyHelper.toMoney("100"));
+			if(proj.getPayType() == 1){
+				Date beginDate = proj.getBeginDate();
+				if(beginDate!=null){
+					long l= DateUtils.getDate().getTime() - beginDate.getTime();
+					if(l>0){
+						BigDecimal t = MoneyHelper.toMoney(String.valueOf(l/(24*60*60*1000)));
+						per = t.divide(MoneyHelper.getBigDecimal(String.valueOf(proj.getCountDay()), 2), 2,BigDecimal.ROUND_HALF_UP).multiply(MoneyHelper.toMoney("100"));
+					}
+				}
+			}else{
+				if(proj.getAmountGoal().compareTo(MoneyHelper.ZERO)<=0){
+					per = MoneyHelper.toMoney("100");
+				}
+				else {
+					per = proj.getAmountRaised().divide(proj.getAmountGoal(),2,BigDecimal.ROUND_HALF_UP).multiply(MoneyHelper.toMoney("100"));
+				}
 			}
 			per = MoneyHelper.getBigDecimal(per, 0);
 			//剩余时间
@@ -925,5 +982,18 @@ public class ProjectService {
 		schedule.setProjId(0);
 		schedule.setStage(0);
 		schedule.setUserId(user.getUserID());
+	}
+	
+	public void initProjSupport(ProjSupport support,HttpServletRequest request){
+		if(support == null){
+			support = new ProjSupport();
+		}
+		SysSessionUser user = SessionHelper.getUser(request);
+		support.setId(0);
+		support.setIsPaid(0);
+		support.setCreated(DateUtils.getTimestamp());
+		support.setDeleted(0);
+		support.setStatus(0);
+		support.setUserId(user.getUserID());
 	}
 }

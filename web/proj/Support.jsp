@@ -75,7 +75,7 @@
                         <a href="javascript:void(0);"><c:out value="${support.userName}"/></a><br/>
                         支持此项目 <span>￥<c:out value="${support.amount}"/></span> 元
                     </div>
-                    <span class="msg">发私信</span>
+                    <span class="msg" style="display:none;">发私信</span>
                     <div class="clear"></div>
                 </div>
 				</c:forEach>

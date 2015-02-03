@@ -19,22 +19,22 @@
         <div class="wrap">
             <a href="../org/BasicInfo.do?infoType=1&mainType=1" class="profile">个人设置</a>
             <div class="avavtar">
-                <img src="<c:out value="${userAvatar}"/>" />
+                <img style="border-radius: 50%;" src="<c:out value="${loginUser.head}"/>" />
             </div>
             <div class="info">
-                <h2><c:out value="${userName}"/>
+                <h2><c:out value="${loginUser.perNickName}"/>
 					<span>
 						<c:choose>
-							<c:when test="${userType==0}">个人</c:when>
-							<c:when test="${userType==2}">机构</c:when>
+							<c:when test="${loginUser.type==0}">个人</c:when>
+							<c:when test="${loginUser.type==2}">机构</c:when>
 							<c:otherwise>未知</c:otherwise>
 						</c:choose>
 					</span>
 				 </h2>
                 <div class="desc">
-                    <c:out value="${userIntro}"/><br />
-                    姓名：<c:out value="${userName}"/><br />
-                    <span>短信息</span>
+                    <c:out value="${loginUser.intro}"/><br />
+                    姓名：<c:out value="${loginUser.name}"/><br />
+                    <span style="display:none;">短信息</span>
                 </div>
             </div>
             <div class="clear"></div>
@@ -155,7 +155,7 @@
 				<tbody id="tb-<c:out value="${proj.id}"/>">
 					<tr class="tr-th">
 						<td colspan="6">
-							<span class="tcol1">订单编号：<c:out value="${proj.isPaid}"/></span>
+							<span class="tcol1">订单编号：<c:out value="${proj.supportId}"/></span>
 							<span class="tcol1"><a href="../project/Project.do?id=<c:out value="${proj.id}"/>" target="_blank"><c:out value="${proj.name}"/></a></span>
 							<span class="tcol2"><c:out value="${proj.userName}"/></span>
 							<span class="tcol3"></span>
@@ -174,7 +174,11 @@
 						</td>
 						<td style="padding:10px;text-align:left;">
 							<c:out value="${proj.supportCreated}"/><br />
-							支持：￥<span style="font-size:16px;color:red;" class="moneyFormat"><c:out value="${proj.amountSupport}"/></span>
+							<c:choose>
+							<c:when test="${proj.payType==0}">支持：</c:when>
+							<c:otherwise>出价：</c:otherwise>
+							</c:choose>
+							￥<span style="font-size:16px;color:red;" class="moneyFormat"><c:out value="${proj.amountSupport}"/></span>
 						</td>
 						<td>
 							<c:out value="${proj.countDay}"/>天<br />
@@ -182,24 +186,48 @@
 						</td>
 						<td>
 							剩余 <c:out value="${proj.surplus}"/><br />
-							已完成 ￥<span class="moneyFormat"><c:out value="${proj.amountRaised}"/></span><br />
+							<c:choose>
+							<c:when test="${proj.payType==1}">当前价格</c:when>
+							<c:otherwise>已完成</c:otherwise>
+							</c:choose>
+							￥<span class="moneyFormat"><c:out value="${proj.amountRaised}"/></span><br />
 							已达 <c:out value="${proj.finishPer}"/>%
 						</td>
 						<td>
 							<span class="ftx-03">
 								<c:choose>
-									<c:when test="${proj.isPaid==1}">已支付</c:when>
-									<c:when test="${proj.isPaid==0}">
-										<a target="_blank" style="color: #ED5E58;" href="../order/Pay.do?id=<c:out value="${proj.isPaid}"/>">
+									<c:when test="${proj.supportStatus==4}">交易关闭</c:when>
+									<c:when test="${proj.supportStatus==2}">已支付</c:when>
+									<c:when test="${proj.supportStatus==0}">
+										<c:choose>
+										<c:when test="${proj.payType==1}">
+											<c:choose>
+												<c:when test="${proj.status==2}">
+													<a target="_blank" style="color: #ED5E58;" href="../order/Pay.do?id=<c:out value="${proj.supportId}"/>">
+														未支付<br />请前往支付
+													</a>
+												</c:when>
+												<c:when test="${proj.status==0}">未开始</c:when>
+												<c:when test="${proj.status==1}">竞拍中</c:when>
+												<c:when test="${proj.status==3}">锁定</c:when>
+												<c:otherwise>未知</c:otherwise>
+											</c:choose>
+										</c:when>
+										<c:otherwise>
+										<a target="_blank" style="color: #ED5E58;" href="../order/Pay.do?id=<c:out value="${proj.supportId}"/>">
 											未支付<br />请前往支付
 										</a>
+										</c:otherwise>
+										</c:choose>
 									</c:when>
 									<c:otherwise>未知</c:otherwise>
 								</c:choose>
 							</span>
 						</td>
 						<td>
+							<c:if test="${proj.payType==0}">
 							<a class="returncontent" data="<c:out value="${proj.returnContent}"/>" href="javascript:void();">回报内容</a><br />
+							</c:if>
 							<a class="address" user="<c:out value="${proj.recipients}"/>" phone="<c:out value="${proj.telphone}"/>"
 								address="<c:out value="${proj.address}"/>" zipcode="<c:out value="${proj.zipcode}"/>" href="javascript:void();">送货地址</a>
 						</td>

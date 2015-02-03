@@ -43,6 +43,42 @@
 			margin-left: 70px;
 			background: url(../static/image/p3_1.png) no-repeat;
 		}
+		.project_view .sider .content .item{
+			height:68px;
+			width: 100%;
+			padding: 10px 0;
+			background-color: #F3F3F3;
+			margin-bottom: 10px;
+		}
+		.project_view .sider .content .item .avatar {
+			float: left;
+			width: 50px;
+			height: 50px;
+			margin-left: 10px;
+		}
+		.project_view .sider .content .item .avatar img {
+			width: 100%;
+			height: 100%;
+		}
+		.project_view .sider .content .item .username {
+			float: left;
+			margin-left: 10px;
+			height: 50px;
+			line-height: 25px;
+		}
+		.project_view .sider .content .item .msg {
+			float: right;
+			display: inline-block;
+			width: 50px;
+			height: 20px;
+			text-align: center;
+			line-height: 20px;
+			font-size: 12px;
+			color: #fff;
+			margin-right: 10px;
+			margin-top: 15px;
+			background: url(../image/s31.png) no-repeat;
+		}
 	</style>
 </head>
 <body>
@@ -74,7 +110,7 @@
 					<c:out escapeXml="false" value="${proj.content}"/>
                 </div>
             </div>
-            <div class="comm">
+            <div class="comm" style="display:none;">
                 <h2>项目进度：</h2>
 				  <c:forEach var="stage" items="${stages}">
                 <div class="item">
@@ -138,18 +174,45 @@
             </div>
 			<div class="support">
 				<div class="top">
-					我要竞拍
+					<c:choose>
+					<c:when test="${proj.status==1}">我要竞拍</c:when>
+					<c:otherwise></c:otherwise>
+					</c:choose>
 					<div class="count">已有 <span class="red"><c:out value="${proj.countSupport}"/></span> 位竞拍者</div>
 				</div>
+				<c:if test="${proj.status==1}">
 				<div class="content">
 					<form id="jpForm" name="jpForm" action="" onSubmit="return false">
 						<i class="s-money" style="background: url(../static/image/juanz.png) no-repeat;width: 15px;height: 24px;position: absolute;left: 15px;top: 85px;"></i>
-						<input id="amountJP" name="amountJP" type="text" class="validate[required,custom[number]]" oldvalue="<c:out value="${proj.amountRaised}"/>" value="" 
+						<input id="amountJP" name="amountJP" type="text" class="validate[required,custom[number]]" oldvalue="<c:out value="${proj.amountRaised}"/>" goal="<c:out value="${proj.amountGoal}"/>" value="" 
 						style="margin-left:18px;width: 238px;height:50px;line-height:30px;border: 1px #000 solid;border-radius: 5px;outline: none;padding: 0 28px;color: #55acef;font-size: 24px;font-weight: bold;"/>
-						<img src="../static/image/jp.png" border="0" style="cursor: pointer;margin-top:10px;" onclick="jingpai();"/>
+						<img src="../static/image/jp.png" border="0" style="cursor: pointer;margin-top:10px;" onclick="jingpai(<c:out value="${proj.id}"/>);"/>
 					</form>
 				</div>
+				</c:if>
            </div>
+			<div class="support" style="margin-top:15px;margin-bottom:15px;">
+				<div class="top">出价记录</div>
+				<div class="content">
+					<c:forEach var="support" items="${supports}">
+					<div class="item">
+						<div class="avatar">
+							<c:choose>
+								<c:when test="${support.userHead==''}"><img src="../static/image/temp/avatar1.png" /></c:when>
+								<c:otherwise><img style="border-radius: 50%;" src="../<c:out value="${support.userHead}"/>" /></c:otherwise>
+							</c:choose>
+						</div>
+						<div class="username">
+							<a href="javascript:void(0);"><c:out value="${support.userName}"/></a><br/>
+							出价 <font color="#ff8290">￥<c:out value="${support.amount}"/></font> 元<br/>
+						</div>
+						<span class="msg" style="display:none;">发私信</span>
+						<div class="clear"></div>
+					</div>
+					</c:forEach>
+				</div>
+				</div>
+			</div>
         </div>
         <div class="clear"></div>
     </div>

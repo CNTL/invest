@@ -63,6 +63,14 @@ $(function(){
 		focusFirstField:false,//验证未通过时，是否给第一个不通过的控件获取焦点
 		promptPosition:"topRight" //验证提示信息的位置，可设置为："topRight", "bottomLeft", "centerRight", "bottomRight" 
 	});
+	if($("#amountJP").length>0){
+		var oldValue = $("#amountJP").attr("oldvalue");
+		var goal = $("#amountJP").attr("goal");
+		if(parseFloat(oldValue)<parseFloat(goal)){
+			oldValue = goal;
+		}
+		$("#amountJP").attr("placeholder","输入竞拍金额");
+	}
 });
 
 function addFavorite(id){
@@ -102,14 +110,43 @@ function showModePhotosPage(modeid,start){
 	});
 }
 
-function jingpai(){
+function jingpai(id){
 	if(validJpForm()){
 		var oldValue = $("#amountJP").attr("oldvalue");
+		var goal = $("#amountJP").attr("goal");
+		if(parseFloat(oldValue)<parseFloat(goal)){
+			oldValue = goal;
+		}
 		var value = $("#amountJP").val();
 		
 		if(parseFloat(oldValue)>=parseFloat(value)){
-			layer.alert("竞拍金额不能小于当前金额："+oldValue);
+			layer.alert("竞拍金额不能小于：￥"+oldValue);
+			return false;
 		}
+		
+		if(!id || id<=0) return;
+		var dataUrl = "../project/ProjectFetcher.do?action=auction";
+		var loading = -1;
+		$.ajax({url: dataUrl, async:true, dataType:"json",
+			data :{id:id,amount:value},
+			beforeSend:function(XMLHttpRequest){
+				loading = layer.msg("正在提交数据...", 0, 16);
+			},
+			success: function(datas) {
+				if(datas.success){
+					layer.alert(datas.msg,1,function(){window.location.reload();});
+				}else{
+					layer.alert(datas.msg, 3);
+				}
+			},
+			complete: function(XMLHttpRequest, textStatus){
+				layer.close(loading);
+			},
+			error:function (XMLHttpRequest, textStatus, errorThrown) {
+				layer.close(loading);
+				layer.alert('数据提交失败！', 3);
+			}
+		});
 	}
 }
 function validJpForm() {

@@ -17,6 +17,7 @@ import com.tl.invest.favorite.Favorite;
 import com.tl.invest.favorite.FavoriteManager;
 import com.tl.invest.proj.ProjMode;
 import com.tl.invest.proj.ProjScheduleExt;
+import com.tl.invest.proj.ProjSupportExt;
 import com.tl.invest.proj.Project;
 import com.tl.invest.proj.ProjectStage;
 import com.tl.invest.user.user.User;
@@ -88,6 +89,11 @@ public class ProjectController extends ProjectMainController{
 					FavoriteManager favMgr = (FavoriteManager)Context.getBean(FavoriteManager.class);
 					Favorite fav = favMgr.get(curUserId, 1, proj_id);
 					if(fav!=null) favorited = 1;
+				}
+				
+				if(payType == 1){
+					ProjSupportExt[] supports = service.getProjectSupports(proj.getId(),5,1,"sp_amount desc", null);
+					model.put("supports", supports);
 				}
 				
 				model.put("user", user);

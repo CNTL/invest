@@ -5,6 +5,8 @@
 <head>
     <%@include file="../inc/meta.inc"%>
 	<link rel="stylesheet" type="text/css" href="../js/plugin/jquery-validate/css/validationEngine.jquery.css"/>
+	<script type="text/javascript" src="../js/layer/layer.min.js"></script>
+	<script type="text/javascript" src="../js/layer/extend/layer.ext.js"></script>
 	<script type="text/javascript" src="../proj/script/detail.js"></script>
 	<script type="text/javascript" src="../js/plugin/jquery-validate/jquery.validate.min.js"></script>
 	<script type="text/javascript" src="../js/plugin/jquery-validate/js/jquery.validationEngine.js"></script>
@@ -67,21 +69,21 @@
                         <li><a href="javascript:void();" class="current">竞拍者(<c:out value="${proj.countSupport}"/>)</a></li>
                     </ul>
                </div>
-			   <c:forEach var="support" items="${supports}">
-			   <div class="item" style="height:90px;">
-                    <div class="avatar">
+				<c:forEach var="support" items="${supports}">
+				<div class="item" style="height:90px;">
+					<div class="avatar">
 						<c:choose>
 							<c:when test="${support.userHead==''}"><img src="../static/image/temp/avatar1.png" /></c:when>
 							<c:otherwise><img src="../<c:out value="${support.userHead}"/>" /></c:otherwise>
 						</c:choose>
-                    </div>
-                    <div class="username">
-                        <a href="javascript:void(0);"><c:out value="${support.userName}"/></a><br/>
-                        参拍金额 <span>￥<c:out value="${support.amount}"/></span> 元
-                    </div>
-                    <span class="msg">发私信</span>
-                    <div class="clear"></div>
-                </div>
+					</div>
+					<div class="username">
+						<a href="javascript:void(0);"><c:out value="${support.userName}"/></a><br/>
+						参拍金额 <span>￥<c:out value="${support.amount}"/></span> 元
+					</div>
+					<span class="msg" style="display:none;">发私信</span>
+					<div class="clear"></div>
+				</div>
 				</c:forEach>
 			   <div class="clear"></div>
                 <div class="pager">
@@ -135,17 +137,22 @@
             </div>
 			<div class="support">
 				<div class="top">
-					我要竞拍
+					<c:choose>
+					<c:when test="${proj.status==1}">我要竞拍</c:when>
+					<c:otherwise></c:otherwise>
+					</c:choose>
 					<div class="count">已有 <span class="red"><c:out value="${proj.countSupport}"/></span> 位竞拍者</div>
 				</div>
+				<c:if test="${proj.status==1}">
 				<div class="content">
 					<form id="jpForm" name="jpForm" action="" onSubmit="return false">
 						<i class="s-money" style="background: url(../static/image/juanz.png) no-repeat;width: 15px;height: 24px;position: absolute;left: 15px;top: 85px;"></i>
-						<input id="amountJP" name="amountJP" type="text" class="validate[required,custom[number]]" oldvalue="<c:out value="${proj.amountRaised}"/>" value="" 
+						<input id="amountJP" name="amountJP" type="text" class="validate[required,custom[number]]" oldvalue="<c:out value="${proj.amountRaised}"/>" goal="<c:out value="${proj.amountGoal}"/>" value="" 
 						style="margin-left:18px;width: 238px;height:50px;line-height:30px;border: 1px #000 solid;border-radius: 5px;outline: none;padding: 0 28px;color: #55acef;font-size: 24px;font-weight: bold;"/>
-						<img src="../static/image/jp.png" border="0" style="cursor: pointer;margin-top:10px;" onclick="jingpai();"/>
+						<img src="../static/image/jp.png" border="0" style="cursor: pointer;margin-top:10px;" onclick="jingpai(<c:out value="${proj.id}"/>);"/>
 					</form>
 				</div>
+				</c:if>
            </div>
         </div>
         <div class="clear"></div>
