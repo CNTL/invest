@@ -127,7 +127,7 @@ public class UserLoginController extends BaseController
 		
 		photogroup.setUserId(user.getId());
 		photogroup.setUserName(user.getName());
-		photogroup.setGroupPhoto("user\\photo\\img\\framels_hover.jpg");
+		photogroup.setGroupPhoto("user//photo//img//framels_hover.jpg");
 		photogroup.setCreateTime(DateUtils.getTimestamp());
 		if(type == 0){//个人
 			photogroup.setGroupName("生活照");
@@ -152,7 +152,7 @@ public class UserLoginController extends BaseController
 		photo.setGroupId(photogroup.getId());
 		photo.setGroupName(photogroup.getGroupName());
 		photo.setPhotoName("默认");
-		photo.setPhoto("user\\photo\\img\\framels_hover.jpg");
+		photo.setPhoto("user//photo//img//framels_hover.jpg");
 		photo.setCreateTime(DateUtils.getTimestamp());
 		photoManager.savePhoto(photo);
 	}
@@ -161,7 +161,7 @@ public class UserLoginController extends BaseController
 		
 		videogroup.setUserId(user.getId());
 		videogroup.setUserName(user.getName());
-		videogroup.setGroupPhoto("user\\photo\\img\\framels_hover.jpg");
+		videogroup.setGroupPhoto("user//photo//img//framels_hover.jpg");
 		videogroup.setCreateTime(DateUtils.getTimestamp());
 		videogroup.setGroupName("默认");
 		userVideoManager.saveVideoGroup(videogroup);
