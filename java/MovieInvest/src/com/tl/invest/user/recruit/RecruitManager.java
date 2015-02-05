@@ -33,6 +33,66 @@ import com.tl.kernel.sys.dic.DictionaryReader;
  */
 @SuppressWarnings({ "rawtypes", "deprecation", "unchecked"})
 public class RecruitManager {
+	
+	
+ 
+	/**根据职位ID获取相应的人的信息
+	 * @param recruitid
+	 * @return json格式
+	 * @throws Exception
+	 */
+	public String getRecruitUserJson(int recruitid)throws Exception{
+		
+		StringBuilder querySql = new StringBuilder("select u.id,u.name,u.head,rr.recruitID,rr.resumeID from user_recruitresume as rr,user as u,user_resume as r where rr.userID=u.id and rr.resumeID=r.id and rr.recruitID= "+String.valueOf(recruitid));
+		StringBuilder sb = new StringBuilder();
+		String contentString = "";
+		IResultSet rs = null;
+		boolean dbIsCreated = false;
+		DBSession db =null;
+		if(db==null){
+			dbIsCreated = true;
+			db= Context.getDBSession();
+		}
+		try {
+			String sql = querySql.toString() ;
+			rs = db.executeQuery(sql, null);
+			
+			String prefix = "{"+" \"users\": [";
+			while (rs.next()) {
+				int userid = rs.getInt("id");
+				String username = rs.getString("name");
+				String headurl = rs.getString("head");
+				headurl = headurl.replace("\\", "/");
+				int recid = rs.getInt("recruitID");
+				int resid = rs.getInt("resumeID");
+				sb.append("{");
+				sb.append("\"userid\":\""+String.valueOf(userid)+"\",");
+				sb.append("\"username\":\""+username+"\",");
+				sb.append("\"headurl\":\""+headurl+"\",");
+				sb.append("\"recid\":\""+String.valueOf(recid)+"\",");
+				sb.append("\"resid\":\""+String.valueOf(resid)+"\"");
+				sb.append("}");
+				sb.append(",");
+				
+			}
+			String suffix = "]}";
+			if(sb.toString().endsWith(",")){
+				contentString = prefix + sb.toString().substring(0,sb.toString().length()-1) + suffix;
+			}
+			else{
+				contentString = prefix + suffix;
+			}
+		} catch (SQLException e) {
+			throw new TLException(e);
+		} finally {
+			ResourceMgr.closeQuietly(rs);
+			if(dbIsCreated){
+				ResourceMgr.closeQuietly(db);
+			}
+		}	
+		
+		return contentString;
+	}
 	/** 
 	* @author  leijj 
 	* 功能： 获取招聘信息条数
@@ -61,6 +121,20 @@ public class RecruitManager {
 		StringBuilder querySql = new StringBuilder("select a from com.tl.invest.user.recruit.UserRecruit as a where a.jobOrder>0 and deleted=0 ");
 		querySql.append(" order by a.jobOrder asc");
 		List<UserRecruit> list = DAOHelper.find(querySql.toString() , start, length);
+		if(list == null || list.size() == 0) return null;
+		return list.toArray(new UserRecruit[0]);
+	}
+	
+	/** 获得用户发布的所有职位
+	 * @param userid
+	 * @return
+	 * @throws Exception
+	 */
+	public UserRecruit[] queryRecruitsByUserID(int userid)throws Exception{
+		StringBuilder querySql = new StringBuilder("select a from com.tl.invest.user.recruit.UserRecruit as a where a.userId="+String.valueOf(userid)+" and deleted=0 ");
+		querySql.append(" order by a.createtime desc");
+		List<UserRecruit> list = DAOHelper.find(querySql.toString());
+		
 		if(list == null || list.size() == 0) return null;
 		return list.toArray(new UserRecruit[0]);
 	}
@@ -183,6 +257,7 @@ public class RecruitManager {
         	dao.closeSession(s);
         }
 	}
+	
 	
 	/**
 	 * 根据ID获取影聘信息

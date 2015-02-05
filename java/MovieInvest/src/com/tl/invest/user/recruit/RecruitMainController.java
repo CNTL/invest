@@ -36,9 +36,68 @@ public class RecruitMainController extends Entry {
 			queryRecruits(request, response, model, "queryNew");
 		} else if("queryHot".equals(action)){//获取最热9条招聘信息
 			queryRecruits(request, response, model, "queryHot");
-		} else{//直接进入招聘信息列表
+		}else if("getRecruitUser".equals(action)){
+			getRecruitUser(request,response,model);
+		}
+		else if("delRecruit".equals(action)){
+			delRecruit(request,response,model);
+		}
+		else{//直接进入招聘信息列表
 			Dictionary[] types = recruitManager.types();
 			model.put("types", types);
+			init(request,response,model);
+		}
+		
+	}
+	/** 管理职位
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @throws Exception
+	 */
+	private void init(HttpServletRequest request, HttpServletResponse response, Map model)throws Exception{
+		Integer userid = getInt(request, "userid",-1);
+		if(userid!=-1){
+			//获得当前公司的所有职位。
+			UserRecruit[] recruitLists = recruitManager.queryRecruitsByUserID(userid);
+			model.put("recruitLists", recruitLists);
+		}
+		
+	}
+	
+	/** 根据职位ID获取投简历的人
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @throws Exception
+	 */
+	private void getRecruitUser(HttpServletRequest request, HttpServletResponse response, Map model)throws Exception{
+		int recid = getInt(request, "recid",-1);
+		String result = recruitManager.getRecruitUserJson(recid);
+		output(result, response);
+	}
+	
+	/** 删除职位
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @throws Exception
+	 */
+	private void delRecruit(HttpServletRequest request, HttpServletResponse response, Map model)throws Exception{
+		int recid = getInt(request, "recid",-1);
+		if(recid!=-1){
+			try {
+				UserRecruit userRecruit  = new UserRecruit();
+				userRecruit = recruitManager.getRecruitByID(recid);
+				userRecruit.setDeleted(1);
+				recruitManager.save(userRecruit);
+				output("ok", response);
+			} catch (Exception e) {
+				output("no", response);
+			}
+			
+		}else{
+			output("no", response);
 		}
 		
 	}

@@ -176,5 +176,6 @@ public class UserResumeManager {
 		return recruitManager.getSqlCount(sql,params,db);
 	}
 	
+	
 	RecruitManager recruitManager = (RecruitManager) Context.getBean(RecruitManager.class);
 }
