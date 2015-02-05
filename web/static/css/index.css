@@ -2199,8 +2199,8 @@ border-left: 0;
 
 .job_list .main .search .key input {
 width: 512px;
-height: 46px;
-line-height: 46px;
+height: 42px;
+line-height: 42px;
 border: 0;
 font-size: 18px;
 color: #e1e1e1;
@@ -2396,7 +2396,7 @@ text-align: center;
 .selectbox {
 border: none;
 DISPLAY: block;
-width: 80px;
+width: 60px;
 height: 46px;
 cursor: pointer;
 color: #666;

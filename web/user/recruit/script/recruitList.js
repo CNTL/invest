@@ -1,5 +1,12 @@
 $(document).ready(function () {
 	jobList.init();
+	$("#rec-more").popover({
+		container:"body",
+		title:"更多地域",
+		html:true,
+		content:$("#morecity").html(),
+		trigger:"click"
+	});
 	//初始化
 	/*
 	$("#form").validationEngine({

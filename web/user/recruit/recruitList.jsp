@@ -77,7 +77,7 @@
 	                <a href="../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=${type}&more=${more}&city=${city.id}">${city.name}</a>
 	            </div>
     		</c:forEach>
-    		<div class="item"><a id="rec-more" href="#">更多</a></div>
+    		<div class="item"><a id="rec-more" tabindex="0"  role="button" data-toggle="popover">更多</a></div>
             <div class="clear"></div>
         </div>
     </div>
@@ -229,6 +229,11 @@
     <div class="clear"></div>
 </div>
 </div>
+<div id="morecity" class="item" style="display:none;">
+	<c:forEach var="city" varStatus="status" items="${cities}" begin="11"  step="1" >
+		<a style="margin:5px;font-size:16px;" href="../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=${type}&more=${more}&city=${city.id}">${city.name}</a>
+	</c:forEach>
+</div>
 <!-- footer -->
 <%@include file="../../inc/footer.inc"%>
 <!-- footer -->    
@@ -240,8 +245,10 @@
 	var typeFlag = "<%=request.getParameter("recruitType") %>";
 	var rootPath = "<%=com.tl.common.WebUtil.getRoot(request) %>";
  </script>
+
 <script type="text/javascript" src="../static/js/jquery-migrate-1.1.1.js"></script>
 <script type="text/javascript" src="../static/js/jQselect.js"></script>
+ <script type="text/javascript" src="../js/bootstrap/js/bootstrap.min.js"></script>
 <script src = "../user/recruit/script/recruitList.js"></script>
 
 </body>
