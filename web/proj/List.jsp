@@ -99,7 +99,7 @@
         <div class="block2 proj_type_<c:out value="${projType2}"/>">
             <div class="wrap">
                 <div class="top">
-                    <h2>独立长片项目</h2>
+                    <h2>电影长片项目</h2>
                     <div class="cate">
                         <!--<a href="#">剧情片</a><span>|</span>
                         <a href="#">记录片</a><span>|</span>

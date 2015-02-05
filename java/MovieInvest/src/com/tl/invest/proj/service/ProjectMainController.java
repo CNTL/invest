@@ -43,7 +43,7 @@ public class ProjectMainController extends Entry {
 				}else if(dic.getName().indexOf("长片")>=0){
 					model.put("projs2", projs);
 					model.put("projType2", typeID);
-				}else if(dic.getName().indexOf("活动")>=0){
+				}else if(dic.getName().indexOf("相关")>=0){
 					model.put("projs3", projs);
 					model.put("projType3", typeID);
 				}
@@ -70,7 +70,7 @@ public class ProjectMainController extends Entry {
 			}else if(dic.getName().indexOf("长片")>=0){
 				model.put("projs2", projs);
 				model.put("projType2", type);
-			}else if(dic.getName().indexOf("活动")>=0){
+			}else if(dic.getName().indexOf("相关")>=0){
 				model.put("projs3", projs);
 				model.put("projType3", type);
 			}
