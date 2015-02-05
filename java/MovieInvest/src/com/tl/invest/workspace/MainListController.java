@@ -75,10 +75,7 @@ public class MainListController extends BaseController {
 				 for (UserRecruit e : userRecruits) {
 					 User user = userManager.getUserByID(e.getUserId());
 					 e.setCompany(user.getOrgFullname());
-					 DictionaryReader reader = (DictionaryReader)Context.getBean("DictionaryReader");
-					 Dictionary dictionary = reader.getDic(DicTypes.DIC_AREA.typeID(),Integer.parseInt(user.getCity(), 10) );
-					 e.setCity(dictionary.getName());
-					 
+		             e.setResumeNum( recruitManager.getRecruitResumeNum(e.getId()));
 					userRecruitItems.add(e);
 				}
 				mainList.setUserRecruitItems(userRecruitItems);

@@ -449,6 +449,22 @@ public class RecruitManager {
 		}
 		return count;
 	}
+	
+	/** 获得简历数量
+	 * @param recid
+	 * @return
+	 * @throws Exception
+	 */
+	public int getRecruitResumeNum(int recid) throws Exception{
+		int count = 0;
+		try {
+			count = getSqlCount("select count(*) from user_recruitresume as rr where rr.recruitID="+String.valueOf(recid),null,null);
+		} catch (Exception e) {
+			 
+		}
+		
+		return count;
+	}
 	private UserRecruit readRecruitRS(IResultSet rs) throws TLException{
 		try {
 			UserRecruit recruit = new UserRecruit();
@@ -473,16 +489,12 @@ public class RecruitManager {
 			recruit.setJobOrder(rs.getInt("jobOrder"));
 			recruit.setDeleted(rs.getInt("deleted"));
 			recruit.setDays(rs.getString("days"));
+			recruit.setCityName(rs.getString("cityName"));
 			
 			User user = userManager.getUserByID(recruit.getUserId());
 			recruit.setCompany(user.getOrgFullname());
-			try{
-				DictionaryReader reader = (DictionaryReader)Context.getBean("DictionaryReader");
-				Dictionary dictionary = reader.getDic(DicTypes.DIC_AREA.typeID(),Integer.parseInt(user.getCity(), 10) );
-				recruit.setCity(dictionary.getName());
-			}catch(Exception ex){
-				recruit.setCity("");
-			}
+		    
+		    recruit.setResumeNum(getRecruitResumeNum(recruit.getId()));
 			
 			recruit.setTime(DateUtils.format(recruit.getCreatetime(), "yyyy-MM-dd hh:mm:ss"));
 			return recruit;

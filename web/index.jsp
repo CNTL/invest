@@ -175,7 +175,7 @@
 				sb.push("            <div class=\"info\">");
 				sb.push("                <ul>");
 				sb.push("                    <li>"+n.salary+"</li>");
-				sb.push("                    <li>"+n.city+"</li>");
+				sb.push("                    <li>"+n.cityName+"</li>");
 				sb.push("                    <li>"+n.days+"天</li>");
 				sb.push("                </ul>");
 				sb.push("            </div>");
@@ -408,7 +408,7 @@
 					<div class="info">
 						<ul>
 							<li><c:out value="${recuit.salary}"/></li>
-							<li><c:out value="${recuit.city}"/></li>
+							<li><c:out value="${recuit.cityName}"/></li>
 							<li><c:out value="${recuit.days}"/>天</li>
 						</ul>
 					</div>

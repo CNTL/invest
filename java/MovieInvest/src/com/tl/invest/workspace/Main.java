@@ -49,9 +49,7 @@ public class Main extends Entry {
 			for (int i = 0; i < userRecruit.length; i++) {
 				User user = userManager.getUserByID(userRecruit[i].getUserId());
 				userRecruit[i].setCompany(user.getOrgFullname());
-				DictionaryReader reader = (DictionaryReader)Context.getBean("DictionaryReader");
-				Dictionary dictionary = reader.getDic(4,Integer.parseInt(user.getCity(), 10) );
-				userRecruit[i].setCity(dictionary.getName());
+				userRecruit[i].setResumeNum(recruitManager.getRecruitResumeNum(userRecruit[i].getId()));
 			}
 			
 			model.put("userRecruit", userRecruit);

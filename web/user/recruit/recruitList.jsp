@@ -66,7 +66,10 @@
     </c:forEach>
     	<div class="subscribe">
             <h2><a href="#">订阅职位</a></h2>
-            <c:forEach var="city" varStatus="status" items="${cities}" >
+        </div>
+        <div class="subscribe">
+            <h2><a href="#" style="background:#FAFAFA;">地域筛选</a></h2>
+            <c:forEach var="city" varStatus="status" items="${cities}" begin="0" end="10" step="1" >
             	<c:choose>
 					<c:when test="${status.index%2==0}"><div class="item item_last"></c:when>
 					<c:otherwise><div class="item"></c:otherwise>
@@ -74,6 +77,7 @@
 	                <a href="../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=${type}&more=${more}&city=${city.id}">${city.name}</a>
 	            </div>
     		</c:forEach>
+    		<div class="item"><a id="rec-more" href="#">更多</a></div>
             <div class="clear"></div>
         </div>
     </div>
@@ -176,7 +180,7 @@
                         <div class="info">
                             <ul>
                                 <li><c:out value="${msg.salary}"/></li>
-                                <li><c:out value="${msg.city}"/></li>
+                                <li><c:out value="${msg.cityName}"/></li>
                                 <li><c:out value="${msg.days}"/>天</li>
                             </ul>
                         </div>
