@@ -892,7 +892,7 @@ height: 100%;
 }
 
 .people_globaltop .wrap .info {
-float: left;
+/*float: left;*/
 margin-left: 30px;
 padding-top: 60px;
 }
