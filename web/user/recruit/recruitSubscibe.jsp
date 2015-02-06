@@ -44,6 +44,7 @@ text-decoration: none;
     <label for="name" class="col-sm-2 control-label lb">订阅名称：</label>
     <div class="col-sm-6">
       <input type="text" name="name" class="form-control input-sm" id="name" placeholder="请输入订阅名称">
+      
     </div>
   </div>
   <div class="form-group">
@@ -66,8 +67,8 @@ text-decoration: none;
     	<span class="caret"></span>
   	</button>
   	<span id="city" style="font-size:16px;margin-left:10px;"></span>
-  	<input type="hidden" name="hcityid" id="hcityid" />
-  	<input type="hidden" name="hcityname" id="hcityname" />
+  	<input type="hidden" name="hcityid" value="" id="hcityid" />
+  	<input type="hidden" name="hcityname"  value="" id="hcityname" />
     </div>
   </div>
  <div class="form-group">
@@ -79,13 +80,13 @@ text-decoration: none;
     	<span class="caret"></span>
   	</button>
   	<span id="sl-rec" style="font-size:16px;margin-left:10px;"></span>
-  	<input type="hidden" name="hrecid" id="hrecid" />
-  	<input type="hidden" name="hrecname" id="hrecname" />
+  	<input type="hidden" name="hrecid"  value="" id="hrecid" />
+  	<input type="hidden" name="hrecname"  value="" id="hrecname" />
     </div>
   </div>
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-default">保存</button>
+      <button type="button" id="btn-save" class="btn btn-default">保存</button>
     </div>
   </div>
 </form>

@@ -68,7 +68,7 @@
             <h2><a href="../recruit/uesrRecruitSubscibe.do?a=RecruitSubscibe&mainType=3">订阅职位</a></h2>
         </div>
         <div class="subscribe">
-            <h2><a href="#" style="background:#FAFAFA;">地域筛选</a></h2>
+            <h2><a>地域筛选</a></h2>
             <c:forEach var="city" varStatus="status" items="${cities}" begin="0" end="10" step="1" >
             	<c:choose>
 					<c:when test="${status.index%2==0}"><div class="item item_last"></c:when>

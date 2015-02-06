@@ -58,6 +58,7 @@
 	<bean id="BankcardManager" class="com.tl.invest.user.bankcard.BankcardManager"/>
 	<bean id="WorksManager" class="com.tl.invest.user.works.WorksManager"/>
 	<bean id="RecruitManager" class="com.tl.invest.user.recruit.RecruitManager"/>
+	<bean id="RecruitSubscibeManager" class="com.tl.invest.user.recruit.RecruitSubscibeManager"/>
 	<bean id="UserVideoManager" class="com.tl.invest.user.video.UserVideoManager"/>
 	<bean id="PhotoManager" class="com.tl.invest.user.photo.PhotoManager"/>
 	<bean id="user.User" class="com.tl.invest.user.user.UserController">

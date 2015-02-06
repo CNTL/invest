@@ -47,6 +47,7 @@
 		<mapping resource="hbm/UserPhoto.hbm.xml"/>
 		<mapping resource="hbm/UserPhotogroup.hbm.xml"/>
 		<mapping resource="hbm/UserRecruit.hbm.xml"/>
+		<mapping resource="hbm/UserRecruitSubscibe.hbm.xml"/>
 		<mapping resource="hbm/UserRecruitresume.hbm.xml"/>
 		<mapping resource="hbm/UserResume.hbm.xml"/>
 		<mapping resource="hbm/UserVideo.hbm.xml"/>

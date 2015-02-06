@@ -44,6 +44,10 @@ public class RecruitMainController extends Entry {
 		}
 		else if("RecruitSubscibe".equals(action)){
 			RecruitSubscibe(request,response,model);
+		}else if("updateRecruitSubscibe".equals(action)){
+			updateRecruitSubscibe(request,response,model);
+		}else if("cancelRecruitSubscibe".equals(action)){
+			cancelRecruitSubscibe(request,response,model);
 		}
 		else{//直接进入招聘信息列表
 			Dictionary[] types = recruitManager.types();
@@ -51,6 +55,50 @@ public class RecruitMainController extends Entry {
 			init(request,response,model);
 		}
 		
+	}
+	/** 更新职位订阅
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @throws Exception
+	 */
+	private void  updateRecruitSubscibe(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception {
+		RecruitSubscibe subscibe = new RecruitSubscibe();
+		
+		try {
+			User user = userManager.getUserByID(getInt(request, "userid",0));
+			subscibe.setId(getInt(request, "id",0));
+			subscibe.setName(get(request, "name",""));
+			subscibe.setUserId(user.getId());
+			subscibe.setUserName(user.getName());
+			subscibe.setMail(get(request, "mail",""));
+			subscibe.setCityId(getInt(request, "cityid",0));
+			subscibe.setCityName(get(request, "cityname",""));
+			subscibe.setRecId(getInt(request, "recid",0));
+			subscibe.setRecName(get(request, "recname",""));
+			subscibe.setRate(getInt(request, "rate",0));
+			subscibe.setDeleted(0);
+			subscibe.setCreatetime(DateUtils.getTimestamp());
+			subscibe.setPosttime(DateUtils.getTimestamp());
+			recruitSubscibeManager.save(subscibe);
+			output("ok", response);
+		} catch (Exception e) {
+			 
+		}
+	}
+	/** 取消职位订阅
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @throws Exception
+	 */
+	private void  cancelRecruitSubscibe(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception {
+		try {
+			Integer id = getInt(request, "id",0);
+			recruitSubscibeManager.cancle(id);
+		} catch (Exception e) {
+			 
+		}
 	}
 	/** 管理职位
 	 * @param request
@@ -187,4 +235,5 @@ public class RecruitMainController extends Entry {
 	}
 	private UserManager userManager = (UserManager)Context.getBean(UserManager.class);
 	private RecruitManager recruitManager = (RecruitManager)Context.getBean(RecruitManager.class);
+	private RecruitSubscibeManager recruitSubscibeManager = (RecruitSubscibeManager)Context.getBean(RecruitSubscibeManager.class);
 }

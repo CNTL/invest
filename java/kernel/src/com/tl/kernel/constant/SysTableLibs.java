@@ -21,6 +21,7 @@ public enum SysTableLibs {
 	TB_USERPHOTO("user_photo"),
 	TB_PHOTOGROUP("user_photogroup"),
 	TB_USERRECRUIT("user_recruit"),
+	TB_USERRECRUITSUBSCIBE("user_subscibe"),
 	TB_USERRECRUITRESUME("user_recruitresume"),
 	TB_USERRECRUITSTORE("user_recruitstore"),
 	TB_USERRESUME("user_resume"),

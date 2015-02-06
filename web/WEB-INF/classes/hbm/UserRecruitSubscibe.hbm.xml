@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 17, 2014 3:11:25 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.tl.invest.user.recruit.RecruitSubscibe" table="user_subscibe">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="name" type="string">
+            <column name="name">
+            </column>
+        </property>
+        <property name="userId" type="java.lang.Integer">
+            <column name="userID">
+            </column>
+        </property>
+        <property name="userName" type="string">
+            <column name="userName">
+            </column>
+        </property>
+         <property name="mail" type="string">
+            <column name="mail">
+            </column>
+        </property>
+          <property name="cityId" type="java.lang.Integer">
+            <column name="cityid">
+            </column>
+        </property>
+        <property name="cityName" type="string">
+            <column name="cityname" length="200">
+            </column>
+        </property>
+        <property name="recId" type="java.lang.Integer">
+            <column name="recruitid">
+            </column>
+        </property>
+        <property name="recName" type="string">
+            <column name="recruitname" length="200">
+            </column>
+        </property>
+         <property name="rate" type="java.lang.Integer">
+            <column name="rate">
+            </column>
+        </property>
+           <property name="deleted" type="java.lang.Integer">
+            <column name="deleted">
+            </column>
+        </property>
+          <property name="createtime" type="timestamp">
+            <column name="createtime" length="19">
+            </column>
+        </property>
+          <property name="posttime" type="timestamp">
+            <column name="posttime" length="19">
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>
