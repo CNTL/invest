@@ -21,16 +21,34 @@
 			<value>execute</value>  
 		</property>
 	</bean>  
+	<!-- 职位订阅 job-->
+	<bean id="recruitSubscibeServiceJob" class="com.tl.invest.quartz.SubscibeRecruitJob" />
+	<bean id="recruitSubscibeServiceJobMethod" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
+		<property name="targetObject">  
+			<ref bean="recruitSubscibeServiceJob"/>  
+		</property>  
+		<property name="targetMethod">  <!-- 要执行的方法名称 -->  
+			<value>execute</value>  
+		</property>
+	</bean>  
+	
 	<!-- ======================== 调度触发器 ======================== -->  
 	<bean id="updateProjectStatusTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
 		<property name="jobDetail" ref="updateProjectStatusServiceJobMethod"></property>  
 		<property name="cronExpression" value="0 0 1 * * ?"></property>  
 	</bean>
+	<!-- 职位订阅  trigger-->
+	<bean id="recruitSubscibeServiceJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+		<property name="jobDetail" ref="recruitSubscibeServiceJobMethod"></property>  
+		<property name="cronExpression" value="0 38 16 * * ?"></property> 
+	</bean>
+	
 	<!-- ======================== 调度工厂 ======================== -->  
 	<bean id="SpringJobSchedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">  
 		<property name="triggers">  
 			<list>  
 				<ref bean="updateProjectStatusTrigger"/>  
+				<ref bean="recruitSubscibeServiceJobTrigger" />
 			</list>  
 		</property>  
 	</bean>
