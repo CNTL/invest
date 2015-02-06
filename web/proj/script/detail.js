@@ -71,6 +71,19 @@ $(function(){
 		}
 		$("#amountJP").attr("placeholder","输入竞拍金额");
 	}
+	var max = 0;
+	$("#price-list").find("div .pgs").each(function(i,n){
+		 var price = parseFloat($(this).attr("data-price"));
+		 if(max <price){
+			 max = price;
+		 }
+	});
+	
+	$("#price-list").find("div .pgs").each(function(i,n){
+		 var price = parseFloat($(this).attr("data-price"));
+		 var widthper = 100*(price/max).toString()+"%";
+		 $(this).css("width",widthper);
+	});
 });
 
 function addFavorite(id){

@@ -191,7 +191,7 @@
 				</div>
 				</c:if>
            </div>
-			<div class="support" style="margin-top:15px;margin-bottom:15px;">
+			<div class="support" id="price-list" style="margin-top:15px;margin-bottom:15px;">
 				<div class="top">出价记录</div>
 				<div class="content">
 					<c:forEach var="support" items="${supports}">
@@ -202,11 +202,14 @@
 								<c:otherwise><img style="border-radius: 50%;" src="../<c:out value="${support.userHead}"/>" /></c:otherwise>
 							</c:choose>
 						</div>
-						<div class="username">
+						<div class="username" style="width:190px;">
 							<a href="javascript:void(0);"><c:out value="${support.userName}"/></a><br/>
 							出价 <font color="#ff8290">￥<c:out value="${support.amount}"/></font> 元<br/>
+							<div class="pgs" data-price="<c:out value="${support.amount}"/>" style="width:1%;height:3px;background:#FFA1AC;"></div>
+							
 						</div>
 						<span class="msg" style="display:none;">发私信</span>
+						
 						<div class="clear"></div>
 					</div>
 					</c:forEach>
