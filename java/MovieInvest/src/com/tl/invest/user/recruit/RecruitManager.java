@@ -125,6 +125,22 @@ public class RecruitManager {
 		return list.toArray(new UserRecruit[0]);
 	}
 	
+	 
+	/** 获取特定城市和职业的招聘信息
+	 * @param cityid
+	 * @param recid
+	 * @return
+	 * @throws Exception
+	 */
+	public UserRecruit[] queryRecruitsSubscibe(int cityid,int recid)throws Exception{
+		StringBuilder querySql = new StringBuilder("select a from com.tl.invest.user.recruit.UserRecruit as a where a.cityId="+String.valueOf(cityid)+" and a.secondType="+String.valueOf(recid)+" and deleted=0 ");
+		querySql.append(" order by a.createtime desc LIMIT 4");
+		List<UserRecruit> list = DAOHelper.find(querySql.toString());
+		
+		if(list == null || list.size() == 0) return null;
+		return list.toArray(new UserRecruit[0]);
+	}
+	
 	/** 获得用户发布的所有职位
 	 * @param userid
 	 * @return

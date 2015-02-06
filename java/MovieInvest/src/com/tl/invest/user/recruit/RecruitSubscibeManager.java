@@ -1,5 +1,7 @@
 package com.tl.invest.user.recruit;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -79,13 +81,30 @@ public class RecruitSubscibeManager {
 		try {
 			String tableName = SysTableLibs.TB_USERRECRUITSUBSCIBE.getTableCode() ;
 			dbsession = Context.getDBSession();
-			String sql = "update "+tableName+" set posttime=? where id in(?)";
+			String sql = "update user_subscibe set posttime=? where id in(?)";
 			Object[] params = new Object[]{DateUtils.getTimestamp(),idlist};
-			dbsession.executeQuery(sql,params);
+			dbsession.executeUpdate(sql,params);
 			 
 		} finally {
 			ResourceMgr.closeQuietly( dbsession );
 		}
 		 
+	}
+	
+	/** 获得频率范围内职位订阅列表
+	 * @return
+	 * @throws Exception
+	 */
+	public RecruitSubscibe[] queryRecruitSubscibe() throws Exception{
+		try {
+			StringBuilder querySql = new StringBuilder("select a from com.tl.invest.user.recruit.RecruitSubscibe as a where  deleted=0 and (datediff(NOW(),a.posttime)=a.rate) ");
+			List<RecruitSubscibe> list = DAOHelper.find(querySql.toString());
+			if(list == null || list.size() == 0) return null;
+			return list.toArray(new RecruitSubscibe[0]);
+		} catch (Exception e) {
+			 
+			return null;
+		}
+		
 	}
 }
