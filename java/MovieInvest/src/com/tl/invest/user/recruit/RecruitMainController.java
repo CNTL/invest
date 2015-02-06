@@ -42,6 +42,9 @@ public class RecruitMainController extends Entry {
 		else if("delRecruit".equals(action)){
 			delRecruit(request,response,model);
 		}
+		else if("RecruitSubscibe".equals(action)){
+			RecruitSubscibe(request,response,model);
+		}
 		else{//直接进入招聘信息列表
 			Dictionary[] types = recruitManager.types();
 			model.put("types", types);
@@ -63,6 +66,20 @@ public class RecruitMainController extends Entry {
 			model.put("recruitLists", recruitLists);
 		}
 		
+	}
+	
+	/** 职位订阅
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @throws Exception
+	 */
+	private void RecruitSubscibe(HttpServletRequest request, HttpServletResponse response, Map model)throws Exception{
+		DictionaryReader dicReader = (DictionaryReader)Context.getBean(DictionaryReader.class);
+		Dictionary[] types = recruitManager.types();
+		model.put("types", types);
+		Dictionary[] cities = dicReader.getDics(DicTypes.DIC_RECRUIT_HOT_TYPE.typeID());
+		model.put("cities", cities);
 	}
 	
 	/** 根据职位ID获取投简历的人

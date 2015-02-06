@@ -256,7 +256,11 @@
 	<bean id="user.uesrRecruitManager" class="com.tl.invest.user.recruit.RecruitMainController">
 		<property name="viewName"><value>user/user/Recruit</value></property>
 	</bean>	
-	
+	<!-- 职位订阅  -->
+	<bean id="user.uesrRecruitSubscibe" class="com.tl.invest.user.recruit.RecruitMainController">
+		<property name="viewName"><value>user/recruit/recruitSubscibe</value></property>
+	</bean>	
+	 
 	<bean id="user.UserMsg" class="com.tl.invest.user.msg.UserMsgController">
 	</bean>
 	<bean id="user.Recruit" class="com.tl.invest.user.recruit.RecruitController">
@@ -390,6 +394,8 @@
 				<prop key="/user/recruit.do">user.Recruit</prop>
 				<prop key="/user/recruitResume.do">user.RecruitResume</prop>
 				<prop key="/user/userRecruitManager.do">user.uesrRecruitManager</prop>
+				<prop key="/recruit/uesrRecruitSubscibe.do">user.uesrRecruitSubscibe</prop>
+				
 				 
 				<!-- 简历管理 -->
 				<prop key="/resume/myresume.do">resume.myresume</prop>
