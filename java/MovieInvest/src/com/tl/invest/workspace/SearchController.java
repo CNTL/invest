@@ -1,15 +1,20 @@
 package com.tl.invest.workspace;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.tl.common.StringUtils;
+import com.tl.invest.constant.TableLibs;
 import com.tl.invest.proj.ProjectExt;
 import com.tl.invest.proj.service.ProjectService;
 import com.tl.invest.user.recruit.RecruitManager;
+import com.tl.invest.user.recruit.UserRecruit;
+import com.tl.invest.user.user.User;
 import com.tl.invest.user.user.UserManager;
+import com.tl.kernel.context.TBID;
 import com.tl.kernel.context.TLException;
 
 public class SearchController extends Entry {
@@ -40,6 +45,10 @@ public class SearchController extends Entry {
 		
 		if(t == 1){
 			searchProject(key,page,pageSize,model);
+		} else if (t == 2) {
+			searchRecruit(key,page,pageSize,model);
+		} else if (t == 3) {
+			searchUser(key,page,pageSize,model);
 		}
 		
 		model.put("page", page);
@@ -60,6 +69,43 @@ public class SearchController extends Entry {
 		
 		model.put("projs", projs);
 		model.put("projCount", projCount);
+		model.put("pageCount", pageCount);
+		model.put("pageBegin", getPageBegin(page));
+		model.put("pageEnd", getPageEnd(page, pageCount));
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	private void searchRecruit(String key,int page,int pageSize,Map model) throws TLException {
+		String sql = "select * from "+TableLibs.TB_USERRECRUIT.getTableCode();
+		sql += " where jobName like '%"+key+"%'";
+		List<UserRecruit> recruits = recruitManager.getRecruits(sql, new Object[]{}, pageSize, page, null);
+		String countSQL = "select count(0) from "+TableLibs.TB_USERRECRUIT.getTableCode() + " where jobName like '%"+key+"%'";
+		int count = recruitManager.getSqlCount(countSQL, new Object[]{}, null);
+		
+		int pageCount = count/pageSize;
+		if(count % pageSize >0) pageCount = pageCount + 1;
+		if(pageCount<=0) pageCount = 1;
+		
+		model.put("recruits", recruits);
+		model.put("projCount", count);
+		model.put("pageCount", pageCount);
+		model.put("pageBegin", getPageBegin(page));
+		model.put("pageEnd", getPageEnd(page, pageCount));
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	private void searchUser(String key,int page,int pageSize,Map model) throws TLException {
+		String sql = "select * from "+TableLibs.TB_USER.getTableCode() + " where type = 0 and isRealNameIdent=1 and perNickName like '%"+key+"%'";
+		List<User> users = userManager.getUsers(sql, new Object[]{}, pageSize, page, null);
+		String countSQL = "select count(0) from "+TableLibs.TB_USER.getTableCode() + " where type = 0 and isRealNameIdent=1 and perNickName like '%"+key+"%'";
+		int count = userManager.getSqlCount(countSQL, new Object[]{}, null);
+		
+		int pageCount = count/pageSize;
+		if(count % pageSize >0) pageCount = pageCount + 1;
+		if(pageCount<=0) pageCount = 1;
+		
+		model.put("users", users);
+		model.put("projCount", count);
 		model.put("pageCount", pageCount);
 		model.put("pageBegin", getPageBegin(page));
 		model.put("pageEnd", getPageEnd(page, pageCount));

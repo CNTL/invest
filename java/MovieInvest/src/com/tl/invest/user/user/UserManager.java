@@ -592,6 +592,9 @@ public class UserManager {
 			user.setOrgTrade(rs.getString("orgTrade"));
 			user.setHead(rs.getString("head"));
 			user.setIntro(rs.getString("intro"));
+			user.setName(rs.getString("name"));
+			user.setTypeName(rs.getString("typeName"));
+			user.setPerNickName(rs.getString("perNickName"));
 			return user;
 		} catch (Exception e) {
 			throw new TLException(e);
@@ -627,7 +630,7 @@ public class UserManager {
            return null;
 	}
 	
-	private int getSqlCount(String sql,Object[] params,DBSession db) throws TLException{
+	public int getSqlCount(String sql,Object[] params,DBSession db) throws TLException{
 		int count =0;
 		boolean dbIsCreated = false;
 		if(db==null){

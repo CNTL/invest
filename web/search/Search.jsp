@@ -82,6 +82,99 @@
             <div class="clear"></div>
         </div>
 		</c:when>
+		<c:when test="${searchType==2}">
+        <div class="block1 search_type_<c:out value="${searchType}"/>">
+            <div class="top">
+                <h2>影聘</h2>
+                <div class="cate">
+					当前检索关键字：<span style="font-size:16px;color:red;"><c:out value="${searchKeyWord}"/></span>
+                </div>
+            </div>
+			<c:forEach var="recruit" varStatus="status" items="${recruits}">
+			<c:choose>
+				<c:when test="${status.index%4==0}"><div class="box box_last"></c:when>
+				<c:otherwise> <div class="box"></c:otherwise>
+			</c:choose>
+				<div class="box_top"></div>
+				<div class="box_main job">
+					<div class="pic">
+						<a href="<c:out value="${rootPath}"/>user/recruit.do?a=detail&amp;mainType=3&amp;id=<c:out value="${recruit.id}"/>">
+							<img src="<c:out value="${rootPath}"/><c:out value="${recruit.jobPictrue}"/>">
+						</a>
+						<span>影聘</span>
+					</div>
+					<div>
+						<div class="title">
+							<a href="<c:out value="${rootPath}"/>user/recruit.do?a=detail&amp;mainType=3&amp;id=<c:out value="${recruit.id}"/>"><c:out value="${recruit.jobName}"/></a>
+							<span><c:out value="${recruit.company}"/></span>
+						</div>
+						<div class="info">
+							<ul>
+								<li><c:out value="${recruit.salary}"/></li>
+								<li><c:out value="${recruit.cityName}"/></li>
+								<li><c:out value="${recruit.days}"/>天</li>
+							</ul>
+						</div>
+						<div class="desc">
+							<span>职位诱惑：<c:out value="${recruit.jobAttract}"/></span><br>
+							发布时间：<c:out value="${recruit.createtime}"/><br>
+							已投递简历人数：<c:out value="${recruit.resumeNum}"/>人
+						</div>
+					</div>
+					<div class="tool">
+						<a href="#" class="share">分享</a>
+						<a href="#" class="view"></a>
+					</div>
+				</div>
+				<div class="box_bottom"></div>
+			</div>
+			</c:forEach>
+			<div class="clear"></div>
+        </div>
+		</c:when>
+		<c:when test="${searchType==3}">
+        <div class="block1 search_type_<c:out value="${searchType}"/>">
+            <div class="top">
+                <h2>影人</h2>
+                <div class="cate">
+					当前检索关键字：<span style="font-size:16px;color:red;"><c:out value="${searchKeyWord}"/></span>
+                </div>
+            </div>
+			<c:forEach var="user" varStatus="status" items="${users}">
+			<c:choose>
+				<c:when test="${status.index%4==0}"><div class="box box_last"></c:when>
+				<c:otherwise> <div class="box"></c:otherwise>
+			</c:choose>
+				<div class="box_top"></div>
+				<div class="box_main project">
+					<div class="pic">
+						<a href="<c:out value="${rootPath}"/>user/PeopleDetailMain.do?a=detail&amp;mainType=4&amp;id=<c:out value="${user.id}"/>">
+							<img src="<c:out value="${rootPath}"/><c:out value="${user.head}"/>">
+						</a>
+						<span>影人</span>
+					</div>
+					<div>
+						<div class="title">
+							<a href="<c:out value="${rootPath}"/>user/PeopleDetailMain.do?a=detail&amp;mainType=4&amp;id=<c:out value="${user.id}"/>">
+							<c:out value="${user.name}"/>
+							</a>
+							<span><c:out value="${user.typeName}"/></span>
+						</div>
+						<div class="desc">
+							<c:out value="${user.intro}"/>
+						</div>
+					</div>
+					<div class="tool">
+						<a href="#" class="share">分享</a>
+						<a href="#" class="view"></a>
+					</div>
+				</div>
+				<div class="box_bottom"></div>
+			</div>
+			</c:forEach>
+			<div class="clear"></div>
+        </div>
+		</c:when>
 		<c:otherwise>
 		</c:otherwise>
 		</c:choose>
