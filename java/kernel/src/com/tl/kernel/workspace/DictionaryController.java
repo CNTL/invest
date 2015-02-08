@@ -48,28 +48,28 @@ public class DictionaryController extends BaseController {
 		int isType = getInt(request, "IsType", 0);
 		int typeID = getInt(request, "TypeID", 0);
 		if(id<=0){
-			outputJson("{\"success\":false,\"msg\":\"请选择要删除的记录\"}", response);
+			output("{\"success\":false,\"msg\":\"请选择要删除的记录\"}", response);
 			return;
 		}
 		try {
 			if(isType == 1){
 				DictionaryType dicType = dicManager.getType(id);
 				if(dicType == null){
-					outputJson("{\"success\":false,\"msg\":\"要删除的分类类型不存在\"}", response);
+					output("{\"success\":false,\"msg\":\"要删除的分类类型不存在\"}", response);
 					return;
 				}
 				dicManager.deleteType(id);
 			}else {
 				Dictionary dic = dicManager.getDic(typeID, id);
 				if(dic == null){
-					outputJson("{\"success\":false,\"msg\":\"要删除的分类不存在\"}", response);
+					output("{\"success\":false,\"msg\":\"要删除的分类不存在\"}", response);
 					return;
 				}
 				dicManager.deleteDic(typeID, id);
 			}
-			outputJson("{\"success\":true,\"msg\":\"操作成功\"}", response);
+			output("{\"success\":true,\"msg\":\"操作成功\"}", response);
 		} catch (Exception e) {
-			outputJson("{\"success\":false,\"msg\":\"操作失败:"+e.getMessage()+"\"}", response);
+			output("{\"success\":false,\"msg\":\"操作失败:"+e.getMessage()+"\"}", response);
 		}
 	}
 	
@@ -79,7 +79,7 @@ public class DictionaryController extends BaseController {
 		int pid = getInt(request, "ItemPID",0);
 		int typeid = getInt(request, "TypeID", 0);
 		if(typeid<=0){
-			outputJson("{\"success\":false,\"msg\":\"没有指定类型\"}", response);
+			output("{\"success\":false,\"msg\":\"没有指定类型\"}", response);
 			return;
 		}
 		Dictionary dic = null;
@@ -100,7 +100,7 @@ public class DictionaryController extends BaseController {
 		dic.setOrder(getInt(request, "dic_order", id));
 		dic.setValid(getInt(request, "dic_valid", 1));
 		if(dicManager.exist(dic)){
-			outputJson("{\"success\":false,\"msg\":\"名称或者简码已经存在\"}", response);
+			output("{\"success\":false,\"msg\":\"名称或者简码已经存在\"}", response);
 			return;
 		}
 		try{
@@ -110,12 +110,12 @@ public class DictionaryController extends BaseController {
 				dicManager.createDic(dic);
 			}
 		}catch(Exception ex){
-			outputJson("{\"success\":false,\"msg\":\"保存失败:"+ex.getMessage()+"\"}", response);
+			output("{\"success\":false,\"msg\":\"保存失败:"+ex.getMessage()+"\"}", response);
 		}
 		if(dic.getId()<=0){
-			outputJson("{\"success\":false,\"msg\":\"保存失败\"}", response);
+			output("{\"success\":false,\"msg\":\"保存失败\"}", response);
 		}else {
-			outputJson("{\"success\":true,\"msg\":\"保存成功\"}", response);
+			output("{\"success\":true,\"msg\":\"保存成功\"}", response);
 		}
 	}
 
@@ -136,7 +136,7 @@ public class DictionaryController extends BaseController {
 		dicType.setOrder(getInt(request, "dt_order", id));
 		dicType.setValid(getInt(request, "dt_valid", 1));
 		if(dicManager.exist(dicType)){
-			outputJson("{\"success\":false,\"msg\":\"名称或者简码已经存在\"}", response);
+			output("{\"success\":false,\"msg\":\"名称或者简码已经存在\"}", response);
 			return;
 		}
 		try{
@@ -146,12 +146,12 @@ public class DictionaryController extends BaseController {
 				dicManager.createType(dicType);
 			}
 		}catch(Exception ex){
-			outputJson("{\"success\":false,\"msg\":\"保存失败:"+ex.getMessage()+"\"}", response);
+			output("{\"success\":false,\"msg\":\"保存失败:"+ex.getMessage()+"\"}", response);
 		}
 		if(dicType.getId()<=0){
-			outputJson("{\"success\":false,\"msg\":\"保存失败\"}", response);
+			output("{\"success\":false,\"msg\":\"保存失败\"}", response);
 		}else {
-			outputJson("{\"success\":true,\"msg\":\"保存成功\"}", response);
+			output("{\"success\":true,\"msg\":\"保存成功\"}", response);
 		}
 	}
 

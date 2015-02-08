@@ -20,6 +20,9 @@
 	<bean id="sys.ParamManager" class="com.tl.invest.sys.SysMain">
 		<property name="viewName"><value>admin/sysparam/ParamManager</value></property>
 	</bean>
+	<bean id="sys.Cache" class="com.tl.invest.sys.SysMain">
+		<property name="viewName"><value>admin/Cache</value></property>
+	</bean>
 	<bean id="sys.UserFetcher" class="com.tl.invest.sys.user.web.SysUserFetcher" />
 	<bean id="sys.User" class="com.tl.invest.sys.user.web.SysUserController" />
 	<bean id="QueryParser" class="com.tl.invest.workspace.query.QueryParser" />
@@ -34,6 +37,8 @@
 	
 	<bean id="workspace.ParamFetcherManager" class="com.tl.kernel.workspace.ParameterFetcher">
 	</bean>
+	<bean id="workspace.SysCacheFetcher" class="com.tl.kernel.workspace.SysCacheFetcher">
+	</bean>
 	
 	<bean id="omsUrl" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="order"><value>0</value></property>
@@ -42,6 +47,8 @@
 				<prop key="/admin/SysMain.do">sys.Main</prop>
 				<prop key="/admin/ParamManager.do">sys.ParamManager</prop>
 				<prop key="/admin/ParamFetcherManager.do">workspace.ParamFetcherManager</prop>
+				<prop key="/admin/Cache.do">sys.Cache</prop>
+				<prop key="/admin/SysCacheFetcher.do">workspace.SysCacheFetcher</prop>
 				
 				<prop key="/dic/DicManager.do">sys.DicManager</prop>
 				<prop key="/dic/DicFetcherManager.do">workspace.DictionaryFetcher</prop>

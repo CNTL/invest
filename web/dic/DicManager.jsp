@@ -8,6 +8,7 @@
 	<%@include file="../admin/inc/csslink.inc"%>
 	<script type="text/javascript" src="../js/jquery/jquery.min.js"></script>
 	<script type="text/javascript" src="../js/jquery-easyui/easyloader.js"></script>
+	<script type="text/javascript" src="../admin/script/listpage/tl.listpage.js"></script>
 	<%=request.getAttribute("JsTags")%>
 	<script type="text/javascript">
 		var apphost = "<c:out value="${apphost}"/>";
