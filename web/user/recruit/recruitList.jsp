@@ -86,26 +86,10 @@
         </div>
     </div>
     <div class="main">
-    	<c:choose>
-			<c:when test="${loginUser.id>0 && loginUser.type==1}">
-				<a class="add" style="cursor:pointer" onclick="jobList.addRecruit();">+ 发布职位</a>
-				<div class="top">
-				    <a href="../user/CompanyMain.do?a=queryCompanys&mainType=3">公司</a>
-				</div>
-			</c:when>
-			<c:when test="${loginUser.id>0 && loginUser.type==0}">
-				<div class="top">
-				    <a href="../user/CompanyMain.do?a=queryCompanys&mainType=3">公司</a>
-				    <a href="../resume/myresume.do?infoType=1">简历管理</a>
-				</div>
-				<a class="add" style="cursor:pointer" onclick="jobList.addRecruit();">+ 发布职位</a>
-			</c:when>
-			<c:otherwise>
-				<div class="top">
-				    <a href="../user/CompanyMain.do?a=queryCompanys&mainType=3">公司</a>
-				</div>
-			</c:otherwise>
-		</c:choose>
+			<div class="top">
+				<a href="../resume/myresume.do?infoType=1">我的简历</a>
+			</div>
+			<a class="add" style="cursor:pointer" onclick="jobList.addRecruit();">+ 发布职位</a>
         <div class="search">
              <form action="" method="POST">
                  <div class="type">
