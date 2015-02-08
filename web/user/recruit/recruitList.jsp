@@ -12,6 +12,9 @@
 		color:white;
 		cursor:pointer;
 	}
+	*{
+	 box-sizing:content-box;
+	}
   </style>
 </head>
 <body>
