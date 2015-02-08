@@ -40,6 +40,16 @@ var proj_form = {
 		});
 		//proj_form.changePayType(); //已经绑定btnNext的按钮事件此处不再绑定
 		proj_form.showEdit();
+		
+		var type = $.query.get("type");
+		if(type){
+			$('#proj_type_select li').removeClass("current");
+			$('#proj_type_select li').each(function(i,n){
+				if(i == parseInt(type,10)){
+					$(this).addClass("current");
+				}
+			});
+		}
 	},
 	showEdit : function(){
 		var proj_id = $("#proj_id").val();
@@ -656,4 +666,6 @@ $(function(){
 		proj_form.init();
 	}
 	init();
+	
+	
 });

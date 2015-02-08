@@ -3,9 +3,9 @@
 		<div class="info hidden-xs">
 			<ul>
 				<li><h2>发起项目</h2></li>
-				<li><a href="#">微电影</a></li>
-				<li><a href="#">电影长片</a></li>
-				<li><a href="#">电影相关</a></li>
+				<li><a href="project/Publish.do?type=0">微电影</a></li>
+				<li><a href="project/Publish.do?type=1">电影长片</a></li>
+				<li><a href="project/Publish.do?type=2">电影相关</a></li>
 			</ul>
 			<ul>
 				<li><h2>发起影聘</h2></li>
@@ -39,7 +39,7 @@
 		</div>
 	</div>
 	<div class="copyright">
-		©2014 北京合众映画影视科技有限公司 www.crowdcine.cn 版权所有<br />
+		©2014 北京合众映画影视科技有限公司 www.crowdcine.cn | www. hzcine.com 版权所有<br />
 		京ICP备15000396号　<!--京公网安备110105015888-->
 	</div>
 </div>
