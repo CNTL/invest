@@ -32,10 +32,7 @@ public class MsgDetailMainController extends Entry {
 	@Override
 	protected void setOtherData(HttpServletRequest request,
 			HttpServletResponse response,Map model) throws Exception {
-		int msg_toID = getInt(request, "msg_toID");
-		User user = userManager.getUserByID(msg_toID);
-		model.put("msg_toID", msg_toID);
-		model.put("msg_to", user.getName());
+		 
 	}
 	@Override
 	protected void setMetaData(HttpServletRequest request,Map model) {

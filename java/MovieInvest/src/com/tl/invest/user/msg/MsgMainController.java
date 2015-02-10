@@ -26,6 +26,11 @@ import com.tl.sys.common.SessionHelper;
  */
 @SuppressWarnings({ "unchecked", "rawtypes","unused"})
 public class MsgMainController extends Entry {
+
+	protected void setOtherData(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception {
+		 
+		
+	};
 	@Override
 	protected String getCurrentMenu() {
 		return "”∞»À";
@@ -51,4 +56,6 @@ public class MsgMainController extends Entry {
 		list.add(new Menu(1, "ÀΩ–≈","/user/MsgMa.do?infoType=1&mainType=4", class1, -999,0));
 		return (Menu[]) list.toArray(new Menu[0]);
 	}
+	UserManager userManager = (UserManager) Context.getBean(UserManager.class);
+	UserMsgManager userMsgManager = (UserMsgManager) Context.getBean(UserMsgManager.class);
 }

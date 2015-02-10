@@ -47,15 +47,6 @@
     </div>
 			
 	<div class="people_profile">
-		<!--
-		<div class="sider">
-			<ul>
-				<li id="menu_1"><a href="Project.do?m=1">发起的项目</a></li>
-				<li id="menu_2"><a href="Project.do?m=2">支持的项目</a></li>
-				<li><a href="Project.do?m=3">喜欢的项目</a></li>
-			</ul>
-		</div>
-		-->
 		<div class="content" style="float:left;width:100%;">
 			<c:choose>
 			<c:when test="${menu==1 || menu==3}">

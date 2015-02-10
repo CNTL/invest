@@ -3,16 +3,16 @@
 		<div class="info hidden-xs">
 			<ul>
 				<li><h2>发起项目</h2></li>
-				<li><a href="project/Publish.do?type=0">微电影</a></li>
-				<li><a href="project/Publish.do?type=1">电影长片</a></li>
-				<li><a href="project/Publish.do?type=2">电影相关</a></li>
+				<li><a href="<c:out value="${rootPath}"/>project/Publish.do?type=0">微电影</a></li>
+				<li><a href="<c:out value="${rootPath}"/>project/Publish.do?type=1">电影长片</a></li>
+				<li><a href="<c:out value="${rootPath}"/>project/Publish.do?type=2">电影相关</a></li>
 			</ul>
 			<ul>
 				<li><h2>发起影聘</h2></li>
-				<li><a href="recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=0&key=前期拍摄&more=">前期拍摄</a></li>
-				<li><a href="recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=0&key=后期制作&more=">后期制作</a></li>
-				<li><a href="recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=0&key=宣传发行&more=">宣传发行</a></li>
-				<li><a href="recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=0&key=动画片制作&more=">动画片制作</a></li>
+				<li><a href="<c:out value="${rootPath}"/>recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=0&key=前期拍摄&more=">前期拍摄</a></li>
+				<li><a href="<c:out value="${rootPath}"/>recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=0&key=后期制作&more=">后期制作</a></li>
+				<li><a href="<c:out value="${rootPath}"/>recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=0&key=宣传发行&more=">宣传发行</a></li>
+				<li><a href="<c:out value="${rootPath}"/>recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=0&key=动画片制作&more=">动画片制作</a></li>
 			</ul>
 			<ul>
 				<li><h2>关于我们</h2></li>

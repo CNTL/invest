@@ -10,11 +10,13 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.type.Type;
 
+import com.tl.common.DateUtils;
 import com.tl.common.ResourceMgr;
 import com.tl.common.log.Log;
 import com.tl.db.DBSession;
 import com.tl.db.IResultSet;
 import com.tl.invest.user.user.User;
+import com.tl.invest.user.user.UserManager;
 import com.tl.kernel.constant.SysTableLibs;
 import com.tl.kernel.context.Context;
 import com.tl.kernel.context.DAO;
@@ -29,6 +31,7 @@ import com.tl.kernel.context.TBID;
 @SuppressWarnings("deprecation")
 public class UserMsgManager {
 	protected Log log = Context.getLog("invest");	
+	UserManager userManager = (UserManager) Context.getBean(UserManager.class);
 	public void save(UserMsg userMsg) throws Exception{
 	    DAO dao = new DAO();
 	    Session s   = null;
@@ -63,15 +66,10 @@ public class UserMsgManager {
 		List<Map<String, String>> result = new ArrayList<Map<String, String>>();
 		//StringBuilder result = new StringBuilder();
 		int maxCount = 10;
-		
-		/*		
-				"SELECT msg_toID,msg_to,MAX(createTime) as createTime, MAX(id) as id, "
-				+ "MAX(msg_content) as msg_content,COUNT(1) as msgNum "
-				+ "FROM user_msg WHERE msg_fromID = ? or msg_toID = ? GROUP BY msg_toID,msg_to ORDER BY createTime DESC";
-		*/
+	
 		String tablename = SysTableLibs.TB_USERMSG.getTableCode();
-		String sql = "SELECT msg_toID,msg_to,MAX(createTime) as createTime, MAX(id) as id, MAX(msg_content) as msg_content FROM "
-				+ tablename + " WHERE msg_fromID = ? or msg_toID = ? GROUP BY msg_toID,msg_to ORDER BY createTime DESC";
+		String sql = "SELECT *  FROM "
+				+ tablename + " WHERE (msg_toID=? or msg_fromID=?)  GROUP BY msg_fromID ORDER BY createTime DESC";
 		DBSession conn = null;
 		IResultSet rs = null;
 		IResultSet numRs = null;
@@ -80,14 +78,22 @@ public class UserMsgManager {
 	    	//按数据库类型获得不同的查询个数限制语句
 	    	sql = conn.getDialect().getLimitString(sql, 0, maxCount);
 	    	
-	    	rs = conn.executeQuery(sql, new Object[]{user.getId(), user.getId()});
+	    	rs = conn.executeQuery(sql, new Object[]{user.getId(),user.getId()});
 			while (rs.next()) {
+				User fromUser = userManager.getUserByID( rs.getInt("msg_fromID")) ;
+				User toUser = userManager.getUserByID( rs.getInt("msg_toID")) ;
+				
 				Map<String, String> oneResult = new HashMap<String, String>();
-				oneResult.put("msg_toID", rs.getString("msg_toID"));
+				oneResult.put("msg_from", rs.getString("msg_from"));
+				oneResult.put("msg_fromID", rs.getString("msg_fromID"));
+				oneResult.put("msg_fromHead", fromUser.getHead());
 				oneResult.put("msg_to", rs.getString("msg_to"));
-				oneResult.put("createTime", rs.getString("createTime"));
+				oneResult.put("msg_toID", rs.getString("msg_toID"));
+				oneResult.put("msg_toHead", toUser.getHead());
+				oneResult.put("msg_createTime", DateUtils.format(rs.getTimestamp("createTime"), "yyyy-MM-dd HH:mm:ss"));
 				oneResult.put("msg_content", rs.getString("msg_content"));
-				oneResult.put("userHead", user.getHead());
+				oneResult.put("msg_isread", rs.getString("msg_isRead"));
+				
 				oneResult.put("id", rs.getString("id"));
 				String countSql = "SELECT COUNT(1) AS msgNum FROM " + tablename
 						+ " WHERE (msg_fromID = ? and msg_toID = ?) or (msg_toID = ? and msg_fromID = ?)";
@@ -108,32 +114,33 @@ public class UserMsgManager {
 	}
 	public List<Map<String, String>> getTalkList(User user, int msg_toID){
 		List<Map<String, String>> result = new ArrayList<Map<String, String>>();
-		int maxCount = 10;
+		
 		String tablename = SysTableLibs.TB_USERMSG.getTableCode();
-		String sql = "SELECT * FROM " + tablename + " WHERE (msg_fromID = ? and msg_toID = ?) or (msg_toID = ? and msg_fromID = ?)";
+		String sql = "SELECT * FROM " + tablename + " WHERE (msg_fromID = ? and msg_toID=?) or ( msg_toID=? and msg_fromID = ?) ORDER BY createTime ASC";
 		
 		DBSession conn = null;
 		IResultSet rs = null;
 		try {
 	    	conn = Context.getDBSession();
-	    	//按数据库类型获得不同的查询个数限制语句
-	    	sql = conn.getDialect().getLimitString(sql, 0, maxCount);
 	    	
 	    	rs = conn.executeQuery(sql, new Object[]{user.getId(), msg_toID, user.getId(), msg_toID});
 			while (rs.next()) {
 				Map<String, String> oneResult = new HashMap<String, String>();
-				int isRead = rs.getInt("msg_isRead");
-				String isReadStr = "否";
-				if(isRead == 1) isReadStr = "是";
-				oneResult.put("id", rs.getString("id"));
-				oneResult.put("msg_fromID", rs.getString("msg_fromID"));
+				User fromUser = userManager.getUserByID( rs.getInt("msg_fromID")) ;
+				User toUser = userManager.getUserByID( rs.getInt("msg_toID")) ;
+	
 				oneResult.put("msg_from", rs.getString("msg_from"));
-				oneResult.put("msg_toID", rs.getString("msg_toID"));
+				oneResult.put("msg_fromID", rs.getString("msg_fromID"));
+				oneResult.put("msg_fromHead", fromUser.getHead());
+				oneResult.put("msg_fromIntro", fromUser.getIntro());
 				oneResult.put("msg_to", rs.getString("msg_to"));
-				oneResult.put("createTime", rs.getString("createTime"));
+				oneResult.put("msg_toID", rs.getString("msg_toID"));
+				oneResult.put("msg_toHead", toUser.getHead());
+				oneResult.put("msg_toIntro", toUser.getIntro());
+				oneResult.put("msg_createTime", DateUtils.format(rs.getTimestamp("createTime"), "yyyy-MM-dd HH:mm:ss"));
 				oneResult.put("msg_content", rs.getString("msg_content"));
-				oneResult.put("msg_isRead", isReadStr);
-				oneResult.put("userHead", user.getHead());
+				oneResult.put("msg_isread", rs.getString("msg_isRead"));
+				oneResult.put("id", rs.getString("id"));
 				result.add(oneResult);
 			}
 		} catch (Exception e) {
@@ -144,6 +151,46 @@ public class UserMsgManager {
 		}
 		return result;
 	}
+	
+    /**阅读消息
+     * @param fromID
+     * @param toID
+     */
+    public void readMsg(Integer fromID,Integer toID)throws Exception{
+    	String tablename = SysTableLibs.TB_USERMSG.getTableCode();
+    	String sqlString = "update "+tablename+" set msg_isRead=1 where (msg_fromID =? and msg_toID=? ) or ( msg_toID=? and msg_fromID = ?)";
+    	DBSession conn = null;
+		IResultSet rs = null;
+		try {
+	    	conn = Context.getDBSession();
+	    	conn.executeUpdate(sqlString, new Object[]{fromID, toID, fromID, toID});
+		} catch (Exception e) {
+			log.error(e);
+		} finally {
+			ResourceMgr.closeQuietly(rs);
+			ResourceMgr.closeQuietly(conn);
+		}
+    }
+    
+    /**设置所有消息为已读
+     * @param userID
+     * @throws Exception
+     */
+    public void readMsgAll(Integer userID)throws Exception{
+    	String tablename = SysTableLibs.TB_USERMSG.getTableCode();
+    	String sqlString = "update "+tablename+" set msg_isRead=1 where  msg_toID=? ";
+    	DBSession conn = null;
+		IResultSet rs = null;
+		try {
+	    	conn = Context.getDBSession();
+	    	conn.executeUpdate(sqlString, new Object[]{userID});
+		} catch (Exception e) {
+			log.error(e);
+		} finally {
+			ResourceMgr.closeQuietly(rs);
+			ResourceMgr.closeQuietly(conn);
+		}
+    }
 	/** 
 	* @author  leijj 
 	* 功能： 根据id删除站内消息
