@@ -504,11 +504,12 @@ line-height: 60px;
 padding: 0 10px;
 overflow: hidden;
 border-bottom: 1px #EFEFEF solid;
+text-align:center;
 }
 
 .box .people .title a {
-font-size: 25px;
-color: #494949;
+font-size: 20px;
+color: #666666;
 }
 
 .box .people .title span {
@@ -894,7 +895,7 @@ height: 100%;
 .people_globaltop .wrap .info {
 /*float: left;*/
 margin-left: 130px;
-padding-top: 60px;
+padding-top: 30px;
 }
 
 .people_globaltop .wrap .info h2 {
@@ -914,7 +915,7 @@ background: url(../image/s31.png) no-repeat;
 }
 
 .people_globaltop .wrap .info .desc {
-padding-top: 10px;
+padding-top: 5px;
 line-height: 30px;
 color: #999;
 }
@@ -2116,6 +2117,15 @@ margin: 0 20px;
 font-size: 20px;
 color: #333;
 background: url(../image/s27.png) no-repeat right;
+text-decoration: none;
+}
+.job_list .sider .subscribe h2 span {
+display: block;
+height: 60px;
+line-height: 60px;
+margin: 0 20px;
+font-size: 20px;
+color: #333;
 text-decoration: none;
 }
 

@@ -46,17 +46,7 @@
                 </div>
             </form>
         </div>
-        <!-- 
-        <div class="other">
-            <div class="info">已有合众映画帐号<a href="userLogin.jsp">直接登录</a><br />
-            也可以使用以下账号直接登录：</div>
-            <div class="third">
-			    <a href="../user/userlogin.do?a=qqlogin" target="_blank" class="icon_qq" title="使用腾讯QQ帐号登录"></a>
-                <a id="wb_connect_btn" href="#"><img src="../static/image/sina2.png" /></a> 
-                <a href="../user/userlogin.do?a=qqlogin"><img src="../static/image/qq.png" /></a>
-            </div>
-        </div>
-         -->
+
     </div>
 	<!-- footer -->
 	<%@include file="../inc/footer.inc"%>

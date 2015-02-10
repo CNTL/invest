@@ -165,9 +165,10 @@
 					</span>
 				 </h2>
                 <div class="desc">
-                    <c:out value="${loginUser.intro}"/><br />
+                   <div><c:out value="${loginUser.intro}"/></div>
+                   
                     姓名：<c:out value="${loginUser.name}"/><br />
-                    <span style="display:none;">短信息</span>
+                    
                 </div>
             </div>
             <div class="clear"></div>

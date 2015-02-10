@@ -46,9 +46,6 @@
 </head>
 <body>
 <%@include file="../../inc/header.inc"%>
-<div class="banner">
-    <img src="../static/image/banner2.png" />
-</div>
 <div class="main clearfix">
 	<div class="setting wrap">
 			<%@include file="../inc/userHeader.inc"%>

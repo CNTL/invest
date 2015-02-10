@@ -8,12 +8,12 @@
 <!-- Basic Styles -->
 
 <link rel="stylesheet" type="text/css" media="screen" href="<c:out value="${rootPath}"/>js/bootstrap/css/bootstrap.min.css">
-
 <link rel="stylesheet" type="text/css" href="<c:out value="${rootPath}"/>static/css/reset.css" />
 <link rel="stylesheet" type="text/css" href="<c:out value="${rootPath}"/>static/css/index.css" />
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 
-<script type="text/javascript" src="<c:out value="${rootPath}"/>static/js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="<c:out value="${rootPath}"/>js/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="<c:out value="${rootPath}"/>js/jquery/jquery-migrate.min.js"></script>
 <script type="text/javascript" src="<c:out value="${rootPath}"/>js/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<c:out value="${rootPath}"/>static/js/common.js"></script>
 <script type="text/javascript" src="<c:out value="${rootPath}"/>js/utils.js"></script>

@@ -10,16 +10,16 @@ function registerSubmit(){
         dataType: 'text',   //返回值类型  
         success:function(data){
     		if(data != null && data == 'ok'){
-    			$.messager.confirm('消息', '注册成功，请登录!', function(r){
-    				if (r){
-    					parent.location.href = '../user/loginMain.do';
-    				}
-    			});
+    			AlertInfo(200,30,"注册成功！正在跳转到登录页面。",login);
     		} else {
-    			$.messager.alert('消息', "注册失败:" + data);
+    			 
+    			AlertInfo(200,30,"注册失败。"+data);
     		}
         }  
     });
+}
+function login(){
+	parent.location.href = '../user/loginMain.do';
 }
 
 function checkpassword(){
@@ -87,7 +87,9 @@ function checkMyVal(){
 		return true;
 	}
 }
+
 $(document).ready(function () {
+	
 	changeValPic();
 	$('#roleSelect>li').click(function () {
         $('#roleSelect>li').removeClass('current');

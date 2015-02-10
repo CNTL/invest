@@ -185,7 +185,7 @@
                 <div class="desc">
                     <c:out value="${loginUser.intro}"/><br />
                     姓名：<c:out value="${loginUser.name}"/><br />
-                    <span style="display:none;">短信息</span>
+                   
                 </div>
             </div>
             <div class="clear"></div>
@@ -226,7 +226,7 @@
     			   
 		     </ul>
 			 <textarea class="form-control" id="txt-content" rows="3"></textarea>
-			 <div style="text-align:right;"><span class="badge">Ctrl</span>+<span class="badge">Enter</span>
+			 <div style="text-align:right;"><kbd><kbd>Ctrl</kbd> + <kbd>Enter</kbd></kbd>
 			 快捷回复<button id="btn-reply" class="btn btn-primary" style="padding:6px 12px;margin:5px;" type="button">回复</button></div>
 		</div>
 		<div class="clear"></div>
