@@ -20,12 +20,12 @@ public class UserLoginMainController extends Entry {
 	protected void setOtherData(HttpServletRequest request,
 			HttpServletResponse response,Map model) throws Exception {
 		//继承实现
-		String loginCurrentUrl = request.getParameter("url");
+		//String loginCurrentUrl = request.getParameter("url");
 		//String loginCurrentUrl = WebUtil.getCookie(request, "loginCurrentUrl");//登录后跳转页面
-		String loginCurrentMenu = WebUtil.getCookie(request, "loginCurrentMenu");//登录后一级菜单
-		Menu[] menus = getMainMenus(Integer.valueOf(loginCurrentMenu));
-		model.put("loginCurrentUrl", loginCurrentUrl);
-		model.put("menus", menus);
+		//String loginCurrentMenu = WebUtil.getCookie(request, "loginCurrentMenu");//登录后一级菜单
+		//Menu[] menus = getMainMenus(Integer.valueOf(loginCurrentMenu));
+		//model.put("loginCurrentUrl", loginCurrentUrl);
+		//model.put("menus", menus);
 	}
 	@Override
 	protected void setMetaData(HttpServletRequest request,Map model) {

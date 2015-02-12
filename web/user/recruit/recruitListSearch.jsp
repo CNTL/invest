@@ -217,13 +217,11 @@
 					</dt>
 					<dd id="Degree">
 			        <div data-value="2">高中</div>
-			        <div data-value="3">技校</div>
-			        <div data-value="4">中专</div>
-			        <div data-value="5">大专</div>
-			        <div data-value="6">本科</div>
-			        <div data-value="7">硕士</div>
-			        <div data-value="8">博士</div>
-						
+			        <div data-value="3">大专</div>
+			        <div data-value="4">本科</div>
+			        <div data-value="5">硕士</div>
+			        <div data-value="6">博士</div>
+						 
 					</dd>
 				</dl>
 				<dl>

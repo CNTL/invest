@@ -1,28 +1,35 @@
 $(document).ready(function () {
-	var init = function() {
-		if (!type_datas || !type_datas.ready) {
-			setTimeout(init, 100);
-			return;
-		}
+	if($("#isConverd").val()==0){
 		
-		if (!city_datas || !city_datas.ready) {
-			setTimeout(init, 100);
-			return;
-		}
-		jobEdit.init();
-		//初始化
-		$("#form").validationEngine({
-			autoPositionUpdate:true,
-			onValidationComplete:function(from,r){
-				if (r){
-					window.onbeforeunload = null;
-					$("#btnSave").attr("disabled", true);
-					jobEdit.submit();
-				}
+		AlertInfo(390,26,"你还没有完善详细资料。页面将跳转到详细资料页面。",converInfo);
+	}else{
+		var init = function() {
+			if (!type_datas || !type_datas.ready) {
+				setTimeout(init, 100);
+				return;
 			}
-		});
+			
+			if (!city_datas || !city_datas.ready) {
+				setTimeout(init, 100);
+				return;
+			}
+			jobEdit.init();
+			//初始化
+			$("#form").validationEngine({
+				autoPositionUpdate:true,
+				onValidationComplete:function(from,r){
+					if (r){
+						window.onbeforeunload = null;
+						$("#btnSave").attr("disabled", true);
+						jobEdit.submit();
+					}
+				}
+			});
+		}
+		init();
 	}
-	init();
+	
+	
 });
 var jobEdit = {
 	eventList : [
@@ -55,6 +62,7 @@ var jobEdit = {
 		if(cityId_h != null && cityId_h != ''){
 			$("#workCity").val(cityId_h).trigger("change");
 		}
+		
 	},
 	changeFirstType : function(){
 		var secondTypes = [];
@@ -275,4 +283,7 @@ var jobEdit = {
 }
 function getMap(){
 	window.open("../common/MsgMap.jsp");
+}
+function converInfo(){
+	window.location.href=rootPath +"/org/DetailInfo.do?infoType=5&type=0";
 }

@@ -22,11 +22,11 @@
 				<div class="job_add">
 					<form class="setting-form" id="form" name="form" action="">
 					    <div class="input">
-					        <label id="lbcompany" for="orgFullname">公司全称：</label>
+					        <label id="lbcompany" class="text-muted" for="orgFullname">公司全称：</label><i class="required">*</i>
 					        <input class="form-control validate[maxSize[255],required]" type="text" id="orgFullname" name="orgFullname" placeholder="机构全称"/>
 					    </div>
 					    <div class="input">
-							<label id="area">招聘地点：</label>
+							<label id="area">招聘地点：</label><i class="required">*</i>
 							<select id="province" name="province" class="validate[required]" onchange="detail.changeProvince();">
 								<option value="">省份</option>
 								<option value="1">选项一</option>
@@ -37,13 +37,13 @@
 							</select>
 						</div>
 					    <div class="input">
-							<label for="province">招聘地址：</label>
+							<label for="province">招聘地址：</label><i class="required">*</i>
 				            <input type="text" class="form-control input-lg" id="location" name="location" value="" placeholder="公司地址"/>
 					        <input type="button" style="width:100px" id="mapSearch" value="从地图搜索">
 				            <input type="hidden" class="form-control input-lg" id="coordinate" name="coordinate" value="" placeholder="公司地址坐标"/>
 						</div>
 					    <div class="input" id="propty">
-					        <label for="orgNature">公司性质：</label>
+					        <label for="orgNature">公司性质：</label><i class="required">*</i>
 					        <input class="form-control validate[maxSize[255]]" type="text" id="orgNature" name="orgNature" style="width:200px" placeholder="公司性质"/>
 					         <select id="orgNatureSel" name="orgTradeSel" class="custform-select validate[maxSize[255],required]" style="width:170px">
 						        <option value="国营">国营</option>
@@ -54,12 +54,12 @@
 					        </select>
 					    </div>
 					    <div class="input" style="display:none">
-					        <label for="orgTrade">所属行业：</label>
+					        <label for="orgTrade">所属行业：</label><i class="required">*</i>
 					        <input class="form-control" type="text" id="orgTrade" name="orgTrade" style="width:400px"/>
 					        
 					    </div>
 					    <div class="input">
-					        <label for="orgScale" id="lborgScale">公司规模：</label>
+					        <label for="orgScale" id="lborgScale">公司规模：</label><i class="required">*</i>
 					        <select id="orgScale" name="orgScale" class="custform-select validate[maxSize[255],required]" style="width:400px">
 						        <option value="1">100人以下</option>
 						        <option value="2">100-500人</option>
@@ -69,7 +69,7 @@
 					        </select>
 					    </div>
 						<div class="input">
-					        <label for="orgHomePage" id="lborgHomePage">公司主页：</label>
+					        <label for="orgHomePage" id="lborgHomePage">公司主页：</label><i class="required">&nbsp;</i>
 					        <input class="form-control" type="text" id="orgHomePage" name="orgHomePage" placeholder="公司主页"/>
 					    </div>
 					    <div class="btn">

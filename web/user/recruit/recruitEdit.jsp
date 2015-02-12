@@ -72,12 +72,10 @@
 	        <select id="eduReq" name="eduReq" class="custform-select validate[maxSize[255],required]" value="${recruit.eduReq}" style="width:400px">
 		        <option value="1">不限</option>
 		        <option value="2">高中</option>
-		        <option value="3">技校</option>
-		        <option value="4">中专</option>
-		        <option value="5">大专</option>
-		        <option value="6">本科</option>
-		        <option value="7">硕士</option>
-		        <option value="8">博士</option>
+		        <option value="3">大专</option>
+		        <option value="4">本科</option>
+		        <option value="5">硕士</option>
+		        <option value="6">博士</option>
 	        </select>
 	    </div>
 	    <div class="input">
@@ -116,6 +114,7 @@
         </div>
 	</form>
 </div>
+<input type="hidden" id="isConverd" value="<c:out value="${isConverd}"/>" />
 
 <!-- footer -->
 <%@include file="../../inc/footer.inc"%>

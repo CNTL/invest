@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.tl.common.DateUtils;
 import com.tl.common.Message;
 import com.tl.common.ParamInitUtils;
+import com.tl.common.StringUtils;
 import com.tl.common.WebUtil;
 import com.tl.invest.constant.DicTypes;
 import com.tl.invest.user.user.User;
@@ -258,12 +259,19 @@ public class RecruitMainController extends Entry {
 	* @throws Exception 
 	*/ 
 	private void detail(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception{
+		//判断是否完善了个人资料
 		int id = ParamInitUtils.getInt(request.getParameter("id"));
 		if(id == 0) return;
 		UserRecruit recruit = recruitManager.getRecruitByID(id);
 		if(recruit == null) return;
 		recruit.setTime(DateUtils.format(recruit.getCreatetime(), "yyyy-MM-dd hh:mm:ss"));
 		User user = userManager.getUserByID(recruit.getUserId());
+		if(!isCoverdInfo(user)){
+			model.put("isConverd", "0");
+		}
+		else{
+			model.put("isConverd", "1");
+		}
 		String head = user.getHead();
 		if(head == null || head.length() == 0) head = "user/headImg/default.bmp";
 		user.setHead(WebUtil.getRoot(request).concat(head));
@@ -276,6 +284,17 @@ public class RecruitMainController extends Entry {
 		model.put("recruit", recruit);
 		model.put("user", user);
 		//response.sendRedirect(WebUtil.getRoot(request) + "user/recruit/recruitDetail.jsp");
+	}
+	private boolean isCoverdInfo(User user)throws Exception{
+		
+		boolean ret = false;
+		if( (!StringUtils.isEmpty(user.getOrgFullname())) 
+				&& (!StringUtils.isEmpty(user.getLocation())) 
+				&& (!StringUtils.isEmpty(user.getTypeName()))
+				&& (!StringUtils.isEmpty(user.getOrgScale()))){
+			ret = true;
+		}
+		return ret;
 	}
 	private UserManager userManager = (UserManager)Context.getBean(UserManager.class);
 	private RecruitManager recruitManager = (RecruitManager)Context.getBean(RecruitManager.class);

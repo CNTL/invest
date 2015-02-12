@@ -3,7 +3,12 @@ body, input, select, textarea {
 color: #666;
 font-family: "Microsoft YaHei", "微软雅黑", helvetica, arial, verdana, tahoma, sans-serif;
 }
-
+.required{
+	color:red;
+	font-size:14px;
+	width:5px;
+	padding:5px;
+}
 a {
 color: #666;
 }
@@ -2417,7 +2422,8 @@ background: url(../image/s42.png) no-repeat right;
 .alertinfo{
 	text-algin:center;
 	color:#fff;
-	font-size:14px;
+	font-size:16px;
+	line-height:16px;
 	font-weight:bold;
 	display:none;
 	position:absolute;
