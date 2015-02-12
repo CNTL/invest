@@ -9,10 +9,10 @@
 			</ul>
 			<ul>
 				<li><h2>发起影聘</h2></li>
-				<li><a href="<c:out value="${rootPath}"/>recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=0&key=前期拍摄&more=">前期拍摄</a></li>
-				<li><a href="<c:out value="${rootPath}"/>recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=0&key=后期制作&more=">后期制作</a></li>
-				<li><a href="<c:out value="${rootPath}"/>recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=0&key=宣传发行&more=">宣传发行</a></li>
-				<li><a href="<c:out value="${rootPath}"/>recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=0&key=动画片制作&more=">动画片制作</a></li>
+				<li><a href="<c:out value="${rootPath}"/>recruit/Edit.do?a=detail&mainType=3">前期拍摄</a></li>
+				<li><a href="<c:out value="${rootPath}"/>recruit/Edit.do?a=detail&mainType=3">后期制作</a></li>
+				<li><a href="<c:out value="${rootPath}"/>recruit/Edit.do?a=detail&mainType=3">宣传发行</a></li>
+				<li><a href="<c:out value="${rootPath}"/>recruit/Edit.do?a=detail&mainType=3">动画片制作</a></li>
 			</ul>
 			<ul>
 				<li><h2>关于我们</h2></li>
@@ -39,7 +39,7 @@
 		</div>
 	</div>
 	<div class="copyright">
-		©2014 北京合众映画影视科技有限公司 www.crowdcine.cn | www. hzcine.com 版权所有<br />
+		©2014 北京合众映画影视科技有限公司 www.hzcine.com 版权所有<br />
 		京ICP备15000396号　<!--京公网安备110105015888-->
 	</div>
 </div>

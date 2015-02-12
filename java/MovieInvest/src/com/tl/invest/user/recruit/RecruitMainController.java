@@ -183,6 +183,7 @@ public class RecruitMainController extends Entry {
 		int searchType = getInt(request, "searchType");//0=职位，1=公司
 		String key = get(request, "key");//查询条件的值
 		String city = get(request, "city");//查询条件的值
+		
 		int curPage = getInt(request, "curPage", 1);
 		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
 		int userId = user == null ? 0 : user.getId();
@@ -194,6 +195,7 @@ public class RecruitMainController extends Entry {
 		model.put("searchType", searchType);
 		model.put("key", key);
 		model.put("city", city);
+	
 		model.put("more", ParamInitUtils.getString(request.getParameter("more")));
 		model.put("msg", msg);
 		model.put("cities", cities);
@@ -219,7 +221,7 @@ public class RecruitMainController extends Entry {
 		Integer Degree = getInt(request, "Degree",-1);//最低学历
 		Integer JobType = getInt(request, "JobType",-1);//工作类型
 		Integer PubTime = getInt(request, "PubTime",-1);//发布时间
-		
+		 
 		int curPage = getInt(request, "curPage", 1);
 		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
 		int userId = user == null ? 0 : user.getId();
@@ -231,6 +233,7 @@ public class RecruitMainController extends Entry {
 		model.put("searchType", searchType);
 		model.put("key", key);
 		model.put("city", city);
+		
 		model.put("more", ParamInitUtils.getString(request.getParameter("more")));
 		model.put("msg", msg);
 		model.put("cities", cities);

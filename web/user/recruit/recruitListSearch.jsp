@@ -110,7 +110,74 @@
 	.workplace a{ color:#555; padding:2px 5px; cursor:pointer;font-size:14px;}
 	.workplace a:hover{background:#FFB124; color:#fff;}
 	.current a{background:#FFB124; color:#fff;padding:2px 5px; cursor:pointer;font-size:14px;}
-	.workplace .searchlist_expectCity{border:2px solid #c9cbce;color:#333 !important;width:596px; font-size:14px; background: #fff; position:absolute;z-index:10;float:right;margin:35px 0 0 144px;*float:left;*margin:35px 0 0 -545px;*padding-top:12px;}
+	.moretransform{height:0;width:0;overflow: hidden;font-size: 0;line-height: 0; border-width:6px 5px 0; border-style:solid dashed; border-color:#393d3f transparent transparent;-webkit-transition:all 0.4s ease 0s;-moz-transition:all 0.4s ease 0s;-ms-transition:all 0.4s ease 0s;transition:all 0.4s ease 0s; margin-left:10px;*margin-left:7px; position:absolute; margin-top:10px;}
+	 
+	.workplace dd.morecity, .workplace li.morecity {
+		padding-right: 15px;
+		position: relative;
+	}
+	.searchlist_expectCity{border:2px solid #c9cbce;color:#333 !important;width:300px; font-size:14px; background: #fff; position:absolute;z-index:10;float:right;margin:35px 0 0 144px;*float:left;*margin:35px 0 0 -545px;*padding-top:12px;}
+    
+   .workplace .searchlist_expectCity dt{margin:3px 0 !important;*left:0px !important;}
+	 .searchlist_expectCity > span {
+		width: 0px;
+		height: 0px;
+		font-size: 0px;
+		overflow: hidden;
+		position: absolute;
+		
+	}
+	.searchlist_expectCity > span.bot {
+		border-width: 10px;
+		border-style: dashed dashed solid;
+		border-color: transparent transparent #c8c8c8;
+		right: 120px;
+		*right:120px: ;
+		top: -22px;
+	}
+	.searchlist_expectCity > span.top {
+		border-width: 10px;
+		border-style: dashed dashed solid;
+		border-color: transparent transparent #ffffff;
+		right: 120px;
+		*right:120px: ;
+		top: -19px;
+	}
+	#box_expectCity dl {
+		min-height: 30px;
+		margin: 3px 0;
+		padding: 0;
+		clear: both;
+		overflow: hidden;
+		line-height: 28px;
+	}
+	.workplace .searchlist_expectCity dt {
+		margin: 3px 0 !important;
+		*left:0px !important: ;
+	}
+ 
+	 
+	 
+	.triangle {
+		height: 0px;
+		width: 0px;
+		overflow: hidden;
+		font-size: 0px;
+		line-height: 0;
+		border-width: 6px 5px 0;
+		border-style: solid dashed;
+		border-color: #FFB124 transparent transparent;
+		-webkit-transition: all 0.4s ease 0s;
+		-moz-transition: all 0.4s ease 0s;
+		-ms-transition: all 0.4s ease 0s;
+		transition: all 0.4s ease 0s;
+	}
+	.citymore_arrow {
+		position: absolute;
+		right: 0px;
+		top: 10px;
+	}
+	 
   </style>
 </head>
 <body>
@@ -216,10 +283,25 @@
          <dl class="workplace" id="workplaceSelect">
            <dt >工作城市：</dt>
            <dd data-id="-1"><a >全部</a> </dd>
-          	<c:forEach var="city" varStatus="status" items="${cities}" begin="0" end="11" step="1" >
+          	<c:forEach var="city" varStatus="status" items="${cities}" begin="0" end="6" step="1" >
           	<dd  data-id="${city.id}"><a>${city.name}</a> </dd> 
 			</c:forEach>
+			<dd class="morecity" id="morecity">
+               	  <a>其他</a>
+               	<div class="triangle citymore_arrow"></div>
+		     </dd>
+			 <dd class="searchlist_expectCity" id="box_expectCity" style="display: none;" data-cityjob="true">
+	            	<span class="bot"></span>
+	            	<span class="top"></span>
+		    		<dl>
+		    			<c:forEach var="city" varStatus="status" items="${cities}" begin="7"  step="1" >
+		          		   <dd data-type="more" data-id="${city.id}"><a>${city.name}</a> </dd> 
+						</c:forEach>
+			    	 </dl>
+			  </dd>
+			    	   
 			</dl>
+			 
          </div> 
          <c:forEach var="msg" varStatus="status" items="${msg.messages}">
 				<c:choose>
@@ -306,17 +388,12 @@
     <div class="clear"></div>
 </div>
 </div>
-<div id="morecity" class="item" style="display:none;">
-	<c:forEach var="city" varStatus="status" items="${cities}" begin="11"  step="1" >
-		<a style="margin:5px;font-size:16px;" href="../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=${type}&more=${more}&city=${city.id}">${city.name}</a>
-	</c:forEach>
-</div>
 <input type="hidden" id="hDays" data-id="Days" value="<c:out value="${Days}"/>" />
 <input type="hidden" id="hDegree" data-id="Degree"  value="<c:out value="${Degree}"/>" />
 <input type="hidden" id="hJobType" data-id="JobType"  value="<c:out value="${JobType}"/>" />
 <input type="hidden" id="hPubTime" data-id="PubTime"  value="<c:out value="${PubTime}"/>" />
 <input type="hidden" id="hcity" data-id="city"  value="<c:out value="${city}"/>" />
-
+<input type="hidden" id="hcityname" data-id="city"  value="<c:out value="${cityname}"/>" />
 
 <!-- footer -->
 <%@include file="../../inc/footer.inc"%>

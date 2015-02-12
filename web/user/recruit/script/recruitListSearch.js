@@ -3,6 +3,7 @@ $(document).ready(function () {
 	$("#type").selectbox();
 	$("#search").click(seach);
 	initSelectItem();
+	emcity();
 });
 function initSelectItem(){
 	 
@@ -25,9 +26,34 @@ function initSelectItem(){
 	}
 	if($("#hcity").val()!=""){
 		$("#workplaceSelect dd").removeClass("current");
-		$("#workplaceSelect dd[data-id='"+$("#hcity").val()+"']").addClass("current");
+		var ddcity = $("#workplaceSelect dd[data-id='"+$("#hcity").val()+"']");
+		if(ddcity.length>0){
+			$("#workplaceSelect dd[data-id='"+$("#hcity").val()+"']").addClass("current");
+		}
+		else{
+			var cityname = "";
+			var citydd = $("#workplaceSelect dd[data-id=\""+$("#hcity").val()+"\"]");
+			if(citydd.length>0){
+				cityname = citydd.find("a").text();
+			}
+			
+			$("#morecity").before("<dd data-type=\"more\"  data-id=\""+$("#hcity").val()+"\"><a>"+cityname+"</a> </dd> ");
+		}
+		 
+		
 	}
 
+}
+
+function emcity(){
+	$("#morecity").click(function(){
+		 
+	     var top = $(this).position().top;
+	     var left = $(this).position().left-($("#box_expectCity").width()/2);
+	     
+		$("#box_expectCity").css({"top":top,"left":left});
+		$("#box_expectCity").show();
+	});
 }
 
 function optionsdd(){
@@ -69,7 +95,7 @@ function optionsdd(){
 		
 	});
 	
-	$("#workplaceSelect dd").each(function(i,n){
+	$("#workplaceSelect dd[data-id]").each(function(i,n){
 		$(this).click(function(){
 			 
 			$("#workplaceSelect dd").removeClass("current");
@@ -78,6 +104,27 @@ function optionsdd(){
 		});
 	});
 	$("#workplaceSelect dd:first").addClass("current");
+	
+	$("#box_expectCity dd").each(function(i,n){
+		$(this).click(function(){
+			var ddmore = $("#workplaceSelect dd[data-id][data-type]");
+			if(ddmore.length>0){
+				ddmore.attr("data-id",$(this).attr("data-id"));
+				ddmore.find("a").remove();
+				ddmore.append($(this).find("a"));
+			}else{
+				$("#morecity").before("<dd data-type=\"more\"  data-id=\""+$(this).attr("data-id")+"\">"+$(this).find("a").html()+" </dd> ");
+			}
+		});
+	});
+	
+	$("body").click(function(){
+		if(!$(event.srcElement).hasClass("citymore_arrow")){
+			$("#box_expectCity").hide();
+		}
+		
+	});
+	
 }
 function seach(){
 	var rootUrl = "../recruit/ListMainSearch.do";
