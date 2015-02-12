@@ -199,6 +199,61 @@ public class RecruitManager {
         else
             return null;
 	}
+	 
+	public Message queryRecruits(int curPage, int length, Integer userId, 
+			String recruitType, String queryType, int type, String key, Integer city,Integer Days ,Integer Degree,Integer JobType,Integer PubTime) throws Exception{
+		StringBuilder querySql = new StringBuilder("SELECT DISTINCT rt.*,u.city,dic.dic_id,dic.dic_name FROM user_recruit rt,user u LEFT JOIN sys_dictionary AS dic ON u.city=dic.dic_id WHERE u.id=rt.userID ");
+		StringBuilder countSql = new StringBuilder("SELECT count(rt.id) FROM user_recruit rt,user u LEFT JOIN sys_dictionary AS dic ON u.city=dic.dic_id WHERE u.id=rt.userID ");
+		
+		List<Object> paramList = new ArrayList<Object>();
+		if("edit".equals(recruitType) && userId > 0){//管理我的职位，则增加当前用户查询条件
+			querySql.append(" and u.id=?");
+			countSql.append(" and u.id=?");
+			paramList.add(userId);
+		}
+		if(type == 0 && !StringUtils.isEmpty(key)){//职位查询条件
+			querySql.append(" AND rt.typeName LIKE '%").append(key).append("%'");
+			countSql.append(" AND rt.typeName LIKE '%").append(key).append("%'");
+		} else if(type == 1 && !StringUtils.isEmpty(key)){//公司查询条件
+			querySql.append(" AND (u.orgShortname LIKE '%").append(key).append("%' OR u.orgFullname LIKE '%").append(key).append("%')");
+			countSql.append(" AND (u.orgShortname LIKE '%").append(key).append("%' OR u.orgFullname LIKE '%").append(key).append("%')");
+		}
+		if(Days>0){
+			querySql.append(" and CONVERT(rt.days,SIGNED)>="+String.valueOf(Days) +" ");
+			countSql.append(" and CONVERT(rt.days,SIGNED)>="+String.valueOf(Days) +" ");
+		}
+		
+		if(Degree>0){
+			querySql.append(" and (CONVERT(rt.eduReq,SIGNED)=1 or CONVERT(rt.eduReq,SIGNED)>="+String.valueOf(Degree) +") ");
+			countSql.append(" and (CONVERT(rt.eduReq,SIGNED)=1 or CONVERT(rt.eduReq,SIGNED)>="+String.valueOf(Degree) +") ");
+		}
+		
+		if(JobType>0){
+			querySql.append(" and rt.isFulltime="+String.valueOf(JobType) +" ");
+			countSql.append(" and rt.isFulltime="+String.valueOf(JobType) +" ");
+		}
+		
+		if(PubTime>0){
+			querySql.append(" and DATEDIFF(NOW(),rt.createtime)<="+String.valueOf(PubTime) +" ");
+			countSql.append(" and DATEDIFF(NOW(),rt.createtime)<="+String.valueOf(PubTime) +" ");
+		}
+		
+		
+		if(city>-1){
+			querySql.append(" and rt.cityId=?");
+			countSql.append(" and rt.cityId=?");
+			paramList.add(city);
+		}
+		querySql.append(" order by rt.createtime desc");
+		
+		Object[] params = null;
+		if(paramList != null && paramList.size() > 0){
+			params = paramList.toArray(new Object[0]);
+		}
+		List<UserRecruit> myRecruits =  getRecruits(querySql.toString(), params, length, curPage, null);
+		int total = getSqlCount(countSql.toString(), params, null);
+		return setMessage(myRecruits, curPage, length, total);
+	}
 	public Message queryRecruits(int curPage, int length, Integer userId, 
 			String recruitType, String queryType, int type, String key, String city) throws Exception{
 		StringBuilder querySql = new StringBuilder("SELECT DISTINCT rt.*,u.city,dic.dic_id,dic.dic_name FROM user_recruit rt,user u LEFT JOIN sys_dictionary AS dic ON u.city=dic.dic_id WHERE u.id=rt.userID ");

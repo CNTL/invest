@@ -33,7 +33,7 @@ public class RecruitMainController extends Entry {
 		if("detail".equals(action)){//获取招聘详细信息
 			detail(request, response, model);
 		} else if("queryNew".equals(action)){//获取最新9条招聘信息
-			queryRecruits(request, response, model, "queryNew");
+			queryRecruitsNew(request, response, model, "queryNew");
 		} else if("queryHot".equals(action)){//获取最热9条招聘信息
 			queryRecruits(request, response, model, "queryHot");
 		}else if("getRecruitUser".equals(action)){
@@ -197,6 +197,47 @@ public class RecruitMainController extends Entry {
 		model.put("more", ParamInitUtils.getString(request.getParameter("more")));
 		model.put("msg", msg);
 		model.put("cities", cities);
+	}
+	/** 
+	* @author  leijj 
+	* 功能： 查询最新招聘信息
+	* @param request
+	* @param response
+	* @param model
+	* @throws Exception 
+	*/ 
+	private void queryRecruitsNew(HttpServletRequest request, HttpServletResponse response, Map model, String queryType) throws Exception{
+		DictionaryReader dicReader = (DictionaryReader)Context.getBean(DictionaryReader.class);
+		Dictionary[] cities = dicReader.getDics(DicTypes.DIC_RECRUIT_HOT_TYPE.typeID());
+		
+		request.setCharacterEncoding("utf-8");
+		String recruitType = "view";//get(request, "recruitType");//是否是职位管理（view-浏览所有招聘信息，edit-管理我的职位信息）
+		int searchType = getInt(request, "searchType");//0=职位，1=公司
+		String key = get(request, "key");//查询条件的值
+		Integer city = getInt(request, "city",-1);//查询条件的值
+		Integer Days = getInt(request, "Days",-1); //工作时间
+		Integer Degree = getInt(request, "Degree",-1);//最低学历
+		Integer JobType = getInt(request, "JobType",-1);//工作类型
+		Integer PubTime = getInt(request, "PubTime",-1);//发布时间
+		
+		int curPage = getInt(request, "curPage", 1);
+		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
+		int userId = user == null ? 0 : user.getId();
+		Message msg = recruitManager.queryRecruits(curPage, 9, userId, recruitType, queryType, searchType, key, city,Days,Degree,JobType,PubTime);
+		Dictionary[] types = recruitManager.types();
+		model.put("queryType", queryType);
+		model.put("recruitType", recruitType);
+		model.put("types", types);
+		model.put("searchType", searchType);
+		model.put("key", key);
+		model.put("city", city);
+		model.put("more", ParamInitUtils.getString(request.getParameter("more")));
+		model.put("msg", msg);
+		model.put("cities", cities);
+		model.put("Days", Days);
+		model.put("Degree", Degree);
+		model.put("JobType", JobType);
+		model.put("PubTime", PubTime);
 	}
 	@Override
 	protected void setMetaData(HttpServletRequest request,Map model) {

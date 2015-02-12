@@ -15,6 +15,102 @@
 	*{
 	 box-sizing:content-box;
 	}
+	#selected div {
+		font-size: 16px;
+		color: #393d3f;
+		margin-bottom: 13px;
+	}
+	ul.reset {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+	ul.reset {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+	#selecteditem ul {
+		overflow: hidden;
+	}
+	#selecteditem li {
+		background: #FFB124;
+		white-space: nowrap;
+		color: #fff;
+		margin-bottom: 13px;
+		padding: 2px 8px;
+		float: left;
+		font-size:14px;
+	}
+	#selecteditem li span {
+		float: left;
+	}
+	#selecteditem li span.select_remove {
+		width: 9px;
+		height: 9px;
+		background: url(../img/xs.png) no-repeat;
+		cursor: pointer;
+		margin: 8px 0 0 12px;
+	}
+	.greybg {
+		background: #fafafa;
+		padding: 20px 20px 10px 20px;
+		*padding-bottom:20px: ;
+	}
+	dl, dd {
+		margin: 0;
+	}
+	#optionslist dt em{ height:0;width:0;overflow: hidden;font-size: 0;line-height: 0; border-width:6px 5px 0; border-style:solid dashed; border-color:#393d3f transparent transparent;-webkit-transition:all 0.4s ease 0s;-moz-transition:all 0.4s ease 0s;-ms-transition:all 0.4s ease 0s;transition:all 0.4s ease 0s; margin-left:10px;*margin-left:7px; position:absolute; margin-top:10px;}
+    #optionslist dt em.transform{-webkit-transform:rotate(-90deg);-moz-transform:rotate(-90deg);-ms-transform:rotate(-90deg);transform: rotate(-90deg);-webkit-transition:all 0.4s ease 0s;-moz-transition:all 0.4s ease 0s;-ms-transition:all 0.4s ease 0s;transition:all 0.4s ease 0s;}
+	#optionslist dl, #optionslist dt {
+		margin-bottom: 10px;
+	}
+	#optionslist dt {
+		font-size: 18px;
+		color: #393d3f;
+		cursor: pointer;
+		position: relative;
+		font-weight:normal;
+	}
+	#optionslist dd div {
+		font-size:14px;
+		padding: 2px 10px;
+		margin-bottom: 5px;
+		color: #555;
+		cursor: pointer;
+		-moz-transition: background-color 0.2s ease-out, color 0.1s ease-out;
+		-webkit-transition: background-color 0.2s ease-out, color 0.1s ease-out;
+		-ms-transition: background-color 0.2s ease-out, color 0.1s ease-out;
+		transition: background-color 0.2s ease-out, color 0.1s ease-out;
+	}
+	#optionslist dd div:hover{color:#fff; background:#FFDA95;}
+	#optionslist dt em {
+		height: 0px;
+		width: 0px;
+		overflow: hidden;
+		font-size: 0px;
+		line-height: 0;
+		border-width: 6px 5px 0;
+		border-style: solid dashed;
+		border-color: #393d3f transparent transparent;
+		-webkit-transition: all 0.4s ease 0s;
+		-moz-transition: all 0.4s ease 0s;
+		-ms-transition: all 0.4s ease 0s;
+		transition: all 0.4s ease 0s;
+		margin-left: 10px;
+		*margin-left:7px: ;
+		position: absolute;
+		margin-top: 10px;
+	}
+	.breakline{height:10px; background: url(../img/breakline.gif) repeat-x;margin-bottom:15px; }
+	.workplace{ margin:0 0 15px; line-height:22px;overflow:hidden;}
+	.workplace dt{float:left;font-size:14px;}
+	.workplace dd,.workplace li{float:left; margin-left:5px;}
+	.workplace dd.more,.workplace li.more{padding-right:15px;position:relative;}
+	.workplace a{ color:#555; padding:2px 5px; cursor:pointer;font-size:14px;}
+	.workplace a:hover{background:#FFB124; color:#fff;}
+	.current a{background:#FFB124; color:#fff;padding:2px 5px; cursor:pointer;font-size:14px;}
+	.workplace .searchlist_expectCity{border:2px solid #c9cbce;color:#333 !important;width:596px; font-size:14px; background: #fff; position:absolute;z-index:10;float:right;margin:35px 0 0 144px;*float:left;*margin:35px 0 0 -545px;*padding-top:12px;}
   </style>
 </head>
 <body>
@@ -28,79 +124,65 @@
 <input type="text" id="more" name="more" value="<c:out value="${more}"/>"/>
 </div>
 <div class="job_list">
-    <div class="sider">
-    <c:forEach var="type" varStatus="status" items="${types}" >
-    	<div class="cate">
-	    	<h2>
-	    	<a href="../recruit/ListMainSearch.do?a=queryNew&recruitType=view&mainType=3&type=0&key=${type.name}&more=1">
-	    		<c:out value="${type.name}"/>
-	    	</a>
-	    	</h2>
-		    <ul>
-		    <c:forEach var="subType" varStatus="status" items="${type.subDics}" begin="0" end="9" step="1">
-		    	<li>
-		    	<a href="../recruit/ListMainSearch.do?a=queryNew&recruitType=view&mainType=3&type=0&key=${subType.name}&more=1">
-		    		<c:out value="${subType.name}"/>
-		    	</a>
-		    	</li>
-		    </c:forEach>
-		    </ul>
-		    <div class="clear"></div>
-		    <div class="expand">
-                <div class="blank"></div>
-                <div class="item">
-                	<h3>
-                	<a href="../recruit/ListMainSearch.do?a=queryNew&recruitType=view&mainType=3&type=0&key=${type.name}&more=1}">
-                		<c:out value="${type.name}"/>
-                	</a>
-                	</h3>
-                	<ul>
-                	<c:forEach var="subType" varStatus="status" items="${type.subDics}">
-				    	<li>
-				    	<a href="../recruit/ListMainSearch.do?a=queryNew&recruitType=view&mainType=3&type=0&key=${subType.name}&more=1">
-				    		<c:out value="${subType.name}"/>
-				    	</a>
-				    	</li>
-				    </c:forEach>
-				    </ul>
-                	<div class="clear"></div>
-                </div>
-        	</div>
-	    </div>
-    </c:forEach>
-    	<div class="subscribe">
-            <h2><a href="../recruit/uesrRecruitSubscibe.do?a=RecruitSubscibe&mainType=3">订阅职位</a></h2>
-        </div>
-        <div class="subscribe">
-            <h2 ><span>地域筛选</span></h2>
-            <c:forEach var="city" varStatus="status" items="${cities}" begin="0" end="10" step="1" >
-            	<c:choose>
-					<c:when test="${status.index%2==0}"><div class="item item_last"></c:when>
-					<c:otherwise><div class="item"></c:otherwise>
-				</c:choose>
-	                <a href="../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=${type}&more=${more}&city=${city.id}">${city.name}</a>
-	            </div>
-    		</c:forEach>
-    		<div class="item"><a id="rec-more" tabindex="0"  role="button" data-toggle="popover">更多</a></div>
-            <div class="clear"></div>
-        </div>
-    </div>
-    <div class="main">
-    <c:choose>
-			<c:when test="${loginUser.id>0 }">
-				<div class="top">
-					<a href="../resume/myresume.do?infoType=1">我的简历</a>
-			   </div>
-			    <a class="add" style="cursor:pointer" onclick="jobList.addRecruit();">+ 发布职位</a>
-			</c:when>
-			<c:otherwise>
-				<div class="top">
-					<a href="../resume/myresume.do?infoType=1">我的简历</a>
-			   </div>
-		
-			    <a class="add" style="cursor:pointer" href="../resume/myresume.do?infoType=1">+ 发布职位</a>
-			</c:otherwise>
-		</c:choose>
+		<div class="sider">
+			<div class="greybg" id="selecteditem">
+				<div>已选择</div>
+				<ul class="reset">
+				</ul>
+			</div>
+			<div class="greybg" id="optionslist">
+			    <dl>
+					<dt>
+						工作时长<em></em>
+					</dt>
+					<dd id="Days">
+						<div data-value="10">10天</div>
+						<div data-value="20">20天</div>
+						<div data-value="30">30天</div>
+						<div data-value="60">60天</div>
+						<div data-value="90">90天</div>
+						<div data-value="300">90天以上</div>
+					</dd>
+				</dl>
+				<dl>
+					<dt>
+						最低学历 <em></em>
+					</dt>
+					<dd id="Degree">
+			        <div data-value="2">高中</div>
+			        <div data-value="3">技校</div>
+			        <div data-value="4">中专</div>
+			        <div data-value="5">大专</div>
+			        <div data-value="6">本科</div>
+			        <div data-value="7">硕士</div>
+			        <div data-value="8">博士</div>
+						
+					</dd>
+				</dl>
+				<dl>
+					<dt>
+						工作性质 <em></em>
+					</dt>
+					<dd id="JobType">
+						<div data-value="1">全职</div>
+						<div data-value="0">兼职</div>
+					</dd>
+				</dl>
+				<dl>
+					<dt>
+						发布时间 <em></em>
+					</dt>
+					<dd id="PubTime">
+						<div data-value="0">今天</div>
+						<div data-value="3">3天内</div>
+						<div data-value="7">一周内</div>
+						<div data-value="30">一月内</div>
+					</dd>
+				</dl>
+			</div>
+			</div>
+			<div class="main">
+    
 			
         <div class="search">
              <form action="" method="POST">
@@ -127,21 +209,18 @@
              </form>
              <div class="clear"></div>
          </div>
-         <div class="sort">
-         	<c:choose>
-				<c:when test="${queryType eq 'queryHot'}">
-					<a href="#" id="queryNew" onclick="jobList.change(this);">最新职位</a>
-	             	<a class="current" href="#" id="queryHot" onclick="jobList.change(this);">热门职位</a>
-				</c:when>
-				<c:otherwise>
-					<a class="current" href="#" id="queryNew" onclick="jobList.change(this);">最新职位</a>
-	             	<a href="#" id="queryHot" onclick="jobList.change(this);">热门职位</a>
-				</c:otherwise>
-			</c:choose>
-             
+         <div class="breakline">
+         
          </div>
-         <!-- <div id="main">
-         </div> -->
+         <div id="citylist">
+         <dl class="workplace" id="workplaceSelect">
+           <dt >工作城市：</dt>
+           <dd data-id="-1"><a >全部</a> </dd>
+          	<c:forEach var="city" varStatus="status" items="${cities}" begin="0" end="11" step="1" >
+          	<dd  data-id="${city.id}"><a>${city.name}</a> </dd> 
+			</c:forEach>
+			</dl>
+         </div> 
          <c:forEach var="msg" varStatus="status" items="${msg.messages}">
 				<c:choose>
 					<c:when test="${status.index%3==0}"><div class="box box_last"></c:when>
@@ -220,9 +299,7 @@
 				</div>
 			</c:when>
 			<c:otherwise>
-				<div class="more">
-		         	<a href="../recruit/ListMain.do?a=queryNew&more=1&recruitType=view&mainType=3">查看更多</a>
-		         </div>
+				 
 			</c:otherwise>
 		</c:choose>
      </div>
@@ -234,6 +311,13 @@
 		<a style="margin:5px;font-size:16px;" href="../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=${type}&more=${more}&city=${city.id}">${city.name}</a>
 	</c:forEach>
 </div>
+<input type="hidden" id="hDays" data-id="Days" value="<c:out value="${Days}"/>" />
+<input type="hidden" id="hDegree" data-id="Degree"  value="<c:out value="${Degree}"/>" />
+<input type="hidden" id="hJobType" data-id="JobType"  value="<c:out value="${JobType}"/>" />
+<input type="hidden" id="hPubTime" data-id="PubTime"  value="<c:out value="${PubTime}"/>" />
+<input type="hidden" id="hcity" data-id="city"  value="<c:out value="${city}"/>" />
+
+
 <!-- footer -->
 <%@include file="../../inc/footer.inc"%>
 <!-- footer -->    
@@ -246,10 +330,10 @@
 	var rootPath = "<%=com.tl.common.WebUtil.getRoot(request) %>";
  </script>
 
-<script type="text/javascript" src="../static/js/jquery-migrate-1.1.1.js"></script>
 <script type="text/javascript" src="../static/js/jQselect.js"></script>
  <script type="text/javascript" src="../js/bootstrap/js/bootstrap.min.js"></script>
-<script src = "../user/recruit/script/recruitList.js"></script>
+  <script type="text/javascript" src="../js/plugin/query/jquery.query.js"></script>
+<script src = "../user/recruit/script/recruitListSearch.js"></script>
 
 </body>
 </html>

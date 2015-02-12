@@ -240,6 +240,9 @@
 	<bean id="recruit.List" class="com.tl.invest.user.recruit.RecruitMainController">
 		<property name="viewName"><value>user/recruit/recruitList</value></property>
 	</bean>
+	<bean id="recruit.ListSearch" class="com.tl.invest.user.recruit.RecruitMainController">
+		<property name="viewName"><value>user/recruit/recruitListSearch</value></property>
+	</bean>
 	<bean id="recruit.JobList" class="com.tl.invest.user.recruit.RecruitMainController">
 		<property name="viewName"><value>user/recruit/recruitJobList</value></property>
 	</bean>
@@ -407,6 +410,7 @@
 				<prop key="/user/resume.do">user.UserResume</prop>
 				<!-- 招聘管理 -->
 				<prop key="/recruit/ListMain.do">recruit.List</prop>
+				<prop key="/recruit/ListMainSearch.do">recruit.ListSearch</prop>
 				<prop key="/recruit/JobListMain.do">recruit.JobList</prop>
 				<prop key="/recruit/DetailMain.do">recruit.Detail</prop>
 				<prop key="/recruit/Edit.do">recruit.Edit</prop>

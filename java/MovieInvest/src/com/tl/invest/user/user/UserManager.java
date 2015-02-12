@@ -497,14 +497,14 @@ public class UserManager {
 		StringBuilder querySql = new StringBuilder("");
 		switch (value) {
 		case 1://20岁以下
-			querySql.append(" and a.birthdate <=").append(DateUtils.getSysDateYears(20));
+			querySql.append(" and DATEDIFF(NOW(),a.birthdate) <=20");
 			break;
 		case 2://20-30岁
-			querySql.append(" and a.birthdate <=").append(DateUtils.getSysDateYears(20));
-			querySql.append(" and a.birthdate >=").append(DateUtils.getSysDateYears(30));
+			querySql.append(" and DATEDIFF(NOW(),a.birthdate) >=20 and DATEDIFF(NOW(),a.birthdate)<=30");
+			querySql.append(" and DATEDIFF(NOW(),a.birthdate) >=20 and DATEDIFF(NOW(),a.birthdate)<=30");
 			break;
 		case 3://30岁以上
-			querySql.append(" and a.birthdate <=").append(DateUtils.getSysDateYears(30));
+			querySql.append(" and DATEDIFF(NOW(),a.birthdate)>=30");
 			break;
 		default:
 			break;
