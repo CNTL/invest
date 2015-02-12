@@ -26,18 +26,23 @@ function initSelectItem(){
 	}
 	if($("#hcity").val()!=""){
 		$("#workplaceSelect dd").removeClass("current");
-		var ddcity = $("#workplaceSelect dd[data-id='"+$("#hcity").val()+"']");
+		var ddcity = $("#box_expectCity dd[data-id='"+$("#hcity").val()+"']");
 		if(ddcity.length>0){
-			$("#workplaceSelect dd[data-id='"+$("#hcity").val()+"']").addClass("current");
+			var cityname = "";
+			cityname = ddcity.find("a").text();
+			
+			var citymoredd = $("#morecity").prev();
+			if(citymoredd.attr("data-type")=="more"){
+				citymoredd.attr("data-id",$("#hcity").val());
+				citymoredd.find("a").text(cityname);
+				citymoredd.addClass("current");
+			}else{
+				$("#morecity").before("<dd data-type=\"more\" class=\"current\"  data-id=\""+$("#hcity").val()+"\"><a>"+cityname+"</a> </dd> ");
+			}
 		}
 		else{
-			var cityname = "";
-			var citydd = $("#workplaceSelect dd[data-id=\""+$("#hcity").val()+"\"]");
-			if(citydd.length>0){
-				cityname = citydd.find("a").text();
-			}
+			$("#workplaceSelect dd[data-id='"+$("#hcity").val()+"']").addClass("current");
 			
-			$("#morecity").before("<dd data-type=\"more\"  data-id=\""+$("#hcity").val()+"\"><a>"+cityname+"</a> </dd> ");
 		}
 		 
 		
