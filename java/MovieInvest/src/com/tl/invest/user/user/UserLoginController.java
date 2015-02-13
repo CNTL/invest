@@ -53,6 +53,9 @@ public class UserLoginController extends BaseController
 		if("create".equals(action)){//用户注册
 			String result = create(request, response);
 			output(result, response);
+		} if("checkuser".equals(action)){//用户注册
+			String result = checkUser(request, response);
+			output(result, response);
 		} else if("loginRel".equals(action)){//已有账号关联
 			String result = loginRel(request, response);
 			output(result, response);
@@ -97,15 +100,49 @@ public class UserLoginController extends BaseController
 	* @return
 	* @throws Exception 
 	*/ 
+	private String checkUser(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		User user = new User();
+		String retString1 ="";
+		String retString2 ="";
+		String usercode = get(request, "code","");
+		String userMail = get(request, "mail","");
+		UserManager userManager = (UserManager) Context.getBean(UserManager.class);
+		try {
+			user = userManager.getUserByCode(usercode);
+			if(user!=null&&user.getId()>0){
+				retString1 = "该账号已近存在。";
+			}
+		} catch (Exception e) {
+			
+		}
+		try {
+			user = userManager.getUserByEmail(userMail);
+			if(user!=null&&user.getId()>0){
+				retString2 = "该邮件已被使用。";
+			}
+		} catch (Exception e) {
+			
+		}
+		
+		
+		return "{\"code\":\""+retString1+"\",\"mail\":\""+retString2+"\"}";
+	}
+	/** 
+	* @author  leijj 
+	* 功能： 验证用户名和邮件是否有重复
+	* @param request
+	* @param response
+	* @return
+	* @throws Exception 
+	*/ 
 	private String create(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		User user = new User();
-		user.setCode(ParamInitUtils.getString(request.getParameter("code")));
-		user.setPerNickName(ParamInitUtils.getString(request.getParameter("code")));
-		user.setEmail(ParamInitUtils.getString(request.getParameter("email")));
-		//user.setType(ParamInitUtils.getString(request.getParameter("type")));
-		int type = ParamInitUtils.getInt(request.getParameter("type"));
+		user.setCode(get(request, "code",""));
+		user.setPerNickName(get(request, "code",""));
+		user.setEmail(get(request, "email",""));
+		Integer type = getInt(request, "type",0);
 		user.setType(type);
-		user.setPassword(ParamInitUtils.getString(request.getParameter("password")));
+		user.setPassword(get(request, "password",""));
 		user.setCreateTime(DateUtils.getTimestamp());
 		user.setIsRealNameIdent(0);//未认证
 		UserManager userManager = (UserManager) Context.getBean(UserManager.class);

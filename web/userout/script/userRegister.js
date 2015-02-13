@@ -17,56 +17,30 @@ function registerSubmit(){
     		}
         }  
     });
+	
+	 
 }
 function login(){
 	parent.location.href = '../user/loginMain.do';
 }
 
 function checkpassword(){
-	var password_temp = $("#password").val();
+	var password1 = $("#password1").val();
+	var password2 = $("#password2").val();
 	//密码限制6位以上
-	$("#password").removeClass();
-	if(password_temp.length<6){
-		$("#password").addClass("form-control validate[maxSize[255],funcCall[pwdLen]]");
-		return false;
-    } else if(password_temp.indexOf(" ")!=-1){
-    	$("#password").addClass("form-control validate[maxSize[255],funcCall[pwdKG]]");
-		return false;
-	} else{
-		$("#password").addClass("form-control validate[maxSize[255],required]");
+	if(password1 == password2){
 		return true;
 	}
-}
-function checkpassword_again(){
-	var password = $("#password").val();
-	var passwordagain_temp = $("#pwdagain").val();
-	$("#pwdagain").removeClass();
-	if(passwordagain_temp.length<6){
-		$("#pwdagain").addClass("form-control validate[maxSize[255],funcCall[pwdLen]]");
+	else{
 		return false;
-    } else if(passwordagain_temp.indexOf(" ")!=-1){
-    	$("#pwdagain").addClass("form-control validate[maxSize[255],funcCall[pwdKG]]");
-		return false;
-	} else if (password != passwordagain_temp) {//加密验证fjc 1.首先判断两个密码是否一致 2.对密码进行加密
-		$("#pwdagain").addClass("form-control validate[maxSize[255],funcCall[pwdNoSame]]");
-		return false;
-	} else{
-		$("#pwdagain").addClass("form-control validate[maxSize[255],required]");
-		return true;
 	}
 }
 
-function pwdLen(){
-	return '密码长度不能少于6位';
-}
-function pwdKG(){
-	return '密码不能包含空格';
-}
-function pwdNoSame(){
-	return '两次输入的密码不一致';
-}
-function valError(){
-	return '校验码不正确';
+function checkUser(){
+	
+   $.getJSON("../user/userlogin.do?a=checkuser&code="+$("#code").val()+"&mail="+$("#email").val(), function(json){
+	   alert("Data Loaded: " + json);
+	});
 }
 
 function changeValPic(){
@@ -76,14 +50,14 @@ function changeValPic(){
 		});
 }
 function checkMyVal(){
-	var curVal = $("#curVal").val();
-	var myVal = $("#myVal").val();
-	$("#myVal").removeClass();
+	var curVal = $("#curVal").val().toLowerCase();
+	var myVal = $("#myVal").val().toLowerCase();
+	  
 	if(myVal != null && myVal !="" && myVal != curVal){
-		$("#myVal").addClass("form-control validate[maxSize[255],funcCall[valError]]");
+		
 		return false;
     } else{
-		$("#myVal").addClass("form-control validate[maxSize[255],required]");
+		
 		return true;
 	}
 }
@@ -91,23 +65,110 @@ function checkMyVal(){
 $(document).ready(function () {
 	
 	changeValPic();
+	$("#myVal").change(function(){
+		//checkMyVal();
+	});
 	$('#roleSelect>li').click(function () {
         $('#roleSelect>li').removeClass('current');
         $(this).addClass('current');
         $('#type').val($(this).attr('data'));
     });
-	$("#form").validationEngine({
-		autoPositionUpdate:true,
-		onValidationComplete:function(from,r){
-			if (r){
-				window.onbeforeunload = null;
-				var password = checkpassword();
-				var pwdAgain = checkpassword_again();
-				var checkVal = checkMyVal();
-				if(password && pwdAgain && checkVal){
-					registerSubmit();
-				}
-			}
-		}
-	});
+	$("#form").validation();
+    $("#login").on('click', function (event) {
+      if ($("#form").valid(this, '填写信息不完整。') == false) {
+          return false;
+      }
+      else{
+    	  var isready = true;
+    	  
+    	  if(!checkpassword()){
+    		    var el = $("#password2");
+	  			var controlGroup = el.parents('.form-group');
+	  			controlGroup.removeClass('has-error has-success');
+	  	        controlGroup.addClass('has-error');
+	  	        controlGroup.find("#valierr").remove();
+	  	        el.parent().after('<span class="help-block" id="valierr">两次输入的密码不一致。</span>');
+	  	        isready = false;
+    	  }
+    	  if(!checkMyVal()){
+    		    var el = $("#myVal");
+    			var controlGroup = el.parents('.form-group');
+    			controlGroup.removeClass('has-error has-success');
+    	        controlGroup.addClass('has-error');
+    	        controlGroup.find("#valierr").remove();
+    	        el.parent().after('<span class="help-block" id="valierr">请输入正确的验证码。</span>');
+    	        isready = false;
+    	  }
+    	  
+    	  if(isready){
+    		  //registerSubmit();
+    		 
+    		  $.ajax({
+  		        type:"POST", //请求方式  
+  		        url:"../user/userlogin.do?a=checkuser&code="+$("#code").val()+"&mail="+$("#email").val(), //请求路径  
+  		        cache: false,  
+  		        async:false,
+  		        dataType: 'json',   //返回值类型  
+  		        success:function(data){
+  		    		 
+	    			var ret = true;
+	    			if(data.code!=""){
+	    				ret = false;
+	    				var el = $("#code");
+  		      			var controlGroup = el.parents('.form-group');
+  		      			controlGroup.removeClass('has-error has-success');
+  		      	        controlGroup.addClass('has-error');
+  		      	        controlGroup.find("#valierr").remove();
+  		      	        el.parent().after('<span class="help-block" id="valierr">'+data.code+'</span>');
+	    			}
+	    			if(data.mail!=""){
+	    				ret = false;
+	    				var el = $("#email");
+  		      			var controlGroup = el.parents('.form-group');
+  		      			controlGroup.removeClass('has-error has-success');
+  		      	        controlGroup.addClass('has-error');
+  		      	        controlGroup.find("#valierr").remove();
+  		      	        el.parent().after('<span class="help-block" id="valierr">'+data.mail+'</span>');
+	    			}
+	    			if(!ret){
+	    				return ret;
+	    			}else{
+	    				 var data = {
+	    						 code:$("#code").val(),
+	    						 email:$("#email").val(),
+	    						 type:$("#type").val(),
+	    						 password:$("#password1").val()
+	    				 };
+	    	    		  $.ajax({
+	    	    		        type:"POST", //请求方式  
+	    	    		        url:"../user/userlogin.do?a=create", //请求路径  
+	    	    		        cache: false,     
+	    	    		        async:false,
+	    	    		        data:data,  //传参       
+	    	    		        dataType: 'text',   //返回值类型  
+	    	    		        success:function(data){
+	    	    		    		if(data != null && data == 'ok'){
+	    	    		    			AlertInfo(200,30,"注册成功！正在跳转到登录页面。",login);
+	    	    		    		} else {
+	    	    		    			 
+	    	    		    			AlertInfo(200,30,"注册失败。"+data);
+	    	    		    		}
+	    	    		    		return false;
+	    	    		        }  
+	    	    		    });
+	    			}
+  		    			
+  		    		 
+  		        }  
+  		    });
+
+    		  return false;
+    	  }
+    	  else{
+    		  return isready;
+    	  }
+    	  
+    	  
+      }
+  });
 });

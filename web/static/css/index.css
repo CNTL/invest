@@ -1,7 +1,9 @@
-
+/* .form-group label{ */
+/* 	font-size:14px; */
+/* } */
 body, input, select, textarea {
 color: #666;
-font-family: "Microsoft YaHei", "å¾®è½¯é›…é»‘", helvetica, arial, verdana, tahoma, sans-serif;
+font-family: "Microsoft YaHei", "Î¢ÈíÑÅºÚ", helvetica, arial, verdana, tahoma, sans-serif;
 }
 .required{
 	color:red;
@@ -760,8 +762,8 @@ margin-right: 10px;
 
 /*register style start*/
 .register {
-width: 800px;
-height: 560px;
+width: 1000px;
+height: 580px;
 margin: 40px auto;
 padding: 7px 7px;
 background: url(../image/l2.png) no-repeat;

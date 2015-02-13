@@ -106,7 +106,7 @@ function AlertInfo(w,h,content,callback)
     var iTop=($(window).height()-divHeight)/2+$(document).scrollTop();
     var divhtml=$("<div class=\"alertinfo\">"+content+"</div>").css({top:iTop+'px',left:iLeft+'px',width:divWidth+'px',height:divHeight+'px'});
     divhtml.appendTo('body').fadeIn();
-    divhtml.appendTo('body').fadeOut(3000,function(){
+    divhtml.appendTo('body').fadeOut(5000,function(){
     	if(callback){
     		callback();
     	}
