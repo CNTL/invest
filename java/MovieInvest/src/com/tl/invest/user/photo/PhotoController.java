@@ -260,17 +260,11 @@ public class PhotoController extends BaseController {
 	* @throws Exception 
 	*/ 
 	private void updatePhoto(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception{
-		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
+		
 		int id = ParamInitUtils.getInt(request.getParameter("id"));
 		UserPhoto photo = new UserPhoto();
 		if(id > 0) photo = photoManager.getPhotoInfo(id);
-		
-		photo.setUserId(user.getId());
-		photo.setUserName(user.getName());
-		photo.setGroupName(ParamInitUtils.getString(request.getParameter("groupName")));
 		photo.setIntro(ParamInitUtils.getString(request.getParameter("intro")));
-		photo.setPhotoName(ParamInitUtils.getString(request.getParameter("photoName")));
-		photo.setCreateTime(DateUtils.getTimestamp());
 		id = photoManager.savePhoto(photo);
 		output(String.valueOf(id), response);
 	}

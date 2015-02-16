@@ -11,7 +11,45 @@ $(document).ready(function () {
 			}
 		}
 	});
+//	$("#img-list img").hover(
+//	  function () {
+//		    $(this).addClass("imgover");
+//	  },
+//	  function () {
+//	    $(this).removeClass("imgover");
+//	  }
+//	);
+	
+	$("#img-list img").each(function(i,n){
+		$(this).click(function(){
+			 var url = $(this).attr("src").replace("../","");
+			
+			if($(this).attr("id")=="default1"){
+				$(this).addClass("imgover");
+				$("#default2").removeClass("imgover");
+				$("#headImg").val(url);
+				setDefaultImg();
+			}
+			else if ($(this).attr("id")=="default2"){
+				$(this).addClass("imgover");
+				$("#default1").removeClass("imgover");
+				$("#headImg").val(url);
+				setDefaultImg();
+			}
+				
+		});
+	});
 });
+
+function setDefaultImg(){
+	document.getElementById('coverIMG_div').style.display = '';
+	document.getElementById('cut_url').value = $("#headImg").val();
+	$("#coverIMG_div").empty();
+	if($("#headImg").val()!=""){
+		$("#coverIMG_div").html("<img src=\""+rootPath +$("#headImg").val()+"\" class=\"img-circle\" border=\"0\" style=\"width:150px;height:150px;\" />");
+		$("#coverIMG_div").append("<div style=\"width:100%;margin-top:10px;text-align:center;\"><a href=\"javascript:void();\" style=\"background: url(../img/delete.png) no-repeat left;padding-left: 20px;\" onclick=\"headImg.delCoverImg();\">删除</a></div>");
+	}
+}
 var headImg = {
 	init : function(){
 		headImg.initUploadify("uploadify","queueItemCount","headImg","uploadErrorMsg",true,headImg.imgUploaded);
@@ -28,7 +66,7 @@ var headImg = {
 	    		}
 	        } ,
 			error:function (XMLHttpRequest, textStatus, errorThrown) {
-				$.messager.alert('消息', errorThrown);
+				AlertInfo(100,30,"上传失败。");
 			}
 	    });
 	},
@@ -41,18 +79,19 @@ var headImg = {
 	        dataType: 'text',   //返回值类型  
 	        success:function(data){
 	    		if(data != null && data == 'ok'){
-	    			$.messager.confirm('消息', '上传头像成功！', function(r){
+	    			AlertInfo(150,30,"设置成功。",function(r){
 	    				if (r){
 	    					window.location.href=window.location.href; 
 	    				}
-	    			});
+	    			});   			 
 	    		} else {
-	    			$.messager.alert('上传头像失败！',data);
+	    			AlertInfo(150,30,"设置失败。");
 	    		}
 	    		$("#submit").attr("disabled", false);
 	        } ,
 			error:function (XMLHttpRequest, textStatus, errorThrown) {
-				$.messager.alert('消息', errorThrown);
+				
+				AlertInfo(150,30,"保存失败");
 			}
 	    });
 	},
@@ -202,7 +241,7 @@ var headImg = {
 function checkPic() {
 	var location = document.getElementById('headImg').value;
 	if (location == "") {
-		$.messager.alert('消息', "请先选择图片文件");
+		alert("请先选择图片文件");
 		return false;
 	}
 	var point = location.lastIndexOf(".");
@@ -212,14 +251,15 @@ function checkPic() {
 		img = document.createElement("img");
 		img.src = location;
 		if (img.fileSize > 1024000) {
-			$.messager.alert('消息', "图片尺寸请不要大于100KB");
+			alert("图片尺寸请不要大于100KB");
 			return false;
 		} else {
 			document.getElementById("nowDiv").style.display="none";
 			return true;
 		}
 	} else {
-		$.messager.alert('消息', "只能上传jpg、jpeg、gif、png、bmp格式的图片");
+		 
+		alert("只能上传jpg、jpeg、gif、png、bmp格式的图片");
 		//alert("只能上传jpg格式的图片");
 		return false;
 	}

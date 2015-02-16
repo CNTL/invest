@@ -1,5 +1,7 @@
 package com.tl.invest.user.user;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.tl.invest.constant.DicTypes;
 import com.tl.invest.user.photo.PhotoManager;
 import com.tl.invest.user.photo.UserPhoto;
+import com.tl.invest.user.photo.UserPhotogroup;
 import com.tl.kernel.context.Context;
 import com.tl.kernel.sys.dic.Dictionary;
 import com.tl.kernel.sys.dic.DictionaryReader;
@@ -63,9 +66,19 @@ public class PeopleController extends UserMainController {
 		this.detail(request, response, model);
 		int groupID = getInt(request, "groupID");
 		PhotoManager photoManager = (PhotoManager)Context.getBean(PhotoManager.class);
+		UserPhotogroup group = photoManager.getGroupInfo(groupID);
 		List<UserPhoto> photos = photoManager.getPhotos(groupID);
-		model.put("photos", photos);
+		List<UserPhoto> list = new ArrayList<UserPhoto>();
+		for (Iterator iterator = photos.iterator(); iterator.hasNext();) {
+			UserPhoto userPhoto = (UserPhoto) iterator.next();
+			String photpurlString = userPhoto.getPhoto().replace("\\", "/");
+			userPhoto.setPhoto(photpurlString);
+			list.add(userPhoto);
+			
+		}
+		model.put("photos", list);
 		model.put("groupID", groupID);
+		model.put("groupName", group.getGroupName());
 		model.put("viewType", "photo");
 	}
 	@Override

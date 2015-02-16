@@ -12,48 +12,67 @@
 <body>
 <%@include file="../../inc/header.inc"%>
 <div class="shadow"></div>
-<div class="main clearfix">
-	<div class="setting wrap">
-			<%@include file="../inc/userHeader.inc"%>
-			<div class="setting-detail">
-				<div class="job_add">
-				    <form class="setting-form" id="form" name="form" action="">
-				        <div class="input">
-					        <label for="nickName">登录账户：</label>
-					        <input type="text" id="code" name="code" value="" disabled="true"/>
-					        <br>
-					    </div>
-					    <div class="input">
-					        <label for="perNickName">昵称：</label>
-					        <input class="form-control validate[maxSize[255]]" type="text" id="perNickName" name="perNickName" placeholder="昵称"/>
-					    </div>
-					    <div class="input">
-					    	<label for="gender">性别：</label>
-					    	<select id="gender" name="gender">
-		                    	<option value="0">男</option>
-		                        <option value="1" selected>女</option> 
-		                    </select>
-		                </div>
-						<div class="input">
-							<label>个人简介：</label>
-							<textarea  id="intro" name="intro" style="width:400px;height:100px;" placeholder="个人简介"></textarea>
-						</div>
-				        <div class="btn">
-				        	<input type="submit" id="btnSave" value="提交信息">
-				        </div>
-				    </form>
-				</div>
-			</div>
-		</div>
+<div class="container container-ex">
+	<%@include file="../inc/userHeader.inc"%>
+	<div class="row container-wapper">
+	<%@include file="../inc/userHeaderMenu.inc"%>
+	<div class="col-md-8">
+        <div class="container-right">
+        	<form class="form-horizontal" role="form"  id="form" name="form" action="">
+        	
+        		  <div class="form-group">
+                      <label for="code" class="col-sm-3 control-label">登录账户：</label>
+                      <div class="col-sm-9">
+                          <input type="text" class="form-control" id="code" name="code" value="" disabled="disabled">
+                      </div>
+                  </div>
+                  
+                  <div class="form-group">
+                      <label for="perNickName" class="col-sm-3 control-label">昵称：</label>
+                      <div class="col-sm-9">
+                          <input type="text" class="form-control validate[maxSize[255]]" id="perNickName" name="perNickName" placeholder="昵称">
+                      </div>
+                  </div>
+                  
+                  <div class="form-group">
+                       <label for="gender" class="col-sm-3 control-label">性别：</label>
+                       <div class="col-sm-9">
+                            <select name="gender" id="gender" class="form-control">
+                                       <option value="0">男</option>
+                                       <option value="1">女</option>
+                                   </select>
+                       </div>
+                   </div>
+                  
+                  <div class="form-group">
+                      <label for="perNickName" class="col-sm-3 control-label">个人简介：</label>
+                      <div class="col-sm-9">
+                          
+                          <textarea class="form-control" rows="5" id="intro" name="intro" placeholder="个人简介"></textarea>
+                      </div>
+                  </div>
+                  
+                  <div class="form-group">
+                     <div class="col-sm-12 text-center">
+                         <button type="submit" class="btn btn-primary" id="btnSave">保存信息</button>
+                     </div>
+                 </div>
+                 
+        	</form>
+        </div>
+     </div>
 	</div>
 </div>
+
 <!-- script -->
 <%@include file="../inc/script.inc"%>
 <!-- script -->
 
-<!-- footer -->
-<%@include file="../../inc/footer.inc"%>
+
 <!-- footer -->
 <script type="text/javascript" src="../user/user/script/userBasicInfo.js"></script>
+<!-- footer -->
+
+<%@include file="../../inc/footer.inc"%>
 </body>
 </html>

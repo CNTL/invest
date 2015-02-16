@@ -14,84 +14,97 @@
 <body>
 <%@include file="../../inc/header.inc"%>
 <div class="shadow"></div>
-<div class="main clearfix">
-	<div class="setting wrap">
-			<%@include file="../inc/userHeader.inc"%>
-			<div class="setting-detail">
-				<div class="job_add">
-					<form class="setting-form" id="form" name="form" action="">
-						<div>
-							<input type="hidden" id="firstType_h" name="firstType_h" value=""/>
-							<input type="hidden" id="secondType_h" name="secondType_h" value=""/>
-						</div>
-						<div class="input">
-							<label for="">
-							<span id="isIdent">
-						 	</span>
-						 	</label>
-						</div>
-						<div class="input">
-					        <label for="name">姓名：</label>
-					        <input class="form-control validate[required]" type="text" id="name" name="name" />
-					    </div>
-					     <div class="input">
-							<label>职业：</label>
-							<select id="firstType" name="firstType" class="validate[required]">
-							</select>
-							<select id="secondType" name="secondType" class="validate[required]">
-							</select>
-						</div>
-						<div class="input">
-					        <label for="perPhone">手机：</label>
-					        <input class="form-control validate[required,custom[mobilephone],required]" type="text" id="perPhone" name="perPhone" />
-					    </div>
-					    <div class="input">
-					        <label for="identityCard">身份证：</label>
-					        <input class="form-control validate[custom[shenfenzheng],required]" type="text" id="identityCard" name="identityCard" />
-					    </div>
-					    <div class="input" style="height:150px;">
-							<table style="width:100%;">
-								<tr>
-									<td valign="top" style="width:90px;">
-										<label>手持身份证正面照：</label>
-									</td>
-									<td>
-										<input type="file" name="uploadify" id="uploadify" />
-										<input type="hidden" id="queueItemCount" name="queueItemCount" value="0" />
-										<input type="hidden" id="organization" name="organization" value="" />
-										<input type="hidden" id="uploadErrorMsg" name="uploadErrorMsg" value="" />
-									</td>
-								</tr>
-							</table>
-					    </div>
-					    <div id="coverIMG_div" style="display:none;position: absolute; z-index: 122; width:150px;height:150px;overflow:hidden;background:#fff;border:1px solid #C7C7C7;">
-						</div>
-						<div class="input" style="height:150px;">
-							<table style="width:100%;">
-								<tr>
-									<td valign="top" style="width:90px;">
-										<label>身份证正反面证件照：</label>
-									</td>
-									<td>
-										<input type="file" name="uploadify1" id="uploadify1" />
-										<input type="hidden" id="queueItemCount1" name="queueItemCount1" value="0" />
-										<input type="hidden" id="orgBusinessLicense" name="orgBusinessLicense" value="" />
-										<input type="hidden" id="uploadErrorMsg1" name="uploadErrorMsg1" value="" />
-									</td>
-								</tr>
-							</table>
-					    </div>
-					    <div id="coverIMG_div1" style="display:none;position: absolute; z-index: 122; width:150px;height:150px;overflow:hidden;background:#fff;border:1px solid #C7C7C7;">
-						</div>
-					    <div class="btn">
-					    	<input type="submit" id="btnSave" value="提交信息">
-					    </div>
-					</form>
-				</div>
-			</div>
-		</div>
+
+<div class="container container-ex">
+	<%@include file="../inc/userHeader.inc"%>
+	<div class="row container-wapper">
+	<%@include file="../inc/userHeaderMenu.inc"%>
+	<div class="col-md-8">
+        <div class="container-right">
+        	<form class="form-horizontal" role="form"  id="form" name="form" action="">
+        		<input type="hidden" id="firstType_h" name="firstType_h" value=""/>
+				<input type="hidden" id="secondType_h" name="secondType_h" value=""/>
+				
+				<div class="form-group">
+                      <label for="code" class="col-sm-4 control-label">认证状态：</label>
+                      <div class="col-sm-6">
+                          <label for=""><span id="isIdent"></span></label>
+                      </div>
+                  </div>
+                  
+                   <div class="form-group">
+                      <label for="name" class="col-sm-4 control-label">姓名：</label>
+                      <div class="col-sm-6">
+                          <input type="text" class="form-control validate[required]" type="text" id="name" name="name" >
+                      </div>
+                  </div>
+                  
+                  <div class="form-group">
+                      <label for="firstType" class="col-sm-4 control-label">职业：</label>
+                      <div class="col-sm-3">
+                          <select id="firstType" name="firstType" class="form-control validate[required]"></select>
+							  
+                      </div>
+                      <div class="col-sm-3">
+							<select id="secondType" name="secondType" class="form-control validate[required]"></select>
+                      </div>
+                  </div>
+                  
+                   <div class="form-group">
+                      <label for="perPhone" class="col-sm-4 control-label">手机：</label>
+                      <div class="col-sm-6">
+                          <input type="text" class="form-control validate[required,custom[mobilephone],required]" type="text" id="perPhone" name="perPhone" >
+                      </div>
+                  </div>
+                  
+                   <div class="form-group">
+                      <label for="identityCard" class="col-sm-4 control-label">身份证号码：</label>
+                      <div class="col-sm-6">
+                          <input type="text" class="form-control validate[custom[shenfenzheng],required]" type="text" id="identityCard" name="identityCard">
+                      </div>
+                  </div>
+                  
+                   <div class="form-group">
+                    <label for="identityCard" class="col-sm-4 control-label">手持身份证正面照：</label>
+                    
+					<input type="hidden" id="queueItemCount" name="queueItemCount" value="0" />
+					<input type="hidden" id="organization" name="organization" value="" />
+					<input type="hidden" id="uploadErrorMsg" name="uploadErrorMsg" value="" />
+					<div class="col-sm-2">
+						<input type="file" name="uploadify" id="uploadify" />
+					</div>
+                      <div class="col-sm-6">
+                          <div id="coverIMG_div" style="display:none;width:150px;height:150px;overflow:hidden;background:#fff;border:1px solid #C7C7C7;"></div>
+                      </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="identityCard" class="col-sm-4 control-label">身份证背面照：</label>
+                    
+					<input type="hidden" id="queueItemCount1" name="queueItemCount1" value="0" />
+					<input type="hidden" id="orgBusinessLicense" name="orgBusinessLicense" value="" />
+					<input type="hidden" id="uploadErrorMsg1" name="uploadErrorMsg1" value="" />
+					<div class="col-sm-2">
+						<input type="file" name="uploadify1" id="uploadify1" />
+					</div>
+                      <div class="col-sm-6">
+                          <div id="coverIMG_div1" style="display:none; width:150px;height:150px;overflow:hidden;background:#fff;border:1px solid #C7C7C7;"></div>
+                      </div>
+                  </div>
+				
+        		  
+                  <div class="form-group">
+                     <div class="col-sm-12 text-center">
+                         <button type="submit" class="btn btn-primary" id="btnSave">保存信息</button>
+                     </div>
+                 </div>
+                 
+        	</form>
+        </div>
+     </div>
 	</div>
 </div>
+
 <!-- script -->
 <%@include file="../inc/script.inc"%>
 <!-- script -->

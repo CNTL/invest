@@ -12,38 +12,56 @@
 <body>
 <%@include file="../../inc/header.inc"%>
 <div class="shadow"></div>
-<div class="main clearfix">
-	<div class="setting wrap">
-			<%@include file="../inc/userHeader.inc"%>
-			<div class="setting-detail">
-				<div class="job_add">
-					<form id="form" name="form" method="post" action="">
-						<div class="input">
-							<label for="code">原始密码：</label>
-							<input type="password" class="form-control validate[maxSize[255],required]" onchange="pwdChange.checkOldpassword()" value="" id="old_pwd" name="old_pwd" placeholder="原始密码"/>
-						</div>
-						<div class="input">
-							<label for="userpassword">新密码：</label>
-							<input type="password" class="form-control validate[maxSize[255],required]" onchange="pwdChange.checkpassword()" value="" id="password" name="password" placeholder="新密码"/>
-						</div>
-						<div class="input">
-							<label  for="passwordagain">确认密码：</label>
-							<input type="password" class="form-control validate[maxSize[255],required]" onchange="pwdChange.checkpassword_again()" value="" id="pwdagain" name="pwdagain" placeholder="确认密码"/>
-						</div>
-						<div class="btn">
-				        	<input type="submit" id="btnSave" value="提交信息">
-				        </div>
-					</form>
-				</div>
-			</div>
-		</div>
+<div class="container container-ex">
+	<%@include file="../inc/userHeader.inc"%>
+	<div class="row container-wapper">
+	<%@include file="../inc/userHeaderMenu.inc"%>
+	<div class="col-md-8">
+        <div class="container-right">
+        	<form class="form-horizontal" role="form"  id="form" name="form" method="post" action="">
+        	
+        		  <div class="form-group">
+                      <label for="code" class="col-sm-3 control-label">原始密码：</label>
+                      <div class="col-sm-9">
+                          <input type="password" class="form-control validate[maxSize[255],required" onchange="pwdChange.checkOldpassword()" value="" id="old_pwd" name="old_pwd" placeholder="原始密码">
+                      </div>
+                  </div>
+                  
+                   <div class="form-group">
+                      <label for="code" class="col-sm-3 control-label">新密码：</label>
+                      <div class="col-sm-9">
+                          <input type="password" class="form-control validate[maxSize[255],required" onchange="pwdChange.checkpassword()" value="" id="password" name="password" placeholder="新密码">
+                      </div>
+                  </div>
+                  
+                   <div class="form-group">
+                      <label for="code" class="col-sm-3 control-label">确认密码：</label>
+                      <div class="col-sm-9">
+                          <input type="password" class="form-control validate[maxSize[255],required" onchange="pwdChange.checkpassword_again()" value="" id="pwdagain" name="pwdagain" placeholder="确认密码">
+                      </div>
+                  </div>
+                  
+                 
+                  
+                  <div class="form-group">
+                     <div class="col-sm-12 text-center">
+                         <button type="submit" class="btn btn-primary" id="btnSave">保存信息</button>
+                     </div>
+                 </div>
+                 
+        	</form>
+        </div>
+     </div>
 	</div>
 </div>
+
+ 
 <!-- script -->
 <%@include file="../inc/script.inc"%>
 <!-- script -->
 
 <!-- footer -->
+ 
 <%@include file="../../inc/footer.inc"%>
 <!-- footer -->
 <script type="text/javascript" src="../user/user/script/userPwdChange.js"></script>

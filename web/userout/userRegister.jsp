@@ -59,8 +59,7 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, 
 						<input type="text" class="form-control" maxlength="200" id="email" placeholder="请输入邮箱" check-type="mail required">
 					</div>
 					<div class="col-sm-offset-2 col-sm-10">
-						<span class="help-block"
-							style="color: #000000; padding-top: 10px;">请填写真实的邮箱，邮箱将用于找回密码使用。</span>
+						<span class="help-block" style="padding-top: 10px;">请填写真实的邮箱，邮箱将用于找回密码使用。</span>
 					</div>
 				</div>
 				

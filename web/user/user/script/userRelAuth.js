@@ -50,10 +50,11 @@ var relAuth = {
 	    			$("#perPhone").val(data.perPhone);
 	    			$("#identityCard").val(data.identityCard);
 	    			if(data.isRealNameIdent == 1) {
-	    				$("#isIdent").attr("style","background:#019875;color:white;");
-	    				isIdent = "&nbsp;&nbsp;已认证&nbsp;&nbsp;";
+	    				$("#isIdent").addClass("label label-success");
+	    				isIdent = "已认证";
 	    			} else {
-	    				$("#isIdent").attr("style","background:red;color:white;");
+	    				$("#isIdent").addClass("label label-danger");
+	    				isIdent = "未认证";
 	    			}
 	    			$("#isIdent").html(isIdent);
 	    			if(data.organization != null && data.organization.length > 0){
@@ -136,14 +137,16 @@ var relAuth = {
 		var flag = true;
 		var organization = $("#organization").val();
 		if(organization == null || organization.length == 0){
-			$.messager.alert('消息','请上传身份证正面证件照！');
+			 
+			AlertInfo(300,30,"请上传身份证正面证件照！")
 			flag = false;
 			$("#btnSave").attr("disabled", false);
 			return;
 		}
 		var orgBusinessLicense = $("#orgBusinessLicense").val();
 		if(orgBusinessLicense == null || orgBusinessLicense.length == 0){
-			$.messager.alert('消息','请上传身份证反面证件照！');
+			 
+			AlertInfo(300,30,"请上传身份证反面证件照！")
 			flag = false;
 			$("#btnSave").attr("disabled", false);
 			return;
@@ -157,9 +160,10 @@ var relAuth = {
 		        dataType: 'text',   //返回值类型  
 		        success:function(data){
 		    		if(data != null && data == 'ok'){
-		    			$.messager.alert('消息','认证资料提交成功！');
+		    			AlertInfo(200,30,"认证资料提交成功！")
+		    			 
 		    		} else {
-		    			$.messager.alert('认证资料提交失败！',data);
+		    			AlertInfo(200,30,"认证资料提交失败！")
 		    		}
 		        } ,
 				error:function (XMLHttpRequest, textStatus, errorThrown) {
