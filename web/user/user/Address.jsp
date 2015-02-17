@@ -46,44 +46,49 @@
 </head>
 <body>
 <%@include file="../../inc/header.inc"%>
-<div class="main clearfix">
-	<div class="setting wrap">
-			<%@include file="../inc/userHeader.inc"%>
-			
-			<div class="setting-detail">
-				<input type="hidden" id="login_user_id" name="login_user_id" value="<c:out value="${loginUser.id}"/>" />
-				<div class="job_add">
-					<div class="btn">
-						<input type="button" id="newBtn" onclick="addAddress();" value="新增收件地址">
-					</div>
-				</div>
-				<table class="tb-void">
-					<thead>
-						<tr>
-							<th>收件人</th>
-							<th>电话</th>
-							<th>收件地址</th>
-							<th>邮编</th>
-							<th>操作</th>
-						</tr>
-					</thead>
-					<c:forEach var="address" items="${addresses}">
-					<tr class="tr-td tr-address">
-						<td><c:out value="${address.recipients}"/></td>
-						<td><c:out value="${address.mphoneNo}"/></td>
-						<td><c:out value="${address.province}"/><c:out value="${address.city}"/><c:out value="${address.county}"/><c:out value="${address.detail}"/></td>
-						<td><c:out value="${address.zipcode}"/></td>
-						<td>
-							<a href="javascript:void(0);" onclick="editAddress(<c:out value="${address.id}"/>,<c:out value="${loginUser.id}"/>);">修改</a> | 
-							<a href="javascript:void(0);" onclick="delAddress(<c:out value="${address.id}"/>);">删除</a>
-						</td>
-					</tr>
-					</c:forEach>
-				</table>
+<div class="shadow"></div>
+<div class="container container-ex">
+	<%@include file="../inc/userHeader.inc"%>
+	<div class="row container-wapper">
+	<%@include file="../inc/userHeaderMenu.inc"%>
+	<div class="col-md-8">
+        <div class="container-right">
+        	 <div class="container-right">
+			<div class="row">
+			<input type="hidden" id="login_user_id" name="login_user_id" value="<c:out value="${loginUser.id}"/>" />
+        	<input type="button" id="newBtn" class="btn btn-info" style="margin:5px;" onclick="addAddress();" value="新增收件地址">
 			</div>
-		</div>
+			
+			<div class="row">
+				<table class="tb-void">
+	<thead>
+		<tr>
+			<th>收件人</th>
+			<th>电话</th>
+			<th>收件地址</th>
+			<th>邮编</th>
+			<th>操作</th>
+		</tr>
+	</thead>
+	<c:forEach var="address" items="${addresses}">
+	<tr class="tr-td tr-address">
+		<td><c:out value="${address.recipients}"/></td>
+		<td><c:out value="${address.mphoneNo}"/></td>
+		<td><c:out value="${address.province}"/><c:out value="${address.city}"/><c:out value="${address.county}"/><c:out value="${address.detail}"/></td>
+		<td><c:out value="${address.zipcode}"/></td>
+		<td>
+			<a href="javascript:void(0);" onclick="editAddress(<c:out value="${address.id}"/>,<c:out value="${loginUser.id}"/>);">修改</a> | 
+			<a href="javascript:void(0);" onclick="delAddress(<c:out value="${address.id}"/>);">删除</a>
+		</td>
+	</tr>
+	</c:forEach>
+</table>
+			</div>
+        </div>
+     </div>
 	</div>
 </div>
+
 <!-- script -->
 <%@include file="../inc/script.inc"%>
 <script type="text/javascript" src="../js/layer/layer.min.js"></script>

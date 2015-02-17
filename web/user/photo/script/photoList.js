@@ -11,7 +11,7 @@ $(document).ready(function () {
 	});
 	
 	$("#photogroups").click(function(){
-		window.location.href= rootPath +"user/PhotoGroupMa.do?id="+$("#groupID").val();
+		window.location.href= rootPath +"user/PhotoGroupMa.do?infoType=6&id="+$("#groupID").val();
 	});
 	 
 });

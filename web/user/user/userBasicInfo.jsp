@@ -45,7 +45,7 @@
                    </div>
                   
                   <div class="form-group">
-                      <label for="perNickName" class="col-sm-3 control-label">个人简介：</label>
+                      <label for="intro" class="col-sm-3 control-label">个人简介：</label>
                       <div class="col-sm-9">
                           
                           <textarea class="form-control" rows="5" id="intro" name="intro" placeholder="个人简介"></textarea>

@@ -13,105 +13,108 @@
 <body>
 <%@include file="../../inc/header.inc"%>
 <div class="shadow"></div>
-<div class="main clearfix">
-	<div class="setting wrap">
-			<%@include file="../inc/userHeader.inc"%>
-			<div class="setting-detail">
-				<div class="job_add">
-					<form class="setting-form" id="form" name="form" action="">
-						<div class="input">
-							<label for="orgFullname">
-							<span id="isIdent">
-						 	</span>
-						 	</label>
-						</div>
-						<div class="input">
-					        <label for="orgFullname">公司全称：</label>
-					        <input class="form-control validate[maxSize[255],required]" type="text" id="orgFullname" name="orgFullname" />
-					    </div>
-						<div class="input">
-					        <label for="name">法人代表：</label>
-					        <input class="form-control validate[required]" type="text" id="name" name="name" />
-					    </div>
-					    <div class="input">
-					        <label for="identityCard">法人代表身份证：</label>
-					        <input class="form-control validate[custom[shenfenzheng],required]" type="text" id="identityCard" name="identityCard" />
-					    </div>
-					    <div class="input">
-					        <label for="perPhone">法人代表手机：</label>
-					        <input class="form-control validate[custom[mobilephone],required]" type="text" id="perPhone" name="perPhone" style="width:200px" />
-					        <span class="btn" id="btnGetCode">获取验证码</span>
-					    </div>
-					    <div class="input">
-					        <label for="identityCard">短信验证码：</label>
-					        <input class="form-control" type="text" id="perPhoneCode" name="perPhoneCode" style="width:200px" />
+<div class="container container-ex">
+	<%@include file="../inc/userHeader.inc"%>
+	<div class="row container-wapper">
+	<%@include file="../inc/userHeaderMenu.inc"%>
+	<div class="col-md-8">
+        <div class="container-right">
+        	<form class="form-horizontal" role="form"  id="form" name="form" action="">
+        		 
+				<input class="form-control" type="hidden" id="openingBanks" name="openingBanks" />
+                <input class="form-control" type="hidden" id="bankNums" name="bankNums" />
+				
+				<div class="form-group">
+                      <label for="code" class="col-sm-4 control-label">认证状态：</label>
+                      <div class="col-sm-6">
+                          <label for=""><span id="isIdent"></span></label>
+                      </div>
+                  </div>
+                  
+                   <div class="form-group">
+                      <label for="orgFullname" class="col-sm-4 control-label">公司全称：</label>
+                      <div class="col-sm-6">
+                          <input type="text" class="form-control validate[required]" id="orgFullname" name="orgFullname" >
+                      </div>
+                  </div>
+                  
+                  <div class="form-group">
+                      <label for="name" class="col-sm-4 control-label">法人代表：</label>
+                      <div class="col-sm-6">
+                          <input type="text" class="form-control validate[required]" id="name" name="name" >
+                      </div>
+                  </div>
+                  
+                   <div class="form-group">
+                      <label for="identityCard" class="col-sm-4 control-label">法人代表身份证：</label>
+                      <div class="col-sm-6">
+                          <input type="text" class="form-control validate[custom[shenfenzheng],required]" id="identityCard" name="identityCard" >
+                      </div>
+                  </div>
+                  
+                  <div class="form-group">
+                      <label for="perPhone" class="col-sm-4 control-label">法人代表手机：</label>
+                      <div class="col-sm-4">
+                          <input type="text" class="form-control validate[custom[mobilephone],required]" type="text" id="perPhone" name="perPhone" style="width:200px">
+                          
+                      </div>
+                      <div class="col-sm-2">
+                      	<span class="btn btn-info" id="btnGetCode">获取验证码</span>
+                      </div>
+                  </div>
+                  
+                  <div class="form-group">
+                      <label for="perPhoneCode" class="col-sm-4 control-label">短信验证码：</label>
+                      <div class="col-sm-2">
+                           <input class="form-control" type="text" id="perPhoneCode" name="perPhoneCode"  />
 					        <input type="hidden" id="perPhoneCodeCur" name="perPhoneCodeCur"/>
-					    </div>
-					    <div class="input" style="display:none;">
-					        <label for="openingBanks">银行卡开户行：</label>
-					        <input class="form-control validate[required]" type="text" id="openingBanks" name="openingBanks" />
-					    </div>
-					    <div class="input" style="display:none;">
-					        <label for="bankNums">银行卡号：</label>
-					        <input class="form-control" type="hidden" id="bankNums" name="bankNums" />
-					    </div>
-					    <div class="input" style="height:150px;">
-							<table style="width:100%;">
-								<tr>
-									<td valign="top" style="width:90px;">
-										<label>准拍证扫描件：</label>
-									</td>
-									<td>
-										<input type="file" name="uploadify" id="uploadify" />
-										<input type="hidden" id="queueItemCount" name="queueItemCount" value="0" />
-										<input type="hidden" id="organization" name="organization" value="" />
-										<input type="hidden" id="uploadErrorMsg" name="uploadErrorMsg" value="" />
-									</td>
-								</tr>
-							</table>
-					    </div>
-					    <div id="coverIMG_div" style="display:none;position: absolute; z-index: 122; width:150px;height:150px;overflow:hidden;background:#fff;border:1px solid #C7C7C7;">
-						</div>
-					    <div class="input" style="height:50px;">
-							<table style="width:100%;">
-								<tr>
-									<td valign="top" style="width:90px;">
-										<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;或者</label>
-									</td>
-									<td>
-										 
-									</td>
-								</tr>
-							</table>
-					    </div>
-					    
-						
-						<div class="input" style="height:150px;">
-							<table style="width:100%;">
-								<tr>
-									<td valign="top" style="width:90px;">
-										<label>企业营业执照扫描件：</label>
-									</td>
-									<td>
-										<input type="file" name="uploadify1" id="uploadify1" />
-										<input type="hidden" id="queueItemCount1" name="queueItemCount1" value="0" />
-										<input type="hidden" id="orgBusinessLicense" name="orgBusinessLicense" value="" />
-										<input type="hidden" id="uploadErrorMsg1" name="uploadErrorMsg1" value="" />
-									</td>
-								</tr>
-							</table>
-					    </div>
-					    <div id="coverIMG_div1" style="display:none;position: absolute; z-index: 122; width:150px;height:150px;overflow:hidden;background:#fff;border:1px solid #C7C7C7;">
-						</div>
-					    <div class="btn">
-					    	<input type="submit" id="btnSave" value="提交信息">
-					    </div>
-					</form>
-				</div>
-			</div>
-		</div>
+                      </div>
+                  </div>
+                  
+                  
+                  
+                   <div class="form-group">
+                    <label for="uploadify" class="col-sm-4 control-label">准拍证扫描件：</label>
+                    
+				 
+					<input type="hidden" id="queueItemCount" name="queueItemCount" value="0" />
+					<input type="hidden" id="organization" name="organization" value="" />
+					<input type="hidden" id="uploadErrorMsg" name="uploadErrorMsg" value="" />
+					<div class="col-sm-2">
+						<input type="file" name="uploadify" id="uploadify" />
+					</div>
+                      <div class="col-sm-6">
+                          <div id="coverIMG_div" style="display:none;width:150px;height:150px;overflow:hidden;background:#fff;border:1px solid #C7C7C7;"></div>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label  class="col-sm-4 control-label">或者</label>
+                       
+                  </div>
+                  <div class="form-group">
+                    <label for="identityCard" class="col-sm-4 control-label">企业营业执照扫描件：</label>
+					<input type="hidden" id="queueItemCount1" name="queueItemCount1" value="0" />
+					<input type="hidden" id="orgBusinessLicense" name="orgBusinessLicense" value="" />
+					<input type="hidden" id="uploadErrorMsg1" name="uploadErrorMsg1" value="" />
+					<div class="col-sm-2">
+						<input type="file" name="uploadify1" id="uploadify1" />
+					</div>
+                      <div class="col-sm-6">
+                          <div id="coverIMG_div1" style="display:none; width:150px;height:150px;overflow:hidden;background:#fff;border:1px solid #C7C7C7;"></div>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                     <div class="col-sm-12 text-center">
+                         <button type="submit" class="btn btn-primary" id="btnSave">保存</button>
+                     </div>
+                 </div>
+                 
+        	</form>
+        </div>
+     </div>
 	</div>
 </div>
+
 <!-- script -->
 <%@include file="../inc/script.inc"%>
 <!-- script -->

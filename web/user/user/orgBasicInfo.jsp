@@ -12,38 +12,58 @@
 <body>
 <%@include file="../../inc/header.inc"%>
 <div class="shadow"></div>
-<div class="main clearfix">
-	<div class="setting wrap">
-			<%@include file="../inc/userHeader.inc"%>
-			<div class="setting-detail">
-				<div class="job_add">
-					<form class="setting-form" id="form" name="form" action="">
-						<div class="input">
-					        <label for="nickName">登录账户：</label>
-					        <input type="text" id="code" name="code" value="" disabled/>
-					        <br>
-					    </div>
-					    <div class="input">
-					        <label for="nickName">机构简称：</label>
-					        <input class="form-control validate[maxSize[255],required]" type="text" id="orgShortname" name="orgShortname" placeholder="机构简称"/>
-					    </div>
-					    <div class="input">
-					        <label for="postAddr">机构全称：</label>
-					        <input class="form-control validate[maxSize[255],required]" type="text" id="orgFullname" name="orgFullname" placeholder="机构全称"/>
-					    </div>
-						<div class="input">
-							<label>机构简介：</label>
-							<textarea  id="intro" name="intro" style="width:400px;height:100px;" placeholder="机构简介"></textarea>
-						</div>
-						<div class="btn">
-				        	<input type="submit" id="btnSave" value="提交信息">
-				        </div>
-					</form>
-				</div>
-			</div>
-		</div>
+<div class="container container-ex">
+	<%@include file="../inc/userHeader.inc"%>
+	<div class="row container-wapper">
+	<%@include file="../inc/userHeaderMenu.inc"%>
+	<div class="col-md-8">
+        <div class="container-right">
+        	<form class="form-horizontal" role="form"  id="form" name="form" action="">
+        	
+        		  <div class="form-group">
+                      <label for="code" class="col-sm-3 control-label">登录账户：</label>
+                      <div class="col-sm-9">
+                          <input type="text" class="form-control" id="code" name="code" value="" disabled="disabled">
+                      </div>
+                  </div>
+                  
+                  <div class="form-group">
+                      <label for="orgShortname" class="col-sm-3 control-label">机构简称：</label>
+                      <div class="col-sm-9">
+                          <input type="text" class="form-control validate[maxSize[255]]" type="text" id="orgShortname" name="orgShortname" placeholder="机构简称">
+                      </div>
+                  </div>
+                  
+                  <div class="form-group">
+                      <label for="orgFullname" class="col-sm-3 control-label">机构全称：</label>
+                      <div class="col-sm-9">
+                          <input type="text" class="form-control validate[maxSize[255]]" type="text" id="orgFullname" name="orgFullname" placeholder="机构全称">
+                      </div>
+                  </div>
+                  
+                 
+                  
+                  <div class="form-group">
+                      <label for="intro" class="col-sm-3 control-label">机构简介：</label>
+                      <div class="col-sm-9">
+                          
+                          <textarea class="form-control" rows="5" id="intro" name="intro" placeholder="intro"></textarea>
+                      </div>
+                  </div>
+                  
+                  <div class="form-group">
+                     <div class="col-sm-12 text-center">
+                         <button type="submit" class="btn btn-primary" id="btnSave">保存信息</button>
+                     </div>
+                 </div>
+                 
+        	</form>
+        </div>
+     </div>
 	</div>
 </div>
+
+
 <!-- script -->
 <%@include file="../inc/script.inc"%>
 <!-- script -->

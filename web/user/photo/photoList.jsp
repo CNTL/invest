@@ -30,34 +30,6 @@
 	<div class="row container-wapper">
 	<div class="col-md-12">
         <div class="container-right" id="photo-list">
-        	<!--  
-        	<div class="row">
-        		<div class="project_list">
-        			<div id="imgs" class="block1">
-	     			<c:forEach var="photo" varStatus="status" items="${photos}">
-	     			<c:choose>
-						<c:when test="${status.index%3==0}">
-							<div class="box box_last" style="width:220px;">
-						</c:when>
-						<c:otherwise>
-							<div class="box" style="width:220px;">
-						</c:otherwise>
-					</c:choose>
-	   					<div class="people" style="border: 1px #858585 solid;">
-	   						<div class="pic" style="width:100%;">
-	   							<a><img style="cursor:pointer;" src="<%=com.tl.common.WebUtil.getRoot(request) %><c:out value="${photo.photo}"/>"></a>
-	   						</div>
-	   						<div class="title">
-	   							<a style="text-decoration:none;"><c:out value="${photo.photoName}"/></a>
-	   						</div>
-	   					</div>
-	   					<div class="clear"></div>
-	   				</div>
-	     			</c:forEach>
-	     			</div>
-				</div>
-        	</div>
-        	-->
         	<c:forEach var="photo" varStatus="status" items="${photos}">
         		<a href="<%=com.tl.common.WebUtil.getRoot(request) %><c:out value="${photo.photo}"/>" class="boxer" title="<c:out value="${photo.intro}"/>" data-gallery="gallery">
     				<img style="height:200px;margin-bottom:5px;" data-id="<c:out value="${photo.id}"/>" src="<%=com.tl.common.WebUtil.getRoot(request) %><c:out value="${photo.photo}"/>" alt="<c:out value="${photo.intro}"/>" />
