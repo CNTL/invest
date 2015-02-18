@@ -12,9 +12,6 @@
 		color:white;
 		cursor:pointer;
 	}
-	*{
-	 box-sizing:content-box;
-	}
   </style>
 </head>
 <body>
@@ -227,12 +224,13 @@
 		</c:choose>
      </div>
     <div class="clear"></div>
-</div>
-</div>
+ 
+ 
 <div id="morecity" class="item" style="display:none;">
 	<c:forEach var="city" varStatus="status" items="${cities}" begin="11"  step="1" >
 		<a style="margin:5px;font-size:16px;" href="../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=${type}&more=${more}&city=${city.id}">${city.name}</a>
 	</c:forEach>
+</div>
 </div>
 <!-- footer -->
 <%@include file="../../inc/footer.inc"%>

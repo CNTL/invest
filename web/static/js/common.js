@@ -22,7 +22,7 @@ $(function () {
         $(this).find('.expand').hide();
     });
 
-    $('.mini_member').mouseover(function () {
+    $('.hzmini_member').mouseover(function () {
         $(this).find('.menu').show();
     }).mouseout(function () {
         $(this).find('.menu').hide();
