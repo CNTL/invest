@@ -54,16 +54,10 @@
 	
 	</div>
 	<div class="col-md-2" style="border:0px solid green;width:150px;">
-		<div class="row">
+		<div class="row" >
 			 
 			<div class="col-md-8" style="width:60px;padding:0;">
-			<c:if test="${loginUser.id==0}" >
-				<div class="hzmini_login">
-					<a href="<c:out value="${rootPath}"/>login.jsp">登录</a>
-					<span>|</span>
-					<a href="<c:out value="${rootPath}"/>register.jsp">注册</a>
-				</div>
-				</c:if>
+			
 				<c:if test="${loginUser.id>0}">
 				<div class="hzmini_member">
 					<div class="avatar">
@@ -84,9 +78,20 @@
 			</div>
 			
 			<div class="col-md-4" style="padding:0;margin: 15px 0 0 0 ;  width: 80px;">
+			<c:if test="${loginUser.id>0}">
 				<div class="username">
 						<a href="#"><c:out value="${loginUser.name}"/></a>
 			     </div>
+			</c:if>
+			<c:if test="${loginUser.id==0}" >
+				<div class="hzmini_login">
+					<a href="<c:out value="${rootPath}"/>login.jsp">登录</a>
+					<!--
+					<span>|</span>
+					<a href="<c:out value="${rootPath}"/>register.jsp">注册</a>
+					-->
+				</div>
+			</c:if>
 			</div>
 			
 		</div>

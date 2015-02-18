@@ -251,20 +251,19 @@ float: left;
 }
 
 .hzmini_login {
+	margin-top:15px;
 font-size: 14px;
-line-height: 90px;
-padding-right: 30px;
-
+ width:100%;
 }
 
 .hzmini_login span {
 color: #ccc;
-margin: 0 5px 0 5px;
+margin: 0 5px 0 0;
 }
 
 .hzmini_login a {
 color: #999;
-margin: 0 5px 0 5px;
+margin: 0 0 0 0;
 }
 
 .hzmini_member {
@@ -849,8 +848,8 @@ margin-right: 0;
 
 /*login style start*/
 .login {
-width: 800px;
-height: 300px;
+width: 810px;
+height: 310px;
 margin: 40px auto;
 padding: 7px 7px;
 background: url(../image/l1.png) no-repeat;

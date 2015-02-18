@@ -162,7 +162,12 @@
                 </div>
             </div>
         </div>
-        <div class="shadow"></div>
+        
+ 				 <c:choose>
+					<c:when test="${status1.index<3}"><div class="shadow">  </div></c:when>
+					<c:otherwise> </c:otherwise>
+				</c:choose>
+        
         </c:forEach>
        </div>
 
