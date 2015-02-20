@@ -181,11 +181,14 @@
   </style>
 </head>
 <body>
-<div id="body-container" style="min-width:980px;">
 <%@include file="../../inc/header.inc"%>
+ 
 <div class="banner hidden-xs">
     <img src="../static/image/banner1.png" />
 </div>
+<div class="body-container">
+ 
+
 <div style="display:none;">
 <input type="text" id="city" name="city" value="<c:out value="${city}"/>"/>
 <input type="text" id="more" name="more" value="<c:out value="${more}"/>"/>

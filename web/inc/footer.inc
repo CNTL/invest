@@ -40,7 +40,7 @@
 		</div>
 	</div>
 	<div class="copyright">
-		©2014 北京合众映画影视科技有限公司 www.hzcine.com 版权所有<br />
+		©2014 北京合众映画影视科技有限公司 www.hzcine.com 版权所有
 		京ICP备15000396号　<!--京公网安备110105015888-->
 	</div>
 </div>

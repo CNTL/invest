@@ -489,6 +489,11 @@ height: 12px;
 background: url(../image/s3.png) repeat-x;
 }
 /*header style end*/
+.body-container{
+	border:0px solid red;
+	width:1002px;
+	margin:0 auto;
+}
 
 .banner {
 width: 100%;
@@ -2396,7 +2401,7 @@ height: 50px;
 
 .job_list .main .search .submit input {
 width: 100px;
-height: 46px;
+height: 50px;
 border: 0;
 font-size: 18px;
 color: #fff;

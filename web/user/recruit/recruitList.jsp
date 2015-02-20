@@ -119,7 +119,7 @@
                      <input type="text" id="key" name="key" value="<c:out value="${key}"/>" placeholder="请输入你要搜索的职位，如“制片人”"/>
                  </div>
                  <div class="submit">
-                     <input type="button" id="search" name="search" value="搜索" />
+                     <input type="button" id="search" name="search" value="搜索" style="height:46px;" />
                  </div>
              </form>
              <div class="clear"></div>
