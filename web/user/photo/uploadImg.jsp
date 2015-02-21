@@ -28,6 +28,7 @@
             fileSizeLimit: 0,
             removeCompleted: true,
             onUploadStart: function(file) {//上传开始时触发（每个文件触发一次）
+            	//alert(file);
           	},
           	onUploadError : function(file,errorCode,errorMsg,errorString,swfuploadifyQueue) {//上传文件出错是触发（每个出错文件触发一次）
             	　　 alert( 'id: ' + file.id

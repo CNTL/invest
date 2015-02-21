@@ -150,12 +150,13 @@
 	
 	<div class="people_globaltop">
            <div class="wrap">
-            <a href="../org/BasicInfo.do?infoType=1&mainType=1" class="profile">个人设置</a>
+<!--             <a href="../org/BasicInfo.do?infoType=1&mainType=1" class="profile">个人设置</a> -->
             <div class="avavtar">
                 <img style="border-radius: 50%;" src="<c:out value="${loginUser.head}"/>" />
             </div>
             <div class="info">
-                <h2><c:out value="${loginUser.perNickName}"/>
+                <h2><c:out value="${loginUser.perNickName}"/> 
+                
 					<span>
 						<c:choose>
 							<c:when test="${loginUser.type==0}">个人</c:when>
@@ -163,11 +164,17 @@
 							<c:otherwise>未知</c:otherwise>
 						</c:choose>
 					</span>
+					<span>
+	                  	<c:choose>
+							<c:when test="${loginUser.isRealNameIdent==1}">已认证</c:when>
+							<c:otherwise>未认证</c:otherwise>
+					 	</c:choose>
+					 	</span>
 				 </h2>
                 <div class="desc">
-                   <div><c:out value="${loginUser.intro}"/></div>
+                   <div> <c:out value="${loginUser.perJobName}"/>、<c:out value="${cityname}"/></div>
                    
-                    姓名：<c:out value="${loginUser.name}"/><br />
+                  <br />
                     
                 </div>
             </div>

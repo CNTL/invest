@@ -193,6 +193,7 @@ public class PhotoController extends BaseController {
 						in.close();
 						outputStream.close();
 						errorMsg = "上传成功";
+						rltPath = rltPath.replace("\\", "/");
 						savePhoto(request, response, user, rltPath);
 					}
 				}

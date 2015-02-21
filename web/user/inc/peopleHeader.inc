@@ -4,14 +4,14 @@
            <!-- <a href="../org/BasicInfo.do?infoType=1&mainType=1" class="profile">个人设置</a> -->
            <div class="avavtar">
                <c:choose>
-					<c:when test="${user.head=='' || user.head == null}"><img src="../static/image/temp/pic2.png" /></c:when>
-					<c:otherwise><img src="../<c:out value="${user.head}"/>" /></c:otherwise>
+					<c:when test="${user.head=='' || user.head == null}"><img style="border-radius: 50%;" src="../static/image/temp/pic2.png" /></c:when>
+					<c:otherwise><img style="border-radius: 50%;" src="../<c:out value="${user.head}"/>" /></c:otherwise>
 			 	</c:choose>
            </div>
            <div class="info">
            		<c:choose>
 					<c:when test="${user.type==0}">
-						<h2>我是一个<c:out value="${user.perJobName}"/>
+						<h2><c:out value="${user.perNickName}"/>
 						<span>个人</span>
 						<span>
 	                  	<c:choose>
@@ -21,7 +21,7 @@
 					 	</span>
 						</h2>
 						<div class="desc">
-		                  	 昵称：<c:out value="${user.perNickName}"/>
+		                  	 <c:out value="${user.perJobName}"/>、<c:out value="${user.city}"/>
 		                  	
 		                  	 <br />
 		                    <a style="cursor:pointer;" onclick="msg.addMsg();"><span>短信息</span></a>

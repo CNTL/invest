@@ -13,13 +13,13 @@
 <body>
     <%@include file="../../inc/header.inc"%>
 	<%@include file="../inc/peopleHeader.inc"%>
-    <div class="people_profile">
-        <div class="content">
-            <div class="tip">
-            	<c:out value="${(user.intro == null || user.intro == '') ? '他很忙，什么资料也没有留下来。': user.intro}"/>
-            </div>
-        </div>
-        <div class="clear"></div>
+	
+    <div class="body-container" style="height:300px;">
+    
+        <h2>
+        <c:out value="${(user.intro == null || user.intro == '') ? '他很忙，什么资料也没有留下来。': user.intro}"/>
+        </h2>
+
     </div>
 	<%@include file="../../inc/footer.inc"%>
 	

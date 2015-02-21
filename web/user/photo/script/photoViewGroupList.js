@@ -1,6 +1,11 @@
 $(document).ready(function () {
 	photoGroup.initGroup();
+	
 });
+function formatCaptions($target) {
+	 
+	return "<h3>图片描述：" + $target.attr("title") + "</h3>";
+}
 var photoGroup = {
 	initGroup : function(){
 		var userID = $("#curUserID").val();
@@ -19,34 +24,48 @@ var photoGroup = {
 	    });
 	},
 	assemble : function(result) {
+		
     	$.each(result, function(i,item){
-    		var id = item.id;
-    		var photo = item.groupPhoto;
-    		if(photo == null || photo.length == 0)
-    			photo = "user\photo\img\framels_hover.jpg";
-    		//添加图片的缩略图
-    		//$("#photos").append($("<div><a href='#'><img onclick='photoGroup.clickThumb("+id+")' name='photoList' id='" + id + "' src='"+rootPath+photo+"'></a></div>"));
-    		var prefix = '<div class="box" style="width:220px;">';
-    		var suffix = '';
-    		if((i + 1)%4==0) {
-    			prefix = '<div class="box box_last" style="width:220px;">'; 
-    			suffix = '<div class="clear"></div>';
-    		}
-    		var html = prefix +
-				            '<div class="people" style="border: 1px #D6D6D6 solid;">' +
-				                '<div class="pic" style="width:100%;">' +
-				                    '<a href="#"><img onclick="photoGroup.clickThumb('+id+')" name="photoList" id="' + id + '" src="'+rootPath+photo+'"></a>' +
-				                '</div>' +
-				                '<div class="title" style="text-align:center;">' +
-				                    '<a href="#" style="text-decoration:none;" onclick="photoGroup.clickThumb('+id+')">'+item.groupName+'</a>' +
-				                '</div>' +
-				             '</div>' +
-				        '</div>' + suffix;
-    		$(".block1").append(html);
+			$.ajax({
+		        type:"GET", //请求方式  
+		        url:"../user/photo.do?a=getPhotos&groupID="+item.id, //请求路径  
+		        cache: false,
+		        dataType: 'JSON',   //返回值类型  
+		        async:false,
+		        success:function(data){
+		        	var sb = [];
+	        		sb.push("<dl id=\""+item.id+"\">");
+	        		sb.push("<dt>"+item.groupName+"</dt>");
+	        		sb.push("<dd>");
+	        		sb.push("<div>");
+		        	if(data){
+		        		$.each(data,function(p,n){
+		        			
+			        		 
+		    				var imgurl = rootPath+n.photo;
+		    				sb.push("<a href=\""+imgurl+"\" class=\"boxer\" title=\""+n.intro+"\" data-gallery=\"gallery\" >");
+		    				sb.push("<img style=\"height:200px;margin-bottom:5px;\" data-id=\""+n.id+"\" src=\""+imgurl+"\" alt=\""+n.intro+"\" /> ");
+		    				sb.push("</a>");
+			        		
+			        		
+			        		
+		        		});
+		        		
+		        	}
+		        	sb.push("</div>");
+	        		sb.push("</dd>");
+	        		sb.push("</dl>");
+	        		$(".body-container").append(sb.join(""));
+	        		$(".boxer").boxer({
+	        		    formatter: formatCaptions
+	        		});
+		        } ,
+				error:function (XMLHttpRequest, textStatus, errorThrown) {
+					  
+				}
+		    });
+    		
     	});
-	},
-	clickThumb : function(id){
-		var userID = $("#curUserID").val();
-		window.location.href="../user/PhotoMain.do?a=photo&id=" + userID + "&infoType=6&groupID=" + id; 
+    	
 	}
 }

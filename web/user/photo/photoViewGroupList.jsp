@@ -8,18 +8,20 @@
 <meta name="keywords" content="<c:out value="${keywords}"/>" />
 <meta name="description" content="<c:out value="${description}"/>" />
 <%@include file="../inc/csslink.inc"%>
-<link href="../user/photo/css/photo.css" rel="stylesheet" type="text/css"/>
+<link href="../js/plugin/boxer/jquery.fs.boxer.min.css" rel="stylesheet" type="text/css"/>
+<style>
+dt{
+	font-size:18px;
+	margin:10px;
+	font-weight:normal;
+}
+</style>
 </head>
 <body>
 <%@include file="../../inc/header.inc"%>
 <%@include file="../inc/peopleHeader.inc"%>
-<div class="people_profile">
-        <div class="project_list">
-		    <input type="hidden" id="opType" name="opType" value="view"/>
-			<div class="block1">
-			</div>
-		</div>
-    <div class="clear"></div>
+<div class="body-container">
+	
 </div>
 <!-- script -->
 <%@include file="../inc/script.inc"%>
@@ -33,6 +35,7 @@ var rootPath = "<%=com.tl.common.WebUtil.getRoot(request) %>";
 </script>
 <script type="text/javascript" src="../js/layer/layer.min.js"></script>
 <script type="text/javascript" src="../js/utils.js"></script>
+<script type="text/javascript" src="../js/plugin/boxer/jquery.fs.boxer.min.js"></script>
 <script type="text/javascript" src="../user/user/script/peopleDetail.js"></script>
 <script type="text/javascript" src="../user/photo/script/photoViewGroupList.js"></script>
 </body>

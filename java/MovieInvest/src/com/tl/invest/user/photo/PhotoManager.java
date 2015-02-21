@@ -38,9 +38,14 @@ public class PhotoManager {
 	
 	@SuppressWarnings("rawtypes")
 	public UserPhotogroup getGroupInfo(int id) throws Exception{
-		List list = DAOHelper.find("select a from com.tl.invest.user.photo.UserPhotogroup as a where a.id = :id", 
-        		new Integer(id), Hibernate.INTEGER);
-        return (UserPhotogroup) list.get(0);
+		List list = DAOHelper.find("select a from com.tl.invest.user.photo.UserPhotogroup as a where a.id = "+String.valueOf(id));
+		if(list.size()==0){
+			return null;
+		}
+		else{
+			return (UserPhotogroup) list.get(0);
+		}
+        
 	}
 	/** 
 	* @author  leijj 
@@ -152,6 +157,12 @@ public class PhotoManager {
 	public UserPhoto getPhotoInfo(int id) throws Exception{
 		List list = DAOHelper.find("select a from com.tl.invest.user.photo.UserPhoto as a where a.id = :id", 
         		new Integer(id), Hibernate.INTEGER);
-        return (UserPhoto) list.get(0);
+		if(list.size()==0){
+			return null;
+		}
+		else{
+			return (UserPhoto) list.get(0);
+		}
+        
 	}
 }

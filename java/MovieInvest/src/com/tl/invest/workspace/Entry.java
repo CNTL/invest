@@ -9,10 +9,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.tl.common.StringUtils;
 import com.tl.common.WebUtil;
+import com.tl.invest.constant.DicTypes;
 import com.tl.invest.sys.mu.Menu;
 import com.tl.invest.user.user.User;
 import com.tl.invest.user.user.UserManager;
 import com.tl.kernel.context.Context;
+import com.tl.kernel.sys.dic.DictionaryReader;
 import com.tl.kernel.web.BaseController;
 import com.tl.sys.common.SessionHelper;
 @SuppressWarnings({ "unchecked", "rawtypes", "unused"})
@@ -60,6 +62,13 @@ public class Entry extends BaseController {
 		}else {
 			user = new User(0);
 		}
+		try {
+			DictionaryReader dicReader = (DictionaryReader) Context.getBean(DictionaryReader.class);
+			model.put("cityname", dicReader.getDic(DicTypes.DIC_AREA.typeID(), Integer.parseInt(user.getCity(), 10)).getName());
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 		model.put("loginUser", user);
 		model.put("id", getInt(request, "id"));//页面传过来的数据id
 	}

@@ -49,6 +49,7 @@ public class PeopleController extends UserMainController {
 					Dictionary dic = dicReader.getDic(DicTypes.DIC_JOB_TYPE.typeID(), perJob);
 					user.setPerJobName(dic.getName());
 				}
+				user.setCity(dicReader.getDic(DicTypes.DIC_AREA.typeID(), Integer.parseInt(user.getCity(), 10)).getName());
 				model.put("user", user);
 			} else {
 				model.put("user", new User());
@@ -78,7 +79,10 @@ public class PeopleController extends UserMainController {
 		}
 		model.put("photos", list);
 		model.put("groupID", groupID);
-		model.put("groupName", group.getGroupName());
+		if(group!=null){
+			model.put("groupName", group.getGroupName());
+		}
+		
 		model.put("viewType", "photo");
 	}
 	@Override
