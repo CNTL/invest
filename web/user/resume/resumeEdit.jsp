@@ -7,7 +7,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="<c:out value="${keywords}"/>" />
 <meta name="description" content="<c:out value="${description}"/>" />
-<!-- <link rel="stylesheet" type="text/css" href="../js/plugin/AjaxFileUploaderV2.1/ajaxfileupload.css" /> -->
 <%@include file="../inc/csslink.inc"%>
 <link rel="stylesheet" type="text/css" href="../js/plugin/uploadify-3.2.1/uploadify.css"/>
 <link rel="stylesheet" type="text/css" href="../user/resume/css/resume.css">
@@ -24,43 +23,63 @@
         </ul>
     </div>
 </div>
-<div class="job_add">
-	<form class="setting-form" id="form" name="form" action="">
-	    <div class="input">
-	        <label for="name">简历名称：</label>
-	        <input type="hidden" id="id" name="id" value="<c:out value="${id}"/>"/>
-	        <input type="text" id="name" name="name" class="form-control validate[maxSize[255]]" value=""/>
-	        <br>
-	    </div>
-		<div class="input">
-             <label>简历内容：</label>
-             <div class="text">
-                 <textarea style="width:100px" id="contentTxt" name="contentTxt" class="form-control validate[maxSize[4000]]"></textarea>
-                 <input type="hidden" id="content" name="content" value=""/>
-             </div>
-             <div class="clear"></div>
-        </div>
-	    <div class="input">
-			<table style="width:100%;">
-				<tr>
-					<td valign="top" style="width:90px;">
-						<label>简历附件：</label>
-					</td>
-					<td>
+<div class="body-container">
+<br/>
+<form class="form-horizontal" role="form"  id="form" name="form" action="">
+        	
+        		  <div class="form-group">
+                      <label for="name" class="col-sm-2 control-label">简历名称：</label>
+                      <div class="col-sm-9">
+                           <input type="hidden" id="id" name="id" value="<c:out value="${id}"/>"/>
+	        			   <input type="text" id="name" name="name" class="form-control validate[maxSize[255]]" value=""/>
+                      </div>
+                  </div>
+                   <div class="form-group">
+                      <label for="name" class="col-sm-2 control-label">使用附件：</label>
+                      <div class="col-sm-9">
+		                  <div class="checkbox">
+						    <label>
+						     <input type="checkbox" id="usefile"> 
+						    </label>
+						  </div>
+                            
+                      </div>
+                  </div>
+              
+				  
+                  
+                  
+                  <div class="form-group" id="divcontent">
+                      <label for="name" class="col-sm-2 control-label">简历内容：</label>
+                      <div class="col-sm-9">
+                             <textarea  id="contentTxt" name="contentTxt" class="form-control validate[maxSize[4000]]"></textarea>
+                 			<input type="hidden" id="content" name="content" value=""/>
+                      </div>
+                  </div>
+                  
+                   <div class="form-group" id="divfile">
+                    <label for="identityCard" class="col-sm-2 control-label">简历附件：</label>
+                    
+					<input type="hidden" id="queueItemCount" name="queueItemCount" value="0" />
+					<input type="hidden" id="affix" name="affix" value="" />
+					<input type="hidden" id="uploadErrorMsg" name="uploadErrorMsg" value="" />
+					<div class="col-sm-2">
 						<input type="file" name="uploadify" id="uploadify" />
-						<input type="hidden" id="queueItemCount" name="queueItemCount" value="0" />
-						<input type="hidden" id="affix" name="affix" value="" />
-						<input type="hidden" id="uploadErrorMsg" name="uploadErrorMsg" value="" />
-					</td>
-				</tr>
-			</table>
-	    </div>
-	    <div id="coverIMG_div" style="display:none;position: absolute; z-index: 122; width:300px;height:50px;overflow:hidden;background:#fff;border:0px solid #C7C7C7;">
-		</div>
-	    <div class="btn">
-        	<input type="submit" id="btnSave" value="提交信息">
-        </div>
-	</form>
+					</div>
+                      <div class="col-sm-6">
+                          <div id="coverIMG_div" style="display:none;width:150px;height:150px;overflow:hidden;background:#fff;border:1px solid #C7C7C7;"></div>
+                      </div>
+                  </div>
+                  
+                  
+                  <div class="form-group">
+                     <div class="col-sm-12 text-center">
+                         <button type="submit" class="btn btn-primary" id="btnSave">保存信息</button>
+                     </div>
+                 </div>
+                 
+        	</form>
+ 
 </div>
 <div>
 <input type="hidden" id="type" name="type" value="<c:out value="${type}"/>" />

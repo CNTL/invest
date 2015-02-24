@@ -260,18 +260,21 @@ public class RecruitMainController extends Entry {
 	*/ 
 	private void detail(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception{
 		//判断是否完善了个人资料
+		User  usercur = userManager.getUserByCode(SessionHelper.getUserCode(request));
+		
+		if(!isCoverdInfo(usercur)){
+			model.put("isConverd", "0");
+		}
+		else{
+			model.put("isConverd", "1");
+		}
 		int id = ParamInitUtils.getInt(request.getParameter("id"));
 		if(id == 0) return;
 		UserRecruit recruit = recruitManager.getRecruitByID(id);
 		if(recruit == null) return;
 		recruit.setTime(DateUtils.format(recruit.getCreatetime(), "yyyy-MM-dd hh:mm:ss"));
 		User user = userManager.getUserByID(recruit.getUserId());
-		if(!isCoverdInfo(user)){
-			model.put("isConverd", "0");
-		}
-		else{
-			model.put("isConverd", "1");
-		}
+		 
 		String head = user.getHead();
 		if(head == null || head.length() == 0) head = "user/headImg/default.bmp";
 		user.setHead(WebUtil.getRoot(request).concat(head));

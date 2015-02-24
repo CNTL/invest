@@ -11,6 +11,17 @@ $(document).ready(function () {
 			}
 		}
 	});
+	$("#divfile").hide();
+	$("#divcontent").show();
+	$("#usefile").click(function(){
+		if($(this).prop("checked")){
+			$("#divfile").show();
+			$("#divcontent").hide();
+		}else{
+			$("#divfile").hide();
+			$("#divcontent").show();
+		}
+	});
 });
 var resume = {
 	init : function(){
@@ -32,7 +43,11 @@ var resume = {
 	    			$("#name").val(data[0].name);
 	    			$("#content").val(data[0].content);
 	    			$("#contentTxt").val(data[0].content);
+	    			
 	    			$("#affix").val(data[0].affix);
+	    			if(data[0].affix!=""){
+	    				$("#usefile").trigger("click");
+	    			}
 	    			resume.imgUploaded();
 	    		}
 	        } ,
