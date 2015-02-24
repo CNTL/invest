@@ -5,7 +5,10 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.ObjectUtils.Null;
+
 import com.tl.common.ResourceMgr;
+import com.tl.common.StringUtils;
 import com.tl.db.DBSession;
 import com.tl.db.IResultSet;
 import com.tl.invest.constant.DicTypes;
@@ -38,9 +41,9 @@ public class UserFetchController extends BaseController {
 		StringBuilder result = new StringBuilder();
 		result.append("[");
 		int i = 0;
-		int maxCount = 20;
+		int maxCount = 10;
 		
-		String sql = "SELECT id, code, name, perNickName FROM user where code like ?";
+		String sql = "SELECT id, code, name, perNickName,head FROM user where perNickName like '%"+name+"%' or name like '%"+name+"%'  or code like '%"+name+"%'";
 		
 		DBSession conn = null;
 		IResultSet rs = null;
@@ -49,11 +52,14 @@ public class UserFetchController extends BaseController {
 	    	//按数据库类型获得不同的查询个数限制语句
 	    	sql = conn.getDialect().getLimitString(sql, 0, maxCount);
 	    	
-	    	rs = conn.executeQuery(sql, new Object[]{name + "%"});
+	    	rs = conn.executeQuery(sql);
+	    	 
 			while (rs.next()) {
 				if (i++ > 0) result.append(",");
-				result.append("{key:\"").append(rs.getInt("id"))
-					.append("\",value:\"").append(rs.getString("code"))
+				result.append("{\"id\":\"").append(rs.getInt("id"))
+					.append("\",\"code\":\"").append((rs.getString("code")!=null)?rs.getString("code"):"")
+					.append("\",\"name\":\"").append((rs.getString("perNickName")!=null)?rs.getString("perNickName"):"")
+					.append("\",\"head\":\"").append(StringUtils.convertUrlChar((rs.getString("head")!=null)?rs.getString("head"):""))
 					.append("\"}");
 			}
 		} catch (Exception e) {

@@ -22,6 +22,7 @@ import com.tl.kernel.context.Context;
 import com.tl.kernel.context.DAO;
 import com.tl.kernel.context.DAOHelper;
 import com.tl.kernel.context.TBID;
+import com.tl.kernel.context.TLException;
 
 /** 
  * @created 2014年10月16日 上午11:06:22 
@@ -77,6 +78,95 @@ public class UserMsgManager {
 	    	conn = Context.getDBSession();
 	    	//按数据库类型获得不同的查询个数限制语句
 	    	sql = conn.getDialect().getLimitString(sql, 0, maxCount);
+	    	
+	    	rs = conn.executeQuery(sql, new Object[]{user.getId(),user.getId()});
+			while (rs.next()) {
+				User fromUser = userManager.getUserByID( rs.getInt("msg_fromID")) ;
+				User toUser = userManager.getUserByID( rs.getInt("msg_toID")) ;
+				
+				Map<String, String> oneResult = new HashMap<String, String>();
+				oneResult.put("msg_from", rs.getString("msg_from"));
+				oneResult.put("msg_fromID", rs.getString("msg_fromID"));
+				oneResult.put("msg_fromHead", fromUser.getHead());
+				oneResult.put("msg_to", rs.getString("msg_to"));
+				oneResult.put("msg_toID", rs.getString("msg_toID"));
+				oneResult.put("msg_toHead", toUser.getHead());
+				oneResult.put("msg_createTime", DateUtils.format(rs.getTimestamp("createTime"), "yyyy-MM-dd HH:mm:ss"));
+				oneResult.put("msg_content", rs.getString("msg_content"));
+				oneResult.put("msg_isread", rs.getString("msg_isRead"));
+				
+				oneResult.put("id", rs.getString("id"));
+				String countSql = "SELECT COUNT(1) AS msgNum FROM " + tablename
+						+ " WHERE (msg_fromID = ? and msg_toID = ?) or (msg_toID = ? and msg_fromID = ?)";
+				numRs = conn.executeQuery(countSql, new Object[]{user.getId(), rs.getString("msg_toID"), user.getId(), rs.getString("msg_toID")});
+				while (numRs.next()) {
+					oneResult.put("msgNum", numRs.getString("msgNum"));
+				}
+				result.add(oneResult);
+			}
+		} catch (Exception e) {
+			log.error(e);
+		} finally {
+			ResourceMgr.closeQuietly(numRs);
+			ResourceMgr.closeQuietly(rs);
+			ResourceMgr.closeQuietly(conn);
+		}
+		return result;
+	}
+	
+	/**得到当前用户的消息会话总数
+	 * @return
+	 * @throws TLException 
+	 */
+	public Integer getMyMsgsCount(int UserID) throws TLException{
+		 
+		int count = 0;
+	
+		String tablename = SysTableLibs.TB_USERMSG.getTableCode();
+		String sql = "select count(*) as count from (SELECT id  FROM "
+				+ tablename + " WHERE (msg_toID=? or msg_fromID=?)  GROUP BY msg_fromID ORDER BY createTime DESC) a";
+		
+		count = getSqlCount(sql, new Object[]{UserID,UserID},null);
+		return count;
+	}
+	public int getSqlCount(String sql,Object[] params,DBSession db) throws TLException{
+		int count =0;
+		boolean dbIsCreated = false;
+		if(db==null){
+			dbIsCreated = true;
+			db= Context.getDBSession();
+		}
+		IResultSet rs = null;
+		try{
+			//dbSession = Context.getDBSession();
+			rs = db.executeQuery(sql,params);
+			if(rs.next())
+				count = rs.getInt(1);
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}finally{
+			ResourceMgr.closeQuietly(rs);
+			if(dbIsCreated){
+				ResourceMgr.closeQuietly(db);
+			}
+		}
+		return count;
+	}
+	public List<Map<String, String>> getMyMsgs(User user,Integer pageIndex){
+		List<Map<String, String>> result = new ArrayList<Map<String, String>>();
+		//StringBuilder result = new StringBuilder();
+		int maxCount = 10;
+	    int start = (pageIndex -1)*10;
+		String tablename = SysTableLibs.TB_USERMSG.getTableCode();
+		String sql = "SELECT *  FROM "
+				+ tablename + " WHERE (msg_toID=? or msg_fromID=?)  GROUP BY msg_fromID ORDER BY createTime DESC";
+		DBSession conn = null;
+		IResultSet rs = null;
+		IResultSet numRs = null;
+		try {
+	    	conn = Context.getDBSession();
+	    	//按数据库类型获得不同的查询个数限制语句
+	    	sql = conn.getDialect().getLimitString(sql, start, maxCount);
 	    	
 	    	rs = conn.executeQuery(sql, new Object[]{user.getId(),user.getId()});
 			while (rs.next()) {

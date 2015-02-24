@@ -49,6 +49,11 @@ public class UserMsgController  extends BaseController {
 		else if("readMsgAll".equals(action)){//阅读所有消息
 			readMsgAll(request, response);
 		}
+		else if("getMyMsgsCount".equals(action)){//得到消息会话数
+			getMyMsgsCount(request, response);
+		}
+		
+		
 	}
 	
 	
@@ -91,7 +96,8 @@ public class UserMsgController  extends BaseController {
 	*/ 
 	private void getMyMsgs(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
-		List<Map<String, String>> result = userMsgManager.getMyMsgs(user);
+		Integer pageIndex = getInt(request, "pageIndex", 1);
+		List<Map<String, String>> result = userMsgManager.getMyMsgs(user,pageIndex);
 		JsonConfig jsonConfig = new JsonConfig();
 		jsonConfig.registerJsonValueProcessor(Timestamp.class,new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
 		jsonConfig.registerJsonValueProcessor(Date.class, new JsonDateValueProcessor()); 
@@ -99,6 +105,13 @@ public class UserMsgController  extends BaseController {
 		
 		output(json, response);
 	}
+	
+	private void getMyMsgsCount(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
+		int count = userMsgManager.getMyMsgsCount(user.getId());
+		output(String.valueOf(count), response);
+	}
+	
 	/** 
 	* @author  leijj 
 	* 功能： 按消息接收人查出所有消息

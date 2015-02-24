@@ -4,18 +4,98 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <%@include file="../../inc/meta.inc"%>
-    <link rel="stylesheet" type="text/css" media="screen" href="<c:out value="${rootPath}"/>js/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="../js/plugin/jquery-autocomplete/jquery.autocomplete.css">
 	<script type="text/javascript" src="../js/layer/layer.min.js"></script>
+	<script type="text/javascript" src="../js/plugin/jquery-autocomplete/jquery.autocomplete.js"></script>
+	
 	<script type="text/javascript">
 		var webroot = "<c:out value="${rootPath}"/>";
 		var menu = "<c:out value="${menu}"/>";
+		var pageIndex = 1;
 		$(function(){
-			
+			$.get("../user/msg.do?a=getMyMsgsCount", function(data){
+				   $("#pageAll").text(data);
+				});
+			$("#pageCurrent").text(pageIndex);
 			loadMsg();
-			 
+			autouser();
+			
+			$("#pageNext").click(function(){
+				var pageall = parseInt($("#pageAll").text(),10);
+				var maxPage = 10;//Math.ceil(pageall/10);
+				if(pageIndex<maxPage){
+					pageIndex = pageIndex+1;
+					$("#pageCurrent").trigger("click");
+					loadMsg();
+				}
+			});
+			
+			$("#pagePre").click(function(){
+				if(pageIndex>1){
+					pageIndex = pageIndex-1;
+					$("#pageCurrent").trigger("click");
+					loadMsg();
+				}
+			});
+			
+			$("#pageCurrent").click(function(){
+				$(this).text(pageIndex);
+			});
+		 
+			$("#btnsendmsg").click(function(){
+				if($("#btnsendmsg").attr("url")&&$("#username").val()!=""){
+					window.location.href = $("#btnsendmsg").attr("url");
+				}
+			});
 		});
+		function autouser(){
+			$("#username").autocomplete("../user/userFetch.do?a=find", {
+			    minChars: 1,
+			    width: 310,
+			    dataType:"json",
+			    mustMatch: true,
+			    matchContains: true,
+			    autoFill: false,
+			    parse:function(data){
+			    	return $.map(data, function(row) {
+		                return {
+		                    data: row,
+		                    value: row.name,
+		                    result: row.name
+		                }
+		            });
+
+			    },
+			    formatItem: function(row, i, max) {
+			        
+			        var sb = [];
+			        sb.push("<table>");
+			        sb.push("<tr>");
+			        sb.push("<td style=\"width:60px;height:60px;padding:0;margin:0;\">");
+			        sb.push("<img class=\"img-circle\" style=\"width:60px;height:60px;\" src=\""+webroot+row.head+"\" alt=\"\" />");
+			        sb.push("</td>");
+			        sb.push("<td style=\"padding:5px;\">");
+			        sb.push(row.name);
+			        sb.push("</td>");
+			        sb.push("</tr>");
+			        sb.push("</table>");
+			        return sb.join("");
+			    },
+			    formatMatch: function(row, i, max) {
+			        return row.name + " " + row.code;
+			    },
+			    formatResult: function(row) {
+			        return row.name;
+
+			    }
+			}).result(function(event, row, formatted) {
+                
+                $("#btnsendmsg").attr("url","../user/MsgDetailMa.do?msguserid="+row.id);
+            });
+		}
 		function loadMsg(){
-			$.getJSON("../user/msg.do?a=getMyMsgs", function(json){
+			
+			$.getJSON("../user/msg.do?a=getMyMsgs&pageIndex="+pageIndex, function(json){
 				  var tb = $("#msgtable");
 				  var sb = [];
 				  $.each(json,function(i,n){
@@ -150,7 +230,6 @@
 	
 	<div class="people_globaltop">
            <div class="wrap">
-<!--             <a href="../org/BasicInfo.do?infoType=1&mainType=1" class="profile">个人设置</a> -->
             <div class="avavtar">
                 <img style="border-radius: 50%;" src="<c:out value="${loginUser.head}"/>" />
             </div>
@@ -186,7 +265,19 @@
     </div>
 			
 	<div class="people_profile">
-		 
+	<form class="form-horizontal" style="padding:0;margin:0;" role="form">
+		<div class="form-group">
+		    <label for="inputEmail3" class="col-sm-1 control-label" style="width:100px;font-size:16px;">收件人：</label>
+		    <div class="col-sm-4">
+		      <input type="text" class="form-control" id="username" placeholder="请输入用户名或用户编码或用户ID">
+		    </div>
+		    <div class="col-sm-2">
+		    	<a  id="btnsendmsg" class="btn btn-success">发送消息</a>
+		    </div>
+		  </div>
+		
+	</form>
+	 
 		<div class="content" style="float:left;width:100%;">
 		
 		 
@@ -204,7 +295,10 @@
 		</div>
 		<div class="clear"></div>
 		<div class="pager">
-			分页
+			<span class="count">总记录数：</span><span id="pageAll" title="总记录数" class="count">1 </span>
+			<a id="pagePre" class="prev" href="javascript:void();">上一页</a>
+			<a id="pageCurrent" class="current" href="javascript:void();">1</a>
+			<a id="pageNext" class="prev" href="javascript:void();">下一页</a>
 		</div>
 	</div>
 	

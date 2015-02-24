@@ -23,7 +23,24 @@
 		});
 		function loadMsg(){
 			var msguserid = $.query.get("msguserid");
-			
+			 $.getJSON("../user/user.do?a=getUser&id="+msguserid,function(json){
+				if(json){
+					 var tbmsg = $("#tb-msguser");
+					 var msg = [];
+					   msg.push("<tr>");
+					   msg.push("<td class=\"span2\" style=\"width:100px;\">");
+					   msg.push("<a href=\"#\" target=\"_blank\">");
+					   msg.push("<img class=\"img-circle\" style=\"width:60px;height: 60px;\" src=\"../"+json.head+"\" />	</a>");
+					   msg.push("<p></p></td>");
+					   msg.push("<td  class=\"span12\">");
+					   msg.push("<a href=\"#\" target=\"_blank\" style=\"font-size:14px;\">"+json.perNickName+"</a>");
+					   msg.push("<small><p>"+json.intro+"</p></small>");
+					   msg.push("</td>");
+					   msg.push("</tr>");
+					   tbmsg.append(msg.join(""));
+				}
+				
+			 });
 			$.getJSON("../user/msg.do?a=getTalkList&msguserid="+msguserid, function(json){
 				  var list = $("#chat-list");
 				  var sb = [];
@@ -42,35 +59,7 @@
 	    			   sb.push("<p class=\"chat_content line_break\">");
 	    			   sb.push(n.msg_content+"</p>");
 	    			   sb.push("</li>");
-	    			    
-	    			   if(i==0){
-	    				   var tbmsg = $("#tb-msguser");
-	    				   var head = n.msg_fromHead;
-	    				   var name = n.msg_from;
-	    				   var intro = n.msg_fromIntro;
-	    				   $("#msg_to").val(n.msg_from);
-	    				   $("#msg_toID").val(n.msg_fromID);
-	    				   if($("#userID").val().toString()==n.msg_fromID){
-	    					   head = n.msg_toHead;
-	    					   name = n.msg_to;
-	    					   intro = n.msg_toIntro;
-	    					   $("#msg_to").val(n.msg_to);
-		    				   $("#msg_toID").val(n.msg_toID);
-	 					  }
-	    				   var msg = [];
-	    				   msg.push("<tr>");
-	    				   msg.push("<td class=\"span2\" style=\"width:100px;\">");
-	    				   msg.push("<a href=\"#\" target=\"_blank\">");
-	    				   msg.push("<img class=\"img-circle\" style=\"width:60px;height: 60px;\" src=\"../"+head+"\" />	</a>");
-	    				   msg.push("<p></p></td>");
-	    				   msg.push("<td  class=\"span12\">");
-	    				   msg.push("<a href=\"#\" target=\"_blank\" style=\"font-size:14px;\">"+name+"</a>");
-	    				   msg.push("<small><p>"+intro+"</p></small>");
-	    				   msg.push("</td>");
-	    				   msg.push("</tr>");
-	    				   tbmsg.append(msg.join(""));
-	    			   }
-	    			  
+
 				  });
 				  
 				  list.empty();
@@ -103,10 +92,7 @@
 		
 	</script>
 	<style>
-	 ul, ol {
-		padding: 0;
-		margin: 0 0 10px 25px;
-	}
+	  
 	small {
 	font-size: 85%;
 	}
@@ -168,12 +154,13 @@
 	<input type="hidden" id="msg_toID" value="" />
 	<div class="people_globaltop">
                <div class="wrap">
-            <a href="../org/BasicInfo.do?infoType=1&mainType=1" class="profile">个人设置</a>
+            
             <div class="avavtar">
                 <img style="border-radius: 50%;" src="<c:out value="${loginUser.head}"/>" />
             </div>
             <div class="info">
-                <h2><c:out value="${loginUser.perNickName}"/>
+                 <h2><c:out value="${loginUser.perNickName}"/> 
+                
 					<span>
 						<c:choose>
 							<c:when test="${loginUser.type==0}">个人</c:when>
@@ -181,11 +168,18 @@
 							<c:otherwise>未知</c:otherwise>
 						</c:choose>
 					</span>
+					<span>
+	                  	<c:choose>
+							<c:when test="${loginUser.isRealNameIdent==1}">已认证</c:when>
+							<c:otherwise>未认证</c:otherwise>
+					 	</c:choose>
+					 	</span>
 				 </h2>
                 <div class="desc">
-                    <c:out value="${loginUser.intro}"/><br />
-                    姓名：<c:out value="${loginUser.name}"/><br />
+                   <div> <c:out value="${loginUser.perJobName}"/>、<c:out value="${cityname}"/></div>
                    
+                  <br />
+                    
                 </div>
             </div>
             <div class="clear"></div>
@@ -196,9 +190,9 @@
     </div>
 			
 	<div class="people_profile">
-		 
+		 <div class="text-right"> <a href="../user/MsgMa.do?infoType=1&mainType=4" class="btn btn-info"> 消息中心</a></div>
 		<div class="content" style="float:left;width:100%;border:1px solid #F5F5F5;">
-
+		
 			<table class="table" id="tb-msguser">
 				<tbody>
 <!-- 					<tr> -->
@@ -214,7 +208,7 @@
 <!-- 					</tr> -->
 				</tbody>
 			</table>
-			<ul class="chat_ul" id="chat-list">
+			<ul class="chat_ul" id="chat-list" style="margin: 0 0 10px 25px;padding:0;">
 <!-- 				    <li> -->
 <!-- 				    <div class=" old_list chat_right"> -->
 <!-- 					    <p class="chat_time">02月09日 22:12</p> -->
@@ -227,7 +221,7 @@
 		     </ul>
 			 <textarea class="form-control" id="txt-content" rows="3"></textarea>
 			 <div style="text-align:right;"><kbd><kbd>Ctrl</kbd> + <kbd>Enter</kbd></kbd>
-			 快捷回复<button id="btn-reply" class="btn btn-primary" style="padding:6px 12px;margin:5px;" type="button">回复</button></div>
+			 快捷回复<button id="btn-reply" class="btn btn-success" style="padding:6px 12px;margin:5px;" type="button">回复</button></div>
 		</div>
 		<div class="clear"></div>
 	</div>

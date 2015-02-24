@@ -247,7 +247,15 @@ public class StringUtils {
 		}
 		return returnVal;
 	}
-	
+	/* 转换字符\为/字符 */
+	public final static String convertUrlChar(String s){
+		if(isEmpty(s)){
+			return "";
+		}else{
+			return s.replace("\\", "/");
+		}
+		
+	}
 	/** String -> Character，如果转换不成功则返回 null */
 	public final static Character toChar(String s)
 	{
