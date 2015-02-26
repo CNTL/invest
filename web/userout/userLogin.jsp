@@ -49,7 +49,7 @@
 	<%@include file="./inc/script.inc"%>
 	<!-- script -->
 	<script type="text/javascript">
-	var rootPath = "<%=com.tl.common.WebUtil.getRoot(request) %>";
+	var rootPath = "<c:out value="${rootPath}"/>";
 	</script>    
     <script type="text/javascript" src="../js/utils.js"></script>
 	<script type="text/javascript" src="../userout/script/validate-login.js"></script>

@@ -93,7 +93,7 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, 
     <script src="../js/plugin/bs-validation/bs-validation.js"></script>
    
 	<script type="text/javascript">
-	var rootURL = "<%=com.tl.common.WebUtil.getRoot(request) %>";
+	var rootURL = "<c:out value="${rootPath}"/>";
 	</script>
 	<!-- script -->  
 	 <script type="text/javascript" src="../js/utils.js"></script>

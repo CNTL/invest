@@ -29,7 +29,7 @@ var findPwd = {
 	    		$("#btnSave").attr("disabled", false);
 	        } ,
 			error:function (XMLHttpRequest, textStatus, errorThrown) {
-				   alert(errorThrown);
+				   //alert(errorThrown);
 			}
 	    });
 	}
