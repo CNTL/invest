@@ -86,12 +86,13 @@
 		                    '<div class="desc">' + intro + '</div>' + 
 		                '</div>' + 
 		                '<div class="tool">' + 
-		                    '<a href="#" class="share">分享</a>' + 
-		                    '<a href="#" class="view"></a>' + 
+		                    '<a data-url="'+rootPath+'user/PeopleDetailMain.do?a=detail&mainType=4&id='+id+'" class="share">分享</a>' + 
+		                    '<a href="'+rootPath+'user/PeopleDetailMain.do?a=detail&mainType=4&id='+id+'" class="view"></a>' + 
 		                '</div>' + 
 		            '</div>' + 
 		            '<div class="box_bottom"></div>'; 
 		            $("#curDiv" + type).append(html);
+		            shareInfo();
 	    	});
 		}
     </script>
@@ -151,8 +152,8 @@
 				                    </div>
                                 </div>
                                 <div class="tool">
-                                    <a href="#" class="share">分享</a>
-                                    <a href="#" class="view"></a>
+                                    <a data-url="<c:out value="${rootPath}"/>user/PeopleDetailMain.do?a=detail&mainType=4&id=<c:out value="${person.id}"/>" class="share">分享</a>
+                                    <a href="<c:out value="${rootPath}"/>user/PeopleDetailMain.do?a=detail&mainType=4&id=<c:out value="${person.id}"/>" class="view"></a>
                                 </div>
                             </div>
                             <div class="box_bottom"></div>

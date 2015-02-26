@@ -188,8 +188,8 @@
                         </div>
                     </div>
                     <div class="tool">
-                        <a href="#" class="share">分享</a>
-                        <a href="#" class="view"></a>
+                        <a data-url="<c:out value="${rootPath}"/>user/recruit.do?a=detail&mainType=3&id=${msg.id}" class="share">分享</a>
+                        <a href="../user/recruit.do?a=detail&mainType=3&id=${msg.id}" class="view"></a>
                     </div>
                 </div>
                 <div class="box_bottom"></div>
@@ -243,10 +243,7 @@
 	var typeFlag = "<%=request.getParameter("recruitType") %>";
 	var rootPath = "<%=com.tl.common.WebUtil.getRoot(request) %>";
  </script>
-
-<script type="text/javascript" src="../static/js/jquery-migrate-1.1.1.js"></script>
 <script type="text/javascript" src="../static/js/jQselect.js"></script>
- <script type="text/javascript" src="../js/bootstrap/js/bootstrap.min.js"></script>
 <script src = "../user/recruit/script/recruitList.js"></script>
 
 </body>

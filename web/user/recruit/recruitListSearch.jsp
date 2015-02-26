@@ -353,8 +353,8 @@
                         </div>
                     </div>
                     <div class="tool">
-                        <a href="#" class="share">分享</a>
-                        <a href="#" class="view"></a>
+                        <a data-url="<c:out value="${rootPath}"/>user/recruit.do?a=detail&mainType=3&id=${msg.id}" class="share">分享</a>
+                        <a href="../user/recruit.do?a=detail&mainType=3&id=${msg.id}" class="view"></a>
                     </div>
                 </div>
                 <div class="box_bottom"></div>
@@ -405,7 +405,7 @@
 
 <script>
 	var typeFlag = "<%=request.getParameter("recruitType") %>";
-	var rootPath = "<%=com.tl.common.WebUtil.getRoot(request) %>";
+	var rootPath = "<c:out value="${rootPath}"/>";
  </script>
 
 <script type="text/javascript" src="../static/js/jQselect.js"></script>

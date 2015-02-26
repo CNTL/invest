@@ -46,7 +46,7 @@
 		</div>
     </div>
 			
-	<div class="people_profile">
+	<div class="body-container">
 		<div class="content" style="float:left;width:100%;">
 			<c:choose>
 			<c:when test="${menu==1 || menu==3}">

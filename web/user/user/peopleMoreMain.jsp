@@ -111,8 +111,8 @@
 	                        <c:out value="${person.intro}"/>
 	                    </div>
 	                    <div class="tool">
-	                        <a href="#" class="share">分享</a>
-	                        <a href="#" class="view"></a>
+	                        <a data-url="<c:out value="${rootPath}"/>user/PeopleDetailMain.do?a=detail&mainType=4&id=<c:out value="${person.id}"/>" class="share">分享</a>
+	                        <a href="../user/PeopleDetailMain.do?a=detail&mainType=4&id=<c:out value="${person.id}"/>" class="view"></a>
 	                    </div>
 	                </div>
 	                <div class="box_bottom"></div>

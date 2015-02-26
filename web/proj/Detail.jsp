@@ -43,8 +43,7 @@
 </head>
 <body>
 	<%@include file="../inc/header.inc"%>
-	<div class="shadow">
-    </div>
+	<div class="shadow"></div>
 	<div class="project_view">
         <div class="main">
             <div class="content">

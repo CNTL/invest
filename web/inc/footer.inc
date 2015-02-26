@@ -52,7 +52,6 @@
             <a class="bds_tqq" data-cmd="tqq"></a>
         </div>
     </div>
-	<script type="text/javascript" src="js/plugin/artdialog/dist/dialog-plus.js"></script>
 	<script type="text/javascript">
 		 
 		 window._bd_share_config = {

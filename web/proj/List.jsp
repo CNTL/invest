@@ -4,8 +4,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <%@include file="../inc/meta.inc"%>
-    <script type="text/javascript" src="../js/utils.js"></script>
-	<script type="text/javascript" src="../js/share.js"></script>
 	<script type="text/javascript">
 		var webroot = "<c:out value="${rootPath}"/>";
 		$(function(){
@@ -86,8 +84,8 @@
                         </div>
                     </div>
                     <div class="tool">
-							<a href="javascript:void();" class="share">分享</a>
-							<a href="javascript:void();" class="view"></a>
+							<a data-url="<c:out value="${rootPath}"/>project/Project.do?id=<c:out value="${proj.id}"/>" class="share">分享</a>
+							<a href="<c:out value="${rootPath}"/>project/Project.do?id=<c:out value="${proj.id}"/>" class="view"></a>
                     </div>
                 </div>
                 <div class="box_bottom"></div>
@@ -155,8 +153,8 @@
 							</div>
 						</div>
 						<div class="tool">
-							<a href="javascript:void();" class="share">分享</a>
-							<a href="javascript:void();" class="view"></a>
+							<a data-url="<c:out value="${rootPath}"/>project/Project.do?id=<c:out value="${proj.id}"/>" class="share">分享</a>
+							<a href="<c:out value="${rootPath}"/>project/Project.do?id=<c:out value="${proj.id}"/>" class="view"></a>
 						</div>
 					</div>
 					<div class="box_bottom"></div>
@@ -224,8 +222,8 @@
                         </div>
                     </div>
                     <div class="tool">
-                        <a href="javascript:void();" class="share">分享</a>
-                        <a href="javascript:void();" class="view"></a>
+                        <a data-url="<c:out value="${rootPath}"/>project/Project.do?id=<c:out value="${proj.id}"/>" class="share">分享</a>
+                        <a href="<c:out value="${rootPath}"/>project/Project.do?id=<c:out value="${proj.id}"/>" class="view"></a>
                     </div>
                 </div>
                 <div class="box_bottom"></div>
