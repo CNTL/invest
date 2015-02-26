@@ -12,6 +12,7 @@
  
 	<script type="text/javascript">
 		var webroot = "<c:out value="${rootPath}"/>";
+		
 		var pageIndex = 1;
 		$(function () {
 			setCookie("loginCurrentUrl", window.location.href);
@@ -85,11 +86,8 @@
 				  $('#container').masonry( 'destroy' );
 				  $('#container').append(items);//.masonry('appended',items);
 				  waterpull();
-				  //shareInfo();
-				  $.getScript('http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)+Math.round(new Date().getTime()/1000),function(){
-						//newFun('"Checking new script"');//这个函数是在new.js里面的，当点击click后运行这个函数
-						//alert("loaded");
-					});
+				  shareInfo();
+				  
 			});
 
 			
@@ -147,9 +145,9 @@
 				sb.push("        </div>");
 				sb.push("        <div class=\"tool\">");
 				sb.push("            <div class=\"bdsharebuttonbox\" style=\"width:60px;float:left;\">");
-				sb.push("				<a href=\"javascript:void();\" class=\"bds_more share\" style=\"margin: 0px 0px 0px 10px;\" data-cmd=\"more\">分享</a>");
+				sb.push("				<a data-url=\""+webroot+"project/Project.do?id="+n.id+"\" class=\"bds_more share\" style=\"margin: 0px 0px 0px 10px;\" data-cmd=\"more\">分享</a>");
 				sb.push("			 </div>");
-				sb.push("            <a href=\"#\" class=\"view\"></a>");
+				sb.push("            <a href=\"project/Project.do?id="+n.id+"\" class=\"view\"></a>");
 				sb.push("        </div>");
 				sb.push("    </div>");
 				sb.push("    <div class=\"box_bottom\"></div>");
@@ -186,9 +184,9 @@
 				sb.push("        </div>");
 				sb.push("        <div class=\"tool\">");
 				sb.push("            <div class=\"bdsharebuttonbox\" style=\"width:60px;float:left;\">");
-				sb.push("				<a href=\"javascript:void();\" class=\"bds_more share\" style=\"margin: 0px 0px 0px 10px;\" data-cmd=\"more\">分享</a>");
+				sb.push("				<a data-url=\""+webroot+"recruit/DetailMain.do?a=detail&id="+n.id+"\" class=\"bds_more share\" style=\"margin: 0px 0px 0px 10px;\" data-cmd=\"more\">分享</a>");
 				sb.push("			 </div>");
-				sb.push("			<a href=\"#\" class=\"view\"></a>");
+				sb.push("			<a href=\"recruit/DetailMain.do?a=detail&id="+n.id+"\" class=\"view\"></a>");
 				sb.push("        </div>");
 				sb.push("    </div>");
 				sb.push("    <div class=\"box_bottom\"></div>");
@@ -213,9 +211,9 @@
 				sb.push("        <div class=\"desc\">"+n.intro+"</div>");
 				sb.push("        <div class=\"tool\">");
 				sb.push("            <div class=\"bdsharebuttonbox\" style=\"width:60px;float:left;\">");
-				sb.push("				<a href=\"javascript:void();\" class=\"bds_more share\" style=\"margin: 0px 0px 0px 10px;\" data-cmd=\"more\">分享</a>");
+				sb.push("				<a data-url=\""+webroot+"user/PeopleDetailMain.do?a=detail&id="+n.id+"\" class=\"bds_more share\" style=\"margin: 0px 0px 0px 10px;\" data-cmd=\"more\">分享</a>");
 				sb.push("			 </div>");
-				sb.push("			<a href=\"#\" class=\"view\"></a>");
+				sb.push("			<a href=\"user/PeopleDetailMain.do?a=detail&id="+n.id+"\" class=\"view\"></a>");
 				sb.push("        </div>");
 				sb.push("    </div>");
 				sb.push("    <div class=\"box_bottom\"></div>");
@@ -319,8 +317,8 @@
                  </div>
              </div>
              <div class="tool">
-                 <a href="#" class="share">分享</a>
-                 <a href="#" class="view"></a>
+                 <a data-url="<c:out value="${rootPath}"/>project/Project.do?id=<c:out value="${proj.id}"/>" class="share">分享</a>
+                 <a href="project/Project.do?id=<c:out value="${proj.id}"/>" class="view"></a>
              </div>
          </div>
          <div class="box_bottom"></div>
@@ -386,8 +384,8 @@
                  </div>
              </div>
              <div class="tool">
-                 <a href="#" class="share">分享</a>
-                 <a href="#" class="view"></a>
+                 <a data-url="<c:out value="${rootPath}"/>project/Project.do?id=<c:out value="${proj.id}"/>" class="share">分享</a>
+                 <a href="project/Project.do?id=<c:out value="${proj.id}"/>" class="view"></a>
              </div>
          </div>
          <div class="box_bottom"></div>
@@ -418,7 +416,7 @@
 					</div>
 				</div>
 				<div class="tool">
-					<a href="#" class="share">分享</a> <a href="#" class="view"></a>
+					<a data-url="<c:out value="${rootPath}"/>recruit/DetailMain.do?a=detail&id=<c:out value="${recuit.id}"/>" class="share">分享</a> <a href="recruit/DetailMain.do?a=detail&id=<c:out value="${recuit.id}"/>" class="view"></a>
 				</div>
 			</div>
 			<div class="box_bottom"></div>
@@ -437,7 +435,7 @@
 			</div>
 			<div class="desc"><c:out value="${user.intro}"/></div>
 			<div class="tool">
-				<a href="#" class="share">分享</a> <a href="#" class="view"></a>
+				<a data-url="<c:out value="${rootPath}"/>user/PeopleDetailMain.do?a=detail&id=<c:out value="${user.id}"/>" class="share">分享</a> <a href="user/PeopleDetailMain.do?a=detail&id=<c:out value="${user.id}"/>" class="view"></a>
 			</div>
 		</div>
 		<div class="box_bottom"></div>

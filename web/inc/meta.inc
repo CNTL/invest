@@ -10,6 +10,7 @@
 <link rel="stylesheet" type="text/css" media="screen" href="<c:out value="${rootPath}"/>js/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="<c:out value="${rootPath}"/>static/css/reset.css" />
 <link rel="stylesheet" type="text/css" href="<c:out value="${rootPath}"/>static/css/index.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="<c:out value="${rootPath}"/>/js/plugin/artdialog/css/ui-dialog.css">
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 
 <script type="text/javascript" src="<c:out value="${rootPath}"/>js/jquery/jquery.min.js"></script>
