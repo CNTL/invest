@@ -138,7 +138,7 @@
 					<a href="javascript:void(0);" onclick="addFavorite(<c:out value="${proj.id}"/>);" style="background-image: url(../static/image/sc.png);">收藏</a>
 					</c:if>
 					<c:if test="${favorited==1}">
-					<a href="javascript:void(0);" style="background-image: url(../static/image/sc.png);">已收藏</a>
+					<a href="javascript:void(0);" >已收藏</a>
 					</c:if>
 				</div>
 
