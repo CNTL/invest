@@ -49,6 +49,8 @@ public class RecruitMainController extends Entry {
 			updateRecruitSubscibe(request,response,model);
 		}else if("cancelRecruitSubscibe".equals(action)){
 			cancelRecruitSubscibe(request,response,model);
+		}else if("isConverdInfo".equals(action)){
+			isConverdInfo(request,response,model);
 		}
 		else{//直接进入招聘信息列表
 			Dictionary[] types = recruitManager.types();
@@ -250,6 +252,15 @@ public class RecruitMainController extends Entry {
 		model.put("description", "合众映画");
 	}
 	
+	private void isConverdInfo(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception{
+		User  usercur = userManager.getUserByCode(SessionHelper.getUserCode(request));
+		 int ret = 0;
+		if(isCoverdInfo(usercur)){
+			ret = 1;
+		}
+		 
+		output(String.valueOf(ret), response);
+	}
 	/** 
 	* @author  leijj 
 	* 功能： 获取招聘信息详细信息
@@ -260,14 +271,7 @@ public class RecruitMainController extends Entry {
 	*/ 
 	private void detail(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception{
 		//判断是否完善了个人资料
-		User  usercur = userManager.getUserByCode(SessionHelper.getUserCode(request));
-		
-		if(!isCoverdInfo(usercur)){
-			model.put("isConverd", "0");
-		}
-		else{
-			model.put("isConverd", "1");
-		}
+
 		int id = ParamInitUtils.getInt(request.getParameter("id"));
 		if(id == 0) return;
 		UserRecruit recruit = recruitManager.getRecruitByID(id);

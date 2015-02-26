@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.tl.common.StringUtils;
 import com.tl.invest.constant.DicTypes;
 import com.tl.invest.user.photo.PhotoManager;
 import com.tl.invest.user.photo.UserPhoto;
@@ -49,7 +50,10 @@ public class PeopleController extends UserMainController {
 					Dictionary dic = dicReader.getDic(DicTypes.DIC_JOB_TYPE.typeID(), perJob);
 					user.setPerJobName(dic.getName());
 				}
-				user.setCity(dicReader.getDic(DicTypes.DIC_AREA.typeID(), Integer.parseInt(user.getCity(), 10)).getName());
+				if(!StringUtils.isEmpty(user.getCity())){
+					user.setCity(dicReader.getDic(DicTypes.DIC_AREA.typeID(), Integer.parseInt(user.getCity(), 10)).getName());
+				}
+				
 				model.put("user", user);
 			} else {
 				model.put("user", new User());

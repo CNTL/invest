@@ -21,7 +21,7 @@
 		<input type="hidden" id="cityId_h" name="cityId_h" value="${recruit.cityId}"/>
       		  <div class="form-group">
                     <label for="jobName" class="col-sm-3 control-label">招聘主题：</label>
-                    <div class="col-sm-9">
+                    <div class="col-sm-6">
                         <input type="text" class="form-control validate[maxSize[255],required]" id="jobName" name="jobName" value="${recruit.jobName}" placeholder="招聘主题">
                     </div>
                 </div>
@@ -44,7 +44,7 @@
                 </div>
                 
                   <div class="form-group">
-                    <label for="uploadify" class="col-sm-4 control-label">招聘图片：</label>
+                    <label for="uploadify" class="col-sm-3 control-label">招聘图片：</label>
                     
 						<input type="hidden" id="queueItemCount" name="queueItemCount" value="0" />
 						<input type="hidden" id="jobPictrue" name="jobPictrue" value="" />
@@ -58,21 +58,21 @@
                   </div>
                 <div class="form-group">
                     <label for="jobName" class="col-sm-3 control-label">薪资待遇：</label>
-                    <div class="col-sm-9">
+                    <div class="col-sm-6">
                         <input class="form-control validate[maxSize[255]]" type="text" id="salary" name="salary" value="${recruit.salary}" placeholder="薪资待遇"/>
                     </div>
                 </div>
                 
                 <div class="form-group">
                     <label for="jobName" class="col-sm-3 control-label">工作时长：</label>
-                    <div class="col-sm-9">
+                    <div class="col-sm-6">
                         <input class="form-control validate[maxSize[255]]" type="text" id="days" name="days" value="${recruit.days}" placeholder="工作时长"/>（天）
                     </div>
                 </div>
                 
                 <div class="form-group">
                     <label for="jobName" class="col-sm-3 control-label">经验要求：</label>
-                    <div class="col-sm-9">
+                    <div class="col-sm-6">
                          <input class="form-control validate[maxSize[255]]" type="text" id="working" name="working" value="${recruit.working}" placeholder="经验要求"/>
                     </div>
                 </div>
@@ -102,33 +102,33 @@
                 
                  <div class="form-group">
                     <label for="jobAttract" class="col-sm-3 control-label">职位诱惑：</label>
-                    <div class="col-sm-9">
+                    <div class="col-sm-6">
                          <input class="form-control validate[maxSize[255],required]" type="text" id="jobAttract" name="jobAttract" value="${recruit.jobAttract}" placeholder="职位诱惑"/>
                     </div>
                 </div>
                 
                  <div class="form-group">
                     <label for="contentTxt" class="col-sm-3 control-label">招聘内容：</label>
-                    <div class="col-sm-9">
+                    <div class="col-sm-6">
 					<textarea id="contentTxt" name="contentTxt" class="form-control validate[maxSize[4000]]"><c:out escapeXml="false" value="${recruit.content}"/></textarea>
                  	<input type="hidden" id="content" name="content" value=""/>
                     </div>
                 </div>
                   <div class="form-group">
                     <label for="linkman" class="col-sm-3 control-label">联系人：</label>
-                    <div class="col-sm-9">
+                    <div class="col-sm-6">
                          <input class="form-control validate[maxSize[255],required]" type="text" id="linkman" name="linkman" value="${recruit.linkman}" placeholder="联系人"/>
                     </div>
                 </div>
                      <div class="form-group">
                     <label for="linkPhone" class="col-sm-3 control-label">联系电话：</label>
-                    <div class="col-sm-9">
+                    <div class="col-sm-6">
                          <input class="form-control validate[maxSize[255],required]" type="text" id="linkPhone" name="linkPhone" value="${recruit.linkPhone}" placeholder="联系电话"/>
                     </div>
                 </div>
                     <div class="form-group">
                     <label for="linkPhone" class="col-sm-3 control-label">联系邮箱：</label>
-                    <div class="col-sm-9">
+                    <div class="col-sm-6">
                          <input class="form-control validate[maxSize[255],custom[email]]" type="text" id="linkEmail" name="linkEmail" value="${recruit.linkEmail}" placeholder="联系邮箱"/>
                     </div>
                 </div>
@@ -141,7 +141,7 @@
       	</form>
 	 
 </div>
-<input type="hidden" id="isConverd" value="<c:out value="${isConverd}"/>" />
+ 
 
 <!-- footer -->
 <%@include file="../../inc/footer.inc"%>

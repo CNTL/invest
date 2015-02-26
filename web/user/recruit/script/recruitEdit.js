@@ -1,33 +1,36 @@
 $(document).ready(function () {
-	if($("#isConverd").val()==0){
-		
-		AlertInfo(390,26,"你还没有完善详细资料。页面将跳转到详细资料页面。",converInfo);
-	}else{
-		var init = function() {
-			if (!type_datas || !type_datas.ready) {
-				setTimeout(init, 100);
-				return;
-			}
-			
-			if (!city_datas || !city_datas.ready) {
-				setTimeout(init, 100);
-				return;
-			}
-			jobEdit.init();
-			//初始化
-			$("#form").validationEngine({
-				autoPositionUpdate:true,
-				onValidationComplete:function(from,r){
-					if (r){
-						window.onbeforeunload = null;
-						$("#btnSave").attr("disabled", true);
-						jobEdit.submit();
-					}
+	 
+	$.get("../recruit/ListMain.do?a=isConverdInfo", function(data){
+		if(data=="0"){
+			$.messager.popup("你还没有完善详细资料。页面将跳转到详细资料页面。",converInfo);
+		}else{
+			var init = function() {
+				if (!type_datas || !type_datas.ready) {
+					setTimeout(init, 100);
+					return;
 				}
-			});
+				
+				if (!city_datas || !city_datas.ready) {
+					setTimeout(init, 100);
+					return;
+				}
+				jobEdit.init();
+				//初始化
+				$("#form").validationEngine({
+					autoPositionUpdate:true,
+					onValidationComplete:function(from,r){
+						if (r){
+							window.onbeforeunload = null;
+							$("#btnSave").attr("disabled", true);
+							jobEdit.submit();
+						}
+					}
+				});
+			}
+			init();
 		}
-		init();
-	}
+		});
+	
 	
 	
 });
@@ -285,5 +288,5 @@ function getMap(){
 	window.open("../common/MsgMap.jsp");
 }
 function converInfo(){
-	window.location.href=rootPath +"/org/DetailInfo.do?infoType=5&type=0";
+	window.location.href=rootPath +"/org/DetailInfo.do?infoType=5&type=0&mainType=3";
 }
