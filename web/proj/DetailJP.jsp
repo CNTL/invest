@@ -205,7 +205,7 @@
 						<div class="username" style="width:190px;">
 							<a href="javascript:void(0);"><c:out value="${support.userName}"/></a><br/>
 							出价 <font color="#ff8290">￥<c:out value="${support.amount}"/></font> 元<br/>
-							<div class="pgs" data-price="<c:out value="${support.amount}"/>" style="width:1%;height:3px;background:#FFA1AC;"></div>
+							<div class="pgs" data-price="<c:out value="${support.amount}"/>" style="width:1%;height:5px;background:#FFA1AC;"></div>
 							
 						</div>
 						<span class="msg" style="display:none;">发私信</span>

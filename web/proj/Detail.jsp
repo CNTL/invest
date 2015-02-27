@@ -94,7 +94,7 @@
 				<div class="bdsharebuttonbox" style="width: 200px;float: left;"><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a></div>
 				<div class="bdshare-button-style0-24" style="float:right;">
 					<c:if test="${favorited==0}">
-					<a href="javascript:void(0);" onclick="addFavorite(<c:out value="${proj.id}"/>);" style="background-image: url(../static/image/sc.png);">收藏</a>
+					<a href="javascript:void(0);" onclick="addFavorite(<c:out value="${proj.id}"/>);" >收藏</a>
 					</c:if>
 					<c:if test="${favorited==1}">
 					<a href="javascript:void(0);" >已收藏</a>

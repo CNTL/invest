@@ -15,6 +15,7 @@
 
 <script type="text/javascript" src="<c:out value="${rootPath}"/>js/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="<c:out value="${rootPath}"/>js/jquery/jquery-migrate.min.js"></script>
+<script type="text/javascript" src="<c:out value="${rootPath}"/>js/plugin/query/jquery.query.js"></script>
 <script type="text/javascript" src="<c:out value="${rootPath}"/>js/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<c:out value="${rootPath}"/>static/js/common.js"></script>
 <script type="text/javascript" src="<c:out value="${rootPath}"/>js/utils.js"></script>

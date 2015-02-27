@@ -24,7 +24,7 @@
 		                  	 <c:out value="${user.perJobName}"/>、<c:out value="${user.city}"/>
 		                  	
 		                  	 <br />
-		                    <a style="cursor:pointer;" onclick="msg.addMsg();"><span>短信息</span></a>
+		                    <a href="../user/MsgDetailMa.do?msguserid=<c:out value="${user.id}"/>" style="cursor:pointer;" ><span>短信息</span></a>
 		                </div>
 					</c:when>
 					<c:when test="${user.type==1}">
@@ -40,7 +40,7 @@
 						<div class="desc">
 		                  	 简称：<c:out value="${user.orgShortname}"/>
 		                  	 <br />
-		                    <a style="cursor:pointer;" onclick="msg.addMsg();"><span>短信息</span></a>
+		                    <a href="../user/MsgDetailMa.do?msguserid=<c:out value="${user.id}"/>" style="cursor:pointer;" ><span>短信息</span></a>
 		                </div>
 					</c:when>
 					<c:otherwise>未知</c:otherwise>

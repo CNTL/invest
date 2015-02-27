@@ -68,7 +68,7 @@
                     <div class="avatar">
 						<c:choose>
 							<c:when test="${support.userHead==''}"><img src="../static/image/temp/avatar1.png" /></c:when>
-							<c:otherwise><img src="../<c:out value="${support.userHead}"/>" /></c:otherwise>
+							<c:otherwise><img style="width:60px;height:60px;" class="img-circle" src="../<c:out value="${support.userHead}"/>" /></c:otherwise>
 						</c:choose>
                     </div>
                     <div class="username">
