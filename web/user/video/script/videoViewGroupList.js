@@ -19,11 +19,13 @@ var videoGroup = {
 	    });
 	},
 	assemble : function(result) {
+		 
     	$.each(result, function(i,item){
-    		var id = item.id;
-    		var photo = item.groupPhoto;
-    		if(photo == null || photo.length == 0)
-    			photo = "user/photo/img/framels_hover.jpg";
+    		var groupID = item.id;
+    		var groupName = item.groupName;
+    		
+    		 
+    		/*
     		//添加图片的缩略图
     		//$("#photos").append($("<div><a href='#'><img onclick='videoGroup.clickThumb("+id+")' name='photoList' id='" + id + "' src='"+rootPath+photo+"'></a></div>"));
     		var prefix = '<div class="box" style="width:220px;">';
@@ -42,8 +44,44 @@ var videoGroup = {
 				                '</div>' +
 				            '</div>' +
 				        '</div>' + suffix;
-    		$(".block1").append(html);
+				        */
     		
+    		$.ajax({
+    	        type:"GET", //请求方式  
+    	        url:"../user/video.do?a=getVideos&groupID=" + groupID, //请求路径  
+    	        cache: false,
+    	        dataType: 'JSON',   //返回值类型  
+    	        success:function(data){
+    	        	if(!data||typeof Object.prototype.toString.call(data) == "[object Array]"||!data.length)return;
+    	        	var sb = [];
+    	    		sb.push("<dl id=\""+groupID+"\">");
+    	    		sb.push("<dt>"+groupName+"</dt>");
+    	    		sb.push("<dd>");
+    	    		sb.push("<div>");
+    	    		$.each(data,function(p,d){
+    	    			sb.push(" <div class=\"thumbnail\">");
+        	    		if(d.video==""){
+        	    			sb.push("<img   id=\"" + d.id + "\" src=\""+rootPath+"user/photo/img/framels_hover.jpg"+"\"></a>")
+        	    		}else{
+        	    			sb.push(d.video);
+        	    		}
+        	    		sb.push(" <div>");
+        	    		sb.push("<h5>"+d.name+"</h5>");
+        	    		sb.push(" </div>");
+        	    		sb.push(" </div>");
+    	    		});
+    	    		sb.push("</div>");
+	        		sb.push("</dd>");
+	        		sb.push("</dl>");
+	        		sb.push("<div class=\"clearfix\"></div>");
+    	    		$(".body-container").append(sb.join(""));
+    	        } ,
+    			error:function (XMLHttpRequest, textStatus, errorThrown) {
+    				    
+    			}
+    	    });
+    		
+    	 
     	});
 	},
 	clickThumb : function(id){

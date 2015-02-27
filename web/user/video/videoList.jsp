@@ -10,6 +10,26 @@
 <%@include file="../inc/csslink.inc"%>
 <link rel="stylesheet" type="text/css" href="../js/plugin/uploadify-3.2.1/uploadify.css"/>
 <link href="../user/photo/css/photo.css" rel="stylesheet" type="text/css"/>
+<style>
+ .thumbnail{
+    width:288px;
+    height:330px;
+    float:left;
+    border:1px solid #e3e3e3;
+    margin:5px 0 5px 13px;
+}
+.thumbnail iframe{
+    width:275px;
+    height:268px;
+}
+ .thumbnail embed {
+    width:275px;
+    height:268px;
+}
+ .thumbnail p{
+   text-align:center;
+}
+</style>
 </head>
 <body>
 <%@include file="../../inc/header.inc"%>
@@ -30,6 +50,7 @@
      </div>
 	<div class="row container-wapper">
 	<div class="row" id="row-form">
+	<br/>
       	 <form class="form-horizontal" role="form"  id="form" name="form" action="">
       	
 			<div class="form-group">
@@ -40,7 +61,7 @@
 			    </div>
 			</div>
 			
-			<div class="form-group">
+			<div class="form-group" style="display:none;">
 			    <label for="uploadify" class="col-sm-3 control-label">视频图片：</label>
 			    <div class="col-sm-6">
 			        <input type="file" name="uploadify" id="uploadify" />
@@ -50,7 +71,7 @@
 			    </div>
 			</div>
 			
-			<div class="form-group">
+			<div class="form-group" style="display:none;">
 			    <label for="coverIMG_div" class="col-sm-3 control-label">封面缩略图：</label>
 			    <div class="col-sm-6">
 			        <div id="coverIMG_div"  style="display:none; z-index: 122; width:150px;height:150px;"></div>
@@ -60,18 +81,20 @@
 			<div class="form-group">
 			    <label for="videoUrl" class="col-sm-3 control-label">视频地址：</label>
 			    <div class="col-sm-6">
-			         <input type="text" id="videoUrl" name="videoUrl" class="form-control validate[maxSize[255],required]" value="">
+			         <input type="text" id="videoUrl" name="videoUrl" class="form-control validate[maxSize[500],required]" value="">
 			    </div>
 			</div>
 			
 			
-			<div class="form-group">
+			<div class="form-group" style="display:none;">
 			    <label for="intro" class="col-sm-3 control-label">视频描述：</label>
 			    <div class="col-sm-6">
 			        <textarea class="form-control  validate[maxSize[4000]]" rows="3" id="intro" name="intro" ></textarea>
 			    </div>
 			</div>
-
+			
+			
+			
 			 <div class="form-group">
 		         <div class="col-sm-6 text-center">
 		             <button type="submit" class="btn btn-primary"  id="btnOK" name="btnOK" >保存</button>
@@ -80,15 +103,19 @@
 		             <button type="button" class="btn btn-primary" id="btnCancel" name="btnCancel" >取消</button>
 		         </div>
 		     </div>
+		     <div class="form-group" style="margin-left:150px;" >
+		      <div class="col-sm-10">
+				<h4>视频地址添加方法（以优酷视频为例,其他视频网站方法一样):</h4>
+			     <img src="../static/image/videotip.png" style="width:90%;" alt="视频地址" />
+			     </div>
+			</div>
 		</form>
+		
      </div>
         	
 	<div class="col-md-12" id="row-list">
         <div class="container-right" id="photo-list">
-        	<div class="project_list">
-        			<div class="block1">
-        			</div>
-        		</div>
+        	 
         </div>
      </div>
 	</div>

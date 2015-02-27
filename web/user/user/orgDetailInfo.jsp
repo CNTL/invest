@@ -29,26 +29,7 @@
                           <input type="text" class="form-control validate[maxSize[255],required]" type="text" id="orgFullname" name="orgFullname" placeholder="机构全称">
                       </div>
                   </div>
-                  
-                  
-        		  <div class="form-group">
-                      <label id="area" for="province" class="col-sm-3 control-label">招聘地点：</label>
-                      <div class="col-sm-3">
-                           <select id="province" name="province" class="form-control validate[required]" onchange="detail.changeProvince();">
-								<option value="">省份</option>
-								<option value="1">选项一</option>
-							</select>
-							 
-                      </div>
-                      <div class="col-sm-3">
-                            
-							<select id="city" name="city" class="form-control validate[required]">
-								<option value="">城市</option>
-								<option value="1">选项一</option>
-							</select>
-                      </div>
-                  </div>
-                  
+
                    <div class="form-group">
                       <label for="location" class="col-sm-3 control-label">招聘地址：</label>
                       <div class="col-sm-6">
@@ -114,7 +95,7 @@
 <div style="display:none" style="width:680px;height:490px;">
 						<iframe id="msgMap" src="../common/MsgMap.jsp" width="670" align="center" height="480"></iframe>
 					</div>
-<input class="form-control" type="text" id="orgTrade" name="orgTrade" style="width:400px"/>
+<input class="form-control" type="hidden" id="orgTrade" name="orgTrade" style="width:400px"/>
 <!-- script -->
 
 <!-- script -->

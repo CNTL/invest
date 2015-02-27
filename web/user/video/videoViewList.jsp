@@ -10,21 +10,29 @@
 <%@include file="../inc/csslink.inc"%>
 <link rel="stylesheet" type="text/css" href="../js/plugin/uploadify-3.2.1/uploadify.css"/>
 <link href="../user/photo/css/photo.css" rel="stylesheet" type="text/css"/>
+<style>
+ iframe{
+            border:1px solid red;
+            float:left;
+            margin:5px;
+            width:255px;
+            height:249px;
+        }
+</style>
 </head>
 <body>
 <%@include file="../../inc/header.inc"%>
 <%@include file="../inc/peopleHeader.inc"%>
-<div class="people_profile">
-    <div class="project_list">
-       	<input type="hidden" id="userID" name="userID" value="<c:out value="${user.id}"/>"/>
-    <input type="hidden" id="userName" name="userName" value="<c:out value="${user.perNickName}"/>"/>
-		<input id="groupID" name="groupID" type="hidden" value="<c:out value="${groupID}"/>"/>
-		<input type="hidden" id="opType" name="opType" value="view"/>
-		<div class="block1">
-		</div>
-	</div>
-    <div class="clear"></div>
+<div class="body-container">
+    
+       	
+		 
+	 
 </div>
+<input type="hidden" id="userID" name="userID" value="<c:out value="${user.id}"/>"/>
+<input type="hidden" id="userName" name="userName" value="<c:out value="${user.perNickName}"/>"/>
+<input id="groupID" name="groupID" type="hidden" value="<c:out value="${groupID}"/>"/>
+<input type="hidden" id="opType" name="opType" value="view"/>
 <!-- script -->
 <%@include file="../inc/script.inc"%>
 <!-- script -->

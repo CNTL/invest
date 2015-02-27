@@ -46,9 +46,9 @@ var detail = {
 	    			$("#coordinate").val(data.coordinate);
 	    			$("#orgNature").val(data.orgNature);
 	    			$("#orgTrade").val(data.orgTrade);
-	    			$("#province").val(data.province);
+	    			 
 	    			$("#orgNatureSel").val(data.orgNature);
-	    			detail.changeProvince(data.city);
+	    			 
 	    			
 	    			if(data.orgNature==""||data.orgNature.toString()=="国营"||data.orgNature.toString()=="外商独资"||data.orgNature.toString()=="中外合资"||data.orgNature.toString()=="私营企业"){
 	    				$("#orgNature").hide();
@@ -79,33 +79,9 @@ var detail = {
 				}
 			}
 		});
-		detail._setOptions("province",proj_datas.getProvinces(),detail.DEFAULT_PAIR);
+		 
 	},
-	changeProvince : function(val){
-		var cities = [];
-		var pid = $("#province").val();
-		cities = proj_datas.getCities(pid);
-		detail._setOptions("city",cities,detail.DEFAULT_PAIR);
-		if(val!=null&&val>0){
-			$("#city").val(val);
-		}
-		
-	},
-	_setOptions : function(id, datas, pair) {
-		var sel = document.getElementById(id);
-		if (!sel) return;
-		
-		while (sel.options.length > 0)
-			sel.options.remove(0);
-
-		for (var i = 0; i < datas.length; i++) {
-			var op = document.createElement("OPTION");
-			op.value = datas[i][pair.key];
-			op.text = datas[i][pair.value];
-			sel.options.add(op);
-		}
-		$(sel).trigger("change");
-	},
+	 
 	submit : function(){
 		$.ajax({
 	        type:"POST", //请求方式  

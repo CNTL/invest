@@ -8,34 +8,50 @@
 <meta name="keywords" content="<c:out value="${keywords}"/>" />
 <meta name="description" content="<c:out value="${description}"/>" />
 <%@include file="../inc/csslink.inc"%>
-<link rel="stylesheet" type="text/css" href="../js/plugin/uploadify-3.2.1/uploadify.css"/>
-<link href="../user/photo/css/photo.css" rel="stylesheet" type="text/css"/>
+ 
+<style>
+ .thumbnail{
+    width:288px;
+    height:310px;
+    float:left;
+    border:1px solid #e3e3e3;
+    margin:5px 0 5px 13px;
+}
+.thumbnail iframe{
+    width:275px;
+    height:268px;
+}
+ .thumbnail embed {
+    width:275px;
+    height:268px;
+}
+ .thumbnail p{
+   text-align:center;
+}
+dt{
+	font-size:18px;
+	margin:10px;
+	font-weight:normal;
+}
+</style>
 </head>
 <body>
 <%@include file="../../inc/header.inc"%>
 <%@include file="../inc/peopleHeader.inc"%>
-<div class="people_profile">
-        <div class="project_list">
-			<input type="hidden" id="opType" name="opType" value="view"/>
-			<div class="block1">
-			</div>
-		</div>
-    <div class="clear"></div>
+<div class="body-container">
+	
 </div>
-<!-- script -->
-<%@include file="../inc/script.inc"%>
-<!-- script -->
-
-<!-- footer -->
-<%@include file="../../inc/footer.inc"%>
-<!-- footer -->
+ 
 <script type="text/javascript">
 var rootPath = "<%=com.tl.common.WebUtil.getRoot(request) %>";
 </script>
-<script type="text/javascript" src="../js/layer/layer.min.js"></script>
-<script type="text/javascript" src="../js/plugin/uploadify-3.2.1/jquery.uploadify.js"></script>
-<script type="text/javascript" src="../js/utils.js"></script>
+ 
+<%@include file="../inc/script.inc"%>
+
 <script type="text/javascript" src="../user/video/script/videoViewGroupList.js"></script>
 <script type="text/javascript" src="../user/user/script/peopleDetail.js"></script>
+ 
+ 
+<%@include file="../../inc/footer.inc"%>
 </body>
 </html>

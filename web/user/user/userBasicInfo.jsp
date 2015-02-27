@@ -43,7 +43,23 @@
                                    </select>
                        </div>
                    </div>
-                  
+                  <div class="form-group">
+                      <label id="area" for="province" class="col-sm-3 control-label">工作城市：</label>
+                      <div class="col-sm-3">
+                           <select id="province" name="province" class="form-control validate[required]" onchange="complete.changeProvince();">
+								<option value="">省份</option>
+								<option value="1">选项一</option>
+							</select>
+							 
+                      </div>
+                      <div class="col-sm-3">
+                            
+							<select id="city" name="city" class="form-control validate[required]">
+								<option value="">城市</option>
+								<option value="1">选项一</option>
+							</select>
+                      </div>
+                  </div>
                   <div class="form-group">
                       <label for="intro" class="col-sm-3 control-label">个人简介：</label>
                       <div class="col-sm-9">
@@ -70,6 +86,7 @@
 
 
 <!-- footer -->
+<script type="text/javascript" src="../proj/script/datas.js"></script>
 <script type="text/javascript" src="../user/user/script/userBasicInfo.js"></script>
 <!-- footer -->
 

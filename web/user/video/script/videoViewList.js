@@ -26,6 +26,8 @@ var myVideo = {
     		var id = item.id;
     		var photo = item.photo;
     		var video = item.video;
+    		 alert(video);
+    		/*
     		if(photo == null || photo.length == 0)
     			photo = "../user/photo/img/framels_hover.jpg";
     		if(video == null || photo.length == 0)
@@ -48,7 +50,8 @@ var myVideo = {
 				                '</div>' +
 				            '</div>' +
 				        '</div>' + suffix;
-    		$(".block1").append(html);
+			*/
+    		$(".body-container").append(video);
     	});
 	}
 }

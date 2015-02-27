@@ -72,7 +72,8 @@ function assemble(result){
 			photo = "../user/photo/img/framels_hover.jpg";
 		if(video == null || photo.length == 0)
 			video = "";
-		
+		 
+		/*
 		//添加图片的缩略图
 		var prefix = '<div class="box" style="width:220px;">';
 		var suffix = '';
@@ -94,7 +95,21 @@ function assemble(result){
 		                    '</div>' +
 			            '</div>' +
 			        '</div>' + suffix;
-		$(".block1").append(html);
+			        */
+		var sb = [];
+		sb.push(" <div class=\"thumbnail\">");
+		if(video==""){
+			sb.push("<img   id=\"" + id + "\" src=\""+rootPath+"user/photo/img/framels_hover.jpg"+"\"></a>")
+		}else{
+			sb.push(video);
+		}
+		
+		sb.push(" <div>");
+		sb.push("<h5>"+item.name+"</h5>");
+		sb.push("<p><a onclick=\"editVideo("+id+");\" class=\"btn btn-success btn-xs\" role=\"button\">编辑</a> <a onclick=\"delVideo("+id+");\" class=\"btn btn-danger btn-xs\" role=\"button\">删除</a></p>");
+		sb.push(" </div>");
+		sb.push(" </div>");
+		$("#photo-list").append(sb.join(""));
 		
 	});
 }

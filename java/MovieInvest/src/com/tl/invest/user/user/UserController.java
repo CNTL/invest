@@ -242,6 +242,8 @@ public class UserController extends BaseController {
 		user.setOrgShortname(ParamInitUtils.getString(request.getParameter("orgShortname")));
 		user.setOrgFullname(ParamInitUtils.getString(request.getParameter("orgFullname")));
 		user.setIntro(ParamInitUtils.getString(request.getParameter("intro")));
+		user.setProvince(ParamInitUtils.getString(request.getParameter("province")));//省份
+		user.setCity(ParamInitUtils.getString(request.getParameter("city")));//城市
 		userManager.update(user);
 		output("ok", response);
 	}
@@ -255,8 +257,8 @@ public class UserController extends BaseController {
 	private void orgDetailInfo(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
 		user.setOrgFullname(ParamInitUtils.getString(request.getParameter("orgFullname")));
-		user.setProvince(ParamInitUtils.getString(request.getParameter("province")));//省份
-		user.setCity(ParamInitUtils.getString(request.getParameter("city")));//城市
+		//user.setProvince(ParamInitUtils.getString(request.getParameter("province")));//省份
+		//user.setCity(ParamInitUtils.getString(request.getParameter("city")));//城市
 		user.setLocation(ParamInitUtils.getString(request.getParameter("location")));
 		user.setCoordinate(ParamInitUtils.getString(request.getParameter("coordinate")));
 		user.setOrgNature(ParamInitUtils.getString(request.getParameter("orgNature")));
@@ -314,6 +316,8 @@ public class UserController extends BaseController {
 		user.setPerPostAddr(ParamInitUtils.getString(request.getParameter("perPostAddr")));
 		user.setPerPostCode(ParamInitUtils.getString(request.getParameter("perPostCode")));
 		user.setIntro(ParamInitUtils.getString(request.getParameter("intro")));
+		user.setProvince(get(request, "province" ,""));
+		user.setCity(get(request, "city" ,""));
 		userManager.update(user);
 		output("ok", response);
 	}

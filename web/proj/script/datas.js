@@ -4,20 +4,20 @@ var proj_datas = {
 	init : function(){
 		var dataUrl = "../project/ProjectFetcher.do?action=datas";
 		var loading = -1;
-		$.ajax({url: dataUrl, async:true, dataType:"json",
+		$.ajax({url: dataUrl, async:false, dataType:"json",
 			beforeSend:function(XMLHttpRequest){				
-				loading = layer.msg("正在初始化数据...", 0, 16);
+				//loading = layer.msg("正在初始化数据...", 0, 16);
 			},
 			success: function(datas) {
 				proj_datas.datas = datas;
 				proj_datas.ready = true;
 			},
 			complete: function(XMLHttpRequest, textStatus){
-				layer.close(loading);
+				//layer.close(loading);
 			},
 			error:function (XMLHttpRequest, textStatus, errorThrown) {
-				layer.close(loading);
-				layer.alert('加载数据失败！', 3);
+				//layer.close(loading);
+				//layer.alert('加载数据失败！', 3);
 			}
 		});
 	},
@@ -59,4 +59,13 @@ var proj_datas = {
 }
 $(function(){
 	proj_datas.init();
+	var init = function() {
+	
+		if (!proj_datas.datas || !proj_datas.ready) {
+			setTimeout(init, 100);
+			return;
+		}
+		
+	}
+	init();
 });
