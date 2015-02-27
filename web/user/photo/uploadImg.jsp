@@ -4,17 +4,20 @@
 <head>
 	<title>上传照片</title>
 	<meta content="text/html;charset=utf-8" http-equiv="content-type">
+	<%@include file="../inc/csslink.inc"%>
 	<link rel="stylesheet" type="text/css" href="./css/upload.css"/>
 	<link rel="stylesheet" type="text/css" href="./uploadify/uploadify.css"/>
-	<script type="text/javascript" src="../../js/jquery/jquery.min.js"></script>
+	<%@include file="../inc/script.inc"%>
+ 
 	<script type="text/javascript" src="./uploadify/swfupload.cookies.js"></script>
-	<script type="text/javascript" src="../../js/utils.js"></script>
+	 
 	<script type="text/javascript" src="./uploadify/jquery.uploadify-3.1.js"></script>
 	<script type="text/JavaScript">
 	$(function(){
 		upload();
 	});
 	function upload(){
+		setTimeout(function(){
 		var groupID = $("#groupID").val();
 		var sessionid= '${pageContext.session.id}';
         $("#uploadify").uploadify({
@@ -50,6 +53,7 @@
             	 
             }
         });
+		},10);
 	}
 	function confirmSave(){
 		window.close();//关闭窗口

@@ -72,8 +72,8 @@
                         </div>
                     </div>
                     <div class="tool">
-							<a href="javascript:void();" class="share">分享</a>
-							<a href="javascript:void();" class="view"></a>
+							<a data-url="<c:out value="${rootPath}"/>project/Project.do?id=<c:out value="${proj.id}"/>" class="share">分享</a>
+							<a href="<c:out value="${rootPath}"/>project/Project.do?id=<c:out value="${proj.id}"/>" class="view"></a>
                     </div>
                 </div>
                 <div class="box_bottom"></div>
@@ -122,8 +122,8 @@
 						</div>
 					</div>
 					<div class="tool">
-						<a href="#" class="share">分享</a>
-						<a href="#" class="view"></a>
+						<a data-url="<c:out value="${rootPath}"/>user/recruit.do?a=detail&amp;mainType=3&amp;id=<c:out value="${recruit.id}"/>" class="share">分享</a>
+						<a href="<c:out value="${rootPath}"/>user/recruit.do?a=detail&amp;mainType=3&amp;id=<c:out value="${recruit.id}"/>" class="view"></a>
 					</div>
 				</div>
 				<div class="box_bottom"></div>
@@ -165,8 +165,8 @@
 						</div>
 					</div>
 					<div class="tool">
-						<a href="#" class="share">分享</a>
-						<a href="#" class="view"></a>
+						<a data-url="<c:out value="${rootPath}"/>user/PeopleDetailMain.do?a=detail&amp;mainType=4&amp;id=<c:out value="${user.id}"/>" class="share">分享</a>
+						<a href="<c:out value="${rootPath}"/>user/PeopleDetailMain.do?a=detail&amp;mainType=4&amp;id=<c:out value="${user.id}"/>" class="view"></a>
 					</div>
 				</div>
 				<div class="box_bottom"></div>

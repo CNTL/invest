@@ -112,6 +112,7 @@ var headImg = {
 		$("#uploadErrorMsg").val("");
 	},
 	initUploadify : function(el,countCtrl,imgCtrl,errorCtrl,auto,successInvok){
+		setTimeout(function(){
 		var sessionid= '${pageContext.session.id}';
 		$("#"+el).uploadify({
 			scriptAccess:'always',
@@ -173,6 +174,7 @@ var headImg = {
 			onSelectError : headImg.uploadify_onSelectError,
 			onUploadError : headImg.uploadify_onUploadError
 		});
+		},10);
 	},
 	uploadify_onSelectError : function(file, errorCode, errorMsg) {
         var msgText = "上传失败\n";

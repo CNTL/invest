@@ -8,9 +8,7 @@
 	<meta name="keywords" content="<c:out value="${keywords}"/>" />
 	<meta name="description" content="<c:out value="${description}"/>" />
 	<%@include file="../inc/csslink.inc"%>
-    <script type="text/javascript" src="../static/js/jquery-1.11.1.min.js"></script>
-    <script type="text/javascript" src="../static/js/idangerous.swiper.min.js"></script>
-    <script type="text/javascript" src="../static/js/common.js"></script>
+   <%@include file="../inc/script.inc"%>
     <script>
         $(function () {
             var mySwiper = new Swiper('.people_scroll', {

@@ -494,6 +494,7 @@ var proj_form = {
 		$("#uploadErrorMsg").val("");
 	},
 	initUploadify : function(el,countCtrl,imgCtrl,errorCtrl,auto,successInvok){
+		setTimeout(function(){
 		var sessionid= getCookie("JSESSIONID");
 		$("#"+el).uploadify({
 			scriptAccess:'always',
@@ -555,6 +556,7 @@ var proj_form = {
 			onSelectError : proj_form.uploadify_onSelectError,
 			onUploadError : proj_form.uploadify_onUploadError
 		});
+		},10);
 	},
 	uploadify_onSelectError : function(file, errorCode, errorMsg) {
         var msgText = "上传失败\n";

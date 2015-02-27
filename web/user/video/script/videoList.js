@@ -190,6 +190,7 @@ function imgUploaded (){
 	}
 }
 function initUploadify(el,countCtrl,imgCtrl,errorCtrl,auto,successInvok){
+	setTimeout(function(){
 	var sessionid= '${pageContext.session.id}';
 	$("#"+el).uploadify({
 		scriptAccess:'always',
@@ -245,6 +246,7 @@ function initUploadify(el,countCtrl,imgCtrl,errorCtrl,auto,successInvok){
 		onSelectError : uploadify_onSelectError,
 		onUploadError : uploadify_onUploadError
 	});
+	},10);
 }
 
 

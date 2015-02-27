@@ -4,9 +4,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <%@include file="../../inc/meta.inc"%>
-    <link rel="stylesheet" type="text/css" media="screen" href="<c:out value="${rootPath}"/>js/bootstrap/css/bootstrap.min.css">
-	<script type="text/javascript" src="../js/layer/layer.min.js"></script>
-	<script type="text/javascript" src="../js/plugin/query/jquery.query.js"></script>
 	<script type="text/javascript">
 		var webroot = "<c:out value="${rootPath}"/>";
 		var menu = "<c:out value="${menu}"/>";

@@ -5,7 +5,6 @@
 <head>
     <%@include file="../../inc/meta.inc"%>
     <link rel="stylesheet" type="text/css" media="screen" href="../js/plugin/jquery-autocomplete/jquery.autocomplete.css">
-	<script type="text/javascript" src="../js/layer/layer.min.js"></script>
 	<script type="text/javascript" src="../js/plugin/jquery-autocomplete/jquery.autocomplete.js"></script>
 	
 	<script type="text/javascript">

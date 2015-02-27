@@ -7,11 +7,10 @@
 body, html{width: 100%;height: 100%;overflow: hidden;margin:0;}
 #allmap {width: 100%;height: 100%;overflow: hidden;}
 </style>
-<link rel="stylesheet" type="text/css" href="../../js/jquery-easyui/themes/default/easyui.css">
-<link rel="stylesheet" type="text/css" href="../../js/jquery-easyui/themes/icon.css">
-<script type="text/javascript" src="../../js/jquery/jquery.min.js"></script>
-<script type="text/javascript" src="../../js/jquery-easyui/jquery.easyui.min.js"></script>
+ 
+<%@include file="../inc/csslink.inc"%>
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=6eea93095ae93db2c77be9ac910ff311"></script>
+ <%@include file="../inc/script.inc"%>
 <title>地址</title>
 <style type="text/css">
 .input input {
