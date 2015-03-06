@@ -154,7 +154,7 @@ ul.reset {
 	height: 42px;
 	color: rgb(255, 255, 255);
 	line-height: 42px;
-	font-size: 24px;
+	font-size: 18px;
 	font-weight: normal;
 	float: left;
 	position: relative;

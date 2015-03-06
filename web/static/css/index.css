@@ -191,8 +191,56 @@ line-height: 32px;
 font-size: 18px;
 color: #999;
 }
+.search-container{
+margin:0;padding:0;width:260px;
 
+}
+@media (max-width: 1024px) {
+	.search-container{
+        width: 180px;
+	}
+}
+ 
+.head-searchcat{
+padding:0;width:60px;margin:0; 
+}
+.head-searchcat select{
+ padding:0;margin:0;width:60px;border-radius:5px 0 0 5px;
+}
+.head-searchctxt{
+padding:0;width:185px;
 
+}
+@media (max-width: 1024px) {
+.head-searchctxt{
+    width: 105px;
+	}
+}
+.head-searchctxt input{
+border-radius:0 5px 5px 0;width:185px;color: #666;border-left:0;
+
+}
+@media (max-width: 1024px) {
+.head-searchctxt input{
+    width: 110px;
+	}
+}
+.head-searchbtn{
+width:10px;padding:0;margin:0 0 0 -17px;
+}
+.head-searchbtn input{
+border:0px solid red;
+}
+.head-paddig{
+padding:0;
+margin:0;
+ 
+}
+@media (max-width: 1024px) {
+.head-paddig{
+    width: 120px;
+	}
+}
 .hz-nav  a:hover {
 color: #fff;
 background: url(../image/nav_bg.png) no-repeat;

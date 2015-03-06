@@ -91,6 +91,7 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, 
 	<script src="../js/jquery/jquery-migrate.min.js"></script> 
 	<script src="../js/bootstrap/js/bootstrap.min.js"></script>
     <script src="../js/plugin/bs-validation/bs-validation.js"></script>
+    <script type="text/javascript" src="../js/plugin/jquery.bootstrap.dialog-plus/jquery.dialog-plus.js"></script>
    
 	<script type="text/javascript">
 	var rootURL = "<c:out value="${rootPath}"/>";

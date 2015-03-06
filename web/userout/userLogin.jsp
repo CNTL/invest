@@ -32,7 +32,7 @@
                 </div>
             </form>
         </div>
-        <div class="other">
+        <div class="other" style="display:none;">
             <div class="info">还没有账号？<a href="../user/registerMain.do">立即注册</a><br />
             也可以使用以下账号直接登录：</div>
             <div class="third">

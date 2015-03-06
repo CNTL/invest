@@ -88,6 +88,7 @@
      </div>
 	</div>
 </div>
+</div>
 
 <!-- script -->
 <%@include file="../inc/script.inc"%>

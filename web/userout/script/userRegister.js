@@ -10,10 +10,10 @@ function registerSubmit(){
         dataType: 'text',   //返回值类型  
         success:function(data){
     		if(data != null && data == 'ok'){
-    			AlertInfo(200,30,"注册成功！正在跳转到登录页面。",login);
+    			$.messager.popup("注册成功！正在跳转到登录页面。",login);
     		} else {
     			 
-    			AlertInfo(200,30,"注册失败。"+data);
+    			$.messager.alert("注册失败。");
     		}
         }  
     });
@@ -148,10 +148,10 @@ $(document).ready(function () {
 	    	    		        dataType: 'text',   //返回值类型  
 	    	    		        success:function(data){
 	    	    		    		if(data != null && data == 'ok'){
-	    	    		    			AlertInfo(200,30,"注册成功！正在跳转到登录页面。",login);
+	    	    		    			$.messager.popup("注册成功！正在跳转到登录页面。",login);
 	    	    		    		} else {
 	    	    		    			 
-	    	    		    			AlertInfo(200,30,"注册失败。"+data);
+	    	    		    			$.messager.alert("注册失败。");
 	    	    		    		}
 	    	    		    		return false;
 	    	    		        }  

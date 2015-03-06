@@ -21,22 +21,23 @@
 		 <div class="clearfix"></div>
 	</div>
 	
-	<div class="col-md-2" style="border:0px solid red;margin:0;padding:0;width:180px;">
+	<div class="col-md-2 search-container">
 		 
 		<form id="mianSearchForm" name="mianSearchForm" action="<c:out value="${rootPath}"/>Search.do">
-		<div class="row" style="margin: 25px 0 0 0">
-			<div class="col-md-3" style="padding:0;width:80px;margin:0;">
-				<select id="seachType" name="t" class="form-control" style="width:80px;">
+		<div class="row" style="margin: 25px 0 0 0;border:0px solid blue;">
+			<div class="col-md-3 head-searchcat">
+				<select id="seachType" name="t" class="form-control">
+				    <option value="0">全部</option>
 					<option value="1">项目</option>
 					<option value="2">影聘</option>
 					<option value="3">影人</option>
 				</select>
 			</div>
-			<div class="col-md-3" style="padding:0;width:106px;margin-left:-20px;">
-				<input type="text" id="seachKeyWord" name="k" class="form-control" value="" placeholder="搜索关键字" style="border-radius:0 5px 5px 0;margin-left:10px;width:106px;color: #666;"/>
+			<div class="col-md-3  head-searchctxt">
+				<input type="text" id="seachKeyWord" name="k" class="form-control" value="" placeholder="搜索关键字" />
 			</div>
-			<div class="col-md-6" style="width:10px;padding:0;margin:0 0 0 -9px;border:0px solid red;">
-				<input type="submit" id="btnSeach" class="hzsearchbtn" value="" style="border:0px solid red;" />
+			<div class="col-md-6 head-searchbtn">
+				<input type="submit" id="btnSeach" class="hzsearchbtn" value="" />
 			</div>
 		</div>
 		</form>
@@ -50,7 +51,7 @@
 		</script>
 	 
 	</div>
-	<div class="col-md-2">
+	<div class="col-md-2 head-paddig">
 	
 	</div>
 	<div class="col-md-2" style="border:0px solid green;width:150px;">
