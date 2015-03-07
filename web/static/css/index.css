@@ -1478,6 +1478,10 @@ width: 100%;
 border-bottom: 2px #CDE3EF solid;
 background: #E8F6FF url(../image/s5.png) repeat-x;
 }
+.project_trip{
+	border-bottom: 2px #CDE3EF solid;
+	background: #E8F6FF url(../image/s5.png) repeat-x;
+}
 
 .project_list .block2 .wrap {
 width: 1002px;

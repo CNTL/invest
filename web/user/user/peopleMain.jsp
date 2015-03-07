@@ -107,7 +107,11 @@
     <div id="test"></div>
     <div class="project_list">
 	   	<c:forEach var="data" varStatus="status1" items="${datas}">
-	   	<div class="block1">
+	   
+	   	  <c:choose>
+					<c:when test="${status1.index%2!=0}"> <div class="block2">	<div class="wrap"></c:when>
+					<c:otherwise> <div class="block1">	</c:otherwise>
+				</c:choose>
             <a class="left" style="cursor:pointer;display:none;" onclick="mySwipePrev(${data.perType})"></a>
             <a class="right" style="cursor:pointer;display:none;" onclick="mySwipeNext(${data.perType})"></a>
             <div class="top">
@@ -121,6 +125,7 @@
                		<input type="text" id="pageCount${data.perType}" name="pageCount${data.perType}" value="<c:out value="${data.persons.pageCount}"/>"/>
                	</div>
             </div>
+             
             <div class="people_scroll">
                 <div class="wrapper">
                     <div class="slide" id="curDiv${data.perType}">
@@ -164,11 +169,10 @@
             </div>
         </div>
         
- 				 <c:choose>
-					<c:when test="${status1.index<3}"><div class="shadow">  </div></c:when>
-					<c:otherwise> </c:otherwise>
-				</c:choose>
-        
+ 				  <c:choose>
+					<c:when test="${status1.index%2!=0}"> </div></c:when>
+					<c:otherwise></c:otherwise>
+				     </c:choose>
         </c:forEach>
        </div>
 
