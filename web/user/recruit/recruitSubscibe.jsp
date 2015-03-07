@@ -154,7 +154,7 @@ ul.reset {
 	height: 42px;
 	color: rgb(255, 255, 255);
 	line-height: 42px;
-	font-size: 18px;
+	font-size: 14px;
 	font-weight: normal;
 	float: left;
 	position: relative;
@@ -213,7 +213,7 @@ ul.reset {
 	text-align: center;
 	color: rgb(85, 85, 85);
 	line-height: 77px;
-	font-size: 18px;
+	font-size: 16px;
 	float: left;
 	position: relative;
 	cursor: pointer;
@@ -281,7 +281,7 @@ ul.reset {
 							</dt>
 							<dd>
 								<span id="sl-rec" style="font-size:16px;margin-left:10px;"></span>
-								<input class="select" id="select_job" data-toggle="modal" data-target="#myModal" type="button" value="请选择职位名称">
+								<input class="select" style="font-size:16px;" id="select_job" data-toggle="modal" data-target="#myModal" type="button" value="请选择职位名称">
 								
 								<span class="error" id="positionError" style="display: none;">请选择职位名称</span>
 								<input type="hidden" name="hrecid"  value="" id="hrecid" />
@@ -349,8 +349,7 @@ ul.reset {
  
 <!-- script -->
 <%@include file="../inc/script.inc"%>
-<!-- script -->
- <script type="text/javascript" src="../js/bootstrap/js/bootstrap.min.js"></script>
+
 <script src = "../user/recruit/script/recruitSubscibe.js"></script>
 <!-- footer -->
 <%@include file="../../inc/footer.inc"%>

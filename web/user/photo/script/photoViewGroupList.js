@@ -43,21 +43,27 @@ var photoGroup = {
 		        			
 			        		 
 		    				var imgurl = rootPath+n.photo;
+		    				sb.push("<div style=\"height:240px;float:left;margin:5px;padding:3px;border:1px solid #E8E8E8;\">");
 		    				sb.push("<a href=\""+imgurl+"\" class=\"boxer\" title=\""+n.intro+"\" data-gallery=\"gallery\" >");
 		    				sb.push("<img style=\"height:200px;margin-bottom:5px;\" data-id=\""+n.id+"\" src=\""+imgurl+"\" alt=\""+n.intro+"\" /> ");
+		    				
 		    				sb.push("</a>");
-			        		
-			        		
-			        		
+		    				sb.push("<p class=\"text-center\">"+n.intro+"</p>");
+		    				sb.push("</div>")
 		        		});
 		        		
 		        	}
+		        	sb.push("<div class=\"clearfix\"></div>");
 		        	sb.push("</div>");
 	        		sb.push("</dd>");
 	        		sb.push("</dl>");
 	        		$(".body-container").append(sb.join(""));
 	        		$(".boxer").boxer({
 	        		    formatter: formatCaptions
+	        		});
+	        		$(".boxer").each(function(d,dd){
+	        			var width = $(this).find("img").width();
+	        			$(this).parent("div").width(width);
 	        		});
 		        } ,
 				error:function (XMLHttpRequest, textStatus, errorThrown) {

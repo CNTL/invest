@@ -98,6 +98,7 @@ function assemble(result){
 			        */
 		var sb = [];
 		sb.push(" <div class=\"thumbnail\">");
+		sb.push("<h3 style=\"font-size:16px;font-weight:bold;\">"+item.name+"</h3>");
 		if(video==""){
 			sb.push("<img   id=\"" + id + "\" src=\""+rootPath+"user/photo/img/framels_hover.jpg"+"\"></a>")
 		}else{
@@ -105,7 +106,7 @@ function assemble(result){
 		}
 		
 		sb.push(" <div>");
-		sb.push("<h5>"+item.name+"</h5>");
+		
 		sb.push("<p><a onclick=\"editVideo("+id+");\" class=\"btn btn-success btn-xs\" role=\"button\">编辑</a> <a onclick=\"delVideo("+id+");\" class=\"btn btn-danger btn-xs\" role=\"button\">删除</a></p>");
 		sb.push(" </div>");
 		sb.push(" </div>");

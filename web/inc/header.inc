@@ -65,7 +65,7 @@
 						<a href="#"><img class="img-circle" style="width:60px;height:60px;" src="<c:out value="${loginUser.head}"/>" /></a>
 					</div>
 					<div class="menu">
-						<ul>
+						<ul id="menulist">
 							<c:forEach var="gm" items="${pMenus}">
 							<li style="padding-left:20px;" ><a href="<c:out value="${gm.url}"/>" class="ie6fixpic"><c:out value="${gm.name}" escapeXml="false"/></a></li>
 							</c:forEach>
@@ -80,8 +80,8 @@
 			
 			<div class="col-md-4" style="padding:0;margin: 15px 0 0 0 ;  width: 80px;">
 			<c:if test="${loginUser.id>0}">
-				<div class="username">
-						<a href="#"><c:out value="${loginUser.name}"/></a>
+				<div class="username" >
+						<a id="hzusername"><c:out value="${loginUser.name}"/></a>  
 			     </div>
 			</c:if>
 			<c:if test="${loginUser.id==0}" >

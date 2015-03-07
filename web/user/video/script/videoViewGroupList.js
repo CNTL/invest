@@ -60,14 +60,13 @@ var videoGroup = {
     	    		sb.push("<div>");
     	    		$.each(data,function(p,d){
     	    			sb.push(" <div class=\"thumbnail\">");
+    	    			sb.push("<h3 style=\"font-size:16px;font-weight:bold;\">"+d.name+"</h3>");
         	    		if(d.video==""){
         	    			sb.push("<img   id=\"" + d.id + "\" src=\""+rootPath+"user/photo/img/framels_hover.jpg"+"\"></a>")
         	    		}else{
         	    			sb.push(d.video);
         	    		}
-        	    		sb.push(" <div>");
-        	    		sb.push("<h5>"+d.name+"</h5>");
-        	    		sb.push(" </div>");
+        	    	 
         	    		sb.push(" </div>");
     	    		});
     	    		sb.push("</div>");

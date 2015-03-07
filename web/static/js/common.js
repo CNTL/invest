@@ -21,13 +21,27 @@ $(function () {
         $(this).removeClass('cate_current');
         $(this).find('.expand').hide();
     });
+    $("#hzusername").click(function(){
+    	if(!$('.menu').hasClass("show")){
+    	   $('.menu').addClass("show");
+    	}
+    	event.stopPropagation();
 
-    $('.hzmini_member').mouseover(function () {
-        $(this).find('.menu').show();
-    }).mouseout(function () {
-        $(this).find('.menu').hide();
     });
-
+    $("body").click(function(){
+    	if($('.menu').hasClass("show")){
+    		$('.menu').removeClass("show");
+    	}
+    });
+//    $(".username").mouseover(function () {
+//    	$('.menu').show();
+//    });
+//    $(".hzmini_member").mouseover(function () {
+//    	$('.menu').show();
+//    });
+    $("#menulist").mouseout(function(){
+    	//$('.menu').hide();
+    });
     $('#k').focus(function() {
         $(this).val('');
     });

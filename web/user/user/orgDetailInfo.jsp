@@ -41,7 +41,7 @@
                       </div>
                   </div>
                   
-                   <div class="form-group">
+                   <div class="form-group" id="orgNatruecontainer">
                       <label for="orgNature" class="col-sm-3 control-label">公司性质：</label>
                       
                       <div class="col-sm-4">
@@ -63,11 +63,10 @@
                       <label id="lborgScale" for="orgScale" class="col-sm-3 control-label">公司规模：</label>
                       <div class="col-sm-6">
                           <select id="orgScale" name="orgScale" class="form-control validate[maxSize[255],required]" style="width:400px">
-						        <option value="1">100人以下</option>
-						        <option value="2">100-500人</option>
-						        <option value="3">500-1000人</option>
-						        <option value="4">1000-5000人</option>
-						        <option value="5">5000人以上</option>
+						        <option value="1">10人以下</option>
+						        <option value="2">10-50人</option>
+						        <option value="3">50人以上</option>
+						       
 					        </select>
                       </div>
                   </div>

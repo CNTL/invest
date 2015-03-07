@@ -28,6 +28,7 @@ $(document).ready(function () {
 		$("#propty").hide();
 		$("#lborgScale").text("团队规模：")
 		$("#lborgHomePage").text("团队主页：")
+		$("#orgNatruecontainer").hide();
 	}
 });
 var detail = {

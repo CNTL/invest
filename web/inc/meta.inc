@@ -22,4 +22,6 @@
 <script type="text/javascript" src="<c:out value="${rootPath}"/>js/plugin/artdialog/dist/dialog-plus.js"></script>
 <script type="text/javascript" src="<c:out value="${rootPath}"/>js/plugin/jquery.bootstrap.dialog-plus/jquery.dialog-plus.js"></script>
 <script type="text/javascript" src="<c:out value="${rootPath}"/>js/share.js"></script>
+<script type="text/javascript" src="<c:out value="${rootPath}"/>js/imgzoom.js"></script>
+
 

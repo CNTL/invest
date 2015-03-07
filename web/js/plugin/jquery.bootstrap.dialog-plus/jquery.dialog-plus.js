@@ -259,7 +259,7 @@ $.messager = (function () {
             $msgbox.modal('hide');
 
             callback && callback();
-        }, 1500);
+        }, 8000);
     };
 
     return {

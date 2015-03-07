@@ -92,26 +92,4 @@ function isMobile(){
 	
 }
 
-function AlertInfo(w,h,content,callback)
-{
-    var divWidth=150;
-    var divHeight=30;
-    if(w){
-    	divWidth = w;
-    }
-    if(h){
-    	divHeight = h;
-    }
-    var iLeft=($(window).width()-divWidth)/2;
-    var iTop=($(window).height()-divHeight)/2+$(document).scrollTop();
-    var divhtml=$("<div class=\"alertinfo\">"+content+"</div>").css({top:iTop+'px',left:iLeft+'px',width:divWidth+'px',height:divHeight+'px'});
-    divhtml.appendTo('body').fadeIn();
-    divhtml.appendTo('body').fadeOut(5000,function(){
-    	if(callback){
-    		callback();
-    	}
-    });  
-    
-    
-    
-}
+
