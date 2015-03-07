@@ -1475,8 +1475,15 @@ margin: 0 auto;
 
 .project_list .block2 {
 width: 100%;
-border-bottom: 2px #CDE3EF solid;
+/* border-bottom: 2px #CDE3EF solid; */
 background: #E8F6FF url(../image/s5.png) repeat-x;
+
+border-bottom:3px solid #B5D2E0;
+       -webkit-box-shadow:inset 0 0 3px  #B5D2E0;
+ 		-moz-box-shadow:inset 0 0 3px  #B5D2E0;
+       box-shadow: inset 0 0 3px  #B5D2E0;
+       
+ 
 }
 .project_trip{
 	border-bottom: 2px #CDE3EF solid;
