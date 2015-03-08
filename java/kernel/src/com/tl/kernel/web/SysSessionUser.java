@@ -25,6 +25,7 @@ public class SysSessionUser implements Serializable
 	//超级管理员的UserID约定
 	public final static String superAdminID = "-9999";
  
+	private String sessionID;
 	private int userID;
 	private String userName;
 	private String userCode;
@@ -33,6 +34,12 @@ public class SysSessionUser implements Serializable
 	private String userPassword;
 	private boolean admin = true;
 	
+	public String getSessionID() {
+		return sessionID;
+	}
+	public void setSessionID(String sessionID) {
+		this.sessionID = sessionID;
+	}
 	public boolean isAdmin() {
 		return admin;
 	}

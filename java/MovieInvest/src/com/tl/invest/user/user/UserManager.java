@@ -246,6 +246,20 @@ public class UserManager {
             return null;
 	}
 
+	public void updateLoginInfo(int userID,String sessionID){
+		String sql = "update user set lastSessionID=?,lastLoginTime=? where id=?";
+		Object[] params = new Object[]{sessionID,DateUtils.getTimestamp(),userID};
+		DBSession db = null;
+		try {
+			db = Context.getDBSession();
+			db.executeUpdate(sql, params);
+		} catch (Exception e) {
+			
+		} finally{
+			ResourceMgr.closeQuietly(db);
+		}
+	}
+	
 	/** 系统用户登录
 	 * @return Boolean
 	 */

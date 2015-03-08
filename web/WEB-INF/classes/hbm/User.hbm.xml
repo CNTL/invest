@@ -156,5 +156,13 @@
             <column name="perOrder">
             </column>
         </property>
+		<property name="lastSessionID" type="string">
+            <column name="lastSessionID" length="50">
+            </column>
+        </property>
+		<property name="lastLoginTime" type="java.sql.Timestamp">
+            <column name="lastLoginTime" length="19">
+            </column>
+        </property>
     </class>
 </hibernate-mapping>

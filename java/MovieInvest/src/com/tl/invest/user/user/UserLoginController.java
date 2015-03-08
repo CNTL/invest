@@ -337,6 +337,7 @@ public class UserLoginController extends BaseController
 			output("", response);
 		}
 		SysSessionUser sysUser = new SysSessionUser();
+		sysUser.setSessionID(request.getSession().getId());
 		sysUser.setAdmin(isAdmin);
 		sysUser.setUserName(user.getName());
 		sysUser.setUserCode(user.getCode());
@@ -345,6 +346,9 @@ public class UserLoginController extends BaseController
 		sysUser.setIp(request.getRemoteAddr());
 		sysUser.setHostName(request.getRemoteHost());
 		request.getSession().setAttribute(SysSessionUser.sessionName, sysUser);
+		
+		manager.updateLoginInfo(user.getId(), sysUser.getSessionID());
+		
 		return user;
 	}
 	

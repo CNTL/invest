@@ -13,7 +13,7 @@
 	</context-param>
   	<filter>
 		<filter-name>URLEntryFilter</filter-name>
-		<filter-class>com.tl.kernel.web.URLEntryFilter</filter-class>
+		<filter-class>com.tl.invest.workspace.URLEntryFilter</filter-class>
         <init-param>
             <param-name>encoding</param-name>
             <param-value>UTF-8</param-value>

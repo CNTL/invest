@@ -16,8 +16,7 @@
 	<div class="shadow">
     </div>
 	<div class="project_list">
-		<c:choose>
-		<c:when test="${searchType==1}">
+		<c:if test="${searchType==1 || searchType==0}">
         <div class="block1 search_type_<c:out value="${searchType}"/>">
             <div class="top">
                 <h2>项目</h2>
@@ -81,8 +80,8 @@
 			</c:forEach>
             <div class="clear"></div>
         </div>
-		</c:when>
-		<c:when test="${searchType==2}">
+		</c:if>
+		<c:if test="${searchType==2 || searchType==0}">
         <div class="block1 search_type_<c:out value="${searchType}"/>">
             <div class="top">
                 <h2>影聘</h2>
@@ -131,8 +130,8 @@
 			</c:forEach>
 			<div class="clear"></div>
         </div>
-		</c:when>
-		<c:when test="${searchType==3}">
+		</c:if>
+		<c:if test="${searchType==3 || searchType==0}">
         <div class="block1 search_type_<c:out value="${searchType}"/>">
             <div class="top">
                 <h2>影人</h2>
@@ -174,10 +173,7 @@
 			</c:forEach>
 			<div class="clear"></div>
         </div>
-		</c:when>
-		<c:otherwise>
-		</c:otherwise>
-		</c:choose>
+		</c:if>
 		<div class="clear"></div>
 		
 		<div class="pager">

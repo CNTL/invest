@@ -56,6 +56,9 @@ public class User {
 	private Integer secondType;
 	private String typeName;
 	private Integer perOrder;
+	private String lastSessionID;
+	private Timestamp lastLoginTime;
+	
 	public Integer getPerOrder() {
 		return perOrder;
 	}
@@ -434,5 +437,21 @@ public class User {
 
 	public void setTypeName(String typeName) {
 		this.typeName = typeName;
+	}
+
+	public String getLastSessionID() {
+		return lastSessionID;
+	}
+
+	public void setLastSessionID(String lastSessionID) {
+		this.lastSessionID = lastSessionID;
+	}
+
+	public Timestamp getLastLoginTime() {
+		return lastLoginTime;
+	}
+
+	public void setLastLoginTime(Timestamp lastLoginTime) {
+		this.lastLoginTime = lastLoginTime;
 	}
 }
