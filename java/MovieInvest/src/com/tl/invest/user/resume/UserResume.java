@@ -15,6 +15,51 @@ public class UserResume {
 	private String name;
 	private String affix;
 	private String content;
+	private int height;
+	private int weight;
+	private String school;
+	private int degreeid;
+	private String degree;
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+	public int getWeight() {
+		return weight;
+	}
+
+	public void setWeight(int weight) {
+		this.weight = weight;
+	}
+
+	public String getSchool() {
+		return school;
+	}
+
+	public void setSchool(String school) {
+		this.school = school;
+	}
+
+	public int getDegreeid() {
+		return degreeid;
+	}
+
+	public void setDegreeid(int degreeid) {
+		this.degreeid = degreeid;
+	}
+
+	public String getDegree() {
+		return degree;
+	}
+
+	public void setDegree(String degree) {
+		this.degree = degree;
+	}
+
 	private Date createTime;
 
 	public UserResume() {

@@ -83,7 +83,7 @@ public class UserResumeManager {
 		List<Map<String, String>> result = new ArrayList<Map<String, String>>();
 		int maxCount = 10;
 		String tablename = SysTableLibs.TB_USERRESUME.getTableCode();
-		String sql = "SELECT id, userId, userName, name, content, affix, createTime FROM " + tablename 
+		String sql = "SELECT * FROM " + tablename 
 				+ " where userId=? ORDER BY createTime DESC";
 		DBSession conn = null;
 		IResultSet rs = null;
@@ -102,6 +102,13 @@ public class UserResumeManager {
 				oneResult.put("name", ParamInitUtils.getString(rs.getString("name")));
 				oneResult.put("content", ParamInitUtils.getString(rs.getString("content")));
 				oneResult.put("affix", ParamInitUtils.getString(rs.getString("affix")));
+			 
+				oneResult.put("height", ParamInitUtils.getString(rs.getString("height")));
+				oneResult.put("weight", ParamInitUtils.getString(rs.getString("weight")));
+				oneResult.put("school", ParamInitUtils.getString(rs.getString("school")));
+				oneResult.put("degreeid", ParamInitUtils.getString(rs.getString("degreeid")));
+				oneResult.put("degree", ParamInitUtils.getString(rs.getString("degree")));
+				
 				oneResult.put("createTime", ParamInitUtils.getString(rs.getString("createTime")));
 				result.add(oneResult);
 			}
