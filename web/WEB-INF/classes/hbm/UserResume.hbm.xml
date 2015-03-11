@@ -33,21 +33,29 @@
                 <comment></comment>
             </column>
         </property>
-         <id name="height" type="int">
-            <column name="height" />
-        </id>
-         <id name="weight" type="int">
-            <column name="weight" />
-        </id>
+      <property name="height" type="int">
+        <column name="height" length="4">
+          <comment></comment>
+        </column>
+      </property>
+      <property name="weight" type="int">
+        <column name="weight" length="4">
+          <comment></comment>
+        </column>
+      </property>
+
+      
          <property name="school" type="string">
             <column name="school" length="255">
                 <comment></comment>
             </column>
         </property>
-        
-        <id name="degreeid" type="int">
-            <column name="degreeid" />
-        </id>
+      <property name="degreeid" type="int">
+        <column name="degreeid" length="4">
+          <comment></comment>
+        </column>
+      </property>
+       
         
          <property name="degree" type="string">
             <column name="degree" length="255">
