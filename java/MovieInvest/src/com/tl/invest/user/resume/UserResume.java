@@ -18,6 +18,15 @@ public class UserResume {
 	private int height;
 	private int weight;
 	private String school;
+	private String professional;
+	public String getProfessional() {
+		return professional;
+	}
+
+	public void setProfessional(String professional) {
+		this.professional = professional;
+	}
+
 	private int degreeid;
 	private String degree;
 	public int getHeight() {

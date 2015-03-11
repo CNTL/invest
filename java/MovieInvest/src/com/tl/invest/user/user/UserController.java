@@ -64,7 +64,9 @@ public class UserController extends BaseController {
 		if("list".equals(action)){//获取用户列表
 			String json = queryUsers(request, response);
 			output(json, response);
-		} else if("find".equals(action)){//查找用户
+		
+		} else if("find".equals(action)){//查找用户findByID
+			
 			find(request, response);
 		} else if("findLogin".equals(action)){//查找登录用户信息
 			findLogin(request, response);
@@ -194,6 +196,7 @@ public class UserController extends BaseController {
 		JSONObject jsonArray = JSONObject.fromObject(user,jsonConfig); 
 		output(jsonArray.toString(), response);
 	}
+	 
 	/** 
 	* @author  leijj 
 	* 功能： 查找登录用户信息

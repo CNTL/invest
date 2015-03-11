@@ -54,6 +54,12 @@ public class UserResumeController extends BaseController {
 		resume.setUserName(user.getUserName());
 		resume.setName(ParamInitUtils.getString(request.getParameter("name")));
 		resume.setContent(ParamInitUtils.getString(request.getParameter("content")));
+		resume.setHeight(getInt(request, "height",0));
+		resume.setWeight(getInt(request, "weight",0));
+		resume.setSchool(get(request, "school",""));
+		resume.setProfessional(get(request, "professional",""));
+		resume.setDegreeid(getInt(request, "degreeid",2));
+		resume.setDegree(get(request, "degree","¸ßÖÐ"));
 		resume.setAffix(ParamInitUtils.getString(request.getParameter("affix")));
 		resume.setCreateTime(DateUtils.getTimestamp());
 		resumeManager.saveResume(resume);

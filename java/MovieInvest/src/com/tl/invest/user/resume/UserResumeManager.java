@@ -106,6 +106,8 @@ public class UserResumeManager {
 				oneResult.put("height", ParamInitUtils.getString(rs.getString("height")));
 				oneResult.put("weight", ParamInitUtils.getString(rs.getString("weight")));
 				oneResult.put("school", ParamInitUtils.getString(rs.getString("school")));
+				oneResult.put("professional", ParamInitUtils.getString(rs.getString("professional")));
+				
 				oneResult.put("degreeid", ParamInitUtils.getString(rs.getString("degreeid")));
 				oneResult.put("degree", ParamInitUtils.getString(rs.getString("degree")));
 				
