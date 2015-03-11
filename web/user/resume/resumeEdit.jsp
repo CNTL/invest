@@ -34,23 +34,59 @@
 	        			   <input type="text" id="name" name="name" class="form-control validate[maxSize[255]]" value=""/>
                       </div>
                   </div>
+                    <div class="form-group">
+                      <label for="height" class="col-sm-2 control-label">身高：</label>
+                      <div class="col-sm-2">
+	        			   <input type="text" id="height" name="height" class="form-control validate[maxSize[3]]" value=""/> 
+	        			   
+                      </div>
+	                <div class="col-sm-1">
+	                	<label class="control-label">厘米</label>
+	                </div>
+	        		
+                       
+                  </div>
+                    <div class="form-group">
+                      <label for="weight" class="col-sm-2 control-label">体重：</label>
+                      <div class="col-sm-2">
+	        			   <input type="text" id="weight" name="weight" class="form-control validate[maxSize[3]]" value=""/>
+	        			   
+                      </div>
+                       <div class="col-sm-1">
+	                	<label class="control-label">公斤</label>
+	                </div>
+                  </div>
                    <div class="form-group">
-                      <label for="name" class="col-sm-2 control-label">使用附件：</label>
+                      <label for="school" class="col-sm-2 control-label">毕业学校：</label>
                       <div class="col-sm-9">
-		                  <div class="checkbox">
-						    <label>
-						     <input type="checkbox" id="usefile"> 
-						    </label>
-						  </div>
-                            
+	        			   <input type="text" id="school" name="school" class="form-control validate[maxSize[255]]" value=""/>
                       </div>
                   </div>
-              
+                    <div class="form-group">
+                      <label for="professional" class="col-sm-2 control-label">学习专业：</label>
+                      <div class="col-sm-9">
+	        			   <input type="text" id="professional" name="professional" class="form-control validate[maxSize[255]]" value=""/>
+                      </div>
+                  </div>
+                   
+                   <div class="form-group">
+                    <label for="degreeid" class="col-sm-2 control-label">学历：</label>
+                    <div class="col-sm-3">
+                         <select id="degreeid" name="degreeid" class="form-control validate[maxSize[255],required]" >
+					        <option value="2">高中</option>
+					        <option value="3">大专</option>
+					        <option value="4">本科</option>
+					        <option value="5">硕士</option>
+					        <option value="6">博士</option>
+				        </select>
+				        <input type="hidden" id="degree" name="degree" value="高中" />
+                    </div>
+                </div>
 				  
                   
                   
                   <div class="form-group" id="divcontent">
-                      <label for="name" class="col-sm-2 control-label">简历内容：</label>
+                      <label for="name" class="col-sm-2 control-label">工作经历：</label>
                       <div class="col-sm-9">
                              <textarea  id="contentTxt" name="contentTxt" class="form-control validate[maxSize[4000]]"></textarea>
                  			<input type="hidden" id="content" name="content" value=""/>

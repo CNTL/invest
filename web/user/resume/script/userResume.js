@@ -13,15 +13,12 @@ $(document).ready(function () {
 	});
 	$("#divfile").hide();
 	$("#divcontent").show();
-	$("#usefile").click(function(){
-		if($(this).prop("checked")){
-			$("#divfile").show();
-			$("#divcontent").hide();
-		}else{
-			$("#divfile").hide();
-			$("#divcontent").show();
-		}
+	
+	$("#degreeid").change(function(){
+		 
+		$("#degree").val($("#degreeid option:selected").text());
 	});
+	 
 });
 var resume = {
 	init : function(){
@@ -43,7 +40,12 @@ var resume = {
 	    			$("#name").val(data[0].name);
 	    			$("#content").val(data[0].content);
 	    			$("#contentTxt").val(data[0].content);
-	    			
+	    			$("#height").val(data[0].height);
+	    			$("#weight").val(data[0].weight);
+	    			$("#school").val(data[0].school);
+	    			$("#professional").val(data[0].professional);
+	    			$("#degreeid").val(data[0].degreeid);
+	    			$("#degree").val(data[0].degree);
 	    			$("#affix").val(data[0].affix);
 	    			if(data[0].affix!=""){
 	    				$("#usefile").trigger("click");
@@ -92,17 +94,9 @@ var resume = {
 	        dataType: 'text',   //返回值类型  
 	        success:function(data){
 	    		if(data != null && data == 'ok'){
-	    			$.messager.confirm('消息', '保存简历成功！', function(r){
-	    				if (r){
-	    					var type = $("#type").val();
-	    					if(type == "resumeList" ){
-	    						window.location.href= "../resume/myresume.do?infoType=1&type=" + type; 
-	    					} else{
-	    						window.location.href= "../resume/userResume.do?infoType=7&type=" + type; 
-	    					}
-	    					//history.go(-1);
-	    					//window.location.href= "../resume/myresume.do?infoType=1"; 
-	    				}
+	    			$.messager.popup('保存简历成功！', function(){
+
+	    				window.location.href= "../resume/myresume.do?infoType=1"; 
 	    			});
 	    		} else {
 	    			$.messager.alert('保存简历失败！',data);

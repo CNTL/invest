@@ -50,6 +50,12 @@
                 <comment></comment>
             </column>
         </property>
+         <property name="professional" type="string">
+            <column name="professional" length="255">
+                <comment></comment>
+            </column>
+        </property>
+        
       <property name="degreeid" type="int">
         <column name="degreeid" length="4">
           <comment></comment>

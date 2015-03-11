@@ -5,6 +5,7 @@ var resume = {
 	init : function(){
 		var id = $("#id").val();
 		if(id == null && id.length == 0) return;
+		
 		$.ajax({
 	        type:"GET", //请求方式  
 	        url:"../user/resume.do?a=curResume&id=" + id, //请求路径  
@@ -14,8 +15,31 @@ var resume = {
 	    		if(data != null && data!='' && data.length == 1){
 	    			$("#name").html(data[0].name);
 	    			$("#contentTxt").html(data[0].content);
-	    			$("#affix").val(data[0].affix);
-	    			resume.imgUploaded();
+	    			$("#height").html(data[0].height);
+	    			$("#weight").html(data[0].weight);
+	    			$("#school").html(data[0].school);
+	    			$("#professional").html(data[0].professional);
+	    			$("#degree").html(data[0].degree);
+	    			$("#headuser").append($(".avatar").html());
+	    			$("#username").html($("#hzusername").html());
+	    			
+	    			$.ajax({
+	    		        type:"GET", //请求方式  
+	    		        url:"../user/user.do?a=getUser&id="+data[0].userId, //请求路径  
+	    		        cache: false,
+	    		        dataType: 'JSON',   //返回值类型  
+	    		        success:function(data){
+	    		    		if(data != null){
+	    		    			
+	    		    			$("#gender").html((data.gender=="1")?"男":"女");
+	    		    			$("#birthdate").html(data.birthdate);
+	    		    			$("#username").html(data.name);
+	    		    		}
+	    		        } ,
+	    				error:function (XMLHttpRequest, textStatus, errorThrown) {
+	    					  
+	    				}
+	    		    });
 	    		}
 	        } ,
 			error:function (XMLHttpRequest, textStatus, errorThrown) {
