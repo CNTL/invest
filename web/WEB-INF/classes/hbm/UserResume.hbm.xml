@@ -10,32 +10,54 @@
         </id>
         <property name="userId" type="java.lang.Integer">
             <column name="userID">
-                <comment>&#211;&#195;&#187;&#167;ID</comment>
+                <comment>ID</comment>
             </column>
         </property>
         <property name="userName" type="string">
             <column name="userName">
-                <comment>&#211;&#195;&#187;&#167;&#195;&#251;&#179;&#198;</comment>
+                <comment></comment>
             </column>
         </property>
         <property name="name" type="string">
             <column name="name">
-                <comment>&#188;&#242;&#192;&#250;&#195;&#251;&#179;&#198;</comment>
+                <comment></comment>
             </column>
         </property>
         <property name="affix" type="string">
             <column name="affix" length="500">
-                <comment>&#188;&#242;&#192;&#250;&#184;&#189;&#188;&#254;</comment>
+                <comment></comment>
             </column>
         </property>
         <property name="content" type="string">
             <column name="content" length="65535">
-                <comment>&#188;&#242;&#192;&#250;&#196;&#218;&#200;&#221;</comment>
+                <comment></comment>
             </column>
         </property>
+         <id name="height" type="int">
+            <column name="height" />
+        </id>
+         <id name="weight" type="int">
+            <column name="weight" />
+        </id>
+         <property name="school" type="string">
+            <column name="school" length="255">
+                <comment></comment>
+            </column>
+        </property>
+        
+        <id name="degreeid" type="int">
+            <column name="degreeid" />
+        </id>
+        
+         <property name="degree" type="string">
+            <column name="degree" length="255">
+                <comment></comment>
+            </column>
+        </property>
+        
         <property name="createTime" type="timestamp">
             <column name="createTime" length="19">
-                <comment>&#180;&#180;&#189;&#168;&#202;&#177;&#188;&#228;</comment>
+                <comment></comment>
             </column>
         </property>
     </class>
