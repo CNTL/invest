@@ -117,6 +117,20 @@ public class UserController extends BaseController {
 		} else if("orderUser".equals(action)){
 			orderUser(request,response);
 		}
+		 else if("setpoint".equals(action)){
+			 setpoint(request,response);
+		}
+	}
+	/**设置积分
+	 * @param request
+	 * @param response
+	 * @throws Exception
+	 */
+	private void  setpoint(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		int userID = getInt(request, "userid", 0);
+		int point = getInt(request, "point",0);
+		userManager.setPoint(userID, point);
+		output("ok", response);
 	}
 	/**根据ID获取用户
 	 * @param request

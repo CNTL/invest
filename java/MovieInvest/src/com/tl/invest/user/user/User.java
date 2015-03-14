@@ -57,6 +57,15 @@ public class User {
 	private String typeName;
 	private Integer perOrder;
 	private String lastSessionID;
+	private Integer point;
+	public Integer getPoint() {
+		return point;
+	}
+
+	public void setPoint(Integer point) {
+		this.point = point;
+	}
+
 	private Timestamp lastLoginTime;
 	
 	public Integer getPerOrder() {

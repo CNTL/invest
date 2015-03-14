@@ -411,6 +411,22 @@ public class UserManager {
 		if(num > 0) return true;
 		return false;
 	}
+	
+	/** 
+	* @author  leijj 
+	* 功能：设置分数
+	* @param userID
+	* @param db
+	* @return
+	 * @throws Exception 
+	*/ 
+	public void setPoint(int userID,int point) throws Exception{
+		
+		User user = getUserByID(userID);
+		user.setPoint(point);
+		update(user);
+		
+	}
 	/** 
 	* @author  leijj 
 	* 功能： 获取个人用户
@@ -609,6 +625,7 @@ public class UserManager {
 			user.setName(rs.getString("name"));
 			user.setTypeName(rs.getString("typeName"));
 			user.setPerNickName(rs.getString("perNickName"));
+			user.setPoint(rs.getInt("point"));
 			return user;
 		} catch (Exception e) {
 			throw new TLException(e);

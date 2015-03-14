@@ -43,7 +43,7 @@ public class UserFetchController extends BaseController {
 		int i = 0;
 		int maxCount = 10;
 		
-		String sql = "SELECT id, code, name, perNickName,head FROM user where perNickName like '%"+name+"%' or name like '%"+name+"%'  or code like '%"+name+"%'";
+		String sql = "SELECT id, code, name, perNickName,head,point FROM user where perNickName like '%"+name+"%' or name like '%"+name+"%'  or code like '%"+name+"%'";
 		
 		DBSession conn = null;
 		IResultSet rs = null;
@@ -58,6 +58,7 @@ public class UserFetchController extends BaseController {
 				if (i++ > 0) result.append(",");
 				result.append("{\"id\":\"").append(rs.getInt("id"))
 					.append("\",\"code\":\"").append((rs.getString("code")!=null)?rs.getString("code"):"")
+					.append("\",\"point\":\"").append((rs.getString("point")!=null)?rs.getString("point"):"")
 					.append("\",\"name\":\"").append((rs.getString("perNickName")!=null)?rs.getString("perNickName"):"")
 					.append("\",\"head\":\"").append(StringUtils.convertUrlChar((rs.getString("head")!=null)?rs.getString("head"):""))
 					.append("\"}");
