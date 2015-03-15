@@ -24,6 +24,9 @@ var proj_form = {
 		//proj_form._setOptions("proj_type",proj_datas.getProjTypes(),proj_form.DEFAULT_PAIR);
 		proj_form._setOptions("proj_province",proj_datas.getProvinces(),proj_form.DEFAULT_PAIR);
 		
+		$("#proj_beginDate").calendar({ minDate:'%y-%M-%d',maxDate:'#proj_endDate',format:"yyyy-MM-dd HH:mm:ss"});
+		$("#proj_endDate").calendar({ minDate:'#proj_beginDate',format:"yyyy-MM-dd HH:mm:ss"});
+		
 		proj_form.initUploadify("uploadify","queueItemCount","proj_imgURL","uploadErrorMsg",true,proj_form.imgUploaded);
 		
 		$("#btnNext").bind("click",proj_form["next"]);//绑定btnNext事件，不再执行changePayType
@@ -82,6 +85,10 @@ var proj_form = {
 				proj_form.imgUploaded();
 				$("#proj_videoURL").val(datas.proj.videoUrl);
 				$("#proj_summary").val(datas.proj.summary);
+				if(datas.proj.payType){
+					$("#proj_beginDate").val(datas.proj.beginDateStr);
+					$("#proj_endDate").val(datas.proj.endDateStr);
+				}
 				//CKEDITOR.instances.proj_content.setData(datas.proj.content);
 				var countDay = datas.proj.countDay;
 				var countMonth = countDay/30;
@@ -353,6 +360,12 @@ var proj_form = {
 		form["proj_summary"] = $("#proj_summary").val();
 		form["proj_content"] = CKEDITOR.instances.proj_content.getData();
 		form["proj_order"] = $("#proj_order").val();
+		if(form["proj_payType"] == 1){
+			form["proj_beginDate"] = $("#proj_beginDate").val();
+			form["proj_endDate"] = $("#proj_endDate").val();
+			form["proj_timeType"] = 0;
+			form["proj_countDay"] = 0;
+		}
 		
 		var proj = {};
 		proj["project"] = form;
@@ -451,10 +464,14 @@ var proj_form = {
 			$("#btnNext").val("下一步");
 			$('#btnNext').unbind("click",proj_form["saveAuction"]);
 			$('#btnNext').bind("click",proj_form["next"]);
+			$("#div_investDate").show();
+			$("#div_jpDate").hide();
 		}else if(t == 1){
 			$("#btnNext").val("提交信息");
 			$('#btnNext').unbind("click",proj_form["next"]);
 			$('#btnNext').bind("click",proj_form["saveAuction"]);
+			$("#div_investDate").hide();
+			$("#div_jpDate").show();
 		}
 	},
 	changeProvince : function(){

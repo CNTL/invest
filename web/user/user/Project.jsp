@@ -83,8 +83,8 @@
 						</td>
 						<td style="padding:10px;text-align:left;">
 							创建时间：<c:out value="${proj.created}"/><br />
-							开始日期：<c:out value="${proj.beginDate}"/><br />
-							结束日期：<c:out value="${proj.endDate}"/>
+							开始日期：<c:out value="${proj.beginDateStr}"/><br />
+							结束日期：<c:out value="${proj.endDateStr}"/>
 						</td>
 						<td>
 							<c:out value="${proj.countDay}"/>天<br />

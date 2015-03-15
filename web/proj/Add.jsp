@@ -5,14 +5,17 @@
 <head>
     <%@include file="../inc/meta.inc"%>
 	<link rel="stylesheet" type="text/css" href="../js/plugin/jquery-validate/css/validationEngine.jquery.css"/>
-	<link rel="stylesheet" type="text/css" href="../proj/css/project.css" />
+	
+	<link rel="stylesheet" type="text/css" href="../proj/css/project.css" />	
 	<link rel="stylesheet" type="text/css" href="../js/plugin/uploadify-3.2.1/uploadify.css"/>
+	<link rel="stylesheet" type="text/css" href="../js/plugin/lhgcalendar/lhgcalendar.bootstrap.css"/>
 	<script type="text/javascript" src="../js/json/json2.js"></script>
 	<script type="text/javascript" src="../static/ckeditor/ckeditor.js"></script>
 	<script type="text/javascript" src="../js/plugin/uploadify-3.2.1/jquery.uploadify.js"></script>
 	<script type="text/javascript" src="../js/plugin/jquery-validate/jquery.validate.min.js"></script>
 	<script type="text/javascript" src="../js/plugin/jquery-validate/js/jquery.validationEngine.js"></script>
 	<script type="text/javascript" src="../js/plugin/jquery-validate/js/languages/jquery.validationEngine-zh_CN.js"></script>
+	<script type="text/javascript" src="../js/plugin/lhgcalendar/lhgcalendar.js"></script>
 	<script type="text/javascript" src="../proj/script/datas.js"></script>
 	<script type="text/javascript" src="../js/plugin/query/jquery.query.js"></script>
 	<script type="text/javascript" src="../proj/script/project.js"></script>
@@ -70,7 +73,7 @@
 			</label>
 			<input type="text" id="proj_amountGoal" name="proj_amountGoal" value="" class="validate[required,custom[number]]" />
 		</div>
-		<div class="input">
+		<div id="div_investDate" class="input">
 			<label>众筹期限：</label>
 			<select id="proj_timeType" name="proj_timeType" style="display:none;" class="validate[required]">
 				<option value="1" selected="selected">天</option>
@@ -85,6 +88,11 @@
 		   </select>
 			<input type="text" id="proj_countDay" style="width:210px;" name="proj_countDay" value="" class="validate[required,custom[number]]" />
 			<span style="margin-left:10px;font-size:18px;">天</span>
+		</div>
+		<div id="div_jpDate" class="input" style="display:none;">
+			<label>起止时间：</label>
+			<input type="text" id="proj_beginDate" style="width:148px;" name="proj_beginDate" value="" class="validate[required]" /> - 
+			<input type="text" id="proj_endDate" style="width:148px;" name="proj_endDate" value="" class="validate[required]" />
 		</div>
 	   <div class="input">
 			<table style="width:100%;">

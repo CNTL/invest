@@ -92,7 +92,23 @@ public class ProjectController extends ProjectMainController{
 				}
 				
 				if(payType == 1){
-					ProjSupportExt[] supports = service.getProjectSupports(proj.getId(),5,1,"sp_amount desc", null);
+					ProjSupportExt[] supports = service.getProjectSupports(proj.getId(),5,1,"sp_amount desc", null);					
+					for (ProjSupportExt support : supports) {
+						if(support.getIsAnonymous() == 1){
+							if(StringUtils.isEmpty(support.getUserName())) continue;
+							String[] userNames = support.getUserName().split("");
+							String userName = "";
+							boolean has = false;
+							for (int i=0;i<userNames.length;i++) {
+								if(!has && StringUtils.isEmpty(userName)){
+									userName += userNames[i];
+									if(StringUtils.isNotEmpty(userName))has = true;
+								}
+								else userName += "*";
+							}
+							support.setUserName(userName);
+						}
+					}
 					model.put("supports", supports);
 				}
 				

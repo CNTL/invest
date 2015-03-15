@@ -109,13 +109,13 @@ public enum ProjectFields {
 	beginDate("proj_beginDate","开始日期",DataType.DATE) {
 		@Override
 		public void setValue(Project project, String value) {
-			project.setBeginDate(DateUtils.toDate(value, "yyyy-MM-dd"));
+			project.setBeginDate(DateUtils.toDate(value, "yyyy-MM-dd HH:mm:ss"));
 		}
 	},
 	endDate("proj_endDate","结束日期",DataType.DATE) {
 		@Override
 		public void setValue(Project project, String value) {
-			project.setEndDate(DateUtils.toDate(value, "yyyy-MM-dd"));
+			project.setEndDate(DateUtils.toDate(value, "yyyy-MM-dd HH:mm:ss"));
 		}
 	},
 	

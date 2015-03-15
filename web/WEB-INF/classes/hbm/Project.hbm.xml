@@ -56,10 +56,10 @@
         <property name="countDay" type="int">
             <column name="proj_countDay" not-null="true" />
         </property>
-        <property name="beginDate" type="date">
+        <property name="beginDate" type="timestamp">
             <column name="proj_beginDate" length="0" />
         </property>
-        <property name="endDate" type="date">
+        <property name="endDate" type="timestamp">
             <column name="proj_endDate" length="0" />
         </property>
 		<property name="imgUrl" type="string">

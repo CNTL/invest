@@ -89,10 +89,18 @@
         <div class="main">
             <div class="content">
                 <h2><c:out value="${proj.name}"/></h2>
-                <div class="info">
-                    <span class="f">发起人</span> <c:out value="${user.name}"/> <span><c:out value="${province.name}"/><c:out value="${city.name}"/><c:out value="${county.name}"/></span>
+                <div class="info" style="height:20px;">
+					<div class="bdsharebuttonbox" style="width: 200px;float: left;"><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a></div>
+					<div class="bdshare-button-style0-24" style="float:right;">
+						<c:if test="${favorited==0}">
+						<a href="javascript:void(0);" onclick="addFavorite(<c:out value="${proj.id}"/>);" style="background-image: url(../static/image/sc.png);">收藏</a>
+						</c:if>
+						<c:if test="${favorited==1}">
+						<a href="javascript:void(0);" >已收藏</a>
+						</c:if>
+					</div>
                 </div>
-                <div class="progress">
+                <div class="progress" style="display:none;">
                     <ul>
                         <li class="s1"></li>
                         <li class="s2"></li>
@@ -102,7 +110,7 @@
                 <div class="nav">
                     <ul>
                         <li><a href="javascript:void();" class="current">项目主页</a></li>
-                        <li><a href="Support.do?id=<c:out value="${proj.id}"/>">竞拍者(<c:out value="${proj.countSupport}"/>)</a></li>
+                        <!--<li><a href="Support.do?id=<c:out value="${proj.id}"/>">竞拍者(<c:out value="${proj.countSupport}"/>)</a></li>-->
                     </ul>
                 </div>
                 <div class="desc">
@@ -131,17 +139,8 @@
             </div>
         </div>
         <div class="sider">
-			<div class="desc" style="padding: 5px 5px;height:48px;">
-				<div class="bdsharebuttonbox" style="width: 200px;float: left;"><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a></div>
-				<div class="bdshare-button-style0-24" style="float:right;">
-					<c:if test="${favorited==0}">
-					<a href="javascript:void(0);" onclick="addFavorite(<c:out value="${proj.id}"/>);" style="background-image: url(../static/image/sc.png);">收藏</a>
-					</c:if>
-					<c:if test="${favorited==1}">
-					<a href="javascript:void(0);" >已收藏</a>
-					</c:if>
-				</div>
-
+			<div class="desc info" style="padding: 5px 5px;height:48px;padding-top:15px;">
+				<span class="f">发起人</span> <c:out value="${user.name}"/> <span><c:out value="${province.name}"/><c:out value="${city.name}"/><c:out value="${county.name}"/></span>
 			</div>
             <div class="desc">
 				<span class="status">
@@ -156,7 +155,7 @@
                 <h2>目前金额：</h2>
                 <div class="money">￥<span class="moneyFormat"><c:out value="${proj.amountRaised}"/></span></div>
                 <div class="tip">
-                    此项目在 <span><c:out value="${proj.endDate}"/></span> 结束<br />
+                    此项目在 <span><c:out value="${proj.endDateStr}"/></span> 结束<br />
                     起拍金额为 ¥<span class="moneyFormat"><c:out value="${proj.amountGoal}"/></span>
                 </div>
                 <div class="progress">
@@ -173,6 +172,39 @@
                 </div>
             </div>
 			<div class="support">
+				<div class="top">剩余时间</div>
+				<div id="JP_CountDown" class="content" style="font-size:28px;font-weight:bolder;text-align:center;">
+				</div>
+				<script type="text/javascript">
+				function displayCountDownTime(){
+					if($("#JP_CountDown").length>0){
+						var elt = document.getElementById("JP_CountDown");
+						var endTime = new Date("<c:out value="${proj.endDateStr}"/>");
+						var beginTime = new Date("<c:out value="${proj.beginDateStr}"/>");
+						var now = new Date();
+						var leftTime = endTime.getTime() -now.getTime();
+						var beginDiffTime = now.getTime() - beginTime.getTime();
+						if(beginDiffTime < 0){
+							elt.innerHTML = "竞拍未开始<br /><div style='font-size:14px;font-weight:normal;margin-top:10px;'>开始时间：<c:out value="${proj.beginDateStr}"/></div>";
+						}else if(leftTime<0){
+							elt.innerHTML = "竞拍已结束";
+						}
+						else{						
+							var ms = parseInt(leftTime%1000).toString();
+							leftTime = parseInt(leftTime/1000);
+							var o = Math.floor(leftTime / 3600);
+							var d = Math.floor(o/24);
+							var m = Math.floor(leftTime/60%60);
+							var s = leftTime%60;
+							elt.innerHTML = o + "小时:" + m + "分:" + s + "秒:" + ms.charAt(0);
+							setTimeout(displayCountDownTime,100);
+						}
+					}
+				}
+				displayCountDownTime();
+				</script>
+			</div>
+			<div class="support" style="margin-top:15px;">
 				<div class="top">
 					<c:choose>
 					<c:when test="${proj.status==1}">我要竞拍</c:when>
@@ -187,13 +219,16 @@
 						<input id="amountJP" name="amountJP" type="text" class="validate[required,custom[number]]" oldvalue="<c:out value="${proj.amountRaised}"/>" goal="<c:out value="${proj.amountGoal}"/>" value="" 
 						style="margin-left:18px;width: 238px;height:50px;line-height:30px;border: 1px #000 solid;border-radius: 5px;outline: none;padding: 0 28px;color: #55acef;font-size: 24px;font-weight: bold;"/>
 						<img src="../static/image/jp.png" border="0" style="cursor: pointer;margin-top:10px;" onclick="jingpai(<c:out value="${proj.id}"/>);"/>
+						<label for="anonymousJP" style="font-size:18px;line-height:20px;margin-left:50px;padding:10px;">
+							<input type="checkbox" id="anonymousJP" name="anonymousJP" checked="checked" style="width:18px;height:18px;margin-right:10px;" />匿名
+						</label>
 					</form>
 				</div>
 				</c:if>
            </div>
 			<div class="support" id="price-list" style="margin-top:15px;margin-bottom:15px;">
 				<div class="top">出价记录</div>
-				<div class="content">
+				<div id="div_supportRecord" class="content" style="  overflow-y: auto;height: 360px;margin-left:5px;margin-right:5px;">
 					<c:forEach var="support" items="${supports}">
 					<div class="item">
 						<div class="avatar">
@@ -214,10 +249,40 @@
 					</div>
 					</c:forEach>
 				</div>
-				</div>
+				<script type="text/javascript">
+				function refreshRecordJP(){
+					var dataUrl = "../project/ProjectFetcher.do?action=getjprecord&id=<c:out value="${proj.id}"/>";
+					$.ajax({url: dataUrl, async:true, dataType:"json",
+						success: function(datas) {
+							if(datas.length>0){
+								var html = "";
+								for(var i=0;i<datas.length;i++){
+									var data = datas[i];
+									html += "<div class=\"item\">";
+									html += "<div class=\"avatar\"><img style=\"border-radius: 50%;\" src=\"../"+data.userHead+"\" /></div>";
+									html += "<div class=\"username\" style=\"width:190px;\">";
+									html += "<a href=\"javascript:void(0);\">"+data.userName+"</a><br/>出价 <font color=\"#ff8290\">￥"+data.amount+"</font> 元<br/>";
+									html += "<div class=\"pgs\" data-price=\""+data.amount+"\" style=\"width:1%;height:5px;background:#FFA1AC;\"></div>";
+									html += "</div>";
+									html += "<span class=\"msg\" style=\"display:none;\">发私信</span>";
+									html += "<div class=\"clear\"></div>";
+									html += "</div>";
+								};
+								$("#div_supportRecord").html(html);
+								setTimeout(refreshRecordJP,60000);
+							}
+						},
+						error:function (XMLHttpRequest, textStatus, errorThrown) {
+							var error = textStatus;
+						}
+					});
+				}
+				setTimeout(refreshRecordJP,10000);
+				</script>
 			</div>
-        </div>
-        <div class="clear"></div>
+		</div>
+	</div>
+	<div class="clear"></div>
     
 	<%@include file="../inc/footer.inc"%>
 </body>

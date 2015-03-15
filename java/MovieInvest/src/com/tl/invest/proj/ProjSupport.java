@@ -33,6 +33,7 @@ public class ProjSupport implements java.io.Serializable {
 	private Long orderId;
 	private String paySN;
 	private Date payTime;
+	private int isAnonymous;
 
 	public ProjSupport() {
 	}
@@ -179,5 +180,13 @@ public class ProjSupport implements java.io.Serializable {
 
 	public void setZipcode(String zipcode) {
 		this.zipcode = zipcode;
+	}
+
+	public int getIsAnonymous() {
+		return isAnonymous;
+	}
+
+	public void setIsAnonymous(int isAnonymous) {
+		this.isAnonymous = isAnonymous;
 	}
 }

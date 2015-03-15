@@ -15,6 +15,7 @@ import net.sf.json.JsonConfig;
 import com.tl.common.DateJsonValueProcessor;
 import com.tl.common.DateUtils;
 import com.tl.common.JsonDateValueProcessor;
+import com.tl.common.StringUtils;
 import com.tl.common.WebUtil;
 import com.tl.invest.common.MoneyHelper;
 import com.tl.invest.constant.DicTypes;
@@ -23,6 +24,7 @@ import com.tl.invest.favorite.FavoriteManager;
 import com.tl.invest.proj.ProjMode;
 import com.tl.invest.proj.ProjSchedule;
 import com.tl.invest.proj.ProjSupport;
+import com.tl.invest.proj.ProjSupportExt;
 import com.tl.invest.proj.Project;
 import com.tl.invest.proj.ProjectModes;
 import com.tl.kernel.context.Context;
@@ -58,8 +60,10 @@ public class ProjectFetcher extends BaseController{
 			project.setApproveStatus((short)2);
 			project.setApproveTime(DateUtils.getTimestamp());
 			project.setApproveUser(SessionHelper.getSysUserID(request));
-			project.setBeginDate(DateUtils.getDate());
-			project.setEndDate(DateUtils.addDate(DateUtils.getDate(), project.getCountDay()));
+			if(project.getPayType() == 0){
+				project.setBeginDate(DateUtils.getDate());
+				project.setEndDate(DateUtils.addDate(DateUtils.getDate(), project.getCountDay()));
+			}
 			project.setStatus(1);
 			service.save(project);
 			output("{\"success\":true}", response);
@@ -119,9 +123,46 @@ public class ProjectFetcher extends BaseController{
 			getProject(request,response);
 		} else if("auction".equals(action)){
 			auction(request,response);
+		} else if("getjprecord".equals(action)){
+			getJPRecord(request,response);
 		}
 	}
 	
+	private void getJPRecord(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		long proj_id = getLong(request, "id", 0);
+		ProjSupportExt[] supports = service.getProjectSupports(proj_id,500,1,"sp_amount desc", null);
+		StringBuffer sb = new StringBuffer();
+		if(supports!=null && supports.length>0){
+			for (ProjSupportExt support : supports) {
+				String userName = "";
+				if(support.getIsAnonymous() == 1){
+					if(StringUtils.isEmpty(support.getUserName())) continue;
+					String[] userNames = support.getUserName().split("");				
+					boolean has = false;
+					for (int i=0;i<userNames.length;i++) {
+						if(!has && StringUtils.isEmpty(userName)){
+							userName += userNames[i];
+							if(StringUtils.isNotEmpty(userName))has = true;
+						}
+						else userName += "*";
+					}
+				}else {
+					userName = support.getUserName();
+				}
+				if(sb.length()>0) sb.append(",");
+				sb.append("{");
+				sb.append("\"userName\":\""+userName+"\"");
+				sb.append(",\"userHead\":\""+support.getUserHead().replaceAll("\\\\", "/")+"\"");
+				sb.append(",\"amount\":\""+support.getAmount()+"\"");
+				sb.append("}");
+			}
+		}
+		sb.insert(0, "[");
+		sb.append("]");
+		output(sb.toString(), response);
+	}
+
 	private void auction(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		int userId = SessionHelper.getUserID(request);
@@ -132,6 +173,7 @@ public class ProjectFetcher extends BaseController{
 		}
 		long proj_id = getLong(request, "id", 0);
 		BigDecimal amount = MoneyHelper.toMoney(get(request, "amount", "0"));
+		int isAnonymous = getInt(request, "anonymous", 0);
 		
 		Project proj = service.get(proj_id);
 		if(proj == null){
@@ -150,6 +192,7 @@ public class ProjectFetcher extends BaseController{
 		support.setAmount(amount);
 		support.setModeId(0);
 		support.setOrderId(0L);
+		support.setIsAnonymous(isAnonymous);
 		
 		service.save(support);
 		if(support.getId()>0){

@@ -668,7 +668,7 @@ public class ProjectService {
 			support.setPayTime(rs.getTimestamp("sp_paytime"));
 			support.setUserHead(rs.getString("userHead"));
 			support.setUserName(rs.getString("userName"));
-			
+			support.setIsAnonymous(rs.getInt("sp_anonymous"));
 			return support;
 		} catch (Exception e) {
 			throw new TLException(e);
@@ -692,7 +692,7 @@ public class ProjectService {
 			support.setOrderId(rs.getLong("sp_orderid"));
 			support.setPaySN(rs.getString("sp_paysn"));
 			support.setPayTime(rs.getTimestamp("sp_paytime"));
-			
+			support.setIsAnonymous(rs.getInt("sp_anonymous"));
 			return support;
 		} catch (Exception e) {
 			throw new TLException(e);
@@ -740,8 +740,8 @@ public class ProjectService {
 			proj.setType(rs.getInt("proj_type"));
 			proj.setTimeType(rs.getInt("proj_timeType"));
 			proj.setCountDay(rs.getInt("proj_countDay"));
-			proj.setBeginDate(rs.getDate("proj_beginDate"));
-			proj.setEndDate(rs.getDate("proj_endDate"));
+			proj.setBeginDate(proj.getPayType() == 1 ? rs.getTimestamp("proj_beginDate") : rs.getDate("proj_beginDate"));
+			proj.setEndDate(proj.getPayType() == 1 ? rs.getTimestamp("proj_endDate") : rs.getDate("proj_endDate"));
 			proj.setImgUrl(rs.getString("proj_imgURL"));
 			proj.setVideoUrl(rs.getString("proj_videoURL"));
 			proj.setSummary(rs.getString("proj_summary"));
@@ -838,8 +838,8 @@ public class ProjectService {
 			proj.setType(rs.getInt("proj_type"));
 			proj.setTimeType(rs.getInt("proj_timeType"));
 			proj.setCountDay(rs.getInt("proj_countDay"));
-			proj.setBeginDate(rs.getDate("proj_beginDate"));
-			proj.setEndDate(rs.getDate("proj_endDate"));
+			proj.setBeginDate(proj.getPayType() == 1 ? rs.getTimestamp("proj_beginDate") : rs.getDate("proj_beginDate"));
+			proj.setEndDate(proj.getPayType() == 1 ? rs.getTimestamp("proj_endDate") : rs.getDate("proj_endDate"));
 			proj.setImgUrl(rs.getString("proj_imgURL"));
 			proj.setVideoUrl(rs.getString("proj_videoURL"));
 			proj.setSummary(rs.getString("proj_summary"));

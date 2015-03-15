@@ -48,8 +48,16 @@
         <div class="main">
             <div class="content">
                 <h2><c:out value="${proj.name}"/></h2>
-                <div class="info">
-                    <span class="f">发起人</span> <c:out value="${user.name}"/> <span><c:out value="${province.name}"/><c:out value="${city.name}"/><c:out value="${county.name}"/></span>
+                <div class="info" style="height: 20px;">
+					<div class="bdsharebuttonbox" style="width: 200px;float: left;"><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a></div>
+					<div class="bdshare-button-style0-24" style="float:right;">
+						<c:if test="${favorited==0}">
+						<a href="javascript:void(0);" onclick="addFavorite(<c:out value="${proj.id}"/>);" >收藏</a>
+						</c:if>
+						<c:if test="${favorited==1}">
+						<a href="javascript:void(0);" >已收藏</a>
+						</c:if>
+					</div>
                 </div>
                 <div class="progress">
                     <ul>
@@ -90,17 +98,8 @@
             </div>
         </div>
         <div class="sider">
-			<div class="desc" style="padding: 5px 5px;height:48px;">
-				<div class="bdsharebuttonbox" style="width: 200px;float: left;"><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a></div>
-				<div class="bdshare-button-style0-24" style="float:right;">
-					<c:if test="${favorited==0}">
-					<a href="javascript:void(0);" onclick="addFavorite(<c:out value="${proj.id}"/>);" >收藏</a>
-					</c:if>
-					<c:if test="${favorited==1}">
-					<a href="javascript:void(0);" >已收藏</a>
-					</c:if>
-				</div>
-
+			<div class="desc info" style="padding: 5px 5px;height:48px;padding-top:15px;">
+				<span class="f">发起人</span> <c:out value="${user.name}"/> <span><c:out value="${province.name}"/><c:out value="${city.name}"/><c:out value="${county.name}"/></span>
 			</div>
             <div class="desc">
 				<span class="status">
@@ -115,7 +114,7 @@
                 <h2>目前累计金额：</h2>
                 <div class="money">￥<span class="moneyFormat"><c:out value="${proj.amountRaised}"/></span></div>
                 <div class="tip">
-                    此项目必须在 <span><c:out value="${proj.endDate}"/></span> 前得到
+                    此项目必须在 <span><c:out value="${proj.endDateStr}"/></span> 前得到
                     ¥<span class="moneyFormat"><c:out value="${proj.amountGoal}"/></span> 的支持才可成功！
                 </div>
                 <div class="progress">

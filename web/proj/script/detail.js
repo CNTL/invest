@@ -83,7 +83,7 @@ $(function(){
 		 var price = parseFloat($(this).attr("data-price"));
 		 var widthper = 100*(price/max).toString()+"%";
 		 $(this).css("width",widthper);
-	});
+	});	
 });
 
 function addFavorite(id){
@@ -136,12 +136,14 @@ function jingpai(id){
 			layer.alert("竞拍金额不能小于：￥"+oldValue);
 			return false;
 		}
+		var anonymous = 0;
+		if($("#anonymousJP").attr("checked")!=undefined) anonymous = 1;
 		
 		if(!id || id<=0) return;
 		var dataUrl = "../project/ProjectFetcher.do?action=auction";
 		var loading = -1;
 		$.ajax({url: dataUrl, async:true, dataType:"json",
-			data :{id:id,amount:value},
+			data :{id:id,amount:value,anonymous:anonymous},
 			beforeSend:function(XMLHttpRequest){
 				loading = layer.msg("正在提交数据...", 0, 16);
 			},
