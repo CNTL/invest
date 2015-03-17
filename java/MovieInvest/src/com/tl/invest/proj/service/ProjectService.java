@@ -869,14 +869,15 @@ public class ProjectService {
 			//完成百分比
 			BigDecimal per = MoneyHelper.ZERO;
 			if(proj.getPayType() == 1){
-				Date beginDate = proj.getBeginDate();
-				if(beginDate!=null){
-					long l= DateUtils.getDate().getTime() - beginDate.getTime();
-					if(l>0){
-						BigDecimal t = MoneyHelper.toMoney(String.valueOf(l/(24*60*60*1000)));
-						per = t.divide(MoneyHelper.getBigDecimal(String.valueOf(proj.getCountDay()), 2), 2,BigDecimal.ROUND_HALF_UP).multiply(MoneyHelper.toMoney("100"));
-					}
-				}
+				per = MoneyHelper.toMoney("100");
+//				Date beginDate = proj.getBeginDate();
+//				if(beginDate!=null){
+//					long l= DateUtils.getDate().getTime() - beginDate.getTime();
+//					if(l>0){
+//						BigDecimal t = MoneyHelper.toMoney(String.valueOf(l/(24*60*60*1000)));
+//						per = t.divide(MoneyHelper.getBigDecimal(String.valueOf(proj.getCountDay()), 2), 2,BigDecimal.ROUND_HALF_UP).multiply(MoneyHelper.toMoney("100"));
+//					}
+//				}
 			}else{
 				if(proj.getAmountGoal().compareTo(MoneyHelper.ZERO)<=0){
 					per = MoneyHelper.toMoney("100");
