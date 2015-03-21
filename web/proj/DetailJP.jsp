@@ -93,7 +93,7 @@
 					<div class="bdsharebuttonbox" style="width: 200px;float: left;"><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a></div>
 					<div class="bdshare-button-style0-24" style="float:right;">
 						<c:if test="${favorited==0}">
-						<a href="javascript:void(0);" onclick="addFavorite(<c:out value="${proj.id}"/>);" style="background-image: url(../static/image/sc.png);">收藏</a>
+						<a href="javascript:void(0);" onclick="addFavorite(<c:out value="${proj.id}"/>);">收藏</a>
 						</c:if>
 						<c:if test="${favorited==1}">
 						<a href="javascript:void(0);" >已收藏</a>
@@ -139,9 +139,14 @@
             </div>
         </div>
         <div class="sider">
-			<div class="desc info" style="padding: 5px 5px;height:48px;padding-top:15px;">
-				<span class="f">发起人</span> <c:out value="${user.name}"/> <span><c:out value="${province.name}"/><c:out value="${city.name}"/><c:out value="${county.name}"/></span>
+			<div class="desc info" style="padding: 5px 5px;padding-top:15px;">
+<%-- 				<span class="f">发起人</span> <c:out value="${user.perNickName}"/> <span><c:out value="${province.name}"/><c:out value="${city.name}"/><c:out value="${county.name}"/></span> --%>
+					
+					<div class="avatar" ><span class="f">发起人</span><img style="border-radius: 50%;width:60px;height:60px;" src="../<c:out value="${user.head}"/>" /> <a style="color:#FF6254;" target="_blank" href="../user/PeopleDetailMain.do?a=detail&mainType=4&id=<c:out value="${user.id}"/>"><c:out value="${user.perNickName}"/></a></div>
+
+					
 			</div>
+			
             <div class="desc">
 				<span class="status">
 					<c:choose>
@@ -166,7 +171,7 @@
                 <div class="info">
                     <ul>
                         <li><span><c:out value="${surplus}"/></span><br />剩余时间</li>
-                        <li><span><c:out value="${proj.countSupport}"/></span><br />竞拍者</li>
+                        <li><span id="jpcount"><c:out value="${proj.countSupport}"/></span><br />竞拍者</li>
                         <li class="last"><span><c:out value="${proj.countLove}"/></span><br />收藏</li>
                     </ul>
                 </div>
@@ -227,7 +232,7 @@
 				</c:if>
            </div>
 			<div class="support" id="price-list" style="margin-top:15px;margin-bottom:15px;">
-				<div class="top">出价记录</div>
+				<div id="jplist" class="top">出价记录</div>
 				<div id="div_supportRecord" class="content" style="  overflow-y: auto;height: 360px;margin-left:5px;margin-right:5px;">
 					<c:forEach var="support" items="${supports}">
 					<div class="item">
@@ -238,9 +243,9 @@
 							</c:choose>
 						</div>
 						<div class="username" style="width:190px;">
-							<a href="javascript:void(0);"><c:out value="${support.userName}"/></a><br/>
+							<a target="_blank" href="../user/PeopleDetailMain.do?a=detail&mainType=4&id=<c:out value="${support.userId}"/>"><c:out value="${support.userName}"/></a><br/>
 							出价 <font color="#ff8290">￥<c:out value="${support.amount}"/></font> 元<br/>
-							<div class="pgs" data-price="<c:out value="${support.amount}"/>" style="width:1%;height:5px;background:#FFA1AC;"></div>
+<%-- 							<div class="pgs" data-price="<c:out value="${support.amount}"/>" style="width:1%;height:5px;background:#FFA1AC;"></div> --%>
 							
 						</div>
 						<span class="msg" style="display:none;">发私信</span>
@@ -250,19 +255,27 @@
 					</c:forEach>
 				</div>
 				<script type="text/javascript">
+				$(function(){
+					refreshRecordCount($("#jpcount").text());
+				});
+				function refreshRecordCount(count){
+					$("#jplist").html("出价记录&nbsp;&nbsp;<span style=\"color:#FF6254;\">["+count+"次]</span>");
+				}
+				
 				function refreshRecordJP(){
 					var dataUrl = "../project/ProjectFetcher.do?action=getjprecord&id=<c:out value="${proj.id}"/>";
 					$.ajax({url: dataUrl, async:true, dataType:"json",
 						success: function(datas) {
 							if(datas.length>0){
 								var html = "";
+								refreshRecordCount(datas.length);
 								for(var i=0;i<datas.length;i++){
 									var data = datas[i];
 									html += "<div class=\"item\">";
 									html += "<div class=\"avatar\"><img style=\"border-radius: 50%;\" src=\"../"+data.userHead+"\" /></div>";
 									html += "<div class=\"username\" style=\"width:190px;\">";
-									html += "<a href=\"javascript:void(0);\">"+data.userName+"</a><br/>出价 <font color=\"#ff8290\">￥"+data.amount+"</font> 元<br/>";
-									html += "<div class=\"pgs\" data-price=\""+data.amount+"\" style=\"width:1%;height:5px;background:#FFA1AC;\"></div>";
+									html += "<a target=\"_blank\" href=\"../user/PeopleDetailMain.do?a=detail&mainType=4&id="+data.userId+"\">"+data.userName+"</a><br/>出价 <font color=\"#ff8290\">￥"+data.amount+"</font> 元<br/>";
+									//html += "<div class=\"pgs\" data-price=\""+data.amount+"\" style=\"width:1%;height:5px;background:#FFA1AC;\"></div>";
 									html += "</div>";
 									html += "<span class=\"msg\" style=\"display:none;\">发私信</span>";
 									html += "<div class=\"clear\"></div>";

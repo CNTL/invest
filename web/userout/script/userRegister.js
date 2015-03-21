@@ -10,7 +10,7 @@ function registerSubmit(){
         dataType: 'text',   //返回值类型  
         success:function(data){
     		if(data != null && data == 'ok'){
-    			$.messager.popup("注册成功！正在跳转到登录页面。",login);
+    			parent.location.href = '../user/loginMain.do';
     		} else {
     			 
     			$.messager.alert("注册失败。");

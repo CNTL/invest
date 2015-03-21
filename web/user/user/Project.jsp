@@ -17,7 +17,7 @@
 	
 	<div class="people_globaltop">
         <div class="wrap">
-            <a href="../org/BasicInfo.do?infoType=1&mainType=1" class="profile">个人设置</a>
+<!--             <a href="../org/BasicInfo.do?infoType=1&mainType=1" class="profile">个人设置</a> -->
             <div class="avavtar">
                 <img style="border-radius: 50%;" src="<c:out value="${loginUser.head}"/>" />
             </div>

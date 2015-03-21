@@ -620,7 +620,7 @@ public class ProjectService {
 	}
 	public ProjSupportExt[] getProjectSupports(long projectId,int pageSize,int page,String orderBy,DBSession db) throws TLException{
 		List<ProjSupportExt> list = new ArrayList<ProjSupportExt>();
-		String hql = "select "+TableLibs.TB_PROJSUPPORT.getTableCode()+".*,`user`.`perNickName` userName,`user`.head userHead,`user`.`code` userCode from "+TableLibs.TB_PROJSUPPORT.getTableCode()
+		String hql = "select "+TableLibs.TB_PROJSUPPORT.getTableCode()+".*,`user`.`perNickName` userName,`user`.`id` userId,`user`.head userHead,`user`.`code` userCode from "+TableLibs.TB_PROJSUPPORT.getTableCode()
 				+" left JOIN `user` ON `user`.id="+TableLibs.TB_PROJSUPPORT.getTableCode()+".sp_userID where sp_projID=? and sp_deleted=0";
 		if(StringUtils.isNotEmpty(orderBy)){
 			hql += "  order by "+orderBy;
@@ -669,6 +669,7 @@ public class ProjectService {
 			support.setUserHead(rs.getString("userHead"));
 			support.setUserName(rs.getString("userName"));
 			support.setIsAnonymous(rs.getInt("sp_anonymous"));
+			support.setUserId(rs.getInt("userId"));
 			return support;
 		} catch (Exception e) {
 			throw new TLException(e);

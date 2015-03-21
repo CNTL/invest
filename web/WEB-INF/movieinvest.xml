@@ -108,6 +108,11 @@
 	<bean id="user.RegisterRelMain" class="com.tl.invest.user.user.UserRegisterMainController">
 		<property name="viewName"><value>userout/userRegisterRel</value></property>
 	</bean>
+	<!-- 协议页面 -->
+	<bean id="doc.reg" class="com.tl.invest.doc.DocMainController">
+		<property name="viewName"><value>doc/regdoc</value></property>
+	</bean>
+	
 	<!--项目-->
 	<bean id="project.Service" class="com.tl.invest.proj.service.ProjectService" />
 	<bean id="project.Submit" class="com.tl.invest.proj.service.ProjectSubmitController">
@@ -367,6 +372,9 @@
 				<prop key="/admin/syslogout.do">sys.Logout</prop>
 				<!-- 系统参数 -->
 				<prop key="/admin/sysParam.do">sys.Param</prop>
+				
+				<!-- 系统协议页面-->
+				<prop key="/doc/docreg.do">doc.reg</prop>
 				
 				<!-- 用户管理 -->
 				<prop key="/user/PeopleMain.do">user.PeopleMain</prop>

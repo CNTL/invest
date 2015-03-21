@@ -67,9 +67,23 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, 
 		        <label for="myVal" class="col-sm-2 control-label">验证码:</label>
 		        <div class="col-sm-4">
 		          <input type="text" class="form-control" maxlength="4" id="myVal" name="myVal" check-type="required" >
-		          <img id="validateCode" src="" style="vertical-align: middle; margin-right: 20px;"></img><a id="changeCode" style="cursor:pointer;" onclick="changeValPic();">换一张</a>
-		          <input type="hidden" id="curVal" name="curVal" style="color: #fe6249;text-decoration: underline;cursor: pointer;" value=""/>
+		          
 		        </div>
+		        
+		      </div>  
+		      <div class="form-group">
+		      
+		        <div class="col-sm-offset-2 col-sm-6">
+		        	<img id="validateCode" src="" style="vertical-align: middle; margin-right: 20px;"></img><a id="changeCode" style="cursor:pointer;" onclick="changeValPic();">换一张</a>
+		           <input type="hidden" id="curVal" name="curVal" style="color: #fe6249;text-decoration: underline;cursor: pointer;" value=""/>
+		          
+		        </div>
+		      </div>  
+		      <div class="form-group">
+		        <label for="myVal" class="col-sm-7 control-label text-center">
+		       		<input type="checkbox" id="accept" checked="checked" /> 阅读并同意<a target="_blank" href="../doc/docreg.do" style="color:#55acef;">《用户注册服务协议》</a>
+		        </label>
+		         
 		      </div>  
    
 				<div class="form-group">
