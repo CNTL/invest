@@ -34,6 +34,8 @@ var resume = {
 	    		    			$("#gender").html((data.gender=="1")?"男":"女");
 	    		    			$("#birthdate").html(data.birthdate);
 	    		    			$("#username").html(data.name);
+	    		    			$("#perPhone").html(data.perPhone);
+	    		    			$("#perJob").html(data.perJobName);
 	    		    		}
 	    		        } ,
 	    				error:function (XMLHttpRequest, textStatus, errorThrown) {

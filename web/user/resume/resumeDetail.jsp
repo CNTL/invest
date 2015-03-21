@@ -9,6 +9,29 @@
 <meta name="description" content="<c:out value="${description}"/>" />
 <%@include file="../inc/csslink.inc"%>
 <%@include file="../inc/script.inc"%>
+<style>
+#contentTxt {
+font-size:16px;
+font-family:"Microsoft YaHei", helvetica, arial, verdana, tahoma, sans-serif;
+color:#666;
+line-height:30px;
+}
+#contentTxt span{
+font-size:16px;
+font-family:"Microsoft YaHei", helvetica, arial, verdana, tahoma, sans-serif;
+color:#666;
+line-height:30px;
+}
+
+legend{
+border-bottom:3px #FFA1AC solid;
+color:#666;
+font-size:20px;
+margin:10px;
+padding:5px;
+font-weight:bold;
+}
+</style>
 </head>
 <body>
 <%@include file="../../inc/header.inc"%>
@@ -25,7 +48,7 @@
     <div class="form-group">
 	    <label  class="col-sm-2 control-label" id="headuser"></label>
 	    <div class="col-sm-10">
-	      <label class="control-label" id="username" style="margin-top:20px"></label>
+	      <label class="control-label" id="username" style="margin-top:20px;"></label>
 	    </div>
 	  </div>
 	  
@@ -72,6 +95,18 @@
 	      <label class="control-label" id="degree"></label>
 	    </div>
 	  </div>
+	  <div class="form-group">
+	    <label for="perPhone"  class="col-sm-2 control-label">电话：</label>
+	    <div class="col-sm-10">
+	      <label class="control-label" id="perPhone"></label>
+	    </div>
+	  </div>
+	  <div class="form-group">
+	    <label for="perJob"  class="col-sm-2 control-label">职业：</label>
+	    <div class="col-sm-10">
+	      <label class="control-label" id="perJob"></label>
+	    </div>
+	  </div>
      
      
 	  <div class="form-group">
@@ -82,7 +117,7 @@
 	   <div class="form-group">
 	    <label  class="col-sm-2 control-label"></label>
 	    <div class="col-sm-10">
-	     <label id="contentTxt" class="control-label"></label>
+	     <div id="contentTxt" class="text-left" style="font-size:14px;"></div>
 	    </div>
 	  </div>
 	 
