@@ -42,27 +42,15 @@
 		<div class="sider" style="width:18%;float:left;">
 			<div class="desc" style="padding: 5px 5px;height:auto;">
 				<ul style="list-style: none;">
-					<!--<li style="height: 46px;line-height: 46px;margin-bottom: 3px;">
-						<a href="###" style="display: block;font-size: 14px;color: #333;font-weight: bold;padding: 0 10px 0 34px;height: 100%;">
-							服务协议
-						</a>
-					</li>
-					
-					<li style="height: 46px;line-height: 46px;margin-bottom: 3px;">
-						<a href="###" style="display: block;font-size: 14px;color: #333;font-weight: bold;padding: 0 10px 0 34px;height: 100%;">
-							关于
-						</a>
-					</li>
-					-->
 					<%@include file="./menulist.inc"%>
 				</ul>
 			</div>
 		</div>
 		<div class="main" style="width:80%;float:right">
 			<div class="content">
-				<h2>服务协议</h2>
+				<h2>用户注册服务协议</h2>
 				<div class="desc">
-					<p>合众映画网（网址:http://www.hzcine.com ）是北京合众映画影视科技有限公司旗下经营的网站。本协议双方为北京合众映画影视科技有限公司（简称“合众映画网”）与合众映画网项目发起人（简称“您”或“用户”）。在您使用合众映画网提供的服务之前，请务必认真阅读本协议的全部内容。本协议一经您点击确认并同意接受，即在您与合众映画网投资之间产生法律效力。</p>
+					<p>合众映画网（网址:http://www.hzcine.com ）是 北京合众映画影视科技有限公司旗下经营的网站。本协议双方为 北京合众映画影视科技有限公司（简称“合众映画网”）与合众映画网项目发起人（简称“您”或“用户”）。在您使用合众映画网提供的服务之前，请务必认真阅读本协议的全部内容。本协议一经您点击确认并同意接受，即在您与合众映画网投资之间产生法律效力。</p>
 
 					<h3>一、 定义</h3>
 
@@ -116,7 +104,7 @@
 					  &nbsp;（4）其他原因导致本协议终止的。<br />
 					  2、本协议终止后，不影响您因在本协议终止前的行为应承担的义务和责任。</p>
 
-					<h3 >七、本协议的解释权归北京合众映画影视科技有限公司所有。</h3>
+					<h3 >七、本协议的解释权归 北京合众映画影视科技有限公司所有。</h3>
 				</div>
 			</div>
 		</div>

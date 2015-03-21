@@ -24,7 +24,7 @@ $(document).ready(function () {
 });
 var relAuth = {
 	eventList : [
-  		{id:"firstType",evt:"change", fn:"changeFirstType"}
+  		 
   	],
 	DEFAULT_PAIR : {key:"id",value:"name"},
 	init : function(){
@@ -42,8 +42,8 @@ var relAuth = {
 	        success:function(data){
 	    		if(data != null){
 	    			$("#name").val(data.name);
-	    			$("#firstType_h").val(data.firstType);
-	    			$("#secondType_h").val(data.secondType);
+	    			//$("#firstType_h").val(data.firstType);
+	    			//$("#secondType_h").val(data.secondType);
 	    			//$("#firstType").val(data.firstType);
 	    			//$("#secondType").val(data.secondType);
 	    			$("#province").val(data.province);//下拉框
@@ -74,16 +74,16 @@ var relAuth = {
 			}
 	    });
 		
-		relAuth._setOptions("firstType", type_datas.getFirstTypes(), relAuth.DEFAULT_PAIR);
+		//relAuth._setOptions("firstType", type_datas.getFirstTypes(), relAuth.DEFAULT_PAIR);
 		
-		var firstType_h = $("#firstType_h").val();
-		if(firstType_h != null && firstType_h != ''){
-			$("#firstType").val(firstType_h).trigger("change");
-		}
-		var secondType_h = $("#secondType_h").val();
-		if(secondType_h != null && secondType_h != ''){
-			$("#secondType").val(secondType_h).trigger("change");
-		}
+//		var firstType_h = $("#firstType_h").val();
+//		if(firstType_h != null && firstType_h != ''){
+//			$("#firstType").val(firstType_h).trigger("change");
+//		}
+//		var secondType_h = $("#secondType_h").val();
+//		if(secondType_h != null && secondType_h != ''){
+//			$("#secondType").val(secondType_h).trigger("change");
+//		}
 	},
 	initJob : function(){
 		var dataUrl = "../user/userFetch.do?a=jobTypes";
@@ -112,12 +112,12 @@ var relAuth = {
 			}
 		});
 	},
-	changeFirstType : function(){
-		var secondTypes = [];
-		var pid = $("#firstType").val();
-		secondTypes = type_datas.getSecondTypes(pid);
-		relAuth._setOptions("secondType",secondTypes,relAuth.DEFAULT_PAIR);
-	},
+//	changeFirstType : function(){
+//		var secondTypes = [];
+//		var pid = $("#firstType").val();
+//		secondTypes = type_datas.getSecondTypes(pid);
+//		relAuth._setOptions("secondType",secondTypes,relAuth.DEFAULT_PAIR);
+//	},
 	_setOptions : function(id, datas, pair) {
 		var sel = document.getElementById(id);
 		if (!sel) return;

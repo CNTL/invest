@@ -465,10 +465,7 @@ public class UserManager {
 	
 	public List<User> setPerJob(List<User> persons){
 		
-		for (int i = 0; i < persons.size(); i++) {
-			User user = persons.get(i);
-			user.setPerJobName(user.getPerJobName());
-		}
+	
 		return persons;
 	}
 	

@@ -8,6 +8,32 @@
 <meta name="keywords" content="<c:out value="${keywords}"/>" />
 <meta name="description" content="<c:out value="${description}"/>" />
 <%@include file="../inc/csslink.inc"%>
+<style>
+.rectitle{
+	font-size:18px;
+	font-weight:bold;
+	margin:10px 0;
+}
+.recitem a{
+display: inline-block;
+width: 100px;
+height: 28px;
+line-height: 28px;
+font-size: 16px;
+cursor:pointer;
+text-decoration: none;
+}
+.recitem a:hover{
+ background:#4AC4EF;
+ color:#fff;
+ text-decoration: none;
+}
+.selected{
+ background:#4AC4EF;
+ color:#fff;
+ text-decoration: none;
+}
+</style>
 </head>
 <body>
 <%@include file="../../inc/header.inc"%>
@@ -61,6 +87,17 @@
                       </div>
                   </div>
                   <div class="form-group">
+					<label for="perjob" class="col-sm-3 control-label">职业:</label>
+					<div class="col-sm-2">
+						<span class="btn btn-primary" data-toggle="modal" data-target="#myModal">选择职业</span>
+						<input type="hidden" id="recIDs" name="recIDs" />
+						<input type="hidden" id="recNames" name="recNames" />
+					</div>
+					<div class="col-sm-4">
+						<input type="text" class="form-control" readonly="readonly" maxlength="20" id="perjob"  check-type="required">
+					</div>
+				</div>
+                  <div class="form-group">
                       <label for="intro" class="col-sm-3 control-label">个人简介：</label>
                       <div class="col-sm-9">
                           
@@ -83,7 +120,27 @@
 <!-- script -->
 <%@include file="../inc/script.inc"%>
 <!-- script -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title rectitle" id="myModalLabel">职业选择</h4>
+      </div>
+      <div class="modal-body" id="modal-body">
+      <c:forEach var="type" varStatus="status" items="${types}" >
+      <div class="rectitle"><c:out value="${type.name}"/></div>
+      <div class="recitem">
+       	<c:forEach var="subType" varStatus="status" items="${type.subDics}" >
+	  		<a onclick="selectrec()" data-id="${subType.id}" data-name="${subType.name}">${subType.name}</a>
+	 	</c:forEach>
+	  </div>
+      </c:forEach>
 
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- footer -->
 <script type="text/javascript" src="../proj/script/datas.js"></script>

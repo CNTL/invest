@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
+import com.tl.common.StringUtils;
 import com.tl.invest.constant.DicTypes;
 import com.tl.invest.user.bankcard.UserBankcard;
 import com.tl.kernel.context.Context;
@@ -286,23 +287,34 @@ public class User {
 	}
 
 	public String getPerJobName() {
+		String perJobNameString = "";
 		try {
-			DictionaryReader reader = (DictionaryReader)Context.getBean("DictionaryReader");
-			if(this.secondType>0){
-				Dictionary dic = reader.getDic(DicTypes.DIC_RECRUIT_TYPE.typeID(),this.secondType);
-				return dic.getName();
+			if(!StringUtils.isEmpty(this.getPerJob())){
+				DictionaryReader reader = (DictionaryReader)Context.getBean("DictionaryReader");
+				String[] recIDs = this.getPerJob().split(",");
+				for (int i = 0; i < recIDs.length; i++) {
+					int id = Integer.parseInt(recIDs[i], 10);
+					if(id>0){
+						Dictionary dic = reader.getDic(DicTypes.DIC_RECRUIT_TYPE.typeID(),id);
+						if(dic!=null){
+							perJobNameString = perJobNameString+ dic.getName();
+							if(i<recIDs.length-1){
+								perJobNameString = perJobNameString+",";
+							}
+						}
+						
+					}
+				}
 			}
 		} catch (Exception e) {
-			return perJobName;
+			return perJobNameString;
 		}
-		return perJobName;
+		
+		 
+		return perJobNameString;
 		
 	}
 
-	public void setPerJobName(String perJobName) {
-		
-		this.perJobName = perJobName;
-	}
 
 	public String getPerJob() {
 		return this.perJob;
@@ -310,6 +322,7 @@ public class User {
 
 	public void setPerJob(String perJob) {
 		this.perJob = perJob;
+		getPerJobName();
 	}
 
 	public String getPerPhone() {

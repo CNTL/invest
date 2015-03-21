@@ -13,6 +13,23 @@ $(document).ready(function () {
 		}
 	});
 });
+function selectrec(){
+	$this = $(event.srcElement);
+	$this.toggleClass("selected");
+	setRec();
+}
+function setRec(){
+	var recs = $("#modal-body").find(".selected");
+	var recIDs = [];
+	var recNames = [];
+	$.each(recs,function(i,n){
+		recIDs.push($(this).attr("data-id"));
+		recNames.push($(this).attr("data-name"));
+	});
+	$("#recIDs").val(recIDs.join(","));
+	$("#recNames").val(recNames.join(","));
+	$("#perjob").val(recNames.join(","));
+}
 var complete = {
 		DEFAULT_PAIR : {key:"id",value:"name"},
 	init : function(){
@@ -31,6 +48,10 @@ var complete = {
 	    			$("#birthdate").val(data.birthdate);
 	    			$("#intro").val(data.intro);
 	    			$("#province").val(data.province);
+	    			$("#perjob").val(data.perJobName);
+	    			$("#recNames").val(data.perJobName);
+	    			$("#recIDs").val(data.perJob);
+	    			complete.setrecs(data.perJob);
 	    			complete.changeProvince(data.city);
 	    		}
 	        } ,
@@ -39,6 +60,14 @@ var complete = {
 			}
 	    });
 		complete._setOptions("province",proj_datas.getProvinces(),complete.DEFAULT_PAIR);
+	},
+	setrecs:function(val){
+		var recids = val.toString().split(",");
+		 
+		for(var i=0;i<recids.length;i++){
+			$("#modal-body a[data-id='"+recids[i]+"']").addClass("selected")
+		}
+		
 	},
 	changeProvince : function(val){
 		var cities = [];

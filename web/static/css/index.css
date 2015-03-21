@@ -983,11 +983,12 @@ margin-right: 10px;
 
 /*register style start*/
 .register {
+border:2px solid #EAEAEA;
 width: 1000px;
-height: 580px;
+height: 600px;
 margin: 40px auto;
 padding: 7px 7px;
-background: url(../image/l2.png) no-repeat;
+/*background: url(../image/l2.png) no-repeat;*/
 }
 
 .register .form {

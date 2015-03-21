@@ -39,14 +39,14 @@
                       </div>
                   </div>
                   
-                  <div class="form-group">
+                  <div class="form-group" style="display:none;">
                       <label for="firstType" class="col-sm-4 control-label">职业：</label>
                       <div class="col-sm-3">
-                          <select id="firstType" name="firstType" class="form-control validate[required]"></select>
+                          <select id="firstType" name="firstType" class="form-control "></select>
 							  
                       </div>
                       <div class="col-sm-3">
-							<select id="secondType" name="secondType" class="form-control validate[required]"></select>
+							<select id="secondType" name="secondType" class="form-control "></select>
                       </div>
                   </div>
                   

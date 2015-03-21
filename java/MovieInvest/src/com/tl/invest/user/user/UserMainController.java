@@ -8,8 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.tl.invest.sys.mu.Menu;
+import com.tl.invest.user.recruit.RecruitManager;
 import com.tl.invest.workspace.Entry;
 import com.tl.kernel.context.Context;
+import com.tl.kernel.sys.dic.Dictionary;
 import com.tl.sys.common.SessionHelper;
 
 /** 
@@ -29,6 +31,9 @@ public class UserMainController extends Entry {
 		//ºÃ≥– µœ÷
 		int groupID = getInt(request, "groupID");
 		model.put("groupID", groupID);
+		RecruitManager recruitManager = new RecruitManager();
+		Dictionary[] types = recruitManager.types();
+		model.put("types", types);
 	}
 	@Override
 	protected void setMetaData(HttpServletRequest request,Map model) {

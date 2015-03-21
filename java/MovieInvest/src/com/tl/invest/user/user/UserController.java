@@ -334,6 +334,7 @@ public class UserController extends BaseController {
 		user.setPerPostCode(ParamInitUtils.getString(request.getParameter("perPostCode")));
 		user.setIntro(ParamInitUtils.getString(request.getParameter("intro")));
 		user.setProvince(get(request, "province" ,""));
+		user.setPerJob(get(request, "recIDs",""));
 		user.setCity(get(request, "city" ,""));
 		userManager.update(user);
 		output("ok", response);

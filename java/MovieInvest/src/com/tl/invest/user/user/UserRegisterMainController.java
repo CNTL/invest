@@ -6,7 +6,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.tl.common.WebUtil;
+import com.tl.invest.user.recruit.RecruitManager;
 import com.tl.invest.workspace.Entry;
+import com.tl.kernel.sys.dic.Dictionary;
 
 /** 
  * @created 2014年12月14日 下午12:05:18 
@@ -22,6 +24,9 @@ public class UserRegisterMainController extends Entry {
 		String loginCurrentUrl = request.getParameter("url");
 		//String loginCurrentMenu = WebUtil.getCookie(request, "loginCurrentMenu");//登录后一级菜单
 		model.put("loginCurrentUrl", loginCurrentUrl);
+		RecruitManager recruitManager = new RecruitManager();
+		Dictionary[] types = recruitManager.types();
+		model.put("types", types);
 	}
 	@Override
 	protected void setMetaData(HttpServletRequest request,Map model) {

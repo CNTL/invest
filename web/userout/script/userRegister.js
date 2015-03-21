@@ -1,29 +1,24 @@
-function registerSubmit(){
-	//1.旧密码是否正确，须校验 2.新密码校验 3.密码加密 4.写入数据库
-	//2.新密码是否一致
-	//3.对密码进行加密,写入数据库
-	$.ajax({
-        type:"POST", //请求方式  
-        url:"../user/userlogin.do?a=create", //请求路径  
-        cache: false,     
-        data:$('#form').serialize(),  //传参       
-        dataType: 'text',   //返回值类型  
-        success:function(data){
-    		if(data != null && data == 'ok'){
-    			parent.location.href = '../user/loginMain.do';
-    		} else {
-    			 
-    			$.messager.alert("注册失败。");
-    		}
-        }  
-    });
-	
-	 
-}
+
 function login(){
 	parent.location.href = '../user/loginMain.do';
 }
-
+function selectrec(){
+	$this = $(event.srcElement);
+	$this.toggleClass("selected");
+	setRec();
+}
+function setRec(){
+	var recs = $("#modal-body").find(".selected");
+	var recIDs = [];
+	var recNames = [];
+	$.each(recs,function(i,n){
+		recIDs.push($(this).attr("data-id"));
+		recNames.push($(this).attr("data-name"));
+	});
+	$("#recIDs").val(recIDs.join(","));
+	$("#recNames").val(recNames.join(","));
+	$("#perjob").val(recNames.join(","));
+}
 function checkpassword(){
 	var password1 = $("#password1").val();
 	var password2 = $("#password2").val();
@@ -137,7 +132,8 @@ $(document).ready(function () {
 	    						 code:$("#code").val(),
 	    						 email:$("#email").val(),
 	    						 type:$("#type").val(),
-	    						 password:$("#password1").val()
+	    						 password:$("#password1").val(),
+	    						 recIDs:$("#recIDs").val()
 	    				 };
 	    	    		  $.ajax({
 	    	    		        type:"POST", //请求方式  
@@ -148,7 +144,7 @@ $(document).ready(function () {
 	    	    		        dataType: 'text',   //返回值类型  
 	    	    		        success:function(data){
 	    	    		    		if(data != null && data == 'ok'){
-	    	    		    			$.messager.popup("注册成功！正在跳转到登录页面。",login);
+	    	    		    			login();
 	    	    		    		} else {
 	    	    		    			 
 	    	    		    			$.messager.alert("注册失败。");

@@ -108,10 +108,6 @@
 	<bean id="user.RegisterRelMain" class="com.tl.invest.user.user.UserRegisterMainController">
 		<property name="viewName"><value>userout/userRegisterRel</value></property>
 	</bean>
-	<!-- 协议页面 -->
-	<bean id="doc.reg" class="com.tl.invest.doc.DocMainController">
-		<property name="viewName"><value>doc/regdoc</value></property>
-	</bean>
 	
 	<!--项目-->
 	<bean id="project.Service" class="com.tl.invest.proj.service.ProjectService" />
@@ -353,6 +349,11 @@
 		<property name="viewName"><value>static/help/agreement</value></property>
 	</bean>
 	
+	<bean id="help.RegDoc" class="com.tl.invest.workspace.HelpMainController">
+		<property name="viewName"><value>static/help/regdoc</value></property>
+	</bean>
+	
+	
 	<!--============ 4. web =============== -->
 	<bean id="appUrl" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="order"><value>3</value></property>
@@ -372,10 +373,7 @@
 				<prop key="/admin/syslogout.do">sys.Logout</prop>
 				<!-- 系统参数 -->
 				<prop key="/admin/sysParam.do">sys.Param</prop>
-				
-				<!-- 系统协议页面-->
-				<prop key="/doc/docreg.do">doc.reg</prop>
-				
+
 				<!-- 用户管理 -->
 				<prop key="/user/PeopleMain.do">user.PeopleMain</prop>
 				<prop key="/user/PeopleMoreMain.do">user.PeopleMoreMain</prop>
@@ -465,6 +463,9 @@
 				<prop key="/Search.do">workspace.search</prop>
 				
 				<prop key="/help/Agreement.do">help.Agreement</prop>
+				<prop key="/help/RegDoc.do">help.RegDoc</prop>
+				
+				
 			</props>
 		</property>
 	</bean>

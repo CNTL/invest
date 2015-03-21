@@ -144,6 +144,7 @@ public class UserLoginController extends BaseController
 		user.setType(type);
 		user.setPassword(get(request, "password",""));
 		user.setCreateTime(DateUtils.getTimestamp());
+		user.setPerJob(get(request, "recIDs",""));
 		user.setIsRealNameIdent(0);//Œ¥»œ÷§
 		UserManager userManager = (UserManager) Context.getBean(UserManager.class);
 		String result = userManager.create(user);
