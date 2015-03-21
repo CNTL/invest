@@ -53,6 +53,14 @@ var proj_form = {
 				}
 			});
 		}
+		$("#proj_agreements").click(function(){
+			if(!$("#proj_agreements").prop("checked")){
+				$("#btnNext").prop("disabled",true);
+			}
+			else{
+				$("#btnNext").prop("disabled",false);
+			}
+		});
 	},
 	showEdit : function(){
 		var proj_id = $("#proj_id").val();
@@ -61,7 +69,7 @@ var proj_form = {
 		var loading = -1;
 		$.ajax({url: dataUrl, async:true, dataType:"json",
 			beforeSend:function(XMLHttpRequest){
-				loading = layer.msg("正在初始化数据...", 0, 16);
+				 
 			},
 			success: function(datas) {
 				$('#proj_type_select li').removeClass("current");
@@ -108,11 +116,11 @@ var proj_form = {
 				}
 			},
 			complete: function(XMLHttpRequest, textStatus){
-				layer.close(loading);
+				 
 			},
 			error:function (XMLHttpRequest, textStatus, errorThrown) {
-				layer.close(loading);
-				layer.alert('加载数据失败！', 3);
+				 
+				$.messager.alert('加载数据失败！');
 			}
 		});
 	},
@@ -146,9 +154,9 @@ var proj_form = {
 		html += "<input type=\"hidden\" id=\"mode_name\" value=\""+mode.mode_name+"\" />";
 		html += "<input type=\"hidden\" id=\"mode_deleted\" value=\""+mode.mode_deleted+"\" />";
 		html += "<input type=\"hidden\" id=\"mode_status\" value=\""+mode.mode_status+"\" />";
-		html += "<div class=\"input\"><label>支持金额：</label><input type=\"text\" id=\"mode_price\" name=\"mode_price\" class=\"validate[required,custom[number]]\" style=\"width:86px;margin-right:10px;\" value=\""+mode.mode_price+"\" /><label for=\"mode_price_free_chk\" style=\"display: inline-flex;width: 50px;text-align: left;height: 18px;line-height: 18px;margin-bottom: 0px;font-weight: normal;margin-right:10px;\"><input type=\"checkbox\" id=\"mode_price_free_chk\" style=\"width: 18px;height: 18px;line-height: 18px;padding: 0px;margin: 0px;\" />免费</label>";
-		html += "<label>回报限额：</label><input type=\"text\" id=\"mode_countGoal\" name=\"mode_countGoal\" class=\"validate[required,custom[number]]\" style=\"width:76px;margin-right:10px;\" value=\""+mode.mode_countGoal+"\" /><label for=\"mode_countGoal_free_chk\" style=\"display: inline-flex;width: 50px;text-align: left;height: 18px;line-height: 18px;margin-bottom: 0px;font-weight: normal;\"><input type=\"checkbox\" id=\"mode_countGoal_free_chk\" style=\"width: 18px;height: 18px;line-height: 18px;padding: 0px;margin: 0px;\" />不限</label></div>";
-		html += "<div class=\"input\"><table style=\"width:100%\"><tr><td valign=\"top\"><label>回报内容：</label></td><td><div class=\"text\"><textarea name=\"mode_return\" id=\"mode_return\" class=\"validate[required]\" style=\"width:380px;height:80px;\">"+mode.mode_return+"</textarea></div></td></tr></table></div>";
+		html += "<div class=\"input\"><label>支持金额：</label><input type=\"text\" id=\"mode_price\" name=\"mode_price\" class=\"validate[required,custom[number]] \" style=\"width:86px;margin-right:10px;border-radius:4px;\" value=\""+mode.mode_price+"\" /><label for=\"mode_price_free_chk\" style=\"display: inline-flex;width: 50px;text-align: left;height: 18px;line-height: 18px;margin-bottom: 0px;font-weight: normal;margin-right:10px;\"><input type=\"checkbox\" id=\"mode_price_free_chk\" style=\"width: 18px;height: 18px;line-height: 18px;padding: 0px;margin: 0px;\" />免费</label></div>";
+		html += "<div class=\"input\"><label>回报限额：</label><input type=\"text\" id=\"mode_countGoal\" name=\"mode_countGoal\" class=\"validate[required,custom[number]]\" style=\"width:76px;margin-right:10px;border-radius:4px;\" value=\""+mode.mode_countGoal+"\" /><label for=\"mode_countGoal_free_chk\" style=\"display: inline-flex;width: 50px;text-align: left;height: 18px;line-height: 18px;margin-bottom: 0px;font-weight: normal;\"><input type=\"checkbox\" id=\"mode_countGoal_free_chk\" style=\"width: 18px;height: 18px;line-height: 18px;padding: 0px;margin: 0px;\" />不限</label></div>";
+		html += "<div class=\"input\"><table style=\"width:100%\"><tr><td valign=\"top\"><label>回报内容：</label></td><td><div class=\"text\"><textarea name=\"mode_return\" id=\"mode_return\" class=\"validate[required] \" style=\"border:1px #E1E1E1 solid;width:380px;height:80px;border-radius:4px;\">"+mode.mode_return+"</textarea></div></td></tr></table></div>";
 		html += "<div class=\"input\"><table style=\"width:100%;\"><tr id=\"mode_image_upload\" "+mode_image_upload_display+"><td valign=\"top\" style=\"width:90px;\"><label>回报图片：</label></td>";
 		html += "	<td><input type=\"file\" class=\"uploadify\" name=\"mode_uploadify\" id=\"mode_uploadify\" />";
 		html += "		<input type=\"hidden\" id=\"mode_queueItemCount\" name=\"mode_queueItemCount\" value=\"0\" />";
@@ -162,9 +170,9 @@ var proj_form = {
 			}
 		}
 		html += "</td></tr></table></div>";
-		html += "<div class=\"input\"><label>运费：</label><input type=\"text\" id=\"mode_freight\" name=\"mode_freight\" class=\"validate[required,custom[number]]\" style=\"width:300px;margin-right:10px;\" value=\""+mode.mode_freight+"\" /><label for=\"mode_freight_free_chk\" style=\"display: inline-flex;width: 50px;text-align: left;height: 18px;line-height: 18px;margin-bottom: 0px;font-weight: normal;\"><input type=\"checkbox\" id=\"mode_freight_free_chk\" style=\"width: 18px;height: 18px;line-height: 18px;padding: 0px;margin: 0px;\" />免费</label></div>";
-		html += "<div class=\"input\"><label>回报时间：</label><input type=\"text\" id=\"mode_returntime\" name=\"mode_returntime\" class=\"validate[required]\" value=\""+mode.mode_returntime+"\" /></div>";
-		html += "<div class=\"btn\"><input type=\"button\" id=\"btnModeOK\" name=\"btnModeOK\" value=\"确定\" style=\"width:100px;\" /><input type=\"button\" id=\"btnModeCannel\" name=\"btnModeCannel\" value=\"取消\" style=\"width:100px;margin-left:50px;\"/></div>";
+		html += "<div class=\"input\"><label>运费：</label><input type=\"text\" id=\"mode_freight\" name=\"mode_freight\" class=\"validate[required,custom[number]]\" style=\"width:200px;margin-right:10px;border-radius:4px;\" value=\""+mode.mode_freight+"\" /><label for=\"mode_freight_free_chk\" style=\"display: inline-flex;width: 50px;text-align: left;height: 18px;line-height: 18px;margin-bottom: 0px;font-weight: normal;\"><input type=\"checkbox\" id=\"mode_freight_free_chk\" style=\"width: 18px;height: 18px;line-height: 18px;padding: 0px;margin: 0px;\" />免费</label></div>";
+		html += "<div class=\"input\"><label>回报时间：</label><input type=\"text\" id=\"mode_returntime\" style=\"width:200px;border-radius:4px;\" name=\"mode_returntime\" class=\"validate[required]\" value=\""+mode.mode_returntime+"\" /></div>";
+		html += "<div class=\"btn\"><input type=\"button\" id=\"btnModeOK\" name=\"btnModeOK\" value=\"确定\" class=\"btn btn-primary\" style=\"width:100px;margin-left:100px;\" /><input type=\"button\" id=\"btnModeCannel\" name=\"btnModeCannel\" value=\"取消\" class=\"btn btn-primary\" style=\"width:100px;margin-left:50px;\"/></div>";
 		html += "</div>";
 		html += "</form>";
 		
@@ -395,7 +403,7 @@ var proj_form = {
 			data: paramData,
 			dataType:"JSON",
 			beforeSend:function(XMLHttpRequest){
-				loading = layer.msg("正在保存项目信息...", 0, 16);
+				 
 			},
 			success: function(msg){
 				if (msg.success) {				
@@ -411,11 +419,12 @@ var proj_form = {
 				}
 			},
 			complete: function(XMLHttpRequest, textStatus){
-				layer.close(loading);
+				 
 			},
 			error:function (XMLHttpRequest, textStatus, errorThrown) {
-				layer.alert(errorThrown + ':' + textStatus,3);  // 错误处理
-				layer.close(loading);
+				$.messager.alert(errorThrown + ':' + textStatus,3);  // 错误处理
+				 
+				 
 			}
 		});
 	},
@@ -460,18 +469,21 @@ var proj_form = {
 	},
 	changePayType : function(){
 		var t = $("#proj_payType").val();
+		
 		if(t == 0){			
 			$("#btnNext").val("下一步");
 			$('#btnNext').unbind("click",proj_form["saveAuction"]);
 			$('#btnNext').bind("click",proj_form["next"]);
 			$("#div_investDate").show();
 			$("#div_jpDate").hide();
+			$("#lbtype").html("众筹金额：");
 		}else if(t == 1){
 			$("#btnNext").val("提交信息");
 			$('#btnNext').unbind("click",proj_form["next"]);
 			$('#btnNext').bind("click",proj_form["saveAuction"]);
 			$("#div_investDate").hide();
 			$("#div_jpDate").show();
+			$("#lbtype").html("起拍金额：");
 		}
 	},
 	changeProvince : function(){

@@ -92,21 +92,23 @@ function addFavorite(id){
 	var loading = -1;
 	$.ajax({url: dataUrl, async:true, dataType:"json",
 		beforeSend:function(XMLHttpRequest){
-			loading = layer.msg("正在提交数据...", 0, 16);
+			 
 		},
 		success: function(datas) {
 			if(datas.success){
 				window.location.reload();
 			}else{
-				layer.alert(datas.msg, 3);
+				
+				$.messager.alert(datas.msg);
 			}
 		},
 		complete: function(XMLHttpRequest, textStatus){
-			layer.close(loading);
+			 
 		},
 		error:function (XMLHttpRequest, textStatus, errorThrown) {
-			layer.close(loading);
-			layer.alert('数据提交失败！', 3);
+			 
+			$.messager.alert("数据提交失败！");
+			
 		}
 	});
 }
@@ -133,7 +135,8 @@ function jingpai(id){
 		var value = $("#amountJP").val();
 		
 		if(parseFloat(oldValue)>=parseFloat(value)){
-			layer.alert("竞拍金额不能小于：￥"+oldValue);
+		
+			$.messager.alert("竞拍金额不能小于：￥"+oldValue);
 			return false;
 		}
 		var anonymous = 0;
@@ -141,25 +144,26 @@ function jingpai(id){
 		
 		if(!id || id<=0) return;
 		var dataUrl = "../project/ProjectFetcher.do?action=auction";
-		var loading = -1;
+		 
 		$.ajax({url: dataUrl, async:true, dataType:"json",
 			data :{id:id,amount:value,anonymous:anonymous},
 			beforeSend:function(XMLHttpRequest){
-				loading = layer.msg("正在提交数据...", 0, 16);
+				 
 			},
 			success: function(datas) {
 				if(datas.success){
-					layer.alert(datas.msg,1,function(){window.location.reload();});
+					$.messager.popup(datas.msg,function(){window.location.reload();});
 				}else{
-					layer.alert(datas.msg, 3);
+					 
+					$.messager.alert(datas.msg);
 				}
 			},
 			complete: function(XMLHttpRequest, textStatus){
-				layer.close(loading);
+				 
 			},
 			error:function (XMLHttpRequest, textStatus, errorThrown) {
-				layer.close(loading);
-				layer.alert('数据提交失败！', 3);
+				
+				$.messager.popup("数据提交失败！");
 			}
 		});
 	}

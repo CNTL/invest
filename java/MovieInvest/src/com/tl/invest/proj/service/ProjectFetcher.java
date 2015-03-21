@@ -27,10 +27,13 @@ import com.tl.invest.proj.ProjSupport;
 import com.tl.invest.proj.ProjSupportExt;
 import com.tl.invest.proj.Project;
 import com.tl.invest.proj.ProjectModes;
+import com.tl.invest.user.user.User;
+import com.tl.invest.user.user.UserManager;
 import com.tl.kernel.context.Context;
 import com.tl.kernel.sys.dic.Dictionary;
 import com.tl.kernel.sys.dic.DictionaryReader;
 import com.tl.kernel.web.BaseController;
+import com.tl.kernel.web.SysSessionUser;
 import com.tl.sys.common.SessionHelper;
 
 public class ProjectFetcher extends BaseController{
@@ -39,6 +42,8 @@ public class ProjectFetcher extends BaseController{
 	public void setService(ProjectService service) {
 		this.service = service;
 	}
+	protected UserManager userMgr = new UserManager();
+	
 
 	@SuppressWarnings("rawtypes")
 	@Override
@@ -172,6 +177,16 @@ public class ProjectFetcher extends BaseController{
 			output("{\"success\":false,\"msg\":\"您还没有登陆...<br /><br /><a href='"+WebUtil.getRoot(request)+"login.jsp' style='color:blue;'>点击登陆</a><br /><br />\"}", response);
 			return;
 		}
+		//判断是否实名认证
+		User user =  userMgr.getUserByID(userId);
+		if(user.getIsRealNameIdent()!=1){
+			output("{\"success\":false,\"msg\":\"您还没有实名认证，请先进行实名认证。\"}", response);
+			return;
+		}
+		if(user.getPoint()<=0){
+			output("{\"success\":false,\"msg\":\"抱歉，您的信用积分不够，不能进行竞拍。\"}", response);
+			return;
+		}
 		long proj_id = getLong(request, "id", 0);
 		BigDecimal amount = MoneyHelper.toMoney(get(request, "amount", "0"));
 		int isAnonymous = getInt(request, "anonymous", 0);
@@ -202,9 +217,9 @@ public class ProjectFetcher extends BaseController{
 			service.save(proj);
 			service.updateJP(proj_id, support.getId());
 			
-			output("{\"success\":true,\"msg\":\"竞拍成功\"}", response);
+			output("{\"success\":true,\"msg\":\"恭喜您，竞价成功。\"}", response);
 		}else {
-			output("{\"success\":false,\"msg\":\"竞拍失败\"}", response);
+			output("{\"success\":false,\"msg\":\"抱歉,竞拍失败\"}", response);
 		}
 	}
 

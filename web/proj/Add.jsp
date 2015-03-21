@@ -24,6 +24,14 @@
 		var webroot = "<c:out value="${rootPath}"/>";
 		
 	</script>
+	<style>
+	 label{
+	 	font-size:16px;
+	 }
+	 #proj_type_select li{
+	 	border-radius:4px;
+	 }
+	</style>
 </head>
 <body>
 	<%@include file="../inc/header.inc"%>
@@ -35,7 +43,7 @@
 	   <div style="width:100%;margin-top:8px;border-top:3px #FFA1AC solid;margin-bottom:8px;"></div>
 	   <div id="proj_coverIMG_div" style="display:none;position: absolute; z-index: 122; width: 400px; height: 320px;overflow:hidden;background:#fff;border:1px solid #C7C7C7;">
 		</div>
-		<form id="form1" action="" method="post">
+		<form id="form1" action="" method="post" class="form-horizontal">
 		<input type="hidden" id="proj_id" name="proj_id" value="<c:out value="${proj_id}"/>" />
 		<input type="hidden" id="proj_order" name="proj_order" value="0" />
 		<div class="select">
@@ -45,99 +53,148 @@
 				<li data="1">机构</li>
 			</ul>
 		</div>
-	   <div class="input">
-			<label>项目名称：<span style="color:red;">*</span></label><input type="text" id="proj_name" name="proj_name" value="" class="validate[maxSize[255],required]"/>
+	   <div class="form-group">
+			  <label class="col-md-2 control-label" >项目名称：</label>
+			  <div class="col-sm-4">
+				<input type="text" id="proj_name" name="proj_name" value="" class="validate[maxSize[255],required] form-control"/>
+			  </div>
+			  <div class="col-sm-1">
+			  	<span style="color:red;line-height:30px;">*</span>
+			  </div>
 	   </div>
-	   <div class="input">
-			<label>地域：<span style="color:red;">*</span></label>
-			<select id="proj_province" name="proj_province" class="validate[required]">
-				<option value="">省份</option>
-				<option value="1">选项一</option>
-			</select>
-			<select id="proj_city" name="proj_city" class="validate[required]">
-				<option value="">城市</option>
-				<option value="1">选项一</option>
-			</select>
-			<select id="proj_county" name="proj_county" class="validate[required]" style="display:none;">
-				<option value="">地区</option>
-				<option value="1">选项一</option>
-			</select>
-		</div>
-		<div class="input">
-			<label>
-				<select id="proj_payType" name="proj_payType" style="color:#666;width: 105px;padding-left: 5px;">
-					<option value="0">众筹金额</option>
-					<option value="1">起拍金额</option>
+	   <div class="form-group">
+			<label  class="col-md-2 control-label">项目地域：</label>
+			  <div class="col-sm-2">
+				<select id="proj_province" name="proj_province" class="validate[required] form-control" >
+					<option value="">省份</option>
+					<option value="1">选项一</option>
 				</select>
-				<span style="color:red;">*</span>
-			</label>
-			<input type="text" id="proj_amountGoal" name="proj_amountGoal" value="" class="validate[required,custom[number]]" />
-		</div>
-		<div id="div_investDate" class="input">
-			<label>众筹期限：</label>
-			<select id="proj_timeType" name="proj_timeType" style="display:none;" class="validate[required]">
-				<option value="1" selected="selected">天</option>
-				<option value="2">日期</option>
-			</select>
-		   <select id="proj_countDay_sel" name="proj_countDay_sel" class="validate[required]">
-				<option value="1" selected="selected">一个月</option>
-				<option value="1.5">一个半月</option>
-				<option value="2">两半月</option>
-				<option value="3">三半月</option>
-				<option value="0">其他</option>
-		   </select>
-			<input type="text" id="proj_countDay" style="width:210px;" name="proj_countDay" value="" class="validate[required,custom[number]]" />
-			<span style="margin-left:10px;font-size:18px;">天</span>
-		</div>
-		<div id="div_jpDate" class="input" style="display:none;">
-			<label>起止时间：</label>
-			<input type="text" id="proj_beginDate" style="width:148px;" name="proj_beginDate" value="" class="validate[required]" /> - 
-			<input type="text" id="proj_endDate" style="width:148px;" name="proj_endDate" value="" class="validate[required]" />
-		</div>
-	   <div class="input">
-			<table style="width:100%;">
-				<tr>
-					<td valign="top" style="width:90px;">
-						<label>封面图片：</label>
-					</td>
-					<td>
-						<input type="file" name="uploadify" id="uploadify" />
-						<input type="hidden" id="queueItemCount" name="queueItemCount" value="0" />
-						<input type="hidden" id="proj_imgURL" name="proj_imgURL" value="" />
-						<input type="hidden" id="uploadErrorMsg" name="uploadErrorMsg" value="" />
-					</td>
-				</tr>
-			</table>
-	   </div>
-		<div class="input">
-			<label>视频地址：</label>
-			<input type="text" id="proj_videoURL" name="proj_videoURL" style="width:828px;" value="" />
-		</div>
-		<div class="input">
-			<label>项目简介：</label>
-			<div class="text">
-				<textarea name="proj_summary" id="proj_summary" style="width:876px;height:100px;"></textarea>
 			</div>
-			<div class="clear"></div>
+			<div class="col-sm-2">
+				<select id="proj_city" name="proj_city" class="validate[required] form-control">
+					<option value="">城市</option>
+					<option value="1">选项一</option>
+				</select>
+			</div>
+			
+				<select id="proj_county" name="proj_county" class="validate[required] form-control" style="display:none;">
+					<option value="">地区</option>
+					<option value="1">选项一</option>
+				</select>
+			
+			<div class="col-sm-1">
+			  	<span style="color:red;line-height:30px;">*</span>
+			  </div>
 		</div>
-		<div class="input">
-			<label>项目内容：</label>
-			<div class="text">
+		 <div class="form-group">
+		 	<label  class="col-md-2 control-label">项目类型：</label>
+		 	<div class="col-sm-2">
+			  	 <select id="proj_payType" name="proj_payType" class="form-control">
+					<option value="0">众筹项目</option>
+					<option value="1">竞拍项目</option>
+				</select>
+			</div>
+			<div class="col-sm-1">
+				<span style="color:red;line-height:30px;">*</span>
+			</div>
+		 </div>
+		<div class="form-group">
+			<label id="lbtype"  class="col-md-2 control-label">众筹金额：</label>
+			<div class="col-sm-4">
+			<input type="text" id="proj_amountGoal" name="proj_amountGoal" value="" class="validate[required,custom[number]] form-control" />
+			</div>
+			<div class="col-sm-1">
+				<span style="color:red;line-height:30px;">*</span>
+			</div>
+		</div>
+		<div id="div_investDate" class="form-group">
+		    <label class="col-md-2 control-label">众筹期限：</label>
+		 	<div class="col-sm-2" style="display:none;">
+				<select id="proj_timeType" name="proj_timeType" style="display:none;" class="validate[required] form-control">
+					<option value="1" selected="selected">天</option>
+					<option value="2">日期</option>
+				</select>
+			</div>
+			<div class="col-sm-2">
+			   <select id="proj_countDay_sel" name="proj_countDay_sel" class="validate[required] form-control">
+					<option value="1" selected="selected">一个月</option>
+					<option value="1.5">一个半月</option>
+					<option value="2">两个月</option>
+					<option value="3">三个月</option>
+					<option value="0">其他</option>
+			   </select>
+			</div>
+			<div class="col-sm-1">
+				<input type="text" id="proj_countDay" name="proj_countDay" value="" class="validate[required,custom[number]] form-control" />
+				
+			</div>
+			<div class="col-sm-1">
+			<span style="color:red;line-height:30px;">*</span>
+			<span style="line-height:30px;">天</span>
+			</div>
+		</div>
+		<div id="div_jpDate" class="form-group" style="display:none;">
+			 
+			<label class="col-md-2 control-label">起止时间：</label>
+			<div class="col-md-2">
+				<input type="text" id="proj_beginDate" style="width:160px;padding:1px;"  name="proj_beginDate" value="" class="validate[required] form-control" /> 
+			</div>
+			<label class="col-md-1 control-label text-center" style="width:10px;margin-left:10px;">-</label>
+			<div class="col-md-2">
+				<input type="text" id="proj_endDate"  style="width:160px;padding:1px;" name="proj_endDate" value="" class="validate[required] form-control" />
+			</div>
+			<div class="col-sm-1">
+				<span style="color:red;line-height:30px;">*</span>
+			</div>
+		</div>
+	   <div class="form-group">
+		    <label class="col-md-2 control-label">封面图片：</label>
+		    <div class="col-md-4">
+	  			<input type="file" name="uploadify" id="uploadify" />
+				<input type="hidden" id="queueItemCount" name="queueItemCount" value="0" />
+				<input type="hidden" id="proj_imgURL" name="proj_imgURL" value="" />
+				<input type="hidden" id="uploadErrorMsg" name="uploadErrorMsg" value="" />
+		    </div>
+		 
+	   </div>
+		<div class="form-group">
+			 
+			 <label class="col-md-2 control-label">视频地址：</label>
+			 <div class="col-sm-9">
+			 	<input type="text" id="proj_videoURL" name="proj_videoURL" class="form-control" value="" />
+			 </div>
+			
+		</div>
+		
+		<div class="form-group"> 
+			<label class="col-md-2 control-label">项目简介：</label>
+			<div class=" col-md-9">
+				<textarea name="proj_summary" id="proj_summary" class="form-control" rows="3"></textarea>
+			</div>
+			<div class="col-sm-1">
+				<span style="color:red;line-height:30px;">*</span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label">项目内容：</label>
+			<div class="col-md-9">
 				<textarea name="proj_content" id="proj_content"><c:out escapeXml="false" value="${proj.content}"/></textarea>
 			</div>
-			<div class="clear"></div>
+			
 		</div>
-		<div style="padding-left:80px;font-size:18px;">
-			<label for="proj_agreements">
-				<input type="checkbox" id="proj_agreements" name="proj_agreements" checked="checked" style="width:18px;height:18px;" />
-				提交信息即代表已经同意
-				<a href="<c:out value="${rootPath}"/>help/Agreement.do" style="color:blue;" target="_blank">《项目发起协议》</a>及
-				<a href="<c:out value="${rootPath}"/>help/Agreement.do" style="color:blue;" target="_blank">《注意事项》</a>
-			</label>
-		</div>
-		<div class="btn">
-			<input type="button" id="btnNext" name="btnNext" value="下一步" />
-		</div>
+		<div class="form-group">
+		        <label for="myVal" class="col-sm-7 control-label text-center">
+		       		<input type="checkbox" id="proj_agreements" name="proj_agreements" checked="checked" /> 提交信息即代表已经同意
+		       		<a target="_blank" href="<c:out value="${rootPath}"/>help/Agreement.do" style="color:#55acef;">《项目发起协议》</a>
+		        </label>
+		      </div>  
+		 
+		 
+		<div class="form-group">
+            <div class="col-sm-12 text-center">
+				<input type="button" id="btnNext" name="btnNext" class="btn btn-primary" value="下一步" />
+            </div>
+        </div>
 		</form>
 	</div>
 	<div id="proj_step2" class="project_list" style="display:none; margin-bottom:200px;">
@@ -165,19 +222,13 @@
             </div>
 		</div>
 		<div class="clear"></div>
-		
-		<div style="padding-left:80px;font-size:18px;">
-			<label for="proj_agreements">
-				<input type="checkbox" id="proj_agreements" name="proj_agreements" checked="checked" style="width:18px;height:18px;" />
-				提交信息即代表已经同意
-				<a href="###" style="color:blue;">《项目发起协议》</a>及
-				<a href="###" style="color:blue;">《注意事项》</a>
-			</label>
-		</div>
-		<div class="btn">
-			<input type="button" id="btnPre" name="btnPre" value="上一步" />
-			<input type="button" id="btnSave" name="btnSave" value="提交信息" />
-		</div>
+		<div class="form-group">
+            <div class="col-sm-12 text-center">
+                <input type="button" id="btnPre" name="btnPre" class="btn btn-primary" value="上一步" />
+				<input type="button" id="btnSave" name="btnSave" class="btn btn-primary" value="提交信息" />
+            </div>
+        </div>
+		 
 	</div>
     <script type="text/javascript">
         $(function () {

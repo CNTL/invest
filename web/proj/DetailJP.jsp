@@ -139,13 +139,12 @@
             </div>
         </div>
         <div class="sider">
-			<div class="desc info" style="padding: 5px 5px;padding-top:15px;">
-<%-- 				<span class="f">发起人</span> <c:out value="${user.perNickName}"/> <span><c:out value="${province.name}"/><c:out value="${city.name}"/><c:out value="${county.name}"/></span> --%>
-					
-					<div class="avatar" ><span class="f">发起人</span><img style="border-radius: 50%;width:60px;height:60px;" src="../<c:out value="${user.head}"/>" /> <a style="color:#FF6254;" target="_blank" href="../user/PeopleDetailMain.do?a=detail&mainType=4&id=<c:out value="${user.id}"/>"><c:out value="${user.perNickName}"/></a></div>
+<!-- 			<div class="desc info" style="padding: 5px 5px;padding-top:15px;"> -->
 
 					
-			</div>
+<!-- 					<div class="avatar" ><span class="f">发起人</span><img style="border-radius: 50%;width:60px;height:60px;" src="../<c:out value="${user.head}"/>" /> <a style="color:#FF6254;" target="_blank" href="../user/PeopleDetailMain.do?a=detail&mainType=4&id=<c:out value="${user.id}"/>"><c:out value="${user.perNickName}"/></a></div> ->
+ 
+<!-- 			</div> -->
 			
             <div class="desc">
 				<span class="status">
@@ -157,6 +156,8 @@
 						<c:otherwise>未知</c:otherwise>
 					</c:choose>
 				</span>
+				<h2>&nbsp;&nbsp;&nbsp;发起人：<div class="avatar" style="margin-left:10px;display:inline;"><img style="border-radius: 50%;width:60px;height:60px;" src="../<c:out value="${user.head}"/>" /> <a style="color:#FF6254;" target="_blank" href="../user/PeopleDetailMain.do?a=detail&mainType=4&id=<c:out value="${user.id}"/>"><c:out value="${user.perNickName}"/></a></div></h2>
+				<h2>项目地域：&nbsp;&nbsp;<c:out value="${proj.provinceName}"/>-<c:out value="${proj.cityName}"/></h2>
                 <h2>目前金额：</h2>
                 <div class="money">￥<span class="moneyFormat"><c:out value="${proj.amountRaised}"/></span></div>
                 <div class="tip">
@@ -184,8 +185,9 @@
 				function displayCountDownTime(){
 					if($("#JP_CountDown").length>0){
 						var elt = document.getElementById("JP_CountDown");
-						var endTime = new Date("<c:out value="${proj.endDateStr}"/>");
 						var beginTime = new Date("<c:out value="${proj.beginDateStr}"/>");
+						var endTime = new Date("<c:out value="${proj.endDateStr}"/>");
+						
 						var now = new Date();
 						var leftTime = endTime.getTime() -now.getTime();
 						var beginDiffTime = now.getTime() - beginTime.getTime();
@@ -201,6 +203,15 @@
 							var d = Math.floor(o/24);
 							var m = Math.floor(leftTime/60%60);
 							var s = leftTime%60;
+							if(o.toString().length==1){
+								o = "0"+o.toString();
+							}
+							if(m.toString().length==1){
+								m = "0"+m.toString();
+							}
+							if(s.toString().length==1){
+								s = "0"+s.toString();
+							}
 							elt.innerHTML = o + "小时:" + m + "分:" + s + "秒:" + ms.charAt(0);
 							setTimeout(displayCountDownTime,100);
 						}
@@ -215,15 +226,15 @@
 					<c:when test="${proj.status==1}">我要竞拍</c:when>
 					<c:otherwise></c:otherwise>
 					</c:choose>
-					<div class="count">已有 <span class="red"><c:out value="${proj.countSupport}"/></span> 位竞拍者</div>
+					<div class="count">已有 <span class="red"><c:out value="${proj.countSupport}"/></span> 次出价</div>
 				</div>
 				<c:if test="${proj.status==1}">
 				<div class="content">
 					<form id="jpForm" name="jpForm" action="" onSubmit="return false">
-						<i class="s-money" style="background: url(../static/image/juanz.png) no-repeat;width: 15px;height: 24px;position: absolute;left: 15px;top: 85px;"></i>
+						<i class="s-money" style="font-size:36px;font-weight:bold;color: #FF6254;">¥</i>
 						<input id="amountJP" name="amountJP" type="text" class="validate[required,custom[number]]" oldvalue="<c:out value="${proj.amountRaised}"/>" goal="<c:out value="${proj.amountGoal}"/>" value="" 
-						style="margin-left:18px;width: 238px;height:50px;line-height:30px;border: 1px #000 solid;border-radius: 5px;outline: none;padding: 0 28px;color: #55acef;font-size: 24px;font-weight: bold;"/>
-						<img src="../static/image/jp.png" border="0" style="cursor: pointer;margin-top:10px;" onclick="jingpai(<c:out value="${proj.id}"/>);"/>
+						style="margin-left:30px;width: 200px;height:40px;line-height:30px;border: 1px #FF6254 solid;border-radius: 5px;outline: none;padding: 0 10px;color: #FF6254;font-size: 30px;font-weight: bold;"/>
+						<button class="btn btn-danger" style="width:120px;font-size:16px;font-weight:bold;" onclick="jingpai(<c:out value="${proj.id}"/>);">出价</button>
 						<label for="anonymousJP" style="font-size:18px;line-height:20px;margin-left:50px;padding:10px;">
 							<input type="checkbox" id="anonymousJP" name="anonymousJP" checked="checked" style="width:18px;height:18px;margin-right:10px;" />匿名
 						</label>
