@@ -68,7 +68,7 @@ text-decoration: none;
 					</div>
 					
 				</div>
-				<div class="form-group">
+				<div class="form-group" id="userRec">
 					<label for="perjob" class="col-sm-2 control-label">职业:</label>
 					<div class="col-sm-2">
 						<span class="btn btn-primary" data-toggle="modal" data-target="#myModal">选择职业</span>

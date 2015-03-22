@@ -67,6 +67,14 @@ $(document).ready(function () {
         $('#roleSelect>li').removeClass('current');
         $(this).addClass('current');
         $('#type').val($(this).attr('data'));
+        if($(this).attr('data')=="1"){
+        	$("#userRec").hide();
+        	 $("#perjob").attr("check-type","");
+        }
+        else{
+        	$("#userRec").show();
+        	$("#perjob").attr("check-type","required");
+        }
     });
 	$("#form").validation();
     $("#login").on('click', function (event) {
