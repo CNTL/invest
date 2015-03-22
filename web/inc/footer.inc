@@ -68,8 +68,14 @@
             }] 
         };
 	with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
-	 
-	$(".pic img").zoom({height:160,width:232});
+	 $(function(){
+	 try{
+	 $(".pic img").zoom({height:160,width:232});
+	 }
+	 catch(){}
+		
+	 });
+	
 	
 	</script>
 </div>
