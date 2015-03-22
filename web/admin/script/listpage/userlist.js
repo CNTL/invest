@@ -20,6 +20,21 @@ var options = {
 					
 				}
 			},'-',{
+				text:'设置积分',
+				iconCls: 'icon-ok',
+				handler: function(){
+					var docIds = tldatagrid.getSelectedIDs();
+					if(docIds>0){
+						
+						tldialog.show("设置积分","./userPoint.jsp?id="+docIds,800,400);
+						
+					}
+					else{
+						alert("请选择一条记录。")
+					}
+					 
+				}
+			},'-',{
 				text:'删除用户',
 				iconCls: 'icon-remove',
 				handler: function(){

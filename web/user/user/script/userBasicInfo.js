@@ -51,6 +51,7 @@ var complete = {
 	    			$("#perjob").val(data.perJobName);
 	    			$("#recNames").val(data.perJobName);
 	    			$("#recIDs").val(data.perJob);
+	    			$("#point").html(data.point);
 	    			complete.setrecs(data.perJob);
 	    			complete.changeProvince(data.city);
 	    		}

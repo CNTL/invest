@@ -59,10 +59,16 @@ text-decoration: none;
                           <input type="text" class="form-control validate[maxSize[255]]" id="perNickName" name="perNickName" placeholder="昵称">
                       </div>
                   </div>
+                    <div class="form-group">
+                      <label for="point" class="col-sm-3 control-label">信用积分：</label>
+                      <div class="col-sm-2">
+                           <label id="point" class="col-sm-3 control-label"></label>
+                      </div>
+                  </div>
                   
                   <div class="form-group">
                        <label for="gender" class="col-sm-3 control-label">性别：</label>
-                       <div class="col-sm-9">
+                       <div class="col-sm-3">
                             <select name="gender" id="gender" class="form-control">
                                        <option value="0">男</option>
                                        <option value="1">女</option>

@@ -129,7 +129,9 @@ public class UserController extends BaseController {
 	private void  setpoint(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		int userID = getInt(request, "userid", 0);
 		int point = getInt(request, "point",0);
+		 
 		userManager.setPoint(userID, point);
+		
 		output("ok", response);
 	}
 	/**根据ID获取用户
