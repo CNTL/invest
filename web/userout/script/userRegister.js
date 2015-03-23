@@ -3,7 +3,8 @@ function login(){
 	parent.location.href = '../user/loginMain.do';
 }
 function selectrec(){
-	$this = $(event.srcElement);
+	var event = event.srcElement || event.target;
+	$this = $(event);
 	$this.toggleClass("selected");
 	setRec();
 }

@@ -359,21 +359,21 @@ public class UserController extends BaseController {
 		user.setIdentityCard(get(request, "identityCard",""));//Éí·ÝÖ¤
 		user.setOrganization(get(request, "organization",""));
 		user.setOrgBusinessLicense(get(request, "orgBusinessLicense",""));
-		int firstType = getInt(request, "firstType");
-		int secondType = getInt(request, "secondType");
-		String typeName = "";
-		Dictionary dic = null;
-		if(secondType > 0){
-			dic = dicReader.getDic(DicTypes.DIC_RECRUIT_TYPE.typeID(), secondType);
-			typeName = dic.getCascadeName();
-		} else if(firstType > 0){
-			dic = dicReader.getDic(DicTypes.DIC_RECRUIT_TYPE.typeID(), firstType);
-			typeName = dic.getCascadeName();
-		}
-		user.setPerJob(String.valueOf(UserHelper.getPreJob(firstType,secondType )));
-		user.setFirstType(firstType);
-		user.setSecondType(secondType);
-		user.setTypeName(typeName);
+//		int firstType = getInt(request, "firstType");
+//		int secondType = getInt(request, "secondType");
+//		String typeName = "";
+//		Dictionary dic = null;
+//		if(secondType > 0){
+//			dic = dicReader.getDic(DicTypes.DIC_RECRUIT_TYPE.typeID(), secondType);
+//			typeName = dic.getCascadeName();
+//		} else if(firstType > 0){
+//			dic = dicReader.getDic(DicTypes.DIC_RECRUIT_TYPE.typeID(), firstType);
+//			typeName = dic.getCascadeName();
+//		}
+//		user.setPerJob(String.valueOf(UserHelper.getPreJob(firstType,secondType )));
+//		user.setFirstType(firstType);
+//		user.setSecondType(secondType); 
+//		user.setTypeName(typeName);
 		/*
 		String[] bankNums = request.getParameterValues("bankNums");
 		String[] openingBanks = request.getParameterValues("openingBanks");

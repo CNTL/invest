@@ -14,7 +14,8 @@ $(document).ready(function () {
 	});
 });
 function selectrec(){
-	$this = $(event.srcElement);
+	var event = event.srcElement || event.target;
+	$this = $(event);
 	$this.toggleClass("selected");
 	setRec();
 }
