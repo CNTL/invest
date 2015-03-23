@@ -45,6 +45,9 @@
 				if($("#btnsendmsg").attr("url")&&$("#username").val()!=""){
 					window.location.href = $("#btnsendmsg").attr("url");
 				}
+				else{
+					$.messager.alert("请选择用户。");
+				}
 			});
 		});
 		function autouser(){
@@ -97,6 +100,7 @@
 			$.getJSON("../user/msg.do?a=getMyMsgs&pageIndex="+pageIndex, function(json){
 				  var tb = $("#msgtable");
 				  var sb = [];
+				  tb.find("tbody").empty();
 				  $.each(json,function(i,n){
 					  
 					  var msguserid ;
@@ -105,56 +109,68 @@
 						  isread = "对方已读";
 						 
 					  }
-  					  sb.push("<tr>");
-  					  var isme = false;
+					  var isme = false;
   					  if($("#userID").val().toString() == n.msg_fromID ){
   						  isme = true;
-  					  }
-  					  if(isme){
-  						  msguserid = n.msg_toID;
-  						  sb.push("<td> <a href=\"<c:out value="${rootPath}"/>user/PeopleDetailMain.do?a=detail&mainType=4&id="+n.msg_toID+"\" target=\"_blank\">");
-  						  sb.push("<img class=\"img-circle\" style=\"width: 60px;height:60px;\" src=\"../"+n.msg_toHead+"\" > </br>");
-  						  sb.push("<span style=\"margin-left:15px;\">"+n.msg_to+"</span>");
-  						  sb.push("</a></td>");
+  						 msguserid = n.msg_toID;
   					  }
   					  else{
   						msguserid = n.msg_fromID;
- 						sb.push("<td> <a href=\"<c:out value="${rootPath}"/>user/PeopleDetailMain.do?a=detail&mainType=4&id="+n.msg_fromID+"\" target=\"_blank\">");
-  					    sb.push("<img class=\"img-circle\" style=\"width: 60px;height:60px;\" src=\"../"+n.msg_fromHead+"\" > </br>");
-  					    sb.push("<span style=\"margin-left:15px;\">"+n.msg_from+"</span>");
-  					    sb.push("</a></td>");
   					  }
-					  
-					  sb.push("<td>");
-					  sb.push("<a href=\"MsgDetailMa.do?msguserid="+msguserid+"\">"+n.msg_content+"</a>");
-					  if(isme){
-						  sb.push("<span style=\"color: rgb(153, 153, 153); font-size: 12px; margin-left: 5px;\">["+isread+"]</span>");
-					  }
-					  else{
-						  if(n.msg_isread=="0"){
-							  sb.push("<span style=\"color: red; font-size: 12px; margin-left: 5px;\">[未读]</span>");
-						  }
-					  }
-					 
-					  sb.push(" </br>");
-					  sb.push(" <small>"+n.msg_createTime+"</small>");
-					  sb.push("</td>");
-					 
-					  sb.push("<td>");
-					  if(!isme&&n.msg_isread=="0"){
-						  sb.push(" <a class=\"muted\" href=\"javascript:readmsg("+msguserid+")\">标记已读</a>|");
-					  }
-					  sb.push(" <a class=\"muted\" href=\"MsgDetailMa.do?msguserid="+msguserid+"\">回复</a>|");
-					  sb.push(" <a class=\"muted\" href=\"javascript:delmsg("+n.id+")\">删除</a>	");
-					 
-					 
-					  sb.push("</td>");
-					  
-					  sb.push("</tr>");
+  					  alert($("#"+msguserid).length);
+  					  if($("#"+msguserid).length==0){
+  						  //不能重复出现同一个人的会话
+  						sb.push("<tr>");
+  	  					 
+    					  if(isme){
+    						 
+    						  
+    						  sb.push("<td id=\""+n.msg_toID+"\"> <a href=\"<c:out value="${rootPath}"/>user/PeopleDetailMain.do?a=detail&mainType=4&id="+n.msg_toID+"\" target=\"_blank\">");
+    						  sb.push("<img class=\"img-circle\" style=\"width: 60px;height:60px;\" src=\"../"+n.msg_toHead+"\" > </br>");
+    						  sb.push("<span style=\"margin-left:15px;\">"+n.msg_to+"</span>");
+    						  sb.push("</a></td>");
+    					  }
+    					  else{
+    						
+	   						sb.push("<td id=\""+n.msg_fromID+"\"> <a href=\"<c:out value="${rootPath}"/>user/PeopleDetailMain.do?a=detail&mainType=4&id="+n.msg_fromID+"\" target=\"_blank\">");
+	    					    sb.push("<img class=\"img-circle\" style=\"width: 60px;height:60px;\" src=\"../"+n.msg_fromHead+"\" > </br>");
+	    					    sb.push("<span style=\"margin-left:15px;\">"+n.msg_from+"</span>");
+	    					    sb.push("</a></td>");
+	    					  }
+  					  
+	  					  sb.push("<td>");
+	  					  sb.push("<a href=\"MsgDetailMa.do?msguserid="+msguserid+"\">"+n.msg_content+"</a>");
+	  					  if(isme){
+	  						  sb.push("<span style=\"color: rgb(153, 153, 153); font-size: 12px; margin-left: 5px;\">["+isread+"]</span>");
+	  					  }
+	  					  else{
+	  						  if(n.msg_isread=="0"){
+	  							  sb.push("<span style=\"color: red; font-size: 12px; margin-left: 5px;\">[未读]</span>");
+	  						  }
+	  					  }
+	  					 
+	  					  sb.push(" </br>");
+	  					  sb.push(" <small>"+n.msg_createTime+"</small>");
+	  					  sb.push("</td>");
+	  					 
+	  					  sb.push("<td>");
+	  					  if(!isme&&n.msg_isread=="0"){
+	  						  sb.push(" <a class=\"muted\" href=\"javascript:readmsg("+msguserid+")\">标记已读</a>|");
+	  					  }
+	  					  sb.push(" <a class=\"muted\" href=\"MsgDetailMa.do?msguserid="+msguserid+"\">回复</a>|");
+	  					  sb.push(" <a class=\"muted\" href=\"javascript:delmsg("+n.id+")\">删除</a>	");
+	  					 
+	  					 
+	  					  sb.push("</td>");
+	  					  
+	  					  sb.push("</tr>");
+	  					 tb.find("tbody").append(sb.join(""));
+  					  }
+  					  
 				  });
 				  
-				  tb.find("tbody").empty();
-				  tb.find("tbody").append(sb.join(""));
+				  
+				 
 				});
 		}
 		 
@@ -266,9 +282,9 @@
 	<div class="people_profile">
 	<form class="form-horizontal" style="padding:0;margin:0;" role="form">
 		<div class="form-group">
-		    <label for="inputEmail3" class="col-sm-1 control-label" style="width:100px;font-size:16px;">收件人：</label>
+		    <label for="inputEmail3" class="col-sm-1 control-label" style="width:130px;font-size:16px;">搜索收件人：</label>
 		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="username" placeholder="请输入用户名或用户编码或用户ID">
+		      <input type="text" class="form-control" id="username" placeholder="请输入用户名" />
 		    </div>
 		    <div class="col-sm-2">
 		    	<a  id="btnsendmsg" class="btn btn-success">发送消息</a>

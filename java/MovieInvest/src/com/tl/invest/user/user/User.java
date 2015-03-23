@@ -295,6 +295,12 @@ public class User {
 				for (int i = 0; i < recIDs.length; i++) {
 					int id = Integer.parseInt(recIDs[i], 10);
 					if(id>0){
+						//机构的类型不一样
+						int type = DicTypes.DIC_RECRUIT_TYPE.typeID();
+						if(getType()==1){
+							type = DicTypes.DIC_ORG_TYPE.typeID();
+						}
+						
 						Dictionary dic = reader.getDic(DicTypes.DIC_RECRUIT_TYPE.typeID(),id);
 						if(dic!=null){
 							perJobNameString = perJobNameString+ dic.getName();

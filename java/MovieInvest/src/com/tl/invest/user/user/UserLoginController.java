@@ -142,6 +142,7 @@ public class UserLoginController extends BaseController
 		user.setEmail(get(request, "email",""));
 		Integer type = getInt(request, "type",0);
 		user.setType(type);
+		user.setPoint(10); //默认为10分
 		user.setPassword(get(request, "password",""));
 		user.setCreateTime(DateUtils.getTimestamp());
 		user.setPerJob(get(request, "recIDs",""));
@@ -170,16 +171,16 @@ public class UserLoginController extends BaseController
 		if(type == 0){//个人
 			photogroup.setGroupName("生活照");
 			photoManager.savePhotoGroup(photogroup);
-			savePhoto(user, photogroup, request, response);
+			//savePhoto(user, photogroup, request, response);
 			
 			photogroup.setId(0);
 			photogroup.setGroupName("剧照");
 			photoManager.savePhotoGroup(photogroup);
-			savePhoto(user, photogroup, request, response);
+			//savePhoto(user, photogroup, request, response);
 		} else if(type == 1){//机构
 			photogroup.setGroupName("默认");
 			photoManager.savePhotoGroup(photogroup);
-			savePhoto(user, photogroup, request, response);
+			//savePhoto(user, photogroup, request, response);
 		}
 	}
 	private void savePhoto(User user, UserPhotogroup photogroup, HttpServletRequest request, HttpServletResponse response) throws Exception{

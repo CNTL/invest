@@ -158,8 +158,10 @@ public class UserMsgManager {
 		int maxCount = 10;
 	    int start = (pageIndex -1)*10;
 		String tablename = SysTableLibs.TB_USERMSG.getTableCode();
-		String sql = "SELECT *  FROM "
-				+ tablename + " WHERE (msg_toID=? or msg_fromID=?)  GROUP BY msg_fromID ORDER BY createTime DESC";
+		//先排序后分组
+		//select * from (select * from user_msg WHERE msg_toID=41 or msg_fromID=41 ORDER BY createTime DESC) as t GROUP BY t.msg_fromID ORDER BY t.createTime DESC
+		String sql = "SELECT *  FROM  (select * from "
+				+ tablename + " WHERE msg_toID=? or msg_fromID=?  ORDER BY createTime DESC ) as t GROUP BY t.msg_fromID ORDER BY t.createTime DESC";
 		DBSession conn = null;
 		IResultSet rs = null;
 		IResultSet numRs = null;
@@ -254,6 +256,26 @@ public class UserMsgManager {
 		try {
 	    	conn = Context.getDBSession();
 	    	conn.executeUpdate(sqlString, new Object[]{fromID, toID, fromID, toID});
+		} catch (Exception e) {
+			log.error(e);
+		} finally {
+			ResourceMgr.closeQuietly(rs);
+			ResourceMgr.closeQuietly(conn);
+		}
+    }
+    
+    /**阅读消息
+     * @param fromID
+     * @param toID
+     */
+    public void readMsgToMe(Integer fromID,Integer toID)throws Exception{
+    	String tablename = SysTableLibs.TB_USERMSG.getTableCode();
+    	String sqlString = "update "+tablename+" set msg_isRead=1 where msg_fromID =? and msg_toID=?  ";
+    	DBSession conn = null;
+		IResultSet rs = null;
+		try {
+	    	conn = Context.getDBSession();
+	    	conn.executeUpdate(sqlString, new Object[]{fromID, toID});
 		} catch (Exception e) {
 			log.error(e);
 		} finally {

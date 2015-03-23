@@ -20,6 +20,7 @@
 		});
 		function loadMsg(){
 			var msguserid = $.query.get("msguserid");
+			$("#msg_toID").val(msguserid);
 			 $.getJSON("../user/user.do?a=getUser&id="+msguserid,function(json){
 				if(json){
 					 var tbmsg = $("#tb-msguser");
@@ -34,6 +35,7 @@
 					   msg.push("<small><p>"+json.intro+"</p></small>");
 					   msg.push("</td>");
 					   msg.push("</tr>");
+					   $("#msg_to").val(json.perNickName);
 					   tbmsg.append(msg.join(""));
 				}
 				
@@ -65,14 +67,14 @@
 		}
 		function readMsgAll(){
 			var msguserid = $.query.get("msguserid");
-			$.get("../user/msg.do?a=readMsg&userID="+msguserid, function(data){
+			$.get("../user/msg.do?a=readMsgToMe&userID="+msguserid, function(data){
 				  
 				});
 		}
 	function replay(){
 		
 		if($("#txt-content").val()==""){
-			AlertInfo(100,30,"请输入消息内容。")
+			$.messager.alert("请输入消息内容。")
 			return;
 		}
 		var data = {
@@ -218,7 +220,7 @@
 		     </ul>
 			 <textarea class="form-control" id="txt-content" rows="3"></textarea>
 			 <div style="text-align:right;"><kbd><kbd>Ctrl</kbd> + <kbd>Enter</kbd></kbd>
-			 快捷回复<button id="btn-reply" class="btn btn-success" style="padding:6px 12px;margin:5px;" type="button">回复</button></div>
+			 快捷回复<button id="btn-reply" class="btn btn-success" style="padding:6px 12px;margin:5px;" type="button">发送</button></div>
 		</div>
 		<div class="clear"></div>
 	</div>

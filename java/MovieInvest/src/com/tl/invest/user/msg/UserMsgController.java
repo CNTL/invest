@@ -46,6 +46,9 @@ public class UserMsgController  extends BaseController {
 		else if("readMsg".equals(action)){//阅读消息
 			readMsg(request, response);
 		}
+		else if("readMsgToMe".equals(action)){//阅读别人发给我的消息
+			readMsgToMe(request, response);
+		}
 		else if("readMsgAll".equals(action)){//阅读所有消息
 			readMsgAll(request, response);
 		}
@@ -66,6 +69,20 @@ public class UserMsgController  extends BaseController {
 		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
 		try {
 			userMsgManager.readMsg(user.getId(), getInt(request, "userID",0));
+			output("ok", response);
+		} catch (Exception e) {
+			output("error", response);
+		}
+	} 
+	/** 阅读消息
+	 * @param request
+	 * @param response
+	 * @throws Exception
+	 */
+	private void readMsgToMe(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
+		try {
+			userMsgManager.readMsgToMe(getInt(request, "userID",0),user.getId());
 			output("ok", response);
 		} catch (Exception e) {
 			output("error", response);
@@ -163,10 +180,11 @@ public class UserMsgController  extends BaseController {
 	*/ 
 	private void sendMsg(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		
-		SysSessionUser user = SessionHelper.getUser(request);
+		User user = userManager.getUserByID(SessionHelper.getUserID(request));
+		
 		UserMsg userMsg = new UserMsg();
-		userMsg.setMsgFromId(user.getUserID());
-		userMsg.setMsgFrom(user.getUserName());
+		userMsg.setMsgFromId(user.getId());
+		userMsg.setMsgFrom(user.getPerNickName());
 		userMsg.setMsgToId(ParamInitUtils.getInt(request.getParameter("msgTo_ID")));
 		userMsg.setMsgTo(ParamInitUtils.getString(request.getParameter("msgTo")));
 		userMsg.setMsgContent(ParamInitUtils.getString(request.getParameter("msgContent")));

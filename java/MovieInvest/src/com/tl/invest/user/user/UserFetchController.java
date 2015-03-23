@@ -43,7 +43,8 @@ public class UserFetchController extends BaseController {
 		int i = 0;
 		int maxCount = 10;
 		
-		String sql = "SELECT id, code, name, perNickName,head,point FROM user where perNickName like '%"+name+"%' or name like '%"+name+"%'  or code like '%"+name+"%'";
+		//String sql = "SELECT id, code, name, perNickName,head,point FROM user where perNickName like '%"+name+"%' or name like '%"+name+"%'  or code like '%"+name+"%'";
+		String sql = "SELECT id, code, name, perNickName,head,point FROM user where perNickName like '%"+name+"%'  and deleted=0 ";
 		
 		DBSession conn = null;
 		IResultSet rs = null;
