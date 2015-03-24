@@ -36,15 +36,15 @@ Author: Kris Zhang
 
             var msghtml
               = ''
-              + '<div class="dialog modal fade">'
+              + '<div class="dialog modal fade ">'
               + '<div class="modal-dialog">'
               + '<div class="modal-content">'
-              + '<div class="modal-header">'
+              + '<div class="modal-header" style="background:#EEEEEE; border-radius: 4px 4px 0 0;border:1px solid #C2C2C2; ">'
               + '<button type="button" class="close">&times;</button>'
               + '<h4 class="modal-title"></h4>'
               + '</div>'
               + '<div class="modal-body"></div>'
-              + '<div class="modal-footer"></div>'
+              + '<div class="modal-footer" style="background:#EEEEEE; border-radius: 0 0 4px 4px;border:1px solid #C2C2C2; "></div>'
               + '</div>'
               + '</div>'
               + '</div>'
@@ -53,6 +53,7 @@ Author: Kris Zhang
 
             $msgbox = $(msghtml);
             $(document.body).append($msgbox);
+
             $msgbox.find(".modal-body").append($this);
         };
 
@@ -181,10 +182,19 @@ $.messager = (function () {
 
         if (arguments.length < 2) {
             message = title || "";
-            title = "&nbsp;"
+            title = "提示信息"
         }
-
-        $("<div>" + message + "</div>").dialog({
+        var alerthtml 
+              = ''
+              + '<div class="row">'
+              + '<div class="col-sm-2">'
+              + '<span class="glyphicon glyphicon-exclamation-sign" style="color:#1564B5;font-size:60px;line-height:60px;"></span>'
+              + '</div>'
+              + '<div class="col-sm-10">'+message+'</div>'
+              + '</div>'
+            ;
+        //$("<div>" + message + "</div>").dialog({
+        $(alerthtml).dialog({
             title: title
             // override destroy methods;
           , onClose: function () {
@@ -202,8 +212,18 @@ $.messager = (function () {
 
     var confirm = function (title, message, callback) {
         var model = $.messager.model;
-
-        $("<div>" + message + "</div>").dialog({
+         
+        var confirmhtml 
+              = ''
+              + '<div class="row">'
+              + '<div class="col-sm-2">'
+              + '<span class="glyphicon glyphicon-question-sign" style="color:#FD971F;font-size:60px;line-height:60px;"></span>'
+              + '</div>'
+              + '<div class="col-sm-10">'+message+'</div>'
+              + '</div>'
+            ;
+       // $("<div>" + message + "</div>").dialog({
+        $(confirmhtml).dialog({
             title: title
             // override destroy methods;
           , onClose: function () {
@@ -225,6 +245,7 @@ $.messager = (function () {
               }
             }]
         });
+
     };
 
     /*
@@ -234,8 +255,11 @@ $.messager = (function () {
       = ''
       + '<div class="dialog modal fade msg-popup">'
       + '<div class="modal-dialog modal-sm">'
-      + '<div class="modal-content">'
-      + '<div class="modal-body text-center"></div>'
+      + '<div class="modal-content"  style="background:#4AC4EF">'
+      + '<div class="modal-body text-center" style="color:#fff">'
+      + '<div class="row text-center  popupmsg"> </div>'
+      + '<div class="row text-center">5秒后自动关闭</div>'
+      + '</div>'
       + '</div>'
       + '</div>'
       + '</div>'
@@ -250,16 +274,20 @@ $.messager = (function () {
             $msgbox = $(msghtml);
             $('body').append($msgbox);
         }
+       
 
-        $msgbox.find(".modal-body").html(message);
+        $msgbox.find(".popupmsg").html("<strong>"+message+"</strong>");
+        $msgbox.find(".modal-dialog").css({"top":"250px"});
         $msgbox.modal({ show: true, backdrop: false });
 
         clearTimeout(offTimer);
+         
         offTimer = setTimeout(function () {
             $msgbox.modal('hide');
-
             callback && callback();
         }, 5000);
+        
+        
     };
 
     return {
@@ -272,6 +300,6 @@ $.messager = (function () {
 
 
 $.messager.model = {
-    ok: { text: "OK", classed: 'btn-success' },
-    cancel: { text: "Cancel", classed: 'btn-danger' }
+    ok: { text: "确定", classed: 'btn-success' },
+    cancel: { text: "取消", classed: 'btn-danger' }
 };
