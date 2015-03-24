@@ -119,6 +119,8 @@ public class UserController extends BaseController {
 		}
 		 else if("setpoint".equals(action)){
 			 setpoint(request,response);
+		}else if("ageDatas".equals(action)){
+			ageDatas(request,response);
 		}
 	}
 	/**ÉèÖÃ»ý·Ö
@@ -155,14 +157,7 @@ public class UserController extends BaseController {
 		int id = getInt(request, "id", 0);
 		int type = getInt(request, "type",0);
 		User user = userManager.getUserByID(id);
-		String birthday = "";
-		int gender = 0;
-		if(type==0){
-			birthday = get(request, "birthdate","");
-			gender = getInt(request, "gender",1);
-			user.setBirthdate(Date.valueOf(birthday));
-			user.setGender(gender);
-		}
+	 
 		int check = getInt(request, "check",0);
 		user.setIsRealNameIdent(check);
 		userManager.update(user);
@@ -334,10 +329,24 @@ public class UserController extends BaseController {
 		user.setPerNickName(ParamInitUtils.getString(request.getParameter("perNickName")));
 		user.setPerPostAddr(ParamInitUtils.getString(request.getParameter("perPostAddr")));
 		user.setPerPostCode(ParamInitUtils.getString(request.getParameter("perPostCode")));
-		user.setIntro(ParamInitUtils.getString(request.getParameter("intro")));
+		user.setIntro(get(request, "intro",""));
+		user.setIntro_show(getInt(request, "intro_show",0));
+		user.setName_show(getInt(request, "name_show",0));
 		user.setProvince(get(request, "province" ,""));
 		user.setPerJob(get(request, "recIDs",""));
 		user.setCity(get(request, "city" ,""));
+		user.setAgeTypeID(getInt(request, "ageTypeID",0));
+		user.setHeight(getInt(request, "height",0));
+		user.setHeight_show(getInt(request, "height_show",0));
+		user.setWeight(getInt(request, "weight",0));
+		user.setWeight_show(getInt(request, "weight_show",0));
+		user.setSchool(get(request, "school",""));
+		user.setSchool_show(getInt(request, "school_show",0));
+		user.setProfessional(get(request, "professional",""));
+		user.setProfessional_show(getInt(request, "professional_show",0));
+		user.setDegreeid(getInt(request, "degreeid",0));
+		user.setDegree(get(request, "degree",""));
+		user.setDegree_show(getInt(request, "degree_show",0));
 		userManager.update(user);
 		output("ok", response);
 	}
@@ -521,6 +530,27 @@ public class UserController extends BaseController {
 		StringBuffer sb = new StringBuffer();
 		sb.append("{");
 		sb.append("\"jobTypes\":["+sb1.toString()+"]");
+		sb.append("}");
+		
+		output(sb.toString(), response);
+	}
+	private void ageDatas(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		DictionaryReader dicReader = (DictionaryReader)Context.getBean(DictionaryReader.class);
+		Dictionary[] jobTypes = dicReader.getDics(DicTypes.DIC_AGE_TYPE.typeID());
+		
+		StringBuffer sb1 = new StringBuffer();
+		for (Dictionary job : jobTypes) {
+			if(sb1.length()>0) sb1.append(",");
+			sb1.append("{");
+			sb1.append("\"id\":"+job.getId());
+			sb1.append(",\"pid\":"+job.getPid());
+			sb1.append(",\"name\":\""+job.getName()+"\"");
+			sb1.append("}");
+		}
+		
+		StringBuffer sb = new StringBuffer();
+		sb.append("{");
+		sb.append("\"ageTypes\":["+sb1.toString()+"]");
 		sb.append("}");
 		
 		output(sb.toString(), response);

@@ -609,6 +609,8 @@ public class UserManager {
 			User user = new User();
 			user.setId(rs.getInt("id"));
 			user.setCode(rs.getString("code"));
+			 
+			
 			user.setOrganization(rs.getString("organization"));
 			user.setOrgBusinessLicense(rs.getString("orgBusinessLicense"));
 			user.setOrgFullname(rs.getString("orgFullname"));
@@ -619,10 +621,25 @@ public class UserManager {
 			user.setOrgTrade(rs.getString("orgTrade"));
 			user.setHead(rs.getString("head"));
 			user.setIntro(rs.getString("intro"));
+			user.setIntro_show(rs.getInt("intro_show"));
 			user.setName(rs.getString("name"));
+			user.setName_show(rs.getInt("name_show"));
 			user.setTypeName(rs.getString("typeName"));
 			user.setPerNickName(rs.getString("perNickName"));
 			user.setPoint(rs.getInt("point"));
+			user.setAgeTypeID(rs.getInt("ageTypeID"));
+			user.setHeight(rs.getInt("height"));
+			user.setHeight_show(rs.getInt("height_show"));
+			user.setWeight(rs.getInt("weight"));
+			user.setWeight_show(rs.getInt("weight_show"));
+			user.setSchool(rs.getString("school"));
+			user.setSchool_show(rs.getInt("school_show"));
+			user.setProfessional(rs.getString("professional"));
+			user.setProfessional_show(rs.getInt("professional_show"));
+			user.setDegreeid(rs.getInt("degreeid"));
+			user.setDegree(rs.getString("degree"));
+			user.setDegree_show(rs.getInt("degree_show"));
+			
 			return user;
 		} catch (Exception e) {
 			throw new TLException(e);

@@ -24,9 +24,11 @@ public class User {
 	private String email;
 	private String password;
 	private String name;
+	private Integer name_show;
 	private String identityCard;
 	private String head;
 	private String intro;
+	private Integer intro_show;
 	private String background;
 	private Integer isRealNameIdent;
 	private Timestamp createTime;
@@ -52,13 +54,167 @@ public class User {
 	private String orgHomePage;
 	private int deleted;
 	private int gender;
-	private Date birthdate;
 	private Integer firstType;
 	private Integer secondType;
 	private String typeName;
 	private Integer perOrder;
 	private String lastSessionID;
 	private Integer point;
+	private Integer ageTypeID;
+	private String ageTypeName;
+	private Integer height;
+	private Integer height_show;
+	private Integer weight;
+	private Integer weight_show;
+	private String school;
+	private Integer school_show;
+	private String professional;
+	private Integer professional_show;
+	private Integer degreeid;
+	private String degree;
+	private Integer degree_show;
+	
+	
+	public Integer getName_show() {
+		return name_show;
+	}
+
+	public void setName_show(Integer name_show) {
+		this.name_show = name_show;
+	}
+
+	public Integer getIntro_show() {
+		return intro_show;
+	}
+
+	public void setIntro_show(Integer intro_show) {
+		this.intro_show = intro_show;
+	}
+
+	public Integer getAgeTypeID() {
+		return ageTypeID;
+	}
+
+	public void setAgeTypeID(Integer ageTypeID) {
+		this.ageTypeID = ageTypeID;
+		getAgeTypeName();
+	}
+
+	public Integer getHeight() {
+		return height;
+	}
+
+	public void setHeight(Integer height) {
+		this.height = height;
+	}
+
+	public Integer getHeight_show() {
+		return height_show;
+	}
+
+	public void setHeight_show(Integer height_show) {
+		this.height_show = height_show;
+	}
+
+	public Integer getWeight() {
+		return weight;
+	}
+
+	public void setWeight(Integer weight) {
+		this.weight = weight;
+	}
+
+	public Integer getWeight_show() {
+		return weight_show;
+	}
+
+	public void setWeight_show(Integer weight_show) {
+		this.weight_show = weight_show;
+	}
+
+	public String getSchool() {
+		return school;
+	}
+
+	public void setSchool(String school) {
+		this.school = school;
+	}
+
+	public Integer getSchool_show() {
+		return school_show;
+	}
+
+	public void setSchool_show(Integer school_show) {
+		this.school_show = school_show;
+	}
+
+	public String getProfessional() {
+		return professional;
+	}
+
+	public void setProfessional(String professional) {
+		this.professional = professional;
+	}
+
+	public Integer getProfessional_show() {
+		return professional_show;
+	}
+
+	public void setProfessional_show(Integer professional_show) {
+		this.professional_show = professional_show;
+	}
+
+	public Integer getDegreeid() {
+		return degreeid;
+	}
+
+	public void setDegreeid(Integer degreeid) {
+		this.degreeid = degreeid;
+	}
+
+	public String getDegree() {
+		return degree;
+	}
+
+	public void setDegree(String degree) {
+		this.degree = degree;
+	}
+
+	public Integer getDegree_show() {
+		return degree_show;
+	}
+
+	public void setDegree_show(Integer degree_show) {
+		this.degree_show = degree_show;
+	}
+
+	public String getAgeTypeName() {
+		String ageTypeNameString = "";
+		try {
+			 
+			DictionaryReader reader = (DictionaryReader)Context.getBean("DictionaryReader"); 
+			if(this.getAgeTypeID()>0){
+			 
+				Dictionary dic = reader.getDic(DicTypes.DIC_AGE_TYPE.typeID(),this.getAgeTypeID());
+				if(dic!=null){
+					ageTypeNameString =  dic.getName();
+				}
+			}
+			 
+		} catch (Exception e) {
+			return ageTypeNameString;
+		}
+		
+		 
+		return ageTypeNameString;
+		 
+	}
+
+	public void setPerJobName(String perJobName) {
+		this.perJobName = perJobName;
+	}
+
+	
 	public Integer getPoint() {
 		return point;
 	}
@@ -79,6 +235,7 @@ public class User {
 
 	public int getDeleted() {
 		return deleted;
+		
 	}
 
 	public void setDeleted(int deleted) {
@@ -301,7 +458,7 @@ public class User {
 							type = DicTypes.DIC_ORG_TYPE.typeID();
 						}
 						
-						Dictionary dic = reader.getDic(DicTypes.DIC_RECRUIT_TYPE.typeID(),id);
+						Dictionary dic = reader.getDic(type,id);
 						if(dic!=null){
 							perJobNameString = perJobNameString+ dic.getName();
 							if(i<recIDs.length-1){
@@ -435,13 +592,13 @@ public class User {
 		this.gender = gender;
 	}
 
-	public Date getBirthdate() {
-		return birthdate;
-	}
-
-	public void setBirthdate(Date birthdate) {
-		this.birthdate = birthdate;
-	}
+//	public Date getBirthdate() {
+//		return birthdate;
+//	}
+//
+//	public void setBirthdate(Date birthdate) {
+//		this.birthdate = birthdate;
+//	}
 
 	public Integer getFirstType() {
 		return firstType;

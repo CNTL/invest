@@ -147,6 +147,13 @@ public class UserLoginController extends BaseController
 		user.setCreateTime(DateUtils.getTimestamp());
 		user.setPerJob(get(request, "recIDs",""));
 		user.setIsRealNameIdent(0);//Œ¥»œ÷§
+		user.setName_show(1);
+		user.setIntro_show(1);
+		user.setHeight_show(1);
+		user.setWeight_show(1);
+		user.setSchool_show(1);
+		user.setProfessional_show(1);
+		user.setDegree_show(1);
 		UserManager userManager = (UserManager) Context.getBean(UserManager.class);
 		String result = userManager.create(user);
 		savePhotoGroup(user, type, request, response);

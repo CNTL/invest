@@ -28,6 +28,11 @@
             <column name="name">
             </column>
         </property>
+         <property name="name_show" type="java.lang.Integer">
+            <column name="name_show">
+            </column>
+        </property>
+        
         <property name="identityCard" type="string">
             <column name="identityCard">
             </column>
@@ -38,6 +43,10 @@
         </property>
         <property name="intro" type="string">
             <column name="intro" length="65535">
+            </column>
+        </property>
+         <property name="intro_show" type="java.lang.Integer">
+            <column name="intro_show">
             </column>
         </property>
         <property name="background" type="string">
@@ -136,8 +145,8 @@
             <column name="gender">
             </column>
         </property>
-        <property name="birthdate" type="java.sql.Date">
-            <column name="birthdate" length="19">
+        <property name="ageTypeID" type="java.lang.Integer">
+            <column name="ageTypeID" >
             </column>
         </property>
         <property name="firstType" type="java.lang.Integer">
@@ -168,5 +177,50 @@
             <column name="lastLoginTime" length="19">
             </column>
         </property>
+         <property name="height" type="java.lang.Integer">
+            <column name="height">
+            </column>
+        </property>
+          <property name="height_show" type="java.lang.Integer">
+            <column name="height_show">
+            </column>
+        </property>
+        <property name="weight" type="java.lang.Integer">
+            <column name="weight">
+            </column>
+        </property>
+         <property name="weight_show" type="java.lang.Integer">
+            <column name="weight_show">
+            </column>
+        </property>
+         <property name="school" type="string">
+            <column name="school">
+            </column>
+        </property>
+          <property name="school_show" type="java.lang.Integer">
+            <column name="school_show">
+            </column>
+        </property>
+          <property name="professional" type="string">
+            <column name="professional">
+            </column>
+        </property>
+          <property name="professional_show" type="java.lang.Integer">
+            <column name="professional_show">
+            </column>
+        </property>
+           <property name="degreeid" type="java.lang.Integer">
+            <column name="degreeid">
+            </column>
+        </property>
+           <property name="degree" type="string">
+            <column name="degree">
+            </column>
+        </property>
+           <property name="degree_show" type="java.lang.Integer">
+            <column name="degree_show">
+            </column>
+        </property>
+        
     </class>
 </hibernate-mapping>

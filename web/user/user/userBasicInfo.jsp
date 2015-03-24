@@ -42,20 +42,30 @@ text-decoration: none;
 	<%@include file="../inc/userHeader.inc"%>
 	<div class="row container-wapper">
 	<%@include file="../inc/userHeaderMenu.inc"%>
-	<div class="col-md-8">
+	<div class="col-md-9">
         <div class="container-right">
         	<form class="form-horizontal" role="form"  id="form" name="form" action="">
         	
         		  <div class="form-group">
                       <label for="code" class="col-sm-3 control-label">登录账户：</label>
-                      <div class="col-sm-9">
+                      <div class="col-sm-5">
                           <input type="text" class="form-control" id="code" name="code" value="" disabled="disabled">
+                      </div>
+                  </div>
+                   <div class="form-group">
+                      <label for="name" class="col-sm-3 control-label">真实姓名：</label>
+                      <div class="col-sm-5">
+                          <input type="text" class="form-control" id="name" name="name" value="" disabled="disabled">
+                      </div>
+                       <div class="col-sm-2">
+                      	 <label  class="control-label"><input type="checkbox" id="name_showcb" name="name_showcb">公开</label>
+                      	 <input type="hidden" id="name_show" name="name_show" value="" />
                       </div>
                   </div>
                   
                   <div class="form-group">
                       <label for="perNickName" class="col-sm-3 control-label">昵称：</label>
-                      <div class="col-sm-9">
+                      <div class="col-sm-5">
                           <input type="text" class="form-control validate[maxSize[255]]" id="perNickName" name="perNickName" placeholder="昵称">
                       </div>
                   </div>
@@ -103,11 +113,94 @@ text-decoration: none;
 						<input type="text" class="form-control" readonly="readonly" maxlength="20" id="perjob"  check-type="required">
 					</div>
 				</div>
+				  <div class="form-group">
+                      <label id="area" for="province" class="col-sm-3 control-label">年龄：</label>
+                      <div class="col-sm-3">
+                           <select id="age" name="age" class="form-control validate[required]" >
+								 
+							</select>
+							 
+                      </div>
+                       
+                  </div>
+                   <div class="form-group">
+                      <label for="height" class="col-sm-3 control-label">身高：</label>
+                      <div class="col-sm-3">
+                          <input type="text" class="form-control validate[maxSize[255]]" id="height" name="height" placeholder="">
+                      </div>
+                      <div class="col-sm-2">
+                      	<label  class="control-label">厘米</label>
+                      </div>
+                       <div class="col-sm-2">
+                      	 <label  class="control-label"><input type="checkbox" id="height_showcb" name="height_showcb">公开</label>
+                      	 <input type="hidden" id="height_show" name="height_show" value="" />
+                      </div>
+                  </div>
+                   <div class="form-group">
+                      <label for="weight" class="col-sm-3 control-label">体重：</label>
+                      <div class="col-sm-3">
+                          <input type="text" class="form-control validate[maxSize[255]]" id="weight" name="weight" placeholder="">
+                      </div>
+                      <div class="col-sm-2">
+                      	<label  class="control-label">斤</label>
+                      </div>
+                       <div class="col-sm-2">
+                      	 <label  class="control-label"><input type="checkbox" id="weight_showcb" name="weight_showcb">公开</label>
+                      	  <input type="hidden" id="weight_show" name="weight_show" value="" />
+                      </div>
+                  </div>
+                   <div class="form-group">
+                      <label for="school" class="col-sm-3 control-label">毕业学校：</label>
+                      <div class="col-sm-5">
+                          <input type="text" class="form-control validate[maxSize[255]]" id="school" name="school" placeholder="">
+                      </div>
+                     
+                       <div class="col-sm-2">
+                      	 <label  class="control-label"><input type="checkbox" id="school_showcb" name="school_showcb">公开</label>
+                      	 <input type="hidden" id="school_show" name="school_show" value="" />
+                      </div>
+                  </div>
+                    <div class="form-group">
+                      <label for="professional" class="col-sm-3 control-label">学习专业：</label>
+                      <div class="col-sm-5">
+                          <input type="text" class="form-control validate[maxSize[255]]" id="professional" name="professional" placeholder="">
+                      </div>
+                     
+                       <div class="col-sm-2">
+                      	 <label  class="control-label"><input type="checkbox" id="professional_showcb" name="professional_showcb">公开</label>
+                      	  <input type="hidden" id="professional_show" name="professional_show" value="" />
+                      </div>
+                  </div>
+                   <div class="form-group">
+                      <label id="area" for="province" class="col-sm-3 control-label">学历：</label>
+                      <div class="col-sm-3">
+                           <select id="degreeid" name="degreeid" class="form-control validate[maxSize[255],required]" >
+					        <option value="2">高中</option>
+					        <option value="3">大专</option>
+					        <option value="4">本科</option>
+					        <option value="5">硕士</option>
+					        <option value="6">博士</option>
+				        </select>
+				        <input type="hidden" id="degree" name="degree" value="高中" />
+                      </div>
+                       <div class="col-sm-offset-2 col-sm-2">
+                      	 <label  class="control-label"><input type="checkbox" id="degree_showcb" name="degree_showcb">公开</label>
+                      	 <input type="hidden" id="degree_show" name="degree_show" value="" />
+                      </div>
+                  </div>
+                  
                   <div class="form-group">
-                      <label for="intro" class="col-sm-3 control-label">个人简介：</label>
-                      <div class="col-sm-9">
-                          
-                          <textarea class="form-control" rows="5" id="intro" name="intro" placeholder="个人简介"></textarea>
+                      <label for="intro" class="col-sm-3 control-label">工作经历：</label>
+                       <div class="col-sm-offset-5 col-sm-2">
+                      	 <label  class="control-label"><input type="checkbox" id="intro_showcb" name="intro_showcb">公开</label>
+                      	  <input type="hidden" id="intro_show" name="intro_show" value="" />
+                      </div>
+                  </div>
+                   <div class="form-group">
+                      
+                      <div class="col-sm-12">
+                         <textarea  id="intro_editer" name="intro_editer" class="form-control validate[maxSize[4000]]"  placeholder="个人简介"></textarea>
+                 		<input type="hidden" id="intro" name="intro" value=""/>
                       </div>
                   </div>
                   
@@ -151,6 +244,7 @@ text-decoration: none;
 <!-- footer -->
 <script type="text/javascript" src="../proj/script/datas.js"></script>
 <script type="text/javascript" src="../user/user/script/userBasicInfo.js"></script>
+<script type="text/javascript" src="../static/ckeditor/ckeditor.js"></script>
 <!-- footer -->
 
 <%@include file="../../inc/footer.inc"%>
