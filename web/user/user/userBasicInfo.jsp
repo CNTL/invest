@@ -126,7 +126,7 @@ text-decoration: none;
                    <div class="form-group">
                       <label for="height" class="col-sm-3 control-label">身高：</label>
                       <div class="col-sm-3">
-                          <input type="text" class="form-control validate[maxSize[255]]" id="height" name="height" placeholder="">
+                          <input type="text" class="form-control validate[minSize[2],custom[integer]]" id="height" name="height" placeholder="">
                       </div>
                       <div class="col-sm-2">
                       	<label  class="control-label">厘米</label>
@@ -139,7 +139,7 @@ text-decoration: none;
                    <div class="form-group">
                       <label for="weight" class="col-sm-3 control-label">体重：</label>
                       <div class="col-sm-3">
-                          <input type="text" class="form-control validate[maxSize[255]]" id="weight" name="weight" placeholder="">
+                          <input type="text" class="form-control validate[maxSize[3],custom[integer]]" id="weight" name="weight" placeholder="">
                       </div>
                       <div class="col-sm-2">
                       	<label  class="control-label">斤</label>
