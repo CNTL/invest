@@ -335,7 +335,7 @@ public class UserController extends BaseController {
 		user.setProvince(get(request, "province" ,""));
 		user.setPerJob(get(request, "recIDs",""));
 		user.setCity(get(request, "city" ,""));
-		user.setAgeTypeID(getInt(request, "ageTypeID",0));
+		user.setAgeTypeID(getInt(request, "age",0));
 		user.setHeight(getInt(request, "height",0));
 		user.setHeight_show(getInt(request, "height_show",0));
 		user.setWeight(getInt(request, "weight",0));

@@ -44,16 +44,6 @@ public class PeopleController extends UserMainController {
 			UserManager userManager = (UserManager)Context.getBean(UserManager.class);
 			user = userManager.getUserByID(id);
 			if(user!=null){
-				DictionaryReader dicReader = (DictionaryReader) Context.getBean(DictionaryReader.class);
-//				if(user.getPerJob() != null && !"".equals(user.getPerJob())){
-//					int perJob = Integer.valueOf(user.getPerJob());//ְҵ
-//					Dictionary dic = dicReader.getDic(DicTypes.DIC_JOB_TYPE.typeID(), perJob);
-//					user.setPerJobName(dic.getName());
-//				}
-				if(!StringUtils.isEmpty(user.getCity())){
-					user.setCity(dicReader.getDic(DicTypes.DIC_AREA.typeID(), Integer.parseInt(user.getCity(), 10)).getName());
-				}
-				
 				model.put("user", user);
 			} else {
 				model.put("user", new User());

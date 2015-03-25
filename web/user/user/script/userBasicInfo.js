@@ -1,6 +1,9 @@
 $(document).ready(function () {
 	$(".menu-list").height("1200px");
 	editorInit ();
+	$("#degreeid").change(function(){
+		$("#degree").val($("#degreeid :selected").text());
+	});
 	//初始化
 	complete.init();
 	$("#form").validationEngine({

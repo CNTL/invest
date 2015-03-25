@@ -62,7 +62,7 @@
 				<c:if test="${loginUser.id>0}">
 				<div class="hzmini_member">
 					<div class="avatar">
-						<a href="#"><img class="img-circle" style="width:60px;height:60px;" src="<c:out value="${loginUser.head}"/>" /></a>
+						<a href="<c:out value="${rootPath}"/>user/PeopleDetailMain.do?a=detail&mainType=4&id=<c:out value="${loginUser.id}"/>"><img class="img-circle" style="width:60px;height:60px;" src="<c:out value="${loginUser.head}"/>" /></a>
 					</div>
 					<div class="menu">
 						<ul id="menulist">

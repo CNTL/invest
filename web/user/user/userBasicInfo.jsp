@@ -181,7 +181,7 @@ text-decoration: none;
 					        <option value="5">硕士</option>
 					        <option value="6">博士</option>
 				        </select>
-				        <input type="hidden" id="degree" name="degree" value="高中" />
+				        <input type="hidden" id="degree" name="degree" value="" />
                       </div>
                        <div class="col-sm-offset-2 col-sm-2">
                       	 <label  class="control-label"><input type="checkbox" id="degree_showcb" name="degree_showcb">公开</label>

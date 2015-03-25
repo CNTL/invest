@@ -38,7 +38,9 @@ public class User {
 	private String perPostAddr;
 	private String perPostCode;
 	private String province;
+	private String provinceName;
 	private String city;
+	private String cityName;
 	private String perJob;
 	private String perJobName;
 	private String perPhone;
@@ -75,6 +77,59 @@ public class User {
 	private Integer degree_show;
 	
 	
+	public String getProvinceName() {
+		String provinceName = "";
+		try {
+			 
+			DictionaryReader reader = (DictionaryReader)Context.getBean("DictionaryReader"); 
+			int typeid = 0;
+			try {
+				typeid  = Integer.parseInt(this.getProvince(), 10);
+			} catch (Exception e) {
+				 
+			}
+			if(typeid>0){
+			 
+				Dictionary dic = reader.getDic(DicTypes.DIC_AREA.typeID(),typeid);
+				if(dic!=null){
+					provinceName =  dic.getName();
+				}
+			}
+			 
+		} catch (Exception e) {
+			return provinceName;
+		}
+		
+		 
+		return provinceName;
+		 
+	}
+
+	public String getCityName() {
+		String cityName = "";
+		try {
+			 
+			DictionaryReader reader = (DictionaryReader)Context.getBean("DictionaryReader"); 
+			int typeid = 0;
+			try {
+				typeid  = Integer.parseInt(this.getCity(), 10);
+			} catch (Exception e) {
+				 
+			}
+			if(typeid>0){
+			 
+				Dictionary dic = reader.getDic(DicTypes.DIC_AREA.typeID(),typeid);
+				if(dic!=null){
+					cityName =  dic.getName();
+				}
+			}
+			 
+		} catch (Exception e) {
+			return cityName;
+		}
+		return cityName;
+	}
+
 	public Integer getName_show() {
 		return name_show;
 	}
@@ -428,19 +483,23 @@ public class User {
 	}
 
 	public String getProvince() {
+		
 		return this.province;
 	}
 
 	public void setProvince(String province) {
 		this.province = province;
+		getProvinceName();
 	}
 
 	public String getCity() {
+		
 		return this.city;
 	}
 
 	public void setCity(String city) {
 		this.city = city;
+		getCityName();
 	}
 
 	public String getPerJobName() {
