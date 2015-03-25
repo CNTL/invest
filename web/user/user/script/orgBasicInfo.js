@@ -36,6 +36,19 @@ var complete = {
 	    			$("#intro").val(data.intro);
 	    			$("#province").val(data.province);
 	    			complete.changeProvince(data.city);
+	    			 $.ajax({
+	    			        type:"POST", //请求方式  
+	    			        url:"../user/userlogin.do?a=orgTypeDatas", //请求路径  
+	    			        cache: false,  
+	    			        async:false,
+	    			        dataType: 'json',   //返回值类型  
+	    			        success:function(json){
+	    			        	
+	    			        	complete._setOptions("orgType",json.orgTypes,complete.DEFAULT_PAIR);
+	    			        	$("#orgType").find("option:first").prop("selected",true);
+	    			        	$("#orgType").val(data.perJob);
+	    			        }
+	    			 });
 	    		}
 	        } ,
 			error:function (XMLHttpRequest, textStatus, errorThrown) {
@@ -70,6 +83,7 @@ var complete = {
 		$(sel).trigger("change");
 	},
 	submit : function(){
+		alert($("#orgType").val());
 		$.ajax({
 	        type:"POST", //请求方式  
 	        url:"../user/user.do?a=orgBasicInfo", //请求路径  

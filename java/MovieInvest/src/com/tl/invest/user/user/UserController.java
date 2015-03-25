@@ -122,6 +122,11 @@ public class UserController extends BaseController {
 		}else if("ageDatas".equals(action)){
 			ageDatas(request,response);
 		}
+		else if("orgTypeDatas".equals(action)){
+			orgTypeDatas(request,response);
+		}
+		
+		
 	}
 	/**设置积分
 	 * @param request
@@ -258,6 +263,7 @@ public class UserController extends BaseController {
 		user.setIntro(ParamInitUtils.getString(request.getParameter("intro")));
 		user.setProvince(ParamInitUtils.getString(request.getParameter("province")));//省份
 		user.setCity(ParamInitUtils.getString(request.getParameter("city")));//城市
+		user.setPerJob(ParamInitUtils.getString(request.getParameter("orgType")));//机构性质
 		userManager.update(user);
 		output("ok", response);
 	}
@@ -551,6 +557,27 @@ public class UserController extends BaseController {
 		StringBuffer sb = new StringBuffer();
 		sb.append("{");
 		sb.append("\"ageTypes\":["+sb1.toString()+"]");
+		sb.append("}");
+		
+		output(sb.toString(), response);
+	}
+	private void orgTypeDatas(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		DictionaryReader dicReader = (DictionaryReader)Context.getBean(DictionaryReader.class);
+		Dictionary[] jobTypes = dicReader.getDics(DicTypes.DIC_ORG_TYPE.typeID());
+		
+		StringBuffer sb1 = new StringBuffer();
+		for (Dictionary job : jobTypes) {
+			if(sb1.length()>0) sb1.append(",");
+			sb1.append("{");
+			sb1.append("\"id\":"+job.getId());
+			sb1.append(",\"pid\":"+job.getPid());
+			sb1.append(",\"name\":\""+job.getName()+"\"");
+			sb1.append("}");
+		}
+		
+		StringBuffer sb = new StringBuffer();
+		sb.append("{");
+		sb.append("\"orgTypes\":["+sb1.toString()+"]");
 		sb.append("}");
 		
 		output(sb.toString(), response);

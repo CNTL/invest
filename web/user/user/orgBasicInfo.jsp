@@ -40,6 +40,15 @@
                           <input type="text" class="form-control validate[maxSize[255]]" type="text" id="orgFullname" name="orgFullname" placeholder="机构全称">
                       </div>
                   </div>
+                <div class="form-group"  >
+					<label for="orgType" class="col-sm-3 control-label">机构类型：</label>
+					<div class="col-sm-4">
+					 <select id="orgType" name="orgType" class="form-control">
+					        
+				     </select>
+					</div>
+					 
+				</div>
                   <div class="form-group">
                       <label id="area" for="province" class="col-sm-3 control-label">机构城市：</label>
                       <div class="col-sm-3">

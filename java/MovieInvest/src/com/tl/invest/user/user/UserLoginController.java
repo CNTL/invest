@@ -19,6 +19,7 @@ import com.tl.common.JsonDateValueProcessor;
 import com.tl.common.ParamInitUtils;
 import com.tl.common.RandomValidateCode;
 import com.tl.common.WebUtil;
+import com.tl.invest.constant.DicTypes;
 import com.tl.invest.user.email.EMailSenderHelper;
 import com.tl.invest.user.email.EmailSender;
 import com.tl.invest.user.email.SimpleMailSender;
@@ -28,6 +29,8 @@ import com.tl.invest.user.photo.UserPhotogroup;
 import com.tl.invest.user.video.UserVideoManager;
 import com.tl.invest.user.video.UserVideogroup;
 import com.tl.kernel.context.Context;
+import com.tl.kernel.sys.dic.Dictionary;
+import com.tl.kernel.sys.dic.DictionaryReader;
 import com.tl.kernel.web.BaseController;
 import com.tl.kernel.web.SysSessionUser;
 
@@ -77,7 +80,11 @@ public class UserLoginController extends BaseController
 			resetPwd(request, response, model);
 		} else if("updatePwd".equals(action)){//ÕÒ»ØÃÜÂë£¨ÖØÖÃÃÜÂë±£´æ£©
 			updatePwd(request, response, model);
-		} else {
+		}else if("orgTypeDatas".equals(action)){
+			orgTypeDatas(request,response);
+		}
+		
+		else {
 			response.setContentType("text/xml; charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			try {
@@ -91,6 +98,27 @@ public class UserLoginController extends BaseController
 				log.error("login has error!",e);
 			}
 		}
+	}
+	private void orgTypeDatas(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		DictionaryReader dicReader = (DictionaryReader)Context.getBean(DictionaryReader.class);
+		Dictionary[] jobTypes = dicReader.getDics(DicTypes.DIC_ORG_TYPE.typeID());
+		
+		StringBuffer sb1 = new StringBuffer();
+		for (Dictionary job : jobTypes) {
+			if(sb1.length()>0) sb1.append(",");
+			sb1.append("{");
+			sb1.append("\"id\":"+job.getId());
+			sb1.append(",\"pid\":"+job.getPid());
+			sb1.append(",\"name\":\""+job.getName()+"\"");
+			sb1.append("}");
+		}
+		
+		StringBuffer sb = new StringBuffer();
+		sb.append("{");
+		sb.append("\"orgTypes\":["+sb1.toString()+"]");
+		sb.append("}");
+		
+		output(sb.toString(), response);
 	}
 	/** 
 	* @author  leijj 

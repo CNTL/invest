@@ -79,6 +79,15 @@ text-decoration: none;
 						<input type="text" class="form-control" readonly="readonly" maxlength="20" id="perjob"  check-type="required">
 					</div>
 				</div>
+				<div class="form-group" id="orgTypeDiv" style="display:none;">
+					<label for="perjob" class="col-sm-2 control-label">机构类型:</label>
+					<div class="col-sm-4">
+					 <select id="orgType" name="orgType" class="form-control" check-type="">
+					        
+				     </select>
+					</div>
+					 
+				</div>
 				<div class="form-group">
 					<label for="password1" class="col-sm-2 control-label">密码:</label>
 					<div class="col-sm-6">
@@ -118,11 +127,14 @@ text-decoration: none;
 		          
 		        </div>
 		      </div>  
+		        
 		      <div class="form-group">
 		        <label for="myVal" class="col-sm-7 control-label text-center">
 		       		<input type="checkbox" id="accept" checked="checked" /> 阅读并同意<a target="_blank" href="../help/RegDoc.do" style="color:#55acef;">《用户注册服务协议》</a>
 		        </label>
-		         
+		          <label  class="col-sm-4 control-label text-center">
+		       		(提示:*号为必填选项)
+		        </label>
 		      </div>  
    
 				<div class="form-group">

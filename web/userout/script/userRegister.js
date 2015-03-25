@@ -57,9 +57,34 @@ function checkMyVal(){
 		return true;
 	}
 }
-
-$(document).ready(function () {
+function setOptions(id, datas) {
+	 
+	var sel = document.getElementById(id);
+	if (!sel) return;
 	
+	while (sel.options.length > 0)
+		sel.options.remove(0);
+
+	for (var i = 0; i < datas.length; i++) {
+		var op = document.createElement("OPTION");
+		op.value = datas[i]["id"];
+		op.text = datas[i]["name"];
+		sel.options.add(op);
+	}
+	$(sel).trigger("change");
+}
+$(document).ready(function () {
+	 
+	 $.ajax({
+	        type:"POST", //请求方式  
+	        url:"../user/userlogin.do?a=orgTypeDatas", //请求路径  
+	        cache: false,  
+	        async:false,
+	        dataType: 'json',   //返回值类型  
+	        success:function(data){
+	        	 setOptions("orgType",data.orgTypes);
+	        }
+	 });
 	changeValPic();
 	$("#myVal").change(function(){
 		//checkMyVal();
@@ -71,12 +96,20 @@ $(document).ready(function () {
         if($(this).attr('data')=="1"){
         	$("#userRec").hide();
         	 $("#perjob").attr("check-type","");
+        	 $("#orgTypeDiv").show();
+        	 $("#orgType").attr("check-type","required");
+        	 $("#recIDs").val($("#orgType").val());
         }
         else{
         	$("#userRec").show();
         	$("#perjob").attr("check-type","required");
+        	$("#orgTypeDiv").hide();
+        	$("#orgType").attr("check-type","");
         }
     });
+	
+	
+	 
 	$("#form").validation();
     $("#login").on('click', function (event) {
       if ($("#form").valid(this, '填写信息不完整。') == false) {
@@ -137,6 +170,7 @@ $(document).ready(function () {
 	    			if(!ret){
 	    				return ret;
 	    			}else{
+	    				alert($("#recIDs").val());
 	    				 var data = {
 	    						 code:$("#code").val(),
 	    						 email:$("#email").val(),
