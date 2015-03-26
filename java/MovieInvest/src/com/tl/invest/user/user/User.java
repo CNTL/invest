@@ -81,9 +81,12 @@ public class User {
 	private Integer degree_show;
 	
 	public String getOrgScaleName() {
+		if(StringUtils.isEmpty(this.getOrgScale())){
+			return "";
+		}
 		if(this.getOrgScale().equals("1")){
 			return "10人以下";
-		}else if(this.getOrgScale().equals("1")){
+		}else if(this.getOrgScale().equals("2")){
 			return "10-50人";
 		}else{
 			return "50人以上";
@@ -739,7 +742,10 @@ public class User {
 
 	public void setOrgScale(String orgScale) {
 		this.orgScale = orgScale;
-		getOrgScaleName();
+		if(getType()==1){
+			getOrgScaleName();
+		}
+		
 	}
 
 	public String getOrgHomePage() {

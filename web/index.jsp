@@ -42,7 +42,9 @@
 			
           
         });
-		
+		function wordbreak(){
+			$("#txtNotice").wordLimit(48);
+		}
 		function waterpull(){
 			
 			 $('#container').masonry({
@@ -61,6 +63,7 @@
 	            });
 			 
 	         $(".box").addClass('animated zoomIn');
+	         wordbreak();
 		}
 		
 		function getItem(){
@@ -231,7 +234,7 @@
 				sb.push("						");
 				sb.push("						<h3><span class=\"i\"></span>"+n.title+"</h3>");
 				sb.push("						<p style=\"border-bottom:1px dashed #FCB988;height:4px;width:98%;\">&nbsp;</p>");
-				sb.push("						<p>"+n.content+"</p>");
+				sb.push("						<p id=\"txtNotice\" title=\""+n.content+"\">"+n.content+"</p>");
 				sb.push("					</div>");
 				sb.push("					<div class=\"more\">");
 				sb.push("						<a href=\"notice/List.do\">查看更多</a>");
@@ -331,7 +334,7 @@
 						
 						<h3><span class="i"></span><c:out value="${notice.title}"/></h3>
 						<p style="border-bottom:1px dashed #FCB988;height:4px;width:98%;">&nbsp;</p>
-						<p><c:out value="${notice.content}"/></p>
+						<p id="txtNotice" title="<c:out value="${notice.content}"/>"><c:out value="${notice.content}"/></p>
 					</div>
 					<div class="more">
 						<a href="notice/List.do">查看更多</a>
