@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.tl.common.StringUtils;
 import com.tl.invest.constant.DicTypes;
+import com.tl.invest.constant.JobSection;
 import com.tl.invest.user.bankcard.UserBankcard;
 import com.tl.kernel.context.Context;
 import com.tl.kernel.sys.dic.Dictionary;
@@ -43,6 +44,8 @@ public class User {
 	private String cityName;
 	private String perJob;
 	private String perJobName;
+	private String perJobPID;
+	private String per4Type;
 	private String perPhone;
 	private String orgShortname;
 	private String orgFullname;
@@ -130,6 +133,105 @@ public class User {
 		return cityName;
 	}
 
+	public String getPerJobPID() {
+		//找到所有分类的父ID
+		if(this.getType()==1){//机构直接返回0
+			return "0";
+		}
+		StringBuilder sb = new StringBuilder();
+		String perJobPID = "";
+		try {
+			DictionaryReader reader = (DictionaryReader)Context.getBean("DictionaryReader"); 
+			String[] typeids = this.perJob.split(",");
+			if(typeids!=null && typeids.length>0){
+				for (int i = 0; i < typeids.length; i++) {
+					int typeid = 0;
+					try {
+						typeid  = Integer.parseInt(typeids[i], 10);
+					} catch (Exception e) {
+					}
+					if(typeid>0){
+					 
+						Dictionary dic = reader.getDic(DicTypes.DIC_RECRUIT_TYPE.typeID(),typeid);
+						if(dic!=null){
+							String pidString =String.valueOf(dic.getPid());
+							//防止重复父ID
+							String tempsb = sb.toString();
+							int index = tempsb.indexOf(pidString);
+							if(index<0){
+								sb.append(pidString);
+								sb.append(",");
+							}
+							
+						}
+					}
+				}
+			}
+			
+			 
+		} catch (Exception e) {
+			
+		}
+		perJobPID = sb.toString();
+		if(perJobPID.endsWith(",")){
+			perJobPID = perJobPID.substring(0,perJobPID.length()-1);
+		}
+		return perJobPID;
+	}
+	public void setPer4Type(String per4Type){
+		this.per4Type =per4Type;
+	}
+	public String getPer4Type() {
+		//获得影人属于演员、前期排石、后期制作、其他影人中的哪一类
+		if(getType()==1) return "";
+		String per4Type = "";
+		//1.获取所有影聘分类的父ID
+		String[] pidget = getPerJob().split(",");
+		StringBuilder sb = new StringBuilder();
+		if(pidget!=null&&pidget.length>0){
+			DictionaryReader reader = (DictionaryReader)Context.getBean("DictionaryReader"); 
+			
+			for (int i = 0; i < pidget.length; i++) {
+				Dictionary dic = null;
+				Dictionary dicparent = null;
+				int type = Integer.parseInt(pidget[i], 10);
+				try {
+					dic = reader.getDic(DicTypes.DIC_RECRUIT_TYPE.typeID(),type);
+					
+					if(dic!=null){
+						dicparent = reader.getDic(DicTypes.DIC_RECRUIT_TYPE.typeID(),dic.getPid());
+						//演员
+						if(dic.getName().equals(JobSection.SECTION_ACTOR.typeName())){
+							sb.append(JobSection.SECTION_ACTOR.typeID());
+							sb.append(",");
+						}else if(dicparent.getName().equals(JobSection.SECTION_AFTER.typeName())){
+							sb.append(JobSection.SECTION_AFTER.typeID());
+							sb.append(",");
+						}
+						else if(dicparent.getName().equals(JobSection.SECTION_FOWARD.typeName())){
+							sb.append(JobSection.SECTION_FOWARD.typeID());
+							sb.append(",");
+						}
+						else{
+							sb.append(JobSection.SECTION_OTHER.typeID());
+							sb.append(",");
+						}
+					}
+				} catch (Exception e) {
+					 
+				}
+			}
+		}
+		per4Type = sb.toString();
+		if(per4Type.endsWith(",")){
+			per4Type = per4Type.substring(0,per4Type.length()-1);
+		}
+		return per4Type;
+	}
+
+	public void setPerJobPID(String perJobPID) {
+		this.perJobPID = perJobPID;
+	}
 	public Integer getName_show() {
 		return name_show;
 	}
@@ -545,6 +647,7 @@ public class User {
 	public void setPerJob(String perJob) {
 		this.perJob = perJob;
 		getPerJobName();
+		getPer4Type();
 	}
 
 	public String getPerPhone() {

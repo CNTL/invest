@@ -33,7 +33,7 @@ $(document).ready(function () {
 	 
 });
 function selectrec(){
-	var event = event.srcElement || event.target;
+	var event = window.event.srcElement||window.event.target;
 	$this = $(event);
 	$this.toggleClass("selected");
 	setRec();

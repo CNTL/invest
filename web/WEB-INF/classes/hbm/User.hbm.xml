@@ -93,6 +93,15 @@
             <column name="perJob">
             </column>
         </property>
+         <property name="perJobPID" type="string">
+            <column name="perJobPID">
+            </column>
+        </property>
+         <property name="per4Type" type="string">
+            <column name="per4Type">
+            </column>
+        </property>
+        
         <property name="perPhone" type="string">
             <column name="perPhone">
             </column>

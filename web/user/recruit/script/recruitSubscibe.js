@@ -104,7 +104,7 @@ function formvalid(){
 
 
 function selectrec(){
-	var event = event.srcElement || event.target;
+	var event = window.event.srcElement||window.event.target;
     var id= $(event).attr("data-id");
     var name = $(event).attr("data-name");
     $("#sl-rec").text(name);

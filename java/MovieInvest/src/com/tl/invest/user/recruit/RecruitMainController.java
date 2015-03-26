@@ -297,7 +297,6 @@ public class RecruitMainController extends Entry {
 		boolean ret = false;
 		if( (!StringUtils.isEmpty(user.getOrgFullname())) 
 				&& (!StringUtils.isEmpty(user.getLocation())) 
-				&& (!StringUtils.isEmpty(user.getTypeName()))
 				&& (!StringUtils.isEmpty(user.getOrgScale()))){
 			ret = true;
 		}

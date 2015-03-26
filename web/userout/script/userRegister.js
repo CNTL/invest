@@ -3,8 +3,8 @@ function login(){
 	parent.location.href = '../user/loginMain.do';
 }
 function selectrec(){
-	var event = event.srcElement || event.target;
-	$this = $(event);
+	var event = window.event.srcElement||window.event.target;
+	var $this = $(event);
 	$this.toggleClass("selected");
 	setRec();
 }
@@ -170,7 +170,7 @@ $(document).ready(function () {
 	    			if(!ret){
 	    				return ret;
 	    			}else{
-	    				alert($("#recIDs").val());
+	    				 
 	    				 var data = {
 	    						 code:$("#code").val(),
 	    						 email:$("#email").val(),

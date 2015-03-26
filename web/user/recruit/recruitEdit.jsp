@@ -65,14 +65,15 @@
                 
                 <div class="form-group">
                     <label for="jobName" class="col-sm-3 control-label">工作时长：</label>
-                    <div class="col-sm-6">
-                        <input class="form-control validate[maxSize[255]]" type="text" id="days" name="days" value="${recruit.days}" placeholder="工作时长"/>（天）
+                    <div class="col-sm-3">
+                        <input class="form-control validate[maxSize[255]]" type="text" id="days" name="days" value="${recruit.days}" placeholder="工作时长"/>
                     </div>
+                    <label class="col-sm-1 control-label">（天）</label>
                 </div>
                 
                 <div class="form-group">
                     <label for="jobName" class="col-sm-3 control-label">经验要求：</label>
-                    <div class="col-sm-6">
+                    <div class="col-sm-3">
                          <input class="form-control validate[maxSize[255]]" type="text" id="working" name="working" value="${recruit.working}" placeholder="经验要求"/>
                     </div>
                 </div>
