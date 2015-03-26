@@ -91,7 +91,7 @@ public class ResumeMainController extends Entry {
 			break;
 		}
 		List<Menu> list = new ArrayList<Menu>();
-		list.add(new Menu(1, "我的简历","/resume/myresume.do?infoType=1", class1, -999,0));
+//		list.add(new Menu(1, "我的简历","/resume/myresume.do?infoType=1", class1, -999,0));
 		list.add(new Menu(2, "职位收藏","/resume/myrecruit.do?a=myrecruit&infoType=2", class2, -999,0));
 		list.add(new Menu(3, "已投简历", "/resume/recruitresume.do?a=recruitresume&infoType=3", class3,-999,0));
 		return (Menu[]) list.toArray(new Menu[0]);

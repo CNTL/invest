@@ -20,12 +20,8 @@
             <column name="recruitID">
             </column>
         </property>
-        <property name="resumeId" type="java.lang.Integer">
-            <column name="resumeID">
-            </column>
-        </property>
-        <property name="isPostResume" type="java.lang.Integer">
-            <column name="isPostResume">
+        <property name="collected" type="java.lang.Integer">
+            <column name="collected">
             </column>
         </property>
         <property name="createtime" type="timestamp">

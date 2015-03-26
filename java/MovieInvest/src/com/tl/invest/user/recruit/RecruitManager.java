@@ -43,7 +43,7 @@ public class RecruitManager {
 	 */
 	public String getRecruitUserJson(int recruitid)throws Exception{
 		
-		StringBuilder querySql = new StringBuilder("select u.id,u.name,u.head,rr.recruitID,rr.resumeID from user_recruitresume as rr,user as u,user_resume as r where rr.userID=u.id and rr.resumeID=r.id and rr.recruitID= "+String.valueOf(recruitid));
+		StringBuilder querySql = new StringBuilder("select u.id,u.name,u.head,rr.recruitID,rr.createtime from user_recruitresume as rr,user as u,user_resume as r where rr.collected=0 and rr.userID=u.id  and rr.recruitID= "+String.valueOf(recruitid));
 		StringBuilder sb = new StringBuilder();
 		String contentString = "";
 		IResultSet rs = null;
@@ -62,15 +62,17 @@ public class RecruitManager {
 				int userid = rs.getInt("id");
 				String username = rs.getString("name");
 				String headurl = rs.getString("head");
+				String createtime = rs.getString("createtime");
 				headurl = headurl.replace("\\", "/");
 				int recid = rs.getInt("recruitID");
-				int resid = rs.getInt("resumeID");
+				 
 				sb.append("{");
 				sb.append("\"userid\":\""+String.valueOf(userid)+"\",");
 				sb.append("\"username\":\""+username+"\",");
 				sb.append("\"headurl\":\""+headurl+"\",");
 				sb.append("\"recid\":\""+String.valueOf(recid)+"\",");
-				sb.append("\"resid\":\""+String.valueOf(resid)+"\"");
+				sb.append("\"createtime\":\""+createtime+"\"");
+				
 				sb.append("}");
 				sb.append(",");
 				
@@ -291,9 +293,9 @@ public class RecruitManager {
 		int total = getSqlCount(countSql.toString(), params, null);
 		return setMessage(myRecruits, curPage, length, total);
 	}
-	public List<UserRecruit> querySimiRecruits(String typeName) throws TLException{
+	public List<UserRecruit> querySimiRecruits(String typeName,int recid) throws TLException{
 		StringBuilder querySql = new StringBuilder("SELECT rt.* FROM user_recruit rt WHERE rt.typeName LIKE '%")
-			.append(typeName).append("%'");
+			.append(typeName).append("%' and rt.id<> "+ String.valueOf(recid));
 		List<UserRecruit> myRecruits =  getRecruits(querySql.toString(), null, 4, 1, null);
 		return myRecruits;
 	}
@@ -350,7 +352,7 @@ public class RecruitManager {
 	 */
 	public UserRecruitresume recruitresume(int userId, int recruitId) throws Exception{
 		String sql = "select a from com.tl.invest.user.recruit.UserRecruitresume as a where a.userId = "+
-				userId + " and a.recruitId = " + recruitId;
+				userId + " and a.collected = 1 and  a.recruitId = " + recruitId;
 		List<UserRecruitresume> list = DAOHelper.find(sql);
         if(list != null && list.size() > 0)
             return list.get(0);
@@ -358,15 +360,22 @@ public class RecruitManager {
             return null;
 	}
 	
-	public UserRecruitresume recruitresume(int userId, int recruitId, int resumeId) throws Exception{
+	/**
+	 * 根据recruitID查询是否已收藏职位
+	 * 
+	 * @param ID
+	 */
+	public UserRecruitresume recruitresumePost(int userId, int recruitId) throws Exception{
 		String sql = "select a from com.tl.invest.user.recruit.UserRecruitresume as a where a.userId = "+
-				userId + " and a.recruitId = " + recruitId + " and a.resumeId = " + resumeId;
+				userId + " and a.collected = 0 and  a.recruitId = " + recruitId;
 		List<UserRecruitresume> list = DAOHelper.find(sql);
         if(list != null && list.size() > 0)
             return list.get(0);
         else
             return null;
 	}
+	
+	 
 	/** 
 	* @author  leijj 
 	* 功能： 收藏职位保存

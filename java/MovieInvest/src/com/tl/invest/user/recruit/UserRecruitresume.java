@@ -13,8 +13,8 @@ public class UserRecruitresume {
 	private Integer userId;
 	private String userName;
 	private Integer recruitId;
-	private Integer resumeId;
-	private Integer isPostResume;
+	private Integer collected;
+ 
 	private Date createtime;
 
 	public UserRecruitresume() {
@@ -25,15 +25,22 @@ public class UserRecruitresume {
 	}
 
 	public UserRecruitresume(int id, Integer userId, String userName,
-			Integer recruitId, Integer resumeId, Date createtime) {
+			Integer recruitId,Integer collected,   Date createtime) {
 		this.id = id;
 		this.userId = userId;
 		this.userName = userName;
 		this.recruitId = recruitId;
-		this.resumeId = resumeId;
+		this.collected = collected;
+		 
 		this.createtime = createtime;
 	}
+	public Integer getCollected() {
+		return collected;
+	}
 
+	public void setCollected(Integer collected) {
+		this.collected = collected;
+	}
 	public int getId() {
 		return this.id;
 	}
@@ -65,22 +72,8 @@ public class UserRecruitresume {
 	public void setRecruitId(Integer recruitId) {
 		this.recruitId = recruitId;
 	}
-
-	public Integer getResumeId() {
-		return this.resumeId;
-	}
-
-	public void setResumeId(Integer resumeId) {
-		this.resumeId = resumeId;
-	}
-
-	public Integer getIsPostResume() {
-		return isPostResume;
-	}
-
-	public void setIsPostResume(Integer isPostResume) {
-		this.isPostResume = isPostResume;
-	}
+ 
+	 
 
 	public Date getCreatetime() {
 		return this.createtime;

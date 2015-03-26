@@ -52,8 +52,8 @@ public class RecruitResumeController extends BaseController {
 		recruitResume.setUserId(user.getId());
 		recruitResume.setUserName(user.getName());
 		recruitResume.setRecruitId(ParamInitUtils.getInt(request.getParameter("recruitID")));
-		recruitResume.setResumeId(0);
-		recruitResume.setIsPostResume(0);;
+		recruitResume.setCollected(1);//收藏为1
+  
 		recruitResume.setCreatetime(DateUtils.getTimestamp());
 		recruitManager.collect(recruitResume);
 		
@@ -65,8 +65,8 @@ public class RecruitResumeController extends BaseController {
 		int userId = 0;
 		if(user != null) userId = user.getId();
 		int recruitID = ParamInitUtils.getInt(request.getParameter("recruitID"));
-		int resumeID = ParamInitUtils.getInt(request.getParameter("resumeID"));
-		UserRecruitresume recruitresume = recruitManager.recruitresume(userId, recruitID, resumeID);
+		 
+		UserRecruitresume recruitresume = recruitManager.recruitresumePost(userId, recruitID);
 		if(recruitresume != null) {
 			output("该职位您已投递简历！", response);
 			return;
@@ -78,8 +78,7 @@ public class RecruitResumeController extends BaseController {
 		recruitResume.setUserId(user.getId());
 		recruitResume.setUserName(user.getName());
 		recruitResume.setRecruitId(ParamInitUtils.getInt(request.getParameter("recruitID")));
-		recruitResume.setResumeId(resumeID);
-		recruitResume.setIsPostResume(1);;
+		recruitResume.setCollected(0);//投递为0
 		recruitResume.setCreatetime(DateUtils.getTimestamp());
 		recruitManager.collect(recruitResume);
 		output("ok", response);

@@ -42,7 +42,7 @@ function loadUsers(){
 			  $.each(json.users,function(i,n){
 				  var li = $("<li></li>");
 				  
-				  li.append("<a target=\"_blank\" href=\""+webroot+"resume/resumeDetail.do?infoType=1&id="+n.resid+"\" title=\""+n.username+"\"><img style=\"width:100px;height:100px;\" src=\""+webroot+n.headurl+"\" alt=\""+n.username+"\" class=\"img-circle\"></a>");
+				  li.append("<a target=\"_blank\" href=\""+webroot+"user/PeopleDetailMain.do?a=detail&mainType=4&id="+n.userid+"\" title=\""+n.username+" 投递于："+n.createtime+"\"><img style=\"width:100px;height:100px;\" src=\""+webroot+n.headurl+"\" alt=\""+n.username+"\" class=\"img-circle\"></a>");
 				  
 				  $("#list-recs").append(li);
 			  });

@@ -56,7 +56,8 @@ public class User {
 	private String orgNature;
 	private String orgTrade;
 	private String orgScale;
-	private String orgHomePage;
+	private String orgScaleName;
+    private String orgHomePage;
 	private int deleted;
 	private int gender;
 //	private Integer firstType;
@@ -79,6 +80,16 @@ public class User {
 	private String degree;
 	private Integer degree_show;
 	
+	public String getOrgScaleName() {
+		if(this.getOrgScale().equals("1")){
+			return "10人以下";
+		}else if(this.getOrgScale().equals("1")){
+			return "10-50人";
+		}else{
+			return "50人以上";
+		}
+		 
+	}
 	
 	public String getProvinceName() {
 		String provinceName = "";
@@ -728,6 +739,7 @@ public class User {
 
 	public void setOrgScale(String orgScale) {
 		this.orgScale = orgScale;
+		getOrgScaleName();
 	}
 
 	public String getOrgHomePage() {

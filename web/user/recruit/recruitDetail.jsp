@@ -22,13 +22,13 @@
             <div class="desc">
                 <ul>
                     <li>${recruit.salary}</li>
-                    <li>${user.city}</li>
-                    <li>${recruit.days}</li>
+                    <li>${user.cityName}</li>
+                    <li>${recruit.days}天</li>
                 </ul>
             </div>
             <div class="date">
-                发布时间：${recruit.time}
-                <a href="#" class="report">举报该职位</a>
+                	发布时间：${recruit.time}
+ 
             </div>
             <div class="block">
                 <h2>职位描述</h2>
@@ -43,16 +43,18 @@
         </div>
         <div class="sider">
             <div class="desc">
-                <div class="pic">
-                <!-- ../../static/image/temp/pic4.png -->
-                    <img src="${user.head}" />
-                </div>
-                <div class="title">
+                 
+                 <div class="avatar">
+                 	 <img src="${user.head}" class="img-circle" style="width:60px;height:60px;" />
+                 </div>
+                   
+                
+                <div class="title" style="margin-top:-65px;">
 			    	${user.orgFullname}
                 </div>
                 <div class="clear"></div>
                 <div class="intro">
-                    <span>规模 ：  ${user.orgScale}</span><br/>
+                    <span>规模 ：  ${user.orgScaleName}</span><br/>
                     <span>主页 ： ${user.orgHomePage}</span><br /><br />
                     <span>工作地点 ：</span><br />
                     	${user.location}

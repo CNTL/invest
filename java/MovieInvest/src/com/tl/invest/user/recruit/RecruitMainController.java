@@ -284,7 +284,7 @@ public class RecruitMainController extends Entry {
 		user.setHead(WebUtil.getRoot(request).concat(head));
 		String typeName = recruit.getTypeName();
 		if(typeName != null && typeName.length() > 0){
-			List<UserRecruit> simiRecruits = recruitManager.querySimiRecruits(typeName);
+			List<UserRecruit> simiRecruits = recruitManager.querySimiRecruits(typeName,id);
 			model.put("simiRecruits", simiRecruits);
 		}
 		
