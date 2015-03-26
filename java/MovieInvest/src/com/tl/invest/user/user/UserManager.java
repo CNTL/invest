@@ -457,7 +457,7 @@ public class UserManager {
 	* @throws Exception 
 	*/ 
 	public Message queryPersons(int perJob, int curPage, int length) throws Exception{
-		StringBuilder querySql = new StringBuilder("select a from com.tl.invest.user.user.User as a where a.type = 0 and a.isRealNameIdent=1 and a.perJob = "+perJob+" order by a.createTime desc");
+		StringBuilder querySql = new StringBuilder("select a from com.tl.invest.user.user.User as a where a.type = 0 and a.isRealNameIdent=1 and "+perJob+" in(a.per4Type) order by a.createTime desc");
 		List<User> persons = DAOHelper.find(querySql.toString() , length*(curPage-1), length);
 		int total = getPersonsCount(perJob, null);
 		return setMessage(setPerJob(persons), curPage, length, total);
@@ -484,13 +484,13 @@ public class UserManager {
 	}
 	
 	public Message queryMorePersons(int curPage, int length,int perJob,
-			int age, int gender, String typeIds) throws Exception{
+			int agetypeid, int gender, String typeIds) throws Exception{
 		StringBuilder querySql = new StringBuilder("select a from com.tl.invest.user.user.User as a")
-			.append(" where a.type = 0 and a.isRealNameIdent=1 and a.deleted=0 and a.perJob='"+String.valueOf(perJob)+"'");
-		querySql.append(morePersonsSql(age, gender, typeIds));
+			.append(" where a.type = 0 and a.isRealNameIdent=1 and a.deleted=0 and "+String.valueOf(perJob)+" in (a.per4Type)");
+		querySql.append(morePersonsSql(agetypeid, gender, typeIds));
 		querySql.append(" order by a.createTime desc");
 		List<User> persons = DAOHelper.find(querySql.toString() , length*(curPage-1), length);
-		int total = getMorePersonsCount(age, gender, typeIds, null);
+		int total = getMorePersonsCount(agetypeid, gender, typeIds, null);
 		return setMessage(persons, curPage, length, total);
 	}
 	/** 
@@ -510,34 +510,34 @@ public class UserManager {
 	private String morePersonsSql(int age, int gender, String typeIds) {
 		StringBuilder querySql = new StringBuilder("");
 		if(age > 0){
-			querySql.append(calBirthday(age));
+			querySql.append(" and a.ageTypeID = "+age +" ");
 		}
 		if(gender >=0){
 			querySql.append(" and a.gender=").append(gender);		
 		}
 		if(!StringUtils.isEmpty(typeIds)){
-			querySql.append("  and a.secondType in(").append(typeIds).append(")");	
+			querySql.append("  and "+typeIds+" in(a.per4Type)");	
 		}
 		return querySql.toString();
 	}
-	private String calBirthday(int value) {
-		StringBuilder querySql = new StringBuilder("");
-		switch (value) {
-		case 1://20岁以下
-			querySql.append(" and DATEDIFF(NOW(),a.birthdate) <=20");
-			break;
-		case 2://20-30岁
-			querySql.append(" and DATEDIFF(NOW(),a.birthdate) >=20 and DATEDIFF(NOW(),a.birthdate)<=30");
-			querySql.append(" and DATEDIFF(NOW(),a.birthdate) >=20 and DATEDIFF(NOW(),a.birthdate)<=30");
-			break;
-		case 3://30岁以上
-			querySql.append(" and DATEDIFF(NOW(),a.birthdate)>=30");
-			break;
-		default:
-			break;
-		}
-		return querySql.toString();
-	}
+//	private String calBirthday(int value) {
+//		StringBuilder querySql = new StringBuilder("");
+//		switch (value) {
+//		case 1://20岁以下
+//			querySql.append(" and DATEDIFF(NOW(),a.birthdate) <=20");
+//			break;
+//		case 2://20-30岁
+//			querySql.append(" and DATEDIFF(NOW(),a.birthdate) >=20 and DATEDIFF(NOW(),a.birthdate)<=30");
+//			querySql.append(" and DATEDIFF(NOW(),a.birthdate) >=20 and DATEDIFF(NOW(),a.birthdate)<=30");
+//			break;
+//		case 3://30岁以上
+//			querySql.append(" and DATEDIFF(NOW(),a.birthdate)>=30");
+//			break;
+//		default:
+//			break;
+//		}
+//		return querySql.toString();
+//	}
 	/** 
 	* @author  leijj 
 	* 功能： 查询公司用户

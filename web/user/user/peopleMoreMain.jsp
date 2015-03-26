@@ -140,5 +140,12 @@
 	</div>
 	<%@include file="../../inc/footer.inc"%>
 	</div>
+	
+	<div id="ageItems" style="display:none;">
+	<c:forEach var="age" varStatus="status" items="${agetypes}">
+		<a data-group="age" href="#" data-id="<c:out value="${age.id}"/>"><c:out value="${age.name}"/></a>|
+	</c:forEach>
+	
+	</div>
 </body>
 </html>

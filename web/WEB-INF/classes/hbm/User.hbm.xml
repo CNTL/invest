@@ -158,14 +158,14 @@
             <column name="ageTypeID" >
             </column>
         </property>
-        <property name="firstType" type="java.lang.Integer">
-            <column name="firstType">
-            </column>
-        </property>
-        <property name="secondType" type="java.lang.Integer">
-            <column name="secondType">
-            </column>
-        </property>
+<!--         <property name="firstType" type="java.lang.Integer"> -->
+<!--             <column name="firstType"> -->
+<!--             </column> -->
+<!--         </property> -->
+<!--         <property name="secondType" type="java.lang.Integer"> -->
+<!--             <column name="secondType"> -->
+<!--             </column> -->
+<!--         </property> -->
         <property name="typeName" type="string">
             <column name="typeName" length="500">
             </column>

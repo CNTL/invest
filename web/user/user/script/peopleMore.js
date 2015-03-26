@@ -110,8 +110,9 @@ function setFowardGroup(){
 			if(sb.join('')==""){
 				sb.push("<dl class=\"dl-horizontal\" id=\"taglist\" data-id=\"41\">");
 				sb.push("                <dt>搜索条件：</dt>");
-				sb.push("                <dd><a data-group=\"all\" href=\"#\">全部</a>|<a data-group=\"sex\" href=\"#\" data-id=\"1\">男</a>|<a data-group=\"sex\" data-id=\"0\" href=\"#\">女</a>|<a data-group=\"age\" href=\"#\" data-id=\"1\">20岁以下</a>|<a data-group=\"age\" data-id=\"2\" href=\"#\">20岁-30岁</a>|<a data-group=\"age\" data-id=\"3\" href=\"#\">30岁以上</a>|</dd>");
+				sb.push("                <dd><a data-group=\"all\" href=\"#\">全部</a>|<a data-group=\"sex\" href=\"#\" data-id=\"1\">男</a>|<a data-group=\"sex\" data-id=\"0\" href=\"#\">女</a>|"+$("#ageItems").html()+"</dd>");
 				sb.push("</dl>");
+				 
 				$("#rows").append(sb.join(''));
 				setGroupFirst();
 			}

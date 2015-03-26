@@ -59,8 +59,8 @@ public class User {
 	private String orgHomePage;
 	private int deleted;
 	private int gender;
-	private Integer firstType;
-	private Integer secondType;
+//	private Integer firstType;
+//	private Integer secondType;
 	private String typeName;
 	private Integer perOrder;
 	private String lastSessionID;
@@ -762,21 +762,21 @@ public class User {
 //		this.birthdate = birthdate;
 //	}
 
-	public Integer getFirstType() {
-		return firstType;
-	}
-
-	public void setFirstType(Integer firstType) {
-		this.firstType = firstType;
-	}
-
-	public Integer getSecondType() {
-		return secondType;
-	}
-
-	public void setSecondType(Integer secondType) {
-		this.secondType = secondType;
-	}
+//	public Integer getFirstType() {
+//		return firstType;
+//	}
+//
+//	public void setFirstType(Integer firstType) {
+//		this.firstType = firstType;
+//	}
+//
+//	public Integer getSecondType() {
+//		return secondType;
+//	}
+//
+//	public void setSecondType(Integer secondType) {
+//		this.secondType = secondType;
+//	}
 
 	public String getTypeName() {
 		return typeName;

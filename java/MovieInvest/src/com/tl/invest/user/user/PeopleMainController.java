@@ -49,6 +49,7 @@ public class PeopleMainController extends Entry {
 		else if("getSeachItems".equals(action)){
 			getSeachItems(request, response, model);
 		}
+		 
 	}
 	
 	/**获得查询条件项
@@ -97,15 +98,17 @@ public class PeopleMainController extends Entry {
 			model.put("datas", dataList);
 	 
 		} else {
+			Dictionary[] agetypes = dicReader.getSubDics(DicTypes.DIC_AGE_TYPE.typeID(), 0);
+			model.put("agetypes", agetypes);
 			int curPage = getInt(request, "curPage", 1);
 			//年龄
-			int age = getInt(request, "age",-1);
+			int agetypeid = getInt(request, "age",-1);
 			//性别
 			int gender = getInt(request, "gender",-1);
 			//类型
 			String types = get(request, "types","");
 			
-			if(StringUtils.isEmpty(types)&&age<0&&gender<0){
+			if(StringUtils.isEmpty(types)&&agetypeid<0&&gender<0){
 				
 				Message msg = userManager.queryPersons(type, curPage, 20);
 				Dictionary dic = dicReader.getDic(DicTypes.DIC_JOB_TYPE.typeID(), type);
@@ -118,7 +121,7 @@ public class PeopleMainController extends Entry {
 			}
 			else{
 				 
-				Message msg = userManager.queryMorePersons(curPage, 20,type, age, gender, types.toString());
+				Message msg = userManager.queryMorePersons(curPage, 20,type, agetypeid, gender, types.toString());
 				Dictionary dic = dicReader.getDic(DicTypes.DIC_JOB_TYPE.typeID(), type);
 				if(dic == null) return;
 				if(type == dic.getId()){
