@@ -28,7 +28,7 @@
                     <a href="../userout/findPwdStep1.jsp" class="forget">忘记密码？</a>
                 </div>
                 <div class="btn">
-                    <input type="submit" id="login" name="login" value="登录" />
+                    <input type="submit" id="login" name="login" class="btn btn-sucess" value="登录" />
                 </div>
             </form>
         </div>

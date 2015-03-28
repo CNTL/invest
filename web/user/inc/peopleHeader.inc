@@ -21,7 +21,7 @@
 					 	</span>
 						</h2>
 						<div class="desc">
-		                  	 <c:out value="${user.perJobName}"/>、<c:out value="${user.city}"/>
+		                  	<c:out value="${user.provinceName}"/>-<c:out value="${user.cityName}"/>&nbsp;<c:out value="${user.perJobName}"/>、
 		                  	
 		                  	 <br />
 		                    <a href="../user/MsgDetailMa.do?msguserid=<c:out value="${user.id}"/>" style="cursor:pointer;" ><span>短信息</span></a>
