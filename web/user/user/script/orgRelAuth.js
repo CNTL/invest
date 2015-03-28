@@ -163,7 +163,7 @@ var relAuth = {
 			uploader: '../Upload.do?jsessionid=' + sessionid,
 			width: 90,
 			cancelImg: '../js/plugin/uploadify-3.2.1/uploadify-cancel.png',
-			buttonText: '选择图片',
+			buttonText: '上传',
 			'fileTypeDesc': '选择图片',
 			'fileTypeExts': '*.jpg;*.png;*.bmp' ,
 			fileSizeLimit: 0,

@@ -49,8 +49,21 @@ var rootPath = "<%=com.tl.common.WebUtil.getRoot(request) %>";
 <%@include file="../inc/script.inc"%>
 
 <script type="text/javascript" src="../user/video/script/videoViewGroupList.js"></script>
-<script type="text/javascript" src="../user/user/script/peopleDetail.js"></script>
- 
+ <script type="text/javascript">
+    $(function(){
+    	$(".people_globaltop").css({
+    		"height":"320px",
+    		"background":"#F8F8F8 url(../static/image/head_bg_001.jpg)",
+    		"background-size":"cover"
+    		});
+     
+    	$(".wrap").css({
+    		"height":"320px" 
+    		});
+    	 
+    	
+    });
+    </script>
  
 <%@include file="../../inc/footer.inc"%>
 </body>
