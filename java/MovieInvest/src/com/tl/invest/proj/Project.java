@@ -126,10 +126,16 @@ public class Project implements java.io.Serializable {
 	}
 
 	public int getStatus() {
+		if(this.payType == 1 && this.endDate.getTime()<=DateUtils.getTimestamp().getTime()){
+			return 2;
+		}
 		return status;
 	}
 
 	public void setStatus(int status) {
+		if(this.payType == 1 && this.endDate.getTime()<=DateUtils.getTimestamp().getTime()){
+			this.status = 2;
+		}
 		this.status = status;
 	}
 

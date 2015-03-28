@@ -116,6 +116,10 @@ function setStage(id){
 	});
 }
 
+function showSupporter(id){
+	if(!id || id<=0) return;
+}
+
 function closeStageDlg(){
 	layer.close(stageDlgId);
 }

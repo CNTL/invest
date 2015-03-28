@@ -87,7 +87,12 @@
 							结束日期：<c:out value="${proj.endDateStr}"/>
 						</td>
 						<td>
-							<c:out value="${proj.countDay}"/>天<br />
+							<c:if test="${proj.payType == 1}">
+								起拍价<br />
+							</c:if>
+							<c:if test="${proj.payType == 0}">
+								<c:out value="${proj.countDay}"/>天<br />
+							</c:if>
 							￥<span class="moneyFormat"><c:out value="${proj.amountGoal}"/></span>
 						</td>
 						<td>
@@ -117,7 +122,10 @@
 							<a href="javascript:void();" onclick="delProject(<c:out value="${proj.id}"/>)">删除</a>
 							<br />							
 							</c:if>
+							<c:if test="${proj.payType == 0}">
 							<a href="javascript:;" onclick="setStage(<c:out value="${proj.id}"/>)">项目进度</a>
+							</c:if>
+							<a href="../project/Support.do?id=<c:out value="${proj.id}"/>" target="_blank">项目支持者</a>
 							</c:when>
 							
 							<c:when test="${menu==3}">
