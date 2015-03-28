@@ -38,6 +38,7 @@ $(document).ready(function () {
 		$("#row-form").hide();
 		$("#row-list").show();
 	});
+	
 });
 
 
@@ -133,6 +134,7 @@ function editGroup(id){
 }
 
 function assemble(result) {
+	
 	$.each(result, function(i,item){
 		var id = item.id;
 		var photo = item.groupPhoto;
@@ -147,7 +149,7 @@ function assemble(result) {
 			suffix = '<div class="clear"></div>';
 		}
 		var html = prefix +
-			            '<div class="people" style="border: 1px #858585 solid;">' +
+			            '<div class="people" style="border: 2px #D6D6D6 solid;">' +
 			                '<div class="pic" style="width:100%;">' +
 			                    '<a href="#"><img onclick="clickThumb('+id+')" name="photoList" id="' + id + '" src="'+rootPath+photo+'"></a>' +
 			                '</div>' +
@@ -162,6 +164,9 @@ function assemble(result) {
 			        '</div>' + suffix;
 		$(".block1").append(html);
 	});
+	
+	$(".pic img").zoom({height:150,width:218});
+	 
 }
 
 function imgUploaded  (){

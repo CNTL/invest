@@ -3,8 +3,10 @@
     $.fn.zoom = function(settings){
                 
                 settings = $.extend({
+                	mode:1, //1表示等宽缩放,2表示等高缩放3.等比居中缩放
                     height:0,
                     width:0,
+                    overflow:"hidden",//在等宽或等高时，图片的div父容器内容溢出是否隐藏，这样显示的好看
                     loading:"../img/wait.gif"
                     },settings);
                     
@@ -32,13 +34,62 @@
                 }
 
                 function processImg(){
-                 
-                        var m = this.height-settings.height;
-                        var n = this.width - settings.width;
-                        if(m>n)                        
-                            this.height = this.height>settings.height ? settings.height : this.height;
-                        else
-                            this.width = this.width >settings.width ? settings.width : this.width;
+                	    
+                	    
+                		var rateW = (parseInt(this.width,10)/parseInt(settings.width,10));
+                		var rateH = (parseInt(this.height,10)/parseInt(settings.height,10));
+                		if(settings.mode==3){//等比缩放
+                			
+                			if(rateW>=rateH){
+                    			//取压缩比最大的
+                    			this.height = this.height / rateW;
+                    			this.width = this.width / rateW;
+                    			if(rateW!=rateH){
+                    				//居中显示图片
+                    				var margin = ((parseInt(settings.height,10) - parseInt(this.height,10))/2);
+                    				$(this).css({"margin-top":margin+"px"});
+                    			}
+                    		}
+                    		else{
+                    			//取压缩比最大的
+                    			this.height = this.height / rateH;
+                    			this.width = this.width / rateH;
+                    			//居中显示图片
+                				var margin = ((parseInt(settings.width,10) - parseInt(this.width,10))/2);
+                				$(this).css({"margin-left":margin+"px"});
+                    		}
+                		}
+                		if(settings.mode==1){//等宽缩放,按照宽度的比率来缩放
+                			this.height = this.height / rateW;
+                			this.width = this.width / rateW;
+                			
+                			if(settings.overflow.toString().length>0){
+                				//找到最近的div容器
+                				var div = $(this).closest("div");
+                				if(div.length>0){
+                					div.css({"overflow":settings.overflow});
+                				}
+                			}
+                		}
+                		
+                		if(settings.mode==2){//等高缩放,按照高度的比率来缩放
+                			this.height = this.height / rateH;
+                			this.width = this.width / rateH;
+                			if(settings.overflow.toString().length>0){
+                				//找到最近的div容器
+                				var div = $(this).closest("div");
+                				if(div.length>0){
+                					div.css({"overflow":settings.overflow});
+                				}
+                			}
+                		}
+                		
+//                        var m = this.height-settings.height;
+//                        var n = this.width - settings.width;
+//                        if(m>n)                        
+//                            this.height = this.height>settings.height ? settings.height : this.height;
+//                        else
+//                            this.width = this.width >settings.width ? settings.width : this.width;
 
                         $(this).next(".loadding").remove()
                         $(this).show();

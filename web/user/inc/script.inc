@@ -1,6 +1,7 @@
 <!-- JARVIS QUERY -->
 <script type="text/javascript" src="../js/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="../js/jquery/jquery-migrate.min.js"></script>
+<script type="text/javascript" src="../js/imgzoom.js"></script>
 <script type="text/javascript" src="../js/plugin/query/jquery.query.js"></script>
 <script type="text/javascript" src="../js/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="../js/plugin/jquery-validate/js/jquery.validationEngine.js"></script>

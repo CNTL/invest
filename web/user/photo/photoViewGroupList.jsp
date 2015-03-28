@@ -27,16 +27,16 @@ dt{
 <%@include file="../inc/script.inc"%>
 <!-- script -->
 
-<!-- footer -->
-<%@include file="../../inc/footer.inc"%>
-<!-- footer -->
+
 <script type="text/javascript">
 var rootPath = "<%=com.tl.common.WebUtil.getRoot(request) %>";
 </script>
-<script type="text/javascript" src="../js/layer/layer.min.js"></script>
 <script type="text/javascript" src="../js/utils.js"></script>
 <script type="text/javascript" src="../js/plugin/boxer/jquery.fs.boxer.min.js"></script>
 <script type="text/javascript" src="../user/user/script/peopleDetail.js"></script>
 <script type="text/javascript" src="../user/photo/script/photoViewGroupList.js"></script>
+<!-- footer -->
+<%@include file="../../inc/footer.inc"%>
+<!-- footer -->
 </body>
 </html>

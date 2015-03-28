@@ -116,8 +116,8 @@ box-sizing: content-box;
 }
 
 .slide img {
-width: 100%;
-height: 100%;
+/* width: 100%; */
+/* height: 100%; */
 }
 
 .swiper-wp8-horizontal {
@@ -2695,3 +2695,21 @@ background: url(../image/s42.png) no-repeat right;
 	box-shadow: inset 0px 1px 1px rgba(0,0,0,0.05);
 }
  
+ .uploadify-button {
+ border: none !important;
+ padding: 0 !important;
+ background-color: transparent !important;
+ background:url(../image/upload_bg.png) !important;
+ font-size:14px !important;
+ border-radius: 0 !important;
+ font-weight:normal !important;
+ margin-top:-3px !important;
+}
+.uploadify:hover .uploadify-button {
+
+ 
+  background-color: transparent !important;
+   border: none !important;
+   padding: 0 !important;
+	background:url(../image/upload_bg.png) !important;
+}

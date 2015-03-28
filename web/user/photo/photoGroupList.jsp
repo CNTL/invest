@@ -97,7 +97,6 @@
 <script type="text/javascript">
 var rootPath = "<%=com.tl.common.WebUtil.getRoot(request) %>";
 </script>
-<script type="text/javascript" src="../js/layer/layer.min.js"></script>
 <script type="text/javascript" src="../js/plugin/uploadify-3.2.1/jquery.uploadify.js"></script>
 <script type="text/javascript" src="../js/utils.js"></script>
 <script type="text/javascript" src="../user/photo/script/photoGroupList.js"></script>

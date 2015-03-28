@@ -65,6 +65,10 @@ var photoGroup = {
 	        			var width = $(this).find("img").width();
 	        			$(this).parent("div").width(width);
 	        		});
+	        		
+	        		var pics = $(".body-container img");
+	        		
+	        		 //pics.zoom({height:160,width:232});
 		        } ,
 				error:function (XMLHttpRequest, textStatus, errorThrown) {
 					  

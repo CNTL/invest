@@ -87,14 +87,14 @@
 <%@include file="../inc/script.inc"%>
 <!-- script -->
 
-<!-- footer -->
-<%@include file="../../inc/footer.inc"%>
+
 <!-- footer -->
 <script type="text/javascript">
 var rootPath = "<%=com.tl.common.WebUtil.getRoot(request) %>";
 </script>
-<script type="text/javascript" src="../js/layer/layer.min.js"></script>
 <script type="text/javascript" src="../js/plugin/uploadify-3.2.1/jquery.uploadify.js"></script>
 <script type="text/javascript" src="../user/video/script/videoGroupList.js"></script>
+<!-- footer -->
+<%@include file="../../inc/footer.inc"%>
 </body>
 </html>

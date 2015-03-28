@@ -52,6 +52,7 @@
             <a class="bds_tqq" data-cmd="tqq"></a>
         </div>
     </div>
+	
 	<script type="text/javascript">
 		 
 		 window._bd_share_config = {
@@ -68,12 +69,15 @@
             }] 
         };
 	with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
-	try{
-	 $(".pic img").zoom({height:160,width:232});
-	 }
-	 catch(e){}
-	 
-	
-	
+	$(function(){
+		try{
+		var pics = $(".pic img");
+		 
+		 pics.zoom({height:160,width:232});
+		 }
+		 catch(e){
+			
+		 }
+	});
 	</script>
 </div>
