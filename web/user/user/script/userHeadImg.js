@@ -66,7 +66,7 @@ var headImg = {
 	    		}
 	        } ,
 			error:function (XMLHttpRequest, textStatus, errorThrown) {
-				AlertInfo(100,30,"上传失败。");
+				//AlertInfo(100,30,"上传失败。");
 			}
 	    });
 	},
@@ -79,19 +79,16 @@ var headImg = {
 	        dataType: 'text',   //返回值类型  
 	        success:function(data){
 	    		if(data != null && data == 'ok'){
-	    			AlertInfo(150,30,"设置成功。",function(r){
-	    				if (r){
-	    					window.location.href=window.location.href; 
-	    				}
-	    			});   			 
+	    			 
+	    			$.messager.alert("消息","操作成功。")
 	    		} else {
-	    			AlertInfo(150,30,"设置失败。");
+	    			$.messager.alert("消息","操作失败。")
 	    		}
 	    		$("#submit").attr("disabled", false);
 	        } ,
 			error:function (XMLHttpRequest, textStatus, errorThrown) {
 				
-				AlertInfo(150,30,"保存失败");
+				$.messager.alert("消息","操作失败。")
 			}
 	    });
 	},

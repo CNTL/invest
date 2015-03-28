@@ -137,8 +137,8 @@ var relAuth = {
 		var flag = true;
 		var organization = $("#organization").val();
 		if(organization == null || organization.length == 0){
+			$.messager.alert("消息","请上传身份证正面证件照！")
 			 
-			AlertInfo(300,30,"请上传身份证正面证件照！")
 			flag = false;
 			$("#btnSave").attr("disabled", false);
 			return;
@@ -146,7 +146,8 @@ var relAuth = {
 		var orgBusinessLicense = $("#orgBusinessLicense").val();
 		if(orgBusinessLicense == null || orgBusinessLicense.length == 0){
 			 
-			AlertInfo(300,30,"请上传身份证反面证件照！")
+			 
+			$.messager.alert("消息","请上传身份证反面证件照！")
 			flag = false;
 			$("#btnSave").attr("disabled", false);
 			return;
@@ -160,10 +161,12 @@ var relAuth = {
 		        dataType: 'text',   //返回值类型  
 		        success:function(data){
 		    		if(data != null && data == 'ok'){
-		    			AlertInfo(200,30,"认证资料提交成功！")
+		    			 
+		    			$.messager.alert("消息","认证资料提交成功！")
 		    			 
 		    		} else {
-		    			AlertInfo(200,30,"认证资料提交失败！")
+		    			 
+		    			$.messager.alert("消息","认证资料提交失败！")
 		    		}
 		        } ,
 				error:function (XMLHttpRequest, textStatus, errorThrown) {
