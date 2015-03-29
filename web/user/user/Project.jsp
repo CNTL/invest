@@ -5,7 +5,6 @@
 <head>
     <%@include file="../../inc/meta.inc"%>
 	<link rel="stylesheet" type="text/css" href="../user/css/project.css" />
-	<script type="text/javascript" src="../js/layer/layer.min.js"></script>
 	<script type="text/javascript" src="../user/script/project.js"></script>
 	<script type="text/javascript">
 		var webroot = "<c:out value="${rootPath}"/>";
@@ -140,7 +139,7 @@
 							<c:if test="${proj.payType == 0}">
 							<a href="javascript:void();" onclick="setStage(<c:out value="${proj.id}"/>)">设置阶段</a>
 							</c:if>
-							<a href="../project/Support.do?id=<c:out value="${proj.id}"/>" target="_blank">查看支持者</a>
+							<a href="javascript:void();" onclick="viewSupportList(<c:out value="${proj.id}"/>)">查看支持者</a>
 							</c:when>
 							
 							<c:when test="${menu==3}">
@@ -273,9 +272,8 @@
 		</div>
 	</div>
 	
-	<div id="prostage" style="display:none;width:100%;">
-		
-	</div>
+	<div id="prostage" style="display:none;width:100%;"></div>
+	<div id="supportlist" style="display:none;width:100%;"></div>
 	
 	<%@include file="../../inc/footer.inc"%>
 </body>

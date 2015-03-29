@@ -71,7 +71,8 @@
 					<div stage="<c:out value="${stage.stage.id}"/>" class="item" style="padding-top:0px;">
 						<div class="username" style="padding-left:53px;">
 						
-							<h1><c:out value="${stage.stage.name}"/></h1><c:out value="${stage.schedule.userName}"/>
+							<h1><c:out value="${stage.stage.name}"/></h1>
+<%-- 							<c:out value="${stage.schedule.userName}"/> --%>
 						</div>
 <!-- 						<div class="time" style="width:80px;line-height:25px;"> -->
 <%-- 							<c:out value="${stage.schedule.created}"/> --%>

@@ -80,7 +80,7 @@ function delProject(id){
 	var loading = -1;
 	$.ajax({url: dataUrl, async:true, dataType:"json",
 		beforeSend:function(XMLHttpRequest){
-			loading = layer.msg("正在提交数据...", 0, 16);
+			
 		},
 		success: function(datas) {
 			if(datas.success){
@@ -88,11 +88,10 @@ function delProject(id){
 			}
 		},
 		complete: function(XMLHttpRequest, textStatus){
-			layer.close(loading);
+			
 		},
 		error:function (XMLHttpRequest, textStatus, errorThrown) {
-			layer.close(loading);
-			layer.alert('数据提交失败！', 3);
+			
 		}
 	});
 }
@@ -117,26 +116,28 @@ function setStage(id){
 		  dialogClass : "modal-lg"
 	});
 	$(".modal-body").css({"padding":"0"});
-	/*
-	if(!id || id<=0) return;
-	stageDlgId = $.layer({
-		type: 2,   //0-4的选择,
-		title: "项目进度",
-		maxmin: false,
-		border: [10, 0.2, '#000'],
-		closeBtn: [1, true],
-		shadeClose: false,
-		fix: true,
-		zIndex : 1000,
-		area: ['750px', '600px'],
-		iframe: {
-			src: '../user/ProjectStage.do?projId='+id,
-			scrolling: 'auto'
-		}
-	});
-	*/
 }
-
+function viewSupportList(id){
+	if(!id || id<=0) return;
+	var iframe = $("<iframe></iframe>");
+	iframe.css({
+		"width":"100%",
+		"height":"600px",
+		"border":"0",
+		"margin":"0",
+		"overflow":"auto"
+	});
+	iframe.attr("src","../project/Support.do?list=1&id="+id);
+	$("#supportlist").empty();
+	$("#supportlist").append(iframe);
+	$("#supportlist").show();
+	
+	$("#supportlist").dialog({
+		  title       : "查看项目支持者",
+		  dialogClass : "modal-lg"
+	});
+	$(".modal-body").css({"padding":"0"});
+}
 function showSupporter(id){
 	if(!id || id<=0) return;
 }

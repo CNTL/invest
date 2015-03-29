@@ -14,6 +14,7 @@ public class SupportController extends ProjectController {
 	protected void setOtherData(HttpServletRequest request,
 			HttpServletResponse response,Map model) throws Exception {
 		super.setOtherData(request, response, model);
+		int islist = getInt(request, "list",0);
 		int payType = proj == null ? 0 : proj.getPayType();
 		int page = getInt(request, "page", 1);
 		if(proj!=null){
@@ -27,11 +28,16 @@ public class SupportController extends ProjectController {
 			model.put("pageCount", pageCount);
 			model.put("page", page);
 		}
-		
-		if(payType == 1){
-			model.put("@VIEWNAME@", "proj/SupportJP");
-		}else {
-			model.put("@VIEWNAME@", "proj/Support");
+		if(islist==0){
+			if(payType == 1){
+				model.put("@VIEWNAME@", "proj/SupportJP");
+			}else {
+				model.put("@VIEWNAME@", "proj/Support");
+			}
+		}
+		else{
+			//增加一个项目管理中的支持者视图
+			model.put("@VIEWNAME@", "proj/SupportList");
 		}
 	}
 }
