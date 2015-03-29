@@ -212,7 +212,14 @@ $.messager = (function () {
 
     var confirm = function (title, message, callback) {
         var model = $.messager.model;
-         
+        //可以增加参数传递
+        var args = [];
+        if (arguments.length > 3) {
+        	for(var i=3;i<arguments.length;i++){
+        		args.push(arguments[i]);
+        	}
+        }
+        
         var confirmhtml 
               = ''
               + '<div class="row">'
@@ -234,7 +241,7 @@ $.messager = (function () {
               , classed: model.ok.classed || "btn-success"
               , click: function () {
                   $(this).dialog("destroy");
-                  callback && callback();
+                  callback && callback(args);
               }
           },
             {

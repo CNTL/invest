@@ -127,46 +127,49 @@ function showModePhotosPage(modeid,start){
 
 function jingpai(id){
 	if(validJpForm()){
-		var oldValue = $("#amountJP").attr("oldvalue");
-		var goal = $("#amountJP").attr("goal");
-		if(parseFloat(oldValue)<parseFloat(goal)){
-			oldValue = goal;
-		}
-		var value = $("#amountJP").val();
-		
-		if(parseFloat(oldValue)>=parseFloat(value)){
-		
-			$.messager.alert("竞拍金额不能小于：￥"+oldValue);
-			return false;
-		}
-		var anonymous = 0;
-		if($("#anonymousJP").attr("checked")!=undefined) anonymous = 1;
-		
-		if(!id || id<=0) return;
-		var dataUrl = "../project/ProjectFetcher.do?action=auction";
-		 
-		$.ajax({url: dataUrl, async:true, dataType:"json",
-			data :{id:id,amount:value,anonymous:anonymous},
-			beforeSend:function(XMLHttpRequest){
-				 
-			},
-			success: function(datas) {
-				if(datas.success){
-					$.messager.popup(datas.msg,function(){window.location.reload();});
-				}else{
-					 
-					$.messager.alert(datas.msg);
-				}
-			},
-			complete: function(XMLHttpRequest, textStatus){
-				 
-			},
-			error:function (XMLHttpRequest, textStatus, errorThrown) {
-				
-				$.messager.popup("数据提交失败！");
-			}
-		});
+		$.messager.confirm("竞拍注意事项","你确定要竞拍吗？点击“确定”按钮，表示接受竞拍协议<a target=\"_blank\" href=\"../help/RegDoc.do\" style=\"color:#55acef;\">《项目服务协议》</a>",confirmjingpai,id);
 	}
+}
+function confirmjingpai(id){
+	var oldValue = $("#amountJP").attr("oldvalue");
+	var goal = $("#amountJP").attr("goal");
+	if(parseFloat(oldValue)<parseFloat(goal)){
+		oldValue = goal;
+	}
+	var value = $("#amountJP").val();
+	
+	if(parseFloat(oldValue)>=parseFloat(value)){
+	
+		$.messager.alert("竞拍金额不能小于：￥"+oldValue);
+		return false;
+	}
+	var anonymous = 0;
+	if($("#anonymousJP").attr("checked")!=undefined) anonymous = 1;
+	
+	if(!id || id<=0) return;
+	var dataUrl = "../project/ProjectFetcher.do?action=auction&id="+id;
+	 
+	$.ajax({url: dataUrl, async:true, dataType:"json",
+		data :{id:id,amount:value,anonymous:anonymous},
+		beforeSend:function(XMLHttpRequest){
+			 
+		},
+		success: function(datas) {
+			if(datas.success){
+				$.messager.popup(datas.msg,function(){window.location.reload();});
+			}else{
+				 
+				$.messager.alert(datas.msg);
+			}
+		},
+		complete: function(XMLHttpRequest, textStatus){
+			 
+		},
+		error:function (XMLHttpRequest, textStatus, errorThrown) {
+			
+			$.messager.popup("数据提交失败！");
+		}
+	});
 }
 function validJpForm() {
 	if (!$("#jpForm").validationEngine("validate")){
