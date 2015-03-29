@@ -172,10 +172,10 @@
                     此项目在 <span><c:out value="${proj.endDateStr}"/></span> 结束<br />
                     起拍金额为 ¥<span class="moneyFormat"><c:out value="${proj.amountGoal}"/></span>
                 </div>
-                <div class="progress">
-                    <div class="now" style="width: <c:out value="${finishPer}"/>%;"></div>
-                </div>
-                <div class="perc"><c:out value="${finishPer}"/>%</div>
+<!--                 <div class="progress"> -->
+<%--                     <div class="now" style="width: <c:out value="${finishPer}"/>%;"></div> --%>
+<!--                 </div> -->
+<%--                 <div class="perc"><c:out value="${finishPer}"/>%</div> --%>
                 <div class="clear"></div>
                 <div class="info">
                     <ul>
