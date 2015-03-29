@@ -491,6 +491,7 @@
  color:#ed5f59;
  z-index:5;
  border-left:5px solid #ed615b;
+ outline:none;
 }
 .menu-list li a{
      
@@ -502,11 +503,13 @@
      text-decoration:none;
      font-size:16px;
      color:#666;
+     outline:none;
     
     
 }
   .menu-list li a:hover{
      text-decoration:underline;
+      outline:none;
 }
   .container-right{
     padding:5px;

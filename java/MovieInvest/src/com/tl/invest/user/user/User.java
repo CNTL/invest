@@ -196,6 +196,9 @@ public class User {
 		this.per4Type =per4Type;
 	}
 	public String getPer4Type() {
+		if(StringUtils.isEmpty(getPerJob())){
+			return "";
+		}
 		//获得影人属于演员、前期排石、后期制作、其他影人中的哪一类
 		if(getType()==1) return "";
 		String per4Type = "";

@@ -159,7 +159,15 @@
 				<h2>&nbsp;&nbsp;&nbsp;发起人：<div class="avatar" style="margin-left:10px;display:inline;"><img style="border-radius: 50%;width:60px;height:60px;" src="../<c:out value="${user.head}"/>" /> <a style="color:#FF6254;" target="_blank" href="../user/PeopleDetailMain.do?a=detail&mainType=4&id=<c:out value="${user.id}"/>"><c:out value="${user.perNickName}"/></a></div></h2>
 				<h2>项目地域：&nbsp;&nbsp;<c:out value="${proj.provinceName}"/>-<c:out value="${proj.cityName}"/></h2>
                 <h2>目前金额：</h2>
-                <div class="money">￥<span class="moneyFormat"><c:out value="${proj.amountRaised}"/></span></div>
+                <div class="money">￥ 
+                <span class="moneyFormat">
+	              <c:if test="${proj.amountRaised<=0}" >
+	              	<c:out value="${proj.amountGoal}"/>
+	              </c:if>
+	              <c:if test="${proj.amountRaised>0}" >
+	              	<c:out value="${proj.amountRaised}"/>
+	              </c:if>
+                </span></div>
                 <div class="tip">
                     此项目在 <span><c:out value="${proj.endDateStr}"/></span> 结束<br />
                     起拍金额为 ¥<span class="moneyFormat"><c:out value="${proj.amountGoal}"/></span>
@@ -233,10 +241,10 @@
 					<form id="jpForm" name="jpForm" action="" onSubmit="return false">
 						<i class="s-money" style="font-size:36px;font-weight:bold;color: #FF6254;">¥</i>
 						<input id="amountJP" name="amountJP" type="text" class="validate[required,custom[number]]" oldvalue="<c:out value="${proj.amountRaised}"/>" goal="<c:out value="${proj.amountGoal}"/>" value="" 
-						style="margin-left:30px;width: 200px;height:40px;line-height:30px;border: 1px #FF6254 solid;border-radius: 5px;outline: none;padding: 0 10px;color: #FF6254;font-size: 30px;font-weight: bold;"/>
+						style="margin-left:30px;width: 200px;height:40px;line-height:30px;border: 1px #FF6254 solid;border-radius: 4px;outline: none;padding: 0 10px;color: #FF6254;font-size: 16px;"/>
 						<button class="btn btn-danger" style="width:120px;font-size:16px;font-weight:bold;" onclick="jingpai(<c:out value="${proj.id}"/>);">出价</button>
-						<label for="anonymousJP" style="font-size:18px;line-height:20px;margin-left:50px;padding:10px;">
-							<input type="checkbox" id="anonymousJP" name="anonymousJP" checked="checked" style="width:18px;height:18px;margin-right:10px;" />匿名
+						<label for="anonymousJP" style="font-size:16px;line-height:32px;margin-left:50px;padding:10px;">
+							<input type="checkbox" id="anonymousJP" name="anonymousJP"  style="width:18px;margin-right:10px;" />匿名
 						</label>
 					</form>
 				</div>
@@ -249,12 +257,19 @@
 					<div class="item">
 						<div class="avatar">
 							<c:choose>
-								<c:when test="${support.userHead==''}"><img src="../static/image/temp/avatar1.png" /></c:when>
+								<c:when test="${support.userHead==''}"><img style="border-radius: 50%;" src="../static/image/temp/avatar1.png" /></c:when>
 								<c:otherwise><img style="border-radius: 50%;" src="../<c:out value="${support.userHead}"/>" /></c:otherwise>
 							</c:choose>
 						</div>
 						<div class="username" style="width:190px;">
-							<a target="_blank" href="../user/PeopleDetailMain.do?a=detail&mainType=4&id=<c:out value="${support.userId}"/>"><c:out value="${support.userName}"/></a><br/>
+							<a target="_blank" 
+							<c:choose>
+								<c:when test="${support.userHead==''}"></c:when>
+								<c:otherwise>href="../user/PeopleDetailMain.do?a=detail&mainType=4&id=<c:out value="${support.userId}"/>"</c:otherwise>
+							</c:choose>
+							
+							
+							><c:out value="${support.userName}"/></a><br/>
 							出价 <font color="#ff8290">￥<c:out value="${support.amount}"/></font> 元<br/>
 <%-- 							<div class="pgs" data-price="<c:out value="${support.amount}"/>" style="width:1%;height:5px;background:#FFA1AC;"></div> --%>
 							
@@ -282,10 +297,16 @@
 								refreshRecordCount(datas.length);
 								for(var i=0;i<datas.length;i++){
 									var data = datas[i];
+									var headimg = "static/image/temp/avatar1.png";
+									var url = "";
 									html += "<div class=\"item\">";
-									html += "<div class=\"avatar\"><img style=\"border-radius: 50%;\" src=\"../"+data.userHead+"\" /></div>";
+									if(data.userHead.toString().length>0){
+										headimg = data.userHead;
+										url = " href=\"../user/PeopleDetailMain.do?a=detail&mainType=4&id="+data.userId+" \"";
+									}
+									html += "<div class=\"avatar\"><img style=\"border-radius: 50%;\" src=\"../"+headimg+"\" /></div>";
 									html += "<div class=\"username\" style=\"width:190px;\">";
-									html += "<a target=\"_blank\" href=\"../user/PeopleDetailMain.do?a=detail&mainType=4&id="+data.userId+"\">"+data.userName+"</a><br/>出价 <font color=\"#ff8290\">￥"+data.amount+"</font> 元<br/>";
+									html += "<a target=\"_blank\" "+url+">"+data.userName+"</a><br/>出价 <font color=\"#ff8290\">￥"+data.amount+"</font> 元<br/>";
 									//html += "<div class=\"pgs\" data-price=\""+data.amount+"\" style=\"width:1%;height:5px;background:#FFA1AC;\"></div>";
 									html += "</div>";
 									html += "<span class=\"msg\" style=\"display:none;\">发私信</span>";

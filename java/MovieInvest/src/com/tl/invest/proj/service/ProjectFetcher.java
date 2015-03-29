@@ -142,6 +142,7 @@ public class ProjectFetcher extends BaseController{
 			for (ProjSupportExt support : supports) {
 				String userName = "";
 				if(support.getIsAnonymous() == 1){
+					support.setUserHead("");
 					if(StringUtils.isEmpty(support.getUserName())) continue;
 					String[] userNames = support.getUserName().split("");				
 					boolean has = false;

@@ -99,15 +99,20 @@ public class ProjectController extends ProjectMainController{
 								if(StringUtils.isEmpty(support.getUserName())) continue;
 								String[] userNames = support.getUserName().split("");
 								String userName = "";
+								
 								boolean has = false;
 								for (int i=0;i<userNames.length;i++) {
 									if(!has && StringUtils.isEmpty(userName)){
 										userName += userNames[i];
 										if(StringUtils.isNotEmpty(userName))has = true;
 									}
-									else userName += "*";
+									else {
+										userName += "*";
+										
+									}
 								}
 								support.setUserName(userName);
+								support.setUserHead("");
 							}
 						}
 						
