@@ -20,6 +20,12 @@
         <property name="canpay" type="int">
             <column name="sp_canpay" />
         </property>
+        <property name="lastpaytime" type="timestamp">
+            <column name="sp_lastpaytime" length="0"  />
+        </property>
+        <property name="delaycount" type="int">
+            <column name="sp_delaycount" />
+        </property>
         <property name="amount" type="big_decimal">
             <column name="sp_amount" precision="10" not-null="true" />
         </property>

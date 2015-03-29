@@ -101,10 +101,10 @@ function setStage(id){
 	var iframe = $("<iframe></iframe>");
 	iframe.css({
 		"width":"100%",
-		"height":"600px",
+		"height":"620px",
 		"border":"0",
 		"margin":"0",
-		"overflow":"auto"
+		"overflow":"hidden"
 	});
 	iframe.attr("src","../user/ProjectStage.do?projId="+id);
 	$("#prostage").empty();

@@ -3,6 +3,7 @@ package com.tl.invest.proj.service;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -411,6 +412,195 @@ public class ProjectService {
 		return (SupportProj[]) list.toArray(new SupportProj[0]);
 	}
 	
+	/**设置竞拍项目的最终,后台服务调用
+	 * @param proj
+	 * @param support
+	 * @throws TLException
+	 */
+	public void setJPProjectPayUser(int projectID)throws TLException{
+		if(projectID<0 ){
+			return;
+		}
+		//得到项目的时间+48小时
+		ProjectExt[] projs = getProjectExts(1,1," invest_project.proj_id="+String.valueOf(projectID)+" ",null);
+		ProjectExt proj = null;
+		ProjSupportExt projSupport = null;
+		if(projs!=null&&projs.length>0){
+			proj = projs[0];
+		}
+		if(proj.getPayType()==1){//竞拍项目
+			Calendar rightNow = Calendar.getInstance();
+			Date lastPayTime = null;
+			rightNow.setTime(proj.getEndDate());
+			rightNow.add(Calendar.HOUR, 48);
+			lastPayTime= rightNow.getTime();
+			if(getcanPaySupport(projectID)==0){
+				//
+				ProjSupportExt[] supports = getProjectSupports(projectID,1,1,"sp_id desc", null);
+				if(supports!=null){
+					projSupport = supports[0];
+					projSupport.setLastpaytime(lastPayTime);
+					save(projSupport);
+				}
+			}
+		}
+	}
+	
+	/** 设置支付的人
+	 * @param proj
+	 * @param support
+	 * @throws TLException
+	 */
+	public void setJPProjectPayUser(int projectID,int userID)throws TLException{
+		if(projectID<0 && userID<0){
+			return;
+		}
+		//得到项目的时间+48小时
+		ProjectExt[] projs = getProjectExts(1,1," invest_project.proj_id="+String.valueOf(projectID)+" ",null);
+		ProjectExt proj = null;
+		ProjSupportExt projSupport = null;
+		if(projs!=null&&projs.length>0){
+			proj = projs[0];
+		}
+		if(proj.getPayType()==1){//竞拍项目
+			Calendar rightNow = Calendar.getInstance();
+			Date lastPayTime = null;
+			rightNow.setTime(proj.getEndDate());
+			rightNow.add(Calendar.HOUR, 48);
+			lastPayTime= rightNow.getTime();
+			if(getcanPaySupport(projectID)==0){
+				//
+				ProjSupportExt[] supports = getJPPayProjectSupports(projectID,"sp_id desc", null);
+				if(supports!=null){
+					for (int i = 0; i < supports.length; i++) {
+						projSupport = supports[i];
+						if(projSupport.getUserId()==userID){
+							projSupport.setCanpay(1);
+							projSupport.setLastpaytime(lastPayTime);
+						}
+						else{
+							projSupport.setCanpay(0);
+						}
+						save(projSupport);
+						
+					}
+				}
+			}
+		}
+	}
+	
+	/** 设置支付的人
+	 * @param proj
+	 * @param support
+	 * @throws TLException
+	 */
+	public void setJPProjectPayUserDelay(int projectID,int userID)throws TLException{
+		if(projectID<0 && userID<0){
+			return;
+		}
+		//得到项目的时间+48小时
+		ProjectExt[] projs = getProjectExts(1,1," invest_project.proj_id="+String.valueOf(projectID)+" ",null);
+		ProjectExt proj = null;
+		ProjSupportExt projSupport = null;
+		if(projs!=null&&projs.length>0){
+			proj = projs[0];
+		}
+		if(proj.getPayType()==1){//竞拍项目
+			Calendar rightNow = Calendar.getInstance();
+			Date lastPayTime = null;
+			rightNow.setTime(proj.getEndDate());
+			rightNow.add(Calendar.HOUR, 48*2);
+			lastPayTime= rightNow.getTime();
+			if(getcanPaySupport(projectID)==0){
+				//
+				ProjSupportExt[] supports = getJPPayProjectSupports(projectID,"sp_id desc", null);
+				if(supports!=null){
+					for (int i = 0; i < supports.length; i++) {
+						projSupport = supports[i];
+						if(projSupport.getUserId()==userID){
+							projSupport.setCanpay(1);
+							projSupport.setLastpaytime(lastPayTime);
+						}
+						else{
+							projSupport.setCanpay(0);
+						}
+						save(projSupport);
+						
+					}
+				}
+			}
+		}
+	}
+	
+	public ProjSupportExt[] getJPPayProjectSupports(long projectId,String orderBy,DBSession db) throws TLException{
+		List<ProjSupportExt> list = new ArrayList<ProjSupportExt>();
+		String hql = "select "+TableLibs.TB_PROJSUPPORT.getTableCode()+".*,`user`.`perNickName` userName,`user`.`id` userId,`user`.head userHead,`user`.`code` userCode from "+TableLibs.TB_PROJSUPPORT.getTableCode()
+				+" left JOIN `user` ON `user`.id="+TableLibs.TB_PROJSUPPORT.getTableCode()+".sp_userID where sp_projID=? and sp_deleted=0";
+		if(StringUtils.isNotEmpty(orderBy)){
+			hql += "  order by "+orderBy;
+		}
+		IResultSet rs = null;
+		boolean dbIsCreated = false;
+		if(db==null){
+			dbIsCreated = true;
+			db= Context.getDBSession();
+		}
+		try {
+			 
+			rs = db.executeQuery(hql, new Object[]{projectId});
+			while (rs.next()) {
+				list.add(readProjSupportExtRS(rs));
+			}
+		} catch (SQLException e) {
+			throw new TLException(e);
+		} finally {
+			ResourceMgr.closeQuietly(rs);
+			if(dbIsCreated){
+				ResourceMgr.closeQuietly(db);
+			}
+		}
+		if (list.size() == 0) return null;
+		
+		return (ProjSupportExt[]) list.toArray(new ProjSupportExt[0]);
+	}
+	
+	/** 判断是否要设置最后支付时间
+	 * @param projectID
+	 * @return
+	 */
+	public int getcanPaySupport(int projectID) throws  TLException{
+		if(projectID<0 ){
+			return 0;
+		}
+		
+		IResultSet rs = null;
+		boolean dbIsCreated = false;
+		 
+		int spid = 0;
+		DBSession db = null;
+		if(db==null){
+			dbIsCreated = true;
+			db= Context.getDBSession();
+		}
+		try {
+			//计算结束时间
+			Object[] params = new Object[]{projectID};
+			rs = db.executeQuery(" select * from invest_projsupport where sp_projID=? and sp_canpay=1 and sp_deleted=0 ", params);
+			while (rs.next()) {
+				
+				spid = rs.getInt("sp_id");
+			}
+			return spid;
+			
+		} catch (SQLException e) {
+			throw new TLException(e);
+		} finally {
+			ResourceMgr.closeQuietly(rs);
+			if(dbIsCreated){
+				ResourceMgr.closeQuietly(db);
+			}
+		}
+	}
 	public void updateFavoriteCount(long projId){
 		String sql = "update invest_project set proj_countLove=(select count(0) from invest_favorite where fav_libId=1 and fav_itemId=proj_id) where proj_id=?";
 		Object[] params = new Object[]{projId};
@@ -650,6 +840,38 @@ public class ProjectService {
 		return (ProjSupportExt[]) list.toArray(new ProjSupportExt[0]);
 	}
 	
+	public ProjSupportExt[] getProjectSupports(long projectId,String orderBy,DBSession db) throws TLException{
+		List<ProjSupportExt> list = new ArrayList<ProjSupportExt>();
+		String hql = "select "+TableLibs.TB_PROJSUPPORT.getTableCode()+".*,`user`.`perNickName` userName,`user`.`id` userId,`user`.head userHead,`user`.`code` userCode from "+TableLibs.TB_PROJSUPPORT.getTableCode()
+				+" left JOIN `user` ON `user`.id="+TableLibs.TB_PROJSUPPORT.getTableCode()+".sp_userID where sp_projID=? and sp_deleted=0";
+		if(StringUtils.isNotEmpty(orderBy)){
+			hql += "  order by "+orderBy;
+		}
+		IResultSet rs = null;
+		boolean dbIsCreated = false;
+		if(db==null){
+			dbIsCreated = true;
+			db= Context.getDBSession();
+		}
+		try {
+			
+			rs = db.executeQuery(hql, new Object[]{projectId});
+			while (rs.next()) {
+				list.add(readProjSupportExtRS(rs));
+			}
+		} catch (SQLException e) {
+			throw new TLException(e);
+		} finally {
+			ResourceMgr.closeQuietly(rs);
+			if(dbIsCreated){
+				ResourceMgr.closeQuietly(db);
+			}
+		}
+		if (list.size() == 0) return null;
+		
+		return (ProjSupportExt[]) list.toArray(new ProjSupportExt[0]);
+	}
+	
 	private ProjSupportExt readProjSupportExtRS(IResultSet rs) throws TLException {
 		try {
 			ProjSupportExt support = new ProjSupportExt();
@@ -658,6 +880,8 @@ public class ProjectService {
 			support.setModeId(rs.getLong("sp_modeID"));
 			support.setUserId(rs.getInt("sp_userID"));
 			support.setCanpay(rs.getInt("sp_canpay"));
+			support.setLastpaytime(rs.getTimestamp("sp_lastpaytime"));
+			support.setDelaycount(rs.getInt("sp_delaycount"));
 			support.setAmount(rs.getBigDecimal("sp_amount"));
 			support.setAddressId(rs.getInt("sp_addressID"));
 			support.setMessage(rs.getString("sp_message"));
@@ -686,6 +910,8 @@ public class ProjectService {
 			support.setModeId(rs.getLong("sp_modeID"));
 			support.setUserId(rs.getInt("sp_userID"));
 			support.setCanpay(rs.getInt("sp_canpay"));
+			support.setLastpaytime(rs.getTimestamp("sp_lastpaytime"));
+			support.setDelaycount(rs.getInt("sp_delaycount"));
 			support.setAmount(rs.getBigDecimal("sp_amount"));
 			support.setAddressId(rs.getInt("sp_addressID"));
 			support.setMessage(rs.getString("sp_message"));
@@ -799,6 +1025,8 @@ public class ProjectService {
 			proj.setModeId(rs.getLong("sp_modeID"));
 			proj.setSupportUserId(rs.getInt("sp_userID"));
 			proj.setCanpay(rs.getInt("sp_canpay"));
+			proj.setLastpaytime(rs.getTimestamp("sp_lastpaytime"));
+			proj.setDelaycount(rs.getInt("sp_delaycount"));
 			proj.setAmountSupport(rs.getBigDecimal("sp_amount"));
 			proj.setAddressId(rs.getInt("sp_addressID"));
 			proj.setRecipients(rs.getString("sp_recipients"));
@@ -999,6 +1227,8 @@ public class ProjectService {
 		support.setCreated(DateUtils.getTimestamp());
 		support.setDeleted(0);
 		support.setStatus(0);
+		support.setCanpay(0);
+		support.setDelaycount(0);
 		support.setUserId(user.getUserID());
 	}
 }

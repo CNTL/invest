@@ -203,6 +203,8 @@
 							elt.innerHTML = "竞拍未开始<br /><div style='font-size:14px;font-weight:normal;margin-top:10px;'>开始时间：<c:out value="${proj.beginDateStr}"/></div>";
 						}else if(leftTime<0){
 							elt.innerHTML = "竞拍已结束";
+							$("#clickprice").empty();
+							$("#clickprice").remove();
 						}
 						else{						
 							var ms = parseInt(leftTime%1000).toString();
@@ -228,7 +230,7 @@
 				displayCountDownTime();
 				</script>
 			</div>
-			<div class="support" style="margin-top:15px;">
+			<div class="support" id="clickprice" style="margin-top:15px;">
 				<div class="top">
 					<c:choose>
 					<c:when test="${proj.status==1}">我要竞拍</c:when>
@@ -250,6 +252,19 @@
 				</div>
 				</c:if>
            </div>
+           
+            <c:if test="${supportCanpay.userId>0}" >
+           <div class="support"  style="margin-top:15px;">
+           		<div class="top">
+					恭喜您已经竞拍成功
+				</div>
+				<div class="content text-center">
+					<button class="btn btn-danger" style="width:200px;">立即支付</button>
+					<p>请在48小时之内完成支付。</p>
+					<p>最后支付时间：<c:out value="${supportCanpay.lastpaytimeStr}"/></p>
+				</div>
+           </div>
+            </c:if>
 			<div class="support" id="price-list" style="margin-top:15px;margin-bottom:15px;">
 				<div id="jplist" class="top">出价记录</div>
 				<div id="div_supportRecord" class="content" style="  overflow-y: auto;height: 360px;margin-left:5px;margin-right:5px;">
@@ -283,6 +298,10 @@
 				<script type="text/javascript">
 				$(function(){
 					refreshRecordCount($("#jpcount").text());
+					if($("#JP_CountDown").text()=="竞拍已结束"){
+						$("#clickprice").empty();
+						$("#clickprice").remove();
+					}
 				});
 				function refreshRecordCount(count){
 					$("#jplist").html("出价记录&nbsp;&nbsp;<span style=\"color:#FF6254;\">["+count+"次]</span>");

@@ -10,6 +10,8 @@ public class SupportProj extends ProjectExt {
 	private long modeId;
 	private int supportUserId;
 	private int canpay;
+	private Date lastpaytime; //最后付款时间，默认为竞拍成功后48小时
+    private int delaycount;  //延时付款次数，可以延时一次48小时付款
 	private BigDecimal amountSupport;
 	private Integer addressId;
 	private String recipients;
@@ -135,6 +137,22 @@ public class SupportProj extends ProjectExt {
 
 	public void setCanpay(int canpay) {
 		this.canpay = canpay;
+	}
+	
+	public Date getLastpaytime() {
+		return lastpaytime;
+	}
+
+	public void setLastpaytime(Date lastpaytime) {
+		this.lastpaytime = lastpaytime;
+	}
+
+	public int getDelaycount() {
+		return delaycount;
+	}
+
+	public void setDelaycount(int delaycount) {
+		this.delaycount = delaycount;
 	}
 
 	public BigDecimal getAmountSupport() {

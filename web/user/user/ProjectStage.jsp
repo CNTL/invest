@@ -63,44 +63,45 @@
 	</script>
 </head>
 <body>
-	<div class="project_view" style="width:720px;margin:20px;">
-       <div class="main">
-			<div class="comm">
+	<div class="project_view" style="width:100%;margin:0;">
+       <div class="main" style="width:100%;">
+			<div class="comm" style="width:100%;padding-top:0;">
 				<c:forEach var="stage" items="${stages}">
 				<c:if test="${stage.stage.value==0}">
-					<div stage="<c:out value="${stage.stage.id}"/>" class="item" style="padding-top:0px;">
-						<div class="username" style="padding-left:53px;">
+					<div stage="<c:out value="${stage.stage.id}"/>" class="row" style="padding-top:0px;">
+						<div class="col-md-3">
 						
-							<h1><c:out value="${stage.stage.name}"/></h1>
+							<h1 style="font-size:16px;font-weight:bold;"><c:out value="${stage.stage.name}"/></h1>
 <%-- 							<c:out value="${stage.schedule.userName}"/> --%>
 						</div>
 <!-- 						<div class="time" style="width:80px;line-height:25px;"> -->
 <%-- 							<c:out value="${stage.schedule.created}"/> --%>
 <!-- 						</div> -->
-						<div class="desc" style="padding-top:0px;">
+						<div class="col-md-8" style="padding-top:0px;">
 							<textarea class="sc_content" name="sc_content_<c:out value="${stage.stage.id}"/>" id="sc_content_<c:out value="${stage.stage.id}"/>">
 								<c:out escapeXml="false" value="${stage.schedule.content}"/>
 							</textarea>
 						</div>
-						<div class="clear"></div>
+						 
 						<!--<span class="btn">评论(0)</span>-->
 					</div>
 				</c:if>
 				<c:if test="${stage.stage.value>0 && proj.amountRaised>=proj.amountGoal}">
-					<div stage="<c:out value="${stage.stage.id}"/>" class="item" style="padding-top:0px;">
-						<div class="username" style="padding-left:53px;">
+					<div stage="<c:out value="${stage.stage.id}"/>" class="row" style="padding-top:0px;">
+						<div class="col-md-3">
 							
-							<h1><c:out value="${stage.stage.name}"/></span></h1><c:out value="${stage.schedule.userName}"/>
+							<h1 style="font-size:16px;font-weight:bold;"><c:out value="${stage.stage.name}"/></span></h1>
+<%-- 							<c:out value="${stage.schedule.userName}"/> --%>
 						</div>
 <!-- 						<div class="time" style="width:80px;line-height:25px;"> -->
 <%-- 							<c:out value="${stage.schedule.created}"/> --%>
 <!-- 						</div> -->
-						<div class="desc" style="padding-top:0px;">
+						<div class="col-md-8" style="padding-top:0px;">
 							<textarea class="sc_content" name="sc_content_<c:out value="${stage.stage.id}"/>" id="sc_content_<c:out value="${stage.stage.id}"/>">
 								<c:out escapeXml="false" value="${stage.schedule.content}"/>
 							</textarea>
 						</div>
-						<div class="clear"></div>
+						 
 						<!--<span class="btn">评论(0)</span>-->
 					</div>
 				</c:if>

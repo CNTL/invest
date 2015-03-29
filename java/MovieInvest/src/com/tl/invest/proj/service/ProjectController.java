@@ -36,6 +36,8 @@ public class ProjectController extends ProjectMainController{
 		long proj_id = getLong(request, "id", 0);
 		String from = get(request, "from", "");
 		int payType = 0;
+		ProjSupportExt supportCanpay = new ProjSupportExt();
+		int currentUserID = SessionHelper.getUserID(request);
 		if(proj_id > 0){
 			proj = service.get(proj_id);
 			if(proj!=null){
@@ -97,6 +99,10 @@ public class ProjectController extends ProjectMainController{
 					ProjSupportExt[] supports = service.getProjectSupports(proj.getId(),5,1,"sp_amount desc", null);	
 					if(supports!=null){
 						for (ProjSupportExt support : supports) {
+							if(currentUserID == support.getUserId()){
+								//当前登录用户就是可以支付的用户
+								supportCanpay = support;
+							}
 							if(support.getIsAnonymous() == 1){
 								if(StringUtils.isEmpty(support.getUserName())) continue;
 								String[] userNames = support.getUserName().split("");
@@ -133,6 +139,7 @@ public class ProjectController extends ProjectMainController{
 				model.put("stages", stages);
 				model.put("curstage", currtStage);
 				model.put("favorited", favorited);
+				model.put("supportCanpay", supportCanpay);
 			}
 			model.put("proj", proj);
 		}
