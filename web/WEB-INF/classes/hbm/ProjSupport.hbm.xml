@@ -17,6 +17,9 @@
 		<property name="userId" type="int">
             <column name="sp_userID" not-null="true" />
         </property>
+        <property name="canpay" type="int">
+            <column name="sp_canpay" />
+        </property>
         <property name="amount" type="big_decimal">
             <column name="sp_amount" precision="10" not-null="true" />
         </property>

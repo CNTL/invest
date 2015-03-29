@@ -657,6 +657,7 @@ public class ProjectService {
 			support.setProjId(rs.getLong("sp_projID"));
 			support.setModeId(rs.getLong("sp_modeID"));
 			support.setUserId(rs.getInt("sp_userID"));
+			support.setCanpay(rs.getInt("sp_canpay"));
 			support.setAmount(rs.getBigDecimal("sp_amount"));
 			support.setAddressId(rs.getInt("sp_addressID"));
 			support.setMessage(rs.getString("sp_message"));
@@ -684,6 +685,7 @@ public class ProjectService {
 			support.setProjId(rs.getLong("sp_projID"));
 			support.setModeId(rs.getLong("sp_modeID"));
 			support.setUserId(rs.getInt("sp_userID"));
+			support.setCanpay(rs.getInt("sp_canpay"));
 			support.setAmount(rs.getBigDecimal("sp_amount"));
 			support.setAddressId(rs.getInt("sp_addressID"));
 			support.setMessage(rs.getString("sp_message"));
@@ -796,6 +798,7 @@ public class ProjectService {
 			proj.setProjId(rs.getLong("sp_projID"));
 			proj.setModeId(rs.getLong("sp_modeID"));
 			proj.setSupportUserId(rs.getInt("sp_userID"));
+			proj.setCanpay(rs.getInt("sp_canpay"));
 			proj.setAmountSupport(rs.getBigDecimal("sp_amount"));
 			proj.setAddressId(rs.getInt("sp_addressID"));
 			proj.setRecipients(rs.getString("sp_recipients"));

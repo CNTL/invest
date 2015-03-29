@@ -16,6 +16,7 @@ public class ProjSupport implements java.io.Serializable {
 	private long projId;
 	private long modeId;
 	private int userId;
+	private int canpay; //是否可以支付，主要用于竞拍项目，后台可以设置谁可以支付，项目结束后可以支付
 	private BigDecimal amount;
 	private Integer addressId;
 	private String recipients;
@@ -68,6 +69,16 @@ public class ProjSupport implements java.io.Serializable {
 
 	public void setUserId(int userId) {
 		this.userId = userId;
+	}
+	
+	 
+
+	public int getCanpay() {
+		return canpay;
+	}
+
+	public void setCanpay(int canpay) {
+		this.canpay = canpay;
 	}
 
 	public BigDecimal getAmount() {

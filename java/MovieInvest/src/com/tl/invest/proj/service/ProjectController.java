@@ -69,11 +69,13 @@ public class ProjectController extends ProjectMainController{
 								if(dic.getId() == schedule.getStage()){
 									stage.setSchedule(schedule);
 									stages.add(stage);
-									if(dic.getCode().equals("2")||dic.getCode().equals("3")||dic.getCode().equals("4")){
-										lastCurrtStage = 2;
-									}else if(dic.getCode().equals("5")){
-										lastCurrtStage = 5;
-									}
+									//目前项目改为3阶段
+									lastCurrtStage = Integer.parseInt(dic.getCode(), 10);
+//									if(dic.getCode().equals("2")||dic.getCode().equals("3")||dic.getCode().equals("4")){
+//										lastCurrtStage = 2;
+//									}else if(dic.getCode().equals("5")){
+//										lastCurrtStage = 5;
+//									}
 									if(currtStage<lastCurrtStage){
 										currtStage = lastCurrtStage;
 									}

@@ -99,6 +99,26 @@ function delProject(id){
 var stageDlgId = 0;
 function setStage(id){
 	if(!id || id<=0) return;
+	var iframe = $("<iframe></iframe>");
+	iframe.css({
+		"width":"100%",
+		"height":"600px",
+		"border":"0",
+		"margin":"0",
+		"overflow":"auto"
+	});
+	iframe.attr("src","../user/ProjectStage.do?projId="+id);
+	$("#prostage").empty();
+	$("#prostage").append(iframe);
+	$("#prostage").show();
+	
+	$("#prostage").dialog({
+		  title       : "设置项目阶段",
+		  dialogClass : "modal-lg"
+	});
+	$(".modal-body").css({"padding":"0"});
+	/*
+	if(!id || id<=0) return;
 	stageDlgId = $.layer({
 		type: 2,   //0-4的选择,
 		title: "项目进度",
@@ -114,6 +134,7 @@ function setStage(id){
 			scrolling: 'auto'
 		}
 	});
+	*/
 }
 
 function showSupporter(id){

@@ -6,7 +6,6 @@
 	<%@include file="../../inc/meta.inc"%>
 	<script type="text/javascript" src="../js/json/json2.js"></script>
 	<script type="text/javascript" src="../static/ckeditor/ckeditor.js"></script>
-	<script type="text/javascript" src="../js/layer/layer.min.js"></script>
 	<script type="text/javascript">
 		var webroot = "<c:out value="${rootPath}"/>";
 		$(function () {
@@ -41,22 +40,22 @@
 					data: paramData,
 					dataType:"JSON",
 					beforeSend:function(XMLHttpRequest){
-						loading = layer.msg("正在保存信息...", 0, 16);
+						
 					},
 					success: function(msg){
 						if (msg.success) {				
-							parent.closeStageDlg();
+							$.messager.alert("信息","操作成功！");
 						} else {
 							var err = "保存失败";
-							layer.alert(err);
+					 
+							$.messager.alert("信息",err);
 						}
 					},
 					complete: function(XMLHttpRequest, textStatus){
-						layer.close(loading);
+						
 					},
 					error:function (XMLHttpRequest, textStatus, errorThrown) {
-						layer.alert(errorThrown + ':' + textStatus,3);  // 错误处理
-						layer.close(loading);
+						
 					}
 				});
 			});
@@ -71,12 +70,12 @@
 				<c:if test="${stage.stage.value==0}">
 					<div stage="<c:out value="${stage.stage.id}"/>" class="item" style="padding-top:0px;">
 						<div class="username" style="padding-left:53px;">
-							<img src="../static/image/temp/avatar1.png" />
-							<span><c:out value="${stage.stage.name}"/></span><c:out value="${stage.schedule.userName}"/>
+						
+							<h1><c:out value="${stage.stage.name}"/></h1><c:out value="${stage.schedule.userName}"/>
 						</div>
-						<div class="time" style="width:80px;line-height:25px;">
-							<c:out value="${stage.schedule.created}"/>
-						</div>
+<!-- 						<div class="time" style="width:80px;line-height:25px;"> -->
+<%-- 							<c:out value="${stage.schedule.created}"/> --%>
+<!-- 						</div> -->
 						<div class="desc" style="padding-top:0px;">
 							<textarea class="sc_content" name="sc_content_<c:out value="${stage.stage.id}"/>" id="sc_content_<c:out value="${stage.stage.id}"/>">
 								<c:out escapeXml="false" value="${stage.schedule.content}"/>
@@ -89,12 +88,12 @@
 				<c:if test="${stage.stage.value>0 && proj.amountRaised>=proj.amountGoal}">
 					<div stage="<c:out value="${stage.stage.id}"/>" class="item" style="padding-top:0px;">
 						<div class="username" style="padding-left:53px;">
-							<img src="../static/image/temp/avatar1.png" />
-							<span><c:out value="${stage.stage.name}"/></span><c:out value="${stage.schedule.userName}"/>
+							
+							<h1><c:out value="${stage.stage.name}"/></span></h1><c:out value="${stage.schedule.userName}"/>
 						</div>
-						<div class="time" style="width:80px;line-height:25px;">
-							<c:out value="${stage.schedule.created}"/>
-						</div>
+<!-- 						<div class="time" style="width:80px;line-height:25px;"> -->
+<%-- 							<c:out value="${stage.schedule.created}"/> --%>
+<!-- 						</div> -->
 						<div class="desc" style="padding-top:0px;">
 							<textarea class="sc_content" name="sc_content_<c:out value="${stage.stage.id}"/>" id="sc_content_<c:out value="${stage.stage.id}"/>">
 								<c:out escapeXml="false" value="${stage.schedule.content}"/>
@@ -110,8 +109,7 @@
 	</div>
 	<div id="toolbars" class="job_add" style="margin:0;text-align:center;border: 1px solid #D5D5D5;background:#EBEBEB;font-size: 14px;;line-height:35px;z-index:9999; position:fixed; bottom:0; left:0; width:100%; _position:absolute;_top: expression_r(documentElement.scrollTop + documentElement.clientHeight-this.offsetHeight); overflow:visible;">
 		<div class="btn">
-			<input type="button" id="btnSave" name="btnSave" value="保存" style="width:120px;">
-			<input type="button" id="btnCannel" onclick="parent.closeStageDlg();" name="btnCannel" value="取消" style="width:120px;margin-left:40px;">
+			<input type="button" id="btnSave" name="btnSave" value="保存"  class="btn btn-primary" />
 		</div>
 	</div>
 </body>

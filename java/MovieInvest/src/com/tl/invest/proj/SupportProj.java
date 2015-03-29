@@ -9,6 +9,7 @@ public class SupportProj extends ProjectExt {
 	private long projId;
 	private long modeId;
 	private int supportUserId;
+	private int canpay;
 	private BigDecimal amountSupport;
 	private Integer addressId;
 	private String recipients;
@@ -126,6 +127,14 @@ public class SupportProj extends ProjectExt {
 
 	public void setSupportUserId(int supportUserId) {
 		this.supportUserId = supportUserId;
+	}
+	
+	public int getCanpay() {
+		return canpay;
+	}
+
+	public void setCanpay(int canpay) {
+		this.canpay = canpay;
 	}
 
 	public BigDecimal getAmountSupport() {

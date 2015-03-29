@@ -107,8 +107,23 @@
 									<c:when test="${proj.approveStatus==0}">未审批</c:when>
 									<c:when test="${proj.approveStatus==3}">审批未通过</c:when>
 									<c:when test="${proj.status==0}">未开始</c:when>
-									<c:when test="${proj.status==1}">众筹中</c:when>
-									<c:when test="${proj.status==2}">众筹结束</c:when>
+									<c:when test="${proj.status==1}">
+									<c:if test="${proj.payType == 0}">
+									众筹中
+									</c:if>
+									<c:if test="${proj.payType == 1}">
+									竞拍中
+									</c:if>
+									</c:when>
+									<c:when test="${proj.status==2}">
+									<c:if test="${proj.payType == 0}">
+									众筹结束
+									</c:if>
+									<c:if test="${proj.payType == 1}">
+									竞拍结束
+									</c:if>
+									
+									</c:when>
 									<c:when test="${proj.status==3}">锁定</c:when>
 									<c:otherwise>未知</c:otherwise>
 								</c:choose>
@@ -123,9 +138,9 @@
 							<br />							
 							</c:if>
 							<c:if test="${proj.payType == 0}">
-							<a href="javascript:;" onclick="setStage(<c:out value="${proj.id}"/>)">项目进度</a>
+							<a href="javascript:void();" onclick="setStage(<c:out value="${proj.id}"/>)">设置阶段</a>
 							</c:if>
-							<a href="../project/Support.do?id=<c:out value="${proj.id}"/>" target="_blank">项目支持者</a>
+							<a href="../project/Support.do?id=<c:out value="${proj.id}"/>" target="_blank">查看支持者</a>
 							</c:when>
 							
 							<c:when test="${menu==3}">
@@ -256,6 +271,10 @@
 				<c:otherwise><a href="Project.do?m=<c:out value="${menu}"/>&page=<c:out value="${page+1}"/>" class="prev">下一页</a></c:otherwise>
 			</c:choose>
 		</div>
+	</div>
+	
+	<div id="prostage" style="display:none;width:100%;">
+		
 	</div>
 	
 	<%@include file="../../inc/footer.inc"%>

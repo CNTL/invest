@@ -47,8 +47,16 @@
         <div class="main">
             <div class="content">
                 <h2><c:out value="${proj.name}"/></h2>
-                <div class="info">
-                    <span class="f">发起人</span> <c:out value="${user.name}"/> <span><c:out value="${province.name}"/><c:out value="${city.name}"/><c:out value="${county.name}"/></span>
+                <div class="info" style="height: 20px;">
+					<div class="bdsharebuttonbox" style="width: 200px;float: left;"><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a></div>
+					<div class="bdshare-button-style0-24" style="float:right;">
+						<c:if test="${favorited==0}">
+						<a href="javascript:void(0);" onclick="addFavorite(<c:out value="${proj.id}"/>);" >收藏</a>
+						</c:if>
+						<c:if test="${favorited==1}">
+						<a href="javascript:void(0);" >已收藏</a>
+						</c:if>
+					</div>
                 </div>
                 <div class="progress">
                     <ul>
@@ -110,7 +118,9 @@
 						<c:otherwise>未知</c:otherwise>
 					</c:choose>
 				</span>
-                <h2>目前累计金额：</h2>
+				<h2>&nbsp;&nbsp;&nbsp;发起人：<div class="avatar" style="margin-left:10px;display:inline;"><img style="border-radius: 50%;width:60px;height:60px;" src="../<c:out value="${user.head}"/>" /> <a style="color:#FF6254;" target="_blank" href="../user/PeopleDetailMain.do?a=detail&mainType=4&id=<c:out value="${user.id}"/>"><c:out value="${user.perNickName}"/></a></div></h2>
+				<h2>项目地域：&nbsp;&nbsp;<c:out value="${proj.provinceName}"/>-<c:out value="${proj.cityName}"/></h2>
+                <h2>完成金额：</h2>
                 <div class="money">￥<span class="moneyFormat"><c:out value="${proj.amountRaised}"/></span></div>
                 <div class="tip">
                     此项目必须在 <span><c:out value="${proj.endDate}"/></span> 前得到

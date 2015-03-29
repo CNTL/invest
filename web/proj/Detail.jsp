@@ -4,8 +4,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <%@include file="../inc/meta.inc"%>
-	<script type="text/javascript" src="../js/layer/layer.min.js"></script>
-	<script type="text/javascript" src="../js/layer/extend/layer.ext.js"></script>
 	<script type="text/javascript" src="../proj/script/detail.js"></script>
 	<script type="text/javascript">
 		var webroot = "<c:out value="${rootPath}"/>";
@@ -81,9 +79,9 @@
                 <h2>项目进度：</h2>
 				  <c:forEach var="stage" items="${stages}">
                 <div class="item">
-                    <div class="username" style="padding-left:53px;">
-                        <img src="../static/image/temp/avatar1.png" />
-                        <span><c:out value="${stage.stage.name}"/></span><c:out value="${stage.schedule.userName}"/>
+                    <div style="padding-left:53px;font-size:18px;line-height:30px;">
+                        <span class="label label-danger"><c:out value="${stage.stage.name}"/></span>
+<%--                         <c:out value="${stage.schedule.userName}"/> --%>
                     </div>
                     <div class="time" style="width:80px;line-height:25px;">
                         <c:out value="${stage.schedule.created}"/>
