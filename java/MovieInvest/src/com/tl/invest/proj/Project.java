@@ -53,6 +53,9 @@ public class Project implements java.io.Serializable {
 	
 	private String provinceName;
 	private String cityName;
+	private int notified;
+	
+
 	private int order;
 	
 	private String beginDateStr;
@@ -384,6 +387,14 @@ public class Project implements java.io.Serializable {
 			return "";
 		}
 		return "";
+	}
+	
+	public int getNotified() {
+		return notified;
+	}
+
+	public void setNotified(int notified) {
+		this.notified = notified;
 	}
 	 
 }

@@ -104,6 +104,9 @@
         <property name="county" type="int">
             <column name="proj_county" not-null="false" />
         </property>
+         <property name="notified" type="int">
+            <column name="proj_notified"  />
+        </property>
         <property name="order" type="int">
             <column name="proj_order" not-null="true" />
         </property>

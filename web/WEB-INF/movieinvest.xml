@@ -32,6 +32,17 @@
 		</property>
 	</bean>  
 	
+	<!-- 竞拍项目job-->
+	<bean id="ProjectJPServiceJob" class="com.tl.invest.quartz.ProjectJPJob" />
+	<bean id="ProjectJPServiceJobMethod" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
+		<property name="targetObject">  
+			<ref bean="ProjectJPServiceJob"/>  
+		</property>  
+		<property name="targetMethod">  <!-- 要执行的方法名称 -->  
+			<value>execute</value>  
+		</property>
+	</bean>  
+	
 	<!-- ======================== 调度触发器 ======================== -->  
 	<bean id="updateProjectStatusTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
 		<property name="jobDetail" ref="updateProjectStatusServiceJobMethod"></property>  
@@ -43,12 +54,20 @@
 		<property name="cronExpression" value="0 0 5 * * ?"></property> 
 	</bean>
 	
+	<!-- 竞拍项目 trigger-->
+	<bean id="projectJPServiceJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+		<property name="jobDetail" ref="ProjectJPServiceJobMethod"></property>  
+		<property name="cronExpression" value="0 */10 * * * ?"></property> 
+	</bean>
+	
+	
 	<!-- ======================== 调度工厂 ======================== -->  
 	<bean id="SpringJobSchedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">  
 		<property name="triggers">  
 			<list>  
 				<ref bean="updateProjectStatusTrigger"/>  
 				<ref bean="recruitSubscibeServiceJobTrigger" />
+<!-- 				<ref bean="projectJPServiceJobTrigger" /> -->
 			</list>  
 		</property>  
 	</bean>

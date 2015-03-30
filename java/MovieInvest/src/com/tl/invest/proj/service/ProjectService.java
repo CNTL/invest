@@ -358,6 +358,45 @@ public class ProjectService {
 		return count;
 	}
 	
+	/**找到所有结束但是没有发送过消息的项目
+	 * @return
+	 * @throws TLException
+	 */
+	public ProjectExt[] getJPOverProjectExts() throws TLException{
+		 
+		List<ProjectExt> list = new ArrayList<ProjectExt>();
+		String sql = "select invest_project.*,sys_dictionary.dic_name typeName,`user`.`perNickName` userName from invest_project left JOIN sys_dictionary on sys_dictionary.dic_id=invest_project.proj_type";
+		sql += " left JOIN `user` on `user`.id=invest_project.proj_userID";
+		sql += " where invest_project.proj_payType=1 and invest_project.proj_deleted=0 and invest_project.proj_notified=0 and invest_project.proj_endDate<=NOW() and invest_project.proj_id=67";
+		 
+		sql += " order by invest_project.proj_created desc";
+		 
+		DBSession db = null;
+		IResultSet rs = null;
+		boolean dbIsCreated = false;
+		if(db==null){
+			dbIsCreated = true;
+			db= Context.getDBSession();
+		}
+		try {
+			 
+			rs = db.executeQuery(sql);
+			while (rs.next()) {
+				list.add(readProjectExtRS(rs));
+			}
+		} catch (SQLException e) {
+			throw new TLException(e);
+		} finally {
+			ResourceMgr.closeQuietly(rs);
+			if(dbIsCreated){
+				ResourceMgr.closeQuietly(db);
+			}
+		}
+		if (list.size() == 0) return null;
+		
+		return (ProjectExt[]) list.toArray(new ProjectExt[0]);
+	}
+	
 	private ProjectExt[] getProjectExts(String sql,Object[] params,int pageSize,int page,DBSession db) throws TLException{
 		List<ProjectExt> list = new ArrayList<ProjectExt>();
 		IResultSet rs = null;
@@ -451,18 +490,14 @@ public class ProjectService {
 	 * @param support
 	 * @throws TLException
 	 */
-	public void setJPProjectPayUser(int projectID,int userID)throws TLException{
-		if(projectID<0 && userID<0){
+	public void setJPProjectPayUser(ProjectExt proj,int userID)throws TLException{
+		if(proj==null && userID<0){
 			return;
 		}
 		//得到项目的时间+48小时
-		ProjectExt[] projs = getProjectExts(1,1," invest_project.proj_id="+String.valueOf(projectID)+" ",null);
-		ProjectExt proj = null;
-		ProjSupportExt projSupport = null;
-		if(projs!=null&&projs.length>0){
-			proj = projs[0];
-		}
+		int projectID =(int) proj.getId();
 		if(proj.getPayType()==1){//竞拍项目
+			ProjSupportExt projSupport = null;
 			Calendar rightNow = Calendar.getInstance();
 			Date lastPayTime = null;
 			rightNow.setTime(proj.getEndDate());
@@ -986,6 +1021,7 @@ public class ProjectService {
 			proj.setCity(rs.getInt("proj_city"));
 			proj.setCounty(rs.getInt("proj_county"));
 			proj.setOrder(rs.getInt("proj_order"));
+			proj.setNotified(rs.getInt("proj_notified"));
 			proj.setUserName(rs.getString("userName"));
 			proj.setTypeName(rs.getString("typeName"));
 			
@@ -1087,6 +1123,7 @@ public class ProjectService {
 			proj.setCity(rs.getInt("proj_city"));
 			proj.setCounty(rs.getInt("proj_county"));
 			proj.setOrder(rs.getInt("proj_order"));
+			proj.setNotified(rs.getInt("proj_notified"));
 			proj.setUserName(rs.getString("userName"));
 			proj.setTypeName(rs.getString("typeName"));
 			
@@ -1155,6 +1192,7 @@ public class ProjectService {
 		proj.setCountSubject(0);
 		proj.setCountSupport(0);
 		proj.setCountView(0);
+		proj.setNotified(0);
 		proj.setAmountPaid(MoneyHelper.ZERO);
 		proj.setAmountGoal(MoneyHelper.ZERO);
 		proj.setAmountRaised(MoneyHelper.ZERO);
