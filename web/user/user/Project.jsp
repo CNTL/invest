@@ -116,10 +116,10 @@
 									</c:when>
 									<c:when test="${proj.status==2}">
 									<c:if test="${proj.payType == 0}">
-									众筹结束
+									众筹成功
 									</c:if>
 									<c:if test="${proj.payType == 1}">
-									竞拍结束
+									竞拍成功
 									</c:if>
 									
 									</c:when>

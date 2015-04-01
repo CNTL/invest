@@ -117,7 +117,7 @@
   					  else{
   						msguserid = n.msg_fromID;
   					  }
-  					  alert($("#"+msguserid).length);
+  					  //alert($("#"+msguserid).length);
   					  if($("#"+msguserid).length==0){
   						  //不能重复出现同一个人的会话
   						sb.push("<tr>");

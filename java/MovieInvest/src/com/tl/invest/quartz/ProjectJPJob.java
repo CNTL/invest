@@ -39,10 +39,10 @@ public class ProjectJPJob{
 					msg.setMsgTo(support.getUserName());
 					msg.setMsgIsRead(0);
 					if(canPayer.getUserId()== support.getUserId()){
-						sb.append("竞拍项目：<a href=\"../project/Project.do?id=57\">"+pro.getName()+"</a>已经竞拍结束，恭喜您以"+canPayer.getUserName()+"元的价格竞拍成功!请在48小时内进行支付！<a href=\"../project/Project.do?id=57\">前往支付页面</a>");
+						sb.append("竞拍项目：<a style=\"color:red;\" href=\"../project/Project.do?id=57\">"+pro.getName()+"</a>已经竞拍结束，恭喜您以"+String.valueOf(canPayer.getAmount())+"元的价格竞拍成功!请在48小时内进行支付！<a href=\"../project/Project.do?id=57\">前往支付页面</a>，感谢您的参与！");
 					}
 					else{
-						sb.append("<a href=\"../project/Project.do?id=57\">"+pro.getName()+"</a>已经竞拍结束，竞拍成功者 "+canPayer.getUserName()+",以"+String.valueOf(canPayer.getAmount())+"元价格竞拍成功！");
+						sb.append("<a style=\"color:red;\" href=\"../project/Project.do?id=57\">"+pro.getName()+"</a>已经竞拍结束，竞拍成功者 "+canPayer.getUserName()+",以"+String.valueOf(canPayer.getAmount())+"元价格竞拍成功！感谢您的参与！");
 					}
 					
 					msg.setMsgContent(sb.toString());
