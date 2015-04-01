@@ -26,7 +26,7 @@ var proj_datas = {
 	},
 	getProvinces : function(){
 		var provines = [];
-		provines.push({id:"",pid:"0",name:"=省份="});
+		//provines.push({id:"",pid:"0",name:"=省份="});
 		for(var i=0;i<proj_datas.datas.areas.length;i++){
 			if(proj_datas.datas.areas[i].pid==0){
 				provines.push(proj_datas.datas.areas[i]);
@@ -36,7 +36,7 @@ var proj_datas = {
 	},
 	getCities : function(pid){
 		var cities = [];
-		cities.push({id:"",pid:pid,name:"=城市="});
+		//cities.push({id:"",pid:pid,name:"=城市="});
 		if(!pid) return cities;
 		for(var i=0;i<proj_datas.datas.areas.length;i++){
 			if(proj_datas.datas.areas[i].pid==pid){
@@ -47,7 +47,7 @@ var proj_datas = {
 	},
 	getCounties : function(cid){
 		var counties = [];
-		counties.push({id:"",pid:cid,name:"=地区="});
+		//counties.push({id:"",pid:cid,name:"=地区="});
 		if(!cid) return counties;
 		for(var i=0;i<proj_datas.datas.areas.length;i++){
 			if(proj_datas.datas.areas[i].pid==cid){

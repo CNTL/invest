@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.tl.common.Message;
 import com.tl.invest.constant.DicTypes;
+import com.tl.invest.user.recruit.RecruitManager;
 import com.tl.invest.workspace.Entry;
 import com.tl.kernel.context.Context;
 import com.tl.kernel.sys.dic.Dictionary;
@@ -40,8 +41,8 @@ public class CompanyMainController extends Entry {
 	* @throws Exception 
 	*/ 
 	private void queryCompanys(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception{
-		DictionaryReader dicReader = (DictionaryReader) Context.getBean(DictionaryReader.class);
-		Dictionary[] types = dicReader.getSubDics(DicTypes.DIC_RECRUIT_HOT_TYPE.typeID(), 0);
+		 
+		Dictionary[] types = recruitManager.getHotCitys();
 		List<String> hotCitys = new ArrayList<String>();
 		if(types != null && types.length > 0){
 			for(Dictionary type : types){
@@ -68,4 +69,5 @@ public class CompanyMainController extends Entry {
 		model.put("description", "∫œ÷⁄”≥ª≠");
 	}
 	private UserManager userManager = (UserManager)Context.getBean(UserManager.class);
+	private RecruitManager recruitManager = (RecruitManager)Context.getBean(RecruitManager.class);
 }

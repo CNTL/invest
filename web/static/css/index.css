@@ -2644,6 +2644,7 @@ BACKGROUND-COLOR: #fff;
 TEXT-ALIGN: left;
 border: 2px #FFC04D solid;
 BACKGROUND-COLOR: #fff;
+margin-left:-12px;
 }
 
 DIV.selectbox-wrapper UL LI.selected {

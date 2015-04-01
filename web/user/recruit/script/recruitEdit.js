@@ -9,11 +9,15 @@ $(document).ready(function () {
 					setTimeout(init, 100);
 					return;
 				}
-				
-				if (!city_datas || !city_datas.ready) {
-					setTimeout(init, 100);
-					return;
+				//初始化
+			var init2 = function() {
+					if (!proj_datas || !proj_datas.ready) {
+						setTimeout(init2, 100);
+						return;
+					}
+					 
 				}
+				
 				jobEdit.init();
 				//初始化
 				$("#form").validationEngine({
@@ -46,11 +50,11 @@ var jobEdit = {
 			var h = jobEdit.eventList[i];
 			$("#" + h.id).bind(h.evt, jobEdit[h.fn]);
 		}
+		jobEdit._setOptions("province",proj_datas.getProvinces(),jobEdit.DEFAULT_PAIR);
 		jobEdit.editorInit();
 	    $("#mapSearch").attr("onclick","getMap();");
 	    jobEdit.initUploadify("uploadify","queueItemCount","jobPictrue","uploadErrorMsg",true,jobEdit.imgUploaded);
 	    jobEdit._setOptions("firstType",type_datas.getFirstTypes(),jobEdit.DEFAULT_PAIR);
-	    jobEdit._setOptions("workCity",city_datas.getCities(),jobEdit.DEFAULT_PAIR);
 	    
 	    var firstType_h = $("#firstType_h").val();
 		if(firstType_h != null && firstType_h != ''){
@@ -61,17 +65,37 @@ var jobEdit = {
 		if(secondType_h != null && secondType_h != ''){
 			$("#secondType").val(secondType_h).trigger("change");
 		}
-		var cityId_h = $("#cityId_h").val();
-		if(cityId_h != null && cityId_h != ''){
-			$("#workCity").val(cityId_h).trigger("change");
-		}
+//		var cityId_h = $("#cityId_h").val();
+//		if(cityId_h != null && cityId_h != ''){
+//			$("#workCity").val(cityId_h).trigger("change");
+//		}
 		
+	   jobEdit.changeProvince();
+		 
+	 
 	},
 	changeFirstType : function(){
 		var secondTypes = [];
 		var pid = $("#firstType").val();
 		secondTypes = type_datas.getSecondTypes(pid);
 		jobEdit._setOptions("secondType",secondTypes,jobEdit.DEFAULT_PAIR);
+	},
+	changeProvince : function(){
+		var cities = [];
+		var province_h = $("#province_h").val();
+		if(province_h!=null && province_h!=""){
+			$("#province").val(province_h);
+		}
+		
+		var pid = $("#province").val();
+		cities = proj_datas.getCities(pid);
+		jobEdit._setOptions("city",cities,jobEdit.DEFAULT_PAIR);
+		var city_h = $("#city_h").val();
+		if(city_h!=null && city_h!=""){
+			$("#city").val(city_h);
+		}
+		 
+		
 	},
 	_setOptions : function(id, datas, pair) {
 		var sel = document.getElementById(id);

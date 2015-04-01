@@ -8,6 +8,8 @@ import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import sun.util.logging.resources.logging;
+
 import com.tl.common.DateUtils;
 import com.tl.common.Message;
 import com.tl.common.ResourceMgr;
@@ -36,6 +38,29 @@ public class RecruitManager {
 	
 	
  
+	public Dictionary[] getHotCitys(){
+		List<Dictionary> list = new ArrayList<Dictionary>();
+		DictionaryReader reader = (DictionaryReader)Context.getBean("DictionaryReader"); 
+		try {
+			Dictionary[] hotcitys = reader.getChildrenDics(DicTypes.DIC_AREA.typeID(), 0);
+			if(hotcitys!=null && hotcitys.length>0){
+				for (Dictionary dic : hotcitys) {
+					if(dic.getValue()!=null&&dic.getValue().equals("hot")){
+						list.add(dic);
+					}
+				}
+			}
+		} catch (TLException e) {
+			
+		}
+		
+		if (list.size() == 0) return null;
+		//排序
+		
+		//取到值为hot的城市分类
+		return (Dictionary[]) list.toArray(new Dictionary[0]);
+		 
+	}
 	/**根据职位ID获取相应的人的信息
 	 * @param recruitid
 	 * @return json格式
@@ -135,7 +160,7 @@ public class RecruitManager {
 	 * @throws Exception
 	 */
 	public UserRecruit[] queryRecruitsSubscibe(int cityid,int recid)throws Exception{
-		StringBuilder querySql = new StringBuilder("select a from com.tl.invest.user.recruit.UserRecruit as a where a.cityId="+String.valueOf(cityid)+" and a.secondType="+String.valueOf(recid)+" and deleted=0 ");
+		StringBuilder querySql = new StringBuilder("select a from com.tl.invest.user.recruit.UserRecruit as a where a.city="+String.valueOf(cityid)+" and a.secondType="+String.valueOf(recid)+" and deleted=0 ");
 		querySql.append(" order by a.createtime desc LIMIT 4");
 		List<UserRecruit> list = DAOHelper.find(querySql.toString());
 		
@@ -203,7 +228,7 @@ public class RecruitManager {
 	}
 	 
 	public Message queryRecruits(int curPage, int length, Integer userId, 
-			String recruitType, String queryType, int type, String key, Integer city,Integer Days ,Integer Degree,Integer JobType,Integer PubTime) throws Exception{
+			String recruitType, String queryType, int type, String key,Integer province, Integer city,Integer Days ,Integer Degree,Integer JobType,Integer PubTime) throws Exception{
 		StringBuilder querySql = new StringBuilder("SELECT DISTINCT rt.*,u.city,dic.dic_id,dic.dic_name FROM user_recruit rt,user u LEFT JOIN sys_dictionary AS dic ON u.city=dic.dic_id WHERE u.id=rt.userID ");
 		StringBuilder countSql = new StringBuilder("SELECT count(rt.id) FROM user_recruit rt,user u LEFT JOIN sys_dictionary AS dic ON u.city=dic.dic_id WHERE u.id=rt.userID ");
 		
@@ -242,9 +267,14 @@ public class RecruitManager {
 		
 		
 		if(city>-1){
-			querySql.append(" and rt.cityId=?");
-			countSql.append(" and rt.cityId=?");
+			querySql.append(" and rt.city=?");
+			countSql.append(" and rt.city=?");
 			paramList.add(city);
+		}
+		if(province>-1){
+			querySql.append(" and rt.province=?");
+			countSql.append(" and rt.province=?");
+			paramList.add(province);
 		}
 		querySql.append(" order by rt.createtime desc");
 		
@@ -257,7 +287,7 @@ public class RecruitManager {
 		return setMessage(myRecruits, curPage, length, total);
 	}
 	public Message queryRecruits(int curPage, int length, Integer userId, 
-			String recruitType, String queryType, int type, String key, String city) throws Exception{
+			String recruitType, String queryType, int type, String key,String province, String city) throws Exception{
 		StringBuilder querySql = new StringBuilder("SELECT DISTINCT rt.*,u.city,dic.dic_id,dic.dic_name FROM user_recruit rt,user u LEFT JOIN sys_dictionary AS dic ON u.city=dic.dic_id WHERE u.id=rt.userID ");
 		StringBuilder countSql = new StringBuilder("SELECT count(rt.id) FROM user_recruit rt,user u LEFT JOIN sys_dictionary AS dic ON u.city=dic.dic_id WHERE u.id=rt.userID ");
 		
@@ -276,9 +306,14 @@ public class RecruitManager {
 			countSql.append(" AND (u.orgShortname LIKE '%").append(key).append("%' OR u.orgFullname LIKE '%").append(key).append("%')");
 		}
 		if(!StringUtils.isEmpty(city)){
-			querySql.append(" and rt.cityId=?");
-			countSql.append(" and rt.cityId=?");
+			querySql.append(" and rt.city=?");
+			countSql.append(" and rt.city=?");
 			paramList.add(city);
+		}
+		if(!StringUtils.isEmpty(province)){
+			querySql.append(" and rt.province=?");
+			countSql.append(" and rt.province=?");
+			paramList.add(province);
 		}
 		if("queryNew".equals(queryType)){//最新职位
 			querySql.append(" order by rt.createtime desc");
@@ -569,8 +604,9 @@ public class RecruitManager {
 			recruit.setJobOrder(rs.getInt("jobOrder"));
 			recruit.setDeleted(rs.getInt("deleted"));
 			recruit.setDays(rs.getString("days"));
-			recruit.setCityName(rs.getString("cityName"));
-			
+			recruit.setProvince(rs.getString("province"));
+			recruit.setCity(rs.getString("city"));
+		
 			User user = userManager.getUserByID(recruit.getUserId());
 			recruit.setCompany(user.getOrgFullname());
 		    

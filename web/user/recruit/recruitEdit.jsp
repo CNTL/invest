@@ -18,7 +18,8 @@
         <input type="hidden" id="id" name="id" value="${recruit.id}"/>
 		<input type="hidden" id="firstType_h" name="firstType_h" value="${recruit.firstType}"/>
 		<input type="hidden" id="secondType_h" name="secondType_h" value="${recruit.secondType}"/>
-		<input type="hidden" id="cityId_h" name="cityId_h" value="${recruit.cityId}"/>
+		<input type="hidden" id="province_h" name="province_h" value="${recruit.province}"/>
+		<input type="hidden" id="city_h" name="city_h" value="${recruit.city}"/>
       		  <div class="form-group">
                     <label for="jobName" class="col-sm-3 control-label">招聘主题：</label>
                     <div class="col-sm-6">
@@ -35,13 +36,21 @@
 						<select id="secondType" name="secondType" class="form-control validate[required]"></select>
                     </div>
                 </div>
-                
-                  <div class="form-group">
-                    <label for="jobName" class="col-sm-3 control-label">工作地点：</label>
-                    <div class="col-sm-3">
-                        <select id="workCity" name="workCity" class="form-control validate[required]"></select>
-                    </div>
-                </div>
+                <div class="form-group">
+                      <label id="area" for="province" class="col-sm-3 control-label">工作城市：</label>
+                      <div class="col-sm-3">
+                           <select id="province" name="province" class="form-control validate[required]" onchange="jobEdit.changeProvince();">
+								
+							</select>
+							 
+                      </div>
+                      <div class="col-sm-3">
+                            
+							<select id="city" name="city" class="form-control validate[required]">
+							
+							</select>
+                      </div>
+                  </div>
                 
                   <div class="form-group">
                     <label for="uploadify" class="col-sm-3 control-label">招聘图片：</label>
@@ -161,9 +170,9 @@ var rootPath = "<%=com.tl.common.WebUtil.getRoot(request) %>";
 <script type="text/javascript" src="../js/utils.js"></script>
 <script type="text/javascript" src="../static/ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="../js/json/json2.js"></script>
+<script type="text/javascript" src="../proj/script/datas.js"></script>
 <script type="text/javascript" src="../user/recruit/script/recruitEdit.js"></script>
-<script type="text/javascript" src="../js/layer/layer.min.js"></script>
 <script type="text/javascript" src="../user/recruit/script/datas.js"></script>
-<script type="text/javascript" src="../user/recruit/script/cities.js"></script>
+
 </body>
 </html>

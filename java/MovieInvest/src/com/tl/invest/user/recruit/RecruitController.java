@@ -158,7 +158,9 @@ public class RecruitController extends BaseController {
 		}
 		int firstType = getInt(request, "firstType");
 		int secondType = getInt(request, "secondType");
-		int cityId = getInt(request, "workCity");
+		String province = get(request, "province","");
+		String city = get(request, "city","");
+
 		String typeName = "";
 		Dictionary dic = null;
 		if(secondType > 0){
@@ -187,13 +189,12 @@ public class RecruitController extends BaseController {
 		recruit.setFirstType(firstType);
 		recruit.setSecondType(secondType);
 		recruit.setTypeName(typeName);
+		recruit.setProvince(province);
+		recruit.setCity(city);
+
 		//recruit.setPubTime(DateUtils.getTimestamp());
-		recruit.setCityId(cityId);
-		if(cityId > 0){
-			dic = dicReader.getDic(DicTypes.DIC_RECRUIT_HOT_TYPE.typeID(), cityId);
-			typeName = dic.getCascadeName();
-		}
-		recruit.setCityName(typeName);
+		 
+		 
 		recruit.setCreatetime(DateUtils.getTimestamp());
 		recruitManager.save(recruit);
 		return "ok";

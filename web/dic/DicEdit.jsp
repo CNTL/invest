@@ -39,7 +39,7 @@
 				<input class="easyui-textbox" type="text" id="dic_memo" name="dic_memo" value="<c:out value="${dic_memo}"/>" data-options="multiline:true" style="height:120px;" />
 			</div>
 			<div>   
-				<label for="dic_order">简码:</label>   
+				<label for="dic_order">排序码:</label>   
 				<input class="easyui-textbox" type="text" id="dic_order" name="dic_order" value="<c:out value="${dic_order}"/>"/>   
 			</div>
 		</form>

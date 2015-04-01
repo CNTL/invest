@@ -75,7 +75,13 @@
 					<c:when test="${status.index%2==0}"><div class="item item_last"></c:when>
 					<c:otherwise><div class="item"></c:otherwise>
 				</c:choose>
-	                <a href="../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=${type}&more=${more}&city=${city.id}">${city.name}</a>
+				<c:if test="${city.level==0}">
+				<a href="../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=${type}&more=${more}&province=${city.id}">${city.name}</a>
+				</c:if>
+				<c:if test="${city.level==1}">
+				<a href="../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=${type}&more=${more}&city=${city.id}">${city.name}</a>
+				</c:if>
+	                
 	            </div>
     		</c:forEach>
     		<div class="item"><a id="rec-more" tabindex="0"  role="button" data-toggle="popover">更多</a></div>
@@ -228,7 +234,13 @@
  
 <div id="morecity" class="item" style="display:none;">
 	<c:forEach var="city" varStatus="status" items="${cities}" begin="11"  step="1" >
+		<c:if test="${city.level==0}">
+		<a style="margin:5px;font-size:16px;" href="../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=${type}&more=${more}&province=${city.id}">${city.name}</a>
+		</c:if>
+		<c:if test="${city.level==0}">
 		<a style="margin:5px;font-size:16px;" href="../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=${type}&more=${more}&city=${city.id}">${city.name}</a>
+		</c:if>
+		
 	</c:forEach>
 </div>
 </div>

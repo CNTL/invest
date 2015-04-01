@@ -129,7 +129,7 @@ public class RecruitMainController extends Entry {
 		DictionaryReader dicReader = (DictionaryReader)Context.getBean(DictionaryReader.class);
 		Dictionary[] types = recruitManager.types();
 		model.put("types", types);
-		Dictionary[] cities = dicReader.getDics(DicTypes.DIC_RECRUIT_HOT_TYPE.typeID());
+		Dictionary[] cities = recruitManager.getHotCitys();
 		model.put("cities", cities);
 	}
 	
@@ -179,18 +179,19 @@ public class RecruitMainController extends Entry {
 	*/ 
 	private void queryRecruits(HttpServletRequest request, HttpServletResponse response, Map model, String queryType) throws Exception{
 		DictionaryReader dicReader = (DictionaryReader)Context.getBean(DictionaryReader.class);
-		Dictionary[] cities = dicReader.getDics(DicTypes.DIC_RECRUIT_HOT_TYPE.typeID());
+		Dictionary[] cities = dicReader.getDics(DicTypes.DIC_AREA.typeID());
 		
 		request.setCharacterEncoding("utf-8");
 		String recruitType = get(request, "recruitType");//是否是职位管理（view-浏览所有招聘信息，edit-管理我的职位信息）
 		int searchType = getInt(request, "searchType");//0=职位，1=公司
 		String key = get(request, "key");//查询条件的值
-		String city = get(request, "city");//查询条件的值
+		String city = get(request, "city","");//查询条件的值
+		String province = get(request, "province","");
 		
 		int curPage = getInt(request, "curPage", 1);
 		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
 		int userId = user == null ? 0 : user.getId();
-		Message msg = recruitManager.queryRecruits(curPage, 9, userId, recruitType, queryType, searchType, key, city);
+		Message msg = recruitManager.queryRecruits(curPage, 9, userId, recruitType, queryType, searchType, key,province, city);
 		Dictionary[] types = recruitManager.types();
 		model.put("queryType", queryType);
 		model.put("recruitType", recruitType);
@@ -213,13 +214,14 @@ public class RecruitMainController extends Entry {
 	*/ 
 	private void queryRecruitsNew(HttpServletRequest request, HttpServletResponse response, Map model, String queryType) throws Exception{
 		DictionaryReader dicReader = (DictionaryReader)Context.getBean(DictionaryReader.class);
-		Dictionary[] cities = dicReader.getDics(DicTypes.DIC_RECRUIT_HOT_TYPE.typeID());
+		Dictionary[] cities = recruitManager.getHotCitys();
 		
 		request.setCharacterEncoding("utf-8");
 		String recruitType = "view";//get(request, "recruitType");//是否是职位管理（view-浏览所有招聘信息，edit-管理我的职位信息）
 		int searchType = getInt(request, "searchType");//0=职位，1=公司
 		String key = get(request, "key");//查询条件的值
 		Integer city = getInt(request, "city",-1);//查询条件的值
+		Integer province = getInt(request, "province",-1);
 		Integer Days = getInt(request, "Days",-1); //工作时间
 		Integer Degree = getInt(request, "Degree",-1);//最低学历
 		Integer JobType = getInt(request, "JobType",-1);//工作类型
@@ -228,13 +230,14 @@ public class RecruitMainController extends Entry {
 		int curPage = getInt(request, "curPage", 1);
 		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
 		int userId = user == null ? 0 : user.getId();
-		Message msg = recruitManager.queryRecruits(curPage, 9, userId, recruitType, queryType, searchType, key, city,Days,Degree,JobType,PubTime);
+		Message msg = recruitManager.queryRecruits(curPage, 9, userId, recruitType, queryType, searchType, key, province,city,Days,Degree,JobType,PubTime);
 		Dictionary[] types = recruitManager.types();
 		model.put("queryType", queryType);
 		model.put("recruitType", recruitType);
 		model.put("types", types);
 		model.put("searchType", searchType);
 		model.put("key", key);
+		model.put("province", province);
 		model.put("city", city);
 		
 		model.put("more", ParamInitUtils.getString(request.getParameter("more")));

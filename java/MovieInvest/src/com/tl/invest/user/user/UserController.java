@@ -25,6 +25,7 @@ import com.tl.common.WebUtil;
 import com.tl.invest.constant.DicTypes;
 import com.tl.invest.user.bankcard.BankcardManager;
 import com.tl.invest.user.bankcard.UserBankcard;
+import com.tl.invest.user.recruit.RecruitManager;
 import com.tl.invest.user.works.UserWorks;
 import com.tl.invest.user.works.WorksManager;
 import com.tl.kernel.context.Context;
@@ -584,8 +585,8 @@ public class UserController extends BaseController {
 	}
 	
 	private void cities(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		DictionaryReader dicReader = (DictionaryReader)Context.getBean(DictionaryReader.class);
-		Dictionary[] cities = dicReader.getDics(DicTypes.DIC_RECRUIT_HOT_TYPE.typeID());
+		 
+		Dictionary[] cities = recruitManager.getHotCitys();
 		
 		StringBuffer sb1 = new StringBuffer();
 		for (Dictionary city : cities) {
@@ -605,4 +606,5 @@ public class UserController extends BaseController {
 		output(sb.toString(), response);
 	}
 	private DictionaryReader dicReader = (DictionaryReader) Context.getBean(DictionaryReader.class);
+	private RecruitManager recruitManager = (RecruitManager)Context.getBean(RecruitManager.class);
 }
