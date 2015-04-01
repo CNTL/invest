@@ -4,8 +4,8 @@
                 
                 settings = $.extend({
                 	mode:1, //1表示等宽缩放,2表示等高缩放3.等比居中缩放
-                    height:0,
-                    width:0,
+                    height:232,
+                    width:160,
                     overflow:"hidden",//在等宽或等高时，图片的div父容器内容溢出是否隐藏，这样显示的好看
                     loading:"../img/wait.gif"
                     },settings);
