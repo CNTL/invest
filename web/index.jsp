@@ -261,10 +261,10 @@
         <a class="right" href="#"></a>
         <div class="swiper">
             <div class="wrapper">
-                <div class="slide"> <img src="static/image/temp/0.jpg" /> </div>
-                <div class="slide"> <img src="static/image/temp/1.jpg" /> </div>
-                <div class="slide"> <img src="static/image/temp/2.jpg" /> </div>
-                <div class="slide"> <img src="static/image/temp/3.jpg" /> </div>
+                <div class="slide"> <img src="static/image/temp/0.jpg" style="width:100%;"/> </div>
+                <div class="slide"> <img src="static/image/temp/1.jpg" style="width:100%;"/> </div>
+                <div class="slide"> <img src="static/image/temp/2.jpg" style="width:100%;"/> </div>
+                <div class="slide"> <img src="static/image/temp/3.jpg" style="width:100%;"/> </div>
             </div>
         </div>
         <div class="pagination"></div>
