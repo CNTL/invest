@@ -1,5 +1,40 @@
 $(document).ready(function () {
 	jobList.init();
+	
+	$.getJSON("../recruit/ListMain.do?a=getAllCitys", function(json){
+		if(json.citys){
+			$("#rec-more").ProCitySel({
+				width:"50",
+				height:"30",
+				align:"bottom right",
+				placeholder:"更多",
+	            callbackEvent: function (names, ids) {
+	                var prov="";
+	                var city = "";
+	                var key = "";
+	                var more = "";
+	                if($.query.get("more")=="1"){
+	                	more= "&more=1";
+	                }
+	                if($("#key").val()!=""){
+	                	key = "&key="+$("#key").val();
+	                }
+	                var idlist = ids.toString().split(".");
+	                if(idlist.length==2){
+	                	city = "&city="+idlist[1].toString();
+	                }
+	                else{
+	                	prov = "&province="+ids.toString();
+	                }
+	                var url = "../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3"+more+key+prov+city;
+	                window.location.href= url;
+	            },
+	            data:json
+	        });
+			$("#rec-more").css({"padding":"0","margin":"0"});
+		}
+	});
+	/*
 	$("#rec-more").popover({
 		container:"body",
 		title:"更多地域",

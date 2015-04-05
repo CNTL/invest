@@ -2,8 +2,9 @@ $(document).ready(function () {
 	optionsdd();
 	$("#type").selectbox();
 	$("#search").click(seach);
-	initSelectItem();
+	
 	emcity();
+	initSelectItem();
 });
 function initSelectItem(){
 	 
@@ -24,40 +25,72 @@ function initSelectItem(){
 		$("#selecteditem ul").append("<li data-value=\""+$("#hPubTime").val()+"\" data-id=\""+$("#hPubTime").attr("data-id")+"\"><span><strong>发布时间</strong>："+$("#PubTime div[data-value='"+$("#hPubTime").val()+"']").text()+"</span><span onclick=\"remvoeSelectItem();\" class=\"select_remove\">&nbsp;</span></li>");
 		$("#PubTime").prev().trigger("click");
 	}
-	if($("#hcity").val()!=""){
-		$("#workplaceSelect dd").removeClass("current");
-		var ddcity = $("#box_expectCity dd[data-id='"+$("#hcity").val()+"']");
-		if(ddcity.length>0){
-			var cityname = "";
-			cityname = ddcity.find("a").text();
-			
-			var citymoredd = $("#morecity").prev();
-			if(citymoredd.attr("data-type")=="more"){
-				citymoredd.attr("data-id",$("#hcity").val());
-				citymoredd.find("a").text(cityname);
-				citymoredd.addClass("current");
-			}else{
-				$("#morecity").before("<dd data-type=\"more\" class=\"current\"  data-id=\""+$("#hcity").val()+"\"><a>"+cityname+"</a> </dd> ");
-			}
-		}
-		else{
-			$("#workplaceSelect dd[data-id='"+$("#hcity").val()+"']").addClass("current");
-			
-		}
-		 
-		
-	}
+	
 
 }
 
 function emcity(){
-	$("#morecity").click(function(){
-		 
-	     var top = $(this).position().top;
-	     var left = $(this).position().left-($("#box_expectCity").width()/2);
-	     
-		$("#box_expectCity").css({"top":top,"left":left});
-		$("#box_expectCity").show();
+	 
+	$.getJSON("../recruit/ListMain.do?a=getAllCitys", function(json){
+		
+		if(json.citys){
+			$("#rec-more").ProCitySel({
+				width:"50",
+				height:"30",
+				align:"left right",//left right bottom top
+				placeholder:"更多",
+	            callbackEvent: function (names, ids) {
+	              
+	               var idlist = ids.toString().split(".");
+	                var ddmore = $("#workplaceSelect dd[data-id][data-type]");
+		   			if(ddmore.length>0){
+		   				 
+		   				if(idlist.length==2){
+		   					ddmore.attr("data-pid",ids);
+		   					ddmore.attr("data-id",idlist[1]);
+		   				}
+		   				else{
+		   					ddmore.attr("data-pid",ids);
+		   					ddmore.attr("data-id",ids);
+		   				}
+		   				
+		   				ddmore.find("a").remove();
+		   				ddmore.append("<a>"+names+"</a>");
+		   			}else{
+		   				$("#workplaceSelect dd").removeClass("current");
+		   				if(idlist.length==2){
+		   					
+		   					$("#morecity").before("<dd data-type=\"more\" class=\"current\"   data-pid=\""+ids+"\"  data-id=\""+idlist[1]+"\"><a>"+names+" </a></dd> ");
+		   				}
+		   				else{
+		   					$("#morecity").before("<dd data-type=\"more\" class=\"current\"   data-pid=\""+ids+"\" data-id=\""+ids+"\"><a>"+names+" </a></dd> ");
+		   				}
+		   			}
+		   			seach();
+	            },
+	            data:json
+	        });
+			$("#rec-more").css({"padding":"0","margin-top":"-5px"});
+			
+			if($("#hcity").val()!=""){
+				
+				var ddcity = $(".pc-city-list a[id='"+$("#hcity").val()+"']");
+				if(ddcity.length>0){
+					$("#workplaceSelect dd").removeClass("current");
+					$("#morecity").before("<dd data-type=\"more\" class=\"current\" data-pid=\""+ddcity.attr("pid")+"\" data-id=\""+$("#hcity").val()+"\"><a>"+ddcity.text()+"</a> </dd> ");
+				}
+			}
+			if($("#hprovince").val()!=""){
+				
+				var ddcity = $(".pc-city-list a[id='"+$("#hprovince").val()+"']");
+				if(ddcity.length>0){
+					$("#workplaceSelect dd").removeClass("current");
+					$("#morecity").before("<dd data-type=\"more\" class=\"current\" data-pid=\""+ddcity.attr("pid")+"\" data-id=\""+$("#hcity").val()+"\"><a>"+ddcity.text()+"</a> </dd> ");
+				}
+			}
+			
+			
+		}
 	});
 }
 
@@ -134,15 +167,24 @@ function optionsdd(){
 function seach(){
 	var rootUrl = "../recruit/ListMainSearch.do";
 	var cityid = "-1";
+	var provid = "-1";
 	var a = $("#workplaceSelect .current");
 	cityid = a.attr("data-id");
+	provid = a.attr("data-pid");
+	
 	var param = [];
 	param.push("a="+$.query.get("a"));
 	param.push("mainType="+$.query.get("mainType"));
 	param.push("type="+$.query.get("type"));
 	param.push("key="+$("#key").val());
 	param.push("more=1");
-	param.push("city="+cityid);
+	if(cityid ==provid ){
+		param.push("province="+cityid);
+	}
+	else{
+		param.push("city="+cityid);
+	}
+	
 	 
 	$("#selecteditem ul>li").each(function(i,n){
 		param.push($(this).attr("data-id")+"="+$(this).attr("data-value"));

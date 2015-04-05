@@ -8,11 +8,13 @@
 <style>
 	a {text-transform:none;text-decoration:none;} 
 	a:hover{
-		background:#019875;
-		color:white;
+		background:#FFB124;
+		color:#fff !important;
 		cursor:pointer;
 	}
   </style>
+  <link rel="stylesheet" type="text/css" href="../js/plugin/ProvinceCitySelect/jquery.ProvinceCitySelect.css"/>
+ 
 </head>
 <body>
 <div id="body-container" style="min-width:980px;">
@@ -84,7 +86,7 @@
 	                
 	            </div>
     		</c:forEach>
-    		<div class="item"><a id="rec-more" tabindex="0"  role="button" data-toggle="popover">更多</a></div>
+    		<div class="item" style="padding-left:30px;padding-top:5px;"><a  id="rec-more" href="javascript:;" style="background:transparent;"></a></div>
             <div class="clear"></div>
         </div>
     </div>
@@ -230,19 +232,7 @@
 		</c:choose>
      </div>
     <div class="clear"></div>
- 
- 
-<div id="morecity" class="item" style="display:none;">
-	<c:forEach var="city" varStatus="status" items="${cities}" begin="11"  step="1" >
-		<c:if test="${city.level==0}">
-		<a style="margin:5px;font-size:16px;" href="../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=${type}&more=${more}&province=${city.id}">${city.name}</a>
-		</c:if>
-		<c:if test="${city.level==0}">
-		<a style="margin:5px;font-size:16px;" href="../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=${type}&more=${more}&city=${city.id}">${city.name}</a>
-		</c:if>
-		
-	</c:forEach>
-</div>
+
 </div>
 <!-- footer -->
 <%@include file="../../inc/footer.inc"%>
@@ -256,6 +246,7 @@
 	var rootPath = "<%=com.tl.common.WebUtil.getRoot(request) %>";
  </script>
 <script type="text/javascript" src="../static/js/jQselect.js"></script>
+<script type="text/javascript" src="../js/plugin/ProvinceCitySelect/jquery.ProvinceCitySelect.js"></script>
 <script src = "../user/recruit/script/recruitList.js"></script>
 
 </body>

@@ -52,12 +52,53 @@ public class RecruitMainController extends Entry {
 		}else if("isConverdInfo".equals(action)){
 			isConverdInfo(request,response,model);
 		}
+		else if("getAllCitys".equals(action)){
+			getAllCitys(request,response,model);
+		}
 		else{//直接进入招聘信息列表
 			Dictionary[] types = recruitManager.types();
 			model.put("types", types);
 			init(request,response,model);
 		}
 		
+	}
+	
+	/**得到所有的城市
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @throws Exception
+	 */
+	private void getAllCitys(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception {
+		Dictionary[] cityDics = recruitManager.getProvCitys();
+		StringBuilder sb = new StringBuilder();
+		 
+		sb.append("{");
+		sb.append("\"citys\":[");
+		if(cityDics!=null&&cityDics.length>0){
+			
+			for (int i = 0; i < cityDics.length; i++) {
+				Dictionary dic = cityDics[i];
+				String pidString = String.valueOf(dic.getId());
+				if(dic.getPid()>0){
+					pidString = String.valueOf(dic.getPid())+"."+pidString;
+				}
+				sb.append("{");
+				sb.append("\"pid\":\""+pidString+"\"");
+				sb.append(",");
+				sb.append("\"id\":\""+String.valueOf(dic.getId())+"\"");
+				sb.append(",");
+				sb.append("\"name\":\""+dic.getName()+"\"");
+				sb.append("}");
+				
+				if(i<cityDics.length-1){
+					sb.append(",");
+				}
+			}
+		}
+		sb.append("]");
+		sb.append("}");
+		output(sb.toString(), response);
 	}
 	/** 更新职位订阅
 	 * @param request

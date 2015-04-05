@@ -61,6 +61,21 @@ public class RecruitManager {
 		return (Dictionary[]) list.toArray(new Dictionary[0]);
 		 
 	}
+	
+	/**获得所有的城市
+	 * @return
+	 */
+	public Dictionary[] getProvCitys() {
+		Dictionary[] provCitys = null;
+		DictionaryReader reader = (DictionaryReader)Context.getBean("DictionaryReader");
+		try {
+			provCitys = reader.getChildrenDics(DicTypes.DIC_AREA.typeID(), 0);
+		} catch (Exception e) {
+			 
+		}
+		return provCitys;
+		
+	}
 	/**根据职位ID获取相应的人的信息
 	 * @param recruitid
 	 * @return json格式

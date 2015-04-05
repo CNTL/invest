@@ -9,8 +9,9 @@
 	a {text-transform:none;text-decoration:none;} 
 	a:hover{
 		background:#019875;
-		color:white;
+		color:#fff !important;
 		cursor:pointer;
+		font-size:14px !important;
 	}
 	*{
 	 box-sizing:content-box;
@@ -112,7 +113,7 @@
 	.current a{background:#FFB124; color:#fff;padding:2px 5px; cursor:pointer;font-size:14px;}
 	.moretransform{height:0;width:0;overflow: hidden;font-size: 0;line-height: 0; border-width:6px 5px 0; border-style:solid dashed; border-color:#393d3f transparent transparent;-webkit-transition:all 0.4s ease 0s;-moz-transition:all 0.4s ease 0s;-ms-transition:all 0.4s ease 0s;transition:all 0.4s ease 0s; margin-left:10px;*margin-left:7px; position:absolute; margin-top:10px;}
 	 
-	.workplace dd.morecity, .workplace li.morecity {
+	.workplace li.morecity {
 		padding-right: 15px;
 		position: relative;
 	}
@@ -179,6 +180,7 @@
 	}
 	 
   </style>
+   <link rel="stylesheet" type="text/css" href="../js/plugin/ProvinceCitySelect/jquery.ProvinceCitySelect.css"/>
 </head>
 <body>
 <%@include file="../../inc/header.inc"%>
@@ -285,24 +287,19 @@
            <dt >工作城市：</dt>
            <dd data-id="-1"><a >全部</a> </dd>
           	<c:forEach var="city" varStatus="status" items="${cities}" begin="0" end="6" step="1" >
-          	<dd  data-id="${city.id}"><a>${city.name}</a> </dd> 
+          	<c:choose>
+					<c:when test="${city.pid==0}"><dd  data-pid="${city.id}" data-id="${city.id}"><a>${city.name}</a> </dd></c:when>
+					<c:otherwise><dd  data-pid="${city.pid}.${city.id}"  data-id="${city.id}"><a>${city.name}</a> </dd></c:otherwise>
+			</c:choose>
+          	 
 			</c:forEach>
-			<dd class="morecity" id="morecity">
-               	  <a>其他</a>
-               	<div class="triangle citymore_arrow"></div>
-		     </dd>
-			 <dd class="searchlist_expectCity" id="box_expectCity" style="display: none;" data-cityjob="true">
-	            	<span class="bot"></span>
-	            	<span class="top"></span>
-		    		<dl>
-		    			<c:forEach var="city" varStatus="status" items="${cities}" begin="7"  step="1" >
-		          		   <dd data-type="more" data-id="${city.id}"><a>${city.name}</a> </dd> 
-						</c:forEach>
-			    	 </dl>
-			  </dd>
-			    	   
+			<dd class="morecity" id="morecity" style="padding-top:-5px;">
+				<a  id="rec-more" href="javascript:;"></a>
+		     </dd>   
 			</dl>
 			 
+			
+			
          </div> 
          <c:forEach var="msg" varStatus="status" items="${msg.messages}">
 				<c:choose>
@@ -395,9 +392,10 @@
 <input type="hidden" id="hPubTime" data-id="PubTime"  value="<c:out value="${PubTime}"/>" />
 <input type="hidden" id="hcity" data-id="city"  value="<c:out value="${city}"/>" />
 <input type="hidden" id="hcityname" data-id="city"  value="<c:out value="${cityname}"/>" />
+<input type="hidden" id="hprovince" data-id="province"  value="<c:out value="${province}"/>" />
 
-<!-- footer -->
-<%@include file="../../inc/footer.inc"%>
+
+
 <!-- footer -->    
 <!-- script -->
 <%@include file="../inc/script.inc"%>
@@ -411,7 +409,9 @@
 <script type="text/javascript" src="../static/js/jQselect.js"></script>
  <script type="text/javascript" src="../js/bootstrap/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="../js/plugin/query/jquery.query.js"></script>
+  <script type="text/javascript" src="../js/plugin/ProvinceCitySelect/jquery.ProvinceCitySelect.js"></script>
 <script src = "../user/recruit/script/recruitListSearch.js"></script>
-
+<!-- footer -->
+<%@include file="../../inc/footer.inc"%>
 </body>
 </html>
