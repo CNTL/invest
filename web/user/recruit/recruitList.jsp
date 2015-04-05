@@ -4,7 +4,7 @@
 <html>
 <head>
 <%@include file="../inc/csslink.inc"%>
-<link rel="stylesheet" type="text/css" media="screen" href="<c:out value="${rootPath}"/>js/bootstrap/css/bootstrap.min.css">
+
 <style>
 	a {text-transform:none;text-decoration:none;} 
 	a:hover{
@@ -232,7 +232,6 @@
 		</c:choose>
      </div>
     <div class="clear"></div>
-
 </div>
 <!-- footer -->
 <%@include file="../../inc/footer.inc"%>

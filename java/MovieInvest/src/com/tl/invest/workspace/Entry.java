@@ -85,7 +85,7 @@ public class Entry extends BaseController {
 	}
 
 	protected Menu[] getMainMenus(int mainType) {
-		String class1 = "", class2 = "", class3 = "", class4 = "";
+		String class1 = "", class2 = "", class3 = "", class4 = "",class5 = "";
 		switch (mainType) {
 		case 1:
 			class1 = "current";
@@ -99,6 +99,9 @@ public class Entry extends BaseController {
 		case 4:
 			class4 = "current";
 			break;
+		case 5:
+			class5 = "current";
+			break;
 		default:
 			String curMenu = getCurrentMenu();
 			if("首页".equals(curMenu)){
@@ -109,6 +112,8 @@ public class Entry extends BaseController {
 				class3 = "current";
 			}else if("影人".equals(curMenu)){
 				class4 = "current";
+			}else if("机构".equals(curMenu)){
+				class5 = "current";
 			}
 			break;
 		}
@@ -117,6 +122,7 @@ public class Entry extends BaseController {
 		list.add(new Menu(2, "项目","/project/List.do?mainType=2",class2, -999,0));
 		list.add(new Menu(3, "影聘","/recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3",class3, -999,0));
 		list.add(new Menu(4, "影人","/user/PeopleMain.do?a=queryPersons&mainType=4",class4, -999,0));
+		list.add(new Menu(5, "机构","/user/PeopleMain.do?a=queryPersons&mainType=5",class5, -999,0));
 		 
 		
 		return (Menu[]) list.toArray(new Menu[0]);

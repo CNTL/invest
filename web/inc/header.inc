@@ -1,6 +1,6 @@
 ﻿<%@page pageEncoding="UTF-8"%>
 <div class="container" style="height:90px;width:100%;min-width:960px;padding:0;margin:0;border:0px solid red;">
-  <div class="row">
+  <div class="row" style="border:0px solid red;">
     <div class="col-md-2" style="border:0px solid blue;min-width:250px;">
 		<!---->
 		<div class="hz-logo">
@@ -9,7 +9,7 @@
 		
 	</div>
   
-    <div class="col-md-4" style="border:0px solid blue;margin:0;padding:0;min-width:445px;">
+    <div class="col-md-4" style="border:0px solid blue;margin:0;padding:0;width:504px;">
 	 
 		 <div class="hz-nav">
 			<ul>
@@ -21,9 +21,8 @@
 		 <div class="clearfix"></div>
 	</div>
 	
-	<div class="col-md-2 search-container">
-		 
-		<form id="mianSearchForm" name="mianSearchForm" action="<c:out value="${rootPath}"/>Search.do">
+	<div class="col-md-6 search-container">
+		 <form id="mianSearchForm" name="mianSearchForm" action="<c:out value="${rootPath}"/>Search.do">
 		<div class="row" style="margin: 25px 0 0 0;border:0px solid blue;">
 			<div class="col-md-3 head-searchcat">
 				<select id="seachType" name="t" class="form-control">
@@ -49,12 +48,10 @@
 				promptPosition:"bottomRight" //验证提示信息的位置，可设置为："topRight", "bottomLeft", "centerRight", "bottomRight" 
 			});
 		</script>
+	</div>
 	 
-	</div>
-	<div class="col-md-2 head-paddig">
+	<div class="" style="border:0px solid green;width:150px;height:30px;float:right;">
 	
-	</div>
-	<div class="col-md-2" style="border:0px solid green;width:150px;">
 		<div class="row" >
 			 
 			<div class="col-md-8" style="width:60px;padding:0;">
