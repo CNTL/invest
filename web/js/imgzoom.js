@@ -42,8 +42,8 @@
                  			
                  			if(rateW>=rateH){
                      			//取压缩比最大的
-                     			this.height = this.height / rateW;
-                     			this.width = this.width / rateW;
+                 				$(this).css({"height":(this.height / rateW)+"px","width":(this.width / rateW)+"px"});
+                     			
                      			if(rateW!=rateH){
                      				//居中显示图片
                      				var margin = ((parseInt(settings.height,10) - parseInt(this.height,10))/2);
@@ -52,17 +52,16 @@
                      		}
                      		else{
                      			//取压缩比最大的
-                     			this.height = this.height / rateH;
-                     			this.width = this.width / rateH;
+                     			 
+                     			$(this).css({"height":(this.height / rateH)+"px","width":(this.width / rateH)+"px"});
                      			//居中显示图片
                  				var margin = ((parseInt(settings.width,10) - parseInt(this.width,10))/2);
                  				$(this).css({"margin-left":margin+"px"});
                      		}
                  		}
                  		if(settings.mode==1){//等宽缩放,按照宽度的比率来缩放
-                 			this.height = this.height / rateW;
-                 			this.width = this.width / rateW;
-                 			
+                 			 
+                 			$(this).css({"height":( this.height / rateW)+"px","width":(this.width / rateW)+"px"});
                  			if(settings.overflow.toString().length>0){
                  				//找到最近的div容器
                  				var div = $(this).closest("div");
@@ -73,8 +72,8 @@
                  		}
                  		
                  		if(settings.mode==2){//等高缩放,按照高度的比率来缩放
-                 			this.height = this.height / rateH;
-                 			this.width = this.width / rateH;
+                 			 
+                 			$(this).css({"height":( this.height / rateH)+"px","width":(this.width / rateH)+"px"});
                  			if(settings.overflow.toString().length>0){
                  				//找到最近的div容器
                  				var div = $(this).closest("div");
@@ -88,7 +87,7 @@
                 		 //当图片大小宽或高有一方小于容器的大小时
                 		 var disW = parseInt(this.width,10)-parseInt(settings.width,10);
                   		 var disH = parseInt(this.height,10)-parseInt(settings.height,10);
-                  		 
+                  		$(this).css({"height":( this.height)+"px","width":(this.width )+"px"});
                 		 if( disW<=0 && disH<=0){
                 			 //两者都小于容器的大小,就居中显示
                 			 var padding_v = (Math.abs(disH)/2); 

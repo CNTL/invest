@@ -36,7 +36,7 @@
                 <div class="box_top"></div>
                 <div class="box_main project">
                     <div class="pic">
-						<a href="<c:out value="${rootPath}"/>project/Project.do?id=<c:out value="${person.id}"/>">
+						<a href="CompanyDetail.do?a=queryDetail&mainType=5&id=<c:out value="${person.id}"/>">
 							<c:choose>
 								<c:when test="${person.head==''|| person.head == null}"><img src="<c:out value="${rootPath}"/>static/image/temp/pic2.png" /></c:when>
 								<c:otherwise><img src="<c:out value="${rootPath}"/><c:out value="${person.head}"/>" /></c:otherwise>
@@ -46,15 +46,15 @@
                     </div>
                     <div>
                         <div class="title">
-                            <a href="<c:out value="${rootPath}"/>project/Project.do?id=<c:out value="${person.id}"/>"><c:out value="${person.orgShortname}"/></a>
+                            <a href="CompanyDetail.do?a=queryDetail&mainType=5&id=<c:out value="${person.id}"/>"><c:out value="${person.orgShortname}"/></a>
                         </div>
                         <div class="desc">
                             <c:out escapeXml="false" value="${person.intro}"/>
                         </div>
                     </div>
                     <div class="tool">
-							<a data-url="<c:out value="${rootPath}"/>project/Project.do?id=<c:out value="${person.id}"/>" class="share">分享</a>
-							<a href="<c:out value="${rootPath}"/>project/Project.do?id=<c:out value="${person.id}"/>" class="view"></a>
+							<a data-url="CompanyDetail.do?a=queryDetail&mainType=5&id=<c:out value="${person.id}"/>" class="share">分享</a>
+							<a href="CompanyDetail.do?a=queryDetail&mainType=5&id=<c:out value="${person.id}"/>" class="view"></a>
                     </div>
                 </div>
                 <div class="box_bottom"></div>
@@ -80,7 +80,7 @@
                 <div class="box_top"></div>
                 <div class="box_main project">
                     <div class="pic">
-						<a href="<c:out value="${rootPath}"/>project/Project.do?id=<c:out value="${person.id}"/>">
+						<a href="CompanyDetail.do?a=queryDetail&mainType=5&id=<c:out value="${person.id}"/>">
 							<c:choose>
 								<c:when test="${person.head==''|| person.head == null}"><img src="<c:out value="${rootPath}"/>static/image/temp/pic2.png" /></c:when>
 								<c:otherwise><img src="<c:out value="${rootPath}"/><c:out value="${person.head}"/>" /></c:otherwise>
@@ -90,7 +90,7 @@
                     </div>
                     <div>
                         <div class="title">
-                            <a href="<c:out value="${rootPath}"/>project/Project.do?id=<c:out value="${person.id}"/>"><c:out value="${person.orgShortname}"/></a>
+                            <a href="CompanyDetail.do?a=queryDetail&mainType=5&id=<c:out value="${person.id}"/>"><c:out value="${person.orgShortname}"/></a>
                         </div>
                         <div class="desc">
                             <c:out escapeXml="false" value="${person.intro}"/>
@@ -98,8 +98,8 @@
                        
                     </div>
                     <div class="tool">
-							<a data-url="<c:out value="${rootPath}"/>project/Project.do?id=<c:out value="${person.id}"/>" class="share">分享</a>
-							<a href="<c:out value="${rootPath}"/>project/Project.do?id=<c:out value="${person.id}"/>" class="view"></a>
+							<a data-url="CompanyDetail.do?a=queryDetail&mainType=5&id=<c:out value="${person.id}"/>" class="share">分享</a>
+							<a href="CompanyDetail.do?a=queryDetail&mainType=5&id=<c:out value="${person.id}"/>" class="view"></a>
                     </div>
                 </div>
                 <div class="box_bottom"></div>
@@ -125,7 +125,7 @@
                 <div class="box_top"></div>
                 <div class="box_main project">
                     <div class="pic">
-						<a href="<c:out value="${rootPath}"/>project/Project.do?id=<c:out value="${person.id}"/>">
+						<a href="CompanyDetail.do?a=queryDetail&mainType=5&id=<c:out value="${person.id}"/>">
 							<c:choose>
 								<c:when test="${person.head==''|| person.head == null}"><img src="<c:out value="${rootPath}"/>static/image/temp/pic2.png" /></c:when>
 								<c:otherwise><img src="<c:out value="${rootPath}"/><c:out value="${person.head}"/>" /></c:otherwise>
@@ -135,7 +135,7 @@
                     </div>
                     <div>
                         <div class="title">
-                            <a href="<c:out value="${rootPath}"/>project/Project.do?id=<c:out value="${person.id}"/>"><c:out value="${person.orgShortname}"/></a>
+                            <a href="CompanyDetail.do?a=queryDetail&mainType=5&id=<c:out value="${person.id}"/>"><c:out value="${person.orgShortname}"/></a>
                         </div>
                         <div class="desc">
                             <c:out escapeXml="false" value="${person.intro}"/>
@@ -143,8 +143,8 @@
                        
                     </div>
                     <div class="tool">
-							<a data-url="<c:out value="${rootPath}"/>project/Project.do?id=<c:out value="${person.id}"/>" class="share">分享</a>
-							<a href="<c:out value="${rootPath}"/>project/Project.do?id=<c:out value="${person.id}"/>" class="view"></a>
+							<a data-url="CompanyDetail.do?a=queryDetail&mainType=5&id=<c:out value="${person.id}"/>" class="share">分享</a>
+							<a href="CompanyDetail.do?a=queryDetail&mainType=5&id=<c:out value="${person.id}"/>" class="view"></a>
                     </div>
                 </div>
                 <div class="box_bottom"></div>
@@ -170,7 +170,7 @@
                 <div class="box_top"></div>
                 <div class="box_main project">
                     <div class="pic">
-						<a href="<c:out value="${rootPath}"/>project/Project.do?id=<c:out value="${person.id}"/>">
+						<a href="CompanyDetail.do?a=queryDetail&mainType=5&id=<c:out value="${person.id}"/>">
 							<c:choose>
 								<c:when test="${person.head==''|| person.head == null}"><img src="<c:out value="${rootPath}"/>static/image/temp/pic2.png" /></c:when>
 								<c:otherwise><img src="<c:out value="${rootPath}"/><c:out value="${person.head}"/>" /></c:otherwise>
@@ -180,7 +180,7 @@
                     </div>
                     <div>
                         <div class="title">
-                            <a href="<c:out value="${rootPath}"/>project/Project.do?id=<c:out value="${person.id}"/>"><c:out value="${person.orgShortname}"/></a>
+                            <a href="CompanyDetail.do?a=queryDetail&mainType=5&id=<c:out value="${person.id}"/>"><c:out value="${person.orgShortname}"/></a>
                         </div>
                         <div class="desc">
                             <c:out escapeXml="false" value="${person.intro}"/>
@@ -188,8 +188,8 @@
                        
                     </div>
                     <div class="tool">
-							<a data-url="<c:out value="${rootPath}"/>project/Project.do?id=<c:out value="${person.id}"/>" class="share">分享</a>
-							<a href="<c:out value="${rootPath}"/>project/Project.do?id=<c:out value="${person.id}"/>" class="view"></a>
+							<a data-url="CompanyDetail.do?a=queryDetail&mainType=5&id=<c:out value="${person.id}"/>" class="share">分享</a>
+							<a href="CompanyDetail.do?a=queryDetail&mainType=5&id=<c:out value="${person.id}"/>" class="view"></a>
                     </div>
                 </div>
                 <div class="box_bottom"></div>

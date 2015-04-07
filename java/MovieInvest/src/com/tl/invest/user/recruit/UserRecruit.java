@@ -4,6 +4,7 @@ package com.tl.invest.user.recruit;
 
 import java.util.Date;
 
+import com.tl.common.DateUtils;
 import com.tl.invest.constant.DicTypes;
 import com.tl.kernel.context.Context;
 import com.tl.kernel.sys.dic.Dictionary;
@@ -39,6 +40,7 @@ public class UserRecruit {
 	private String jobAttract;
 	private String jobIntro;
 	private Date createtime;
+	private String createtimeStr;
 	private String time;
 	//private Date pubTime;
 	private Integer isPub;
@@ -319,6 +321,10 @@ public class UserRecruit {
 
 	public void setCreatetime(Date createtime) {
 		this.createtime = createtime;
+		getCreatetimeStr();
+	}
+	public String getCreatetimeStr() {
+		return DateUtils.toStr(this.createtime, "yyyy-MM-dd HH:mm:ss");
 	}
 /*
 	public Date getPubTime() {

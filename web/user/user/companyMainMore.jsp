@@ -90,9 +90,9 @@
 					<c:otherwise> <div class="box"></c:otherwise>
 				</c:choose>
 					<div class="box_top"></div>
-	                <div class="box_main people">
+	                <div class="box_main project">
 	                    <div class="pic">
-	                    	<a href="../user/PeopleDetailMain.do?a=detail&mainType=4&id=<c:out value="${person.id}"/>">
+	                    	<a href="CompanyDetail.do?a=queryDetail&mainType=4&id=<c:out value="${person.id}"/>">
 								<c:choose>
 									<c:when test="${person.head=='' || person.head == null}"><img src="../static/image/temp/pic2.png" /></c:when>
 									<c:otherwise><img src="../<c:out value="${person.head}"/>" /></c:otherwise>
@@ -101,17 +101,14 @@
 	                      	<span>机构</span>
 	                    </div>
 	                    <div class="title">
-	                        <a href="../user/PeopleDetailMain.do?a=detail&mainType=4&id=<c:out value="${person.id}"/>">
-	                        <c:out value="${person.orgShortname}"/>
-	                        </a>
-	                        <span><c:out value="${person.perJobName}"/></span>
-	                    </div>
+                            <a href="CompanyDetail.do?a=queryDetail&mainType=5&id=<c:out value="${person.id}"/>"><c:out value="${person.orgShortname}"/></a>
+                        </div>
 	                    <div class="desc">
 	                        <c:out value="${person.intro}"/>
 	                    </div>
 	                    <div class="tool">
-	                        <a data-url="<c:out value="${rootPath}"/>user/PeopleDetailMain.do?a=detail&mainType=4&id=<c:out value="${person.id}"/>" class="share">分享</a>
-	                        <a href="../user/PeopleDetailMain.do?a=detail&mainType=4&id=<c:out value="${person.id}"/>" class="view"></a>
+	                        <a data-url="CompanyDetail.do?a=queryDetail&mainType=5&id=<c:out value="${person.id}"/>" class="share">分享</a>
+	                        <a href="CompanyDetail.do?a=queryDetail&mainType=5&id=<c:out value="${person.id}"/>" class="view"></a>
 	                    </div>
 	                </div>
 	                <div class="box_bottom"></div>
@@ -123,28 +120,23 @@
 			<span class="count" title="总记录数"><c:out value="${msg.total }"/> 条</span>
 			<c:choose>
 				<c:when test="${msg.curPage==1}"><a href="javascript:void();" class="prev">上一页</a></c:when>
-				<c:otherwise><a href="../user/PeopleMoreMain.do?a=queryPersons&mainType=4&type=<c:out value="${type}"/>&curPage=<c:out value="${msg.curPage-1}"/>" class="prev">上一页</a></c:otherwise>
+				<c:otherwise><a href="CompanyMainMore.do?a=queryOrg&mainType=5&perjob=<c:out value="${perjob}"/>&curPage=<c:out value="${msg.curPage-1}"/>" class="prev">上一页</a></c:otherwise>
 			</c:choose>
 			<c:forEach var="x" begin="${msg.pageBegin}" end="${msg.pageEnd}">
 				<c:choose>
 					<c:when test="${msg.curPage==x}"><a href="javascript:void();" class="current"><c:out value="${x}"/></a></c:when>
-					<c:otherwise><a href="../user/PeopleMoreMain.do?a=queryPersons&mainType=4&type=<c:out value="${type}"/>&curPage=<c:out value="${x}"/>"><c:out value="${x}"/></a></c:otherwise>
+					<c:otherwise><a href="CompanyMainMore.do?a=queryOrg&mainType=5&perjob=<c:out value="${perjob}"/>&curPage=<c:out value="${x}"/>"><c:out value="${x}"/></a></c:otherwise>
 				</c:choose>
 			</c:forEach>
 			<c:choose>
 				<c:when test="${msg.curPage==msg.pageCount}"><a href="javascript:void();" class="prev">下一页</a></c:when>
-				<c:otherwise><a href="../user/PeopleMoreMain.do?a=queryPersons&mainType=4&type=<c:out value="${type}"/>&curPage=<c:out value="${msg.curPage+1}"/>" class="prev">下一页</a></c:otherwise>
+				<c:otherwise><a href="CompanyMainMore.do?a=queryOrg&mainType=5&perjob=<c:out value="${perjob}"/>&curPage=<c:out value="${msg.curPage+1}"/>" class="prev">下一页</a></c:otherwise>
 			</c:choose>
 		</div>
 	</div>
 	<%@include file="../../inc/footer.inc"%>
 	</div>
 	
-	<div id="ageItems" style="display:none;">
-	<c:forEach var="age" varStatus="status" items="${agetypes}">
-		<a data-group="age" href="#" data-id="<c:out value="${age.id}"/>"><c:out value="${age.name}"/></a>|
-	</c:forEach>
-	
-	</div>
+	 
 </body>
 </html>

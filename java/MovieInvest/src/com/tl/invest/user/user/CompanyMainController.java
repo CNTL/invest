@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.tl.common.Message;
 import com.tl.invest.constant.DicTypes;
 import com.tl.invest.user.recruit.RecruitManager;
+import com.tl.invest.user.recruit.UserRecruit;
 import com.tl.invest.workspace.Entry;
 import com.tl.kernel.context.Context;
 import com.tl.kernel.sys.dic.Dictionary;
@@ -32,6 +33,9 @@ public class CompanyMainController extends Entry {
 		}else if("queryOrg".equals(action)){
 			queryOrg(request, response, model);
 		}
+		else if("queryDetail".equals(action)){
+			queryDetail(request, response, model);
+		}
 		else{
 			DictionaryReader reader = (DictionaryReader)Context.getBean("DictionaryReader"); 
 			//获得4种机构类型
@@ -45,6 +49,30 @@ public class CompanyMainController extends Entry {
 		}
 		
 	}
+	
+	/** 
+	* @author  leijj 
+	* 功能： 查询最新招聘信息
+	* @param request
+	* @param response
+	* @param model
+	* @throws Exception 
+	*/ 
+	private void queryDetail(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception{
+		int userID = getInt(request, "id", 0);
+		User user = null;
+		UserRecruit[] recList = null;
+		try {
+			user =  userManager.getUserByID(userID);
+			recList = recruitManager.queryRecruitsByUserID(userID);
+		} catch (Exception e) {
+			 
+		}
+		
+		model.put("user", user);
+		model.put("recList", recList);
+	}
+	
 	/** 
 	* @author  leijj 
 	* 功能： 查询最新招聘信息
@@ -89,6 +117,7 @@ public class CompanyMainController extends Entry {
 			perName = type.getName();
 		}
 		model.put("perName", perName);
+		model.put("perjob", perjob);
 		
 		model.put("msg", msg);
 	}
