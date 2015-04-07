@@ -83,7 +83,7 @@ var complete = {
 		$(sel).trigger("change");
 	},
 	submit : function(){
-		alert($("#orgType").val());
+		//alert($("#orgType").val());
 		$.ajax({
 	        type:"POST", //请求方式  
 	        url:"../user/user.do?a=orgBasicInfo", //请求路径  

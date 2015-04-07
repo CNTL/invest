@@ -1,125 +1,205 @@
 ﻿<%@ include file="../../include/Include.jsp"%>
 <%@page pageEncoding="UTF-8"%>
-<!doctype html>
-<html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title><c:out value="${title}"/></title>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="keywords" content="<c:out value="${keywords}"/>" />
-	<meta name="description" content="<c:out value="${description}"/>" />
-	<%@include file="../inc/csslink.inc"%>
-	<style>
-	  	.nav li{width:80px;
-			floag:left;
-			list-style:none;
-			display:inline;
-			font:16px "微软雅黑","宋体",Arial;
-			color:#333;
-		}
-		.nav a {text-transform:none;text-decoration:none;} 
-		.nav a:hover{
-			background:#019875;
-			color:white;
-			cursor:pointer;
-		}
-		.current{
-			background:#019875;
-			color:white;
-			cursor:pointer;
-		}
-	</style>
-    <script type="text/javascript" src="../static/js/jquery-1.11.1.min.js"></script>
-    <script type="text/javascript" src="../static/js/idangerous.swiper.min.js"></script>
-    <script type="text/javascript" src="../static/js/common.js"></script>
+    <%@include file="../../inc/meta.inc"%>
+	<script type="text/javascript">
+		var webroot = "<c:out value="${rootPath}"/>";
+		$(function(){
+			setCookie("loginCurrentUrl", window.location.href);
+			setCookie("loginCurrentMenu", "2");
+			
+		});
+	</script>
 </head>
-
 <body>
+<div id="body-container" style="min-width:980px;">
 	<%@include file="../../inc/header.inc"%>
-	<div class="banner">
-        <img src="../static/image/banner3.png" />
+	<div class="banner hidden-xs">
+        <img src="../static/image/banner2.png" />
     </div>
-    <div style="display:none;">
-    	<input type="text" id="city" name="city" value="<c:out value="${city}"/>"/>
-    </div>
-    <div class="project_list">
-        <div class="block1">
-        	<br>
-        	<div>
-				<dt>
-					<ul class="nav">
-						<c:forEach var="name" varStatus="status" items="${hotCitys}">
-							<li>
-							<c:choose>
-								<c:when test="${name==city}">
-								<a class="current" href="../user/CompanyMain.do?a=queryCompanys&mainType=3&city=<c:out value="${name}"/>"><c:out value="${name}"/></a>
-								</c:when>
-								<c:otherwise>
-								<a href="../user/CompanyMain.do?a=queryCompanys&mainType=3&city=<c:out value="${name}"/>"><c:out value="${name}"/></a>
-								</c:otherwise>
-							</c:choose>
-							</li>
-							|
-						</c:forEach>
-					</ul>
-				</dt>
-			</div>
-			<br>
-			<!-- 
+	<div class="project_list">
+        <div class="block1 proj_type_<c:out value="${orgType1.id}"/>">
             <div class="top">
-                <h2>公司</h2>
+                <h2><c:out value="${orgType1.name}"/></h2>
+                <div class="cate">
+                   
+                    <a href="CompanyMainMore.do?a=queryOrg&mainType=5&perjob=<c:out value="${orgType1.id}"/>">更多 &gt;&gt;</a>
+                </div>
             </div>
-             -->
-            <c:forEach var="msg" varStatus="status" items="${msg.messages}">
-				<c:choose>
-					<c:when test="${status.index%4==0}"><div class="box box_last"></c:when>
-					<c:otherwise> <div class="box"></c:otherwise>
-				</c:choose>
-					<div class="box_top"></div>
-	                <div class="box_main people">
-	                    <div class="pic">
-	                    	<a href="../user/PeopleDetailMain.do?a=detail&mainType=3&id=<c:out value="${msg.id}"/>">
-								<c:choose>
-									<c:when test="${msg.head=='' || msg.head == null}"><img src="../static/image/temp/pic2.png" /></c:when>
-									<c:otherwise><img src="../<c:out value="${msg.head}"/>" /></c:otherwise>
-								</c:choose>
-	                      	</a>
-	                      	<span>公司</span>
-	                    </div>
-	                    <div class="title">
-	                        <a href="#"><c:out value="${msg.code}"/></a>
-	                        <span><c:out value="${msg.orgShortname}"/></span>
-	                    </div>
-	                    <div class="desc">
-	                        <c:out value="${msg.intro}"/>
-	                    </div>
-	                    <div class="tool">
-	                        <a href="#" class="share">分享</a>
-	                        <a href="#" class="view"></a>
-	                    </div>
-	                </div>
-	                <div class="box_bottom"></div>
-				</div>
+			<c:forEach var="person" varStatus="status" items="${orgUser1.messages}">
+			<c:choose>
+				<c:when test="${status.index%4==0}"><div class="box box_last"></c:when>
+				<c:otherwise> <div class="box"></c:otherwise>
+			</c:choose>
+                <div class="box_top"></div>
+                <div class="box_main project">
+                    <div class="pic">
+						<a href="<c:out value="${rootPath}"/>project/Project.do?id=<c:out value="${person.id}"/>">
+							<c:choose>
+								<c:when test="${person.head==''|| person.head == null}"><img src="<c:out value="${rootPath}"/>static/image/temp/pic2.png" /></c:when>
+								<c:otherwise><img src="<c:out value="${rootPath}"/><c:out value="${person.head}"/>" /></c:otherwise>
+							</c:choose>
+                      </a>
+                      <span>机构</span>
+                    </div>
+                    <div>
+                        <div class="title">
+                            <a href="<c:out value="${rootPath}"/>project/Project.do?id=<c:out value="${person.id}"/>"><c:out value="${person.orgShortname}"/></a>
+                        </div>
+                        <div class="desc">
+                            <c:out escapeXml="false" value="${person.intro}"/>
+                        </div>
+                    </div>
+                    <div class="tool">
+							<a data-url="<c:out value="${rootPath}"/>project/Project.do?id=<c:out value="${person.id}"/>" class="share">分享</a>
+							<a href="<c:out value="${rootPath}"/>project/Project.do?id=<c:out value="${person.id}"/>" class="view"></a>
+                    </div>
+                </div>
+                <div class="box_bottom"></div>
+            </div>
 			</c:forEach>
             <div class="clear"></div>
         </div>
-        <div class="pager">
-			<span class="count" title="总记录数"><c:out value="${msg.total }"/> 条</span>
+
+		 <div class="block2 proj_type_<c:out value="${orgType2.id}"/>">
+		  <div class="wrap">
+            <div class="top">
+                <h2><c:out value="${orgType2.name}"/></h2>
+                <div class="cate">
+                   
+                    <a href="CompanyMainMore.do?a=queryOrg&mainType=5&perjob=<c:out value="${orgType2.id}"/>">更多 &gt;&gt;</a>
+                </div>
+            </div>
+			<c:forEach var="person" varStatus="status" items="${orgUser2.messages}">
 			<c:choose>
-				<c:when test="${msg.curPage==1}"><a href="javascript:void();" class="prev">上一页</a></c:when>
-				<c:otherwise><a href="../recruit/ListMain.do?a=<c:out value="${queryType}"/>&more=1&recruitType=view&mainType=3&type=${type}&key=${key}&curPage=<c:out value="${msg.curPage-1}"/>" class="prev">上一页</a></c:otherwise>
+				<c:when test="${status.index%4==0}"><div class="box box_last"></c:when>
+				<c:otherwise> <div class="box"></c:otherwise>
 			</c:choose>
-			<c:forEach var="x" begin="${msg.pageBegin}" end="${msg.pageEnd}">
-				<c:choose>
-					<c:when test="${msg.curPage==x}"><a href="javascript:void();" class="current"><c:out value="${x}"/></a></c:when>
-					<c:otherwise><a href="../recruit/ListMain.do?a=<c:out value="${queryType}"/>&more=1&recruitType=view&mainType=3&type=${type}&key=${key}&curPage=<c:out value="${x}"/>"><c:out value="${x}"/></a></c:otherwise>
-				</c:choose>
+                <div class="box_top"></div>
+                <div class="box_main project">
+                    <div class="pic">
+						<a href="<c:out value="${rootPath}"/>project/Project.do?id=<c:out value="${person.id}"/>">
+							<c:choose>
+								<c:when test="${person.head==''|| person.head == null}"><img src="<c:out value="${rootPath}"/>static/image/temp/pic2.png" /></c:when>
+								<c:otherwise><img src="<c:out value="${rootPath}"/><c:out value="${person.head}"/>" /></c:otherwise>
+							</c:choose>
+                      </a>
+ 						<span>机构</span>
+                    </div>
+                    <div>
+                        <div class="title">
+                            <a href="<c:out value="${rootPath}"/>project/Project.do?id=<c:out value="${person.id}"/>"><c:out value="${person.orgShortname}"/></a>
+                        </div>
+                        <div class="desc">
+                            <c:out escapeXml="false" value="${person.intro}"/>
+                        </div>
+                       
+                    </div>
+                    <div class="tool">
+							<a data-url="<c:out value="${rootPath}"/>project/Project.do?id=<c:out value="${person.id}"/>" class="share">分享</a>
+							<a href="<c:out value="${rootPath}"/>project/Project.do?id=<c:out value="${person.id}"/>" class="view"></a>
+                    </div>
+                </div>
+                <div class="box_bottom"></div>
+            </div>
 			</c:forEach>
+			</div>
+            <div class="clear"></div>
+        </div>
+        
+         <div class="block1 proj_type_<c:out value="${orgType3.id}"/>">
+            <div class="top">
+                <h2><c:out value="${orgType3.name}"/></h2>
+                <div class="cate">
+                   
+                    <a href="CompanyMainMore.do?a=queryOrg&mainType=5&perjob=<c:out value="${orgType3.id}"/>">更多 &gt;&gt;</a>
+                </div>
+            </div>
+			<c:forEach var="person" varStatus="status" items="${orgUser3.messages}">
 			<c:choose>
-				<c:when test="${msg.curPage==msg.pageCount}"><a href="javascript:void();" class="prev">下一页</a></c:when>
-				<c:otherwise><a href="../recruit/ListMain.do?a=<c:out value="${queryType}"/>&more=1&recruitType=view&mainType=3&type=${type}&key=${key}&curPage=<c:out value="${msg.curPage+1}"/>" class="prev">下一页</a></c:otherwise>
+				<c:when test="${status.index%4==0}"><div class="box box_last"></c:when>
+				<c:otherwise> <div class="box"></c:otherwise>
 			</c:choose>
-		</div>
+                <div class="box_top"></div>
+                <div class="box_main project">
+                    <div class="pic">
+						<a href="<c:out value="${rootPath}"/>project/Project.do?id=<c:out value="${person.id}"/>">
+							<c:choose>
+								<c:when test="${person.head==''|| person.head == null}"><img src="<c:out value="${rootPath}"/>static/image/temp/pic2.png" /></c:when>
+								<c:otherwise><img src="<c:out value="${rootPath}"/><c:out value="${person.head}"/>" /></c:otherwise>
+							</c:choose>
+                      </a>
+                      <span>机构</span>
+                    </div>
+                    <div>
+                        <div class="title">
+                            <a href="<c:out value="${rootPath}"/>project/Project.do?id=<c:out value="${person.id}"/>"><c:out value="${person.orgShortname}"/></a>
+                        </div>
+                        <div class="desc">
+                            <c:out escapeXml="false" value="${person.intro}"/>
+                        </div>
+                       
+                    </div>
+                    <div class="tool">
+							<a data-url="<c:out value="${rootPath}"/>project/Project.do?id=<c:out value="${person.id}"/>" class="share">分享</a>
+							<a href="<c:out value="${rootPath}"/>project/Project.do?id=<c:out value="${person.id}"/>" class="view"></a>
+                    </div>
+                </div>
+                <div class="box_bottom"></div>
+            </div>
+			</c:forEach>
+            <div class="clear"></div>
+        </div>
+		
+		 <div class="block2 proj_type_<c:out value="${orgType4.id}"/>">
+		  <div class="wrap">
+            <div class="top">
+                <h2><c:out value="${orgType4.name}"/></h2>
+                <div class="cate">
+                   
+                    <a href="CompanyMainMore.do?a=queryOrg&mainType=5&perjob=<c:out value="${orgType4.id}"/>">更多 &gt;&gt;</a>
+                </div>
+            </div>
+			<c:forEach var="person" varStatus="status" items="${orgUser4.messages}">
+			<c:choose>
+				<c:when test="${status.index%4==0}"><div class="box box_last"></c:when>
+				<c:otherwise> <div class="box"></c:otherwise>
+			</c:choose>
+                <div class="box_top"></div>
+                <div class="box_main project">
+                    <div class="pic">
+						<a href="<c:out value="${rootPath}"/>project/Project.do?id=<c:out value="${person.id}"/>">
+							<c:choose>
+								<c:when test="${person.head==''|| person.head == null}"><img src="<c:out value="${rootPath}"/>static/image/temp/pic2.png" /></c:when>
+								<c:otherwise><img src="<c:out value="${rootPath}"/><c:out value="${person.head}"/>" /></c:otherwise>
+							</c:choose>
+                      </a>
+                      <span>机构</span>
+                    </div>
+                    <div>
+                        <div class="title">
+                            <a href="<c:out value="${rootPath}"/>project/Project.do?id=<c:out value="${person.id}"/>"><c:out value="${person.orgShortname}"/></a>
+                        </div>
+                        <div class="desc">
+                            <c:out escapeXml="false" value="${person.intro}"/>
+                        </div>
+                       
+                    </div>
+                    <div class="tool">
+							<a data-url="<c:out value="${rootPath}"/>project/Project.do?id=<c:out value="${person.id}"/>" class="share">分享</a>
+							<a href="<c:out value="${rootPath}"/>project/Project.do?id=<c:out value="${person.id}"/>" class="view"></a>
+                    </div>
+                </div>
+                <div class="box_bottom"></div>
+            </div>
+			</c:forEach>
+			</div>
+            <div class="clear"></div>
+        </div>
+    </div>
+	<%@include file="../../inc/footer.inc"%>	
 	</div>
-	<%@include file="../../inc/footer.inc"%>
 </body>
 </html>

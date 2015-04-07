@@ -29,6 +29,19 @@ public class CompanyMainController extends Entry {
 		String action = request.getParameter("a");
 		if("queryCompanys".equals(action)){//获取招聘详细信息
 			queryCompanys(request, response, model);
+		}else if("queryOrg".equals(action)){
+			queryOrg(request, response, model);
+		}
+		else{
+			DictionaryReader reader = (DictionaryReader)Context.getBean("DictionaryReader"); 
+			//获得4种机构类型
+			Dictionary[] types = reader.getChildrenDics(DicTypes.DIC_ORG_TYPE.typeID(), 0);
+			for (int i = 0; i < types.length; i++) {
+				Dictionary dic = types[i];
+				Message msg = userManager.queryOrgs(1, 4, dic.getId());
+				model.put("orgType"+String.valueOf(i+1), dic);
+				model.put("orgUser"+String.valueOf(i+1), msg);
+			}
 		}
 		
 	}
@@ -43,20 +56,44 @@ public class CompanyMainController extends Entry {
 	private void queryCompanys(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception{
 		 
 		Dictionary[] types = recruitManager.getHotCitys();
-		List<String> hotCitys = new ArrayList<String>();
-		if(types != null && types.length > 0){
-			for(Dictionary type : types){
-				hotCitys.add(type.getName());
-			}
-		}
-		model.put("hotCitys", hotCitys);
+	    
+		model.put("hotCitys", types);
 		
 		int curPage = getInt(request, "curPage", 1);
-		String city = get(request, "city");//查询条件的值
-		Message msg = userManager.queryCompanys(curPage, 9, city);
+		int city = getInt(request, "city",0);//查询条件的值
+		int province = getInt(request, "",0);
+		String name  = get(request, "name","");
+		Message msg = userManager.queryCompanys(curPage, 9, province,city,name);
 		model.put("city", city);
 		model.put("msg", msg);
 	}
+	
+	/** 
+	* @author  leijj 
+	* 功能： 查询最新招聘信息
+	* @param request
+	* @param response
+	* @param model
+	* @throws Exception 
+	*/ 
+	private void queryOrg(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception{
+		 
+		int curPage = getInt(request, "curPage", 1);
+		int perjob = getInt(request, "perjob",0);
+ 
+		Message msg = userManager.queryCompanys(curPage, 12, perjob);
+		DictionaryReader reader = (DictionaryReader)Context.getBean("DictionaryReader"); 
+		Dictionary type = reader.getDic(DicTypes.DIC_ORG_TYPE.typeID(), perjob);
+		String perName = "";
+		if(type!=null){
+			perName = type.getName();
+		}
+		model.put("perName", perName);
+		
+		model.put("msg", msg);
+	}
+	
+	 
 	@Override
 	protected String getCurrentMenu() {
 		return "项目";

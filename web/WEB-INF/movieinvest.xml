@@ -188,6 +188,9 @@
 	<bean id="user.CompanyMain" class="com.tl.invest.user.user.CompanyMainController">
 		<property name="viewName"><value>user/user/companyMain</value></property>
 	</bean>
+	<bean id="user.CompanyMainMore" class="com.tl.invest.user.user.CompanyMainController">
+		<property name="viewName"><value>user/user/companyMainMore</value></property>
+	</bean>
 	<bean id="user.BasicInfo" class="com.tl.invest.user.user.UserMainController">
 		<property name="viewName"><value>user/user/userBasicInfo</value></property>
 	</bean>
@@ -398,6 +401,7 @@
 				<prop key="/user/PeopleMoreMain.do">user.PeopleMoreMain</prop>
 				<prop key="/user/PeopleDetailMain.do">user.People</prop>
 				<prop key="/user/CompanyMain.do">user.CompanyMain</prop>
+				<prop key="/user/CompanyMainMore.do">user.CompanyMainMore</prop>
 				<prop key="/user/BasicInfo.do">user.BasicInfo</prop>
 				<prop key="/user/HeadImg.do">user.HeadImg</prop>
 				<prop key="/user/Intro.do">user.Intro</prop>

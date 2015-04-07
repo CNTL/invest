@@ -92,7 +92,7 @@ var relAuth = {
 //			$("#btnSave").attr("disabled", false);
 //			return;
 //		}
-		if(organization.length==0 ||orgBusinessLicense.length){
+		if(organization.length==0 ||orgBusinessLicense.length==0){
 			alert("需要上传准拍证扫描件或者企业营业执照扫描件。")
 			flag = false;
 			$("#btnSave").attr("disabled", false);

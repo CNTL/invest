@@ -122,8 +122,7 @@ public class Entry extends BaseController {
 		list.add(new Menu(2, "项目","/project/List.do?mainType=2",class2, -999,0));
 		list.add(new Menu(3, "影聘","/recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3",class3, -999,0));
 		list.add(new Menu(4, "影人","/user/PeopleMain.do?a=queryPersons&mainType=4",class4, -999,0));
-		list.add(new Menu(5, "机构","/user/PeopleMain.do?a=queryPersons&mainType=5",class5, -999,0));
-		 
+		list.add(new Menu(5, "机构","/user/CompanyMain.do?mainType=5",class5, -999,0));
 		
 		return (Menu[]) list.toArray(new Menu[0]);
 	}

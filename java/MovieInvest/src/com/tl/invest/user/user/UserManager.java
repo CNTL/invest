@@ -493,6 +493,36 @@ public class UserManager {
 		int total = getMorePersonsCount(agetypeid, gender, typeIds, null);
 		return setMessage(persons, curPage, length, total);
 	}
+	
+	/**获得不同类型的机构
+	 * @param curPage
+	 * @param length
+	 * @param perJob
+	 * @return
+	 * @throws Exception
+	 */
+	public Message queryOrgs(int curPage, int length,int perJob) throws Exception{
+		StringBuilder querySql = new StringBuilder("select a from com.tl.invest.user.user.User as a")
+			.append(" where a.type = 1 and a.isRealNameIdent=1 and a.deleted=0 and perJob="+String.valueOf(perJob)+" ");
+		
+		querySql.append(" order by a.createTime desc");
+		List<User> persons = DAOHelper.find(querySql.toString() , length*(curPage-1), length);
+		int total = queryOrgsCount(perJob);
+		return setMessage(persons, curPage, length, total);
+	}
+	/** 
+	* @author  leijj 
+	* 功能： 根据职业查询相应的个人用户数
+	* @param perJob
+	* @param db
+	* @return
+	* @throws TLException 
+	*/ 
+	public int queryOrgsCount(int perJob) throws TLException{
+		String sql = "select count(0) from user as a where a.type=1 and a.isRealNameIdent=1 and a.deleted=0 and perJob="+String.valueOf(perJob)+" ";
+		 
+		return getSqlCount(sql,null,null);
+	}
 	/** 
 	* @author  leijj 
 	* 功能： 根据职业查询相应的个人用户数
@@ -546,34 +576,53 @@ public class UserManager {
 	* @return
 	* @throws Exception 
 	*/ 
-	public Message queryCompanys(int curPage, int length, String city) throws Exception{
-		StringBuilder querySql = new StringBuilder("SELECT DISTINCT u.*,dic.dic_id,dic.dic_name FROM user_recruit rt,user u LEFT JOIN sys_dictionary AS dic ON u.city=dic.dic_id WHERE u.id=rt.userID AND u.type=1");
-		StringBuilder countSql = new StringBuilder("SELECT count(rtUser.userID) AS count FROM (SELECT DISTINCT u.id as userID FROM user_recruit rt,user u LEFT JOIN sys_dictionary AS dic ON u.city=dic.dic_id WHERE u.id=rt.userID AND u.type=1");
-		List<Object> paramList = new ArrayList<Object>();
-		if(!StringUtils.isEmpty(city)){
-			if(!StringUtils.isEmpty(city)){
-				querySql.append(" and rt.cityName=?");
-				countSql.append(" and rt.cityName=?");
-				paramList.add(city);
-			}
-			/*if("其他".equals(city)){
-				String citys = "'北京','上海','广州','南京','重庆','长春','银川','苏州','横店','涿州','海外'";
-				querySql.append(" and dic.dic_name not in (").append(citys).append(")");
-				countSql.append(" and dic.dic_name not in (").append(citys).append(")");
-			} else {
-				querySql.append(" and dic.dic_name=?");
-				countSql.append(" and dic.dic_name=?");
-				paramList.add(city);
-			}*/
+	public Message queryCompanys(int curPage, int length,int province,int city,String name) throws Exception{
+		StringBuilder querySql = new StringBuilder("select * from user as a where a.type=1 and a.deleted=0  ");
+		StringBuilder countSql = new StringBuilder("SELECT count(*) AS count FROM (select * from user as a where a.type=1 and a.deleted=0  ");
+		
+		if(province>0){
+			querySql.append(" and a.province=").append(province).append(" ");
+			countSql.append(" and a.province=").append(province).append(" ");
+			
+		}
+		if(city>0){
+			querySql.append(" and a.city=").append(city).append(" ");
+			countSql.append(" and a.city=").append(city).append(" ");
+		}
+		if(!StringUtils.isEmpty(name)){
+			querySql.append(" and a.orgFullname LIKE '%"+name+"%'");
+			countSql.append(" and a.orgFullname LIKE '%"+name+"%'");
 		}
 		countSql.append(" ) AS rtUser");
+		querySql.append(" ORDER BY a.createTime desc");
+		
+		List<User> companys =  getUsers(querySql.toString(), null, length, curPage, null);
+		int total = getSqlCount(countSql.toString(), null, null);
+		return setMessage(companys, curPage, length, total);
+	}
 	
-		Object[] params = null;
-		if(paramList != null && paramList.size() > 0){
-			params = paramList.toArray(new Object[0]);
+	/** 
+	* @author  leijj 
+	* 功能： 查询公司用户
+	* @param curPage
+	* @param length
+	* @return
+	* @throws Exception 
+	*/ 
+	public Message queryCompanys(int curPage, int length,int perjob) throws Exception{
+		StringBuilder querySql = new StringBuilder("select * from user as a where a.type=1 and a.deleted=0  ");
+		StringBuilder countSql = new StringBuilder("SELECT count(*) AS count FROM (select * from user as a where a.type=1 and a.deleted=0  ");
+		
+		if(perjob>0){
+			querySql.append(" and a.perJob=").append(perjob).append(" ");
+			countSql.append(" and a.perJob=").append(perjob).append(" ");
+			
 		}
-		List<User> companys =  getUsers(querySql.toString(), params, length, curPage, null);
-		int total = getSqlCount(countSql.toString(), params, null);
+		countSql.append(" ) AS rtUser");
+		querySql.append(" ORDER BY a.createTime desc");
+		
+		List<User> companys =  getUsers(querySql.toString(), null, length, curPage, null);
+		int total = getSqlCount(countSql.toString(), null, null);
 		return setMessage(companys, curPage, length, total);
 	}
 	
@@ -609,6 +658,7 @@ public class UserManager {
 			User user = new User();
 			user.setId(rs.getInt("id"));
 			user.setCode(rs.getString("code"));
+			user.setType(rs.getInt("type"));
 			 
 			
 			user.setOrganization(rs.getString("organization"));
@@ -619,6 +669,8 @@ public class UserManager {
 			user.setOrgScale(rs.getString("orgScale"));
 			user.setOrgShortname(rs.getString("orgShortname"));
 			user.setOrgTrade(rs.getString("orgTrade"));
+			user.setProvince(rs.getString("province"));
+			user.setCity(rs.getString("city"));
 			user.setHead(rs.getString("head"));
 			user.setIntro(rs.getString("intro"));
 			user.setIntro_show(rs.getInt("intro_show"));
