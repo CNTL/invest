@@ -2301,7 +2301,7 @@ padding: 15px 15px 10px;
 
 .job_list .sider .cate_current {
 border: 2px #E6E6E6 solid;
-border-right: 2px #fff solid;
+
 background-color: #fff;
 }
 
@@ -2331,7 +2331,7 @@ font-size: 14px;
 display: none;
 position: absolute;
 top: -2px;
-left: 236px;
+left: 234px;
 width: 500px;
 padding-top: 30px;
 border: 2px #E6E6E6 solid;

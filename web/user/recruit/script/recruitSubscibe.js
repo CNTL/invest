@@ -50,6 +50,25 @@ $(document).ready(function () {
 			});
 		}
 	});
+	
+	$.getJSON("../recruit/ListMain.do?a=getAllCitys", function(json){
+		if(json.citys){
+			$("#rec-more").ProCitySel({
+				width:"200",
+				height:"30",
+				align:"bottom right",
+				placeholder:"请选择订阅城市",
+	            callbackEvent: function (names, ids) {
+	                 
+	                 $("#sl-city").html(names);
+	                 $("#hcityid").val(ids);
+	                 $("#hcityname").val(names);
+	            },
+	            data:json
+	        });
+			//$("#rec-more").css({"padding":"0","margin":"0"});
+		}
+	});
 });
 
 function formvalid(){

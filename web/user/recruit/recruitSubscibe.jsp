@@ -236,6 +236,7 @@ ul.reset {
 }
 
 </style>
+<link rel="stylesheet" type="text/css" href="../js/plugin/ProvinceCitySelect/jquery.ProvinceCitySelect.css"/>
 </head>
 <body>
 <%@include file="../../inc/header.inc"%>
@@ -281,31 +282,31 @@ ul.reset {
 							</dt>
 							<dd>
 								<span id="sl-rec" style="font-size:16px;margin-left:10px;"></span>
-								<input class="select" style="font-size:16px;" id="select_job" data-toggle="modal" data-target="#myModal" type="button" value="请选择职位名称">
 								
 								<span class="error" id="positionError" style="display: none;">请选择职位名称</span>
 								<input type="hidden" name="hrecid"  value="" id="hrecid" />
 		  						<input type="hidden" name="hrecname"  value="" id="hrecname" />
 							</dd>
+							<dd><input class="select" style="font-size:16px;" id="select_job" data-toggle="modal" data-target="#myModal" type="button" value="请选择职位名称"></dd>
 						</dl>
+						
 						<dl>
 							<dt>
 								<h3>
 									工作地点 <em></em><span>（必填）</span>
 								</h3>
 							</dt>
-							<dd>
-								 
+							<dd> 
+							
+								 <span id="sl-city" style="font-size:16px;margin-left:10px;"></span>
 								<input type="hidden" name="hcityid" value="" id="hcityid" />
 		  						<input type="hidden" name="hcityname"  value="" id="hcityname" />
-								<ul id="list-city" class="s_radio clearfix">
-									<c:forEach var="city" varStatus="status" items="${cities}" begin="0"  step="1" >
-									    <li data-id="${city.id}" data-name="${city.name}" title="${city.name}">${city.name}</li>
-										 
-									</c:forEach>
-								</ul>
-								<span class="error" id="cityError" style="display: none;">请选择工作地点
-								</span>
+								<span class="error" id="cityError" style="display: none;">请选择工作地点</span>
+								
+							</dd>
+							<dd>
+							 <div id="rec-more" style="font-size:16px;padding:10px;">&nbsp;</div>
+							 <input class="select" >
 							</dd>
 						</dl>
 						 <button type="button" id="btn-save" style="width:200px;" class="btn btn-success btn-lg">保存</button>
@@ -349,7 +350,7 @@ ul.reset {
  
 <!-- script -->
 <%@include file="../inc/script.inc"%>
-
+<script type="text/javascript" src="../js/plugin/ProvinceCitySelect/jquery.ProvinceCitySelect.js"></script>
 <script src = "../user/recruit/script/recruitSubscibe.js"></script>
 <!-- footer -->
 <%@include file="../../inc/footer.inc"%>

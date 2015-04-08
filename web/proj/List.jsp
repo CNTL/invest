@@ -189,7 +189,8 @@
 								<c:otherwise><img src="<c:out value="${rootPath}"/><c:out value="${proj.imgUrl}"/>" /></c:otherwise>
 							</c:choose>
                       </a>
-                        <span class="four"><c:out value="${proj.typeNickName}"/></span>
+<%--                         <span class="four"><c:out value="${proj.typeNickName}"/></span> --%>
+                         <span class="four">相关</span>
                     </div>
                     <div>
                         <div class="title">
