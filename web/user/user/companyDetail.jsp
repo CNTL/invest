@@ -16,24 +16,31 @@
 .reclist li{
 	line-height:60px;
 	border-left:3px solid #FFB124;
-	margin:10px;
-	padding:10px;
+	margin:10px 0;
+	padding:5px;
 }
 .reclist li h3{
-	font-size:20px;
+	font-size:16px;
 }
 .reclist li span{
 	font-size:14px;
 	margin-left:10px;
 	
 }
-
-.reclist li a {text-transform:none;text-decoration:none;color:#999999;} 
+.reclist li p{
+	color:#999999;
+	
+}
+.reclist li a {text-decoration:none;color:#666666;} 
 .reclist li a:hover{
-	background-color:#FFB124 !important;
-	color:#fff !important;
 	cursor:pointer;
 }
+
+.listover{
+	background:#FFB124;
+	color:#fff !important;
+}
+
 </style>
 </head>
 <body>
@@ -67,17 +74,17 @@
             		<span>公司介绍</span> 
             		
              </div>
-              <div class="content" style="font-size:20px;line-height:30px;padding:10px;">
+              <div class="content" style="font-size:16px;line-height:30px;padding:10px;">
                   ${user.orgFullname},简称${user.orgShortname} , ${user.intro}
                 </div>
            <div class="clear"></div>
              <div class="title">
             		<span>招聘职位</span> 
              </div>
-            <div class="tip">
-               该公司近两月共有 24 个职位正在招聘
-            </div>
+             
             <div style="border:1px solid #e8e8e8;">
+            <i class="label label-danger pull-right" style="font-size:14px;">共${reclength}个职位</i>
+            <br/> 
             <ul class="reclist">
             <c:forEach var="rec" varStatus="status" items="${recList}" >
             	<li> 
@@ -125,9 +132,21 @@
 	<!-- footer -->
 	<%@include file="../../inc/footer.inc"%>
 	<!-- footer -->
-	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=6eea93095ae93db2c77be9ac910ff311"></script>
-	<script type="text/javascript" src="../js/layer/layer.min.js"></script>
-	<script type="text/javascript" src="../js/utils.js"></script>
-	<script type="text/javascript" src="../user/recruit/script/recruitDetail.js"></script>
+	<script type="text/javascript">
+	$(function(){
+		$(".reclist li").hover(
+		  function () {
+		    $(this).addClass("listover");
+		    $(this).find("h3").addClass("listover");
+		    $(this).find("p").addClass("listover");
+		  },
+		  function () {
+		    $(this).removeClass("listover");
+		    $(this).find("h3").removeClass("listover");
+		    $(this).find("p").removeClass("listover");
+		  }
+		);
+	});
+	</script>
 </body>
 </html>

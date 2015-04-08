@@ -623,7 +623,10 @@ public class RecruitManager {
 			recruit.setCity(rs.getString("city"));
 		
 			User user = userManager.getUserByID(recruit.getUserId());
-			recruit.setCompany(user.getOrgFullname());
+			if(user!=null){
+				recruit.setCompany(user.getOrgFullname());
+			}
+			
 		    
 		    recruit.setResumeNum(getRecruitResumeNum(recruit.getId()));
 			

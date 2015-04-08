@@ -62,15 +62,18 @@ public class CompanyMainController extends Entry {
 		int userID = getInt(request, "id", 0);
 		User user = null;
 		UserRecruit[] recList = null;
+		int reclength = 0;
 		try {
 			user =  userManager.getUserByID(userID);
 			recList = recruitManager.queryRecruitsByUserID(userID);
+			reclength = recList.length;
 		} catch (Exception e) {
 			 
 		}
 		
 		model.put("user", user);
 		model.put("recList", recList);
+		model.put("reclength", reclength);
 	}
 	
 	/** 
