@@ -2648,11 +2648,12 @@ background-color: #0F6B8C;
 
 DIV.selectbox-wrapper {
 MARGIN-TOP: -3px;
-WIDTH: 70px;
+WIDTH: 80px;
 POSITION: absolute;
 BACKGROUND-COLOR: #fff;
 TEXT-ALIGN: left;
 border: 2px #FFC04D solid;
+border-top:0;
 BACKGROUND-COLOR: #fff;
 margin-left:-12px;
 }

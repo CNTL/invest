@@ -546,7 +546,7 @@ public class UserManager {
 			querySql.append(" and a.gender=").append(gender);		
 		}
 		if(!StringUtils.isEmpty(typeIds)){
-			querySql.append("  and "+typeIds+" in(a.per4Type)");	
+			querySql.append("  and "+typeIds+" in(a.perJob)");	
 		}
 		return querySql.toString();
 	}
