@@ -286,10 +286,10 @@
 		<property name="viewName"><value>user/resume/userResumeList</value></property>
 	</bean>
 	<bean id="resume.myrecruit" class="com.tl.invest.user.resume.ResumeMainController">
-		<property name="viewName"><value>user/resume/recruitResume</value></property>
+		<property name="viewName"><value>user/user/Recruit</value></property>
 	</bean>
 	<bean id="resume.recruitresume" class="com.tl.invest.user.resume.ResumeMainController">
-		<property name="viewName"><value>user/resume/recruitResume</value></property>
+		<property name="viewName"><value>user/user/RecruitSelected</value></property>
 	</bean>
 	<bean id="resume.resumeDetail" class="com.tl.invest.user.resume.ResumeMainController">
 		<property name="viewName"><value>user/resume/resumeDetail</value></property>
@@ -302,7 +302,7 @@
 	</bean>		
 	<!-- 职位管理  -->
 	<bean id="user.uesrRecruitManager" class="com.tl.invest.user.recruit.RecruitMainController">
-		<property name="viewName"><value>user/user/Recruit</value></property>
+		<property name="viewName"><value>user/user/RecruitManager</value></property>
 	</bean>	
 	<!-- 职位订阅  -->
 	<bean id="user.uesrRecruitSubscibe" class="com.tl.invest.user.recruit.RecruitMainController">

@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
    <%@include file="../../inc/meta.inc"%>
-	 
+	
 	<script type="text/javascript">
 		var webroot = "<c:out value="${rootPath}"/>";
 		var menu = "<c:out value="${menu}"/>";
@@ -43,8 +43,8 @@
             </div>
             <div class="clear"></div>
             <ul class="nav">
-				<li id="menu_1"><a class="current" href="<c:out value="${rootPath}"/>resume/myrecruit.do?a=myrecruit&infoType=1" class="current">职位收藏</a></li>
-				<li id="menu_2"><a href="<c:out value="${rootPath}"/>resume/recruitresume.do?a=recruitresume&infoType=2">已投职位</a></li>
+				<li id="menu_1"><a href="<c:out value="${rootPath}"/>resume/myrecruit.do?a=myrecruit&infoType=1">职位收藏</a></li>
+				<li id="menu_2"><a class="current"  href="<c:out value="${rootPath}"/>resume/recruitresume.do?a=recruitresume&infoType=2">已投职位</a></li>
 				<li id="menu_3"><a href="<c:out value="${rootPath}"/>recruit/Edit.do?a=detail&mainType=3">发布职位</a></li>
 				<li id="menu_4"><a href="<c:out value="${rootPath}"/>user/userRecruitManager.do?mainType=3">职位管理</a></li>
             </ul>
@@ -140,6 +140,7 @@
 	var typeFlag = "<%=request.getParameter("recruitType") %>";
 	var rootPath = "<%=com.tl.common.WebUtil.getRoot(request) %>";
  </script>
+ 
 <script type="text/javascript" src="../static/js/jQselect.js"></script>
 </body>
 </html>

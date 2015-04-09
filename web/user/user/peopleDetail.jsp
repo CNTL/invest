@@ -38,6 +38,17 @@
 		    <label class="col-sm-2 control-label">性别：</label>
 		    <label class="col-sm-2 control-label" style="text-align:left;"><c:if test="${user.gender==1}">女</c:if> <c:if test="${user.gender==0}">男</c:if> </label>
 		  </div>
+		  
+		  <c:if test="${recid>0}">
+			  <div class="form-group">
+			    <label class="col-sm-2 control-label">手机：</label>
+			    <label class="col-sm-2 control-label" style="text-align:left;"><c:out value="${user.perPhone}"/></label>
+			  </div>
+			  <div class="form-group">
+			    <label class="col-sm-2 control-label">邮箱：</label>
+			    <label class="col-sm-2 control-label" style="text-align:left;"><c:out value="${user.email}"/></label>
+			  </div>
+		</c:if>
 		  <div class="form-group">
 		    <label class="col-sm-2 control-label">年龄：</label>
 		    <label class="col-sm-2 control-label" style="text-align:left;"><c:out value="${user.ageTypeName}"/></label>

@@ -56,7 +56,7 @@
                     <label for="uploadify" class="col-sm-3 control-label">招聘图片：</label>
                     
 						<input type="hidden" id="queueItemCount" name="queueItemCount" value="0" />
-						<input type="hidden" id="jobPictrue" name="jobPictrue" value="" />
+						<input type="hidden" id="jobPictrue" name="jobPictrue" value="${recruit.jobPictrue}" />
 						<input type="hidden" id="uploadErrorMsg" name="uploadErrorMsg" value="" />
 					<div class="col-sm-2">
 						<input type="file" name="uploadify" id="uploadify" />

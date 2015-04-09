@@ -1,4 +1,4 @@
-﻿<br/>
+﻿
 <div class="footer">
 	<div class="wrap">
 		<div class="info hidden-xs">

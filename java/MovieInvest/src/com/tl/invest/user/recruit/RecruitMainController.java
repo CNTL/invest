@@ -152,7 +152,10 @@ public class RecruitMainController extends Entry {
 	 */
 	private void init(HttpServletRequest request, HttpServletResponse response, Map model)throws Exception{
 		Integer userid = getInt(request, "userid",-1);
-		if(userid!=-1){
+		if(userid<0){
+			userid = SessionHelper.getUserID(request);
+		}
+		if(userid>0){
 			//获得当前公司的所有职位。
 			UserRecruit[] recruitLists = recruitManager.queryRecruitsByUserID(userid);
 			model.put("recruitLists", recruitLists);

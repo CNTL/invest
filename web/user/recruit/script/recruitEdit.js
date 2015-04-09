@@ -65,13 +65,14 @@ var jobEdit = {
 		if(secondType_h != null && secondType_h != ''){
 			$("#secondType").val(secondType_h).trigger("change");
 		}
-//		var cityId_h = $("#cityId_h").val();
-//		if(cityId_h != null && cityId_h != ''){
-//			$("#workCity").val(cityId_h).trigger("change");
-//		}
 		
 	   jobEdit.changeProvince();
-		 
+	   var province_h = $("#province_h").val();
+		if(province_h!=null && province_h!=""){
+			$("#province").val(province_h);
+		}
+		
+		jobEdit.imgUploaded();
 	 
 	},
 	changeFirstType : function(){
@@ -82,12 +83,8 @@ var jobEdit = {
 	},
 	changeProvince : function(){
 		var cities = [];
-		var province_h = $("#province_h").val();
-		if(province_h!=null && province_h!=""){
-			$("#province").val(province_h);
-		}
-		
 		var pid = $("#province").val();
+		$("#province_h").val(pid);
 		cities = proj_datas.getCities(pid);
 		jobEdit._setOptions("city",cities,jobEdit.DEFAULT_PAIR);
 		var city_h = $("#city_h").val();
@@ -101,16 +98,19 @@ var jobEdit = {
 		var sel = document.getElementById(id);
 		if (!sel) return;
 		
-		while (sel.options.length > 0)
-			sel.options.remove(0);
-
+		 $(sel).empty();
+		 
 		for (var i = 0; i < datas.length; i++) {
 			var op = document.createElement("OPTION");
 			op.value = datas[i][pair.key];
 			op.text = datas[i][pair.value];
+			 
+			
 			sel.options.add(op);
 		}
+		
 		$(sel).trigger("change");
+		 
 	},
 	editorInit : function(){
 		var editor = CKEDITOR.replace("contentTxt",

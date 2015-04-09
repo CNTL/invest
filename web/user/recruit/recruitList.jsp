@@ -94,13 +94,13 @@
     <c:choose>
 			<c:when test="${loginUser.id>0 }">
 				<div class="top">
-					<a href="../resume/myresume.do?infoType=1">我的简历</a>
+					<a href="../user/BasicInfo.do?infoType=1">我的资料</a>
 			   </div>
 			    <a class="add" style="cursor:pointer" onclick="jobList.addRecruit();">+ 发布职位</a>
 			</c:when>
 			<c:otherwise>
 				<div class="top">
-					<a href="../resume/myresume.do?infoType=1">我的简历</a>
+					<a href="../user/BasicInfo.do?infoType=1">我的资料</a>
 			   </div>
 		
 			    <a class="add" style="cursor:pointer" href="../resume/myresume.do?infoType=1">+ 发布职位</a>
