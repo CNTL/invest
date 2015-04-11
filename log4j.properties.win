@@ -1,0 +1,44 @@
+### set log levels - for more verbose logging change 'info' to 'debug' ###
+### OFF,fatal,error,warn,info,debug,trace,ALL
+log4j.rootLogger=info, stdout
+
+log4j.logger.tl=info, tl
+log4j.logger.invest=info, invest
+log4j.logger.sys=info, sys
+log4j.logger.alipay=info, alipay
+
+### direct log messages to stdout ###
+log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+log4j.appender.stdout.Target=System.out
+log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+log4j.appender.stdout.layout.ConversionPattern=%d{ABSOLUTE} %5p %c{1}:%L - %m%n
+
+### direct messages to file mylog.log ###
+log4j.appender.file=org.apache.log4j.FileAppender
+log4j.appender.file.File=C:\\logs\\tl.log
+log4j.appender.file.layout=org.apache.log4j.PatternLayout
+log4j.appender.file.layout.ConversionPattern=%d{ABSOLUTE} %5p %c{1}:%L - %m%n
+
+### direct messages to file mylog.log ###
+log4j.appender.tl=org.apache.log4j.FileAppender
+log4j.appender.tl.File=C:\\logs\\tl.log
+log4j.appender.tl.layout=org.apache.log4j.PatternLayout
+log4j.appender.tl.layout.ConversionPattern=%d [%t] %-5p %l - %m%n
+
+### direct messages to file mylog.log ###
+log4j.appender.invest=org.apache.log4j.FileAppender
+log4j.appender.invest.File=C:\\logs\\invest.log
+log4j.appender.invest.layout=org.apache.log4j.PatternLayout
+log4j.appender.invest.layout.ConversionPattern=%d [%t] %-5p %l - %m%n
+
+### direct messages to file mylog.log ###
+log4j.appender.sys=org.apache.log4j.FileAppender
+log4j.appender.sys.File=C:\\logs\\tl-sys.log
+log4j.appender.sys.layout=org.apache.log4j.PatternLayout
+log4j.appender.sys.layout.ConversionPattern=%d [%t] %-5p %l - %m%n
+
+### direct messages to file alipay.log ###
+log4j.appender.alipay=org.apache.log4j.FileAppender
+log4j.appender.alipay.File=C:\\logs\\alipay.log
+log4j.appender.alipay.layout=org.apache.log4j.PatternLayout
+log4j.appender.alipay.layout.ConversionPattern=%d [%t] %-5p %l - %m%n
