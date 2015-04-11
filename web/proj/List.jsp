@@ -63,13 +63,38 @@
                         <div class="info">
                             目标：<c:out value="${proj.countDay}"/>天 ￥<c:out value="${proj.amountGoal}"/>
 							<span>
-								<c:choose>
-									<c:when test="${proj.status==0}">未开始</c:when>
-									<c:when test="${proj.status==1}">众筹中</c:when>
-									<c:when test="${proj.status==2}">众筹结束</c:when>
-									<c:when test="${proj.status==3}">锁定</c:when>
-									<c:otherwise>未知</c:otherwise>
-								</c:choose>
+								<c:if test="${proj.payType==0}">
+									<c:choose>
+										<c:when test="${proj.status==0}">未开始</c:when>
+										<c:when test="${proj.status==1}">众筹中</c:when>
+										<c:when test="${proj.status==2}">
+											<c:if test="${proj.finishPer>=100}">
+												众筹成功
+											</c:if>
+											<c:if test="${proj.finishPer<100}">
+												众筹失败
+											</c:if>
+										</c:when>
+										<c:when test="${proj.status==3}">锁定</c:when>
+										<c:otherwise>未知</c:otherwise>
+									</c:choose>
+								</c:if>
+								<c:if test="${proj.payType==1}">
+									<c:choose>
+										<c:when test="${proj.status==0}">未开始</c:when>
+										<c:when test="${proj.status==1}">竞拍中</c:when>
+										<c:when test="${proj.status==2}">
+											<c:if test="${proj.finishPer>=100}">
+												竞拍成功
+											</c:if>
+											<c:if test="${proj.finishPer<100}">
+												竞拍失败
+											</c:if>
+										</c:when>
+										<c:when test="${proj.status==3}">锁定</c:when>
+										<c:otherwise>未知</c:otherwise>
+									</c:choose>
+								</c:if>
 							</span>
                         </div>
                         <div class="progress">
