@@ -4,7 +4,7 @@ $(function(){
 
 function shareInfo(){
 	$(".box .tool a.share").each(function(i,n){
-		 $(this).mouseover(function(){
+		 $(this).click(function(){
 			 var url = $(this).attr("data-url");
 			 var box = $(this).closest(".box");
 			 var text = box.find(".title").find("a").text();

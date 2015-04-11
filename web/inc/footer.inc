@@ -45,11 +45,12 @@
 	</div>
 	<div id="sharedialog" style="display:none;">
         <div class="bdsharebuttonbox" data-tag="share_1">
-            <a class="bds_qzone" data-cmd="qzone" href="#"></a>
-            <a class="bds_tsina" data-cmd="tsina"></a>
-            <a class="bds_weixin" data-cmd="weixin"></a>
-            <a class="bds_renren" data-cmd="renren"></a>
-            <a class="bds_tqq" data-cmd="tqq"></a>
+			<a class="bds_tsina" data-cmd="tsina"></a>
+			<a class="bds_weixin" data-cmd="weixin"></a>
+			<a class="bds_renren" data-cmd="renren"></a>
+			<a class="bds_douban" data-cmd="douban"></a>
+			<a class="bds_tqq" data-cmd="tqq"></a>
+            <a class="bds_qzone" data-cmd="qzone"></a>
         </div>
     </div>
 	
@@ -61,8 +62,7 @@
 				bdMiniList:["tsina","qzone","weixin","renren","tqq","douban"],
                 bdText: '',
                 bdDesc: '',
-                bdUrl: '',
-                bdPic: ''
+                bdUrl: ''
             },
             share: [{
                 "bdSize": 16

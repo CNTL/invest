@@ -859,10 +859,16 @@ display: block;
 height: 35px;
 line-height: 35px;
 color: #BEBEBE;
+cursor:pointer;
 padding-left: 20px;
 margin-left: 10px;
 background: url(../image/s9.png) no-repeat left;
+text-decoration:none;
 }
+.box .tool a.share:hover {
+text-decoration:none;
+}
+
 
 .box .tool a.view {
 float: right;
@@ -2724,4 +2730,15 @@ background: url(../image/s42.png) no-repeat right;
    border: none !important;
    padding: 0 !important;
 	background:url(../image/upload_bg.png) !important;
+}
+
+.bd_weixin_popup .bd_weixin_popup_foot{
+	font-size:12px !important;
+	font-weight:bold !important;
+	line-height:15px !important;
+	padding-bottom:5px !important;
+}
+.bd_weixin_popup .bd_weixin_popup_main{
+	padding:10px 5px !important;
+	
 }
