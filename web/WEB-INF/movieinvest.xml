@@ -118,6 +118,15 @@
 	<bean id="user.LoginMain" class="com.tl.invest.user.user.UserLoginMainController">
 		<property name="viewName"><value>userout/userLogin</value></property>
 	</bean>
+	<bean id="user.findpwd1" class="com.tl.invest.user.user.UserLoginMainController">
+		<property name="viewName"><value>userout/findPwdStep1</value></property>
+	</bean>
+	<bean id="user.findpwd2" class="com.tl.invest.user.user.UserLoginMainController">
+		<property name="viewName"><value>userout/findPwdStep2</value></property>
+	</bean>
+	<bean id="user.findpwd3" class="com.tl.invest.user.user.UserLoginMainController">
+		<property name="viewName"><value>userout/findPwdStep3</value></property>
+	</bean>
 	<bean id="user.LoginRelMain" class="com.tl.invest.user.user.UserLoginMainController">
 		<property name="viewName"><value>userout/userLoginRel</value></property>
 	</bean>
@@ -432,6 +441,10 @@
 				<prop key="/org/AddressSubmit.do">address.Submit</prop>
 				
 				<!-- 用户相关 -->
+				
+				<prop key="/user/findpwd.do">user.findpwd1</prop>
+				<prop key="/user/sendpwd.do">user.findpwd2</prop>
+				<prop key="/user/resetpwd.do">user.findpwd3</prop>
 				<prop key="/user/userlogin.do">user.Login</prop>
 				<prop key="/user/user.do">user.User</prop>
 				<prop key="/user/userFetch.do">user.UserFetch</prop>

@@ -3,13 +3,15 @@
 <!doctype html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>合众映画</title>
-    <meta name="keywords" content="合众映画" />
-    <meta name="description" content="合众映画" />
-    <%@include file="../user/inc/csslink.inc"%>
+<title><c:out value="${title}"/></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="<c:out value="${keywords}"/>" />
+<meta name="description" content="<c:out value="${description}"/>" />
+<%@include file="../user/inc/csslink.inc"%>
 </head>
+
 <body>
+<%@include file="../inc/header.inc"%>
 	<div class="shadow"></div>
 	<div class="login">
     	<input type="hidden" id="resubmitToken" value="" />
@@ -22,19 +24,17 @@
                 </div>
                 <br>
                 <div class="btn" style="margin-left:90px;">
-                 	<input type="submit" id="submitLogin" value="找回密码" />
+                 	<input type="submit" id="submitLogin" class="btn btn-success" value="找回密码" />
                 </div>
             </form>
         </div>
     </div>
     
-    <!-- footer -->
-	<%@include file="../inc/footer.inc"%>
+   
 	<!-- footer -->
 	<!-- script -->
-	<%@include file="./inc/script.inc"%>
+	<%@include file="../user/inc/script.inc"%>
 	<!-- script -->
-    <script type="text/javascript" src="../js/utils.js"></script>
 	<script type="text/javascript" src="script/findPwd.js"></script>
 <script type="text/javascript">
 $(document).ready(function () {
@@ -63,13 +63,12 @@ var findPwd = {
 	        success:function(data){
 	    		if(data != null){
 	    			if(data.error != null && data.error.length > 0){
-	    				alert(result.error)
-	    				$.messager.alert('消息',result.error);
+	    				 
+	    				$.messager.alert('消息',data.error);
 	    			} else {
 	    				var email = data.email;
 	    				var emailType = data.emailType;
-	    				alert(emailType);
-	    				window.location.replace("findPwdStep2.jsp?email=" + encodeSpecialCode(email) + "&emailType=" + emailType);
+	    				window.location.replace("sendpwd.do?email=" + encodeSpecialCode(email) + "&emailType=" + emailType);
 	    			}
 	    		}
 	        } ,
@@ -80,5 +79,7 @@ var findPwd = {
 	}
 }
 </script>
+ <!-- footer -->
+	<%@include file="../inc/footer.inc"%>
 </body>
 </html>

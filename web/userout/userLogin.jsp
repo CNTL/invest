@@ -25,7 +25,7 @@
                 </div>
                 <div class="info">
                     <input type="checkbox" id="auto" name="auto" checked="checked" /> 记住我
-                    <a href="../userout/findPwdStep1.jsp" class="forget">忘记密码？</a>
+                    <a href="findpwd.do" class="forget">忘记密码？</a>
                 </div>
                 <div class="btn">
                     <input type="submit" id="login" name="login" class="btn btn-sucess" value="登录" />

@@ -19,6 +19,7 @@ import com.tl.common.JsonDateValueProcessor;
 import com.tl.common.ParamInitUtils;
 import com.tl.common.RandomValidateCode;
 import com.tl.common.WebUtil;
+import com.tl.invest.common.ParamReader;
 import com.tl.invest.constant.DicTypes;
 import com.tl.invest.user.email.EMailSenderHelper;
 import com.tl.invest.user.email.EmailSender;
@@ -33,6 +34,8 @@ import com.tl.kernel.sys.dic.Dictionary;
 import com.tl.kernel.sys.dic.DictionaryReader;
 import com.tl.kernel.web.BaseController;
 import com.tl.kernel.web.SysSessionUser;
+import com.tl.sys.param.SysParam;
+import com.tl.sys.param.SysParamManager;
 
 /**创建登录session
  * @created 2014-8-31
@@ -427,10 +430,17 @@ public class UserLoginController extends BaseController
 	* @author  leijj 
 	* 功能： 发送找回密码邮件
 	* @param email 
+	 * @throws Exception 
 	*/ 
-	private void sendEmail(HttpServletRequest request, User user){
+	private void sendEmail(HttpServletRequest request, User user) throws Exception{
 		StringBuilder emailHtml =  new StringBuilder("");
-		emailHtml.append("<a href=\"").append(WebUtil.getRoot(request))
+		 
+		String homeurlString = ParamReader.getSEOConfig("当前网址");
+		String webrootString = WebUtil.getRoot(request);
+		if(homeurlString!=null){
+			webrootString = homeurlString;
+		}
+		emailHtml.append("<a href=\"").append(webrootString)
 			.append("user/userlogin.do?a=resetPwd&id=")
 			.append(user.getId()).append("\">").append("请点击此链接重置合众映画登陆密码").append("</a>");
 		EmailSender emailSender = EMailSenderHelper.getEmailSender();//邮件发送服务器信息先组装好
@@ -467,5 +477,6 @@ public class UserLoginController extends BaseController
 		request.getSession().setAttribute("state", state);
 	}
 	private PhotoManager photoManager = (PhotoManager)Context.getBean(PhotoManager.class);
+	private SysParamManager sysManager = (SysParamManager)Context.getBean(SysParamManager.class);
 	private UserVideoManager userVideoManager = (UserVideoManager)Context.getBean(UserVideoManager.class);
 }
