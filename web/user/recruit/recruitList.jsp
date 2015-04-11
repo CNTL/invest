@@ -112,7 +112,7 @@
                  <div class="type">
                      <select name="type" id="type">
                      <c:choose>
-						<c:when test="${type==1}">
+						<c:when test="${searchType==1}">
 							<option value="0">职位</option>
                         	<option value="1" selected>公司</option>
 						</c:when>

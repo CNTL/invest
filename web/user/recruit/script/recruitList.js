@@ -1,6 +1,11 @@
 $(document).ready(function () {
 	jobList.init();
 	
+	var searchType = $.query.get("searchType");
+	if(searchType!=null&&searchType!=""){
+		$("#type").val(searchType);
+	}
+	
 	$.getJSON("../recruit/ListMain.do?a=getAllCitys", function(json){
 		if(json.citys){
 			$("#rec-more").ProCitySel({
@@ -73,7 +78,7 @@ var jobList = {
 		paramData["more"] = more;
 		paramData["city"] = city;
 		var params = {"param":JSON.stringify(paramData)};
-		alert(params)
+		//alert(params)
 		$.ajax({
 	        type:"POST", //请求方式  
 	        url:"../recruit/ListMain.do?a=queryNew&city=" + city, //请求路径  
@@ -136,8 +141,9 @@ var jobList = {
 		var key = $("#key").val();
 		var city = $("#city").val();
 		var more = $("#more").val();
-		var pageUrl = "../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&type=" + type + 
-			"&key=" + key + "&city=" + encodeURIComponent(city) + "&more=" + more;  
+		var pageUrl = "../recruit/ListMain.do?a=queryNew&recruitType=view&mainType=3&searchType=" + type + 
+			"&key=" + encodeURIComponent(key) + "&city=" + encodeURIComponent(city) + "&more=" + more;  
+		 
 		window.location.href = pageUrl;
 	}
 }

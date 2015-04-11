@@ -262,7 +262,7 @@ public class RecruitMainController extends Entry {
 		
 		request.setCharacterEncoding("utf-8");
 		String recruitType = "view";//get(request, "recruitType");//是否是职位管理（view-浏览所有招聘信息，edit-管理我的职位信息）
-		int searchType = getInt(request, "searchType");//0=职位，1=公司
+		int searchType = getInt(request, "searchType",0);//0=职位，1=公司
 		String key = get(request, "key");//查询条件的值
 		Integer city = getInt(request, "city",-1);//查询条件的值
 		Integer province = getInt(request, "province",-1);
@@ -270,6 +270,7 @@ public class RecruitMainController extends Entry {
 		Integer Degree = getInt(request, "Degree",-1);//最低学历
 		Integer JobType = getInt(request, "JobType",-1);//工作类型
 		Integer PubTime = getInt(request, "PubTime",-1);//发布时间
+		 
 		 
 		int curPage = getInt(request, "curPage", 1);
 		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
@@ -291,6 +292,7 @@ public class RecruitMainController extends Entry {
 		model.put("Degree", Degree);
 		model.put("JobType", JobType);
 		model.put("PubTime", PubTime);
+		model.put("searchType", searchType);
 	}
 	@Override
 	protected void setMetaData(HttpServletRequest request,Map model) {
