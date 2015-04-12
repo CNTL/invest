@@ -16,7 +16,37 @@ $(document).ready(function(){
 	resume.init();
 	
 	$("#report").click(function(){
-		alert("举报");
+		 
+		$("#reportform").dialog({
+		           title:   "举报该职位"
+		        , onClose: function() { 
+		             
+		             $(this).dialog("destroy");
+		         },
+		         buttons: [
+		                   {
+		                       text: "关闭"
+		                    , 'class': "btn-primary"
+		                    , click: function() {
+		                         $(this).dialog("close");
+		                       }
+		                   },
+		                   {
+		                       text: "保存"
+		                     , 'class': "btn-success"
+		                     , click: function() {
+		                    	 $.post("../user/recruitResume.do?a=report", { reportitem: $("#report_item").find("option:selected").text(), reportcontent: $("#report_content").val(),recid:$.query.get("id") },
+		                    			   function(data){
+		                    		 $.messager.alert('消息', "职位举报成功！");
+		                    			   });
+		        
+		                         $(this).dialog("close");
+		                       }
+		                   }
+		                 ]
+		       });
+
+		
 	});
 });
 function setMyPoint(lng,lat){

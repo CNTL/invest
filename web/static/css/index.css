@@ -2751,3 +2751,8 @@ background: url(../image/s42.png) no-repeat right;
 	padding:10px 5px !important;
 	
 }
+.modal-header h4{
+	font-size:20px;
+	line-height:30px;
+	font-weight:bold;
+}

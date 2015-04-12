@@ -98,6 +98,32 @@
     <div style="display:none">
     	<input type="text" id="location" name="location" value="${user.location}"/>
     </div>
+    <div id="reportwarp" style="display:none;">
+    	
+      <form id="reportform" role="form" class="form-horizontal">
+      <div>若你发现本职位存在违规现象，举报均为匿名，欢迎举报。</div>
+         <div class="form-group">
+		    <label for="inputEmail3" class="col-sm-2 control-label">举报原因:</label>
+		    <div class="col-sm-10">
+		       <select class="form-control" id="report_item">
+				  <option>薪资不真实</option>
+				  <option>工作经验不真实</option>
+				  <option>学历要求不真实</option>
+				  <option>公司信息不真实</option>
+				  <option>其他</option>
+				</select>
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label for="report_content" class="col-sm-2 control-label">详情描述:</label>
+		    <div class="col-sm-10">
+		       <textarea id="report_content" class="form-control" rows="3"></textarea>
+		    </div>
+		  </div>
+         
+      </form>
+    </div>
+    
 	<!-- script -->
 	<%@include file="../inc/script.inc"%>
 	<!-- script -->
