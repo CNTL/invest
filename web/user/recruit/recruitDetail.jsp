@@ -28,7 +28,7 @@
             </div>
             <div class="date">
                 	发布时间：${recruit.time}
- 
+ 				<a id="report" class="report" href="#">举报该职位</a>
             </div>
             <div class="block">
                 <h2>职位描述</h2>

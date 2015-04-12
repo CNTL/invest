@@ -14,6 +14,10 @@ $(document).ready(function(){
 	}
 	
 	resume.init();
+	
+	$("#report").click(function(){
+		alert("举报");
+	});
 });
 function setMyPoint(lng,lat){
 	var point = new BMap.Point(lng,lat);
@@ -28,6 +32,7 @@ function myFun(result){
    var cityName = result.name;
    map.centerAndZoom(cityName,12);  
 }
+ 
 //收藏职位
 var pagei = null;
 var resume = {

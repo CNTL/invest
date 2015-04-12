@@ -131,8 +131,10 @@
 	
 	<!-- footer -->
 	<%@include file="../../inc/footer.inc"%>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=6eea93095ae93db2c77be9ac910ff311"></script>
 	<!-- footer -->
 	<script type="text/javascript">
+	var map = new BMap.Map("allmap");
 	$(function(){
 		$(".reclist li").hover(
 		  function () {
@@ -146,7 +148,34 @@
 		    $(this).find("p").removeClass("listover");
 		  }
 		);
+		
+		
+		var location = $("#location").val();
+		if(location != null && location != ""){
+			var myGeo = new BMap.Geocoder();
+			myGeo.getPoint(location, function(point){
+				if (point) {
+					setMyPoint(point.lng,point.lat);
+				}
+			});
+		} else {
+			var myCity = new BMap.LocalCity();
+			myCity.get(myFun);
+		}
 	});
+	function setMyPoint(lng,lat){
+		var point = new BMap.Point(lng,lat);
+		map.centerAndZoom(point,15);
+		map.enableScrollWheelZoom(); 
+		
+		var marker = new BMap.Marker(point);
+		map.addOverlay(marker);
+	}
+	//根据ip设置地图中心
+	function myFun(result){
+	   var cityName = result.name;
+	   map.centerAndZoom(cityName,12);  
+	}
 	</script>
 </body>
 </html>

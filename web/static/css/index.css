@@ -199,10 +199,19 @@ border:0px solid blue;
 height:30px;
 
 }
+
 @media (max-width: 1024px) {
 	.search-container{
         width: 120px;
 	}
+}
+.head-username{
+	padding:0;margin: 15px 20px 0 0 ;  width: 80px;
+}
+@media (max-width: 1024px) {
+	.head-username{
+	padding:0;margin: 15px 0 0 0 ;  width: 80px;
+}
 }
  
 .head-searchcat{

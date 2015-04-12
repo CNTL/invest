@@ -12,6 +12,12 @@
 		color:#fff !important;
 		cursor:pointer;
 	}
+	.subscribe a{
+		color:#333333 !important;
+	}
+	.subscribe a:hover{
+		color:#333333 !important;
+	}
   </style>
   <link rel="stylesheet" type="text/css" href="../js/plugin/ProvinceCitySelect/jquery.ProvinceCitySelect.css"/>
  

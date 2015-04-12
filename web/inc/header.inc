@@ -75,7 +75,7 @@
 				</div>
 			</div>
 			
-			<div class="col-md-4" style="padding:0;margin: 15px 0 0 0 ;  width: 80px;">
+			<div class="col-md-4 head-username" >
 			<c:if test="${loginUser.id>0}">
 				<div class="username" >
 						<a id="hzusername"><c:out value="${loginUser.name}"/></a>  
