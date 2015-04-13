@@ -151,7 +151,7 @@
 				                        <a href="../user/PeopleDetailMain.do?a=detail&mainType=4&id=<c:out value="${person.id}"/>">
 				                        <c:out value="${person.name}"/>
 				                        </a>
-				                        <span><c:out value="${fn.replace(person.perJobName,"人","狗")}"/></span>
+				                        <span><c:out value="${person.perJobName}"/></span>
 				                        
 				                    </div>
 				                    <div class="desc">
