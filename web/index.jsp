@@ -481,7 +481,7 @@
 			<div class="title">
 				<a href="user/PeopleDetailMain.do?a=detail&id=<c:out value="${user.id}"/>"><c:out value="${user.name}"/></a> <span><c:out value="${user.perJobName}"/></span>
 			</div>
-			<div class="desc"><c:out value="${user.intro}"/></div>
+			<div class="desc"><c:out escapeXml="false" value="${user.intro}"/></div>
 			<div class="tool">
 				<a data-url="<c:out value="${rootPath}"/>user/PeopleDetailMain.do?a=detail&id=<c:out value="${user.id}"/>" class="share">分享</a> <a href="user/PeopleDetailMain.do?a=detail&id=<c:out value="${user.id}"/>" class="view"></a>
 			</div>

@@ -108,7 +108,8 @@
 	                        <span><c:out value="${person.perJobName}"/></span>
 	                    </div>
 	                    <div class="desc">
-	                        <c:out value="${person.intro}"/>
+	                         
+	                        <c:out escapeXml="false" value="${person.intro}"/>
 	                    </div>
 	                    <div class="tool">
 	                        <a data-url="<c:out value="${rootPath}"/>user/PeopleDetailMain.do?a=detail&mainType=4&id=<c:out value="${person.id}"/>" class="share">分享</a>

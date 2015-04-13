@@ -173,14 +173,14 @@ public class UserResumeManager {
 	* @throws Exception 
 	*/ 
 	public Message getMyResumeRecruits(int curPage, int length, Integer userId) throws Exception{
-		String sql = "SELECT rt.* FROM user_recruit rt,user_recruitresume rr, user_resume rs WHERE  rr.collected=1 and rt.id=rr.recruitID AND  rr.userId=?";
+		String sql = "SELECT rt.* FROM user_recruit rt,user_recruitresume rr WHERE  rr.collected=0 and rt.id=rr.recruitID AND  rr.userId=?";
 		Object[] params = new Object[]{userId};
 		List<UserRecruit> myRecruits =  recruitManager.getRecruits(sql, params, length, curPage, null);
 		int total = getMyResumeRecruitCount(userId, null);
 		return recruitManager.setMessage(myRecruits, curPage, length, total);
 	}
 	public int getMyResumeRecruitCount(int userID,DBSession db) throws Exception{
-		String sql = "SELECT COUNT(rt.id) FROM user_recruit rt,user_recruitresume rr, user_resume rs WHERE  rr.collected=1 and rt.id=rr.recruitID   and rr.userId=?";
+		String sql = "SELECT COUNT(rt.id) FROM user_recruit rt,user_recruitresume rr WHERE  rr.collected=0 and rt.id=rr.recruitID   and rr.userId=?";
 		Object[] params = new Object[]{userID};
 		return recruitManager.getSqlCount(sql,params,db);
 	}

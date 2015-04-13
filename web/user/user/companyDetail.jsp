@@ -63,7 +63,7 @@
             <div class="desc">
                 <ul>
                     
-                    <li>${user.provinceName}-${user.cityName}</li>
+                    <li>${user.provinceName}/${user.cityName}</li>
 
                 </ul>
             </div>
@@ -89,7 +89,7 @@
             <c:forEach var="rec" varStatus="status" items="${recList}" >
             	<li> 
             	<a href="../recruit/DetailMain.do?a=detail&id=${rec.id}">
-            	 	<h3>${rec.jobName}<span>[${rec.cityName}]</span> <span class="pull-right">${rec.createtimeStr}</span></h3>
+            	 	<h3>${rec.jobName}<span>[${rec.provinceName}/${rec.cityName}]</span> <span class="pull-right">${rec.createtimeStr}</span></h3>
             	 	<p>${rec.salary}元/${rec.days}天/${rec.working}经验/
             	 	<c:if test="${rec.isFulltime==0}" >
             	 	兼职

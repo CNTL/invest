@@ -1,4 +1,5 @@
 ﻿<%@ include file="../../include/Include.jsp"%>
+ 
 <%@page pageEncoding="UTF-8"%>
 <!doctype html>
 <html>
@@ -150,10 +151,12 @@
 				                        <a href="../user/PeopleDetailMain.do?a=detail&mainType=4&id=<c:out value="${person.id}"/>">
 				                        <c:out value="${person.name}"/>
 				                        </a>
-				                        <span><c:out value="${person.perJobName}"/></span>
+				                        <span><c:out value="${fn.replace(person.perJobName,"人","狗")}"/></span>
+				                        
 				                    </div>
 				                    <div class="desc">
-				                        <c:out value="${person.intro}"/>
+				                        
+				                        <c:out escapeXml="false" value="${person.intro}"/>
 				                    </div>
                                 </div>
                                 <div class="tool">
