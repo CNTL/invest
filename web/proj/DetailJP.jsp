@@ -156,8 +156,8 @@
 						<c:otherwise>未知</c:otherwise>
 					</c:choose>
 				</span>
-				<h2>&nbsp;&nbsp;&nbsp;发起人：<div class="avatar" style="margin-left:10px;display:inline;"><img style="border-radius: 50%;width:60px;height:60px;" src="../<c:out value="${user.head}"/>" /> <a style="color:#FF6254;" target="_blank" href="../user/PeopleDetailMain.do?a=detail&mainType=4&id=<c:out value="${user.id}"/>"><c:out value="${user.perNickName}"/></a></div></h2>
-				<h2>项目地域：&nbsp;&nbsp;<c:out value="${proj.provinceName}"/>-<c:out value="${proj.cityName}"/></h2>
+				<h2 style="margin-top:30px;">&nbsp;&nbsp;&nbsp;发起人：<div class="avatar" style="margin-left:10px;display:inline;"><img style="border-radius: 50%;width:60px;height:60px;" src="../<c:out value="${user.head}"/>" /> <a style="color:#FF6254;" target="_blank" href="../user/PeopleDetailMain.do?a=detail&mainType=4&id=<c:out value="${user.id}"/>"><c:out value="${user.perNickName}"/></a></div></h2>
+				<h2>项目地域：&nbsp;&nbsp;<c:out value="${proj.provinceName}"/>/<c:out value="${proj.cityName}"/></h2>
                 <h2>目前金额：</h2>
                 <div class="money">￥ 
                 <span class="moneyFormat">

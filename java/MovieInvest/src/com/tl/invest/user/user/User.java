@@ -640,7 +640,7 @@ public class User {
 						if(dic!=null){
 							perJobNameString = perJobNameString+ dic.getName();
 							if(i<recIDs.length-1){
-								perJobNameString = perJobNameString+",";
+								perJobNameString = perJobNameString+"/";
 							}
 						}
 						

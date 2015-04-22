@@ -135,12 +135,18 @@ public class URLEntryFilter implements Filter {
 	}
 	//是否不必检查session
 	private boolean isSessionExclude(String path) {
+		String clearPath = path;
+		if(path.startsWith("/")){
+			clearPath = path.substring(1, path.length());
+		}
 		//只对jsp和do进行session检查
-		if (!path.endsWith(".jsp") && !path.endsWith(".do")) return true;
+		if (!clearPath.endsWith(".jsp") && !clearPath.endsWith(".do")) return true;
 		if (excludeSessions == null) return false;
 		
 		for (int i = 0; i < excludeSessions.length; i++) {
-			if (path.contains(excludeSessions[i])) return true;
+			if (clearPath.equals(excludeSessions[i])){
+				return true;
+			}
 		}
 		return false;
 	}
