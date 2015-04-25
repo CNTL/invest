@@ -4,18 +4,15 @@
 <html>
 <head>
 <%@include file="../inc/csslink.inc"%>
-<link rel="stylesheet" type="text/css" media="screen" href="<c:out value="${rootPath}"/>js/bootstrap/css/bootstrap.min.css">
+
 <style>
 	a {text-transform:none;text-decoration:none;} 
 	a:hover{
-		background:#019875;
+		background:#FFB124;
 		color:#fff !important;
 		cursor:pointer;
-		font-size:14px !important;
 	}
-	*{
-	 box-sizing:content-box;
-	}
+	 
 	#selected div {
 		font-size: 16px;
 		color: #393d3f;
@@ -178,18 +175,16 @@
 		right: 0px;
 		top: 10px;
 	}
-	 
   </style>
-   <link rel="stylesheet" type="text/css" href="../js/plugin/ProvinceCitySelect/jquery.ProvinceCitySelect.css"/>
+  <link rel="stylesheet" type="text/css" href="../js/plugin/ProvinceCitySelect/jquery.ProvinceCitySelect.css"/>
+ 
 </head>
 <body>
+<div id="body-container" style="min-width:980px;">
 <%@include file="../../inc/header.inc"%>
- 
 <div class="banner hidden-xs">
     <img src="../static/image/banner1.png" />
 </div>
-<div class="body-container">
- 
 
 <div style="display:none;">
 <input type="text" id="city" name="city" value="<c:out value="${city}"/>"/>
@@ -274,7 +269,7 @@
                      <input type="text" id="key" name="key" value="<c:out value="${key}"/>" placeholder="请输入你要搜索的职位，如“制片人”"/>
                  </div>
                  <div class="submit">
-                     <input type="button" id="search" name="search" value="搜索" />
+                     <input type="button" id="search" style="height:46px;" name="search" value="搜索" />
                  </div>
              </form>
              <div class="clear"></div>
@@ -394,7 +389,7 @@
      </div>
     <div class="clear"></div>
 </div>
-</div>
+ 
 <input type="hidden" id="hDays" data-id="Days" value="<c:out value="${Days}"/>" />
 <input type="hidden" id="hDegree" data-id="Degree"  value="<c:out value="${Degree}"/>" />
 <input type="hidden" id="hJobType" data-id="JobType"  value="<c:out value="${JobType}"/>" />
@@ -402,14 +397,16 @@
 <input type="hidden" id="hcity" data-id="city"  value="<c:out value="${city}"/>" />
 <input type="hidden" id="hcityname" data-id="city"  value="<c:out value="${cityname}"/>" />
 <input type="hidden" id="hprovince" data-id="province"  value="<c:out value="${province}"/>" />
-
-
+ 
+<!-- body-container-end -->
+ </div>
 
 <!-- footer -->    
 <!-- script -->
 <%@include file="../inc/script.inc"%>
 <!-- script -->
-
+<!-- footer -->
+<%@include file="../../inc/footer.inc"%>
 <script>
 	var typeFlag = "<%=request.getParameter("recruitType") %>";
 	var rootPath = "<c:out value="${rootPath}"/>";
@@ -420,7 +417,6 @@
   <script type="text/javascript" src="../js/plugin/query/jquery.query.js"></script>
   <script type="text/javascript" src="../js/plugin/ProvinceCitySelect/jquery.ProvinceCitySelect.js"></script>
 <script src = "../user/recruit/script/recruitListSearch.js"></script>
-<!-- footer -->
-<%@include file="../../inc/footer.inc"%>
+
 </body>
 </html>
