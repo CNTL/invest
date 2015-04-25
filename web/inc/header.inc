@@ -85,9 +85,10 @@
 				<div class="hzmini_login">
 					<a href="<c:out value="${rootPath}"/>login.jsp">登录</a>
 					
-					<!--<span>|</span>
+					<!-- -->
+					<span>|</span>
 					<a href="<c:out value="${rootPath}"/>register.jsp">注册</a>
-					-->
+					
 				</div>
 			</c:if>
 			</div>

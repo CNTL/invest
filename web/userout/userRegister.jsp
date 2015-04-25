@@ -156,7 +156,7 @@ text-decoration: none;
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title rectitle" id="myModalLabel">职业选择</h4>
+        <h4 class="modal-title rectitle" id="myModalLabel">职业选择(可多选)</h4>
       </div>
       <div class="modal-body" id="modal-body">
       <c:forEach var="type" varStatus="status" items="${types}" >
