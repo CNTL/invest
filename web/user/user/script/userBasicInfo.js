@@ -48,7 +48,7 @@ function setRec(){
 	});
 	$("#recIDs").val(recIDs.join(","));
 	$("#recNames").val(recNames.join(","));
-	$("#perjob").val(recNames.join(","));
+	$("#perjob").val(recNames.join("/"));
 }
 var complete = {
 		DEFAULT_PAIR : {key:"id",value:"name"},

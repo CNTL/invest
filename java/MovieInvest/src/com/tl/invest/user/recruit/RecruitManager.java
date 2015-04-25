@@ -619,6 +619,7 @@ public class RecruitManager {
 			recruit.setJobOrder(rs.getInt("jobOrder"));
 			recruit.setDeleted(rs.getInt("deleted"));
 			recruit.setDays(rs.getString("days"));
+			recruit.setJobType(rs.getInt("jobType"));
 			recruit.setProvince(rs.getString("province"));
 			recruit.setCity(rs.getString("city"));
 		

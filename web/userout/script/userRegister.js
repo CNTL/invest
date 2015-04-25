@@ -18,7 +18,7 @@ function setRec(){
 	});
 	$("#recIDs").val(recIDs.join(","));
 	$("#recNames").val(recNames.join(","));
-	$("#perjob").val(recNames.join(","));
+	$("#perjob").val(recNames.join("/"));
 }
 function checkpassword(){
 	var password1 = $("#password1").val();

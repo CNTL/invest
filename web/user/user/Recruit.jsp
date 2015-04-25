@@ -90,9 +90,10 @@
                         </div>
                         <div class="info">
                             <ul>
-                                <li><c:out value="${msg.salary}"/></li>
+                                <li><c:out value="${msg.jobTypeName}"/><c:out value="${msg.salary}"/></li>
                                 <li><c:out value="${msg.address}"/></li>
                                 <li><c:out value="${msg.days}"/></li>
+                                
                             </ul>
                         </div>
                         <div class="desc">

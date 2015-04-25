@@ -195,9 +195,16 @@
 				sb.push("            </div>");
 				sb.push("            <div class=\"info\">");
 				sb.push("                <ul>");
-				sb.push("                    <li>"+n.salary+"</li>");
-				sb.push("                    <li>"+n.cityName+"</li>");
-				sb.push("                    <li>"+n.days+"天</li>");
+				if(n.jobType.toString()=="0"){
+					sb.push("                    <li>总价"+n.salary+"</li>");
+					sb.push("                    <li>"+n.provinceName+"</li>");
+					sb.push("                    <li>"+n.days+"天</li>");
+				}else{
+					sb.push("                    <li>月薪"+n.salary+"</li>");
+					sb.push("                    <li>"+n.provinceName+"</li>");
+					sb.push("                    <li>"+n.days+"个月</li>");
+				}
+				
 				sb.push("                </ul>");
 				sb.push("            </div>");
 				sb.push("            <div class=\"desc\">");
@@ -453,9 +460,18 @@
 					</div>
 					<div class="info">
 						<ul>
-							<li><c:out value="${recuit.salary}"/></li>
-							<li><c:out value="${recuit.cityName}"/></li>
-							<li><c:out value="${recuit.days}"/>天</li>
+							 
+							 <c:if test="${recuit.jobType==0}">
+			                 	<li>总价${recuit.salary}元</li>
+			                    <li>${recuit.provinceName}</li>
+			                    <li>${recuit.days}天</li>
+			                </c:if>
+			                
+			                 <c:if test="${recuit.jobType==1}">
+			                 	<li>月薪${recuit.salary}元</li>
+			                    <li>${recuit.provinceName}</li>
+			                    <li>${recuit.days}个月</li>
+			                </c:if>
 						</ul>
 					</div>
 					<div class="desc">

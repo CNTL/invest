@@ -68,6 +68,10 @@
             <column name="days" length="500">
             </column>
         </property>
+        <property name="jobType" type="java.lang.Integer">
+            <column name="jobType">
+            </column>
+        </property>
         <property name="content" type="string">
             <column name="content" length="65535">
             </column>

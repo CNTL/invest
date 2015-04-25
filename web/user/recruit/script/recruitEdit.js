@@ -71,9 +71,18 @@ var jobEdit = {
 		if(province_h!=null && province_h!=""){
 			$("#province").val(province_h);
 		}
+		jobEdit.changeJobType();
+		$("#jobType").val(0);
+		
+		var jobType_h = $("#jobtype_h").val();
+		if(jobType_h!=null && jobType_h!=""){
+			$("#jobType").val(jobType_h);
+		}
+		 
 		
 		jobEdit.imgUploaded();
-	 
+		
+		
 	},
 	changeFirstType : function(){
 		var secondTypes = [];
@@ -93,6 +102,17 @@ var jobEdit = {
 		}
 		 
 		
+	},
+	changeJobType : function(){
+		 
+		var jobtype = $("#jobType").val();
+		$("#jobtype_h").val(jobtype);
+		if(jobtype.toString()=="0"){
+			$("#jobLength").text("天")
+		}else{
+			$("#jobLength").text("个月")
+		}
+			
 	},
 	_setOptions : function(id, datas, pair) {
 		var sel = document.getElementById(id);

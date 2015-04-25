@@ -186,8 +186,9 @@ public class RecruitController extends BaseController {
 		recruit.setLinkman(ParamInitUtils.getString(request.getParameter("linkman")));
 		recruit.setLinkPhone(ParamInitUtils.getString(request.getParameter("linkPhone")));
 		recruit.setLinkEmail(ParamInitUtils.getString(request.getParameter("linkEmail")));
-		recruit.setFirstType(firstType);
-		recruit.setSecondType(secondType);
+		recruit.setJobType(getInt(request, "jobType",0));
+		//recruit.setFirstType(firstType);
+		//recruit.setSecondType(secondType);
 		recruit.setTypeName(typeName);
 		recruit.setProvince(province);
 		recruit.setCity(city);

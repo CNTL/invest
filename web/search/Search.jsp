@@ -109,9 +109,18 @@
 						</div>
 						<div class="info">
 							<ul>
-								<li><c:out value="${recruit.salary}"/></li>
-								<li><c:out value="${recruit.cityName}"/></li>
-								<li><c:out value="${recruit.days}"/>天</li>
+								 
+								 <c:if test="${recruit.jobType==0}">
+				                 	<li>总价${recruit.salary}元</li>
+				                    <li>${recruit.provinceName}</li>
+				                    <li>${recruit.days}天</li>
+				                </c:if>
+				                
+				                 <c:if test="${recruit.jobType==1}">
+				                 	<li>月薪${recruit.salary}元</li>
+				                    <li>${recruit.provinceName}</li>
+				                    <li>${recruit.days}个月</li>
+				                </c:if>
 							</ul>
 						</div>
 						<div class="desc">

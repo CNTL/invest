@@ -20,6 +20,8 @@
 		<input type="hidden" id="secondType_h" name="secondType_h" value="${recruit.secondType}"/>
 		<input type="hidden" id="province_h" name="province_h" value="${recruit.province}"/>
 		<input type="hidden" id="city_h" name="city_h" value="${recruit.city}"/>
+		<input type="hidden" id="jobtype_h" name="jobtype_h" value="${recruit.jobType}"/>
+		
       		  <div class="form-group">
                     <label for="jobName" class="col-sm-3 control-label">招聘主题：</label>
                     <div class="col-sm-6">
@@ -65,6 +67,16 @@
                           <div id="coverIMG_div" style="display:none;width:150px;height:150px;overflow:hidden;background:#fff;border:1px solid #C7C7C7;"></div>
                       </div>
                   </div>
+                   <div class="form-group">
+                    <label for="jobType" class="col-sm-3 control-label">薪酬类型：</label>
+                    <div class="col-sm-3">
+			            <select id="jobType" name="jobType" class="form-control validate[required]" onchange="jobEdit.changeJobType();">
+			            	<option value="0" selected="selected">总价</option>
+			            	<option value="1">月薪</option>
+			            </select>
+                    </div>
+                     
+                </div>
                 <div class="form-group">
                     <label for="jobName" class="col-sm-3 control-label">薪资待遇：</label>
                     <div class="col-sm-6">
@@ -77,7 +89,7 @@
                     <div class="col-sm-3">
                         <input class="form-control validate[maxSize[255]]" type="text" id="days" name="days" value="${recruit.days}" placeholder="工作时长"/>
                     </div>
-                    <label class="col-sm-1 control-label">（天）</label>
+                    <label id="jobLength" class="col-sm-1 control-label">（天）</label>
                 </div>
                 
                 <div class="form-group">

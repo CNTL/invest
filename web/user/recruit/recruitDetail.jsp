@@ -21,9 +21,18 @@
             </div>
             <div class="desc">
                 <ul>
-                    <li>${recruit.salary}</li>
-                    <li>${user.cityName}</li>
-                    <li>${recruit.days}天</li>
+                <c:if test="${recruit.jobType==0}">
+                 	<li>总价${recruit.salary}元</li>
+                    <li>${recruit.provinceName}/${recruit.cityName}</li>
+                    <li>时长${recruit.days}天</li>
+                </c:if>
+                
+                <c:if test="${recruit.jobType==1}">
+                 	<li>月薪${recruit.salary}元</li>
+                    <li>${recruit.provinceName}/${recruit.cityName}</li>
+                    <li>时长${recruit.days}个月</li>
+                </c:if>
+                   
                 </ul>
             </div>
             <div class="date">

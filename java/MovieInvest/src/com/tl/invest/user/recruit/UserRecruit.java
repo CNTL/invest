@@ -46,12 +46,31 @@ public class UserRecruit {
 	private Integer isPub;
 	private Integer resumeNum;
 	private String days;
+	private Integer jobType;
+	private String jobTypeName;
+	
 	private Integer firstType;
 	private Integer secondType;
 	private String typeName;
 	private Integer jobOrder;
 	 
+	public String getJobTypeName() {
+		if(jobType==0){
+			return "×Ü¼Û";
+		}
+		else{
+			return "ÔÂÐ½";
+		}
+		
+	}
+	public Integer getJobType() {
+		return jobType;
+	}
 
+	public void setJobType(Integer jobType) {
+		this.jobType = jobType;
+		getJobTypeName();
+	}
 	private int deleted;
 	public int getDeleted() {
 		return deleted;
