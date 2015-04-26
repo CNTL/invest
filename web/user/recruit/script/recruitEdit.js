@@ -2,7 +2,17 @@ $(document).ready(function () {
 	 
 	$.get("../recruit/ListMain.do?a=isConverdInfo", function(data){
 		if(data=="0"){
-			$.messager.popup("你还没有完善详细资料。页面将跳转到详细资料页面。",converInfo);
+			var userid = $("#userID");
+			var usertype = $("#userType");
+			if(userid.length>0&&usertype.length>0){
+				if(usertype.val().toString()=="0"){
+					$.messager.popup("你还没有完成实名认证和团队资料。页面将跳转到个人设置页面。",converInfo);
+				}else{
+					$.messager.popup("你还没有完成实名认证和团队资料。页面将跳转到机构设置页面。",converInfo);
+				}
+				
+			}
+			
 		}else{
 			var init = function() {
 				if (!type_datas || !type_datas.ready) {

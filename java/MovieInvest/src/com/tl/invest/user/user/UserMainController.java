@@ -88,7 +88,7 @@ public class UserMainController extends Entry {
 			list.add(new Menu(2, "修改密码","/user/PwdChange.do?infoType=2", class2, -999,0));
 			list.add(new Menu(3, "头像管理", "/user/HeadImg.do?infoType=3", class3,-999,0));
 			list.add(new Menu(4, "实名认证", "/user/RelAuth.do?infoType=4", class4,-999,0));
-			list.add(new Menu(5, "详细资料", "/org/DetailInfo.do?infoType=5&type=0", class5,-999,0));
+			list.add(new Menu(5, "团队资料", "/org/DetailInfo.do?infoType=5&type=0", class5,-999,0));
 			list.add(new Menu(6, "个人图册", "/user/PhotoGroupMa.do?infoType=6", class6,-999,0));
 			list.add(new Menu(7, "个人视频", "/user/VideoGroupMa.do?infoType=7", class7,-999,0));
 //			list.add(new Menu(8, "简历管理", "/resume/userResume.do?infoType=8", class8,-999,0));
@@ -98,7 +98,7 @@ public class UserMainController extends Entry {
 			list.add(new Menu(2, "修改密码", "/user/PwdChange.do?infoType=2", class2, -999,0));
 			list.add(new Menu(3, "头像管理", "/user/HeadImg.do?infoType=3", class3,-999,0));
 			list.add(new Menu(4, "机构认证", "/org/RelAuth.do?infoType=4", class4,-999,0));
-			list.add(new Menu(5, "详细资料", "/org/DetailInfo.do?infoType=5&type=1", class5,-999,0));
+			list.add(new Menu(5, "机构资料", "/org/DetailInfo.do?infoType=5&type=1", class5,-999,0));
 			list.add(new Menu(6, "机构图册", "/user/PhotoGroupMa.do?infoType=6", class6,-999,0));
 			list.add(new Menu(7, "机构视频", "/user/VideoGroupMa.do?infoType=7", class7,-999,0));
 			list.add(new Menu(8, "收件地址", "/org/Address.do?infoType=8", class8,-999,0));

@@ -349,6 +349,9 @@ public class RecruitMainController extends Entry {
 				&& (!StringUtils.isEmpty(user.getOrgScale()))){
 			ret = true;
 		}
+		if(user.getIsRealNameIdent()==1){
+			ret = false;
+		}
 		return ret;
 	}
 	private UserManager userManager = (UserManager)Context.getBean(UserManager.class);

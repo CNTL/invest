@@ -62,7 +62,14 @@ text-decoration: none;
                       	 <input type="hidden" id="name_show" name="name_show" value="" />
                       </div>
                   </div>
-                  
+                  <div class="form-group">
+                  	<div class="col-sm-3">
+                  	</div>
+                  	<div class="col-sm-5">
+                  	<span id="helpBlock" class="help-block "> 需移步到实名认证才可以完成。</span>
+                  	</div>
+                 		
+                  </div>
                   <div class="form-group">
                       <label for="perNickName" class="col-sm-3 control-label">昵称：</label>
                       <div class="col-sm-5">

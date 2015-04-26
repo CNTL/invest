@@ -53,7 +53,8 @@
                   </div>
                   
                   <div class="form-group">
-                      <label for="perPhone" class="col-sm-4 control-label">法人代表手机：</label>
+                      <label for="perPhone" class="col-sm-4 control-label">联系人手机：</label>
+                      
                       <div class="col-sm-4">
                           <input type="text" class="form-control validate[custom[mobilephone],required]" type="text" id="perPhone" name="perPhone" style="width:200px">
                           
@@ -62,7 +63,12 @@
                       	<span class="btn btn-info" id="btnGetCode">获取验证码</span>
                       </div>
                   </div>
-                  
+                   <div class="form-group">
+                    <div class="col-sm-4"></div>
+                   <div class="col-sm-8">
+                  	<span id="helpBlock" class="help-block ">需与注册时使用的手机号一致。</span>
+                	</div>
+                  </div>
                   <div class="form-group">
                       <label for="perPhoneCode" class="col-sm-4 control-label">短信验证码：</label>
                       <div class="col-sm-2">

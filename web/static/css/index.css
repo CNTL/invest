@@ -194,7 +194,7 @@ color: #999;
 .search-container{
 margin:0;
 padding:0;
-width:260px;
+width:260px !important;
 border:0px solid blue;
 height:30px;
 

@@ -32,7 +32,7 @@
 					   msg.push("<p></p></td>");
 					   msg.push("<td  class=\"span12\">");
 					   msg.push("<a href=\"#\" target=\"_blank\" style=\"font-size:14px;\">"+json.perNickName+"</a>");
-					   msg.push("<small><p>"+json.intro+"</p></small>");
+					   //msg.push("<small><p>"+json.intro+"</p></small>");
 					   msg.push("</td>");
 					   msg.push("</tr>");
 					   $("#msg_to").val(json.perNickName);

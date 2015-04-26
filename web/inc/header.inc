@@ -72,10 +72,12 @@
 				</c:if>
 				<div style="display:none;">
 					<input type="hidden" id="userID" name="userID" value="<c:out value="${loginUser.id}"/>"/>
+					<input type="hidden" id="userType" name="userType" value="<c:out value="${loginUser.type}"/>" />
 				</div>
 			</div>
 			
 			<div class="col-md-4 head-username" >
+			
 			<c:if test="${loginUser.id>0}">
 				<div class="username" >
 						<a id="hzusername"><c:out value="${loginUser.name}"/></a>  
