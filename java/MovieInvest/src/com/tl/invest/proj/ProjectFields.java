@@ -71,6 +71,13 @@ public enum ProjectFields {
 			project.setName(value);
 		}
 	},
+	bigmvSection("proj_bigmvSection","长篇阶段",DataType.INTEGER) {
+		@Override
+		public void setValue(Project project, String value) {
+			if(StringUtils.isEmpty(value)) value = "0";
+			project.setBigmvSection(Integer.parseInt(value));
+		}
+	},
 	userID("proj_userID","创建人ID",DataType.INTEGER) {
 		@Override
 		public void setValue(Project project, String value) {

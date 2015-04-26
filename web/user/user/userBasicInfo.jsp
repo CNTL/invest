@@ -149,7 +149,7 @@ text-decoration: none;
                           <input type="text" class="form-control validate[maxSize[3],custom[integer]]" id="weight" name="weight" placeholder="">
                       </div>
                       <div class="col-sm-2">
-                      	<label  class="control-label">斤</label>
+                      	<label  class="control-label">公斤</label>
                       </div>
                        <div class="col-sm-2">
                       	 <label  class="control-label"><input type="checkbox" id="weight_showcb" name="weight_showcb">公开</label>

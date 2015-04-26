@@ -172,6 +172,14 @@ function confirmjingpai(id){
 	});
 }
 function validJpForm() {
+	//判断是否实名认证
+	var isrealName = $("#isRealName_h").val().toString();
+	if(isrealName!="1"){
+		$.messager.popup("发布项需要进行实名认证。请先进行实名认证。",function(){
+			window.location.href="../user/RelAuth.do?infoType=4";
+		});
+		
+	}
 	if (!$("#jpForm").validationEngine("validate")){
 		//验证提示
 		$("#jpForm").validationEngine("updatePromptsPosition");

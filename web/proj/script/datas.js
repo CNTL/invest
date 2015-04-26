@@ -45,6 +45,10 @@ var proj_datas = {
 		}
 		return cities;
 	},
+	getBigmvSections : function(){
+		return proj_datas.datas.bigmvSections;
+	},
+	
 	getCounties : function(cid){
 		var counties = [];
 		//counties.push({id:"",pid:cid,name:"=地区="});

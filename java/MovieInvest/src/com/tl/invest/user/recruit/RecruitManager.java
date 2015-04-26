@@ -410,6 +410,16 @@ public class RecruitManager {
             return null;
 	}
 	
+	public void delRecCollectandPost(Integer userid,Integer id) throws Exception{
+		if(id<=0){
+			return;
+		}
+		String sql = "delete  com.tl.invest.user.recruit.UserRecruitresume as a where a.userId = "+
+				userid + "  and  a.recruitId = " + id;
+		DAOHelper.delete(sql);
+		 
+	}
+	
 	/**
 	 * 根据recruitID查询是否已收藏职位
 	 * 

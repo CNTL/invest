@@ -28,6 +28,8 @@ public class Project implements java.io.Serializable {
 	private java.util.Date locktime;
 	private long pid;
 	private String name;
+	private Integer bigmvSection;
+	private String bigmvSectionName;
 	private int userId;
 	private int payType;
 	private int type;
@@ -165,7 +167,34 @@ public class Project implements java.io.Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public Integer getBigmvSection() {
+		return bigmvSection;
+	}
 
+	public void setBigmvSection(Integer bigmvSection) {
+		this.bigmvSection = bigmvSection;
+		getBigmvSectionName();
+	}
+	public String getBigmvSectionName() {
+		if(bigmvSection!=null&&bigmvSection>0){
+			try {
+				DictionaryReader reader = (DictionaryReader)Context.getBean("DictionaryReader");
+				if(this.province>0){
+					Dictionary dic = reader.getDic(DicTypes.DIC_BIGMV_TYPE.typeID(),this.bigmvSection);
+					return dic.getName();
+				}
+			} catch (Exception e) {
+				return "";
+			}
+			return "";
+			 
+		}
+		else{
+			return "";
+		}
+		 
+	}
 	public int getUserId() {
 		return userId;
 	}

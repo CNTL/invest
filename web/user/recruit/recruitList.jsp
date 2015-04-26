@@ -198,7 +198,7 @@
 				                </c:if>
 				                
 				                 <c:if test="${msg.jobType==1}">
-				                 	<li>月薪${recuit.salary}元</li>
+				                 	<li>月薪${msg.salary}元</li>
 				                    <li>${msg.provinceName}</li>
 				                    <li>${msg.days}个月</li>
 				                </c:if>

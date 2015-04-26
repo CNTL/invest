@@ -334,6 +334,8 @@ public class ProjectFetcher extends BaseController{
 		DictionaryReader dicReader = (DictionaryReader)Context.getBean(DictionaryReader.class);
 		Dictionary[] projTypes = dicReader.getDics(DicTypes.DIC_INVEST_TYPE.typeID());
 		Dictionary[] areas = dicReader.getDics(DicTypes.DIC_AREA.typeID());
+		Dictionary[] bigmvSection = dicReader.getDics(DicTypes.DIC_BIGMV_TYPE.typeID());
+		
 		
 		StringBuffer sb1 = new StringBuffer();
 		for (Dictionary area : areas) {
@@ -355,10 +357,21 @@ public class ProjectFetcher extends BaseController{
 			sb2.append("}");
 		}
 		
+		StringBuffer sb3 = new StringBuffer();
+		for (Dictionary sec : bigmvSection) {
+			if(sb3.length()>0) sb3.append(",");
+			sb3.append("{");
+			sb3.append("\"id\":"+sec.getId());
+			sb3.append(",\"pid\":"+sec.getPid());
+			sb3.append(",\"name\":\""+sec.getName()+"\"");
+			sb3.append("}");
+		}
+		
 		StringBuffer sb = new StringBuffer();
 		sb.append("{");
 		sb.append("\"ProjTypes\":["+sb2.toString()+"]");
 		sb.append(",\"areas\":["+sb1.toString()+"]");
+		sb.append(",\"bigmvSections\":["+sb3.toString()+"]");
 		sb.append("}");
 		
 		output(sb.toString(), response);

@@ -36,7 +36,9 @@
 					</span>
 				 </h2>
                 <div class="desc">
-                    <c:out value="${loginUser.intro}"/><br />
+                     
+                    <c:out escapeXml="false" value="${loginUser.intro}"/>
+                    <br />
                     姓名：<c:out value="${loginUser.name}"/><br />
                     <span style="display:none;">短信息</span>
                 </div>
@@ -90,9 +92,18 @@
                         </div>
                         <div class="info">
                             <ul>
-                                <li><c:out value="${msg.jobTypeName}"/><c:out value="${msg.salary}"/></li>
-                                <li><c:out value="${msg.address}"/></li>
-                                <li><c:out value="${msg.days}"/></li>
+                               
+                                 <c:if test="${msg.jobType==0}">
+				                 	<li>总价${msg.salary}元</li>
+				                    <li>${msg.provinceName}</li>
+				                    <li>${msg.days}天</li>
+				                </c:if>
+				                
+				                 <c:if test="${msg.jobType==1}">
+				                 	<li>月薪${msg.salary}元</li>
+				                    <li>${msg.provinceName}</li>
+				                    <li>${msg.days}个月</li>
+				                </c:if>
                                 
                             </ul>
                         </div>
@@ -103,7 +114,10 @@
                         </div>
                     </div>
                     <div class="tool">
-                        <a href="#" class="share">分享</a>
+                    	<button type="button" class="btn btn-default btn-sm" onclick="delRec(<c:out value="${msg.id}"/>);">
+						  <span class="glyphicon glyphicon-remove"></span> 删除
+						</button>
+                    
                         <a href="#" class="view"></a>
                     </div>
                 </div>
@@ -141,6 +155,31 @@
 	var typeFlag = "<%=request.getParameter("recruitType") %>";
 	var rootPath = "<%=com.tl.common.WebUtil.getRoot(request) %>";
  </script>
+ 
 <script type="text/javascript" src="../static/js/jQselect.js"></script>
+<script type="text/javascript">
+function delRec(id){
+	
+	$.ajax({
+        type:"GET", //请求方式  
+        url:"../user/recruitResume.do?a=delrec&recid=" +id  , //请求路径  
+        cache: false,
+        dataType: 'TEXT',   //返回值类型  
+        success:function(data){
+        	if(data != null && data == "ok"){
+    			
+    			window.location.reload();
+
+    		}else{
+    			$.messager.alert('消息', "删除失败!");
+    		}
+        } ,
+		error:function (XMLHttpRequest, textStatus, errorThrown) {
+			   alert("error="+errorThrown);
+		}
+    });
+	
+}
+</script>
 </body>
 </html>

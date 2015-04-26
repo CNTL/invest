@@ -5,6 +5,7 @@ var proj_form = {
 		{id:"proj_province",evt:"change", fn:"changeProvince"}, 
 		{id:"proj_city",evt:"change", fn:"changeCity"}, 
 		{id:"proj_countDay_sel",evt:"change", fn:"changeCountDaySel"},
+		{id:"proj_bigmvsection",evt:"change", fn:"changeBigmvSections"},
 		{id:"proj_payType",evt:"change",fn:"changePayType"}
 		],
 	DEFAULT_PAIR : {key:"id",value:"name"},
@@ -21,9 +22,11 @@ var proj_form = {
 		
 		proj_form.changeCountDaySel();
 		proj_form.initProjTypes();
+		
 		//proj_form._setOptions("proj_type",proj_datas.getProjTypes(),proj_form.DEFAULT_PAIR);
 		proj_form._setOptions("proj_province",proj_datas.getProvinces(),proj_form.DEFAULT_PAIR);
-		
+		proj_form._setOptions("proj_bigmvsection",proj_datas.getBigmvSections(),proj_form.DEFAULT_PAIR);
+		proj_form.changeBigmvSections();
 		$("#proj_beginDate").calendar({ minDate:'%y-%M-%d',maxDate:'#proj_endDate',format:"yyyy-MM-dd HH:mm:ss"});
 		$("#proj_endDate").calendar({ minDate:'#proj_beginDate',format:"yyyy-MM-dd HH:mm:ss"});
 		
@@ -97,6 +100,8 @@ var proj_form = {
 					$("#proj_beginDate").val(datas.proj.beginDateStr);
 					$("#proj_endDate").val(datas.proj.endDateStr);
 				}
+				proj_form._setOptions("proj_bigmvsection",proj_datas.getBigmvSections(),proj_form.DEFAULT_PAIR);
+				$("#proj_bigmvsection").val(datas.proj.bigmvSection).trigger("change");
 				//CKEDITOR.instances.proj_content.setData(datas.proj.content);
 				var countDay = datas.proj.countDay;
 				var countMonth = countDay/30;
@@ -155,7 +160,7 @@ var proj_form = {
 		html += "<input type=\"hidden\" id=\"mode_deleted\" value=\""+mode.mode_deleted+"\" />";
 		html += "<input type=\"hidden\" id=\"mode_status\" value=\""+mode.mode_status+"\" />";
 		html += "<div class=\"input\"><label>支持金额：</label><input type=\"text\" id=\"mode_price\" name=\"mode_price\" class=\"validate[required,custom[number]] \" style=\"width:86px;margin-right:10px;border-radius:4px;\" value=\""+mode.mode_price+"\" /><label for=\"mode_price_free_chk\" style=\"display: inline-flex;width: 50px;text-align: left;height: 18px;line-height: 18px;margin-bottom: 0px;font-weight: normal;margin-right:10px;\"><input type=\"checkbox\" id=\"mode_price_free_chk\" style=\"width: 18px;height: 18px;line-height: 18px;padding: 0px;margin: 0px;\" />免费</label></div>";
-		html += "<div class=\"input\"><label>回报限额：</label><input type=\"text\" id=\"mode_countGoal\" name=\"mode_countGoal\" class=\"validate[required,custom[number]]\" style=\"width:76px;margin-right:10px;border-radius:4px;\" value=\""+mode.mode_countGoal+"\" /><label for=\"mode_countGoal_free_chk\" style=\"display: inline-flex;width: 50px;text-align: left;height: 18px;line-height: 18px;margin-bottom: 0px;font-weight: normal;\"><input type=\"checkbox\" id=\"mode_countGoal_free_chk\" style=\"width: 18px;height: 18px;line-height: 18px;padding: 0px;margin: 0px;\" />不限</label></div>";
+		html += "<div class=\"input\"><label>数量限额：</label><input type=\"text\" id=\"mode_countGoal\" name=\"mode_countGoal\" class=\"validate[required,custom[number]]\" style=\"width:76px;margin-right:10px;border-radius:4px;\" value=\""+mode.mode_countGoal+"\" /><label for=\"mode_countGoal_free_chk\" style=\"display: inline-flex;width: 50px;text-align: left;height: 18px;line-height: 18px;margin-bottom: 0px;font-weight: normal;\"><input type=\"checkbox\" id=\"mode_countGoal_free_chk\" style=\"width: 18px;height: 18px;line-height: 18px;padding: 0px;margin: 0px;\" />不限</label></div>";
 		html += "<div class=\"input\"><table style=\"width:100%\"><tr><td valign=\"top\"><label>回报内容：</label></td><td><div class=\"text\"><textarea name=\"mode_return\" id=\"mode_return\" class=\"validate[required] \" style=\"border:1px #E1E1E1 solid;width:380px;height:80px;border-radius:4px;\">"+mode.mode_return+"</textarea></div></td></tr></table></div>";
 		html += "<div class=\"input\"><table style=\"width:100%;\"><tr id=\"mode_image_upload\" "+mode_image_upload_display+"><td valign=\"top\" style=\"width:90px;\"><label>回报图片：</label></td>";
 		html += "	<td><input type=\"file\" class=\"uploadify\" name=\"mode_uploadify\" id=\"mode_uploadify\" />";
@@ -355,6 +360,11 @@ var proj_form = {
 		form["proj_id"] = $("#proj_id").val();
 		form["proj_type"] = $("#proj_type").val();
 		form["proj_name"] = $("#proj_name").val();
+		var bigmvsection = "0";
+		if($("#proj_type_select>li").find(".current").html()=="电影长片"){
+			bigmvsection = $("#proj_bigmvsection").val()
+		}
+		form["proj_bigmvSection"] = bigmvsection;
 		form["proj_province"] = $("#proj_province").val();
 		form["proj_city"] = $("#proj_city").val();
 		form["proj_county"] = $("#proj_county").val();
@@ -450,6 +460,7 @@ var proj_form = {
 		proj_form._save();
 	},
 	initProjTypes : function(){
+		
 		$("#proj_type_select li").remove();
 		var types = proj_datas.getProjTypes();
 		for(var i=0;i<types.length;i++){
@@ -460,9 +471,15 @@ var proj_form = {
 		}
 		
 		$('#proj_type_select>li').click(function () {
+			$("#bigmvsection").hide();
 			$('#proj_type_select>li').removeClass('current');
 			$(this).addClass('current');
 			$('#proj_type').val($(this).attr('data'));
+			 
+			if($(this).html()=="电影长片"){
+				$("#bigmvsection").show();
+			}
+			
 		});
 		
 		$('#proj_type_select li.current').trigger("click");
@@ -485,6 +502,11 @@ var proj_form = {
 			$("#div_jpDate").show();
 			$("#lbtype").html("起拍金额：");
 		}
+	},
+	changeBigmvSections : function(){
+		 
+		 
+		
 	},
 	changeProvince : function(){
 		var cities = [];

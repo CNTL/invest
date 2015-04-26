@@ -9,8 +9,7 @@ body, html{width: 100%;height: 100%;overflow: hidden;margin:0;}
 </style>
  
 <%@include file="../inc/csslink.inc"%>
-<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=6eea93095ae93db2c77be9ac910ff311"></script>
- <%@include file="../inc/script.inc"%>
+
 <title>地址</title>
 <style type="text/css">
 .input input {
@@ -39,9 +38,11 @@ body, html{width: 100%;height: 100%;overflow: hidden;margin:0;}
 	<input type="button" style="width:100px" id="mapSearch" onclick="search()" value="从地图搜索">
 </div>
 <div id="allmap" class="flex-element"></div>
+<script type="text/javascript" src="../../js/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=6eea93095ae93db2c77be9ac910ff311"></script>
 <script type="text/javascript">
 var map = new BMap.Map("allmap");
-$(document).ready(function(){
+$(function(){
 	var location = window.opener.document.getElementById("location").value;
 	if(location != null && location != ""){
 		$("#where").val(location);
@@ -56,6 +57,8 @@ $(document).ready(function(){
 		myCity.get(myFun);
 	}
 });
+	
+ 
 function setMyPoint(lng,lat){
 	var point = new BMap.Point(lng,lat);
 	map.centerAndZoom(point,15);

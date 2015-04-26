@@ -13,6 +13,7 @@ public enum DicTypes {
 	DIC_ORG_TYPE("机构分类"),
 	DIC_JOB_TYPE("职业"),
 	DIC_AGE_TYPE("年龄分类"),
+	DIC_BIGMV_TYPE("电影长篇阶段"),
 	DIC_AREA("地域");
 	
 	private String typeName;

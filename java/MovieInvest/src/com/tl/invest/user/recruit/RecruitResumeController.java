@@ -32,12 +32,31 @@ public class RecruitResumeController extends BaseController {
 		} else if("post".equals(action)){//投递简历
 			post(request, response, model);
 		}
+		 else if("delrec".equals(action)){//删除
+			 delrec(request, response, model);
+			}
 		else if("report".equals(action)){//举报职位
 			report(request, response);
 		}
 	}
 	
-	 
+	/** 
+	* @author  leijj 
+	* 功能： 收藏职位保存
+	* @param request
+	* @param response
+	* @return
+	* @throws Exception 
+	*/ 
+	private void delrec(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception{
+		int recruitID = ParamInitUtils.getInt(request.getParameter("recid"));
+		User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
+		if(user == null){
+			return ;
+		}
+		recruitManager.delRecCollectandPost(user.getId(),recruitID);
+		output("ok", response);
+	}
 	
 	/** 
 	* @author  leijj 
@@ -109,9 +128,7 @@ public class RecruitResumeController extends BaseController {
 			return;
 		}
 		
-		UserRecruitresume recruitResume = recruitManager.recruitresume(user.getId(), recruitID);
-		if(recruitResume == null)
-			recruitResume = new UserRecruitresume();
+		UserRecruitresume recruitResume =  new UserRecruitresume();
 		recruitResume.setUserId(user.getId());
 		recruitResume.setUserName(user.getName());
 		recruitResume.setRecruitId(ParamInitUtils.getInt(request.getParameter("recruitID")));

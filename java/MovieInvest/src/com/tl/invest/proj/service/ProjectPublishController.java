@@ -14,6 +14,7 @@ import com.tl.invest.proj.ProjMode;
 import com.tl.invest.proj.Project;
 import com.tl.invest.user.user.User;
 import com.tl.kernel.sys.dic.Dictionary;
+import com.tl.sys.common.SessionHelper;
 
 public class ProjectPublishController extends ProjectMainController {
 	protected Project proj = null;
@@ -63,6 +64,13 @@ public class ProjectPublishController extends ProjectMainController {
 			model.put("proj", proj);
 		}
 		model.put("proj_id", proj_id);
+		User user = userMgr.getUserByCode(SessionHelper.getUserCode(request));
+		if(user!=null){
+			model.put("isRealName", user.getIsRealNameIdent());
+		}
+		else{
+			model.put("isRealName", "-1");
+		}
 	}
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override

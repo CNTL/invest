@@ -999,6 +999,7 @@ public class ProjectService {
 			proj.setLocktime(rs.getTimestamp("proj_locktime"));
 			proj.setPid(rs.getLong("proj_pid"));
 			proj.setName(rs.getString("proj_name"));
+			proj.setBigmvSection(rs.getInt("proj_bigmvSection"));
 			proj.setUserId(rs.getInt("proj_userID"));
 			proj.setPayType(rs.getInt("proj_payType"));
 			proj.setType(rs.getInt("proj_type"));
@@ -1101,6 +1102,7 @@ public class ProjectService {
 			proj.setLocktime(rs.getTimestamp("proj_locktime"));
 			proj.setPid(rs.getLong("proj_pid"));
 			proj.setName(rs.getString("proj_name"));
+			proj.setBigmvSection(rs.getInt("proj_bigmvSection"));
 			proj.setUserId(rs.getInt("proj_userID"));
 			proj.setPayType(rs.getInt("proj_payType"));
 			proj.setType(rs.getInt("proj_type"));

@@ -146,6 +146,13 @@ public class ProjectController extends ProjectMainController{
 		if(StringUtils.isEmpty(from)){
 			if(payType == 1){
 				model.put("@VIEWNAME@", "proj/DetailJP");
+				User user = userMgr.getUserByCode(SessionHelper.getUserCode(request));
+				if(user!=null){
+					model.put("isRealName", user.getIsRealNameIdent());
+				}
+				else{
+					model.put("isRealName", "-1");
+				}
 			}else {
 				model.put("@VIEWNAME@", "proj/Detail");
 			}

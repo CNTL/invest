@@ -41,6 +41,9 @@
         <property name="name" type="string">
             <column name="proj_name" not-null="true" />
         </property>
+          <property name="bigmvSection" type="int">
+            <column name="proj_bigmvSection" />
+        </property>
         <property name="userId" type="int">
             <column name="proj_userID" not-null="true" />
         </property>

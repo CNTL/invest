@@ -347,6 +347,7 @@
 		</div>
 	</div>
 	<div class="clear"></div>
+	<input type="hidden" id="isRealName_h" name="isRealName_h" value="<c:out value="${isRealName}"/>" />
     
 	<%@include file="../inc/footer.inc"%>
 </body>

@@ -62,6 +62,17 @@
 			  	<span style="color:red;line-height:30px;">*</span>
 			  </div>
 	   </div>
+	     <div class="form-group" id="bigmvsection" style="display:none;">
+			  <label class="col-md-2 control-label" >长片阶段：</label>
+			  <div class="col-sm-4">
+				<select id="proj_bigmvsection" name="proj_bigmvsection" class="validate[required] form-control" >
+					 
+				</select>
+			  </div>
+			  <div class="col-sm-1">
+			  	<span style="color:red;line-height:30px;">*</span>
+			  </div>
+	   </div>
 	   <div class="form-group">
 			<label  class="col-md-2 control-label">项目地域：</label>
 			  <div class="col-sm-2">
@@ -169,10 +180,16 @@
 		<div class="form-group"> 
 			<label class="col-md-2 control-label">项目简介：</label>
 			<div class=" col-md-9">
-				<textarea name="proj_summary" id="proj_summary" class="form-control" rows="3"></textarea>
+				<textarea name="proj_summary" id="proj_summary" class="form-control validate[required,minSize[40]]" rows="3"></textarea>
 			</div>
 			<div class="col-sm-1">
 				<span style="color:red;line-height:30px;">*</span>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-2"></div>
+			<div class="col-sm-9">
+			<span class="help-block">内容简介至少40个字符以上。</span>
 			</div>
 		</div>
 		<div class="form-group">
@@ -182,6 +199,7 @@
 			</div>
 			
 		</div>
+		
 		<div class="form-group">
 		        <label for="myVal" class="col-sm-7 control-label text-center">
 		       		<input type="checkbox" id="proj_agreements" name="proj_agreements" checked="checked" /> 提交信息即代表已经同意
@@ -230,8 +248,18 @@
         </div>
 		 
 	</div>
+	<input type="hidden" id="isRealName_h" name="isRealName_h" value="<c:out value="${isRealName}"/>" />
+ 
     <script type="text/javascript">
         $(function () {
+        	//判断是否实名认证
+        	var isrealName = $("#isRealName_h").val().toString();
+        	if(isrealName!="1"){
+        		$.messager.popup("发布项需要进行实名认证。请先进行实名认证。",function(){
+        			window.location.href="../user/RelAuth.do?infoType=4";
+        		});
+        	}
+        	
             var editor = CKEDITOR.replace("proj_content",
 				{
 					toolbar :
