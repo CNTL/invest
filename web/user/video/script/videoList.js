@@ -43,6 +43,23 @@ function init(){
 		$("#row-form").show();
 	});
 	
+	$("#createAudio").click(function(){
+		$("#row-list").hide();
+		initUploadify("uploadify","queueItemCount","photo","uploadErrorMsg",true,imgUploaded);
+		$("#form").validationEngine("attach",{
+			autoPositionUpdate:false,//是否自动调整提示层的位置
+			scroll:false,//屏幕自动滚动到第一个验证不通过的位置
+			focusFirstField:false,//验证未通过时，是否给第一个不通过的控件获取焦点
+			promptPosition:"topRight" //验证提示信息的位置，可设置为："topRight", "bottomLeft", "centerRight", "bottomRight" 
+		});
+		$("#name").text("音频名称：");
+		$("#audiocontainer").show();
+		$("#audiocontainerdemo").show();
+		$("#videoUrlcontainer").hide();
+		$("#helpcontainer").hide();
+		$("#row-form").show();
+	});
+	
 
 	$("#btnOK").click(function(){
 		 
@@ -69,7 +86,7 @@ function assemble(result){
 		var photo = item.photo;
 		var video = item.video;
 		if(photo == null || photo.length == 0)
-			photo = "../user/photo/img/framels_hover.jpg";
+			photo = "../static/image/audiovideo.png";
 		if(video == null || photo.length == 0)
 			video = "";
 		 
@@ -100,19 +117,32 @@ function assemble(result){
 		sb.push(" <div class=\"thumbnail\">");
 		sb.push("<h3 style=\"font-size:16px;font-weight:bold;\">"+item.name+"</h3>");
 		if(video==""){
-			sb.push("<img   id=\"" + id + "\" src=\""+rootPath+"user/photo/img/framels_hover.jpg"+"\"></a>")
+			sb.push("<img style=\"width:240px;\"   id=\"" + id + "\" src=\""+rootPath+"static/image/iTunes.jpg"+"\"></a>")
 		}else{
 			sb.push(video);
 		}
-		
+		if(video==""){
+			sb.push("<div style=\"height:20px;overflow:hidden;\"><span class=\"mp3\">"+rootPath+photo+"</span></div>");
+			
+		}
 		sb.push(" <div>");
+		
 		
 		sb.push("<p><a onclick=\"editVideo("+id+");\" class=\"btn btn-success btn-xs\" role=\"button\">编辑</a> <a onclick=\"delVideo("+id+");\" class=\"btn btn-danger btn-xs\" role=\"button\">删除</a></p>");
 		sb.push(" </div>");
 		sb.push(" </div>");
 		$("#photo-list").append(sb.join(""));
 		
+		
+		
 	});
+	$(".mp3").jmp3({  
+		showfilename: "false",
+	 	backcolor: "#F5F5F5",  
+		forecolor: "00ff00",  
+		width: 150,  
+		showdownload: "false"
+	 }); 
 }
 
 function getVideoInfo (id){
@@ -134,28 +164,19 @@ function getVideoInfo (id){
 
 function saveVideo(){
 	var groupID = $("#groupID").val();
+	var data = {
+		id:0,
+		groupID:groupID,
+		videoName:$("#videoName").val(),
+		photo:$("#photo").val(),
+		videoUrl:$("#videoUrl").val(),
+		intro:$("#intro").val()
+	};
 	
-	$.ajax({
-        type:"POST", //请求方式  
-        url:"../user/video.do?a=saveVideo&groupID="+groupID, //请求路径  
-        cache: false,
-        data:$('#form').serialize(),  //传参 
-        dataType: 'text',   //返回值类型  
-        success:function(data){
-        	$("#id").val();
-			$("#groupID").val();
-			$("#videoName").val();
-			$("#photo").val();
-			$("#videoUrl").val();
-			$("#intro").val();
-    		 
-			window.location.href="../user/VideoMa.do?infoType=7&groupID=" + groupID;
-    		 
-        } ,
-		error:function (XMLHttpRequest, textStatus, errorThrown) {
-			$.messager.alert('创建视频组失败！',errorThrown);
-		}
-    });
+	$.get("../user/video.do?a=saveVideo&groupID="+groupID,data , function(data){
+			var url = rootPath+"user/VideoMa.do?infoType=6&groupID="+data;
+			window.location.href = url;
+		});
 }
 
 function delVideo(id){
@@ -201,8 +222,17 @@ function imgUploaded (){
 	$("#coverIMG_div").css("top",c_img_t+"px").css("left",c_img_l+"px").css("display","");
 	$("#coverIMG_div").empty();
 	if($("#photo").val()!=""){
-		$("#coverIMG_div").html("<img src=\""+rootPath+$("#photo").val()+"\" border=\"0\" style=\"width:150px;height:100px;\" />");
-		$("#coverIMG_div").append("<div style=\"width:100%;margin-top:10px;text-align:center;\"><a href=\"javascript:void();\" style=\"background: url(../img/delete.png) no-repeat left;padding-left: 20px;\" onclick=\"myVideo.delCoverImg();\">删除</a></div>");
+		$("#coverIMG_div").html("<span id='soundtest'>"+rootPath+$("#photo").val()+"</span>")
+		
+		//$("#coverIMG_div").html("<img src=\""+rootPath+$("#photo").val()+"\" border=\"0\" style=\"width:150px;height:100px;\" />");
+		//$("#coverIMG_div").append("<div style=\"width:100%;margin-top:10px;text-align:center;\"><a href=\"javascript:void();\" style=\"background: url(../img/delete.png) no-repeat left;padding-left: 20px;\" onclick=\"myVideo.delCoverImg();\">删除</a></div>");
+		$("#soundtest").jmp3({  
+			showfilename: "false",
+		 	backcolor: "#F5F5F5",  
+			forecolor: "00ff00",  
+			width: 150,  
+			showdownload: "false"
+		 }); 
 	}
 }
 function initUploadify(el,countCtrl,imgCtrl,errorCtrl,auto,successInvok){
@@ -217,8 +247,8 @@ function initUploadify(el,countCtrl,imgCtrl,errorCtrl,auto,successInvok){
 		width: 90,
 		cancelImg: '../js/plugin/uploadify-3.2.1/uploadify-cancel.png',
 		buttonText: '上传',
-		'fileTypeDesc': '选择图片',
-		'fileTypeExts': '*.jpg;*.png;*.bmp' ,
+		'fileTypeDesc': '选择音频',
+		'fileTypeExts': '*.mp3' ,
 		fileSizeLimit: 0,
 		removeCompleted: true,
 		multi :false,//设置为true时可以上传多个文件。
@@ -327,135 +357,3 @@ function uploadify_onUploadError(file, errorCode, errorMsg, errorString){
     }
 	return false;;
 }
-/*
-var pagei = null;
-var myVideo = {
-	init : function(){
-		$("#createVideo").click(myVideo.addVideo);
-		myVideo.initVideo();
-	},
-	initVideo : function(){
-		var groupID = $("#groupID").val();
-		$.ajax({
-	        type:"GET", //请求方式  
-	        url:"../user/video.do?a=getVideos&groupID=" + groupID, //请求路径  
-	        cache: false,
-	        dataType: 'JSON',   //返回值类型  
-	        success:function(data){
-	        	if(!data||typeof Object.prototype.toString.call(data) == "[object Array]"||!data.length)return;
-	        	myVideo.assemble(data);
-	        } ,
-			error:function (XMLHttpRequest, textStatus, errorThrown) {
-				   alert(errorThrown);
-			}
-	    });
-	},
-	assemble : function(result) {
-    	
-	},
-	saveVideo : function(){
-		
-	},
-	delVideo : function(id){
-		
-	},
-	addVideo : function(){
-		myVideo.openVideoFormDlg("新增", myVideo.getVideoFormHtml(""));
-	},
-	editVideo : function(id,userId){
-		myVideo.openVideoFormDlg("修改", myVideo.getVideoFormHtml(id));
-		if(typeof(id)=="undefined" || !id) id = 0;
-		if(id>0){
-			myVideo.getVideoInfo(id);
-		}
-	},
-	getVideoFormHtml : function(id){
-		
-	},
-	getVideoInfo : function(id){
-		var dataUrl = "../user/video.do?a=getVideoInfo&id="+id;
-		$.ajax({url: dataUrl, async:false, dataType:"json",
-			success: function(data) {
-				if(data != null){
-					$("#id").val(data.id);
-					$("#groupID").val(data.groupId);
-	    			$("#videoName").val(data.name);
-	    			$("#photo").val(data.photo);
-	    			$("#videoUrl").val(data.video);
-	    			$("#intro").val(data.intro);
-	    			myVideo.imgUploaded();
-	    		}
-			}
-		});
-	},
-	openVideoFormDlg : function(title,html){
-		pagei = $.layer({
-			type: 1,   //0-4的选择,
-			title: title,
-			maxmin: false,
-			border: [10, 0.2, '#000'],
-			closeBtn: [1, true],
-			shadeClose: false,
-			fix: true,
-			zIndex : 1000,
-			area: ['800px', '500px'],
-			page: {
-				html: html //此处放了防止html被解析，用了\转义，实际使用时可去掉
-			}
-		});
-		myVideo.initUploadify("uploadify","queueItemCount","photo","uploadErrorMsg",true,myVideo.imgUploaded);
-		$("#form").validationEngine("attach",{
-			autoPositionUpdate:false,//是否自动调整提示层的位置
-			scroll:false,//屏幕自动滚动到第一个验证不通过的位置
-			focusFirstField:false,//验证未通过时，是否给第一个不通过的控件获取焦点
-			promptPosition:"topRight" //验证提示信息的位置，可设置为："topRight", "bottomLeft", "centerRight", "bottomRight" 
-		});
-	},
-	btnOK : function(){
-		if(!myVideo._validForm()) return;
-		myVideo.saveVideo();
-		if(pagei != null)
-			layer.close(pagei);
-	},
-	btnCancel: function(){
-		if(pagei != null)
-			layer.close(pagei);
-	},
-	_validForm : function() {
-		if (!$("#form").validationEngine("validate")){
-			//验证提示
-			$("#form").validationEngine({scroll:false});
-			return false;
-		}
-		return true;
-	},
-	imgUploaded : function(){
-		var c_img_t = 50;
-		var c_img_l = 300;
-		$("#coverIMG_div").css("top",c_img_t+"px").css("left",c_img_l+"px").css("display","");
-		$("#coverIMG_div").empty();
-		if($("#photo").val()!=""){
-			$("#coverIMG_div").html("<img src=\""+rootPath+$("#photo").val()+"\" border=\"0\" style=\"width:150px;height:100px;\" />");
-			$("#coverIMG_div").append("<div style=\"width:100%;margin-top:10px;text-align:center;\"><a href=\"javascript:void();\" style=\"background: url(../img/delete.png) no-repeat left;padding-left: 20px;\" onclick=\"myVideo.delCoverImg();\">删除</a></div>");
-		}
-	},
-	delCoverImg : function(){
-		$("#coverIMG_div").css("display","none");
-		$("#coverIMG_div").empty();
-		$("#queueItemCount").val("0");
-		$("#photo").val("");
-		$("#uploadErrorMsg").val("");
-	},
-	initUploadify : function(el,countCtrl,imgCtrl,errorCtrl,auto,successInvok){
-		 
-	},
-	uploadify_onSelectError : function(file, errorCode, errorMsg) {
-       
-		return false;
-    },
-	uploadify_onUploadError : function(file, errorCode, errorMsg, errorString) {
-        // 手工取消不弹出提示
-        
-		return false;;
-    }
-}*/

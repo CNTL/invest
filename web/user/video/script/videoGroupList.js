@@ -137,7 +137,7 @@ function assemble(result) {
 		var id = item.id;
 		var photo = item.groupPhoto;
 		if(photo == null || photo.length == 0)
-			photo = "user/photo/img/framels_hover.jpg";
+			photo = "static/image/audiovideo.png";
 		//添加图片的缩略图
 		//$("#photos").append($("<div><a href='#'><img onclick='photoGroup.clickThumb("+id+")' name='photoList' id='" + id + "' src='"+rootPath+photo+"'></a></div>"));
 		var prefix = '<div class="box" style="width:220px;">';
@@ -162,7 +162,7 @@ function assemble(result) {
 			        '</div>' + suffix;
 		$(".block1").append(html);
 	});
-	$(".pic img").zoom({height:150,width:218});
+	$(".pic img").zoom({height:160,width:160});
 }
 
 function imgUploaded  (){

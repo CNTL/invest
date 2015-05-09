@@ -207,16 +207,16 @@ public class UserLoginController extends BaseController
 		photogroup.setGroupPhoto("user//photo//img//framels_hover.jpg");
 		photogroup.setCreateTime(DateUtils.getTimestamp());
 		if(type == 0){//个人
-			photogroup.setGroupName("生活照");
+			photogroup.setGroupName("我的生活照");
 			photoManager.savePhotoGroup(photogroup);
 			//savePhoto(user, photogroup, request, response);
 			
 			photogroup.setId(0);
-			photogroup.setGroupName("剧照");
+			photogroup.setGroupName("我的剧照");
 			photoManager.savePhotoGroup(photogroup);
 			//savePhoto(user, photogroup, request, response);
 		} else if(type == 1){//机构
-			photogroup.setGroupName("默认");
+			photogroup.setGroupName("默认图册");
 			photoManager.savePhotoGroup(photogroup);
 			//savePhoto(user, photogroup, request, response);
 		}
@@ -240,7 +240,7 @@ public class UserLoginController extends BaseController
 		videogroup.setUserName(user.getName());
 		videogroup.setGroupPhoto("user//photo//img//framels_hover.jpg");
 		videogroup.setCreateTime(DateUtils.getTimestamp());
-		videogroup.setGroupName("默认");
+		videogroup.setGroupName("视音频");
 		userVideoManager.saveVideoGroup(videogroup);
 	}
 	/** 

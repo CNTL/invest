@@ -24,11 +24,12 @@
 }
  .thumbnail embed {
     width:275px;
-    height:268px;
+    height:260px;
 }
  .thumbnail p{
    text-align:center;
 }
+
 </style>
 </head>
 <body>
@@ -38,8 +39,9 @@
 	<%@include file="../inc/userHeader.inc"%>
 	<div class="row text-right">
 		<div class="col-md-12" >
-		<input id="photogroups" name="photogroups" type="button" class="btn btn-info" style="margin:10px;" value="视频组"/>
+		<input id="photogroups" name="photogroups" type="button" class="btn btn-info" style="margin:10px;" value="返回视频组"/>
 		<input id="createVideo" name="createVideo" type="button" class="btn btn-info" style="margin:10px;" value="添加视频"/>
+		<input id="createAudio" name="createAudio" type="button" class="btn btn-info" style="margin:10px;" value="添加音频"/>
 		 
      	<input type="hidden" id="opType" name="opType" value="edit"/>
 		<input id="groupID" name="groupID" type="hidden" value="<c:out value="${groupID}"/>"/>
@@ -54,15 +56,15 @@
       	 <form class="form-horizontal" role="form"  id="form" name="form" action="">
       	
 			<div class="form-group">
-			    <label for="videoName" class="col-sm-3 control-label">视频名称：</label>
+			    <label for="videoName" id="name" class="col-sm-3 control-label">视频名称：</label>
 			    <div class="col-sm-6">
 			    	<input type="hidden" id="id" name="id" value=""/>
 			        <input type="text" id="videoName" name="videoName" class="form-control validate[maxSize[255],required]" value="">
 			    </div>
 			</div>
 			
-			<div class="form-group" style="display:none;">
-			    <label for="uploadify" class="col-sm-3 control-label">视频图片：</label>
+			<div class="form-group" id="audiocontainer" style="display:none;">
+			    <label for="uploadify" class="col-sm-3 control-label">音频文件：</label>
 			    <div class="col-sm-6">
 			        <input type="file" name="uploadify" id="uploadify" />
 			        <input type="hidden" id="queueItemCount" name="queueItemCount" value="0" />
@@ -71,15 +73,15 @@
 			    </div>
 			</div>
 			
-			<div class="form-group" style="display:none;">
-			    <label for="coverIMG_div" class="col-sm-3 control-label">封面缩略图：</label>
+			<div class="form-group" id="audiocontainerdemo" style="display:none;">
+			    <label for="coverIMG_div" class="col-sm-3 control-label">音频测试：</label>
 			    <div class="col-sm-6">
-			        <div id="coverIMG_div"  style="display:none; z-index: 122; width:150px;height:150px;"></div>
+			        <div id="coverIMG_div"  style="display:none; z-index: 122; width:150px;"></div>
 			    </div>
 			</div>
 			
-			<div class="form-group">
-			    <label for="videoUrl" class="col-sm-3 control-label">视频地址：</label>
+			<div class="form-group" id="videoUrlcontainer">
+			    <label for="videoUrl"  class="col-sm-3 control-label">视频地址：</label>
 			    <div class="col-sm-6">
 			         <input type="text" id="videoUrl" name="videoUrl" class="form-control validate[maxSize[500],required]" value="">
 			    </div>
@@ -103,7 +105,7 @@
 		             <button type="button" class="btn btn-primary" id="btnCancel" name="btnCancel" >取消</button>
 		         </div>
 		     </div>
-		     <div class="form-group" style="margin-left:150px;" >
+		     <div class="form-group" id="helpcontainer" style="margin-left:150px;" >
 		      <div class="col-sm-10">
 				<h4>视频地址添加方法（以优酷视频为例,其他视频网站方法一样):</h4>
 			     <img src="../static/image/videotip.png" style="width:90%;" alt="视频地址" />
@@ -134,6 +136,7 @@ var rootPath = "<%=com.tl.common.WebUtil.getRoot(request) %>";
 <script type="text/javascript" src="../js/layer/layer.min.js"></script>
 <script type="text/javascript" src="../js/plugin/uploadify-3.2.1/jquery.uploadify.js"></script>
 <script type="text/javascript" src="../js/utils.js"></script>
+<script type="text/javascript" src="../js/plugin/jquery.jmp3/jquery.jmp3.js"></script>
 <script type="text/javascript" src="../user/video/script/videoList.js"></script>
 </body>
 </html>
