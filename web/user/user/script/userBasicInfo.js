@@ -1,6 +1,9 @@
 $(document).ready(function () {
 	$(".menu-list").height("1200px");
+	 
+	
 	editorInit ();
+	
 	$("#degreeid").change(function(){
 		$("#degree").val($("#degreeid :selected").text());
 	});
@@ -32,6 +35,27 @@ $(document).ready(function () {
 	});
 	 
 });
+function publicchange(){
+	 
+	$("input[type='checkbox']").each(function(i,n){
+		var open = $(this).prop("checked");
+		$(this).bootstrapSwitch({
+			"onText":"公开",
+			"offText":"隐藏",
+			"state":open
+		});
+		$(this).on('switchChange.bootstrapSwitch', function(event, state) {
+			var that = $(event.target);
+			var cbvalue = that.attr("id").replace("cb","");
+			if(state.toString()== "true"){
+				$("#"+cbvalue).val(1);
+			}
+			else{
+				$("#"+cbvalue).val(0);
+			}
+		});
+	});
+}
 function selectrec(){
 	var event = window.event.srcElement||window.event.target;
 	$this = $(event);
@@ -109,6 +133,7 @@ var complete = {
 	    			});
 	    			complete.setrecs(data.perJob);
 	    			complete.changeProvince(data.city);
+	    			publicchange();
 	    		}
 	        } ,
 			error:function (XMLHttpRequest, textStatus, errorThrown) {
@@ -152,11 +177,13 @@ var complete = {
 	},
 	submit : function(){
 		$("#intro").val(CKEDITOR.instances.intro_editer.getData());
+		var data = $('#form').serialize();  //传参 
+		
 		$.ajax({
 	        type:"POST", //请求方式  
 	        url:"../user/user.do?a=userBasicInfo", //请求路径  
 	        cache: false,
-	        data:$('#form').serialize(),  //传参 
+	        data:data,  //传参 
 	        dataType: 'text',   //返回值类型  
 	        success:function(data){
 	    		if(data != null && data == 'ok'){

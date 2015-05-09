@@ -8,6 +8,7 @@
 <meta name="keywords" content="<c:out value="${keywords}"/>" />
 <meta name="description" content="<c:out value="${description}"/>" />
 <%@include file="../inc/csslink.inc"%>
+<link rel="stylesheet" type="text/css" href="../js/plugin/bootstrap-switch/css/bootstrap-switch.min.css">
 <style>
 .rectitle{
 	font-size:18px;
@@ -58,7 +59,7 @@ text-decoration: none;
                           <input type="text" class="form-control" id="name" name="name" value="" disabled="disabled">
                       </div>
                        <div class="col-sm-2">
-                      	 <label  class="control-label"><input type="checkbox" id="name_showcb" name="name_showcb">公开</label>
+                      	 <label  class="control-label"><input type="checkbox"  id="name_showcb" name="name_showcb"></label>
                       	 <input type="hidden" id="name_show" name="name_show" value="" />
                       </div>
                   </div>
@@ -139,7 +140,7 @@ text-decoration: none;
                       	<label  class="control-label">厘米</label>
                       </div>
                        <div class="col-sm-2">
-                      	 <label  class="control-label"><input type="checkbox" id="height_showcb" name="height_showcb">公开</label>
+                      	 <label  class="control-label"><input type="checkbox" id="height_showcb"  name="height_showcb"></label>
                       	 <input type="hidden" id="height_show" name="height_show" value="" />
                       </div>
                   </div>
@@ -152,18 +153,18 @@ text-decoration: none;
                       	<label  class="control-label">公斤</label>
                       </div>
                        <div class="col-sm-2">
-                      	 <label  class="control-label"><input type="checkbox" id="weight_showcb" name="weight_showcb">公开</label>
+                      	 <label  class="control-label"><input type="checkbox" id="weight_showcb"  name="weight_showcb"></label>
                       	  <input type="hidden" id="weight_show" name="weight_show" value="" />
                       </div>
                   </div>
                    <div class="form-group">
                       <label for="school" class="col-sm-3 control-label">毕业学校：</label>
                       <div class="col-sm-5">
-                          <input type="text" class="form-control validate[maxSize[255]]" id="school" name="school" placeholder="">
+                          <input type="text" class="form-control validate[maxSize[255]]" id="school"  name="school" placeholder="">
                       </div>
                      
                        <div class="col-sm-2">
-                      	 <label  class="control-label"><input type="checkbox" id="school_showcb" name="school_showcb">公开</label>
+                      	 <label  class="control-label"><input type="checkbox" id="school_showcb"  name="school_showcb"></label>
                       	 <input type="hidden" id="school_show" name="school_show" value="" />
                       </div>
                   </div>
@@ -174,7 +175,7 @@ text-decoration: none;
                       </div>
                      
                        <div class="col-sm-2">
-                      	 <label  class="control-label"><input type="checkbox" id="professional_showcb" name="professional_showcb">公开</label>
+                      	 <label  class="control-label"><input type="checkbox" id="professional_showcb"  name="professional_showcb"></label>
                       	  <input type="hidden" id="professional_show" name="professional_show" value="" />
                       </div>
                   </div>
@@ -190,16 +191,15 @@ text-decoration: none;
 				        </select>
 				        <input type="hidden" id="degree" name="degree" value="" />
                       </div>
-                       <div class="col-sm-offset-2 col-sm-2">
-                      	 <label  class="control-label"><input type="checkbox" id="degree_showcb" name="degree_showcb">公开</label>
-                      	 <input type="hidden" id="degree_show" name="degree_show" value="" />
-                      </div>
+                      <div class="col-sm-offset-2 col-sm-2 switch" >
+                     		<input type="checkbox" checked id="degree_showcb" name="degree_showcb">
+					  </div> 
                   </div>
                   
                   <div class="form-group">
                       <label for="intro" class="col-sm-3 control-label">工作经历：</label>
                        <div class="col-sm-offset-5 col-sm-2">
-                      	 <label  class="control-label"><input type="checkbox" id="intro_showcb" name="intro_showcb">公开</label>
+                      	 <label  class="control-label"><input type="checkbox" id="intro_showcb"  name="intro_showcb"></label>
                       	  <input type="hidden" id="intro_show" name="intro_show" value="" />
                       </div>
                   </div>
@@ -252,6 +252,7 @@ text-decoration: none;
 <script type="text/javascript" src="../proj/script/datas.js"></script>
 <script type="text/javascript" src="../user/user/script/userBasicInfo.js"></script>
 <script type="text/javascript" src="../static/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="../js/plugin/bootstrap-switch/js\bootstrap-switch.min.js"></script>
 <!-- footer -->
 
 <%@include file="../../inc/footer.inc"%>
