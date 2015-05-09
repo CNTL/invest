@@ -176,7 +176,7 @@ function imgUploaded  (){
 	$("#coverIMG_div").empty();
 	if($("#groupPhoto").val()!=""){
 		$("#coverIMG_div").html("<img src=\""+rootPath+$("#groupPhoto").val()+"\" border=\"0\" style=\"width:100%;height:100%;\" />");
-		$("#coverIMG_div").append("<div style=\"width:100%;margin-top:10px;text-align:center;\"><a href=\"javascript:void();\" style=\"background: url(../img/delete.png) no-repeat left;padding-left: 20px;\" onclick=\"delCoverImg();\">删除</a></div>");
+		//$("#coverIMG_div").append("<div style=\"width:100%;margin-top:10px;text-align:center;\"><a href=\"javascript:void();\" style=\"background: url(../img/delete.png) no-repeat left;padding-left: 20px;\" onclick=\"delCoverImg();\">删除</a></div>");
 	}
 }
 function delCoverImg (){

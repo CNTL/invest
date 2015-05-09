@@ -95,6 +95,7 @@ public class UserVideoController extends BaseController {
 		videogroup.setCreateTime(DateUtils.getTimestamp());
 		id = userVideoManager.saveVideoGroup(videogroup);
 		output(String.valueOf(id), response);
+		
 	}
 	/** 
 	* @author  leijj 
@@ -146,7 +147,7 @@ public class UserVideoController extends BaseController {
 		userVideo.setIntro(ParamInitUtils.getString(request.getParameter("intro")));
 		userVideo.setCreateTime(DateUtils.getTimestamp());
 		userVideoManager.saveVideo(userVideo);
-		output(String.valueOf(userVideo.getGroupId()), response);
+		outputJson(String.valueOf(userVideo.getGroupId()), response);
 	}
 	private UserManager userManager = (UserManager)Context.getBean(UserManager.class);
 	private UserVideoManager userVideoManager = (UserVideoManager)Context.getBean(UserVideoManager.class);

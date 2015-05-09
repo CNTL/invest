@@ -47,7 +47,7 @@ var rootPath = "<%=com.tl.common.WebUtil.getRoot(request) %>";
 </script>
  
 <%@include file="../inc/script.inc"%>
-
+<script type="text/javascript" src="../js/plugin/jquery.jmp3/jquery.jmp3.js"></script>
 <script type="text/javascript" src="../user/video/script/videoViewGroupList.js"></script>
  <script type="text/javascript">
     $(function(){
@@ -60,8 +60,6 @@ var rootPath = "<%=com.tl.common.WebUtil.getRoot(request) %>";
     	$(".wrap").css({
     		"height":"320px" 
     		});
-    	 
-    	
     });
     </script>
  

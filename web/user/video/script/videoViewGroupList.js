@@ -24,28 +24,6 @@ var videoGroup = {
     		var groupID = item.id;
     		var groupName = item.groupName;
     		
-    		 
-    		/*
-    		//添加图片的缩略图
-    		//$("#photos").append($("<div><a href='#'><img onclick='videoGroup.clickThumb("+id+")' name='photoList' id='" + id + "' src='"+rootPath+photo+"'></a></div>"));
-    		var prefix = '<div class="box" style="width:220px;">';
-    		var suffix = '';
-    		if((i + 1)%3==0) {
-    			prefix = '<div class="box box_last" style="width:220px;">'; 
-    			suffix = '<div class="clear"></div>';
-    		}
-    		var html = prefix +
-				            '<div class="people" style="border: 1px #858585 solid;">' +
-				                '<div class="pic" style="width:100%;">' +
-				                    '<a href="#"><img onclick="videoGroup.clickThumb('+id+')" name="photoList" id="' + id + '" src="'+rootPath+photo+'"></a>' +
-				                '</div>' +
-				                '<div class="title">' +
-				                    '<a href="#" style="text-decoration:none;" onclick="videoGroup.clickThumb('+id+')">'+item.groupName+'</a>' +
-				                '</div>' +
-				            '</div>' +
-				        '</div>' + suffix;
-				        */
-    		
     		$.ajax({
     	        type:"GET", //请求方式  
     	        url:"../user/video.do?a=getVideos&groupID=" + groupID, //请求路径  
@@ -62,9 +40,14 @@ var videoGroup = {
     	    			sb.push(" <div class=\"thumbnail\">");
     	    			sb.push("<h3 style=\"font-size:16px;font-weight:bold;\">"+d.name+"</h3>");
         	    		if(d.video==""){
-        	    			sb.push("<img   id=\"" + d.id + "\" src=\""+rootPath+"user/photo/img/framels_hover.jpg"+"\"></a>")
+        	    			sb.push("<img style=\"width:180px;margin-bottom:60px;\"   id=\"" + d.id + "\" src=\""+rootPath+"static/image/iTunes.jpg"+"\"></a>");
+        	    			
         	    		}else{
         	    			sb.push(d.video);
+        	    		}
+        	    		if(d.video==""){
+        	    			sb.push("<div style=\"height:20px;overflow:hidden;\"><span class=\"mp3\">"+rootPath+d.photo+"</span></div>");
+        	    			
         	    		}
         	    	 
         	    		sb.push(" </div>");
@@ -74,6 +57,13 @@ var videoGroup = {
 	        		sb.push("</dl>");
 	        		sb.push("<div class=\"clearfix\"></div>");
     	    		$(".body-container").append(sb.join(""));
+    	    	 	$(".mp3").jmp3({  
+    	        		showfilename: "false",
+    	        	 	backcolor: "#F5F5F5",  
+    	        		forecolor: "00ff00",  
+    	        		width: 150,  
+    	        		showdownload: "false"
+    	        	 }); 
     	        } ,
     			error:function (XMLHttpRequest, textStatus, errorThrown) {
     				    
@@ -82,6 +72,7 @@ var videoGroup = {
     		
     	 
     	});
+   
 	},
 	clickThumb : function(id){
 		var userID = $("#curUserID").val();

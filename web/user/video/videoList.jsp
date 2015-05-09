@@ -51,7 +51,7 @@
      	
      </div>
 	<div class="row container-wapper">
-	<div class="row" id="row-form">
+	<div class="row" id="row-form" style="display:none;">
 	<br/>
       	 <form class="form-horizontal" role="form"  id="form" name="form" action="">
       	
@@ -99,7 +99,7 @@
 			
 			 <div class="form-group">
 		         <div class="col-sm-6 text-center">
-		             <button type="submit" class="btn btn-primary"  id="btnOK" name="btnOK" >保存</button>
+		             <button type="button" class="btn btn-primary"  id="btnOK" name="btnOK" >保存</button>
 		         </div>
 		         <div class="col-sm-6 text-center">
 		             <button type="button" class="btn btn-primary" id="btnCancel" name="btnCancel" >取消</button>

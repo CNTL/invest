@@ -117,7 +117,7 @@ function assemble(result){
 		sb.push(" <div class=\"thumbnail\">");
 		sb.push("<h3 style=\"font-size:16px;font-weight:bold;\">"+item.name+"</h3>");
 		if(video==""){
-			sb.push("<img style=\"width:240px;\"   id=\"" + id + "\" src=\""+rootPath+"static/image/iTunes.jpg"+"\"></a>")
+			sb.push("<img style=\"width:180px;margin-bottom:60px;\"   id=\"" + id + "\" src=\""+rootPath+"static/image/iTunes.jpg"+"\"></a>")
 		}else{
 			sb.push(video);
 		}
@@ -164,8 +164,8 @@ function getVideoInfo (id){
 
 function saveVideo(){
 	var groupID = $("#groupID").val();
-	var data = {
-		id:0,
+	var formdata = {
+		id:$("#id").val(),
 		groupID:groupID,
 		videoName:$("#videoName").val(),
 		photo:$("#photo").val(),
@@ -173,10 +173,12 @@ function saveVideo(){
 		intro:$("#intro").val()
 	};
 	
-	$.get("../user/video.do?a=saveVideo&groupID="+groupID,data , function(data){
-			var url = rootPath+"user/VideoMa.do?infoType=6&groupID="+data;
-			window.location.href = url;
-		});
+	$.post("../user/video.do?a=saveVideo&groupID="+groupID,formdata,function(groupid){
+		var url = rootPath+"user/VideoMa.do?infoType=6&groupID="+groupID;
+		window.location.href = url;
+	});
+	
+	
 }
 
 function delVideo(id){
@@ -211,6 +213,13 @@ function editVideo(id){
 		focusFirstField:false,//验证未通过时，是否给第一个不通过的控件获取焦点
 		promptPosition:"topRight" //验证提示信息的位置，可设置为："topRight", "bottomLeft", "centerRight", "bottomRight" 
 	});
+	if($("#photo").val()!=null&&$("#photo").val()!=""){
+		$("#name").text("音频名称：");
+		$("#audiocontainer").show();
+		$("#audiocontainerdemo").show();
+		$("#videoUrlcontainer").hide();
+		$("#helpcontainer").hide();
+	}
 	$("#row-form").show();
 	$("#row-list").hide();
 	
@@ -223,9 +232,6 @@ function imgUploaded (){
 	$("#coverIMG_div").empty();
 	if($("#photo").val()!=""){
 		$("#coverIMG_div").html("<span id='soundtest'>"+rootPath+$("#photo").val()+"</span>")
-		
-		//$("#coverIMG_div").html("<img src=\""+rootPath+$("#photo").val()+"\" border=\"0\" style=\"width:150px;height:100px;\" />");
-		//$("#coverIMG_div").append("<div style=\"width:100%;margin-top:10px;text-align:center;\"><a href=\"javascript:void();\" style=\"background: url(../img/delete.png) no-repeat left;padding-left: 20px;\" onclick=\"myVideo.delCoverImg();\">删除</a></div>");
 		$("#soundtest").jmp3({  
 			showfilename: "false",
 		 	backcolor: "#F5F5F5",  
