@@ -23,6 +23,10 @@
 	.imgover{
 		border:5px solid #ED615B;
 	}
+	.modal-lg{
+		width:700px;
+		height:500px;
+	}
 </style>
 </head>
 <body>
@@ -34,6 +38,8 @@
 	<%@include file="../inc/userHeaderMenu.inc"%>
 	<div class="col-md-8">
         <div class="container-right">
+<!--         <a href="../user/headImg/photoeditor.jsp">看看</a> -->
+<!--         <button class="btn btn-primary" id="btnCrop" >剪裁</button> -->
         	<form class="form-horizontal" role="form"  name="picForm" id="picForm" action="../user/user.do?a=uploadImg" method="post" enctype="multipart/form-data" onsubmit="return checkPic();" target="hidden_frame">
         	 <div class="form-group">
                       <label for="code" class="col-sm-3 control-label">上传头像：</label>
@@ -48,7 +54,7 @@
 						<span class="help-block" style=" padding-top: 10px;">请选择照片文件，支持jpg、jpeg、png、gif格式，大小不超过5M。建议尺寸：600 x 450px</span>
 					</div>
              </div>
-               <div class="form-group" id="img-list">
+               <div class="form-group hide" id="img-list">
                       <label for="code" class="col-sm-3 control-label">系统头像：</label>
                       <div class="col-sm-3">
                           <img id="default1" class="img-circle" style="width: 150px; height: 150px;" src="../static/image/male_default.png"/>
@@ -64,7 +70,7 @@
         	
         	 	<div id="hide" class="col-sm-6" >
 				            <div id="coverIMG_div" style="position: absolute; z-index: 122; width:150px;height:150px;overflow:hidden;background:#fff;">
-								<img id="nowPhoto" class="img-circle" style="width: 150px; height: 150px;" src="../static/image/temp/avatar2.png"/>
+								<img id="nowPhoto" class="img-circle" style="width: 120px; height: 120px;" src="../static/image/temp/avatar2.png"/>
 							</div>
 							<br><br><br><br><br><br><br><br>
 				            <div class="btn" style="position: absolute;">
@@ -75,7 +81,7 @@
 						    </div>
 				 </div>
         	    </div>
-        	 <div class="form-group">
+        	 <div class="form-group hide">
                      <div class="col-sm-12 text-center">
                          <button type="submit" class="btn btn-primary" id="submit">保存头像</button>
                      </div>
@@ -87,7 +93,9 @@
      </div>
 	</div>
 </div>
+<div id="imgcropdiv" style="width:850px;height:450px;padding:0;margin:0;border:0;display:none;">
 
+</div>
 <!-- script -->
 <%@include file="../inc/script.inc"%>
 <!-- script -->
@@ -95,7 +103,6 @@
 <!-- footer -->
 <%@include file="../../inc/footer.inc"%>
 <!-- footer -->
-<script type="text/javascript" src="../user/user/script/drag.js"></script>
 <script type="text/javascript">
 var rootPath = "<%=com.tl.common.WebUtil.getRoot(request) %>";
 </script>

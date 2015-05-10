@@ -1,6 +1,9 @@
 $(document).ready(function () {
 	//初始化
 	headImg.init();
+	$("#btnCrop").click(function(){
+		imgcrop();
+	});
 	$("#form").validationEngine({
 		autoPositionUpdate:true,
 		onValidationComplete:function(from,r){
@@ -40,6 +43,26 @@ $(document).ready(function () {
 		});
 	});
 });
+
+function imgcrop(imgurl){
+	 
+	$("#imgcropdiv").empty();
+	$("#imgcropdiv").append("<iframe id=\"cropdialog\" style=\"width:680px;height:450px;padding:0;margin:0;border:0;\" src=\"../user/headImg/photoeditor.jsp?path="+imgurl+"\"></iframe>");
+	$("#imgcropdiv").show();
+	$("#imgcropdiv").dialog({
+		title:   "图片剪裁" ,
+		dialogClass : "modal-lg",
+		onClose: function() {
+			//更新截图
+			$(this).dialog("destroy");
+	    }
+	});
+}
+
+function updateNewhead(newimgurl){
+	 $("#nowPhoto").attr("src",rootPath+newimgurl);
+	 headImg.submit();
+}
 
 function setDefaultImg(){
 	document.getElementById('coverIMG_div').style.display = '';
@@ -85,9 +108,10 @@ var headImg = {
 	    			$.messager.alert("消息","操作失败。")
 	    		}
 	    		$("#submit").attr("disabled", false);
+	    		window.location.reload()
 	        } ,
 			error:function (XMLHttpRequest, textStatus, errorThrown) {
-				
+				window.location.reload()
 				$.messager.alert("消息","操作失败。")
 			}
 	    });
@@ -100,6 +124,8 @@ var headImg = {
 			$("#coverIMG_div").html("<img src=\""+rootPath+$("#headImg").val()+"\" border=\"0\" style=\"width:150px;height:100px;\" />");
 			$("#coverIMG_div").append("<div style=\"width:100%;margin-top:10px;text-align:center;\"><a href=\"javascript:void();\" style=\"background: url(../img/delete.png) no-repeat left;padding-left: 20px;\" onclick=\"headImg.delCoverImg();\">删除</a></div>");
 		}
+		 
+		imgcrop($("#headImg").val());
 	},
 	delCoverImg : function(){
 		$("#coverIMG_div").css("display","none");

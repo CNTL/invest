@@ -4,11 +4,14 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,9 +26,11 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import com.tl.common.DateUtils;
+import com.tl.common.ImageUtils;
 import com.tl.common.ParamInitUtils;
 import com.tl.common.StringUtils;
 import com.tl.common.UploadHelper;
+import com.tl.common.WebUtil;
 import com.tl.invest.user.user.User;
 import com.tl.invest.user.user.UserManager;
 import com.tl.kernel.context.Context;
@@ -36,6 +41,10 @@ import com.tl.sys.common.SessionHelper;
  * @created 2014年11月14日 下午2:02:54 
  * @author  leijj
  * 类说明 ： 招聘控制类
+ */
+/**
+ * @author wang.yq
+ *
  */
 @SuppressWarnings({"rawtypes"})
 public class PhotoController extends BaseController {
@@ -69,7 +78,76 @@ public class PhotoController extends BaseController {
 			//获取图片信息
 			getPhotoInfo(request, response, model);
 		} 
+		else if("saveCorpImage".equals(action)){
+			//保存剪裁后的图片
+			saveCorpImage(request, response);
+		} 
 	}
+	
+	/** 保存剪裁后的图片
+	 * @param request
+	 * @param response
+	 * @throws Exception
+	 */
+	private void saveCorpImage(HttpServletRequest request, HttpServletResponse response) throws Exception{
+	 
+		String fileWebroot =  WebUtil.getPath(request);
+		
+		String imageRotate = request.getParameter("imageRotate");//图片的翻转角度
+		String viewPortW = request.getParameter("viewPortW");//可见区宽
+		String viewPortH = request.getParameter("viewPortH");//可见区高
+
+		String imageSource = request.getParameter("imageSource");//图片源
+		imageSource = imageSource.substring(imageSource.indexOf("upload"), imageSource.length());
+		String webImageDest = imageSource;
+		imageSource = imageSource.replaceAll("//", "\\");
+		String imageX = request.getParameter("imageX");//图片X位置
+		String imageY = request.getParameter("imageY");//图片Y位置
+		String imageW = request.getParameter("imageW");//图片宽
+		String imageH = request.getParameter("imageH");//图片高
+
+		String selectorX = request.getParameter("selectorX");//选中区位置X
+		String selectorY = request.getParameter("selectorY");//选中区位置Y
+		String selectorW = request.getParameter("selectorW");//选中区位置宽
+		String selectorH = request.getParameter("selectorH");//选中区位置高
+
+//		System.out.println("viewPortW = " + viewPortW);
+//		System.out.println("viewPortH = " + viewPortH);
+//		System.out.println("imageSource = " + imageSource);
+//		System.out.println("imageW = " + imageW);
+//		System.out.println("imageH = " + imageH);
+//		System.out.println("imageX = " + imageX);
+//		System.out.println("imageY = " + imageY);
+//		System.out.println("imageRotate = " + imageRotate);
+//		System.out.println("selectorX = " + selectorX);
+//		System.out.println("selectorY = " + selectorY);
+//		System.out.println("selectorW = " + selectorW);
+//		System.out.println("selectorH= " + selectorH);
+//		System.out.println("fileWebroot = " + fileWebroot);
+		
+//		String suffix = imageSource
+//				.substring(imageSource.lastIndexOf(".") + 1);
+//		String imageDest = imageSource.substring(0, imageSource.lastIndexOf("."))+"head."
+//				+ suffix;
+		//替换原图
+		String imageDest = imageSource;
+//		System.out.println("imageDest = " + imageDest);
+		 
+		ImageUtils.cropzoom(fileWebroot + imageSource, fileWebroot
+				+ imageDest, imageRotate, viewPortW, viewPortH, imageX,
+				imageY, imageW, imageH, selectorX, selectorY, selectorW,
+				selectorH);
+
+		File cutImgfile = new File(fileWebroot + imageDest);
+		
+		if (cutImgfile.exists()) {
+			
+			output(webImageDest+"?time="+DateUtils.getSysTime(), response);
+		} else {
+			output(imageSource, response);
+		}
+	}
+	
 	/** 
 	* @author  leijj 
 	* 功能： 根据相册id获取相册照片
