@@ -28,6 +28,7 @@ public class User {
 	private Integer name_show;
 	private String identityCard;
 	private String head;
+	private String headcard;
 	private String intro;
 	private Integer intro_show;
 	private String background;
@@ -260,7 +261,13 @@ public class User {
 	public Integer getIntro_show() {
 		return intro_show;
 	}
+	public String getHeadcard() {
+		return headcard;
+	}
 
+	public void setHeadcard(String headcard) {
+		this.headcard = headcard;
+	}
 	public void setIntro_show(Integer intro_show) {
 		this.intro_show = intro_show;
 	}
@@ -425,7 +432,7 @@ public class User {
 	}
 
 	public User(int id, Integer type, String code, String email,
-			String password, String name, String identityCard, String head,
+			String password, String name,String headcard, String identityCard, String head,
 			String intro, String background, Integer isRealNameIdent,
 			Timestamp createTime, String qqOpenId, String xlWeiboCode,
 			String perNickName, String perPostAddr, String perPostCode,
@@ -439,6 +446,7 @@ public class User {
 		this.email = email;
 		this.password = password;
 		this.name = name;
+		this.headcard = headcard;
 		this.identityCard = identityCard;
 		this.head = head;
 		this.intro = intro;

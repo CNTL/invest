@@ -62,6 +62,7 @@ public class UserFetchController extends BaseController {
 					.append("\",\"point\":\"").append((rs.getString("point")!=null)?rs.getString("point"):"")
 					.append("\",\"name\":\"").append((rs.getString("perNickName")!=null)?rs.getString("perNickName"):"")
 					.append("\",\"head\":\"").append(StringUtils.convertUrlChar((rs.getString("head")!=null)?rs.getString("head"):""))
+					.append("\",\"headcard\":\"").append(StringUtils.convertUrlChar((rs.getString("headcard")!=null)?rs.getString("headcard"):""))
 					.append("\"}");
 			}
 		} catch (Exception e) {

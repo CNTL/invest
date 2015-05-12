@@ -1,9 +1,7 @@
 $(document).ready(function () {
 	//初始化
 	headImg.init();
-	$("#btnCrop").click(function(){
-		imgcrop();
-	});
+	 
 	$("#form").validationEngine({
 		autoPositionUpdate:true,
 		onValidationComplete:function(from,r){
@@ -11,6 +9,16 @@ $(document).ready(function () {
 				window.onbeforeunload = null;
 				$("#submit").attr("disabled", true);
 				headImg.submit();
+			}
+		}
+	});
+	$("#form1").validationEngine({
+		autoPositionUpdate:true,
+		onValidationComplete:function(from,r){
+			if (r){
+				window.onbeforeunload = null;
+				$("#submit1").attr("disabled", true);
+				headImg.submit1();
 			}
 		}
 	});
@@ -44,10 +52,10 @@ $(document).ready(function () {
 	});
 });
 
-function imgcrop(imgurl){
+function imgcrop(imgurl,width,height,type){
 	 
 	$("#imgcropdiv").empty();
-	$("#imgcropdiv").append("<iframe id=\"cropdialog\" style=\"width:680px;height:450px;padding:0;margin:0;border:0;\" src=\"../user/headImg/photoeditor.jsp?path="+imgurl+"\"></iframe>");
+	$("#imgcropdiv").append("<iframe id=\"cropdialog\" style=\"width:680px;height:450px;padding:0;margin:0;border:0;\" src=\"../user/headImg/photoeditor.jsp?type="+type+"&width="+width+"&height="+height+"&path="+imgurl+"\"></iframe>");
 	$("#imgcropdiv").show();
 	$("#imgcropdiv").dialog({
 		title:   "图片剪裁" ,
@@ -59,9 +67,16 @@ function imgcrop(imgurl){
 	});
 }
 
-function updateNewhead(newimgurl){
-	 $("#nowPhoto").attr("src",rootPath+newimgurl);
-	 headImg.submit();
+function updateNewhead(newimgurl,type){
+	if(type=="head"){
+		 $("#nowPhoto").attr("src",rootPath+newimgurl);
+		 $("#cut_url").val(newimgurl);
+		 headImg.submit();
+	}else{
+		 $("#nowPhoto1").attr("src",rootPath+newimgurl);
+		 $("#cut_url1").val(newimgurl);
+		 headImg.submit1();
+	}
 }
 
 function setDefaultImg(){
@@ -76,6 +91,7 @@ function setDefaultImg(){
 var headImg = {
 	init : function(){
 		headImg.initUploadify("uploadify","queueItemCount","headImg","uploadErrorMsg",true,headImg.imgUploaded);
+		headImg.initUploadify("uploadify1","queueItemCount1","headImg1","uploadErrorMsg1",true,headImg.imgUploaded1);
 		$.ajax({
 	        type:"GET", //请求方式  
 	        url:"../user/user.do?a=findLogin", //请求路径  
@@ -84,12 +100,41 @@ var headImg = {
 	        success:function(data){
 	    		if(data != null){
 	    			var headSrc=data.head;
-	    			if(headSrc != null && headSrc != "")
+	    			if(headSrc != null && headSrc != ""){
 	    				document.getElementById('nowPhoto').src = rootPath + headSrc;
+	    			}
+	    			var headcard = data.headcard;
+	    			if(headcard != null && headcard != ""){
+	    				document.getElementById('nowPhoto1').src = rootPath + headcard;
+	    			}
+	    				
 	    		}
 	        } ,
 			error:function (XMLHttpRequest, textStatus, errorThrown) {
 				//AlertInfo(100,30,"上传失败。");
+			}
+	    });
+	},
+	submit1 : function(){
+		$.ajax({
+	        type:"POST", //请求方式  
+	        url:"../user/user.do?a=saveHeadCardImg", //请求路径  
+	        cache: false,
+	        data:$('#form2').serialize(),  //传参 
+	        dataType: 'text',   //返回值类型  
+	        success:function(data){
+	    		if(data != null && data == 'ok'){
+	    			 
+	    			$.messager.alert("消息","操作成功。")
+	    		} else {
+	    			$.messager.alert("消息","操作失败。")
+	    		}
+	    		$("#submit").attr("disabled", false);
+	    		window.location.reload()
+	        } ,
+			error:function (XMLHttpRequest, textStatus, errorThrown) {
+				window.location.reload()
+				$.messager.alert("消息","操作失败。")
 			}
 	    });
 	},
@@ -125,7 +170,20 @@ var headImg = {
 			$("#coverIMG_div").append("<div style=\"width:100%;margin-top:10px;text-align:center;\"><a href=\"javascript:void();\" style=\"background: url(../img/delete.png) no-repeat left;padding-left: 20px;\" onclick=\"headImg.delCoverImg();\">删除</a></div>");
 		}
 		 
-		imgcrop($("#headImg").val());
+		imgcrop($("#headImg").val(),120,120,"head");
+	},
+	imgUploaded1 : function(){
+		$("#coverIMG_div1").hide();
+		var url =$("#headImg1").val();
+		 
+		$("#cut_url1").val( url);
+		$("#coverIMG_div1").empty();
+		if(url!=""){
+			$("#coverIMG_div1").html("<img src=\""+rootPath+$("#headImg1").val()+"\" border=\"0\" style=\"width:150px;height:100px;\" />");
+			$("#coverIMG_div1").append("<div style=\"width:100%;margin-top:10px;text-align:center;\"><a href=\"javascript:void();\" style=\"background: url(../img/delete.png) no-repeat left;padding-left: 20px;\" onclick=\"headImg.delCoverImg();\">删除</a></div>");
+		}
+		 
+		imgcrop($("#headImg1").val(),232,161,"headcard");
 	},
 	delCoverImg : function(){
 		$("#coverIMG_div").css("display","none");

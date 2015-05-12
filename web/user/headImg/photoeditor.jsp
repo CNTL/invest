@@ -33,7 +33,9 @@
 
     });
    function getImageSize(imgurl){
-	    
+	   var cropwidth=120,cropwidth=120;
+	   cropwidth = $.query.get("width");
+	   cropheight = $.query.get("height");
 	   $("<img/>").attr("src", imgurl)
 	     .load(function() {
 	         //获得图片的真实尺寸
@@ -44,16 +46,16 @@
 	     			enableRotation : false,
 	     			enableZoom : true,
 	     			selector : {
-	     				w : 150,
-	     				h : 200,
+	     				w : cropwidth,
+	     				h : cropheight,
 	     				showPositionsOnDrag : false,
 	     				showDimetionsOnDrag : false,
 	     				centered : true,
 	     				bgInfoLayer : '#fff',
 	     				borderColor : 'blue',
 	     				animated : false,
-	     				maxWidth : 120,
-	     				maxHeight : 120,
+	     				maxWidth : cropwidth,
+	     				maxHeight : cropheight,
 	     				borderColorHover : '#333'
 	     			},
 	     			image : {
@@ -66,10 +68,12 @@
 	     	};
 	         
 	        var cropzoom = $('#cropzoom_container').cropzoom( options );
+	        var type = $.query.get("type");
 	 		$("#crop").click(function() {
 	 			cropzoom.send('../../user/photo.do?a=saveCorpImage', 'POST', {}, function(imgRet) {
 	 				$("#generated").attr("src", "../../"+imgRet);
-	 				window.parent.updateNewhead(imgRet);
+	 				
+	 				window.parent.updateNewhead(imgRet,type);
 	 			});
 	 		});
 	 		 

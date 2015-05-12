@@ -102,7 +102,11 @@ public class UserController extends BaseController {
 		} else if ("saveImg".equals(action)) {
 			String json = saveHeadImg(request);
 			output(json, response);
-		} else if ("uploadAtt".equals(action)) {
+		}else if ("saveHeadCardImg".equals(action)) {
+			String json = saveHeadCardImg(request);
+			output(json, response);
+		}
+		else if ("uploadAtt".equals(action)) {
 			String json = upload(request);
 			output(json, response);
 		}else if ("getUser".equals(action)) {
@@ -475,34 +479,25 @@ public class UserController extends BaseController {
 	
 	private String saveHeadImg(HttpServletRequest request) throws Exception {
 		try {
-			/*
-			int width=120;
-			//获取缩放和剪切参数
 			
-			String cutPos = request.getParameter("cut_pos");
-			String[] pos = cutPos.split(",");
-			//左上角坐标
-			int x = Integer.parseInt(pos[0]);
-			int y = Integer.parseInt(pos[1]);
-			//缩放后的图片宽度
-			int picWidth = Integer.parseInt(pos[2]);
-			int picHeight = Integer.parseInt(pos[3]);
-			String fileName = request.getParameter("cut_url");
-			String srcFileName = fileName;
-			String destFile = fileName.substring(0, fileName.lastIndexOf(".")) + "_" + fileName.substring(fileName.lastIndexOf("."));
-			ImageHelper.ZoomTheImage(srcFileName, destFile,picWidth,picHeight);
-			HeadImage headImage = new HeadImage(x,y,width,width);
-			headImage.setSrcPath(destFile);  
-			headImage.setSubPath(destFile);
-	        ImageHelper.cut(headImage);
-	        //User user = userManager.getUserByCode(SessionHelper.getUserCode(request));
-	        String rootPath = request.getSession().getServletContext().getRealPath("/");
-			//String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/";
-			*/
 	        User user = userManager.getUserByID(SessionHelper.getUserID(request));
 	        //String head = destFile.substring(rootPath.length());
 	        String head = request.getParameter("cut_url");
 	        user.setHead(head);
+	        userManager.update(user);
+	        return "ok";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "上传头像失败:" + e.getMessage();
+		}
+	}
+	private String saveHeadCardImg(HttpServletRequest request) throws Exception {
+		try {
+			
+	        User user = userManager.getUserByID(SessionHelper.getUserID(request));
+	        //String head = destFile.substring(rootPath.length());
+	        String headcard = request.getParameter("cut_url1");
+	        user.setHeadcard(headcard);
 	        userManager.update(user);
 	        return "ok";
 		} catch (Exception e) {

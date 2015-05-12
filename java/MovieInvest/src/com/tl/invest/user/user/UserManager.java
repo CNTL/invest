@@ -672,6 +672,7 @@ public class UserManager {
 			user.setProvince(rs.getString("province"));
 			user.setCity(rs.getString("city"));
 			user.setHead(rs.getString("head"));
+			user.setHeadcard(rs.getString("headcard"));
 			user.setIntro(rs.getString("intro"));
 			user.setIntro_show(rs.getInt("intro_show"));
 			user.setName(rs.getString("name"));

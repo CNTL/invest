@@ -28,6 +28,10 @@
             <column name="name">
             </column>
         </property>
+         <property name="headcard" type="string">
+            <column name="headcard">
+            </column>
+        </property>
          <property name="name_show" type="java.lang.Integer">
             <column name="name_show">
             </column>

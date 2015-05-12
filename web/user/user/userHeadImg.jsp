@@ -38,8 +38,6 @@
 	<%@include file="../inc/userHeaderMenu.inc"%>
 	<div class="col-md-8">
         <div class="container-right">
-<!--         <a href="../user/headImg/photoeditor.jsp">看看</a> -->
-<!--         <button class="btn btn-primary" id="btnCrop" >剪裁</button> -->
         	<form class="form-horizontal" role="form"  name="picForm" id="picForm" action="../user/user.do?a=uploadImg" method="post" enctype="multipart/form-data" onsubmit="return checkPic();" target="hidden_frame">
         	 <div class="form-group">
                       <label for="code" class="col-sm-3 control-label">上传头像：</label>
@@ -64,7 +62,7 @@
                       </div>
                   </div>
         	</form>
-        	 <form class="form-horizontal" name="form" id="form" action="../user/user.do?a=saveImg" method="post">
+        	 <form class="form-horizontal" name="form" id="form" >
         	  <div class="form-group">
         	     <label for="code" class="col-sm-3 control-label">当前头像：</label>
         	
@@ -88,7 +86,47 @@
                  </div>
 				        
 			</form>
-				    
+		<!-- 用户卡片 -->
+		<form class="form-horizontal" role="form"  name="picForm1" id="picForm1" action="../user/user.do?a=uploadImg" method="post" enctype="multipart/form-data" onsubmit="return checkPic();" target="hidden_frame">
+        	 <div class="form-group">
+                      <label for="code" class="col-sm-3 control-label">上传卡片封面：</label>
+                      <div class="col-sm-6">
+                        
+                        <input type="file" name="uploadify1" id="uploadify1" />
+						<input type="hidden" id="queueItemCount1" name="queueItemCount1" value="0" />
+						<input type="hidden" id="headImg1" name="headImg1" value="" />
+						<input type="hidden" id="uploadErrorMsg1" name="uploadErrorMsg1" value="" />
+                     </div>
+                     <div class="col-sm-offset-2 col-sm-10">
+						<span class="help-block" style=" padding-top: 10px;">请选择照片文件，支持jpg、jpeg、png、gif格式，大小不超过5M。建议尺寸：600 x 450px</span>
+					</div>
+             </div>
+              
+        	</form>
+        	 <form class="form-horizontal" name="form2" id="form2"  method="post">
+        	  <div class="form-group">
+        	     <label for="code" class="col-sm-3 control-label">卡片封面：</label>
+        	
+        	 	<div id="hide" class="col-sm-6" >
+				            <div id="coverIMG_div" style="position: absolute; z-index: 122; width:235px;height:165px;overflow:hidden;background:#fff;">
+								<img id="nowPhoto1" class="img-rounded" style="width: 232px; height: 161px;" src="../static/image/temp/avatar2.png"/>
+							</div>
+							<br><br><br><br><br><br><br><br>
+				            <div class="btn" style="position: absolute;">
+				            	<input type="hidden" name="MemberID1" id="MemberID1" value="<c:out value="${memberID}"/>" />
+				                <input type="hidden" name="DocLibID1" id="DocLibID1" value="<c:out value="${docLibID}"/>" />
+				                <input type="hidden" name="cut_pos1" id="cut_pos1" value="" />
+				                <input type="hidden" name="cut_url1" id="cut_url1" value="" />
+						    </div>
+				 </div>
+        	    </div>
+        	 <div class="form-group hide">
+                     <div class="col-sm-12 text-center">
+                         <button type="submit" class="btn btn-primary" id="submit1">保存头像</button>
+                     </div>
+                 </div>
+				        
+			</form>
         </div>
      </div>
 	</div>
