@@ -95,8 +95,8 @@
 	                    <div class="pic">
 	                    	<a href="../user/PeopleDetailMain.do?a=detail&mainType=4&id=<c:out value="${person.id}"/>">
 								<c:choose>
-									<c:when test="${person.head=='' || person.head == null}"><img src="../static/image/temp/pic2.png" /></c:when>
-									<c:otherwise><img src="../<c:out value="${person.head}"/>" /></c:otherwise>
+									<c:when test="${person.headcard=='' || person.headcard == null}"><img src="../static/image/temp/pic2.png" /></c:when>
+									<c:otherwise><img src="../<c:out value="${person.headcard}"/>" /></c:otherwise>
 								</c:choose>
 	                      	</a>
 	                      	<span>影人</span>

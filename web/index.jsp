@@ -233,7 +233,7 @@
 				sb.push("    <div class=\"box_top\"></div>");
 				sb.push("    <div class=\"box_main people\">");
 				sb.push("        <div class=\"pic\">");
-				sb.push("            <a href=\"user/PeopleDetailMain.do?a=detail&id="+n.id+"\"><img src=\""+n.head+"\" /> </a><span>影人</span>");
+				sb.push("            <a href=\"user/PeopleDetailMain.do?a=detail&id="+n.id+"\"><img src=\""+n.headcard+"\" /> </a><span>影人</span>");
 				sb.push("        </div>");
 				sb.push("        <div class=\"title\">");
 				sb.push("            <a href=\"user/PeopleDetailMain.do?a=detail&id="+n.id+"\">"+n.name+"</a> <span>"+n.perJobName+"</span>");
@@ -492,7 +492,7 @@
 		<div class="box_top"></div>
 		<div class="box_main people">
 			<div class="pic">
-				<a href="user/PeopleDetailMain.do?a=detail&id=<c:out value="${user.id}"/>"><img src="<c:out value="${user.head}"/>" /> </a><span>影人</span>
+				<a href="user/PeopleDetailMain.do?a=detail&id=<c:out value="${user.id}"/>"><img src="<c:out value="${user.headcard}"/>" /> </a><span>影人</span>
 			</div>
 			<div class="title">
 				<a href="user/PeopleDetailMain.do?a=detail&id=<c:out value="${user.id}"/>"><c:out value="${user.name}"/></a> <span><c:out value="${user.perJobName}"/></span>

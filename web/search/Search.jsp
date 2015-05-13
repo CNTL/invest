@@ -157,7 +157,7 @@
 				<div class="box_main project">
 					<div class="pic">
 						<a href="<c:out value="${rootPath}"/>user/PeopleDetailMain.do?a=detail&amp;mainType=4&amp;id=<c:out value="${user.id}"/>">
-							<img src="<c:out value="${rootPath}"/><c:out value="${user.head}"/>">
+							<img src="<c:out value="${rootPath}"/><c:out value="${user.headcard}"/>">
 						</a>
 						<span>影人</span>
 					</div>
@@ -166,10 +166,11 @@
 							<a href="<c:out value="${rootPath}"/>user/PeopleDetailMain.do?a=detail&amp;mainType=4&amp;id=<c:out value="${user.id}"/>">
 							<c:out value="${user.name}"/>
 							</a>
-							<span><c:out value="${user.typeName}"/></span>
+							<span><c:out value="${user.perJobName}"/></span>
 						</div>
 						<div class="desc">
-							<c:out value="${user.intro}"/>
+						<c:out escapeXml="false" value="${user.intro}"/>
+							
 						</div>
 					</div>
 					<div class="tool">

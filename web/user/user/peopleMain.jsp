@@ -56,12 +56,12 @@
 	    		var id = item.id;
 	    		var name = item.name;
 	    		var intro = item.intro;
-	    		var head = item.head;
+	    		var headcard = item.headcard;
 	    		var job = item.perJobName;
-	    		if(head == null || head.length == 0){
+	    		if(headcard == null || headcard.length == 0){
 	    			head = '../static/image/temp/pic2.png';
 	    		} else {
-	    			head = rootPath + head;
+	    			headcard = rootPath + headcard;
 	    		}
 	    		
 	    		i++;
@@ -75,7 +75,7 @@
 		                '<div class="box_main project">' + 
 		                '<div class="pic">' + 
 		                	'<a href="../user/PeopleDetailMain.do?a=detail&mainType=4&id='+id+'">' + 
-		                		'<img src="' + head + '" />' + 
+		                		'<img src="' + headcard + '" />' + 
 		                  	'</a>' + 
 		                  	'<span>影人</span>' + 
 		                '</div>' + 
@@ -140,8 +140,8 @@
                                 <div class="pic">
 			                    	<a href="../user/PeopleDetailMain.do?a=detail&mainType=4&id=<c:out value="${person.id}"/>">
 										<c:choose>
-											<c:when test="${person.head=='' || person.head == null}"><img src="../static/image/temp/pic2.png" /></c:when>
-											<c:otherwise><img src="../<c:out value="${person.head}"/>" /></c:otherwise>
+											<c:when test="${person.headcard=='' || person.headcard == null}"><img src="../static/image/temp/pic2.png" /></c:when>
+											<c:otherwise><img src="../<c:out value="${person.headcard}"/>" /></c:otherwise>
 										</c:choose>
 			                      	</a>
 			                      	<span>影人</span>

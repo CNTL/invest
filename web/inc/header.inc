@@ -30,6 +30,7 @@
 					<option value="1">项目</option>
 					<option value="2">影聘</option>
 					<option value="3">影人</option>
+					<option value="4">机构</option>
 				</select>
 			</div>
 			<div class="col-md-3  head-searchctxt">
