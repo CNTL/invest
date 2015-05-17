@@ -305,11 +305,11 @@ ul.reset {
 								
 							</dd>
 							<dd>
-							 <div id="rec-more" style="font-size:16px;padding:10px;">&nbsp;</div>
+							 <div id="rec-more" style="font-size:16px;padding:10px;background:#FAFAFA;">&nbsp;</div>
 							 <input class="select" >
 							</dd>
 						</dl>
-						 <button type="button" id="btn-save" style="width:200px;" class="btn btn-success btn-lg">保存</button>
+						 <button type="button" id="btn-save" style="width:200px;margin:10px;" class="btn btn-success btn-lg">保存</button>
 						 
 					</div>
 				</form>

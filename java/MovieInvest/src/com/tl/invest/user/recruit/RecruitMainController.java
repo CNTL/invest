@@ -346,12 +346,11 @@ public class RecruitMainController extends Entry {
 		boolean ret = false;
 		if( (!StringUtils.isEmpty(user.getOrgFullname())) 
 				&& (!StringUtils.isEmpty(user.getLocation())) 
-				&& (!StringUtils.isEmpty(user.getOrgScale()))){
+				&& (!StringUtils.isEmpty(user.getOrgScale()))
+				&& (user.getIsRealNameIdent()==1)){
 			ret = true;
 		}
-		if(user.getIsRealNameIdent()==1){
-			ret = false;
-		}
+		 
 		return ret;
 	}
 	private UserManager userManager = (UserManager)Context.getBean(UserManager.class);

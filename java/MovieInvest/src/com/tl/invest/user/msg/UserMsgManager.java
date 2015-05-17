@@ -123,10 +123,36 @@ public class UserMsgManager {
 		int count = 0;
 	
 		String tablename = SysTableLibs.TB_USERMSG.getTableCode();
-		String sql = "select count(*) as count from (SELECT id  FROM "
-				+ tablename + " WHERE (msg_toID=? or msg_fromID=?)  GROUP BY msg_fromID ORDER BY createTime DESC) a";
 		
-		count = getSqlCount(sql, new Object[]{UserID,UserID},null);
+		String sql = " SELECT max(`id`) as id,maxId,minId,msg_fromID,msg_toID FROM (SELECT `id`,IF(msg_fromID>msg_toID,msg_fromID,msg_toID) AS maxId,IF(msg_fromID>msg_toID,msg_toID,msg_fromID) AS minId,msg_fromID,msg_toID FROM "+tablename+" where (msg_toID=? or msg_fromID=?)) AS `tmp` GROUP BY maxId,minId";
+			 
+		count = getMaxSqlCount(sql, new Object[]{UserID,UserID},null);
+		return count;
+	}
+	public int getMaxSqlCount(String sql,Object[] params,DBSession db) throws TLException{
+		int count =0;
+		boolean dbIsCreated = false;
+		if(db==null){
+			dbIsCreated = true;
+			db= Context.getDBSession();
+		}
+		IResultSet rs = null;
+		try{
+			//dbSession = Context.getDBSession();
+			rs = db.executeQuery(sql,params);
+			 
+			if(rs.next()){
+				count++;
+			}
+				
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}finally{
+			ResourceMgr.closeQuietly(rs);
+			if(dbIsCreated){
+				ResourceMgr.closeQuietly(db);
+			}
+		}
 		return count;
 	}
 	public int getSqlCount(String sql,Object[] params,DBSession db) throws TLException{
@@ -160,8 +186,8 @@ public class UserMsgManager {
 		String tablename = SysTableLibs.TB_USERMSG.getTableCode();
 		//先排序后分组
 		//select * from (select * from user_msg WHERE msg_toID=41 or msg_fromID=41 ORDER BY createTime DESC) as t GROUP BY t.msg_fromID ORDER BY t.createTime DESC
-		String sql = "SELECT *  FROM  (select * from "
-				+ tablename + " WHERE msg_toID=? or msg_fromID=?  ORDER BY createTime DESC ) as t GROUP BY t.msg_fromID ORDER BY t.createTime DESC";
+	
+		String sql = "SELECT max(`id`) as id FROM (SELECT id,IF(msg_fromID>msg_toID,msg_fromID,msg_toID) AS maxId,IF(msg_fromID>msg_toID,msg_toID,msg_fromID) AS minId FROM "+tablename+" where (msg_toID=? or msg_fromID=?)) AS `tmp` GROUP BY maxId,minId";
 		DBSession conn = null;
 		IResultSet rs = null;
 		IResultSet numRs = null;
@@ -172,27 +198,29 @@ public class UserMsgManager {
 	    	
 	    	rs = conn.executeQuery(sql, new Object[]{user.getId(),user.getId()});
 			while (rs.next()) {
-				User fromUser = userManager.getUserByID( rs.getInt("msg_fromID")) ;
-				User toUser = userManager.getUserByID( rs.getInt("msg_toID")) ;
+				UserMsg msg = getMsgByID(rs.getInt("id"));
+				 
+				User fromUser = userManager.getUserByID(msg.getMsgFromId()) ;
+				User toUser = userManager.getUserByID( msg.getMsgToId()) ;
 				
 				Map<String, String> oneResult = new HashMap<String, String>();
-				oneResult.put("msg_from", rs.getString("msg_from"));
-				oneResult.put("msg_fromID", rs.getString("msg_fromID"));
+				oneResult.put("msg_from",msg.getMsgFrom());
+				oneResult.put("msg_fromID", String.valueOf(msg.getMsgFromId()));
 				oneResult.put("msg_fromHead", fromUser.getHead());
-				oneResult.put("msg_to", rs.getString("msg_to"));
-				oneResult.put("msg_toID", rs.getString("msg_toID"));
+				oneResult.put("msg_to",msg.getMsgTo());
+				oneResult.put("msg_toID", String.valueOf(msg.getMsgToId()));
 				oneResult.put("msg_toHead", toUser.getHead());
-				oneResult.put("msg_createTime", DateUtils.format(rs.getTimestamp("createTime"), "yyyy-MM-dd HH:mm:ss"));
-				oneResult.put("msg_content", rs.getString("msg_content"));
-				oneResult.put("msg_isread", rs.getString("msg_isRead"));
+				oneResult.put("msg_createTime", DateUtils.format(msg.getCreateTime(), "yyyy-MM-dd HH:mm:ss"));
+				oneResult.put("msg_content", msg.getMsgContent());
+				oneResult.put("msg_isread", String.valueOf(msg.getMsgIsRead()));
 				
-				oneResult.put("id", rs.getString("id"));
-				String countSql = "SELECT COUNT(1) AS msgNum FROM " + tablename
-						+ " WHERE (msg_fromID = ? and msg_toID = ?) or (msg_toID = ? and msg_fromID = ?)";
-				numRs = conn.executeQuery(countSql, new Object[]{user.getId(), rs.getString("msg_toID"), user.getId(), rs.getString("msg_toID")});
-				while (numRs.next()) {
-					oneResult.put("msgNum", numRs.getString("msgNum"));
-				}
+				oneResult.put("id", String.valueOf(msg.getId()));
+//				String countSql = "SELECT COUNT(1) AS msgNum FROM " + tablename
+//						+ " WHERE (msg_fromID = ? and msg_toID = ?) or (msg_toID = ? and msg_fromID = ?)";
+//				numRs = conn.executeQuery(countSql, new Object[]{user.getId(), rs.getString("msg_toID"), user.getId(), rs.getString("msg_toID")});
+//				while (numRs.next()) {
+//					oneResult.put("msgNum", numRs.getString("msgNum"));
+//				}
 				result.add(oneResult);
 			}
 		} catch (Exception e) {
@@ -204,6 +232,17 @@ public class UserMsgManager {
 		}
 		return result;
 	}
+	
+	public UserMsg getMsgByID(Integer msgid) throws Exception{
+		
+		List list = DAOHelper.find("select a from com.tl.invest.user.msg.UserMsg as a where a.id = :id", 
+        		new Integer(msgid), Hibernate.INTEGER);
+        if(list.size() > 0)
+            return (UserMsg) list.get(0);
+        else
+            return null;
+	}
+ 
 	public List<Map<String, String>> getTalkList(User user, int msg_toID){
 		List<Map<String, String>> result = new ArrayList<Map<String, String>>();
 		
@@ -243,6 +282,8 @@ public class UserMsgManager {
 		}
 		return result;
 	}
+	
+	 
 	
     /**阅读消息
      * @param fromID

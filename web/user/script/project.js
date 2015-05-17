@@ -54,7 +54,7 @@ function delFavorite(id){
 	var loading = -1;
 	$.ajax({url: dataUrl, async:true, dataType:"json",
 		beforeSend:function(XMLHttpRequest){
-			loading = layer.msg("正在提交数据...", 0, 16);
+			
 		},
 		success: function(datas) {
 			if(datas.success){
@@ -62,11 +62,10 @@ function delFavorite(id){
 			}
 		},
 		complete: function(XMLHttpRequest, textStatus){
-			layer.close(loading);
+			
 		},
 		error:function (XMLHttpRequest, textStatus, errorThrown) {
-			layer.close(loading);
-			layer.alert('数据提交失败！', 3);
+			
 		}
 	});
 }

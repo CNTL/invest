@@ -6,6 +6,11 @@
     <%@include file="../../inc/meta.inc"%>
 	<link rel="stylesheet" type="text/css" href="../user/css/project.css" />
 	<script type="text/javascript" src="../user/script/project.js"></script>
+	<style>
+	.people_globaltop .wrap .nav li a{
+		padding-top:8px;
+	}
+	</style>
 	<script type="text/javascript">
 		var webroot = "<c:out value="${rootPath}"/>";
 		var menu = "<c:out value="${menu}"/>";
@@ -21,7 +26,9 @@
                 <img style="border-radius: 50%;" src="<c:out value="${loginUser.head}"/>" />
             </div>
             <div class="info">
-                <h2><c:out value="${loginUser.perNickName}"/>
+                
+                <h2><c:out value="${loginUser.perNickName}"/> 
+                
 					<span>
 						<c:choose>
 							<c:when test="${loginUser.type==0}">个人</c:when>
@@ -29,11 +36,18 @@
 							<c:otherwise>未知</c:otherwise>
 						</c:choose>
 					</span>
+					<span>
+	                  	<c:choose>
+							<c:when test="${loginUser.isRealNameIdent==1}">已认证</c:when>
+							<c:otherwise>未认证</c:otherwise>
+					 	</c:choose>
+					 	</span>
 				 </h2>
                 <div class="desc">
-                    <c:out value="${loginUser.intro}"/><br />
-                    姓名：<c:out value="${loginUser.name}"/><br />
-                    <span style="display:none;">短信息</span>
+                   <div> <c:out value="${loginUser.perJobName}"/>、<c:out value="${cityname}"/></div>
+                   
+                  <br />
+                    
                 </div>
             </div>
             <div class="clear"></div>

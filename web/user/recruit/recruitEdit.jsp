@@ -27,6 +27,9 @@
                     <div class="col-sm-6">
                         <input type="text" class="form-control validate[maxSize[255],required]" id="jobName" name="jobName" value="${recruit.jobName}" placeholder="招聘主题">
                     </div>
+                    <div class="col-sm-1">
+                    <span style="color:red;line-height:30px;">*</span>
+                    </div>
                 </div>
                 
                 <div class="form-group">
@@ -36,6 +39,9 @@
                     </div>
                     <div class="col-sm-3">
 						<select id="secondType" name="secondType" class="form-control validate[required]"></select>
+                    </div>
+                     <div class="col-sm-1">
+                    <span style="color:red;line-height:30px;">*</span>
                     </div>
                 </div>
                 <div class="form-group">
@@ -52,6 +58,9 @@
 							
 							</select>
                       </div>
+                       <div class="col-sm-1">
+                    <span style="color:red;line-height:30px;">*</span>
+                    </div>
                   </div>
                 
                   <div class="form-group">
@@ -66,6 +75,9 @@
                       <div class="col-sm-6">
                           <div id="coverIMG_div" style="display:none;width:150px;height:150px;overflow:hidden;background:#fff;border:1px solid #C7C7C7;"></div>
                       </div>
+                     <div class="col-sm-1">
+                    <span style="color:red;line-height:30px;">*</span>
+                    </div>
                   </div>
                    <div class="form-group">
                     <label for="jobType" class="col-sm-3 control-label">薪酬类型：</label>
@@ -75,12 +87,18 @@
 			            	<option value="1">月薪</option>
 			            </select>
                     </div>
+                     <div class="col-sm-1">
+                    <span style="color:red;line-height:30px;">*</span>
+                    </div>
                      
                 </div>
                 <div class="form-group">
                     <label for="jobName" class="col-sm-3 control-label">薪资待遇：</label>
                     <div class="col-sm-6">
                         <input class="form-control validate[maxSize[255]]" type="text" id="salary" name="salary" value="${recruit.salary}" placeholder="薪资待遇"/>
+                    </div>
+                     <div class="col-sm-1">
+                    <span style="color:red;line-height:30px;">*</span>
                     </div>
                 </div>
                 
@@ -90,12 +108,18 @@
                         <input class="form-control validate[maxSize[255]]" type="text" id="days" name="days" value="${recruit.days}" placeholder="工作时长"/>
                     </div>
                     <label id="jobLength" class="col-sm-1 control-label">（天）</label>
+                     <div class="col-sm-1">
+                    <span style="color:red;line-height:30px;">*</span>
+                    </div>
                 </div>
                 
                 <div class="form-group">
                     <label for="jobName" class="col-sm-3 control-label">经验要求：</label>
                     <div class="col-sm-3">
                          <input class="form-control validate[maxSize[255]]" type="text" id="working" name="working" value="${recruit.working}" placeholder="经验要求"/>
+                    </div>
+                     <div class="col-sm-1">
+                    <span style="color:red;line-height:30px;">*</span>
                     </div>
                 </div>
                 
@@ -111,14 +135,21 @@
 					        <option value="6">博士</option>
 				        </select>
                     </div>
+                     <div class="col-sm-1">
+                    <span style="color:red;line-height:30px;">*</span>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="isFulltime" class="col-sm-3 control-label">全职/兼职：</label>
                     <div class="col-sm-3">
-                         <select id="isFulltime" name="isFulltime" class="form-control validate[maxSize[255],required]" value="${recruit.isFulltime}" style="width:400px">
+                         <select id="isFulltime" name="isFulltime" class="form-control validate[maxSize[255],required]" value="${recruit.isFulltime}" >
 					        <option value="1">全职</option>
 					        <option value="2">兼职</option>
 				        </select>
+				        
+                    </div>
+                     <div class="col-sm-1">
+                    <span style="color:red;line-height:30px;">*</span>
                     </div>
                 </div>
                 
@@ -126,6 +157,9 @@
                     <label for="jobAttract" class="col-sm-3 control-label">职位诱惑：</label>
                     <div class="col-sm-6">
                          <input class="form-control validate[maxSize[255],required]" type="text" id="jobAttract" name="jobAttract" value="${recruit.jobAttract}" placeholder="职位诱惑"/>
+                    </div>
+                      <div class="col-sm-1">
+                    <span style="color:red;line-height:30px;">*</span>
                     </div>
                 </div>
                 
@@ -135,11 +169,17 @@
 					<textarea id="contentTxt" name="contentTxt" class="form-control validate[maxSize[4000]]"><c:out escapeXml="false" value="${recruit.content}"/></textarea>
                  	<input type="hidden" id="content" name="content" value=""/>
                     </div>
+                     <div class="col-sm-1">
+                    <span style="color:red;line-height:30px;">*</span>
+                    </div>
                 </div>
                   <div class="form-group">
                     <label for="linkman" class="col-sm-3 control-label">联系人：</label>
                     <div class="col-sm-6">
                          <input class="form-control validate[maxSize[255],required]" type="text" id="linkman" name="linkman" value="${recruit.linkman}" placeholder="联系人"/>
+                    </div>
+                     <div class="col-sm-1">
+                    <span style="color:red;line-height:30px;">*</span>
                     </div>
                 </div>
                      <div class="form-group">
@@ -147,11 +187,17 @@
                     <div class="col-sm-6">
                          <input class="form-control validate[maxSize[255],required]" type="text" id="linkPhone" name="linkPhone" value="${recruit.linkPhone}" placeholder="联系电话"/>
                     </div>
+                     <div class="col-sm-1">
+                    <span style="color:red;line-height:30px;">*</span>
+                    </div>
                 </div>
                     <div class="form-group">
                     <label for="linkPhone" class="col-sm-3 control-label">联系邮箱：</label>
                     <div class="col-sm-6">
                          <input class="form-control validate[maxSize[255],custom[email]]" type="text" id="linkEmail" name="linkEmail" value="${recruit.linkEmail}" placeholder="联系邮箱"/>
+                    </div>
+                     <div class="col-sm-1">
+                    <span style="color:red;line-height:30px;">*</span>
                     </div>
                 </div>
                 <div class="form-group">

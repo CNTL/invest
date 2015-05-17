@@ -101,6 +101,7 @@
 				  var tb = $("#msgtable");
 				  var sb = [];
 				  tb.find("tbody").empty();
+				  
 				  $.each(json,function(i,n){
 					  
 					  var msguserid ;
@@ -117,11 +118,11 @@
   					  else{
   						msguserid = n.msg_fromID;
   					  }
-  					  //alert($("#"+msguserid).length);
-  					  if($("#"+msguserid).length==0){
+  					 
+  					   
   						  //不能重复出现同一个人的会话
   						sb.push("<tr>");
-  	  					 
+  	  					 //头像
     					  if(isme){
     						 
     						  
@@ -136,8 +137,8 @@
 	    					    sb.push("<img class=\"img-circle\" style=\"width: 60px;height:60px;\" src=\"../"+n.msg_fromHead+"\" > </br>");
 	    					    sb.push("<span style=\"margin-left:15px;\">"+n.msg_from+"</span>");
 	    					    sb.push("</a></td>");
-	    					  }
-  					  
+	    			       }
+  					  	//内容
 	  					  sb.push("<td>");
 	  					  sb.push("<a href=\"MsgDetailMa.do?msguserid="+msguserid+"\">"+n.msg_content+"</a>");
 	  					  if(isme){
@@ -152,25 +153,21 @@
 	  					  sb.push(" </br>");
 	  					  sb.push(" <small>"+n.msg_createTime+"</small>");
 	  					  sb.push("</td>");
-	  					 
+	  					  
+	  					  //操作
 	  					  sb.push("<td>");
 	  					  if(!isme&&n.msg_isread=="0"){
 	  						  sb.push(" <a class=\"muted\" href=\"javascript:readmsg("+msguserid+")\">标记已读</a>|");
 	  					  }
 	  					  sb.push(" <a class=\"muted\" href=\"MsgDetailMa.do?msguserid="+msguserid+"\">回复</a>|");
 	  					  sb.push(" <a class=\"muted\" href=\"javascript:delmsg("+n.id+")\">删除</a>	");
-	  					 
-	  					 
 	  					  sb.push("</td>");
 	  					  
 	  					  sb.push("</tr>");
-	  					 tb.find("tbody").append(sb.join(""));
-  					  }
-  					  
 				  });
+				  tb.find("tbody").append(sb.join(""));
 				  
 				  
-				 
 				});
 		}
 		 

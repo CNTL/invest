@@ -28,7 +28,7 @@ var proj_form = {
 		proj_form._setOptions("proj_bigmvsection",proj_datas.getBigmvSections(),proj_form.DEFAULT_PAIR);
 		proj_form.changeBigmvSections();
 		$("#proj_beginDate").calendar({ minDate:'%y-%M-%d',maxDate:'#proj_endDate',format:"yyyy-MM-dd HH:mm:ss"});
-		$("#proj_endDate").calendar({ minDate:'#proj_beginDate',format:"yyyy-MM-dd HH:mm:ss"});
+		$("#proj_endDate").calendar({ format:"yyyy-MM-dd HH:mm:ss"});
 		
 		proj_form.initUploadify("uploadify","queueItemCount","proj_imgURL","uploadErrorMsg",true,proj_form.imgUploaded);
 		
