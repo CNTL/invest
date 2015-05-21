@@ -21,7 +21,7 @@
 					 	</span>
 						</h2>
 						<div class="desc">
-		                  	<c:out value="${user.provinceName}"/>-<c:out value="${user.cityName}"/>&nbsp;<c:out value="${user.perJobName}"/>、
+		                  	<c:out value="${user.provinceName}"/>/<c:out value="${user.cityName}"/>&nbsp;<c:out value="${user.perJobName}"/>、
 		                  	
 		                  	 <br />
 		                    <a href="../user/MsgDetailMa.do?msguserid=<c:out value="${user.id}"/>" style="cursor:pointer;" ><span>短信息</span></a>
@@ -54,11 +54,13 @@
 						<li><a href="../user/PeopleDetailMain.do?a=detail&mainType=4&id=${user.id}" <c:if test="${viewType eq 'detail'}">class="current"</c:if>>简介</a></li>
 		                <li><a href="../user/PhotoGroupMain.do?a=photo&mainType=4&id=${user.id}" <c:if test="${viewType eq 'photo'}">class="current"</c:if>>相册</a></li>
 		                <li><a href="../user/VideoGroupMain.do?a=video&mainType=4&id=${user.id}" <c:if test="${viewType eq 'video'}">class="current"</c:if>>视频</a></li>
+						<li><a href="../user/peopleProject.do?a=proj&mainType=2&id=${user.id}" <c:if test="${viewType eq 'proj'}">class="current"</c:if>>项目</a></li>
 					</c:when>
 					<c:when test="${user.type==1}">
 						<li><a href="../user/PeopleDetailMain.do?a=detail&mainType=3&id=${user.id}" <c:if test="${viewType eq 'detail'}">class="current"</c:if>>简介</a></li>
 		                <li><a href="../user/PhotoGroupMain.do?a=photo&mainType=3&id=${user.id}" <c:if test="${viewType eq 'photo'}">class="current"</c:if>>相册</a></li>
 		                <li><a href="../user/VideoGroupMain.do?a=video&mainType=3&id=${user.id}" <c:if test="${viewType eq 'video'}">class="current"</c:if>>视频</a></li>
+						<li><a href="../user/peopleProject.do?a=proj&mainType=2&id=${user.id}" <c:if test="${viewType eq 'proj'}">class="current"</c:if>>项目</a></li>
 					</c:when>
 				</c:choose>
            </ul>

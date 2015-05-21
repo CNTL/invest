@@ -124,11 +124,17 @@
                 <div class="top">
                     <h2>电影长片项目</h2>
                     <div class="cate">
-                        <!--<a href="#">剧情片</a><span>|</span>
-                        <a href="#">记录片</a><span>|</span>
-                        <a href="#">动画片</a><span>|</span>
-                        <a href="#">老电影修复</a><span></span>-->
-                        <a href="List.do?type=<c:out value="${projType2}"/>">更多 &gt;&gt;</a>
+                       
+                        <c:forEach var="len" varStatus="status" items="${lengthType}">
+                        	<a href="List.do?type=<c:out value="${projType2}"/>&lenmovietype=${len.id}">${len.name}</a><span>|</span>
+                        </c:forEach>
+                        <!-- 
+                        <a href="#">剧本阶段</a><span>|</span>
+                        <a href="#">前期拍摄</a><span>|</span>
+                        <a href="#">后期制作</a><span>|</span>
+                        <a href="#">宣传发行</a><span></span>
+                        -->
+                       <a href="List.do?type=<c:out value="${projType2}"/>">更多 &gt;&gt;</a> 
                     </div>
                 </div>
                 <c:forEach var="proj" varStatus="status" items="${projs2}">

@@ -194,6 +194,10 @@
 	<bean id="user.People" class="com.tl.invest.user.user.PeopleController">
 		<property name="viewName"><value>user/user/peopleDetail</value></property>
 	</bean>
+	<bean id="user.peopleProject" class="com.tl.invest.user.user.PeopleController">
+		<property name="viewName"><value>user/user/peopleProject</value></property>
+	</bean>
+	
 	<bean id="user.CompanyMain" class="com.tl.invest.user.user.CompanyMainController">
 		<property name="viewName"><value>user/user/companyMain</value></property>
 	</bean>
@@ -203,6 +207,7 @@
 	<bean id="user.CompanyDetail" class="com.tl.invest.user.user.CompanyMainController">
 		<property name="viewName"><value>user/user/companyDetail</value></property>
 	</bean>
+	
 	<bean id="user.BasicInfo" class="com.tl.invest.user.user.UserMainController">
 		<property name="viewName"><value>user/user/userBasicInfo</value></property>
 	</bean>
@@ -483,6 +488,8 @@
 				<prop key="/user/Project.do">user.Project</prop>
 				<prop key="/user/ProjectStage.do">user.ProjectStage</prop>
 				<prop key="/user/ProjectFetcher.do">project.ProjectFetcher</prop>
+				<prop key="/user/peopleProject.do">user.peopleProject</prop>
+				
 				<!--项目-->
 				<prop key="/project/Submit.do">project.Submit</prop>
 				<prop key="/project/Project.do">project.Project</prop>

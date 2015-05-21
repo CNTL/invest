@@ -42,7 +42,7 @@ public class SearchController extends Entry {
 		int page = getInt(request, "page", 1);
 		int pageSize = getInt(request, "pagesize", 8);
 		
-		int projCount = 0,recruitCount = 0,userCount = 0;
+		int projCount = 0,recruitCount = 0,userCount = 0,companyCount=0;
 		
 		if(t == 1 || t == 0){
 			projCount = searchProject(key,page,pageSize,model);
@@ -53,9 +53,12 @@ public class SearchController extends Entry {
 		if (t == 3 || t == 0) {
 			userCount = searchUser(key,page,pageSize,model);
 		}
+		if(t==4 || t==0){
+			companyCount = searchCompany(key,page,pageSize,model);
+		}
 		
 		int pageCount = 1;
-		int allCount = projCount + recruitCount + userCount;
+		int allCount = projCount + recruitCount + userCount+companyCount;
 		
 		model.put("page", page);
 		model.put("pagesize", pageSize);
@@ -107,6 +110,17 @@ public class SearchController extends Entry {
 		int count = userManager.getSqlCount(countSQL, new Object[]{}, null);
 		
 		model.put("users", users);
+		return count;
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	private int searchCompany(String key,int page,int pageSize,Map model) throws TLException {
+		String sql = "select * from "+TableLibs.TB_USER.getTableCode() + " where type = 1 and isRealNameIdent=1 and orgFullname like '%"+key+"%'";
+		List<User> users = userManager.getUsers(sql, new Object[]{}, pageSize, page, null);
+		String countSQL = "select count(0) from "+TableLibs.TB_USER.getTableCode() + " where type = 1 and isRealNameIdent=1 and orgFullname like '%"+key+"%'";
+		int count = userManager.getSqlCount(countSQL, new Object[]{}, null);
+		
+		model.put("companys", users);
 		return count;
 	}
 	

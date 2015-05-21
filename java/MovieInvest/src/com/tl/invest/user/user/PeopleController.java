@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.tl.common.StringUtils;
 import com.tl.invest.constant.DicTypes;
+import com.tl.invest.proj.ProjectExt;
+import com.tl.invest.proj.service.ProjectService;
 import com.tl.invest.user.photo.PhotoManager;
 import com.tl.invest.user.photo.UserPhoto;
 import com.tl.invest.user.photo.UserPhotogroup;
@@ -27,6 +29,7 @@ import com.tl.sys.common.SessionHelper;
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public class PeopleController extends UserMainController {
 	User user = null;
+	protected ProjectService service = new ProjectService();
 	@Override
 	protected void setOtherData(HttpServletRequest request,
 			HttpServletResponse response, Map model) throws Exception {
@@ -37,6 +40,9 @@ public class PeopleController extends UserMainController {
 			photo(request, response, model);
 		} else if("video".equals(action)){//用户视频
 			video(request, response, model);
+		}
+		else if("proj".equals(action)){//用户项目
+			proj(request, response, model);
 		}
 		
 	}
@@ -69,6 +75,24 @@ public class PeopleController extends UserMainController {
 			model.put("recid", recid);
 		}
 		model.put("viewType", "detail");
+	}
+	private void proj(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception {
+		int id = getInt(request, "id", 0);
+		ProjectExt[] proPubList = null;
+		ProjectExt[] proSurpList = null;
+		try {
+			user =  userManager.getUserByID(id);
+			 
+			 
+			proPubList =  service.getProjectExtsPublished(id, 10, 1, null);
+			proSurpList =  service.getProjectExtsSupported(id, 10, 1, null);
+		} catch (Exception e) {
+			 
+		}
+		model.put("user", user);
+		model.put("proPubList", proPubList);
+		model.put("proSurpList", proSurpList);
+		model.put("viewType", "proj");
 	}
 	private void video(HttpServletRequest request, HttpServletResponse response, Map model) throws Exception {
 		this.detail(request, response, model);
@@ -110,4 +134,5 @@ public class PeopleController extends UserMainController {
 		model.put("keywords", "合众映画");
 		model.put("description", name + "合众映画");
 	}
+	private UserManager userManager = (UserManager)Context.getBean(UserManager.class);
 }

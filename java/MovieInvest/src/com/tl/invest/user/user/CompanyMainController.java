@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.tl.common.Message;
 import com.tl.invest.constant.DicTypes;
+import com.tl.invest.proj.ProjectExt;
+import com.tl.invest.proj.service.ProjectService;
 import com.tl.invest.user.recruit.RecruitManager;
 import com.tl.invest.user.recruit.UserRecruit;
 import com.tl.invest.workspace.Entry;
@@ -23,7 +25,8 @@ import com.tl.kernel.sys.dic.Dictionary;
 import com.tl.kernel.sys.dic.DictionaryReader;
 @SuppressWarnings({ "unchecked", "rawtypes" })
 public class CompanyMainController extends Entry {
-	
+	protected ProjectService service = new ProjectService();
+
 	@Override
 	protected void setOtherData(HttpServletRequest request,
 			HttpServletResponse response, Map model) throws Exception {
@@ -62,11 +65,15 @@ public class CompanyMainController extends Entry {
 		int userID = getInt(request, "id", 0);
 		User user = null;
 		UserRecruit[] recList = null;
+		ProjectExt[] proPubList = null;
+		ProjectExt[] proSurpList = null;
 		int reclength = 0;
 		try {
 			user =  userManager.getUserByID(userID);
 			recList = recruitManager.queryRecruitsByUserID(userID);
 			reclength = recList.length;
+			proPubList =  service.getProjectExtsPublished(userID, 10, 1, null);
+			proSurpList =  service.getProjectExtsSupported(userID, 10, 1, null);
 		} catch (Exception e) {
 			 
 		}
@@ -74,6 +81,9 @@ public class CompanyMainController extends Entry {
 		model.put("user", user);
 		model.put("recList", recList);
 		model.put("reclength", reclength);
+		model.put("proPubList", proPubList);
+		model.put("proSurpList", proSurpList);
+		
 	}
 	
 	/** 
@@ -139,4 +149,5 @@ public class CompanyMainController extends Entry {
 	}
 	private UserManager userManager = (UserManager)Context.getBean(UserManager.class);
 	private RecruitManager recruitManager = (RecruitManager)Context.getBean(RecruitManager.class);
+ 
 }

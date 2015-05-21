@@ -79,6 +79,65 @@
                 </div>
            <div class="clear"></div>
              <div class="title">
+            		<span>项目相关</span> 
+             </div>
+             <div role="tabpanel">
+
+			  <!-- Nav tabs -->
+			  <ul class="nav nav-tabs" role="tablist">
+			    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">发起的项目</a></li>
+			    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">支持的项目</a></li>
+			   
+			  </ul>
+			
+			  <!-- Tab panes -->
+			  <div class="tab-content">
+			    <div role="tabpanel" class="tab-pane active" id="home">
+			    <ul class="reclist">
+			     <c:forEach var="pub" varStatus="status" items="${proPubList}" >
+			     	<li>
+			     	<a href="../project/Project.do?id=${pub.id}">
+			     	<h3>${pub.name}<span>[${pub.provinceName}/${pub.cityName}]</span> 
+			     	<span class="pull-right">
+			     	<c:if test="${pub.payType==1}"><span class="label label-danger">竞拍</span></c:if>
+			     	
+			     	
+			     	${pub.typeName}
+			     	/目标：${pub.amountGoal}
+			     	</span></h3>
+			     	 
+			     	
+			     	</a>
+			     	
+			     	</li>
+			     </c:forEach>
+			     </ul>
+			    </div>
+			    <div role="tabpanel" class="tab-pane" id="profile">
+				<ul class="reclist">
+			     <c:forEach var="surp" varStatus="status" items="${proSurpList}" >
+			     	<li>
+			     	<a href="../project/Project.do?id=${pub.id}">
+			     	<h3>${surp.name}<span>[${surp.provinceName}/${surp.cityName}]</span> 
+			     	<span class="pull-right">
+			     	<c:if test="${surp.payType==1}"><span class="label label-danger">竞拍</span></c:if>
+			     	
+			     	
+			     	${surp.typeName}
+			     	/目标：${surp.amountGoal}
+			     	</span></h3>
+
+			     	</a>
+			     	
+			     	</li>
+			     </c:forEach>
+			     </ul>
+				</div>
+			  </div>
+			
+			</div>
+			  <div class="clear"></div>
+             <div class="title">
             		<span>招聘职位</span> 
              </div>
              

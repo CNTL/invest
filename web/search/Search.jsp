@@ -184,6 +184,51 @@
 			<div class="clear"></div>
         </div>
 		</c:if>
+		
+		<c:if test="${searchType==4 || searchType==0}">
+        <div class="block1 search_type_<c:out value="${searchType}"/>">
+            <div class="top">
+                <h2>机构</h2>
+                <div class="cate">
+					当前检索关键字：<span style="font-size:16px;color:red;"><c:out value="${searchKeyWord}"/></span>
+                </div>
+            </div>
+			<c:forEach var="user" varStatus="status" items="${companys}">
+			<c:choose>
+				<c:when test="${status.index%4==0}"><div class="box box_last"></c:when>
+				<c:otherwise> <div class="box"></c:otherwise>
+			</c:choose>
+				<div class="box_top"></div>
+				<div class="box_main project">
+					<div class="pic">
+						<a href="<c:out value="${rootPath}"/>user/CompanyDetail.do?a=queryDetail&mainType=5&id=<c:out value="${user.id}"/>">
+							<img src="<c:out value="${rootPath}"/><c:out value="${user.headcard}"/>">
+						</a>
+						<span>机构</span>
+					</div>
+					<div>
+						<div class="title">
+							<a href="<c:out value="${rootPath}"/>user/CompanyDetail.do?a=queryDetail&mainType=5&id=<c:out value="${user.id}"/>">
+							<c:out value="${user.orgShortname}"/>
+							</a>
+							<span><c:out value="${user.orgFullname}"/></span>
+						</div>
+						<div class="desc">
+						<c:out escapeXml="false" value="${user.intro}"/>
+							
+						</div>
+					</div>
+					<div class="tool">
+						<a data-url="<c:out value="${rootPath}"/>user/CompanyDetail.do?a=queryDetail&mainType=5&id=<c:out value="${user.id}"/>" class="share">分享</a>
+						<a href="<c:out value="${rootPath}"/>user/CompanyDetail.do?a=queryDetail&mainType=5&id=<c:out value="${user.id}"/>" class="view"></a>
+					</div>
+				</div>
+				<div class="box_bottom"></div>
+			</div>
+			</c:forEach>
+			<div class="clear"></div>
+        </div>
+		</c:if>
 		<div class="clear"></div>
 		
 		<div class="pager">

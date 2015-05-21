@@ -31,9 +31,12 @@ public class ProjectMainController extends Entry {
 	protected void setOtherData(javax.servlet.http.HttpServletRequest request, 
 			javax.servlet.http.HttpServletResponse response, Map model) throws Exception {
 		int type = getInt(request, "type", 0);
+		int lengmovieType = getInt(request, "lenmovietype",0);
 		if(type<=0){
 			int pageSize = getInt(request, "pagesize", 4);
 			Dictionary[] types = dicReader.getSubDics(DicTypes.DIC_INVEST_TYPE.typeID(), 0);
+			Dictionary[] lengthtypes = dicReader.getSubDics(DicTypes.DIC_BIGMV_TYPE.typeID(), 0);
+		 
 			for (Dictionary dic : types) {
 				int typeID = dic.getId();
 				ProjectExt[] projs = service.getProjectExts(typeID, pageSize, 1,"proj_approveStatus in(-1,2)", null);
@@ -53,6 +56,7 @@ public class ProjectMainController extends Entry {
 			model.put("pageBegin", 1);
 			model.put("pageEnd", 1);
 			model.put("page", 1);
+			model.put("lengthType", lengthtypes);
 		}else {
 			int page = getInt(request, "page", 1);
 			int pageSize = getInt(request, "pagesize", 20);

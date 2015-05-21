@@ -71,7 +71,7 @@
 		  </div>
 		  <div class="form-group">
 		    <label class="col-sm-2 control-label">职业：</label>
-		    <label class="col-sm-2 control-label" style="text-align:left;"><c:out value="${user.perJobName}"/></label>
+		    <label class="col-sm-4 control-label" style="text-align:left;"><c:out value="${user.perJobName}"/></label>
 		  </div>
 		  <c:if test="${user.school_show==1}">
 			  <div class="form-group">
